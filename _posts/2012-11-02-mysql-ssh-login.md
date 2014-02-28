@@ -5,6 +5,7 @@ categories: [tool]
 tags: [mysql, ssh]
 ---
 
+{% highlight bash %}
 mysql_ssh_login
 
 #!/usr/local/bin/expect
@@ -49,5 +50,5 @@ spawn /usr/local/mysql/bin/mysql -h $host -P $port -u $user -p
 expect “password:”
 send “$passwd\r”
 interact
-
+{% endhighlight %}
 
