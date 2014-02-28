@@ -1,7 +1,7 @@
 <section class="comment">
 <div id="disqus_thread"></div>
 <script type="text/javascript">
-	var disqus_shortname = 'tonyskywalker';
+	var disqus_shortname = 'makerhacker';
 	var disqus_url = '{{ site.url }}{{ page.url | remove:'index.html' }}';
 	(function() {
 		var dsq = document.createElement('script');
