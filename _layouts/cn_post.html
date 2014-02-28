@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+<section class="meta">
+<span class="time">
+	tony /
+	<time datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date:"%Y-%m-%d" }}</time>
+</span>
+<br/>
+
+{% if page.categories %}
+<span class="categories">
+	分类 |
+	{% for cat in page.categories %}
+	<a href="{{ site.url }}/categories/#{{ cat }}" title="{{ cat }}">{{ cat }}</a>&nbsp;
+	{% endfor %}
+</span>
+{% endif %}
+<br/>
+
+{% if page.tags %}
+<span class="tags">
+	标签 |
+	{% for tag in page.tags %}
+	<a href="{{ site.url }}/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>&nbsp;
+	{% endfor %}
+</span>
+{% endif %}
+</section>
+
+<section class="post">
+{{ content }}
+</section>
+
+<span>
+<br/>
+<a {% if page.previous %} href="{{ site.url }}{{ page.previous.url }}" class="pageNav"{% endif %} {% unless page.previous %} class="pageNavInvalid" {% endunless %} >前一页</a>
+&nbsp;&nbsp;&nbsp;
+<a {% if page.next %} href="{{ site.url }}{{ page.next.url }}" class="pageNav"{% endif %} {% unless page.next %} class="pageNavInvalid" {% endunless %} >后一页</a>
+<br/>
+</span>
+
+{% include cn_comments.md %}
+
+

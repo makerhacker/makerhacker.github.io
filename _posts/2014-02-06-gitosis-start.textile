@@ -1,0 +1,91 @@
+---
+layout: post
+title: gitosis start
+categories: [tool]
+tags: [git, gitosis]
+---
+
+Sometimes, You need a git-server. This is the demo.
+
+#git-server-install
+
+
+/******************1. make-install-git begin************************/
+1. get source code
+2. create configure file
+[make configure]
+3. create make file
+[./configure —with-tcltk]
+4. [make]
+5. [make install]
+6. verify install-successful
+[git —version]
+/******************1. make-install-git end************************/
+
+
+/******************2. configure gitosis-server begin*****************/
+1. get source code
+2. install
+[python setup.py install]
+3. create local-ssh-key
+[ssh-keygen -t rsa]
+[scp ~/.ssh/id_rsa.pub root@server:/tmp/]
+4. init gitosis-server
+[adduser git]
+[su git]
+gitosis-init < /tmp/id_rsa.pub
+[rm -f /tmp/id_rsa.pub]
+/******************2. configure gitosis-server end*****************/
+
+
+/******************3. configure git-client begin********************/
+0. add-user
+[git config —global user.email “user@email.com”]
+[git config —global user.name “user”]
+1. get admin
+[git clone git@server:gitosis-admin.git]
+2. add-config
+[vi gitosis-admin/gitosis.conf]
+[group cmahout]
+writable = cmahout
+members = zcw@localhost.localdomain
+[group doc]
+writable = doc
+members = zcw@localhost.localdomain
+3. add-other-user
+cp other-user-key(~/.ssh/id_rsa.pub) to keydir/readuser.pub
+[group cmahout_read]
+readonly = cmahout
+members = readuser
+[group doc_read]
+readonly = doc
+members = readuer
+4. commit
+[git commit -a -m “add-config”]
+[git push]
+/******************3. configure git-client end********************/
+
+
+/******************4. add one-project begin*************************/
+1. init
+[git init]
+2. add
+[git add .]
+3. commit
+[git commit -a -m “init-doc”]
+4. push server
+[git remote add origin git@server:doc.git][git push origin master]
+or [git push git@server:doc.git master]
+5. remove and direct-push
+[git rm files]
+[git push origin master]
+6. look address
+git remote -v
+7. export
+git archive master | gzip > project.tgz
+8. undo
+[git reflog]
+[git reset HEAD@{2}]
+###key-error!!!git reset —hard HEAD~1
+/******************4. add one-project end*************************/
+
