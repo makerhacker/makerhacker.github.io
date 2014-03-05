@@ -89,3 +89,26 @@ git archive master | gzip > project.tgz
 ###key-error!!!git reset —hard HEAD~1
 /******************4. add one-project end*************************/
 
+
+/******************5. delete-rename one-project begin*********************/
+delete-a. update gitosis.conf
+[update gitosis.conf]
+[git commit -a -m "delete project-name"]
+[git push origin master]
+delete-b. remove gitosis project
+[login gitosis]
+[rm -rf /var/lib/gitosis/repositories/project_name.git]
+
+rename-a. update gitosis.conf
+[update gitosis.conf]
+[git commit -a -m "rename project-name"]
+[git push origin master]
+rename-b. rename gitosis project
+[login gitosis]
+[mv /var/lib/gitosis/repositories/project_name.git /var/lib/gitosis/repositories/project_newname.git]
+rename-c. update remote reference
+[git remote rm origin]
+[git remote add origin git@gitosis-server:project_newname.git]
+/******************5. delete-rename one-project end***********************/
+
+
