@@ -8,7 +8,7 @@ tags: [distributed-reprensentation, nlp, language-model]
 
 ## distributed reprensentation
 
-### [1] Representation Learning: A Review and New Perspectives
+##### [1] Representation Learning: A Review and New Perspectives
 
 Source: cvpr-2013 [pdf](http://www.iro.umontreal.ca/~lisa/pointeurs/TPAMISI-2012-04-0260-1.pdf)
 
