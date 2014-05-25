@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>52 nips-2005-Correlated Topic Models</title>
+</head>
+
+<body>
+<p><a title="nips" href="../nips_home.html">nips</a> <a title="nips-2005" href="../home/nips2005_home.html">nips2005</a> <a title="nips-2005-52" href="../nips2005/nips-2005-Correlated_Topic_Models.html">nips2005-52</a> <a title="nips-2005-52-reference" href="#">nips2005-52-reference</a> knowledge-graph by maker-knowledge-mining</p><h1>52 nips-2005-Correlated Topic Models</h1>
+<br/><p>Source: <a title="nips-2005-52-pdf" href="http://papers.nips.cc/paper/2906-correlated-topic-models.pdf">pdf</a></p><p>Author: John D. Lafferty, David M. Blei</p><p>Abstract: Topic models, such as latent Dirichlet allocation (LDA), can be useful tools for the statistical analysis of document collections and other discrete data. The LDA model assumes that the words of each document arise from a mixture of topics, each of which is a distribution over the vocabulary. A limitation of LDA is the inability to model topic correlation even though, for example, a document about genetics is more likely to also be about disease than x-ray astronomy. This limitation stems from the use of the Dirichlet distribution to model the variability among the topic proportions. In this paper we develop the correlated topic model (CTM), where the topic proportions exhibit correlation via the logistic normal distribution [1]. We derive a mean-ﬁeld variational inference algorithm for approximate posterior inference in this model, which is complicated by the fact that the logistic normal is not conjugate to the multinomial. The CTM gives a better ﬁt than LDA on a collection of OCRed articles from the journal Science. Furthermore, the CTM provides a natural way of visualizing and exploring this and other unstructured data sets. 1</p><br/>
+<h2>reference text</h2><p>[1] J. Aitchison. The statistical analysis of compositional data. Journal of the Royal Statistical Society, Series B, 44(2):139–177, 1982.</p>
+<p>[2] C. Bishop, D. Spiegelhalter, and J. Winn. VIBES: A variational inference engine for Bayesian networks. In NIPS 15, pages 777–784. Cambridge, MA, 2003.</p>
+<p>[3] D. Blei, J. Lafferty, C. Genovese, and L. Wasserman. Turbo topics. In progress, 2006.</p>
+<p>[4] D. Blei, A. Ng, and M. Jordan. Latent Dirichlet allocation. Journal of Machine Learning Research, 3:993–1022, January 2003.</p>
+<p>[5] E. Erosheva. Grade of membership and latent structure models with application to disability survey data. PhD thesis, Carnegie Mellon University, Department of Statistics, 2002.</p>
+<p>[6] M. Girolami and A. Kaban. Simplicial mixtures of Markov chains: Distributed modelling of dynamic user proﬁles. In NIPS 16, pages 9–16, 2004.</p>
+<p>[7] T. Grifﬁths, M. Steyvers, D. Blei, and J. Tenenbaum. Integrating topics and syntax. In Advances in Neural Information Processing Systems 17, 2005.</p>
+<p>[8] B. Marlin. Collaborative ﬁltering: A machine learning perspective. Master’s thesis, University of Toronto, 2004.</p>
+<p>[9] A. McCallum, A. Corrada-Emmanuel, and X. Wang. The author-recipient-topic model for topic and role discovery in social networks. 2004.</p>
+<p>[10] J. Pritchard, M. Stephens, and P. Donnelly. Inference of population structure using multilocus genotype data. Genetics, 155:945–959, June 2000.</p>
+<p>[11] M. Rosen-Zvi, T. Grifﬁths, M. Steyvers, and P. Smith. In UAI ’04: Proceedings of the 20th Conference on Uncertainty in Artiﬁcial Intelligence, pages 487–494.</p>
+<p>[12] J. Sivic, B. Rusell, A. Efros, A. Zisserman, and W. Freeman. Discovering object categories in image collections. Technical report, CSAIL, MIT, 2005.</p>
+<p>[13] M. Wainwright and M. Jordan. A variational principle for graphical models. In New Directions in Statistical Signal Processing, chapter 11. MIT Press, 2005.</p>
+<p>[14] E. Xing, M. Jordan, and S. Russell. A generalized mean ﬁeld algorithm for variational inference in exponential families. In Proceedings of UAI, 2003.  A  Variational Inference  We describe a coordinate ascent optimization algorithm for the likelihood bound in equation (4) with respect to the variational parameters. The ﬁrst term of equation (4) is Eq [log p(η | µ, Σ)] = (1/2) log |Σ−1 | − (K/2) log 2π − (1/2)Eq (η − µ)T Σ−1 (η − µ) , (8) where Eq (η − µ)T Σ−1 (η − µ) = Tr(diag(ν 2 )Σ−1 ) + (λ − µ)T Σ−1 (λ − µ). (9) The second term of equation (4), using the additional bound in equation (7), is Eq [log p(zn | η)] =  K i=1  K i=1  λi φn,i − ζ −1  2 exp{λi + νi /2} + 1 − log ζ.  (10)  The third term of equation (4) is Eq [log p(wn | zn , β)] =  K i=1  φn,i log βi,wn .  (11)  Finally, the fourth term is the entropy of the variational distribution: K 1 2 i=1 2 (log νi  + log 2π + 1) −  N n=1  k i=1  φn,i log φn,i .  (12)  We maximize the bound in equation (4) with respect to the variational parameters λ1:K , ν1:K , φ1:N , and ζ. We use a coordinate ascent algorithm, iteratively maximizing the bound with respect to each parameter. First, we maximize equation (4) with respect to ζ, using the second bound in equation (7). The derivative with respect to ζ is f (ζ) = N ζ −2  K i=1  2 exp{λi + νi /2} − ζ −1 ,  (13)  which has a maximum at  K 2 ˆ ζ = i=1 exp{λi + νi /2}. Second, we maximize with respect to φn . This yields a maximum at ˆ φn,i ∝ exp{λi }βi,w , i ∈ {1, . . . , K}.  (14)  (15) n Third, we maximize with respect to λi . Since equation (4) is not amenable to analytic maximization, we use a conjugate gradient algorithm with derivative N  dL/dλ = −Σ−1 (λ − µ) + n=1 φn,1:K − (N/ζ) exp{λ + ν 2 /2} . (16) 2 Finally, we maximize with respect to νi . Again, there is no analytic solution. We use Newton’s method for each coordinate, constrained such that νi > 0: 2 2 2 dL/dνi = −Σ−1 /2 − N/2ζ exp{λ + νi /2} + 1/(2νi ). (17) ii Iterating between these optimizations deﬁnes a coordinate ascent algorithm on equation (4).</p>
+<br/>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

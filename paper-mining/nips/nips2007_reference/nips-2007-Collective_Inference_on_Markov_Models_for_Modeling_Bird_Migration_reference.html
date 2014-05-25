@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>48 nips-2007-Collective Inference on Markov Models for Modeling Bird Migration</title>
+</head>
+
+<body>
+<p><a title="nips" href="../nips_home.html">nips</a> <a title="nips-2007" href="../home/nips2007_home.html">nips2007</a> <a title="nips-2007-48" href="../nips2007/nips-2007-Collective_Inference_on_Markov_Models_for_Modeling_Bird_Migration.html">nips2007-48</a> <a title="nips-2007-48-reference" href="#">nips2007-48-reference</a> knowledge-graph by maker-knowledge-mining</p><h1>48 nips-2007-Collective Inference on Markov Models for Modeling Bird Migration</h1>
+<br/><p>Source: <a title="nips-2007-48-pdf" href="http://papers.nips.cc/paper/3315-collective-inference-on-markov-models-for-modeling-bird-migration.pdf">pdf</a></p><p>Author: M.a. S. Elmohamed, Dexter Kozen, Daniel R. Sheldon</p><p>Abstract: We investigate a family of inference problems on Markov models, where many sample paths are drawn from a Markov chain and partial information is revealed to an observer who attempts to reconstruct the sample paths. We present algorithms and hardness results for several variants of this problem which arise by revealing different information to the observer and imposing different requirements for the reconstruction of sample paths. Our algorithms are analogous to the classical Viterbi algorithm for Hidden Markov Models, which ﬁnds the single most probable sample path given a sequence of observations. Our work is motivated by an important application in ecology: inferring bird migration paths from a large database of observations. 1</p><br/>
+<h2>reference text</h2><p>[1] L. R. Rabiner. A tutorial on hidden Markov models and selected applications in speech recognition. Proceedings of the IEEE, 77(2):257–286, 1989.</p>
+<p>[2] E. Charniak. Statistical techniques for natural language parsing. AI Magazine, 18(4):33–44, 1997.</p>
+<p>[3] R. Durbin, S. Eddy, A. Krogh, and G. Mitchison. Biological sequence analysis: Probabilistic models of proteins and nucleic acids. Cambridge University Press, 1998.</p>
+<p>[4] R. Caruana, M. Elhawary, A. Munson, M. Riedewald, D. Sorokina, D. Fink, W. M. Hochachka, and S. Kelling. Mining citizen science data to predict prevalence of wild bird species. In SIGKDD, 2006.</p>
+<p>[5] S. J. Phillips, M. Dud´k, and R. E. Schapire. A maximum entropy approach to species distribution modı eling. In ICML, 2004.</p>
+<p>[6] J. Lafferty, A. McCallum, and F. Pereira. Conditional random ﬁelds: Probabilistic models for segmenting and labeling sequence data. ICML, 2001.</p>
+<p>[7] D. Roth and W. Yih. Integer linear programming inference for conditional random ﬁelds. ICML, 2005.  7</p>
+<p>[8] V. Chv´ tal. Linear Programming. W.H. Freeman, New York, NY, 1983. a</p>
+<p>[9] A. V. Goldberg, S. A. Plotkin, and E. Tardos. Combinatorial algorithms for the generalized circulation problem. Math. Oper. Res., 16(2):351–381, 1991.</p>
+<p>[10] G. B. Dantzig. Application of the simplex method to a transportation problem. In T. C. Koopmans, editor, Activity Analysis of Production and Allocation, volume 13 of Cowles Commission for Research in Economics, pages 359–373. Wiley, 1951.</p>
+<p>[11] J. Shore and R. Johnson. Properties of cross-entropy minimization. IEEE Trans. on Information Theory, 27:472–482, 1981.</p>
+<p>[12] X. Zhu, Z. Ghahramani, and J. Lafferty. Semi-supervised learning using Gaussian ﬁelds and harmonic functions. In ICML, 2003.</p>
+<p>[13] T. R. Robinson, R. R. Sargent, and M. B. Sargent. Ruby-throated Hummingbird (Archilochus colubris). In A. Poole and F. Gill, editors, The Birds of North America, number 204. The Academy of Natural Sciences, Philadelphia, and The American Ornithologists’ Union, Washington, D.C., 1996.</p>
+<p>[14] D. Aldous and J. Fill. Reversible Markov Chains and Random Walks on Graphs. Monograph in Preparation, http://www.stat.berkeley.edu/users/aldous/RWG/book.html.  A  Estimating Weekly Distributions from eBird  Our goal is to estimate qt (u), the fraction of birds in grid cell u during week t. Given enough observations, we can estimate qt (u) using the average number of birds counted per checklist, a quantity we call the rate rt (u). However, even for a bird with good eBird coverage, there are cells with few or no observations during some weeks. To ﬁll these gaps, we use the harmonic energy minimization technique [12] to determine values for empty cells based on neighbors in space and time. This technique uses a graph-based similarity structure, in our case the 3-dimensional lattice built on points ut , where ut represents cell u during week t. Edges are weighted, with weights representing similarity between points. Point ut is connected to its four grid neighbors in time slice t by edges of unit weight, excluding edges between cells separated by water (speciﬁcally, when the line connecting the centers is more than half water). Point ut is also connected to points ut−1 and ut+1 with weight 1/4, to achieve some temporal smoothing. Harmonic energy minimization learns a function f on the graph; the idea is to match rt (u) on points with sufﬁcient data and ﬁnd values for other points according to the similarity structure. To this end, we designate some boundary points for which the value of f is ﬁxed by the data, while other points are interior points. The value of f at interior point ut is determined by the expected value of the following random experiment: perform a random walk starting from ut , following outgoing edges with probability proportional to their weight. When the walk ﬁrst hits a boundary point vt , terminate and accept the boundary value f (vt ). In this way, the values at interior points are a weighted average of nearby boundary values, where “nearness” is interpreted as the absorption probability in an absorbing random walk. We derive a measure of conﬁdence in the value f (ut ) from the same experiment: let h(ut ) be the expected number of steps for the random walk from ut to hit the boundary (the hitting time of the boundary set [14]). When h(ut ) is small, ut is close to the boundary and we are more conﬁdent in f (ut ). Rather than choosing a threshold on the number of observations required to be a boundary point, we create a soft boundary by designating all points ut as interior points, and adding one boundary node to the graph structure for each observation, connected by an edge of unit weight to the cell in which it occurred, with value equal to the number of birds observed. As point ut gains more observations, its behavior approaches that of a hard boundary: with probability approaching one, the walk from ut will reach an observation in the ﬁrst step, so f (ut ) will approach rt (u), the average of the observations. As a conservative measure, each node is also connected to a sink with boundary value 0, to prevent values from propagating over very long distances. We compute h and f iteratively using standard techniques. Since f (ut ) approximates the rate rt (u), we multiply by the land mass of cell u to get an estimate qt (u) for the (relative) number of birds ˆ in cell u at time t. Finally, we normalize q for each time slice t, taking qt (u) = qt (u)/ u qt (u). ˆ ˆ ˆ t For slack costs, we set γu = γ0 /h(ut ) to be inversely proportional to boundary hitting time, with γ0 ≈ 261 chosen in conjunction with the transition costs in section 5.2 so the average cost for a unit of slack is the same as moving 600 km.  8</p>
+<br/>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
