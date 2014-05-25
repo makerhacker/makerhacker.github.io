@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>161 nips-2004-Self-Tuning Spectral Clustering</title>
+</head>
+
+<body>
+<p><a title="nips" href="../nips_home.html">nips</a> <a title="nips-2004" href="../home/nips2004_home.html">nips2004</a> <a title="nips-2004-161" href="../nips2004/nips-2004-Self-Tuning_Spectral_Clustering.html">nips2004-161</a> <a title="nips-2004-161-reference" href="#">nips2004-161-reference</a> knowledge-graph by maker-knowledge-mining</p><h1>161 nips-2004-Self-Tuning Spectral Clustering</h1>
+<br/><p>Source: <a title="nips-2004-161-pdf" href="http://papers.nips.cc/paper/2619-self-tuning-spectral-clustering.pdf">pdf</a></p><p>Author: Lihi Zelnik-manor, Pietro Perona</p><p>Abstract: We study a number of open issues in spectral clustering: (i) Selecting the appropriate scale of analysis, (ii) Handling multi-scale data, (iii) Clustering with irregular background clutter, and, (iv) Finding automatically the number of groups. We ﬁrst propose that a ‘local’ scale should be used to compute the afﬁnity between each pair of points. This local scaling leads to better clustering especially when the data includes multiple scales and when the clusters are placed within a cluttered background. We further suggest exploiting the structure of the eigenvectors to infer automatically the number of groups. This leads to a new algorithm in which the ﬁnal randomly initialized k-means stage is eliminated. 1</p><br/>
+<h2>reference text</h2><p>[1] G. H. Golub and C. F. Van Loan “Matrix Computation”, John Hopkins University Press, 1991, Second Edition.</p>
+<p>[2] V. K. Goyal and M. Vetterli “Block Transform by Stochastic Gradient Descent” IEEE Digital Signal Processing Workshop, 1999, Bryce Canyon, UT, Aug. 1998</p>
+<p>[3] R. Kannan, S. Vempala and V.Vetta “On Spectral Clustering – Good, Bad and Spectral” In Proceedings of the 41st Annual Symposium on Foundations of Computer Sceince, 2000.</p>
+<p>[4] M. Meila and J. Shi “Learning Segmentation by Random Walks” In Advances in Neural Information Processing Systems 13, 2001</p>
+<p>[5] A. Ng, M. Jordan and Y. Weiss “On spectral clustering: Analysis and an algorithm” In Advances in Neural Information Processing Systems 14, 2001</p>
+<p>[6] P. Perona and W. T. Freeman “A Factorization Approach to Grouping” Proceedings of the 5th European Conference on Computer Vision, Volume I, pp. 655–670 1998.</p>
+<p>[7] M. Polito and P. Perona “Grouping and dimensionality reduction by locally linear embedding” Advances in Neural Information Processing Systems 14, 2002</p>
+<p>[8] G.L. Scott and H.C. Longuet-Higgins “Feature grouping by ‘relocalisation’ of eigenvectors of the proximity matrix” In Proc. British Machine Vision Conference, Oxford, UK, pages 103–108, 1990.</p>
+<p>[9] J. Shi and J. Malik “Normalized Cuts and Image Segmentation” IEEE Transactions on Pattern Analysis and Machine Intelligence, 22(8), 888-905, August 2000.</p>
+<p>[10] Y. Weiss “Segmentation Using Eigenvectors: A Unifying View” International Conference on Computer Vision, pp.975–982,September,1999.</p>
+<p>[11] S. X. Yu and J. Shi “Multiclass Spectral Clustering” International Conference on Computer Vision, Nice, France, pp.11–17,October,2003.  A  Recovering the Aligning Rotation  To ﬁnd the best alignment for a set of eigenvectors we adopt a gradient descent scheme similar to that suggested in [2]. There, Givens rotations where used to recover a rotation which diagonalizes a symmetric matrix by minimizing a cost function which measures the diagonality of the matrix. Similarly, here, we deﬁne a cost function which measures the alignment quality of a set of vectors and prove that the gradient descent, using Givens rotations, converges. The cost function we wish to minimize is that of Eq. (3). Let mi = j such that Zij = Zimi = Mi . Note, that the indices mi of the maximal entries of the rows of X might be different than those of the optimal Z. A simple non-maximum supression on the rows of X can provide a wrong result. Using the gradient descent scheme allows to increase the cost corresponding to part of the rows as long as the overall cost is reduced, thus enabling changing the indices mi . Similar to [2] we wish to represent the rotation matrix R in terms of the smallest possible ˜ number of parameters. Let Gi,j,θ denote a Givens rotation [1] of θ radians (counterclockwise) in the (i, j) coordinate plane. It is sufﬁcient to consider Givens rotations so that i < j, ˜ thus we can use a convenient index re-mapping Gk,θ = Gi,j,θ , where (i, j) is the kth entry 2 of a lexicographical list of (i, j) ∈ {1, 2, . . . , C} pairs with i < j. Hence, ﬁnding the aligning rotation amounts to minimizing the cost function J over Θ ∈ [−π/2, π/2)K . The update rule for Θ is: Θk+1 = Θk − α ∇J|Θ=Θk where α ∈ R+ is the step size. We next compute the gradient of J and bounds on α for stability. For convenience we will further adopt the notation convention of [2]. Let U(a,b) = Ga,θa Ga+1,θa+1 · · · Gb,θb where ∂ U(a,b) = I if b < a, Uk = U(k,k) , and Vk = ∂θk Uk . Deﬁne A(k) , 1 ≤ k ≤ K, element (k)  wise by Aij =  ∂Zij ∂θk .  Since Z = XR we obtain A(k) = XU(1,k−1) Vk U(k+1,K) .  We can now compute ∇J C element wise: n n C 2 2 ∂ Zij Zij (k) Zij ∂Mi ∂J = −1=2 Aij − 3 ∂θk ∂θk Mi2 Mi2 Mi ∂θk i=1 j=1 i=1 j=1 Due to lack of space we cannot describe in full detail the complete convergence proof. We thus refer the reader to [2] where it is shown that convergence is obtained when 1 − αFkl ∂2J lie in the unit circle, where Fkl = ∂θl ∂θk . Note, that at Θ = 0 we have Zij = 0 for j = mi , Zimi = Mi , and  ∂Mi ∂θk  =  Θ=0 ∂Zimi = ∂θk  (k)  Aimi (i.e., near Θ = 0 the maximal ∂2J ∂θl ∂θk  entry for each row does not change its index). Deriving thus gives 2  n i=1  (k) (l) 1 2 j=mi Mi Aij Aij . 2  Fkl =  ∂ J ∂θl ∂θk  (k)  ij|Θ=0  =  Further substituting in the values for Aij |Θ=0 yields:  ij|Θ=0  =  2#i s.t. mi = ik or mi = jk 0  if k = l otherwise  where (ik , jk ) is the pair (i, j) corresponding to the index k in the index re-mapping discussed above. Hence, by setting α small enough we get that 1 − αFkl lie in the unit circle and convergence is guaranteed.</p>
+<br/>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
