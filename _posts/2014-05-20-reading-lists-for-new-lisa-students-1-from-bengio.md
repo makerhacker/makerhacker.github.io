@@ -10,8 +10,6 @@ Research in General
 
 * [How to write a great researchpaper](https://research.microsoft.com/en-us/um/people/simonpj/papers/giving-a-talk/writing-a-paper-slides.pdf)
 
-
-
 Basics of deep learning
 
 * [Learning deep architectures for AI](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf)
@@ -30,52 +28,27 @@ Basics of deep learning
 
 * [Why does unsupervised pre-training help deep learning?](http://machinelearning.wustl.edu/mlpapers/paper_files/AISTATS2010_ErhanCBV10.pdf)
 
-* [An Analysis of Single Layer Networks in Unsupervised Feature Learning](http:
-//www.google.com/url?q=http%3A%2F%2Fweb.eecs.umich.edu%2F%7Ehonglak%2Fnipsdluf
-l10-AnalysisSingleLayerUnsupervisedFeatureLearning.pdf&sa=D&sntz=1&usg
-=AFQjCNHjvI408ncLS5YgTa_J64e-Jh1qnQ)
+* [An Analysis of Single Layer Networks in Unsupervised Feature Learning](http://web.eecs.umich.edu/~honglak/nipsdlufl10-AnalysisSingleLayerUnsupervisedFeatureLearning.pdf)
 
-* [The importance of Encoding Versus Training With Sparse Coding and Vector ](h
-ttp://www.google.com/url?q=http%3A%2F%2Fwww.stanford.edu%2F%7Eacoates%2Fpapers
-%2Fcoatesng_icml_2011.pdf&sa=D&sntz=1&usg=AFQjCNGHddYwJxzicEE-iyX2LKDw9Rlydg)
+* [The importance of Encoding Versus Training With Sparse Coding and Vector Quantization](http://www.stanford.edu/~acoates/papers/coatesng_icml_2011.pdf)
 
-[Quantization](http://www.google.com/url?q=http%3A%2F%2Fwww.stanford.edu%2F%7E
-acoates%2Fpapers%2Fcoatesng_icml_2011.pdf&sa=D&sntz=1&usg=AFQjCNGHddYwJxzicEE-
-iyX2LKDw9Rlydg)
+* [Representation Learning: A Review and New Perspectives](http://arxiv.org/abs/1206.5538)  
 
-* [Representation Learning: A Review and New Perspectives](https://www.google.c
-om/url?q=https%3A%2F%2Farxiv.org%2Fabs%2F1206.5538&sa=D&sntz=1&usg=AFQjCNFklJm
-vtB8_88U8CRNPtSLkh0HWZA)  
+* [Deep Learning of Representations: Looking Forward](http://arxiv.org/abs/1305.0445)  
 
-* [Deep Learning of Representations: Looking Forward](https://www.google.com/ur
-l?q=https%3A%2F%2Farxiv.org%2Fabs%2F1305.0445&sa=D&sntz=1&usg=AFQjCNF1JKHUH70c
-nLd5ynOaSOmMiIAnrQ)  
+* [Measuring Invariances in Deep Networks](http://machinelearning.wustl.edu/mlpapers/paper_files/NIPS2009_0463.pdf)
 
-* [Measuring Invariances in Deep Networks](http://www.google.com/url?q=http%3A%
-2F%2Fmachinelearning.wustl.edu%2Fmlpapers%2Fpaper_files%2FNIPS2009_0463.pdf&sa
-=D&sntz=1&usg=AFQjCNEaMPGo7WC-_c0m1rUjSAQk5p_xvw)
-
-* [Neural networks course at USherbrooke](http://www.google.com/url?q=http%3A%2
-F%2Finfo.usherbrooke.ca%2Fhlarochelle%2Fcours%2Fift725_A2013%2Fcontenu.html&sa
-=D&sntz=1&usg=AFQjCNGEhetktocQxx1Q0qgwjDeUSULwaQ) [[youtube](http://www.youtub
-e.com/playlist?list=PL6Xpj9I5qXYEcOhn7TqghAJ6NAPrNmUBH)]
+* [Neural networks course at USherbrooke](http://info.usherbrooke.ca/hlarochelle/cours/ift725_A2013/contenu.html) [[youtube](http://www.youtube.com/playlist?list=PL6Xpj9I5qXYEcOhn7TqghAJ6NAPrNmUBH)]
 
 Feedforward nets
 
-* “[Improving Neural Nets with Dropout](http://www.google.com/url?q=http%3A%2F%
-2Fwww.cs.toronto.edu%2F%7Enitish%2Fmsc_thesis.pdf&sa=D&sntz=1&usg=AFQjCNGR6u4x
-DCoM9c493EE2Z1x9JpnMuw)” by Nitish Srivastava
+* “[Improving Neural Nets with Dropout](http://www.cs.toronto.edu/~nitish/msc_thesis.pdf)” by Nitish Srivastava
 
-* [“Deep Sparse Rectifier Neural Networks”](http://www.google.com/url?q=http%3A
-%2F%2Fdeeplearningworkshopnips2010.files.wordpress.com%2F2010%2F11%2Fnipswrksh
-p2010-cameraready.pdf&sa=D&sntz=1&usg=AFQjCNEphdUoGlanDdL9ZExRYcyHYw17Gw)
+* [“Deep Sparse Rectifier Neural Networks”](http://deeplearningworkshopnips2010.files.wordpress.com/2010/11/nipswrkshp2010-cameraready.pdf)
 
-* [“What is the best multi-stage architecture for object recognition?”](http://
-www.google.com/url?q=http%3A%2F%2Fyann.lecun.com%2Fexdb%2Fpublis%2Fpdf
-%2Fjarrett-iccv-09.pdf&sa=D&sntz=1&usg=AFQjCNFuJu2nCM9kQUSy-G7EnJu3if9mRQ)
+* [“What is the best multi-stage architecture for object recognition?”](http://yann.lecun.com/exdb/publis/pdf/jarrett-iccv-09.pdf)
 
-* “[Maxout Networks](http://www.google.com/url?q=http%3A%2F%2Farxiv.org%2Fpdf%2
-F1302.4389v4.pdf&sa=D&sntz=1&usg=AFQjCNFr8ZfT0cATbhxVER6pDcoeQ0Yqeg)”
+* “[Maxout Networks](http://arxiv.org/pdf/1302.4389v4.pdf)”
 
 MCMC
 
