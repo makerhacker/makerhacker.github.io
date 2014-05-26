@@ -8,13 +8,13 @@ tags: [bengio]
 
 ### Research in General
 
-* [How to write a great research paper](https://research.microsoft.com/en-us/um/people/simonpj/papers/giving-a-talk/writing-a-paper-slides.pdf)
+1. [How to write a great research paper](https://research.microsoft.com/en-us/um/people/simonpj/papers/giving-a-talk/writing-a-paper-slides.pdf)
 
 ### Basics of deep learning
 
-* [Learning deep architectures for AI](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf)
+1. [Learning deep architectures for AI](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf)
 
-* [Practical recommendations for gradient-based training of deep architectures](http://arxiv.org/pdf/1206.5533v2.pdf)
+2. [Practical recommendations for gradient-based training of deep architectures](http://arxiv.org/pdf/1206.5533v2.pdf)
 
 * [Quick’n’dirty introduction to deep learning: Advances in Deep Learning ](http://www.kyunghyuncho.me/)
 
