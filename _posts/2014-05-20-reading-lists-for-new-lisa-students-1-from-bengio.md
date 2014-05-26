@@ -8,17 +8,17 @@ tags: [bengio]
 
 ### Research in General
 
-1. [How to write a great research paper](https://research.microsoft.com/en-us/um/people/simonpj/papers/giving-a-talk/writing-a-paper-slides.pdf)
+[1] [How to write a great research paper](https://research.microsoft.com/en-us/um/people/simonpj/papers/giving-a-talk/writing-a-paper-slides.pdf)
 
 ### Basics of deep learning
 
-1. [Learning deep architectures for AI](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf)
+[1] [Learning deep architectures for AI](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf)
 
-2. [Practical recommendations for gradient-based training of deep architectures](http://arxiv.org/pdf/1206.5533v2.pdf)
+[2] [Practical recommendations for gradient-based training of deep architectures](http://arxiv.org/pdf/1206.5533v2.pdf)
 
-* [Quick’n’dirty introduction to deep learning: Advances in Deep Learning ](http://www.kyunghyuncho.me/)
+[3] [Quick’n’dirty introduction to deep learning: Advances in Deep Learning ](http://www.kyunghyuncho.me/)
 
-* [A fast learning algorithm for deep belief nets](http://www.cs.toronto.edu/~hinton/absps/fastnc.pdf)
+[4] [A fast learning algorithm for deep belief nets](http://www.cs.toronto.edu/~hinton/absps/fastnc.pdf)
 
 * [Greedy Layer-Wise Training of Deep Networks](http://machinelearning.wustl.edu/mlpapers/paper_files/NIPS2006_739.pdf)
 
