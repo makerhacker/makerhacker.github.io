@@ -10,6 +10,7 @@ tags: [bengio]
 
 [1] [How to write a great research paper](https://research.microsoft.com/en-us/um/people/simonpj/papers/giving-a-talk/writing-a-paper-slides.pdf)
 
+
 ### Basics of deep learning
 
 [1] [Learning deep architectures for AI](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf)
