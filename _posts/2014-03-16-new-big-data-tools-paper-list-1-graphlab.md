@@ -1,6 +1,6 @@
 ---
 layout: post
-title: new big data tools paper list1 graphlab
+title: new big data tools paper list 1 graphlab
 categories: [paper]
 tags: [big-data, graphlab]
 ---
