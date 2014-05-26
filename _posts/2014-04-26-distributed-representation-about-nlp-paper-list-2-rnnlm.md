@@ -1,6 +1,6 @@
 ---
 layout: post
-title: distributed-reprensentation-about-nlp-paper-list-2 rnnlm
+title: distributed reprensentation about nlp paper list 2 rnnlm
 categories: [paper]
 tags: [distributed-reprensentation, nlp, language-model]
 ---

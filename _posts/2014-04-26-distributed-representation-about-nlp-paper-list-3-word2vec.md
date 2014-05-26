@@ -1,6 +1,6 @@
 ---
 layout: post
-title: distributed-reprensentation-about-nlp-paper-list-3 word2vec
+title: distributed reprensentation about nlp paper list 3 word2vec
 categories: [paper]
 tags: [distributed-reprensentation, nlp, language-model]
 ---
