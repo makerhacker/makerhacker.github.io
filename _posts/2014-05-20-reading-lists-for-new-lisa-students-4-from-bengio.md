@@ -62,7 +62,11 @@ info coming from [bengio](https://docs.google.com/document/d/1IXF3h0RU5zz4ukmTrV
 
 ### Software documentation
 
-[1] [Python](http://www.deeplearning.net/software/theano/tutorial/python.html), [Theano](http://www.deeplearning.net/software/theano/tutorial/), [Pylearn2](http://www.deeplearning.net/software/pylearn2/#documentation), [Linux(bash)](http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html) (at least the 5 first sections), [git](http://git-scm.com/book) (5 first sections), [github/contributing to it](http://deeplearning.net/software/theano/dev_start_guide.html#dev-start-guide) (Theano doc), [vim tutorial]() or [emacs tutorial](http://www2.lib.uchicago.edu/keith/tcl-course/emacs-tutorial.html)
+[1] [Python](http://www.deeplearning.net/software/theano/tutorial/python.html), [Theano](http://www.deeplearning.net/software/theano/tutorial/), [Pylearn2](http://www.deeplearning.net/software/pylearn2/#documentation).
+
+[2] [Linux(bash)](http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html) (at least the 5 first sections), [git](http://git-scm.com/book) (5 first sections), [github/contributing to it](http://deeplearning.net/software/theano/dev_start_guide.html#dev-start-guide) (Theano doc).
+
+[3] [vim tutorial]() or [emacs tutorial](http://www2.lib.uchicago.edu/keith/tcl-course/emacs-tutorial.html)
 
 ### Software lists of built-in commands/functions
 
