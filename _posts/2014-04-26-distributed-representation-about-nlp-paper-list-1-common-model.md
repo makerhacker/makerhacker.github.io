@@ -2,7 +2,7 @@
 layout: post
 title: distributed reprensentation about nlp paper list 1 common models
 categories: [paper]
-tags: [distributed-reprensentation, nlp, language-model]
+tags: [distributed-reprensentation, nlp, language-model, neural-network]
 ---
 
 
