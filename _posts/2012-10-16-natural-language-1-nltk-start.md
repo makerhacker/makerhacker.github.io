@@ -1,6 +1,6 @@
 ---
 layout: post
-title: natural-language-1 nltk-start
+title: natural language tookits 1 nltk start
 categories: [language]
 tags: [nltk]
 ---

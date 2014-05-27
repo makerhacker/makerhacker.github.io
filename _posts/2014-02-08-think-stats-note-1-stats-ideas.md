@@ -1,6 +1,6 @@
 ---
 layout: post
-title: think-stats-note-1 statistical thinking
+title: think stats note 1 statistical thinking
 categories: [book]
 tags: [probability, statistics, python]
 ---

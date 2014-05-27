@@ -1,6 +1,6 @@
 ---
 layout: post
-title: search-engine-1 nutch-solr-start
+title: search engine tookits 1 nutch solr start
 categories: [search]
 tags: [nutch, solr]
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: think-stats-note-4 continuous distributions
+title: think stats note 4 continuous distributions
 categories: [book]
 tags: [probability, statistics, python]
 ---

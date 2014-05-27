@@ -1,6 +1,6 @@
 ---
 layout: post
-title: think-stats-note-2 descriptive statistics
+title: think stats note 2 descriptive statistics
 categories: [book]
 tags: [probability, statistics, python]
 ---
