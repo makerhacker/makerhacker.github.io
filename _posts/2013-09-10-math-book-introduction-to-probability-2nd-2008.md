@@ -44,7 +44,7 @@ Several other reviews can be found in the listing of the first edition of this b
 
 38 of 40 people found the following review helpful
 
-5.0 out of 5 stars Great introduction without unnecessarily mathematical details July 4, 2010
+**5.0 out of 5 stars Great introduction without unnecessarily mathematical details July 4, 2010**
 
 By Vivek Goyal
 

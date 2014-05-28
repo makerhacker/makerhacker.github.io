@@ -30,7 +30,7 @@ The revision of this well-respected text presents a balanced approach of the cla
 
 8 of 12 people found the following review helpful
 
-1.0 out of 5 stars New edition is awful, February 11, 2011
+**1.0 out of 5 stars New edition is awful, February 11, 2011**
 
 By Andy (Palo Alto, CA) - See all my reviews
 
