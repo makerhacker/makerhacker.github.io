@@ -75,24 +75,43 @@ By Amazon Customer
 Format:Hardcover
 
 David Salsburg's book "The Lady Tasting Tea: How Statistics Revolutionized Science in the Twentieth Century" (W.H. Freeman & Co., 340 pp., $23.95) celebrates the lives of two dozen great statisticians.
+
 Short biographies of statistical innovators -- such as Francis Galton, Karl Pearson, Edward Deming, John Tukey and the most important of all, Ronald A. Fisher -- might seem of limited interest. Yet, over the past century, statisticians probably have done more to help us understand the real world than philosophers, who are endlessly profiled in countless books.
+
 When discussing what has helped him in his work, Nobel Laureate physicist Stephen Weinberg has undiplomatically referred to "the unexpected uselessness of philosophy," while praising the "unexpected usefulness of mathematics."
+
 The fecklessness of philosophy stems in part from the anti-statistical bias of the central tradition in European philosophy. Going back to Plato, philosophers have tended to assume that reality is based on abstract essences that could be described by geometry or words. In truth, though, the natural and human worlds appear to be probabilistic affairs. Statistics have thus proven crucial for describing subjects as commonplace as differences in human intelligence, as esoteric as quantum mechanics, and as life-or-death as the testing of new medicines.
+
 This ignorance of statistics also plagues our public life. Veteran pundit James J. Kilpatrick has rightly argued that young journalists absolutely ought to study statistics in college. For instance, the press is constantly fouling up stories on topics as important as health or race because reporters don't understand that when a scientist says that "A correlates with B," he does not necessarily mean "A causes B." The other three possibilities are: 1. "B causes A." 2. "Something else causes both A and B." Or, 3. "A and B aren't actually related, they just looked that way because of random luck or a mistake in our study."
+
 The founder of modern nursing, Florence Nightingale, said, "To understand God's thoughts, we must study statistics, for these are the measure of His purpose." As the inventor of the pie chart, which she used to show that bad medical care was killing more British soldiers than enemy bullets, she makes a brief appearance in Salsburg's engaging "The Lady Tasting Tea."
+
 The whimsical title refers to a Cambridge University tea party at which a lady insisted, "Tea tasted different depending upon whether the tea was poured into the milk or whether the milk was poured into the tea." Most of the scientists attending thought this nonsense, but the great R.A. Fisher immediately devised a careful experiment that was largely capable of ruling out the effect of random luck. In Fisher's experiment, the lady correctly identified each cup.
+
 Fisher published two crucial books in 1925 and 1935 that showed scientists for the first time how to design experiments that would produce statistically valid results.
+
 To avoid scaring off readers, Salsburg left out all mathematical formulas, but that's a little like a history of art without pictures. Still, for anyone somewhat familiar with the main statistical techniques, this is a pleasant introduction to the men and women behind them.
+
 Of course, statisticians generally try not to lead lives of lurid drama.
+
 Yet, quite a few were persecuted by Hitler, Mussolini, and Stalin.
+
 For example, a brilliant agricultural statistician named Chester Bliss couldn't find a job in America during the Depression, so Fisher landed him a post at the Leningrad Plant Institute. One day, his Russian girlfriend told him that the Communist Party had decided he was an American spy.
+
 As his inquisition began, Bliss immediately went on the offensive, denouncing the communist experts for bad statistical techniques. He also called communism "the gospel according to Saint Mark and Saint Lenin." Astonished, Stalin's minions decided he was too honest to be a spy. So, the communists left him alone for months until they eventually realized that while he wasn't a spy, he was an anti-communist. He had to flee for his life.
+
 The Stalinists were even more offended by the discipline of statistics than were the Nazis and Fascists. Salsburg describes why in a passage of black comedy:
+
 "The mathematical concept of a 'random variable' lies at the heart of statistical methods. The Russian translation for 'random variable' is 'accidental magnitude.' To the central planners and theoreticians, this was an insult. All industrial and social activity in the Soviet Union was planned according to the theories of Marx and Lenin. Nothing could occur by accident. ... The applications of mathematical statistics were quickly stifled."
+
 Salsburg makes clear that the early statisticians were largely interested in developing techniques for studying the inheritance of intelligence, an inquiry that continues to attract furious denunciations even today.
+
 Francis Galton -- who invented fingerprinting, the weather map, and the silent dog whistle -- was the smarter half-cousin of Charles Darwin. Their common grandparent was the near-genius Erasmus Darwin, who had proposed his own version of a theory of evolution. Not surprisingly, Galton was fascinated by how intelligence tends to run in families. In 1869, Galton wrote the first book on the subject, "Hereditary Genius."
+
 To aid his research, he invented the correlation coefficient and the concept of "regression to the mean," which explained why smart parents tend to have less smart children. Galton invented the term "eugenics" to describe the now highly unfashionable field of studying how to improve the human genetic stock. He suggested encouraging the finest young men and women to marry.
+
 Fisher, in fact, was such an enthusiast for eugenics that during World War II he was falsely accused of being a fascist and blocked from helping with Britain's war effort. Fisher's belief in the value of eugenics led him to become perhaps the leading mathematical geneticist of his generation.
+
 Advances in the Human Genome Project, genetic engineering, and sperm and egg selection are now beginning to make it feasible for couples to choose some of their child's genes. So, the controversies over eugenics are beginning all over again. But pro or con, anyone attempting to understand the coming impact of the new genetic technologies will need to use the statistical techniques invented by Galton and Fisher. -- Steve Sailer
 
 
