@@ -1,6 +1,6 @@
 ---
 layout: post
-title: math book: introduction to probability, 2nd 2008
+title: math-book introduction to probability, 2nd 2008
 categories: [book]
 tags: [math, probability]
 ---
