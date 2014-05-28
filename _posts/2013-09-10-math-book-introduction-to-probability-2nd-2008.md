@@ -6,6 +6,8 @@ tags: [math, probability]
 ---
 
 
+Source: [amazon](http://www.amazon.com/Introduction-Probability-Edition-Dimitri-Bertsekas/dp/188652923X/ref=sr_1_1?ie=UTF8&qid=1401247649&sr=8-1&keywords=Introduction+To+Probability)
+
 Author: Dimitri P. Bertsekas, John N. Tsitsiklis
 
 The authors are Professors in the Department of Electrical Engineering and Computer Science at the Massachusetts Institute of Technology. They are members of the prestigious US National Academy of Engineering. They have written several widely used textbooks and research monographs, both individually and jointly. 
