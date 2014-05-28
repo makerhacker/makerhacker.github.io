@@ -1,6 +1,6 @@
 ---
 layout: post
-title: cognitive-book cognitive neuroscience the biology of the mind, 3rd2008
+title: cognitive-book cognitive neuroscience the biology of the mind, 3rd 2008
 categories: [book]
 tags: [cognitive, neuroscience, biology, mind]
 ---
