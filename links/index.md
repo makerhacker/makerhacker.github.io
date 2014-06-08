@@ -49,9 +49,5 @@ https://news.ycombinator.com/news
 
 
 
-papers
-======
-
-http://arxiv.org/find/all/1/all:+AND+Fields+AND+Random+AND+Conditional+AND+to+AND+An+Introduction/0/1/0/all/0/1
 
 
