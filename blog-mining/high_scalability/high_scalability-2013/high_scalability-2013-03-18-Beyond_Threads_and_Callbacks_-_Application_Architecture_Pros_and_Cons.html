@@ -29,9 +29,30 @@ has been a sort of revival in considering performance important, especially
 for controlling latency variance, so I think it's time to talk about these
 kind of issues. When it was do everything in the thread of a web server thread
 pool none of these issues really mattered. But now that developers are
-creating sophist</p><br/>
+creating sophist</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Scheduling High Priority Work- If high priority work comes in while lower priority work has the CPU, how do we make sure the high priority work gets handled in a bounded period of time? [sent-13, score-2.214]
+</p><p>2 Priority Inheritance- is a way of getting out of priority inversion problems by assuring that a task which holds a resource will execute at the priority of the highest priority task blocked on that resource. [sent-14, score-1.777]
+</p><p>3 Shared Locks- When there's a shared lock anywhere we are back to potentially poor scheduling because the high priority task must wait on the low priority task. [sent-20, score-1.715]
+</p><p>4 This requires anyone who shares the lock to know there is high priority work and never to take more time than the worst case performance needed for the high priority work. [sent-21, score-1.511]
+</p><p>5 You suffer from dead lock or priority inheritance or large lock scope, but after bugs are accounted for, it may simply be that you have higher priority tasks that are using up all the CPU time, so even medium priority tasks in your system end up not getting serviced. [sent-42, score-2.15]
+</p><p>6 It is lock protected shared data structures that cause latency issues, deadlock, and priority inheritance. [sent-67, score-0.963]
+</p><p>7 An application that uses multiple threads and has a lock usable just within the application may not, if care is taken, suffer from the same problems as when locks are arbitrarily used from different application threads. [sent-74, score-0.86]
+</p><p>8 A single application can:guarantee the amount of time spent blocked on the lockprevent deadlock because it probably won't do work in different threadsprevent priority inheritanceWhen different components share a process space nothing can can be guaranteed. [sent-75, score-1.015]
+</p><p>9 Your application state is shared amongst all these threads and there's no predictable order of when threads run and what work they are doing. [sent-100, score-0.961]
+</p><p>10 There's no shared state in this model so it eliminates locks which eliminates priority inheritance and deadlock issues. [sent-114, score-1.384]
+</p><p>11 As an Actor is processing a message it can't be interrupted if a higher priority message arrives. [sent-116, score-1.053]
+</p><p>12 If a higher priority message comes in on the queue then a thread variable "GiveUpWork" is set. [sent-119, score-1.18]
+</p><p>13 An implication is to change the Actor's priority accordingly with the highest priority work in its queue. [sent-121, score-1.262]
+</p><p>14 With this approach work happens at the expected priority and another queue can preempt a lower priority queue. [sent-137, score-1.334]
+</p><p>15 One thread is safer, but then we have priority and latency issues. [sent-150, score-0.907]
+</p><p>16 Actor + Parallel State Machine ModelIf synchronous logic is used then an Actor can not process high priority messages when a low priority message is being processed. [sent-159, score-1.541]
+</p><p>17 Next time it picks up a message it can look for the reply message and resume processing of the low priority message. [sent-163, score-1.121]
+</p><p>18 In short, having multiple message queues for different priority messages combined with state machine driven message processing when required can potentially give, in many situations, low latency processing of high priority messages. [sent-165, score-2.096]
+</p><p>19 Many applications can be implemented in a straight forward fashion in this model to achieve high throughput and low latency for high priority work. [sent-182, score-1.016]
+</p><p>20 Multiple Application Thread Pool Model (M - N)In this model multiple applications are multiplexed over a common thread pool and a scheduling system on top of the thread scheduling system is imposed. [sent-200, score-1.029]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('priority', 0.577), ('actor', 0.271), ('thread', 0.249), ('threads', 0.209), ('message', 0.195), ('state', 0.195), ('locks', 0.163), ('scheduling', 0.141), ('lock', 0.137), ('model', 0.126), ('shared', 0.123), ('application', 0.117), ('work', 0.108), ('inheritance', 0.105), ('deadlock', 0.095), ('erlang', 0.081), ('latency', 0.081), ('process', 0.072), ('queue', 0.072), ('pool', 0.067)]</p>
+<p>[('priority', 0.577), ('actor', 0.271), ('thread', 0.249), ('threads', 0.209), ('message', 0.195), ('state', 0.195), ('locks', 0.163), ('scheduling', 0.141), ('lock', 0.137), ('model', 0.126), ('shared', 0.123), ('application', 0.117), ('work', 0.108), ('inheritance', 0.105), ('deadlock', 0.095), ('erlang', 0.081), ('latency', 0.081), ('process', 0.072), ('queue', 0.072), ('pool', 0.067), ('machine', 0.064), ('low', 0.064), ('applications', 0.056), ('high', 0.056), ('associated', 0.053), ('processed', 0.052), ('timer', 0.05), ('context', 0.05), ('safe', 0.047), ('comes', 0.047), ('cpu', 0.046), ('blocked', 0.046), ('processing', 0.046), ('variance', 0.046), ('protected', 0.045), ('usually', 0.045), ('events', 0.045), ('blocking', 0.045), ('completion', 0.045), ('processes', 0.044), ('locking', 0.044), ('holding', 0.044), ('reply', 0.044), ('asynchronous', 0.043), ('code', 0.042), ('preemptive', 0.042), ('preemption', 0.042), ('higher', 0.04), ('poor', 0.04), ('memory', 0.039)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999905 <a title="1425-tfidf-1" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
 <p>Introduction: There's not a lot  of talk about application architectures at the process

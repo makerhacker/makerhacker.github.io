@@ -29,9 +29,30 @@ now has 150M world wide active users, handles 300K QPS to generate timelines,
 and a firehose that churns out 22 MB/sec. 400 million tweets a day flow
 through the system and it can take up to 5 minutes for a tweet to flow from
 Lady Gaga's fingers to her 31 million followers.A couple of points stood
-out:Twitter no lon</p><br/>
+out:Twitter no lon</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 400 million tweets a day flow through the system and it can take up to 5 minutes for a tweet to flow from Lady Gaga's fingers to her 31 million followers. [sent-10, score-0.907]
+</p><p>2 Twitter tries to do it under 5 seconds, but it doesn't always work, especially when celebrities tweet and tweet each other, which is happening more and more. [sent-17, score-1.014]
+</p><p>3 Your home timeline sits in a Redis cluster and has a maximum of 800 entries. [sent-20, score-0.637]
+</p><p>4 Do a lot of processing when tweets arrive to figure out where tweets should go. [sent-34, score-0.658]
+</p><p>5 Two main types of timelines: user timeline and home timeline. [sent-55, score-0.683]
+</p><p>6 A user timeline is all the tweets a particular user has sent. [sent-56, score-0.944]
+</p><p>7 A home timeline is a temporal merge of all the user timelines of the people are you are following. [sent-57, score-0.955]
+</p><p>8 When you login they look at your social graph and only send messages out from people you follow, recreating the home timeline experience. [sent-80, score-0.748]
+</p><p>9 What is being stored is the tweet ID of the generated tweet, the user ID of the originator of the tweet, and 4 bytes of bits used to mark if it's a retweet or a reply or something else. [sent-103, score-0.73]
+</p><p>10 Your home timeline sits in a Redis cluster and is 800 entries long. [sent-104, score-0.637]
+</p><p>11 When you query for your home timeline the Timeline Service is queried. [sent-118, score-0.644]
+</p><p>12 Since the timeline only contains tweet IDs they must "hydrate" those tweets, that is find the text of the tweets. [sent-125, score-0.974]
+</p><p>13 In fanout a tweet may be stored in N home timelines of how many people are following you, in Early Bird a tweet is only stored in one Early Bird machine (except for replication). [sent-139, score-1.753]
+</p><p>14 As you are favoriting and replying to tweets an activity timeline is maintained, similar to the home timeline, it is a series of IDs of pieces of activity, so there's favorite ID, a reply ID, etc. [sent-146, score-1.035]
+</p><p>15 when a tweet  comes in there's an O(n) process to write to Redis clusters, where n is the number of people following you. [sent-155, score-0.641]
+</p><p>16 All the Redis clusters are backing disk, the Flock cluster stores the user timeline to disk, but usually timelines are found in RAM in the Redis cluster. [sent-157, score-0.795]
+</p><p>17 If it takes minutes for a tweet from Lady Gaga to fanout then people are seeing her tweets at different points in time. [sent-199, score-1.107]
+</p><p>18 Let's say a person on the early receive list replies then the fanout for that reply is being processed while her fanout is still occurring so the reply is injected before the original tweet in the people receiving her tweets later. [sent-201, score-1.63]
+</p><p>19 For people like Taylor Swift don't bother with fanout anymore, instead merge in her timeline at read time. [sent-207, score-0.798]
+</p><p>20 Ingesting a tweet into the tweet API takes up to 145 msecs and then all the clients are disconnected. [sent-215, score-0.976]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('tweet', 0.488), ('timeline', 0.445), ('tweets', 0.329), ('fanout', 0.244), ('timelines', 0.226), ('twitter', 0.199), ('home', 0.153), ('redis', 0.117), ('path', 0.086), ('bird', 0.085), ('user', 0.085), ('gaga', 0.075), ('lady', 0.07), ('search', 0.067), ('write', 0.066), ('read', 0.063), ('replies', 0.063), ('follow', 0.063), ('reply', 0.06), ('early', 0.059)]</p>
+<p>[('tweet', 0.488), ('timeline', 0.445), ('tweets', 0.329), ('fanout', 0.244), ('timelines', 0.226), ('twitter', 0.199), ('home', 0.153), ('redis', 0.117), ('path', 0.086), ('bird', 0.085), ('user', 0.085), ('gaga', 0.075), ('lady', 0.07), ('search', 0.067), ('write', 0.066), ('read', 0.063), ('replies', 0.063), ('follow', 0.063), ('reply', 0.06), ('early', 0.059), ('social', 0.055), ('irrelevant', 0.055), ('stored', 0.054), ('seconds', 0.053), ('id', 0.051), ('ingester', 0.051), ('tweetypie', 0.051), ('spent', 0.049), ('content', 0.049), ('graph', 0.049), ('activity', 0.048), ('hit', 0.047), ('service', 0.047), ('people', 0.046), ('pull', 0.046), ('query', 0.046), ('qps', 0.046), ('million', 0.045), ('deliveries', 0.043), ('retweet', 0.043), ('couple', 0.042), ('comes', 0.041), ('retweets', 0.041), ('flock', 0.041), ('text', 0.041), ('ids', 0.04), ('materialization', 0.04), ('cluster', 0.039), ('celebrities', 0.038), ('original', 0.037)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1488-tfidf-1" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
 <p>Introduction: Toy solutions solving Twitter's "problems" are a favorite scalability trope.

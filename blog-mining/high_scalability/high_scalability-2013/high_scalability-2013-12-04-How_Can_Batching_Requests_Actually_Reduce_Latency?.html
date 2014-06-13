@@ -29,9 +29,18 @@ understand why network latency may have gone from submillisecond to
 milliseconds, but how could you improve latency by batching requests?
 Shouldn't that improve efficiency, not latency, at the possible expense of
 latency (since some requests will wait on the client as they get batched)?
-Jeremy cleared it up by saying:</p><br/>
+Jeremy cleared it up by saying:</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Jeremy Edberg gave a talk on Scaling Reddit from 1 Million to 1 Billion- Pitfalls and Lessons andone of the issuesthey had was that they:Did not account for increased latency after moving to EC2. [sent-1, score-0.709]
+</p><p>2 In the datacenter they had submillisecond access between machines so it was possible to make a 1000 calls to memache for one page load. [sent-2, score-0.948]
+</p><p>3 Memcache access times increased 10x to a millisecond which made their old approach unusable. [sent-4, score-0.375]
+</p><p>4 Fix was to batch calls to memcache so a large number of gets are in one request. [sent-5, score-0.622]
+</p><p>5 Dave Pacheco had aninteresting questionabout batching requests and its impact on latency:I was confused about the memcached problem after moving to the cloud. [sent-6, score-1.1]
+</p><p>6 I understand why network latency may have gone from submillisecond to milliseconds, but how could you improve latency by batching requests? [sent-7, score-1.522]
+</p><p>7 Shouldn't that improve efficiency, not latency, at the possible expense of latency (since some requests will wait on the client as they get batched)? [sent-8, score-0.819]
+</p><p>8 Jeremy cleared it up by saying:The latency didn't get better, but what happened is that instead of having to make a lot of calls to memcache it was just one (well, just a few), so while that one took longer, the total time was much less. [sent-9, score-1.323]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('batching', 0.353), ('latency', 0.321), ('submillisecond', 0.281), ('memcache', 0.23), ('jeremy', 0.217), ('calls', 0.201), ('questionabout', 0.177), ('pacheco', 0.177), ('memache', 0.177), ('cleared', 0.166), ('rosenthal', 0.159), ('graphic', 0.144), ('edberg', 0.144), ('aninteresting', 0.141), ('batched', 0.141), ('requests', 0.135), ('increased', 0.131), ('pitfalls', 0.13), ('dave', 0.128), ('total', 0.126)]</p>
+<p>[('batching', 0.353), ('latency', 0.321), ('submillisecond', 0.281), ('memcache', 0.23), ('jeremy', 0.217), ('calls', 0.201), ('questionabout', 0.177), ('pacheco', 0.177), ('memache', 0.177), ('cleared', 0.166), ('rosenthal', 0.159), ('graphic', 0.144), ('edberg', 0.144), ('aninteresting', 0.141), ('batched', 0.141), ('requests', 0.135), ('increased', 0.131), ('pitfalls', 0.13), ('dave', 0.128), ('total', 0.126), ('confused', 0.126), ('millisecond', 0.115), ('moving', 0.108), ('improve', 0.107), ('expense', 0.104), ('decrease', 0.101), ('milliseconds', 0.099), ('reddit', 0.093), ('happened', 0.088), ('showing', 0.087), ('possible', 0.083), ('efficiency', 0.083), ('gone', 0.082), ('gave', 0.077), ('access', 0.076), ('saying', 0.075), ('account', 0.072), ('batch', 0.071), ('wait', 0.069), ('datacenter', 0.067), ('lessons', 0.065), ('took', 0.065), ('one', 0.063), ('fact', 0.062), ('impact', 0.06), ('fix', 0.06), ('longer', 0.058), ('understand', 0.057), ('gets', 0.057), ('old', 0.053)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1558-tfidf-1" href="../high_scalability-2013/high_scalability-2013-12-04-How_Can_Batching_Requests_Actually_Reduce_Latency%3F.html">1558 high scalability-2013-12-04-How Can Batching Requests Actually Reduce Latency?</a></p>
 <p>Introduction: Jeremy Edberg gave a talk on Scaling Reddit from 1 Million to 1 Billion-

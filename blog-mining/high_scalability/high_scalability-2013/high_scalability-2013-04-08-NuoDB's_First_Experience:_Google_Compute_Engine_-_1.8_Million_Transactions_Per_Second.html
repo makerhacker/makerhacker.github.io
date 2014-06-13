@@ -29,9 +29,30 @@ environments typically mean virtualization, inconsistent network performance
 and potentially slow or low bandwidth disk access. It just so happens that
 NuoDB was designed to work well in such harsh environments (we don't call it a
 cloud database for nothing). Still, the faster the CPU, network and disk the
-faster the database</p><br/>
+faster the database</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In order to access the capabilities of GCE we decided to run the same YCSB based benchmark we ran at our General Availability Launch back in January. [sent-4, score-0.094]
+</p><p>2 For those of you who missed it we demonstrated running the YCSB benchmark on a 24 machine cluster running on our private cloud in the NuoDB datacenter. [sent-5, score-0.137]
+</p><p>3 Public cloud environments typically mean virtualization, inconsistent network performance and potentially slow or low bandwidth disk access. [sent-8, score-0.113]
+</p><p>4 Still, the faster the CPU, network and disk the faster the database can operate (thank you captain obvious! [sent-10, score-0.107]
+</p><p>5 But before we dig into the numbers lets talk about what its like to run NuoDB in the GCE. [sent-12, score-0.055]
+</p><p>6 First you authenticate with gcutil auth, and through the magic of OAuth your GMail account is used to generate a password that you can cut & paste into gcutil. [sent-14, score-0.717]
+</p><p>7 gcutil remembers who you are and sets up the necessary ssh credentials, so that you can log into any of your instances automatically from that machine. [sent-16, score-0.846]
+</p><p>8 And better yet, when you ssh to an instance you haven't logged into before, a home directory is created for you automatically with your ssh credentials installed so you can then ssh from that machine into any of your other instances. [sent-17, score-0.721]
+</p><p>9 Another thing you won't have to deal with is IP addresses, gcutil knows your instance names so instead of having to go hunting for IP addresses you just do:gcutil ssh image_nameIt's that easy. [sent-19, score-0.922]
+</p><p>10 The gcutil command does all the things you'd expect: you can add, list, delete things called instances, images, firewalls, networks and disks. [sent-20, score-0.566]
+</p><p>11 For those who like to see real code here's a snippet of our script to create a NuoDB GCE image:gcutil addinstance --machine_type=n1-highmem-8 \ \--image=projects/google/global/images/gcel-12-04-v20130225 \ \--service_accou nt_scopes=https://www. [sent-21, score-0.155]
+</p><p>12 deb /tmp/ gcutil ssh nuodb-stage << EOF sudo apt-get -y install openjdk-7-jre-headless sudo dpkg -i /tmp/nuodb-1. [sent-29, score-1.105]
+</p><p>13 gzWe're working on getting a pre-built image public so that last line works for everyone. [sent-50, score-0.102]
+</p><p>14 deb to it (GCE supports a couple different ubuntu and centos based distros), install the JRE and then install nuodb. [sent-54, score-0.152]
+</p><p>15 Then the image is saved for reuse by bundling the raw disk image and uploading it to Google Storage (this is why there's that -servce_account_scopes argument to addinstance is there, it allows me to use gsutil in my instance without having to authenticate). [sent-55, score-0.605]
+</p><p>16 After getting an image together we staged our benchmark by creating 32 images. [sent-57, score-0.24]
+</p><p>17 From there we exploited GCE's shared read only disk feature to get our benchmark deployed to every instance and setup 1 Storage Manager (with two disks attached for atom storage and the journal) and 32 Transaction Engines. [sent-60, score-0.368]
+</p><p>18 8 million transactions per secondusing our multi-client YCSB setup on workload b (5% updates) on 32 nodes. [sent-62, score-0.088]
+</p><p>19 Wedid not run the test with journaling enabledbecause we're still working on getting high IO performance against a GCE virtual disk, but we'll publish those numbers soon. [sent-64, score-0.103]
+</p><p>20 In the meantime let us know what your database needs are like (workload mix, record sizes, db size, etc), so we can run more benchmarks covering the right use-cases. [sent-65, score-0.096]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('gcutil', 0.566), ('gce', 0.478), ('nuodb', 0.312), ('ssh', 0.187), ('sudo', 0.138), ('addinstance', 0.113), ('eof', 0.113), ('gsutil', 0.103), ('authenticate', 0.103), ('image', 0.102), ('ycsb', 0.099), ('gs', 0.096), ('meantime', 0.096), ('benchmark', 0.094), ('credentials', 0.083), ('compute', 0.083), ('instance', 0.077), ('install', 0.076), ('disk', 0.066), ('engine', 0.063)]</p>
+<p>[('gcutil', 0.566), ('gce', 0.478), ('nuodb', 0.312), ('ssh', 0.187), ('sudo', 0.138), ('addinstance', 0.113), ('eof', 0.113), ('gsutil', 0.103), ('authenticate', 0.103), ('image', 0.102), ('ycsb', 0.099), ('gs', 0.096), ('meantime', 0.096), ('benchmark', 0.094), ('credentials', 0.083), ('compute', 0.083), ('instance', 0.077), ('install', 0.076), ('disk', 0.066), ('engine', 0.063), ('numbers', 0.055), ('google', 0.054), ('jre', 0.051), ('tires', 0.051), ('scp', 0.051), ('distros', 0.051), ('salient', 0.051), ('exploited', 0.051), ('addresses', 0.05), ('workload', 0.049), ('instances', 0.049), ('paste', 0.048), ('journaling', 0.048), ('environments', 0.047), ('goodbye', 0.046), ('remembers', 0.044), ('oauth', 0.044), ('staged', 0.044), ('ip', 0.044), ('private', 0.043), ('cp', 0.043), ('hunting', 0.042), ('auth', 0.042), ('articlesgoogle', 0.042), ('bundling', 0.042), ('snippet', 0.042), ('repost', 0.042), ('captain', 0.041), ('atom', 0.041), ('setup', 0.039)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="1437-tfidf-1" href="../high_scalability-2013/high_scalability-2013-04-08-NuoDB%27s_First_Experience%3A_Google_Compute_Engine_-_1.8_Million_Transactions_Per_Second.html">1437 high scalability-2013-04-08-NuoDB's First Experience: Google Compute Engine - 1.8 Million Transactions Per Second</a></p>
 <p>Introduction: This is a repost of the blog entry written by NuoDB's Tommy Reilly.  We

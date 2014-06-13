@@ -29,9 +29,30 @@ loss of a data center.Where we were:  RsyncLike most everyone who starts off
 in a Linux environment, we used our trusty friend rsync to copy data around.
 Rsync is tried, true and tested, and works well when the number of servers,
 the amount of data, and the number of files is not horrendous.  When any of
-these are no longer</p><br/>
+these are no longer</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Jeffhas been a bit herder for the last 20 years, architecting and overseeing the infrastructure for a number of SaaS based companies. [sent-2, score-0.204]
+</p><p>2 Data Replication for Disaster RecoveryAn inevitable part of disaster recovery planning is making sure customer data exists in multiple locations. [sent-3, score-0.239]
+</p><p>3 In the case of LogicMonitor, a SaaS-based monitoring solution for physical, virtual, and cloud environments, we wanted copies of customer data files both within a data center and outside of it. [sent-4, score-0.407]
+</p><p>4 The former was to protect against the loss of individual servers within a facility, and the latter for recovery in the event of the complete loss of a data center. [sent-5, score-0.237]
+</p><p>5 Where we were:  RsyncLike most everyone who starts off in a Linux environment, we used our trusty friend rsync to copy data around. [sent-6, score-0.457]
+</p><p>6 Rsync is tried, true and tested, and works well when the number of servers, the amount of data, and the number of files is not horrendous. [sent-7, score-0.326]
+</p><p>7 We needed to get better statistics and alerting, both in order to keep track of backup jobs, but also to be able to put some logic into the jobs themselves to prevent issues like too many running simultaneously. [sent-10, score-1.006]
+</p><p>8 A database repository for backup job metadata, where jobs themselves can report their status, and where other backup components can get information in order to coordinate tasks such as removing old jobs, was clearly needed. [sent-12, score-1.322]
+</p><p>9 It would also enable us to monitor backup job status via simple queries for information such as the number of jobs running (total, and on a per-server basis), the time since the last backup, the size of the backup jobs, etc. [sent-13, score-1.879]
+</p><p>10 MongoDB as a Backup Job Metadata StoreThe type of backup job statistics was more than likely going to evolve over time, so MongoDB came to light with its "schemaless" document store design. [sent-15, score-0.73]
+</p><p>11 It seemed the perfect fit: easy to setup, easy to query, schemaless, and a simple JSON style structure for storing job information. [sent-16, score-0.419]
+</p><p>12 So the first idea was to keep using rsync, but track the status of jobs in MongoDB. [sent-19, score-0.603]
+</p><p>13 The backup job metainfo and the actual backed up files were still separate and decoupled, with the metadata in MongoDB and the backed up files residing on a disk on some system (not necessarily the same). [sent-21, score-1.452]
+</p><p>14 If I could query for a specific backup job, then use the same query language again for an actual backed up file and get it. [sent-23, score-0.744]
+</p><p>15 If restoring data files was just a simple query away. [sent-24, score-0.356]
+</p><p>16 Why GridFSYou can read up on the details GridFS on the MongoDB site, but suffice it to say it is a simple file system overlay on top of MongoDB (files are simply chunked up and stored in the same manner that all documents are). [sent-28, score-0.172]
+</p><p>17 Instead of having scripts surround rsync, our backup scripts store the data and the metadata at the same time and into the same place, so everything is easily queried. [sent-29, score-0.801]
+</p><p>18 And of course MongoDB replication works with GridFS, meaning backed up files are immediately replicated both within the data center and off-site. [sent-30, score-0.475]
+</p><p>19 With a replica inside of Amazon EC2, snapshots can be taken to keep as many historical backups as desired. [sent-31, score-0.264]
+</p><p>20 To that end, LogicMonitor can not only monitor general MongoDB statistics and health, but also can execute arbitrary queries against MongoDB. [sent-35, score-0.345]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('backup', 0.338), ('rsync', 0.337), ('jobs', 0.331), ('mongodb', 0.262), ('statistics', 0.21), ('status', 0.197), ('job', 0.182), ('backed', 0.18), ('files', 0.164), ('metadata', 0.162), ('backups', 0.128), ('gridfs', 0.127), ('via', 0.102), ('scripts', 0.092), ('schemaless', 0.09), ('easy', 0.087), ('logicmonitor', 0.084), ('monitor', 0.083), ('actual', 0.082), ('number', 0.081)]</p>
+<p>[('backup', 0.338), ('rsync', 0.337), ('jobs', 0.331), ('mongodb', 0.262), ('statistics', 0.21), ('status', 0.197), ('job', 0.182), ('backed', 0.18), ('files', 0.164), ('metadata', 0.162), ('backups', 0.128), ('gridfs', 0.127), ('via', 0.102), ('scripts', 0.092), ('schemaless', 0.09), ('easy', 0.087), ('logicmonitor', 0.084), ('monitor', 0.083), ('actual', 0.082), ('number', 0.081), ('coordinate', 0.081), ('track', 0.075), ('replication', 0.074), ('completed', 0.073), ('query', 0.072), ('snapshots', 0.072), ('monitoring', 0.066), ('replica', 0.064), ('simple', 0.063), ('customer', 0.063), ('jmx', 0.063), ('trusty', 0.063), ('kludge', 0.063), ('storethe', 0.063), ('herder', 0.063), ('alerted', 0.063), ('disaster', 0.063), ('loss', 0.062), ('last', 0.06), ('overloading', 0.06), ('byjeff', 0.06), ('surround', 0.06), ('data', 0.057), ('suffice', 0.057), ('recovery', 0.056), ('temperature', 0.053), ('queries', 0.052), ('needed', 0.052), ('information', 0.052), ('chunked', 0.052)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1386-tfidf-1" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
 <p>Introduction: This is a guest post byJeff Behl, VP Ops @ LogicMonitor. Jeffhas been a bit

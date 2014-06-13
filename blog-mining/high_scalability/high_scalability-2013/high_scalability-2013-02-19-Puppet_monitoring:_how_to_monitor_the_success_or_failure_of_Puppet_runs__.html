@@ -29,9 +29,30 @@ nice as puppet is, we still need to goose it from time to time to get past
 some sort of network or host resource issue. A more dangerous case is when an
 administrator temporarily disables puppet runs on a host in order to perform
 some test or administrative task and then forgets to reenable it. In either
-case it</p><br/>
+case it</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Failures of puppet can be innocuous and cosmetic, or they can cause production issues, for example when crucial updates do not get properly propagated. [sent-6, score-0.848]
+</p><p>2 In the most innocuous cases, the puppet agent craps out (we run puppet agent via cron). [sent-8, score-1.668]
+</p><p>3 As nice as puppet is, we still need to goose it from time to time to get past some sort of network or host resource issue. [sent-9, score-0.823]
+</p><p>4 A more dangerous case is when an administrator temporarily disables puppet runs on a host in order to perform some test or administrative task and then forgets to reenable it. [sent-10, score-0.822]
+</p><p>5 Rather than just monitoring the status of the puppet server (a necessary, but not sufficient, state), we would like to monitor the success or failure of actual puppet runs on the end nodes themselves. [sent-15, score-1.509]
+</p><p>6 For that purpose, puppet has a built in feature to export status info about its last run into a file (by default /var/lib/puppet/state/last_run_summary. [sent-16, score-1.12]
+</p><p>7 For our approach, we had already been working with another puppet tool namedMCollectivealong with its included Registration plugin (http://docs. [sent-20, score-0.733]
+</p><p>8 The default registration plugin will register all kinds of interesting information about puppet along with the last_run_summary info from the yaml file mentioned earlier. [sent-26, score-1.479]
+</p><p>9 All of our servers are part of a mcollective "collective" and they periodically send their registration info (including puppet facts and last run summary info) into the "collective". [sent-32, score-1.712]
+</p><p>10 There is an MCollective registration agent that then receives the registration info and stores it in our central Mongo database in json format. [sent-33, score-1.115]
+</p><p>11 As it suggests, this data indicates the time that puppet last ran. [sent-36, score-0.759]
+</p><p>12 This value will be updated after each puppet run on the node itself, and then this updated value will be propagated to the database when the next registration run occurs. [sent-38, score-1.377]
+</p><p>13 By comparing this timestamp against the current time, you can compute how long it has been since the last puppet run. [sent-39, score-0.789]
+</p><p>14 You can see below that the puppet runs are semi-random but generally occur every 15 minutes. [sent-41, score-0.706]
+</p><p>15 The sawtooth pattern is a confluence of the puppet cron schedule, the registration interval, and the interval between monitoring checks. [sent-42, score-1.251]
+</p><p>16 For example, we may want to generate warning alerts if puppet has not updated for a period of 1 hour, and further escalations, at the 2 and 3 hour marks. [sent-45, score-0.74]
+</p><p>17 Here are graphs tracking puppet events and the time per puppet run:and here is an example of when something has gone off the rails. [sent-47, score-1.342]
+</p><p>18 In the above graph you can easily see that puppet runs stopped occurring at approximately 18:00. [sent-49, score-0.706]
+</p><p>19 Here's an example of the alert generated within the LogicMonitor application:All of our hosts are automatically added to the Mcollective registration, and thus are also automatically added to puppet last run monitoring. [sent-51, score-0.981]
+</p><p>20 This gives us peace of mind that we will alway be notified if there are issues with puppet updates. [sent-52, score-0.79]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('puppet', 0.625), ('registration', 0.356), ('mcollective', 0.329), ('info', 0.24), ('collective', 0.141), ('agent', 0.12), ('innocuous', 0.11), ('plugin', 0.108), ('logicmonitor', 0.099), ('last', 0.094), ('monitoring', 0.09), ('runs', 0.081), ('notified', 0.077), ('centrally', 0.076), ('interval', 0.073), ('host', 0.071), ('timestamp', 0.07), ('updated', 0.069), ('mongo', 0.069), ('run', 0.068)]</p>
+<p>[('puppet', 0.625), ('registration', 0.356), ('mcollective', 0.329), ('info', 0.24), ('collective', 0.141), ('agent', 0.12), ('innocuous', 0.11), ('plugin', 0.108), ('logicmonitor', 0.099), ('last', 0.094), ('monitoring', 0.09), ('runs', 0.081), ('notified', 0.077), ('centrally', 0.076), ('interval', 0.073), ('host', 0.071), ('timestamp', 0.07), ('updated', 0.069), ('mongo', 0.069), ('run', 0.068), ('value', 0.061), ('crucial', 0.061), ('cron', 0.06), ('sufficient', 0.055), ('example', 0.052), ('hosts', 0.051), ('information', 0.051), ('cosmetic', 0.05), ('puppetis', 0.05), ('yaml', 0.05), ('default', 0.049), ('epoch', 0.047), ('goose', 0.047), ('peace', 0.047), ('confluence', 0.047), ('generated', 0.046), ('hour', 0.046), ('alert', 0.045), ('corrective', 0.045), ('forgets', 0.045), ('status', 0.044), ('success', 0.044), ('central', 0.043), ('registering', 0.043), ('snmp', 0.043), ('shortly', 0.043), ('us', 0.041), ('exceeded', 0.04), ('time', 0.04), ('configured', 0.04)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1408-tfidf-1" href="../high_scalability-2013/high_scalability-2013-02-19-Puppet_monitoring%3A_how_to_monitor_the_success_or_failure_of_Puppet_runs__.html">1408 high scalability-2013-02-19-Puppet monitoring: how to monitor the success or failure of Puppet runs  </a></p>
 <p>Introduction: This is a guest post by LogicMonitor's Director of Tech Ops,Jesse Aukeman,

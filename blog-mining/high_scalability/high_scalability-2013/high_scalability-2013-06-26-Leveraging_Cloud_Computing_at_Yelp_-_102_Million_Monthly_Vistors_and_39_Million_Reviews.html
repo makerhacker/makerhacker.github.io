@@ -29,9 +29,30 @@ about Yelp is the variety of data: reviews, user profiles, business
 descriptions, menus, check-ins, food photos... the list goes on.  We have many
 ways to deal data, but today I'll focus on how we handle offline data
 processing and analytics.In late 2009, Yelp investigated using Amazon's
-ElasticMapReduce(EMR) as an alternativeto a</p><br/>
+ElasticMapReduce(EMR) as an alternativeto a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Job Flow PoolingOne of EMR's biggest advantages is instant scalability: every job flow can be configured with as many instances as needed for the task. [sent-16, score-0.523]
+</p><p>2 This means if your job finishes in 2 hours 10 minutes, you are charged for the full three hours. [sent-19, score-0.334]
+</p><p>3 This may not seem like a big deal, until you start running hundreds of jobs and the wasted time at the end of a job flow starts adding up. [sent-20, score-0.676]
+</p><p>4 " Instead of shutting down a job flow at the end of a job,mrjobkeeps the flow alivein case another job wants to use it. [sent-22, score-0.85]
+</p><p>5 If another job comes along that has similar cluster requirements,mrjobwillreuse the job flow. [sent-23, score-0.684]
+</p><p>6 There are a few subtleties in implementing this: 1) what does it mean to have "similar cluster requirements", 2) how to avoid race conditions between multiple jobs, and 3) when is the cluster finally shut down? [sent-24, score-0.394]
+</p><p>7 Similar job flows are defined meeting the criteria:Same Amazon Machine Image (AMI) versionSameHadoopversionSamemrjobversionSame bootstrap steps (bootstrap steps can setHadoopor cluster options)Same or greater RAM and Compute Units for each node type (eg. [sent-25, score-0.747]
+</p><p>8 Hadoopmastervsworkers)Accepts new jobs (job flows handle a max of 256 steps)Race conditions are avoided by using locking. [sent-26, score-0.403]
+</p><p>9 Jobs write to a specific S3 key with information about the job name and cluster type. [sent-28, score-0.358]
+</p><p>10 Locks may timeout in the case of failures, which allow other jobs or the job terminator to reclaim the job flow. [sent-29, score-0.716]
+</p><p>11 Job flow termination is handled by acronjob which runs every 5 minutes, checks for idle job flows that are about tohit their hourly charge, and terminates them. [sent-30, score-0.596]
+</p><p>12 To further improveutilization of job flows, jobs can wait a predetermined amount of time to find a job flow it can re-use. [sent-32, score-0.844]
+</p><p>13 For example, for development jobs,mrjobswilltry to find free job flows for 30 seconds before starting a new one. [sent-33, score-0.417]
+</p><p>14 We estimate around a10% cost savings from using job flow pooling. [sent-35, score-0.48]
+</p><p>15 In fact, we saw a side benefit: iterativedevelopment of jobs was sped up significantly since subsequent runs of a modifiedMapReducejob could reuse a cluster and the cluster startup time was eliminated. [sent-37, score-0.397]
+</p><p>16 It analyzes usage ofEMRand recommends how many reserved instances to buy, as wellas generates some pretty graphs. [sent-54, score-0.481]
+</p><p>17 It's important to note that reserved instance pricing is a billing construct. [sent-55, score-0.325]
+</p><p>18 At the end of the month, Amazon simply looks at how many instance hours you've used and applies the reserved instance rates to any instances that were running, up to the number of instances purchased. [sent-57, score-0.717]
+</p><p>19 EvaluatingROI: with some optimizations, cost evaluation is straightforward: how much would we have saved if we both reserved instances 2 months ago? [sent-82, score-0.434]
+</p><p>20 If not I'd love to check out this profiler you're using :)Future DirectionsAs Yelp grows its service oriented architecture, we are running into similar bottlenecks encountered for offline batch processing: coordination of resources, testing ideas, forecasting usage before launching new features. [sent-86, score-0.503]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('yelp', 0.533), ('job', 0.246), ('reserved', 0.217), ('flow', 0.179), ('jobs', 0.173), ('flows', 0.171), ('coordination', 0.116), ('cluster', 0.112), ('instance', 0.108), ('purchasing', 0.105), ('havea', 0.103), ('instances', 0.098), ('usage', 0.097), ('hours', 0.088), ('offline', 0.085), ('similar', 0.08), ('emr', 0.08), ('options', 0.078), ('wasted', 0.078), ('steps', 0.074)]</p>
+<p>[('yelp', 0.533), ('job', 0.246), ('reserved', 0.217), ('flow', 0.179), ('jobs', 0.173), ('flows', 0.171), ('coordination', 0.116), ('cluster', 0.112), ('instance', 0.108), ('purchasing', 0.105), ('havea', 0.103), ('instances', 0.098), ('usage', 0.097), ('hours', 0.088), ('offline', 0.085), ('similar', 0.08), ('emr', 0.08), ('options', 0.078), ('wasted', 0.078), ('steps', 0.074), ('investigate', 0.071), ('bootstrap', 0.07), ('forecasting', 0.07), ('recommends', 0.069), ('benefit', 0.068), ('spin', 0.066), ('processing', 0.066), ('local', 0.066), ('costs', 0.065), ('abstractions', 0.065), ('spinning', 0.065), ('months', 0.064), ('integration', 0.061), ('reviews', 0.061), ('race', 0.06), ('conditions', 0.059), ('cloud', 0.059), ('straightforward', 0.059), ('wins', 0.059), ('worst', 0.057), ('future', 0.056), ('cost', 0.055), ('bottlenecks', 0.055), ('policies', 0.054), ('subtleties', 0.051), ('allthe', 0.051), ('buzzword', 0.051), ('terminator', 0.051), ('deadlines', 0.051), ('plans', 0.051)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9999994 <a title="1482-tfidf-1" href="../high_scalability-2013/high_scalability-2013-06-26-Leveraging_Cloud_Computing_at_Yelp_-_102_Million_Monthly_Vistors_and_39_Million_Reviews.html">1482 high scalability-2013-06-26-Leveraging Cloud Computing at Yelp - 102 Million Monthly Vistors and 39 Million Reviews</a></p>
 <p>Introduction: This is a guest post byYelp's JimBlomo. Jim manages a growing data mining team

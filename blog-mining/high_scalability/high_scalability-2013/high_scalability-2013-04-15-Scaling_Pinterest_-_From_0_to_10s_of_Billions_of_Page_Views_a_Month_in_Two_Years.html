@@ -29,9 +29,30 @@ scaling fast and there were a lot of options to choose from. And they made a
 lot of incorrect choices.This is a great talk. It's full of amazing details.
 It's also very practical, down to earth, and it contains strategies adoptable
 by nearly anyone. Highly recommended.Two of my favorite lessons from the
-talk:Arc</p><br/>
+talk:Arc</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 You want to be able to scale by throwing money at a problem which means throwing more boxes at a problem as you need them. [sent-14, score-0.391]
+</p><p>2 Database: They have users who have boards and boards have pins; follow and repin relationships; authentication information. [sent-31, score-0.368]
+</p><p>3 xlarge) + 1 slave each59 Redis Instances51 Memcache Instances1 Redis Task Manager + 25 Task ProcessorsSharded Solr6 EngineersNow on sharded MySQL, Redis, Memcache, and Solr. [sent-48, score-0.225]
+</p><p>4 If your project will have a few TBs of data then you should shard as soon as possible. [sent-183, score-0.26]
+</p><p>5 The steps looked like:1 DB + Foreign Keys + Joins1 DB + Denormalized + Cache1 DB + Read Slaves + CacheSeveral functionally sharded DBs + Read slaves + CacheID sharded DBs + Backup slaves + cacheEarlier read slaves became a problem because of slave lag. [sent-195, score-0.719]
+</p><p>6 If it's just a load increase they split the database and tell the applications to find the data on a new host. [sent-219, score-0.313]
+</p><p>7 All data (pins, boards, etc) for a user is collocated on the same shard. [sent-231, score-0.308]
+</p><p>8 Rendering a user profile, for example, does not take multiple cross shard queries. [sent-233, score-0.324]
+</p><p>9 Every board is collocated with the user so boards can be rendered from one database. [sent-235, score-0.482]
+</p><p>10 When the user database gets full they'll open up more shards and allow new users to go to the new shards. [sent-237, score-0.503]
+</p><p>11 Objects and MappingsAll data is either an object (pin, board, user, comment) or a mapping (user has boards, pins has likes). [sent-241, score-0.314]
+</p><p>12 Once a user lands on shard 20, for example, and all the user data is collocated, it will never move. [sent-251, score-0.546]
+</p><p>13 No special shards, not counting the huge user table that is used to detect user name conflicts. [sent-255, score-0.383]
+</p><p>14 If you want a new index you just create a new table and start populating it. [sent-261, score-0.338]
+</p><p>15 ScriptingWhen moving to a sharded architecture you have two different infrastructures, one old, the unsharded system, and one new, the sharded system. [sent-269, score-0.236]
+</p><p>16 Once confident that all your data is in the new infrastructure then point your reads to the new infrastructure and slowly increase the load and test your backends. [sent-276, score-0.239]
+</p><p>17 As they are starting to see a lot of database load they start to spawn a lot of app servers and a bunch of other servers. [sent-291, score-0.258]
+</p><p>18 This means there are 30K connections on memcache which takes up a couple of gig of RAM and causes the memcache daemons to swap. [sent-293, score-0.306]
+</p><p>19 You want to be able to scale by throwing money at the problem by throwing more boxes at the problem as you need them. [sent-309, score-0.391]
+</p><p>20 They keep user data in memory and write it out periodically. [sent-322, score-0.222]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('boards', 0.184), ('shard', 0.181), ('id', 0.169), ('pins', 0.158), ('memcache', 0.153), ('mysql', 0.146), ('user', 0.143), ('redis', 0.138), ('pinterest', 0.133), ('task', 0.129), ('dbs', 0.129), ('shards', 0.122), ('throwing', 0.12), ('sharded', 0.118), ('engines', 0.117), ('mature', 0.116), ('slave', 0.107), ('table', 0.097), ('looked', 0.097), ('slaves', 0.093)]</p>
+<p>[('boards', 0.184), ('shard', 0.181), ('id', 0.169), ('pins', 0.158), ('memcache', 0.153), ('mysql', 0.146), ('user', 0.143), ('redis', 0.138), ('pinterest', 0.133), ('task', 0.129), ('dbs', 0.129), ('shards', 0.122), ('throwing', 0.12), ('sharded', 0.118), ('engines', 0.117), ('mature', 0.116), ('slave', 0.107), ('table', 0.097), ('looked', 0.097), ('slaves', 0.093), ('lot', 0.09), ('persistence', 0.089), ('pin', 0.088), ('collocated', 0.086), ('technologies', 0.085), ('ids', 0.082), ('engineers', 0.081), ('growth', 0.081), ('want', 0.081), ('new', 0.08), ('data', 0.079), ('follower', 0.079), ('nodes', 0.078), ('availabilityload', 0.078), ('processorssharded', 0.078), ('rearchitecture', 0.078), ('database', 0.078), ('mapping', 0.077), ('adding', 0.077), ('failure', 0.077), ('split', 0.076), ('modes', 0.072), ('age', 0.071), ('clustering', 0.071), ('boxes', 0.07), ('complicated', 0.07), ('db', 0.07), ('board', 0.069), ('queries', 0.068), ('fail', 0.068)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999964 <a title="1440-tfidf-1" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>Introduction: Pinterest has been riding an exponential growth curve, doubling every month

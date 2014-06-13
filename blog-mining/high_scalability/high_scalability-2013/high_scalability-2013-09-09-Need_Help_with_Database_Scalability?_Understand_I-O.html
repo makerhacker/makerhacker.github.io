@@ -29,9 +29,30 @@ shard prematurely, increasing hardware and management costs, when a simpler
 replication setup would do. Or, one may increase the size of a replica set
 when upgrading to SSDs would suffice.This article showshow to reason about
 some big data scalability problemsin an effort to find efficient
-solutions.Defining the IssuesFirst, l</p><br/>
+solutions.Defining the IssuesFirst, l</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 For example, one may shard prematurely, increasing hardware and management costs, when a simpler replication setup would do. [sent-7, score-0.533]
+</p><p>2 Or, one may increase the size of a replica set when upgrading to SSDs would suffice. [sent-8, score-0.492]
+</p><p>3 A range query used to retrieve 100 documents may induce 1 I/O, whereas 100 point queries to retrieve 100 documents may induce 100 I/O's. [sent-38, score-1.791]
+</p><p>4 Using an index on a collection, this does a combination of range queries and point queries. [sent-47, score-0.63]
+</p><p>5 If not, then a combination of range queries and point queries are used. [sent-49, score-0.919]
+</p><p>6 One can reduce the I/O of the application by avoiding doing individual point queries to retrieve each document. [sent-74, score-0.628]
+</p><p>7 To do this, we use covering or clustering indexes that smartly filter the documents analyzed by the query, and canreport results using range queries. [sent-75, score-0.438]
+</p><p>8 If you have an OLTP application and your queries are essentially point queries (because they retrieve very few documents), then even with proper indexes, you may still have an I/O bottleneck. [sent-77, score-1.033]
+</p><p>9 Also, additional indexes increase the cost of insertions, as each insertion must keep the indexes up to date as well, but write-optimized databases mitigate that cost. [sent-79, score-0.567]
+</p><p>10 Updates and deletes are tricky in that they are a combination of queries and inserts. [sent-83, score-0.461]
+</p><p>11 This solution may work for a wide range of applications, but our focus here is tackling applications that cannot do this. [sent-100, score-0.384]
+</p><p>12 If inserts, updates, or deletes are your bottleneck, then replication may not be very effective, because the write work is duplicated on all servers that are added to the replica set. [sent-112, score-0.628]
+</p><p>13 ShardingShardingpartitions your data across different replica sets based on a shard key. [sent-114, score-0.664]
+</p><p>14 Different replica sets in the cluster are responsible for ranges of values in the shard key space. [sent-115, score-0.719]
+</p><p>15 So, an application's write throughput is increased by spreading the write workload across separate replica sets in a cluster. [sent-116, score-0.595]
+</p><p>16 By partitioning the data by ranges in the shard key space, queries that use the shard key can effectively do range queries on a few shards, making such queries very efficient. [sent-118, score-1.9]
+</p><p>17 If one makes the shard key a hash, then all range queries must run on all shards in the cluster, but point queries on the shard key run on single shards. [sent-119, score-1.684]
+</p><p>18 Agood shard keyhas the following properties:●Many (if not all) of your queriesuse the shard key. [sent-129, score-0.554]
+</p><p>19 ●The shard key should do a good job ofdistributing writesto different replica sets in the cluster. [sent-132, score-0.65]
+</p><p>20 If all writes are directed to the same replica set in the cluster, then that replica set becomes a bottleneck for writes, just as it was in a non-shardedsetup. [sent-133, score-0.615]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('queries', 0.289), ('shard', 0.277), ('replica', 0.226), ('range', 0.18), ('induces', 0.165), ('query', 0.157), ('retrieve', 0.152), ('documents', 0.14), ('oltp', 0.136), ('solutions', 0.13), ('induce', 0.129), ('indexes', 0.118), ('may', 0.116), ('write', 0.111), ('updates', 0.109), ('cost', 0.108), ('ssds', 0.103), ('deletes', 0.102), ('inducing', 0.1), ('understanding', 0.096)]</p>
+<p>[('queries', 0.289), ('shard', 0.277), ('replica', 0.226), ('range', 0.18), ('induces', 0.165), ('query', 0.157), ('retrieve', 0.152), ('documents', 0.14), ('oltp', 0.136), ('solutions', 0.13), ('induce', 0.129), ('indexes', 0.118), ('may', 0.116), ('write', 0.111), ('updates', 0.109), ('cost', 0.108), ('ssds', 0.103), ('deletes', 0.102), ('inducing', 0.1), ('understanding', 0.096), ('application', 0.096), ('point', 0.091), ('arguably', 0.09), ('bottlenecks', 0.089), ('solution', 0.088), ('causing', 0.087), ('bottleneck', 0.087), ('document', 0.087), ('data', 0.086), ('increase', 0.083), ('underneath', 0.079), ('basic', 0.078), ('peek', 0.076), ('writes', 0.076), ('sets', 0.075), ('replication', 0.073), ('improving', 0.072), ('workload', 0.072), ('key', 0.072), ('must', 0.07), ('combination', 0.07), ('databases', 0.07), ('big', 0.069), ('ranges', 0.069), ('discussing', 0.069), ('ram', 0.068), ('addressing', 0.067), ('elegant', 0.067), ('one', 0.067), ('software', 0.065)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999988 <a title="1514-tfidf-1" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
 <p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a

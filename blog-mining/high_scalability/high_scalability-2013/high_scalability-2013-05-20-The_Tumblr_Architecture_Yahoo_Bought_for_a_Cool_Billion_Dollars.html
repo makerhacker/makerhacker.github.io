@@ -29,9 +29,30 @@ they do.Growing at over 30% a month has not been without challenges. Some
 reliability problems among them. It helps to realize that Tumblr operates at
 surprisingly huge scales: 500 million page views a day, a peak rate of ~40k
 requests per second, ~3TB of new data to store a day, all running on 1000+
-servers.One of the common patt</p><br/>
+servers.One of the common patt</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The direction they are moving in now is towards a distributed services model built around Scala, HBase, Redis, Kafka, Finagle, and an intriguing cell based architecture for powering their Dashboard. [sent-21, score-0.49]
+</p><p>2 Users form a connection with other users so they will go hundreds of pages back into the dashboard to read content. [sent-44, score-0.411]
+</p><p>3 Includes dashboard notifications, dashboard secondary index, URL shortener, and a memcache proxy to handle transparent sharding. [sent-135, score-0.632]
+</p><p>4 Notifications show up in a user's dashboard to indicate actions other users have taken on their content. [sent-162, score-0.411]
+</p><p>5 The firehose model is very flexible, not like Twitter's firehose in which data is assumed to be lost. [sent-189, score-0.47]
+</p><p>6 You just ask what is in the inbox so it's less expensive then going to each user a user follows. [sent-206, score-0.394]
+</p><p>7 Users are homed to a cell and all cells consume all posts via firehose updates. [sent-223, score-0.999]
+</p><p>8 Each cell is Finagle based and populates HBase via the firehose and service requests over Thrift. [sent-224, score-0.621]
+</p><p>9 A user comes into the Dashboard, users home to a particular cell, a service node reads their dashboard via HBase, and passes the data back. [sent-225, score-0.567]
+</p><p>10 Request flow: a user publishes a post, the post is written to the firehose, all of the cells consume the posts and write that post content to post database, the cells lookup to see if any of the followers of the post creator are in the cell, if so the follower inboxes are updated with the post ID. [sent-228, score-1.266]
+</p><p>11 Advantages of cell design:Massive scale requires parallelization and parallelization requires components be isolated from each other so there is no interaction. [sent-229, score-0.46]
+</p><p>12 Applications don't ask for all the post IDs and then ask for the posts for those IDs. [sent-237, score-0.388]
+</p><p>13 Every cell has all the data needed to fulfill a Dashboard request without doing any cross cell communication. [sent-239, score-0.712]
+</p><p>14 The second table tells what the user's dashboard looks like which means they don't have to go fetch all the users a user is following. [sent-242, score-0.565]
+</p><p>15 So the ID is put in the inbox and the post content is put in the cell just once. [sent-246, score-0.641]
+</p><p>16 A user's dashboard doesn't contain the text of a post, just post IDs, and the majority of the growth is in the IDs. [sent-253, score-0.382]
+</p><p>17 If only follower posts were stored in a cell then cell would be out of date as the followers changed and some sort of back fill process would be needed. [sent-255, score-1.048]
+</p><p>18 Using the cell design and post replication to all cells creates a very robust architecture. [sent-258, score-0.576]
+</p><p>19 The number of users homed to a cell is the impact. [sent-267, score-0.479]
+</p><p>20 As more cells are added cells can be placed into a cell group that reads from the firehose and then replicates to all cells within the group. [sent-271, score-0.943]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('cell', 0.356), ('dashboard', 0.288), ('tumblr', 0.262), ('firehose', 0.209), ('finagle', 0.201), ('posts', 0.192), ('scala', 0.149), ('hbase', 0.146), ('inbox', 0.143), ('redis', 0.142), ('cells', 0.126), ('users', 0.123), ('user', 0.1), ('post', 0.094), ('blake', 0.089), ('services', 0.082), ('php', 0.079), ('follower', 0.077), ('month', 0.076), ('kafka', 0.075)]</p>
+<p>[('cell', 0.356), ('dashboard', 0.288), ('tumblr', 0.262), ('firehose', 0.209), ('finagle', 0.201), ('posts', 0.192), ('scala', 0.149), ('hbase', 0.146), ('inbox', 0.143), ('redis', 0.142), ('cells', 0.126), ('users', 0.123), ('user', 0.1), ('post', 0.094), ('blake', 0.089), ('services', 0.082), ('php', 0.079), ('follower', 0.077), ('month', 0.076), ('kafka', 0.075), ('jvm', 0.073), ('sharding', 0.07), ('consumer', 0.067), ('followers', 0.067), ('team', 0.066), ('used', 0.066), ('func', 0.065), ('consume', 0.06), ('terms', 0.059), ('started', 0.059), ('mysql', 0.057), ('updates', 0.056), ('memcache', 0.056), ('via', 0.056), ('gearman', 0.055), ('second', 0.054), ('model', 0.052), ('people', 0.052), ('parallelization', 0.052), ('views', 0.052), ('ask', 0.051), ('tumblelog', 0.049), ('startup', 0.049), ('clients', 0.048), ('content', 0.048), ('distribution', 0.047), ('focused', 0.047), ('pulled', 0.046), ('haproxy', 0.045), ('million', 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999911 <a title="1461-tfidf-1" href="../high_scalability-2013/high_scalability-2013-05-20-The_Tumblr_Architecture_Yahoo_Bought_for_a_Cool_Billion_Dollars.html">1461 high scalability-2013-05-20-The Tumblr Architecture Yahoo Bought for a Cool Billion Dollars</a></p>
 <p>Introduction: It's being reportedYahoo bought Tumblr for $1.1 billion. You may
