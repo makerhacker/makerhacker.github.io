@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2013" href="../home/high_scalability-2013_home.html">high_scalability-2013</a> <a title="high_scalability-2013-1514" href="#">high_scalability-2013-1514</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1514-html" href="http://highscalability.com//blog/2013/9/9/need-help-with-database-scalability-understand-io.html">html</a></p><p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a
+storage engine company that delivers 21st-Century capabilities to the leading
+open source data management platforms.As software developers, we value
+abstraction. The simpler the API, the more attractive it becomes. Arguably,
+MongoDB's greatest strengths are its elegant API and itsagility, which let
+developers simply code.But whenMongoDBruns into scalability problems onbig
+data, developers need to peek underneath the covers to understand the
+underlying issues and how to fix them. Without understanding, one may end up
+with an inefficient solution that costs time and money. For example, one may
+shard prematurely, increasing hardware and management costs, when a simpler
+replication setup would do. Or, one may increase the size of a replica set
+when upgrading to SSDs would suffice.This article showshow to reason about
+some big data scalability problemsin an effort to find efficient
+solutions.Defining the IssuesFirst, l</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('queries', 0.289), ('shard', 0.277), ('replica', 0.226), ('range', 0.18), ('induces', 0.165), ('query', 0.157), ('retrieve', 0.152), ('documents', 0.14), ('oltp', 0.136), ('solutions', 0.13), ('induce', 0.129), ('indexes', 0.118), ('may', 0.116), ('write', 0.111), ('updates', 0.109), ('cost', 0.108), ('ssds', 0.103), ('deletes', 0.102), ('inducing', 0.1), ('understanding', 0.096)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999988 <a title="1514-tfidf-1" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
+<p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a
+storage engine company that delivers 21st-Century capabilities to the leading
+open source data management platforms.As software developers, we value
+abstraction. The simpler the API, the more attractive it becomes. Arguably,
+MongoDB's greatest strengths are its elegant API and itsagility, which let
+developers simply code.But whenMongoDBruns into scalability problems onbig
+data, developers need to peek underneath the covers to understand the
+underlying issues and how to fix them. Without understanding, one may end up
+with an inefficient solution that costs time and money. For example, one may
+shard prematurely, increasing hardware and management costs, when a simpler
+replication setup would do. Or, one may increase the size of a replica set
+when upgrading to SSDs would suffice.This article showshow to reason about
+some big data scalability problemsin an effort to find efficient
+solutions.Defining the IssuesFirst, l</p><p>2 0.28983939 <a title="1514-tfidf-2" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: For everything given something seems to be taken. Caching is a great
+scalability solution, but caching alsocomes with problems.Shardingis a great
+scalability solution, but as Foursquare recently revealed in apost-mortemabout
+their 17 hours of downtime, sharding also has problems. MongoDB, the database
+Foursquare uses, also contributed theirpost-mortemof what went wrong too.Now
+that everyone has shared and resharded, what can we learn to help us skip
+these mistakes and quickly move on to a different set of mistakes?First, like
+forFacebook, huge props to Foursquare and MongoDB for being upfront and honest
+about their problems. This helps everyone get better and is a sign we work in
+a pretty cool industry.Second, overall, the fault didn't flow from evil hearts
+or gross negligence. As usual the cause was more mundane: a key system, that
+could be a little more robust, combined with a very popular application built
+by a small group of people, under immense pressure, trying to get a lot of
+wo</p><p>3 0.24869357 <a title="1514-tfidf-3" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
+<p>Introduction: Update 4:Why you don't want to shard.by Morgon on the MySQL Performance
+Blog.Optimize everything else first, and then if performance still isn't good
+enough, it's time to take a very bitter medicine.Update 3:Building Scalable
+Databases: Pros and Cons of Various Database Sharding Schemesby Dare Obasanjo.
+Excellent discussion of why and when you would choose a sharding architecture,
+how to shard, and problems with sharding.Update 2:Mr. Moore gets to punt on
+shardingby Alan Rimm-Kaufman of 37signals. Insightful article on design
+tradeoffs and the evils of premature optimization. With more memory, more CPU,
+and new tech like SSD, problems can be avoided before more exotic
+architectures like sharding are needed. Add features not infrastructure.Jeremy
+Zawodnysays he's wrong wrong wrong. we're running multi-core CPUs at slower
+clock speeds. Moore won't save you.Update:Dan Pritchett shares some
+excellentSharding Lessons: Size Your Shards, Use Math on Shard Counts,
+Carefully Consider the Spread</p><p>4 0.20677851 <a title="1514-tfidf-4" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
+<p>Introduction: Update:Flickr hits2 Billion photosserved. That's a lot of hamburgers.Flickr is
+both my favoritebirdand the web's leading photo sharing site. Flickr has an
+amazing challenge, they must handle a vast sea of ever expanding new content,
+ever increasing legions of users, and a constant stream of new features, all
+while providing excellent performance. How do they do it?Site:
+http://www.flickr.comInformation SourcesFlickr and PHP(an early
+document)Capacity Planning for LAMPFederation at Flickr: Doing Billions of
+Queries a Dayby Dathan Pattishall.Building Scalable Web Sitesby Cal Henderson
+from Flickr.Database War Stories #3: Flickrby Tim O'ReillyCal Henderson's
+Talks. A lot of useful PowerPoint
+presentations.PlatformPHPMySQLShardsMemcached for a caching layer.Squid in
+reverse-proxy for html and images.Linux (RedHat)Smarty for templatingPerlPEAR
+for XML and Email parsingImageMagick, for image processingJava, for the node
+serviceApacheSystemImager for deploymentGanglia for distributed system
+m</p><p>5 0.19934641 <a title="1514-tfidf-5" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>Introduction: Pinterest has been riding an exponential growth curve, doubling every month
+and half. They've gone from 0 to 10s of billions of page views a month in two
+years, from 2 founders and one engineer to over 40 engineers, from one little
+MySQL server to 180 Web Engines, 240 API Engines, 88 MySQL DBs (cc2.8xlarge) +
+1 slave each, 110 Redis Instances, and 200 Memcache Instances.Stunning growth.
+So what's Pinterest's story? To tell their story we have our bards,
+Pinterest'sYashwanth NelapatiandMarty Weiner, who tell the dramatic story of
+Pinterest's architecture evolution in a talk titledScaling Pinterest. This is
+the talk they would have liked to hear a year and half ago when they were
+scaling fast and there were a lot of options to choose from. And they made a
+lot of incorrect choices.This is a great talk. It's full of amazing details.
+It's also very practical, down to earth, and it contains strategies adoptable
+by nearly anyone. Highly recommended.Two of my favorite lessons from the
+talk:Arc</p><p>6 0.19478971 <a title="1514-tfidf-6" href="../high_scalability-2014/high_scalability-2014-03-05-10_Things_You_Should_Know_About_Running_MongoDB_at_Scale.html">1606 high scalability-2014-03-05-10 Things You Should Know About Running MongoDB at Scale</a></p>
+<p>7 0.18928622 <a title="1514-tfidf-7" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
+<p>8 0.18553403 <a title="1514-tfidf-8" href="../high_scalability-2011/high_scalability-2011-09-13-Must_see%3A_5_Steps_to_Scaling_MongoDB_%28Or_Any_DB%29_in_8_Minutes.html">1114 high scalability-2011-09-13-Must see: 5 Steps to Scaling MongoDB (Or Any DB) in 8 Minutes</a></p>
+<p>9 0.18037623 <a title="1514-tfidf-9" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
+<p>10 0.17408593 <a title="1514-tfidf-10" href="../high_scalability-2009/high_scalability-2009-05-05-Drop_ACID_and_Think_About_Data.html">589 high scalability-2009-05-05-Drop ACID and Think About Data</a></p>
+<p>11 0.17108992 <a title="1514-tfidf-11" href="../high_scalability-2008/high_scalability-2008-07-26-Sharding_the_Hibernate_Way.html">358 high scalability-2008-07-26-Sharding the Hibernate Way</a></p>
+<p>12 0.16911031 <a title="1514-tfidf-12" href="../high_scalability-2010/high_scalability-2010-02-10-ElasticSearch_-_Open_Source%2C_Distributed%2C_RESTful_Search_Engine.html">775 high scalability-2010-02-10-ElasticSearch - Open Source, Distributed, RESTful Search Engine</a></p>
+<p>13 0.16333798 <a title="1514-tfidf-13" href="../high_scalability-2012/high_scalability-2012-10-10-Antirez%3A_You_Need_to_Think_in_Terms_of_Organizing_Your_Data_for_Fetching.html">1337 high scalability-2012-10-10-Antirez: You Need to Think in Terms of Organizing Your Data for Fetching</a></p>
+<p>14 0.16297844 <a title="1514-tfidf-14" href="../high_scalability-2010/high_scalability-2010-11-22-Strategy%3A_Google_Sends_Canary_Requests_into_the_Data_Mine.html">946 high scalability-2010-11-22-Strategy: Google Sends Canary Requests into the Data Mine</a></p>
+<p>15 0.15466256 <a title="1514-tfidf-15" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>16 0.15231353 <a title="1514-tfidf-16" href="../high_scalability-2012/high_scalability-2012-07-25-Vertical_Scaling_Ascendant_-_How_are_SSDs_Changing__Architectures%3F.html">1291 high scalability-2012-07-25-Vertical Scaling Ascendant - How are SSDs Changing  Architectures?</a></p>
+<p>17 0.14711326 <a title="1514-tfidf-17" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
+<p>18 0.14659441 <a title="1514-tfidf-18" href="../high_scalability-2011/high_scalability-2011-07-29-Stuff_The_Internet_Says_On_Scalability_For_July_29%2C_2011.html">1089 high scalability-2011-07-29-Stuff The Internet Says On Scalability For July 29, 2011</a></p>
+<p>19 0.14654337 <a title="1514-tfidf-19" href="../high_scalability-2008/high_scalability-2008-12-28-How_to_Organize_a_Database_Table%E2%80%99s_Keys_for_Scalability.html">476 high scalability-2008-12-28-How to Organize a Database Table’s Keys for Scalability</a></p>
+<p>20 0.14567536 <a title="1514-tfidf-20" href="../high_scalability-2012/high_scalability-2012-11-05-Gone_Fishin%27%3A_Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_In_The_Ambient_Cloud.html">1355 high scalability-2012-11-05-Gone Fishin': Building Super Scalable Systems: Blade Runner Meets Autonomic Computing In The Ambient Cloud</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.288), (1, 0.151), (2, -0.037), (3, -0.013), (4, 0.041), (5, 0.172), (6, 0.057), (7, -0.055), (8, 0.01), (9, -0.055), (10, 0.016), (11, 0.021), (12, -0.104), (13, 0.082), (14, 0.025), (15, 0.043), (16, -0.073), (17, -0.016), (18, 0.019), (19, 0.078), (20, 0.0), (21, -0.012), (22, 0.015), (23, 0.01), (24, -0.022), (25, -0.0), (26, -0.073), (27, -0.112), (28, 0.005), (29, 0.144), (30, 0.045), (31, 0.008), (32, 0.074), (33, 0.057), (34, 0.015), (35, 0.035), (36, 0.036), (37, -0.023), (38, -0.084), (39, -0.044), (40, -0.093), (41, 0.062), (42, 0.001), (43, 0.019), (44, 0.023), (45, -0.017), (46, -0.028), (47, -0.01), (48, 0.027), (49, -0.019)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.9686681 <a title="1514-lsi-1" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
+<p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a
+storage engine company that delivers 21st-Century capabilities to the leading
+open source data management platforms.As software developers, we value
+abstraction. The simpler the API, the more attractive it becomes. Arguably,
+MongoDB's greatest strengths are its elegant API and itsagility, which let
+developers simply code.But whenMongoDBruns into scalability problems onbig
+data, developers need to peek underneath the covers to understand the
+underlying issues and how to fix them. Without understanding, one may end up
+with an inefficient solution that costs time and money. For example, one may
+shard prematurely, increasing hardware and management costs, when a simpler
+replication setup would do. Or, one may increase the size of a replica set
+when upgrading to SSDs would suffice.This article showshow to reason about
+some big data scalability problemsin an effort to find efficient
+solutions.Defining the IssuesFirst, l</p><p>2 0.85074341 <a title="1514-lsi-2" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
+<p>Introduction: Update 4:Why you don't want to shard.by Morgon on the MySQL Performance
+Blog.Optimize everything else first, and then if performance still isn't good
+enough, it's time to take a very bitter medicine.Update 3:Building Scalable
+Databases: Pros and Cons of Various Database Sharding Schemesby Dare Obasanjo.
+Excellent discussion of why and when you would choose a sharding architecture,
+how to shard, and problems with sharding.Update 2:Mr. Moore gets to punt on
+shardingby Alan Rimm-Kaufman of 37signals. Insightful article on design
+tradeoffs and the evils of premature optimization. With more memory, more CPU,
+and new tech like SSD, problems can be avoided before more exotic
+architectures like sharding are needed. Add features not infrastructure.Jeremy
+Zawodnysays he's wrong wrong wrong. we're running multi-core CPUs at slower
+clock speeds. Moore won't save you.Update:Dan Pritchett shares some
+excellentSharding Lessons: Size Your Shards, Use Math on Shard Counts,
+Carefully Consider the Spread</p><p>3 0.8487398 <a title="1514-lsi-3" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>Introduction: I met the CodeFutures folks, makers ofdbShards, atGluecon. They occupy an
+interesting niche in the database space, somewhere betweenNoSQL, which
+jettisons everything SQL, and high end analytics platformsthat completely
+rewrite the backend while keeping a SQL facade.High concept: I think of
+dbShards as a sort of commercial OLTP mashup of features from HSCALE
+(partitioning) +MySQL Proxy (transparent intermediate layer) +Memcached
+(client side sharding) +Gigaspaces(parallel query) + MySQL (transactions).You
+may find dbShards interesting if you are looking to keep SQL, need scale out
+writes and reads, need out of the box parallel query capabilities, and would
+prefer to use a standard platform like MySQL as a base. To learn more about
+dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult
+questions (not really).Who are you, what is dbShards, and what problem was
+dbShards created to solve?I'm Cory Isaacson, CEO/CTO of CodeFutures
+Corporation, the makers of dbShards. dbSha</p><p>4 0.83523262 <a title="1514-lsi-4" href="../high_scalability-2008/high_scalability-2008-12-28-How_to_Organize_a_Database_Table%E2%80%99s_Keys_for_Scalability.html">476 high scalability-2008-12-28-How to Organize a Database Table’s Keys for Scalability</a></p>
+<p>Introduction: The key (no pun intended) to understanding how to organize your dataset’s data
+is to think of each shard not as an individual database, but as one large
+singular database. Just as in a normal single server database setup where you
+have a unique key for each row within a table, each row key within each
+individual shard must be unique to the whole dataset partitioned across all
+shards.There are a few different ways we can accomplish uniqueness of row keys
+across a shard cluster. Each has its pro’s and con’s and the one chosen should
+be specific to the problems you’re trying to solve.</p><p>5 0.83232856 <a title="1514-lsi-5" href="../high_scalability-2008/high_scalability-2008-07-26-Sharding_the_Hibernate_Way.html">358 high scalability-2008-07-26-Sharding the Hibernate Way</a></p>
+<p>Introduction: Update:A very nice JavaWorld podcast interview withGoogle engineer Max Ross on
+Hibernate Shards. Max defines Hibernate Shards (horizontal partitioning), how
+it works (pretty well), virtual shards (don't ask), what they need to do in
+the future (query, replication, operational tools), and how it relates to
+Google AppEngine (not much).To scale you are supposed to partition your data.
+Sounds good, but how do you do it? When you actually sit down to work out all
+the details it's not that easy. Hibernate Shards to the rescue! Hibernate
+shards is: an extension to the core Hibernate product that adds facilities for
+horizontal partitioning. If you know the core Hibernate API you know the
+shards API. No learning curve at all. Here is what a few members of the core
+group had to say about the Hibernate Shards open source project. Although
+there are some limitations, from the sound of it they are doing useful stuff
+in the right way and it's very much worth looking at, especially if you use
+Hiberna</p><p>6 0.82001674 <a title="1514-lsi-6" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>7 0.81216985 <a title="1514-lsi-7" href="../high_scalability-2014/high_scalability-2014-03-05-10_Things_You_Should_Know_About_Running_MongoDB_at_Scale.html">1606 high scalability-2014-03-05-10 Things You Should Know About Running MongoDB at Scale</a></p>
+<p>8 0.79684341 <a title="1514-lsi-8" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
+<p>9 0.79597515 <a title="1514-lsi-9" href="../high_scalability-2008/high_scalability-2008-03-18-Database_Design_101.html">281 high scalability-2008-03-18-Database Design 101</a></p>
+<p>10 0.77571577 <a title="1514-lsi-10" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
+<p>11 0.77082378 <a title="1514-lsi-11" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
+<p>12 0.76957327 <a title="1514-lsi-12" href="../high_scalability-2008/high_scalability-2008-07-16-The_Mother_of_All_Database_Normalization_Debates_on_Coding_Horror.html">351 high scalability-2008-07-16-The Mother of All Database Normalization Debates on Coding Horror</a></p>
+<p>13 0.76204705 <a title="1514-lsi-13" href="../high_scalability-2011/high_scalability-2011-09-13-Must_see%3A_5_Steps_to_Scaling_MongoDB_%28Or_Any_DB%29_in_8_Minutes.html">1114 high scalability-2011-09-13-Must see: 5 Steps to Scaling MongoDB (Or Any DB) in 8 Minutes</a></p>
+<p>14 0.74695241 <a title="1514-lsi-14" href="../high_scalability-2008/high_scalability-2008-06-11-Pyshards_aspires_to_build_sharding_toolkit_for_Python.html">345 high scalability-2008-06-11-Pyshards aspires to build sharding toolkit for Python</a></p>
+<p>15 0.74683982 <a title="1514-lsi-15" href="../high_scalability-2007/high_scalability-2007-08-16-Scaling_Secret_%232%3A_Denormalizing_Your_Way_to_Speed_and_Profit.html">65 high scalability-2007-08-16-Scaling Secret #2: Denormalizing Your Way to Speed and Profit</a></p>
+<p>16 0.74614269 <a title="1514-lsi-16" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
+<p>17 0.74172705 <a title="1514-lsi-17" href="../high_scalability-2010/high_scalability-2010-11-01-Hot_Trend%3A__Move_Behavior_to_Data_for_a_New_Interactive_Application_Architecture.html">933 high scalability-2010-11-01-Hot Trend:  Move Behavior to Data for a New Interactive Application Architecture</a></p>
+<p>18 0.74085879 <a title="1514-lsi-18" href="../high_scalability-2012/high_scalability-2012-07-11-FictionPress%3A_Publishing_6_Million_Works_of_Fiction_on_the_Web.html">1281 high scalability-2012-07-11-FictionPress: Publishing 6 Million Works of Fiction on the Web</a></p>
+<p>19 0.74021554 <a title="1514-lsi-19" href="../high_scalability-2009/high_scalability-2009-05-01-FastBit%3A_An_Efficient_Compressed_Bitmap_Index_Technology.html">587 high scalability-2009-05-01-FastBit: An Efficient Compressed Bitmap Index Technology</a></p>
+<p>20 0.73884016 <a title="1514-lsi-20" href="../high_scalability-2012/high_scalability-2012-10-10-Antirez%3A_You_Need_to_Think_in_Terms_of_Organizing_Your_Data_for_Fetching.html">1337 high scalability-2012-10-10-Antirez: You Need to Think in Terms of Organizing Your Data for Fetching</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.175), (2, 0.21), (10, 0.076), (27, 0.011), (30, 0.033), (40, 0.019), (47, 0.011), (61, 0.115), (63, 0.067), (79, 0.119), (85, 0.012), (94, 0.06)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.98567963 <a title="1514-lda-1" href="../high_scalability-2011/high_scalability-2011-03-04-Stuff_The_Internet_Says_On_Scalability_For_March_4%2C_2011.html">999 high scalability-2011-03-04-Stuff The Internet Says On Scalability For March 4, 2011</a></p>
+<p>Introduction: Submitted for your reading pleasure on this beautifully blue and sunny
+Friday...@Werner: Each day #AWS adds enough computing muscle to power one
+whole Amazon.com circa 2000, when it was a $2.8 billion business
+http://wv.ly/gMr8LQBuilding servers to rule in hell. Datacenters spend a lot
+of energy on cooling down processors. Why can't they operate at higher
+temperatures? This is the proposition addressed by James Hamilton inExploring
+the Limits of Datacenter Temprature and Datacenter Knowledge in What's Next?
+Hotter Servers with 'Gas Pedals'.Quotable Quotes for 200 Watson:@jreichhold:
+One thing working at Twitter teaches me daily is that all scale is relative.
+What seemed impossible last year is now the daily case.@dannycast0nguay: If
+you're concerned about scalability, any algorithm that forces you to run
+agreement will eventually become your bottleneck.--Werner Vogels@rael: No
+shortcut ever goes undetected by scale.@sramji: Caching is for scalability,
+not for speed. Your cache *will* b</p><p>2 0.97598445 <a title="1514-lda-2" href="../high_scalability-2012/high_scalability-2012-09-26-WordPress.com_Serves_70%2C000_req-sec_and_over_15_Gbit-sec_of_Traffic_using_NGINX.html">1329 high scalability-2012-09-26-WordPress.com Serves 70,000 req-sec and over 15 Gbit-sec of Traffic using NGINX</a></p>
+<p>Introduction: This is a guest post by Barry Abrahamson, Chief Systems Wrangler at
+Automattic, andNginx's Coufounder Andrew Alexeev.WordPress.com serves more
+than 33 million sites attracting over 339 million people and 3.4 billion pages
+each month. Since April 2008, WordPress.com has experienced about 4.4 times
+growth in page views. WordPress.com VIP hosts many popular sites including
+CNN's Political Ticker, NFL, Time Inc's The Page, People Magazine's Style
+Watch, corporate blogs for Flickr and KROQ, and many more. Automattic operates
+two thousand servers in twelve, globally distributed, data centers.
+WordPress.com customer data is instantly replicated between different
+locations to provide an extremely reliable and fast web experience for
+hundreds of millions of visitors.ProblemWordPress.com, which began in 2005,
+started on shared hosting, much like all of the WordPress.org sites. It was
+soon moved to a single dedicated server and then to two servers. In late 2005,
+WordPress.com opened to the public</p><p>3 0.97241366 <a title="1514-lda-3" href="../high_scalability-2010/high_scalability-2010-11-12-Stuff_the_Internet_Says_on_Scalability_For_November_12th%2C_2010.html">940 high scalability-2010-11-12-Stuff the Internet Says on Scalability For November 12th, 2010</a></p>
+<p>Introduction: Google - A Study In Scalability And A Little Systems Horse Sense. A nice
+summary by Krishna Sankar of a version of Jeff Dean's classic talk onGoogle
+Scalability given to Stanford's EE380 class.Quotable Quotes:@jkalucki: Getting
+just 100 servers to work together for the first time is so ridiculously
+complicated. Horizontal scaling doesn't scale.@simeons: Yahoo's scalability is
+drivem by lots of asynchronous processing. "You learn to love it." -- @rstata
+Yahoo's CTOThe Economics of the Cloud: Dissecting a Must-Read White Paperby
+Bernard Golden. I love the depiction of the unseen and unfelt forces that
+nevertheless organize everything around them: After a brief introduction, the
+authors lay out a central thesis: despite initial concerns about shortcomings
+in new technology offerings, "historically, underlying economics have a much
+stronger impact on the direction and speed of disruptions, as technological
+challenges are resolved or overcome through the rapid innovation we've grown
+accusto</p><p>4 0.97092193 <a title="1514-lda-4" href="../high_scalability-2009/high_scalability-2009-09-22-How_Ravelry_Scales_to_10_Million_Requests_Using_Rails.html">711 high scalability-2009-09-22-How Ravelry Scales to 10 Million Requests Using Rails</a></p>
+<p>Introduction: Tim Brayhas a wonderfulinterview with Casey Forbes, creator of Ravelry, a Ruby
+on Rails site supporting a 400,000+ strong community of dedicated knitters and
+crocheters.Casey and his small team have done great things with Ravelry. It is
+a very focused site that provides a lot of value for users. And users
+absolutely adore the site. That's obvious from their enthusiastic comments and
+rocket fast adoption of Ravelry.Ten years ago a site like Ravelry would have
+been a multi-million dollar operation. Today Casey is the sole engineer for
+Ravelry and to run it takes only a few people. He was able to code it in 4
+months working nights and weekends. Take a look down below of all the
+technologies used to make Ravelry and you'll see how it is constructed almost
+completely from free of the shelf software that Casey has stitched together
+into a complete system. There's an amazing amount of leverage in today's
+ecosystem when you combine all the quality tools, languages, storage,
+bandwidth and hosti</p><p>same-blog 5 0.96966362 <a title="1514-lda-5" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
+<p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a
+storage engine company that delivers 21st-Century capabilities to the leading
+open source data management platforms.As software developers, we value
+abstraction. The simpler the API, the more attractive it becomes. Arguably,
+MongoDB's greatest strengths are its elegant API and itsagility, which let
+developers simply code.But whenMongoDBruns into scalability problems onbig
+data, developers need to peek underneath the covers to understand the
+underlying issues and how to fix them. Without understanding, one may end up
+with an inefficient solution that costs time and money. For example, one may
+shard prematurely, increasing hardware and management costs, when a simpler
+replication setup would do. Or, one may increase the size of a replica set
+when upgrading to SSDs would suffice.This article showshow to reason about
+some big data scalability problemsin an effort to find efficient
+solutions.Defining the IssuesFirst, l</p><p>6 0.96960121 <a title="1514-lda-6" href="../high_scalability-2012/high_scalability-2012-01-24-The_State_of_NoSQL_in_2012.html">1180 high scalability-2012-01-24-The State of NoSQL in 2012</a></p>
+<p>7 0.96816933 <a title="1514-lda-7" href="../high_scalability-2010/high_scalability-2010-07-08-Cloud_AWS_Infrastructure_vs._Physical_Infrastructure.html">853 high scalability-2010-07-08-Cloud AWS Infrastructure vs. Physical Infrastructure</a></p>
+<p>8 0.96524978 <a title="1514-lda-8" href="../high_scalability-2012/high_scalability-2012-08-10-Stuff_The_Internet_Says_On_Scalability_For_August_10%2C_2012.html">1302 high scalability-2012-08-10-Stuff The Internet Says On Scalability For August 10, 2012</a></p>
+<p>9 0.96327972 <a title="1514-lda-9" href="../high_scalability-2007/high_scalability-2007-12-28-Amazon%27s_EC2%3A_Pay_as_You_Grow_Could_Cut_Your_Costs_in_Half.html">195 high scalability-2007-12-28-Amazon's EC2: Pay as You Grow Could Cut Your Costs in Half</a></p>
+<p>10 0.9629609 <a title="1514-lda-10" href="../high_scalability-2010/high_scalability-2010-02-12-Hot_Scalability_Links_for_February_12%2C_2010.html">776 high scalability-2010-02-12-Hot Scalability Links for February 12, 2010</a></p>
+<p>11 0.96256852 <a title="1514-lda-11" href="../high_scalability-2012/high_scalability-2012-10-19-Stuff_The_Internet_Says_On_Scalability_For_October_19%2C_2012.html">1344 high scalability-2012-10-19-Stuff The Internet Says On Scalability For October 19, 2012</a></p>
+<p>12 0.96232766 <a title="1514-lda-12" href="../high_scalability-2009/high_scalability-2009-04-21-What_CDN_would_you_recommend%3F.html">576 high scalability-2009-04-21-What CDN would you recommend?</a></p>
+<p>13 0.96151114 <a title="1514-lda-13" href="../high_scalability-2014/high_scalability-2014-04-04-Stuff_The_Internet_Says_On_Scalability_For_April_4th%2C_2014.html">1626 high scalability-2014-04-04-Stuff The Internet Says On Scalability For April 4th, 2014</a></p>
+<p>14 0.96094072 <a title="1514-lda-14" href="../high_scalability-2011/high_scalability-2011-04-22-Stuff_The_Internet_Says_On_Scalability_For_April_22%2C_2011.html">1028 high scalability-2011-04-22-Stuff The Internet Says On Scalability For April 22, 2011</a></p>
+<p>15 0.96062022 <a title="1514-lda-15" href="../high_scalability-2011/high_scalability-2011-11-04-Stuff_The_Internet_Says_On_Scalability_For_November_4%2C_2011.html">1137 high scalability-2011-11-04-Stuff The Internet Says On Scalability For November 4, 2011</a></p>
+<p>16 0.96052283 <a title="1514-lda-16" href="../high_scalability-2012/high_scalability-2012-02-07-Hypertable_Routs_HBase_in_Performance_Test_--_HBase_Overwhelmed_by_Garbage_Collection.html">1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</a></p>
+<p>17 0.96028489 <a title="1514-lda-17" href="../high_scalability-2014/high_scalability-2014-05-16-Stuff_The_Internet_Says_On_Scalability_For_May_16th%2C_2014.html">1649 high scalability-2014-05-16-Stuff The Internet Says On Scalability For May 16th, 2014</a></p>
+<p>18 0.95999664 <a title="1514-lda-18" href="../high_scalability-2013/high_scalability-2013-04-29-AWS_v_GCE_Face-off_and_Why_Innovation_Needs_Lower_Cost_Infrastructures.html">1448 high scalability-2013-04-29-AWS v GCE Face-off and Why Innovation Needs Lower Cost Infrastructures</a></p>
+<p>19 0.95996261 <a title="1514-lda-19" href="../high_scalability-2008/high_scalability-2008-04-08-Google_AppEngine_-_A_First_Look.html">301 high scalability-2008-04-08-Google AppEngine - A First Look</a></p>
+<p>20 0.95983535 <a title="1514-lda-20" href="../high_scalability-2011/high_scalability-2011-08-05-Stuff_The_Internet_Says_On_Scalability_For_August_5%2C_2011.html">1093 high scalability-2011-08-05-Stuff The Internet Says On Scalability For August 5, 2011</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
