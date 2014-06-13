@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>115 high scalability-2007-10-07-Using ThreadLocal to pass context information around in web applications</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2007" href="../home/high_scalability-2007_home.html">high_scalability-2007</a> <a title="high_scalability-2007-115" href="#">high_scalability-2007-115</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>115 high scalability-2007-10-07-Using ThreadLocal to pass context information around in web applications</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2007-115-html" href="http://highscalability.com//blog/2007/10/7/using-threadlocal-to-pass-context-information-around-in-web.html">html</a></p><p>Introduction: Hi,In java web servers, each http request is handled by a thread in thread
+pool. So for a Servlet handling the request, a thread is assigned. It is
+tempting (and very convinient) to keep context information in the threadlocal
+variable. I recently had a requirement where we need to assign logged in user
+id and timestamp to request sent to web services. Because we already had the
+code in place, it was extremely difficult to change the method signatures to
+pass user id everywhere. The solution I thought isclass ReferenceIdGenerator
+{public static setReferenceId(String login) {threadLocal.set(login +
+System.currentMillis());}public static String getReferenceId() {return
+threadLocal.get();}private static ThreadLocal threadLocal =new
+ThreadLocal();}class MySevlet {void service(.....) {HttpSession session =
+request.getSession(false);String userId =
+session.get("userId");ReferenceIdGenerator.setRefernceId(userId);try
+{doSomething();}finally {ReferenceIdGenerator.remove();}}This method is also</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('threadlocal', 0.534), ('userid', 0.426), ('string', 0.25), ('thread', 0.246), ('login', 0.176), ('request', 0.172), ('static', 0.156), ('pass', 0.154), ('method', 0.135), ('httpsession', 0.133), ('signatures', 0.123), ('void', 0.123), ('tempting', 0.116), ('public', 0.107), ('context', 0.106), ('id', 0.105), ('servlet', 0.104), ('happen', 0.101), ('timestamp', 0.099), ('false', 0.088)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999994 <a title="115-tfidf-1" href="../high_scalability-2007/high_scalability-2007-10-07-Using_ThreadLocal_to_pass_context_information_around_in_web_applications.html">115 high scalability-2007-10-07-Using ThreadLocal to pass context information around in web applications</a></p>
+<p>Introduction: Hi,In java web servers, each http request is handled by a thread in thread
+pool. So for a Servlet handling the request, a thread is assigned. It is
+tempting (and very convinient) to keep context information in the threadlocal
+variable. I recently had a requirement where we need to assign logged in user
+id and timestamp to request sent to web services. Because we already had the
+code in place, it was extremely difficult to change the method signatures to
+pass user id everywhere. The solution I thought isclass ReferenceIdGenerator
+{public static setReferenceId(String login) {threadLocal.set(login +
+System.currentMillis());}public static String getReferenceId() {return
+threadLocal.get();}private static ThreadLocal threadLocal =new
+ThreadLocal();}class MySevlet {void service(.....) {HttpSession session =
+request.getSession(false);String userId =
+session.get("userId");ReferenceIdGenerator.setRefernceId(userId);try
+{doSomething();}finally {ReferenceIdGenerator.remove();}}This method is also</p><p>2 0.13276917 <a title="115-tfidf-2" href="../high_scalability-2007/high_scalability-2007-09-18-Session_management_in_highly_scalable_web_sites.html">97 high scalability-2007-09-18-Session management in highly scalable web sites</a></p>
+<p>Introduction: Hi,Every application server has its own session management implementations for
+supporting high scalability. But an application architect/developer has to
+design and implement the application to make the best use of it.What are the
+guiding principles and pattern for session state management?Websphere System
+management red book mentions that "Session management performance is optimum
+when session data per user is around 2Kb. It degrades if session data is more
+than that".I have following questions.1. How do you measure session data per
+user?2. It is generally recommended that you should keep all the session state
+in database and keep only the keys in HttpSession object. Then everytime a web
+request is processed, session data is fetched from the database. This way all
+the data remains in memory only till the request is processed and actual data
+in HttpSession is very less. (Only few keys).What is the general practice?At
+what point you should be switching from keeping data in HttpSession t</p><p>3 0.12997308 <a title="115-tfidf-3" href="../high_scalability-2011/high_scalability-2011-10-31-15_Ways_to_Make_Your_Application_Feel_More_Responsive_under_Google_App_Engine.html">1135 high scalability-2011-10-31-15 Ways to Make Your Application Feel More Responsive under Google App Engine</a></p>
+<p>Introduction: Small Imrovements, makers of a hosted, lightweight feedback platform, have
+written an excellent article on Performance issues on GAE, and how we resolved
+them. They show how they trimmed most of their requests to between 300ms and
+800ms, some still take 2 seconds when memcache is stale, and others clock in
+at 150ms. Notzippy overall, but acceptable, especially if you really like
+GAE's PaaS promise.What's tricky with PaaS is if your performance is poor,
+there's often not a lot you can do about it. But the folks at Small
+Improvements have been clever and diligent, giving many specific details and
+timings. Though their advice is specifically for GAE, it will apply to a lot
+of different situations as well.Here are the 15 ways they made small
+performance improvements: Understand App Engine has bad days. App Engine can
+have bad days where performance can degrade. Your design needs to take this
+potential for high latency variability into account. Don't always assume the
+best case.Always prefe</p><p>4 0.12038045 <a title="115-tfidf-4" href="../high_scalability-2008/high_scalability-2008-04-21-Using_Google_AppEngine_for_a_Little_Micro-Scalability.html">307 high scalability-2008-04-21-Using Google AppEngine for a Little Micro-Scalability</a></p>
+<p>Introduction: Over the years I've accumulated quite a rag tag collection of personal systems
+scattered wide across a galaxy of different servers. For the past month I've
+been on a quest to rationalize this conglomeration by moving everything to a
+managed service of one kind or another. The goal: lift a load of worry from my
+mind. I like to do my own stuff my self so I learn something and have control.
+Control always comes with headaches and it was time for a little aspirin. As
+part of the process GAE came in handy as a host for a few Twitter related
+scripts I couldn't manage to run anywhere else. I recoded my simple little
+scripts into Python/GAE and learned a lot in the process.breakIn the move I
+exported HighScalability from a VPS and imported it into a shared hosting
+service. I could never quite configure Apache and MySQL well enough that they
+wouldn't spike memory periodically and crash the VPS. And since a memory crash
+did not automatically restarted it was unacceptable. I also wrote a script t</p><p>5 0.11237282 <a title="115-tfidf-5" href="../high_scalability-2011/high_scalability-2011-08-22-Strategy%3A_Run_a_Scalable%2C_Available%2C_and_Cheap_Static_Site_on_S3_or_GitHub.html">1102 high scalability-2011-08-22-Strategy: Run a Scalable, Available, and Cheap Static Site on S3 or GitHub</a></p>
+<p>Introduction: One of the best projects I've ever worked on was creating a large scale web
+site publishing system that was almost entirely static. A large team of very
+talented creatives made the art work, writers penned the content, and
+designers generated templates. All assets were controlled in a database. Then
+all that was extracted, after applying many different filters, to a static
+site that was uploaded via ftp to dozens of web servers. It worked great.
+Reliable, fast, cheap, and simple. Updates were a bit of a pain as it required
+pushing a lot of files to a lot of servers, and that took time, but otherwise
+a solid system.Alas, this elegant system was replaced with a new fangled
+dynamic database based system. Content was pulled from a database using a
+dynamic language generated front-end. With a recent series of posts from
+Amazon's Werner Vogels, chronicling his experience of transforming his All
+Things Distributed blog into a static site using S3's ability to serve web
+pages, I get the pleasu</p><p>6 0.11165792 <a title="115-tfidf-6" href="../high_scalability-2007/high_scalability-2007-08-08-Partial_String_Matching.html">62 high scalability-2007-08-08-Partial String Matching</a></p>
+<p>7 0.11034661 <a title="115-tfidf-7" href="../high_scalability-2008/high_scalability-2008-03-18-Database_Design_101.html">281 high scalability-2008-03-18-Database Design 101</a></p>
+<p>8 0.097760335 <a title="115-tfidf-8" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
+<p>9 0.093510799 <a title="115-tfidf-9" href="../high_scalability-2013/high_scalability-2013-02-11-At_Scale_Even_Little_Wins_Pay_Off_Big_-_Google_and_Facebook_Examples.html">1404 high scalability-2013-02-11-At Scale Even Little Wins Pay Off Big - Google and Facebook Examples</a></p>
+<p>10 0.091397554 <a title="115-tfidf-10" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
+<p>11 0.088473357 <a title="115-tfidf-11" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
+<p>12 0.086863324 <a title="115-tfidf-12" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
+<p>13 0.086375065 <a title="115-tfidf-13" href="../high_scalability-2010/high_scalability-2010-11-22-Strategy%3A_Google_Sends_Canary_Requests_into_the_Data_Mine.html">946 high scalability-2010-11-22-Strategy: Google Sends Canary Requests into the Data Mine</a></p>
+<p>14 0.086068377 <a title="115-tfidf-14" href="../high_scalability-2008/high_scalability-2008-04-08-Google_AppEngine_-_A_First_Look.html">301 high scalability-2008-04-08-Google AppEngine - A First Look</a></p>
+<p>15 0.084505789 <a title="115-tfidf-15" href="../high_scalability-2014/high_scalability-2014-05-21-9_Principles_of_High_Performance_Programs.html">1652 high scalability-2014-05-21-9 Principles of High Performance Programs</a></p>
+<p>16 0.082153544 <a title="115-tfidf-16" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
+<p>17 0.080649272 <a title="115-tfidf-17" href="../high_scalability-2007/high_scalability-2007-12-02-nginx%3A_high_performance_smpt-pop-imap_proxy.html">172 high scalability-2007-12-02-nginx: high performance smpt-pop-imap proxy</a></p>
+<p>18 0.075661488 <a title="115-tfidf-18" href="../high_scalability-2009/high_scalability-2009-05-25-non-sequential%2C_unique_identifier%2C_strategy_question.html">606 high scalability-2009-05-25-non-sequential, unique identifier, strategy question</a></p>
+<p>19 0.073225789 <a title="115-tfidf-19" href="../high_scalability-2010/high_scalability-2010-02-05-High_Availability_Principle_%3A_Concurrency_Control.html">772 high scalability-2010-02-05-High Availability Principle : Concurrency Control</a></p>
+<p>20 0.07114201 <a title="115-tfidf-20" href="../high_scalability-2013/high_scalability-2013-12-16-22_Recommendations_for_Building_Effective_High_Traffic_Web_Software.html">1565 high scalability-2013-12-16-22 Recommendations for Building Effective High Traffic Web Software</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.086), (1, 0.029), (2, -0.008), (3, -0.049), (4, -0.002), (5, -0.017), (6, 0.043), (7, 0.009), (8, -0.044), (9, -0.012), (10, -0.006), (11, 0.029), (12, 0.0), (13, -0.024), (14, -0.024), (15, -0.044), (16, -0.0), (17, -0.017), (18, 0.046), (19, -0.05), (20, 0.015), (21, -0.058), (22, -0.011), (23, 0.012), (24, 0.029), (25, 0.009), (26, 0.018), (27, 0.002), (28, 0.018), (29, 0.014), (30, 0.02), (31, -0.028), (32, -0.01), (33, 0.008), (34, 0.023), (35, 0.011), (36, 0.012), (37, 0.028), (38, -0.006), (39, -0.008), (40, 0.025), (41, -0.003), (42, -0.026), (43, 0.002), (44, 0.01), (45, 0.016), (46, 0.001), (47, -0.044), (48, 0.006), (49, -0.016)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.96073437 <a title="115-lsi-1" href="../high_scalability-2007/high_scalability-2007-10-07-Using_ThreadLocal_to_pass_context_information_around_in_web_applications.html">115 high scalability-2007-10-07-Using ThreadLocal to pass context information around in web applications</a></p>
+<p>Introduction: Hi,In java web servers, each http request is handled by a thread in thread
+pool. So for a Servlet handling the request, a thread is assigned. It is
+tempting (and very convinient) to keep context information in the threadlocal
+variable. I recently had a requirement where we need to assign logged in user
+id and timestamp to request sent to web services. Because we already had the
+code in place, it was extremely difficult to change the method signatures to
+pass user id everywhere. The solution I thought isclass ReferenceIdGenerator
+{public static setReferenceId(String login) {threadLocal.set(login +
+System.currentMillis());}public static String getReferenceId() {return
+threadLocal.get();}private static ThreadLocal threadLocal =new
+ThreadLocal();}class MySevlet {void service(.....) {HttpSession session =
+request.getSession(false);String userId =
+session.get("userId");ReferenceIdGenerator.setRefernceId(userId);try
+{doSomething();}finally {ReferenceIdGenerator.remove();}}This method is also</p><p>2 0.7391299 <a title="115-lsi-2" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
+<p>Introduction: This is a guestrepostby Ron Pressler, the founder and CEO ofParallel Universe,
+a Y Combinator company building advanced middleware for real-time
+applications. Little's Law helps us determine the maximum request rate a
+server can handle. When we apply it, we find that the dominating factor
+limiting a server's capacity is not the hardware but theOS.Should we buy more
+hardware if software is the problem? If not, how can we remove that software
+limitation in a way that does not make the code much harder to write and
+understand?Many modern web applications are composed of multiple (often
+many)HTTPservices (this is often called a micro-service architecture). This
+architecture has many advantages in terms of code reuse and maintainability,
+scalability and fault tolerance. In this post I'd like to examine one
+particular bottleneck in the approach, which hinders scalability as well as
+fault tolerance, and various ways to deal with it (I am using the term
+"scalability" very loosely in this post</p><p>3 0.65700024 <a title="115-lsi-3" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
+<p>Introduction: There's not a lot  of talk about application architectures at the process
+level. You have your threads, pools of threads, and you have your callback
+models. That's about it. Languages/frameworks making a virtue out of simple
+models, like Go and Erlang, do so at the price of control. It's difficult to
+make a low latency well conditioned application when a power full tool, like
+work scheduling, is taken out of the hands of the programmer.But that's not
+all there is my friend. We'll dive into different ways an application can be
+composed across threads of control.Your favorite language may not give you
+access to all the capabilities we are going to talk about, but lately there
+has been a sort of revival in considering performance important, especially
+for controlling latency variance, so I think it's time to talk about these
+kind of issues. When it was do everything in the thread of a web server thread
+pool none of these issues really mattered. But now that developers are
+creating sophist</p><p>4 0.65049672 <a title="115-lsi-4" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
+<p>Introduction: This is an email interview withViktor Klang, Director of Engineering
+atTypesafe, on theScala Futuresmodel &Akka;,both topics on which is he is
+immensely passionate and knowledgeable.How do you structure your application?
+That's the question I explored in the articleBeyond Threads And Callbacks. An
+option I did not talk about, mostly because of my own ignorance, is a powerful
+stack you may not be all that familiar with: Scala and Akka.To remedy my
+oversight is our acting tour guide, Typesafe's Viktor Klang, long time Scala
+hacker and Java enterprise systems architect. Viktor was very patient in
+answering my questions and was enthusiastic about sharing his knowledge. He's
+a guy who definitely knows what he is talking about.I've implemented several
+Actor systems along with the messaging infrastructure, threading, async IO,
+service orchestration, failover, etc, so I'm innately skeptical about
+frameworks that remove control from the programmer at the cost of latency.So
+at the end of the inte</p><p>5 0.64539433 <a title="115-lsi-5" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
+<p>Introduction: High Performance Multithreaded Access to Amazon SimpleDBis a great follow up
+to the idea inHow SimpleDB Differs from a RDBMSthat more programming is the
+price paid for performance in SimpleDB. It shows how much work and
+infrastructure is required to batter better performance out of
+SimpleDB.Remember, in SimpleDB you get keys to records from queries so if you
+want to get all the fields for records you need to make separate requests.
+Since SimpleDB isn't exactly a speed daemon the obvious strategy is to
+parallelize. Even if a job takes a 100 msecs you can get a lot done in a
+little time if you can execute enough jobs in parallel.Parallelization is the
+approach taken by Haakon@AWS in his Java code example of how to get the most
+out of SimpleDB. You can find the code atIndexing and Querying Amazon S3
+Metadata with Amazon SimpleDB. We'll also consider how a back-end service
+architecture built on Erlang may be a better fit with cloud computing.breakTwo
+general mechanisms of parallelism are a</p><p>6 0.64502829 <a title="115-lsi-6" href="../high_scalability-2008/high_scalability-2008-01-10-Letting_Clients_Know_What%27s_Changed%3A_Push_Me_or_Pull_Me%3F.html">205 high scalability-2008-01-10-Letting Clients Know What's Changed: Push Me or Pull Me?</a></p>
+<p>7 0.63509762 <a title="115-lsi-7" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
+<p>8 0.63507259 <a title="115-lsi-8" href="../high_scalability-2009/high_scalability-2009-01-13-Product%3A_Gearman_-_Open_Source_Message_Queuing_System.html">491 high scalability-2009-01-13-Product: Gearman - Open Source Message Queuing System</a></p>
+<p>9 0.63308674 <a title="115-lsi-9" href="../high_scalability-2008/high_scalability-2008-04-02-Product%3A_Supervisor_-__Monitor_and_Control_Your_Processes.html">295 high scalability-2008-04-02-Product: Supervisor -  Monitor and Control Your Processes</a></p>
+<p>10 0.63086671 <a title="115-lsi-10" href="../high_scalability-2009/high_scalability-2009-09-10-How_to_handle_so_many_socket_connection.html">699 high scalability-2009-09-10-How to handle so many socket connection</a></p>
+<p>11 0.62113941 <a title="115-lsi-11" href="../high_scalability-2008/high_scalability-2008-04-21-Using_Google_AppEngine_for_a_Little_Micro-Scalability.html">307 high scalability-2008-04-21-Using Google AppEngine for a Little Micro-Scalability</a></p>
+<p>12 0.62068713 <a title="115-lsi-12" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
+<p>13 0.6198613 <a title="115-lsi-13" href="../high_scalability-2012/high_scalability-2012-10-04-LinkedIn_Moved_from_Rails_to_Node%3A__27_Servers_Cut_and_Up_to_20x_Faster.html">1333 high scalability-2012-10-04-LinkedIn Moved from Rails to Node:  27 Servers Cut and Up to 20x Faster</a></p>
+<p>14 0.61893791 <a title="115-lsi-14" href="../high_scalability-2011/high_scalability-2011-02-22-Is_Node.js_Becoming_a_Part_of_the_Stack%3F_SimpleGeo_Says_Yes..html">993 high scalability-2011-02-22-Is Node.js Becoming a Part of the Stack? SimpleGeo Says Yes.</a></p>
+<p>15 0.61003232 <a title="115-lsi-15" href="../high_scalability-2011/high_scalability-2011-09-26-17_Techniques_Used_to_Scale_Turntable.fm_and_Labmeeting_to_Millions_of_Users.html">1124 high scalability-2011-09-26-17 Techniques Used to Scale Turntable.fm and Labmeeting to Millions of Users</a></p>
+<p>16 0.60413444 <a title="115-lsi-16" href="../high_scalability-2012/high_scalability-2012-12-17-11_Uses_For_the_Humble_Presents_Queue%2C_er%2C_Message_Queue.html">1373 high scalability-2012-12-17-11 Uses For the Humble Presents Queue, er, Message Queue</a></p>
+<p>17 0.59848875 <a title="115-lsi-17" href="../high_scalability-2012/high_scalability-2012-08-27-Zoosk_-_The_Engineering_behind_Real_Time_Communications.html">1312 high scalability-2012-08-27-Zoosk - The Engineering behind Real Time Communications</a></p>
+<p>18 0.58724785 <a title="115-lsi-18" href="../high_scalability-2011/high_scalability-2011-02-08-Mollom_Architecture_-_Killing_Over_373_Million_Spams_at_100_Requests_Per_Second.html">985 high scalability-2011-02-08-Mollom Architecture - Killing Over 373 Million Spams at 100 Requests Per Second</a></p>
+<p>19 0.58644259 <a title="115-lsi-19" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
+<p>20 0.58051634 <a title="115-lsi-20" href="../high_scalability-2007/high_scalability-2007-12-02-nginx%3A_high_performance_smpt-pop-imap_proxy.html">172 high scalability-2007-12-02-nginx: high performance smpt-pop-imap proxy</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.089), (2, 0.153), (40, 0.03), (79, 0.034), (94, 0.559)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.99341059 <a title="115-lda-1" href="../high_scalability-2009/high_scalability-2009-04-07-Six_Lessons_Learned_Deploying_a_Large-scale_Infrastructure_in_Amazon_EC2_.html">559 high scalability-2009-04-07-Six Lessons Learned Deploying a Large-scale Infrastructure in Amazon EC2 </a></p>
+<p>Introduction: Lessons learned fromOpenX's large-scale deploymentto Amazon EC2:Expect
+failures; what's more, embrace themFully automate your infrastructure
+deploymentsDesign your infrastructure so that it scales horizontallyEstablish
+clear measurable goalsBe prepared to quickly identify and eliminate
+bottlenecksPlay wack-a-mole for a while, until things get stable</p><p>2 0.97310519 <a title="115-lda-2" href="../high_scalability-2009/high_scalability-2009-05-22-Distributed_content_system_with_bandwidth_balancing.html">605 high scalability-2009-05-22-Distributed content system with bandwidth balancing</a></p>
+<p>Introduction: I am looking for a way to distribute files over servers in different physical
+locations. My main concern is that I have bandwidth limitations on each
+location, and wish to spread the bandwidth load evenly. Atm. I just have 1:1
+copies of the files on all servers, and have the application pick a random
+server to serve the file as a temp fix...It's a small video streaming service.
+I want to spoonfeed the stream to the client with a max bandwidth output, and
+support seek. At present I use php to limit the network stream, and read the
+file at a given offset sendt as a get parameter from the player for seek. It's
+psuedo streaming, but it works.I have been looking at MogileFS, which would
+solve the storage part. With MogileFS I can make use of my current php
+solution as it supports lighttpd and apache (with mod_rewrite or similar).
+However I don't see how I can apply MogileFS to check for bandwidth %
+usage?Any reccomendations for how I can solve this?</p><p>3 0.97157198 <a title="115-lda-3" href="../high_scalability-2008/high_scalability-2008-10-15-Sun_Customer_Ready_HPC_Cluster%3A_Reference_Configurations_with_Sun_Fire_X2200_M2_and_X2100_M2_Servers.html">418 high scalability-2008-10-15-Sun Customer Ready HPC Cluster: Reference Configurations with Sun Fire X2200 M2 and X2100 M2 Servers</a></p>
+<p>Introduction: The reference configurations described in this blueprint are starting points
+for building Sun Customer Ready HPC Clusters configured with Sun Fire X2100 M2
+and X2200 M2 servers. The configurations define how Sun Systems Group products
+can be configured in a typical grid rack deployment. This document describes
+configurations in detail using Sun Fire X2100 M2 and X2200 M2 servers with a
+Gigabit Ethernet data fabric, as well as configurations using Sun Fire X2200
+M2 servers with a high-speed InfiniBand fabric. These configurations focus on
+single rack solutions, with external connections through uplink ports of the
+switches.These reference configurations have been architected using Sun's
+expertise gained in actual, real-world installations. Within certain
+constraints, as described in the later sections, the system can be tailored to
+the customer needs. Certain system components described in this document are
+only available through Sun's factory integration. Although the information
+conta</p><p>same-blog 4 0.94929451 <a title="115-lda-4" href="../high_scalability-2007/high_scalability-2007-10-07-Using_ThreadLocal_to_pass_context_information_around_in_web_applications.html">115 high scalability-2007-10-07-Using ThreadLocal to pass context information around in web applications</a></p>
+<p>Introduction: Hi,In java web servers, each http request is handled by a thread in thread
+pool. So for a Servlet handling the request, a thread is assigned. It is
+tempting (and very convinient) to keep context information in the threadlocal
+variable. I recently had a requirement where we need to assign logged in user
+id and timestamp to request sent to web services. Because we already had the
+code in place, it was extremely difficult to change the method signatures to
+pass user id everywhere. The solution I thought isclass ReferenceIdGenerator
+{public static setReferenceId(String login) {threadLocal.set(login +
+System.currentMillis());}public static String getReferenceId() {return
+threadLocal.get();}private static ThreadLocal threadLocal =new
+ThreadLocal();}class MySevlet {void service(.....) {HttpSession session =
+request.getSession(false);String userId =
+session.get("userId");ReferenceIdGenerator.setRefernceId(userId);try
+{doSomething();}finally {ReferenceIdGenerator.remove();}}This method is also</p><p>5 0.93178791 <a title="115-lda-5" href="../high_scalability-2014/high_scalability-2014-02-25-Peter_Norvig%27s_9_Master_Steps_to_Improving_a_Program.html">1601 high scalability-2014-02-25-Peter Norvig's 9 Master Steps to Improving a Program</a></p>
+<p>Introduction: Inspired by axkcd comic,Peter Norvig,Director of Research at Google and all
+around interesting and nice guy, has created an above par code kata involving
+a regex program that demonstrates the core inner loop of many successful
+systems profiled on HighScalability.The original code is atxkcd 1313: Regex
+Golf, which comes up with an algorithm to find a short regex that matches the
+winners and not the losers from two arbitrary lists. The Python code is
+readable, the process is TDDish, and the problem, which sounds simple, but
+soon explodes into regex weirdness, as does most regex code. If you find
+regular expressions confusing you'll definitely benefit from Peter's
+deliberate strategy for finding a regex.The post demonstrating the iterated
+improvement of the program is atxkcd 1313: Regex Golf (Part 2: Infinite
+Problems). As with most first solutions it wasn't optimal. To improve the
+program Peter recommends the following steps: Profiling: Figure out where the
+program spends its time. Speed</p><p>6 0.92338067 <a title="115-lda-6" href="../high_scalability-2012/high_scalability-2012-08-16-Paper%3A_A_Provably_Correct_Scalable_Concurrent_Skip_List.html">1305 high scalability-2012-08-16-Paper: A Provably Correct Scalable Concurrent Skip List</a></p>
+<p>7 0.88291383 <a title="115-lda-7" href="../high_scalability-2007/high_scalability-2007-09-13-Design_Preparations_for_Scaling.html">91 high scalability-2007-09-13-Design Preparations for Scaling</a></p>
+<p>8 0.83390343 <a title="115-lda-8" href="../high_scalability-2012/high_scalability-2012-04-05-Big_Data_Counting%3A_How_to_count_a_billion_distinct_objects_using_only_1.5KB_of_Memory.html">1222 high scalability-2012-04-05-Big Data Counting: How to count a billion distinct objects using only 1.5KB of Memory</a></p>
+<p>9 0.83142567 <a title="115-lda-9" href="../high_scalability-2010/high_scalability-2010-06-01-Web_Speed_Can_Push_You_Off_of_Google_Search_Rankings%21_What_Can_You_Do%3F.html">834 high scalability-2010-06-01-Web Speed Can Push You Off of Google Search Rankings! What Can You Do?</a></p>
+<p>10 0.80190849 <a title="115-lda-10" href="../high_scalability-2008/high_scalability-2008-02-05-SLA_monitoring.html">241 high scalability-2008-02-05-SLA monitoring</a></p>
+<p>11 0.77947366 <a title="115-lda-11" href="../high_scalability-2011/high_scalability-2011-01-06-BankSimple_Mini-Architecture_-_Using_a_Next_Generation_Toolchain.html">970 high scalability-2011-01-06-BankSimple Mini-Architecture - Using a Next Generation Toolchain</a></p>
+<p>12 0.76745689 <a title="115-lda-12" href="../high_scalability-2011/high_scalability-2011-04-16-The_NewSQL_Market_Breakdown.html">1025 high scalability-2011-04-16-The NewSQL Market Breakdown</a></p>
+<p>13 0.75793409 <a title="115-lda-13" href="../high_scalability-2013/high_scalability-2013-02-25-SongPop_Scales_to_1_Million_Active_Users_on_GAE%2C_Showing_PaaS_is_not_Pass%C3%A9.html">1412 high scalability-2013-02-25-SongPop Scales to 1 Million Active Users on GAE, Showing PaaS is not Passé</a></p>
+<p>14 0.7499125 <a title="115-lda-14" href="../high_scalability-2010/high_scalability-2010-05-14-Hot_Scalability_Links_for_May_14%2C_2010.html">827 high scalability-2010-05-14-Hot Scalability Links for May 14, 2010</a></p>
+<p>15 0.74868011 <a title="115-lda-15" href="../high_scalability-2011/high_scalability-2011-07-22-Stuff_The_Internet_Says_On_Scalability_For_July_22%2C_2011.html">1084 high scalability-2011-07-22-Stuff The Internet Says On Scalability For July 22, 2011</a></p>
+<p>16 0.74400258 <a title="115-lda-16" href="../high_scalability-2012/high_scalability-2012-04-06-Stuff_The_Internet_Says_On_Scalability_For_April_6%2C_2012.html">1223 high scalability-2012-04-06-Stuff The Internet Says On Scalability For April 6, 2012</a></p>
+<p>17 0.73655403 <a title="115-lda-17" href="../high_scalability-2007/high_scalability-2007-09-01-2_tier_switch_selection_for_colocation.html">78 high scalability-2007-09-01-2 tier switch selection for colocation</a></p>
+<p>18 0.72478986 <a title="115-lda-18" href="../high_scalability-2011/high_scalability-2011-04-14-Strategy%3A_Cache_Application_Start_State_to_Reduce_Spin-up_Times.html">1023 high scalability-2011-04-14-Strategy: Cache Application Start State to Reduce Spin-up Times</a></p>
+<p>19 0.7220093 <a title="115-lda-19" href="../high_scalability-2007/high_scalability-2007-07-30-Product%3A_Akamai.html">39 high scalability-2007-07-30-Product: Akamai</a></p>
+<p>20 0.70279104 <a title="115-lda-20" href="../high_scalability-2012/high_scalability-2012-01-13-Stuff_The_Internet_Says_On_Scalability_For_January_13%2C_2012.html">1174 high scalability-2012-01-13-Stuff The Internet Says On Scalability For January 13, 2012</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

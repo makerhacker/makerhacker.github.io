@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>18 high scalability-2007-07-16-Paper: MySQL Scale-Out by application partitioning</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2007" href="../home/high_scalability-2007_home.html">high_scalability-2007</a> <a title="high_scalability-2007-18" href="#">high_scalability-2007-18</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>18 high scalability-2007-07-16-Paper: MySQL Scale-Out by application partitioning</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2007-18-html" href="http://highscalability.com//blog/2007/7/16/paper-mysql-scale-out-by-application-partitioning.html">html</a></p><p>Introduction: MySQL Scale-Out by application partitioningby Oli SennhauserEventually every
+database system hit its limits. Especially on the Internet, where you have
+millions of users which theoretically access your database simultaneously,
+eventually your IO system will be a bottleneck. [A] promising but more complex
+solution with nearly no scale-out limits is application partitioning. If and
+when you get into the top-1000 rank on alexa [1], you have to think about such
+solutions.A Quick Hit of What's InsideHorizontal application partitioning,
+Vertical application partitioning, Disk IO calculations, How to partition an
+entity</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('partitioningby', 0.36), ('alexa', 0.293), ('partitioning', 0.288), ('io', 0.276), ('theoretically', 0.264), ('rank', 0.249), ('hit', 0.248), ('promising', 0.208), ('entity', 0.198), ('application', 0.198), ('calculations', 0.197), ('vertical', 0.193), ('simultaneously', 0.192), ('partition', 0.152), ('limits', 0.151), ('quick', 0.139), ('eventually', 0.137), ('nearly', 0.135), ('especially', 0.112), ('millions', 0.105)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0 <a title="18-tfidf-1" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_MySQL_Scale-Out_by_application_partitioning.html">18 high scalability-2007-07-16-Paper: MySQL Scale-Out by application partitioning</a></p>
+<p>Introduction: MySQL Scale-Out by application partitioningby Oli SennhauserEventually every
+database system hit its limits. Especially on the Internet, where you have
+millions of users which theoretically access your database simultaneously,
+eventually your IO system will be a bottleneck. [A] promising but more complex
+solution with nearly no scale-out limits is application partitioning. If and
+when you get into the top-1000 rank on alexa [1], you have to think about such
+solutions.A Quick Hit of What's InsideHorizontal application partitioning,
+Vertical application partitioning, Disk IO calculations, How to partition an
+entity</p><p>2 0.16605395 <a title="18-tfidf-2" href="../high_scalability-2014/high_scalability-2014-05-12-4_Architecture_Issues_When_Scaling_Web_Applications%3A_Bottlenecks%2C_Database%2C_CPU%2C_IO.html">1646 high scalability-2014-05-12-4 Architecture Issues When Scaling Web Applications: Bottlenecks, Database, CPU, IO</a></p>
+<p>Introduction: This is a guest repost byVenkatesh CMatArchitecture Issues Scaling Web
+Applications.I will cover architecture issues that show up while scaling and
+performance tuning large scale web application in this blog.Lets start by
+defining few terms to create common understanding and vocabulary. Later on I
+will go through different issues that pop-up while scaling web application
+likeArchitecture bottlenecksScaling DatabaseCPU Bound ApplicationIO Bound
+ApplicationDetermining optimal thread pool size of an web application will be
+covered in next blog.PerformanceTerm performance of web application is used to
+mean several things. Most developers are primarily concerned with are response
+time and scalability. Response TimeIs the time taken by web application to
+process request and return response. Applications should respond to requests
+(response time) within acceptable duration. If application is taking beyond
+the acceptable time, it is said to be non-performing or degraded.
+ScalabilityThe web app</p><p>3 0.163634 <a title="18-tfidf-3" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
+<p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services
+like: diary, community, message, review, and photo album. Having a lot in
+common with LiveJournal they also developed many of the same approaches. Their
+write up on how they scaled their system is easily one of the best out
+there.Site: http://mixi.jpInformation Sourcesmixi.jp- scaling out with open
+sourcePlatformLinuxApacheMySQLPerlMemcachedSquidShardWhat's Inside?They grew
+to approximately 4 million users in two years and add over 15,000 new
+users/day.Ranks 35th on Alexa and 3rd in Japan.More than 100 MySQL serversAdd
+more than 10 servers/monthUse non-persistent connections.Diary traffic is 85%
+read and 15% write.Message traffic is is 75% read and 25% write.Ran into
+replication performance problems so they had to split the database.Considered
+splitting vertically by user or splitting horizontally by table type.The ended
+up partitioning by table type and user. So all the messages for a group of
+users would be</p><p>4 0.16118284 <a title="18-tfidf-4" href="../high_scalability-2009/high_scalability-2009-02-12-MySpace_Architecture.html">511 high scalability-2009-02-12-MySpace Architecture</a></p>
+<p>Introduction: Update:Presentation: Behind the Scenes at MySpace.com. Dan Farino, Chief
+Systems Architect at MySpace shares details of some of MySpace's cool internal
+operations tools.MySpace.com is one of the fastest growing site on the
+Internet with 65 million subscribers and 260,000 new users registering each
+day. Often criticized for poor performance, MySpace has had to tackle
+scalability issues few other sites have faced. How did they do it?Site:
+http://myspace.comInformation SourcesPresentation: Behind the Scenes at
+MySpace.comInside MySpace.comPlatformASP.NET 2.0WindowsIISSQL ServerWhat's
+Inside?300 million users.Pushes 100 gigabits/second to the internet. 10Gb/sec
+is HTML content.4,500+ web servers windows 2003/IIS 6.0/APS.NET.1,200+ cache
+servers running 64-bit Windows 2003. 16GB of objects cached in RAM.500+
+database servers running 64-bit Windows and SQL Server 2005.MySpace processes
+1.5 Billion page views per day and handles 2.3 million concurrent users during
+the dayMembership Milestones</p><p>5 0.155394 <a title="18-tfidf-5" href="../high_scalability-2007/high_scalability-2007-09-10-Blog%3A_Scalable_Web_Architectures_by_Royans_Tharakan.html">88 high scalability-2007-09-10-Blog: Scalable Web Architectures by Royans Tharakan</a></p>
+<p>Introduction: Royans' scalability blog and his main blog are excellent sources of
+scalability information. Take a look.A Quick Hit of What's InsideSharding:
+Different from Partitioning and Federation ?,Adventures of scaling
+eins.de,Session, state and scalabilitySite:http://www.royans.net/</p><p>6 0.15357387 <a title="18-tfidf-6" href="../high_scalability-2009/high_scalability-2009-06-29-HighScalability_Rated_%233_Blog_for_Developers.html">642 high scalability-2009-06-29-HighScalability Rated #3 Blog for Developers</a></p>
+<p>7 0.14025185 <a title="18-tfidf-7" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
+<p>8 0.11822151 <a title="18-tfidf-8" href="../high_scalability-2008/high_scalability-2008-09-24-Building_a_Scalable_Architecture_for_Web_Apps.html">392 high scalability-2008-09-24-Building a Scalable Architecture for Web Apps</a></p>
+<p>9 0.1068328 <a title="18-tfidf-9" href="../high_scalability-2007/high_scalability-2007-07-16-Blog%3A_MySQL_Performance_Blog_-_Everything_about_MySQL_Performance._.html">15 high scalability-2007-07-16-Blog: MySQL Performance Blog - Everything about MySQL Performance. </a></p>
+<p>10 0.099419422 <a title="18-tfidf-10" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
+<p>11 0.09920492 <a title="18-tfidf-11" href="../high_scalability-2008/high_scalability-2008-08-17-Strategy%3A_Drop_Memcached%2C_Add_More_MySQL_Servers.html">367 high scalability-2008-08-17-Strategy: Drop Memcached, Add More MySQL Servers</a></p>
+<p>12 0.098107331 <a title="18-tfidf-12" href="../high_scalability-2009/high_scalability-2009-06-10-Managing_cross_partition_transactions_in_a_distributed_KV_system.html">625 high scalability-2009-06-10-Managing cross partition transactions in a distributed KV system</a></p>
+<p>13 0.097520687 <a title="18-tfidf-13" href="../high_scalability-2009/high_scalability-2009-09-19-Space_Based_Programming_in_.NET.html">709 high scalability-2009-09-19-Space Based Programming in .NET</a></p>
+<p>14 0.096425362 <a title="18-tfidf-14" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
+<p>15 0.095870838 <a title="18-tfidf-15" href="../high_scalability-2008/high_scalability-2008-09-25-HighScalability.com_Rated_16th_Best_Blog_for_Development_Managers.html">394 high scalability-2008-09-25-HighScalability.com Rated 16th Best Blog for Development Managers</a></p>
+<p>16 0.095701069 <a title="18-tfidf-16" href="../high_scalability-2009/high_scalability-2009-06-24-Habits_of_Highly_Scalable_Web_Applications_.html">637 high scalability-2009-06-24-Habits of Highly Scalable Web Applications </a></p>
+<p>17 0.094776899 <a title="18-tfidf-17" href="../high_scalability-2008/high_scalability-2008-02-18-limit_on_the_number_of_databases_open.html">252 high scalability-2008-02-18-limit on the number of databases open</a></p>
+<p>18 0.094153047 <a title="18-tfidf-18" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_Guide_to_Cost-effective_Database_Scale-Out_using_MySQL.html">17 high scalability-2007-07-16-Paper: Guide to Cost-effective Database Scale-Out using MySQL</a></p>
+<p>19 0.094065294 <a title="18-tfidf-19" href="../high_scalability-2012/high_scalability-2012-07-25-Vertical_Scaling_Ascendant_-_How_are_SSDs_Changing__Architectures%3F.html">1291 high scalability-2012-07-25-Vertical Scaling Ascendant - How are SSDs Changing  Architectures?</a></p>
+<p>20 0.089878909 <a title="18-tfidf-20" href="../high_scalability-2009/high_scalability-2009-02-14-Scaling_Digg_and_Other_Web_Applications.html">512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.1), (1, 0.051), (2, -0.033), (3, -0.045), (4, 0.03), (5, 0.075), (6, -0.033), (7, -0.058), (8, -0.025), (9, -0.023), (10, -0.003), (11, 0.011), (12, -0.026), (13, 0.076), (14, 0.014), (15, -0.018), (16, -0.015), (17, -0.002), (18, 0.034), (19, 0.017), (20, 0.028), (21, 0.074), (22, -0.032), (23, -0.011), (24, 0.034), (25, 0.066), (26, 0.017), (27, -0.049), (28, 0.03), (29, 0.043), (30, 0.029), (31, -0.086), (32, 0.035), (33, 0.066), (34, -0.009), (35, -0.018), (36, -0.061), (37, -0.03), (38, 0.011), (39, -0.004), (40, 0.038), (41, -0.011), (42, -0.019), (43, -0.015), (44, 0.008), (45, -0.003), (46, 0.052), (47, -0.019), (48, -0.123), (49, 0.032)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.94912612 <a title="18-lsi-1" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_MySQL_Scale-Out_by_application_partitioning.html">18 high scalability-2007-07-16-Paper: MySQL Scale-Out by application partitioning</a></p>
+<p>Introduction: MySQL Scale-Out by application partitioningby Oli SennhauserEventually every
+database system hit its limits. Especially on the Internet, where you have
+millions of users which theoretically access your database simultaneously,
+eventually your IO system will be a bottleneck. [A] promising but more complex
+solution with nearly no scale-out limits is application partitioning. If and
+when you get into the top-1000 rank on alexa [1], you have to think about such
+solutions.A Quick Hit of What's InsideHorizontal application partitioning,
+Vertical application partitioning, Disk IO calculations, How to partition an
+entity</p><p>2 0.75765383 <a title="18-lsi-2" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
+<p>Introduction: Update 2:AHSCALE benchmarkfinds HSCALE "adds a maximum overhead of about 0.24
+ms per query (against a partitioned table)."Future releasespromise much
+improved results.Update:A new presentation atAn Introduction to HSCALE.After
+writingSkype Plans for PostgreSQL to Scale to 1 Billion Users, which shows how
+Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL
+Proxy articles all over the place. It's like those "get rich quick" books that
+say all you have to do is visualize a giraffe with a big yellow dot
+superimposed over it and by sympathetic magic giraffes will suddenly stampede
+into your life. Without realizing it I must have visualized transparent
+proxies smothered in yellow dots.One of the brightest images is a wonderful
+series of articles by Peter Romianowski describing the evolution of their
+proxy architecture. Their application is an OLTP system executing 200 million
+transaction per month, tables with more than 1.5 billion rows, and a 600 GB
+total database size</p><p>3 0.66772777 <a title="18-lsi-3" href="../high_scalability-2014/high_scalability-2014-05-12-4_Architecture_Issues_When_Scaling_Web_Applications%3A_Bottlenecks%2C_Database%2C_CPU%2C_IO.html">1646 high scalability-2014-05-12-4 Architecture Issues When Scaling Web Applications: Bottlenecks, Database, CPU, IO</a></p>
+<p>Introduction: This is a guest repost byVenkatesh CMatArchitecture Issues Scaling Web
+Applications.I will cover architecture issues that show up while scaling and
+performance tuning large scale web application in this blog.Lets start by
+defining few terms to create common understanding and vocabulary. Later on I
+will go through different issues that pop-up while scaling web application
+likeArchitecture bottlenecksScaling DatabaseCPU Bound ApplicationIO Bound
+ApplicationDetermining optimal thread pool size of an web application will be
+covered in next blog.PerformanceTerm performance of web application is used to
+mean several things. Most developers are primarily concerned with are response
+time and scalability. Response TimeIs the time taken by web application to
+process request and return response. Applications should respond to requests
+(response time) within acceptable duration. If application is taking beyond
+the acceptable time, it is said to be non-performing or degraded.
+ScalabilityThe web app</p><p>4 0.63973635 <a title="18-lsi-4" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
+<p>Introduction: Skypeuses PostgreSQL as their backend database. PostgreSQL doesn't get enough
+run in the database world so I was excited to see how PostgreSQL is used "as
+the main DB for most of [Skype's] business needs." Their approach is to use a
+traditional stored procedure interface for accessing data and on top of that
+layer proxy servers which hash SQL requests to a set of database servers that
+actually carry out queries. The result is a horizontally partitioned system
+that they think will scale to handle 1 billion users.Skype's goal is an
+architecture that can handle 1 billion plus users. This level of scale isn't
+practically solvable with one really big computer, so our masked superhero
+horizontal scaling comes to the rescue.Hardware is dual or quad Opterons with
+SCSI RAID.Followed common database progression: Start with one DB. Add new
+databases partitioned by functionality. Replicate read-mostly data for better
+read access. Then horizontally partition data across multiple nodes..In a
+first f</p><p>5 0.63651568 <a title="18-lsi-5" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>Introduction: I met the CodeFutures folks, makers ofdbShards, atGluecon. They occupy an
+interesting niche in the database space, somewhere betweenNoSQL, which
+jettisons everything SQL, and high end analytics platformsthat completely
+rewrite the backend while keeping a SQL facade.High concept: I think of
+dbShards as a sort of commercial OLTP mashup of features from HSCALE
+(partitioning) +MySQL Proxy (transparent intermediate layer) +Memcached
+(client side sharding) +Gigaspaces(parallel query) + MySQL (transactions).You
+may find dbShards interesting if you are looking to keep SQL, need scale out
+writes and reads, need out of the box parallel query capabilities, and would
+prefer to use a standard platform like MySQL as a base. To learn more about
+dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult
+questions (not really).Who are you, what is dbShards, and what problem was
+dbShards created to solve?I'm Cory Isaacson, CEO/CTO of CodeFutures
+Corporation, the makers of dbShards. dbSha</p><p>6 0.62812173 <a title="18-lsi-6" href="../high_scalability-2010/high_scalability-2010-03-10-Saying_Yes_to_NoSQL%3B_Going_Steady_with_Cassandra_at_Digg.html">793 high scalability-2010-03-10-Saying Yes to NoSQL; Going Steady with Cassandra at Digg</a></p>
+<p>7 0.62132996 <a title="18-lsi-7" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
+<p>8 0.60309786 <a title="18-lsi-8" href="../high_scalability-2007/high_scalability-2007-09-10-Blog%3A_Scalable_Web_Architectures_by_Royans_Tharakan.html">88 high scalability-2007-09-10-Blog: Scalable Web Architectures by Royans Tharakan</a></p>
+<p>9 0.59852493 <a title="18-lsi-9" href="../high_scalability-2009/high_scalability-2009-08-18-Real_World_Web%3A_Performance_%26_Scalability.html">684 high scalability-2009-08-18-Real World Web: Performance & Scalability</a></p>
+<p>10 0.58506447 <a title="18-lsi-10" href="../high_scalability-2009/high_scalability-2009-05-26-Database_Optimize_patterns.html">607 high scalability-2009-05-26-Database Optimize patterns</a></p>
+<p>11 0.57602429 <a title="18-lsi-11" href="../high_scalability-2009/high_scalability-2009-02-19-GIS_Application_Hosting.html">515 high scalability-2009-02-19-GIS Application Hosting</a></p>
+<p>12 0.57433826 <a title="18-lsi-12" href="../high_scalability-2007/high_scalability-2007-12-25-IBMer_Says_LAMP_Can%27t_Scale.html">192 high scalability-2007-12-25-IBMer Says LAMP Can't Scale</a></p>
+<p>13 0.57178384 <a title="18-lsi-13" href="../high_scalability-2008/high_scalability-2008-12-01-MySQL_Database_Scale-out_and_Replication_for_High_Growth_Businesses.html">455 high scalability-2008-12-01-MySQL Database Scale-out and Replication for High Growth Businesses</a></p>
+<p>14 0.56930256 <a title="18-lsi-14" href="../high_scalability-2007/high_scalability-2007-10-30-Database_parallelism_choices_greatly_impact_scalability.html">137 high scalability-2007-10-30-Database parallelism choices greatly impact scalability</a></p>
+<p>15 0.56905466 <a title="18-lsi-15" href="../high_scalability-2008/high_scalability-2008-06-11-Pyshards_aspires_to_build_sharding_toolkit_for_Python.html">345 high scalability-2008-06-11-Pyshards aspires to build sharding toolkit for Python</a></p>
+<p>16 0.56407398 <a title="18-lsi-16" href="../high_scalability-2008/high_scalability-2008-09-24-Building_a_Scalable_Architecture_for_Web_Apps.html">392 high scalability-2008-09-24-Building a Scalable Architecture for Web Apps</a></p>
+<p>17 0.56300086 <a title="18-lsi-17" href="../high_scalability-2009/high_scalability-2009-10-28-And_the_winner_is%3A_MySQL_or_Memcached_or_Tokyo_Tyrant%3F.html">729 high scalability-2009-10-28-And the winner is: MySQL or Memcached or Tokyo Tyrant?</a></p>
+<p>18 0.56107134 <a title="18-lsi-18" href="../high_scalability-2007/high_scalability-2007-09-10-Is_there_a_difference_between_partitioning_and_federation_and_sharding%3F.html">89 high scalability-2007-09-10-Is there a difference between partitioning and federation and sharding?</a></p>
+<p>19 0.55447203 <a title="18-lsi-19" href="../high_scalability-2011/high_scalability-2011-04-16-The_NewSQL_Market_Breakdown.html">1025 high scalability-2011-04-16-The NewSQL Market Breakdown</a></p>
+<p>20 0.5524658 <a title="18-lsi-20" href="../high_scalability-2010/high_scalability-2010-02-23-When_to_migrate_your_database%3F.html">782 high scalability-2010-02-23-When to migrate your database?</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.137), (2, 0.227), (9, 0.342), (79, 0.135)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.91477984 <a title="18-lda-1" href="../high_scalability-2009/high_scalability-2009-05-20-Paper%3A_Flux%3A_An_Adaptive_Partitioning_Operator_for_Continuous_Query_Systems.html">604 high scalability-2009-05-20-Paper: Flux: An Adaptive Partitioning Operator for Continuous Query Systems</a></p>
+<p>Introduction: At the core of the new real-time web, which is really really old, are
+continuous queries. I like how this paper proposed to handle dynamic demand
+and dynamic resource availability by making the underlying system adaptable,
+which seems like a very cloudy kind of thing to do.Abstract:The long-running
+nature of continuous queries poses new scalability challenges for dataflow
+processing. CQ systems execute pipelined dataflows that may be shared across
+multiplequeries. The scalability of these dataflows is limited by their
+constituent, stateful operators - e.g. windowed joins or grouping operators.
+To scale such operators, a natural solution is to partition them across a
+shared-nothing platform. But in the CQ context, traditional, static
+techniquesfor partitioned parallelism can exhibit detrimental imbalances as
+workload and runtime conditions evolve. Longrunning CQ dataflows must continue
+to function robustly inthe face of these imbalances. To address this
+challenge, we introduce a dataflo</p><p>2 0.80969477 <a title="18-lda-2" href="../high_scalability-2013/high_scalability-2013-05-22-Strategy%3A_Stop_Using_Linked-Lists.html">1462 high scalability-2013-05-22-Strategy: Stop Using Linked-Lists</a></p>
+<p>Introduction: What data structure is more sacred than the link list? If we get rid of it
+what silly interview questions would we use instead? But not using linked-
+lists is exactly what Aater Suleman recommends inShould you ever use Linked-
+Lists?InThe Secret To 10 Million Concurrent Connectionsone of the important
+strategies is not scribbling data all over memory via pointers because
+following pointers increases cache misses whichreduces performance. And
+there's nothing more iconic of pointers than the link list.Here are Aeter's
+reasons to be anti-linked-list:They reduce the benefit of out-of-order
+execution.They throw off hardware prefetching.They reduce DRAM and TLB
+locality.They cannot leverage SIMD.They are harder to send to GPUs.He also
+demolishes the pros of linked-lists, finding arrays a better option in almost
+every case. Good discussion in the comment section as not everyone
+agrees.Patrick Wyatt detailshow a linked-list threading bugrepeatedly crashed
+Starcraft. Also a good comment discuss</p><p>same-blog 3 0.75499773 <a title="18-lda-3" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_MySQL_Scale-Out_by_application_partitioning.html">18 high scalability-2007-07-16-Paper: MySQL Scale-Out by application partitioning</a></p>
+<p>Introduction: MySQL Scale-Out by application partitioningby Oli SennhauserEventually every
+database system hit its limits. Especially on the Internet, where you have
+millions of users which theoretically access your database simultaneously,
+eventually your IO system will be a bottleneck. [A] promising but more complex
+solution with nearly no scale-out limits is application partitioning. If and
+when you get into the top-1000 rank on alexa [1], you have to think about such
+solutions.A Quick Hit of What's InsideHorizontal application partitioning,
+Vertical application partitioning, Disk IO calculations, How to partition an
+entity</p><p>4 0.73163009 <a title="18-lda-4" href="../high_scalability-2009/high_scalability-2009-02-25-Advanced_BPM_program__in_USA_and_India__discount_for_Group_Membership.html">520 high scalability-2009-02-25-Advanced BPM program  in USA and India  discount for Group Membership</a></p>
+<p>Introduction: One day, Advanced BPM Certified program led by Global Leader, Steve Towers.
+Latest Case Studies and innovations - hands-on, practical.Event
+locationsUSASan Francisco 16 Mar 09Atlanta 17 Mar 09New York 19 Mar 09Chicago
+20 Mar 09www.BESTBPMTRAINING.COMIndiaMumbai 23 Mar 09Bangalore 24 Mar
+09Hyderabad 26 Mar 09Delhi 27 Mar 09www.BPMTRAININGNOW.COMFor more information
+please visit For registrations, group discounts or further details please
+contact Caroline.smith@icmgworld.com</p><p>5 0.72826201 <a title="18-lda-5" href="../high_scalability-2009/high_scalability-2009-02-23-Database_Sharding_at_Netlog%2C_with_MySQL_and_PHP.html">519 high scalability-2009-02-23-Database Sharding at Netlog, with MySQL and PHP</a></p>
+<p>Introduction: Jurriaan Persyn is a Lead Web Developer at Netlog, a social portal site that
+gets 50 million unique visitors and 5+ billion page views per month. In this
+paper Jurriaan goes into a lot of excellent nuts and bolts details about how
+they used sharding to scale their system. If you are pondering sharding as a
+solution to your scaling problems you'll want to read this paper. As the paper
+is quite well organized there's no reason to write a summary, but I especially
+liked this part from the conclusion:If you can do with simpler solutions
+(better hardware, more hardware, server tweaking and tuning, vertical
+partitioning, sql query optimization, ...) that require less development cost,
+why invest lots of effort in sharding? On the other hand, when your visitor
+statistics really start blowing through the roof, it is a good direction to
+go. After all, it worked for us.</p><p>6 0.71870798 <a title="18-lda-6" href="../high_scalability-2012/high_scalability-2012-06-22-Stuff_The_Internet_Says_On_Scalability_For_June_22%2C_2012.html">1270 high scalability-2012-06-22-Stuff The Internet Says On Scalability For June 22, 2012</a></p>
+<p>7 0.71745062 <a title="18-lda-7" href="../high_scalability-2009/high_scalability-2009-04-22-Gear6_Web_cache_-_the_hardware_solution_for_working_with_Memcache.html">577 high scalability-2009-04-22-Gear6 Web cache - the hardware solution for working with Memcache</a></p>
+<p>8 0.713633 <a title="18-lda-8" href="../high_scalability-2014/high_scalability-2014-01-15-Vedis_-_An_Embedded_Implementation_of_Redis_Supporting_Terabyte_Sized_Databases.html">1580 high scalability-2014-01-15-Vedis - An Embedded Implementation of Redis Supporting Terabyte Sized Databases</a></p>
+<p>9 0.68040025 <a title="18-lda-9" href="../high_scalability-2007/high_scalability-2007-12-01-many_website%2C_one_setup%2C_many_databases.html">169 high scalability-2007-12-01-many website, one setup, many databases</a></p>
+<p>10 0.67447215 <a title="18-lda-10" href="../high_scalability-2008/high_scalability-2008-10-13-Challenges_from_large_scale_computing_at_Google.html">409 high scalability-2008-10-13-Challenges from large scale computing at Google</a></p>
+<p>11 0.64666063 <a title="18-lda-11" href="../high_scalability-2007/high_scalability-2007-07-16-Blog%3A_MySQL_Performance_Blog_-_Everything_about_MySQL_Performance._.html">15 high scalability-2007-07-16-Blog: MySQL Performance Blog - Everything about MySQL Performance. </a></p>
+<p>12 0.64425176 <a title="18-lda-12" href="../high_scalability-2007/high_scalability-2007-08-09-Lots_of_questions_for_high_scalability_-_high_availability.html">63 high scalability-2007-08-09-Lots of questions for high scalability - high availability</a></p>
+<p>13 0.64416081 <a title="18-lda-13" href="../high_scalability-2008/high_scalability-2008-06-09-Apple%27s_iPhone_to_Use_a_Centralized_Push_Based_Notification_Architecture.html">343 high scalability-2008-06-09-Apple's iPhone to Use a Centralized Push Based Notification Architecture</a></p>
+<p>14 0.64365864 <a title="18-lda-14" href="../high_scalability-2010/high_scalability-2010-11-15-Strategy%3A_Biggest_Performance_Impact_is_to_Reduce_the_Number_of_HTTP_Requests.html">942 high scalability-2010-11-15-Strategy: Biggest Performance Impact is to Reduce the Number of HTTP Requests</a></p>
+<p>15 0.64316785 <a title="18-lda-15" href="../high_scalability-2009/high_scalability-2009-10-09-Have_you_collectl%27d_yet%3F__If_not%2C_maybe_collectl-utils_will_make_it_easier_to_do_so.html">719 high scalability-2009-10-09-Have you collectl'd yet?  If not, maybe collectl-utils will make it easier to do so</a></p>
+<p>16 0.64186174 <a title="18-lda-16" href="../high_scalability-2008/high_scalability-2008-10-15-Need_help_with_your_Hadoop_deployment%3F_This_company_may_help%21.html">415 high scalability-2008-10-15-Need help with your Hadoop deployment? This company may help!</a></p>
+<p>17 0.64118075 <a title="18-lda-17" href="../high_scalability-2010/high_scalability-2010-11-22-Strategy%3A_Google_Sends_Canary_Requests_into_the_Data_Mine.html">946 high scalability-2010-11-22-Strategy: Google Sends Canary Requests into the Data Mine</a></p>
+<p>18 0.64067191 <a title="18-lda-18" href="../high_scalability-2012/high_scalability-2012-07-04-Top_Features_of_a_Scalable_Database.html">1276 high scalability-2012-07-04-Top Features of a Scalable Database</a></p>
+<p>19 0.63951385 <a title="18-lda-19" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
+<p>20 0.63696551 <a title="18-lda-20" href="../high_scalability-2010/high_scalability-2010-09-11-Google%27s_Colossus_Makes_Search_Real-time_by_Dumping_MapReduce.html">900 high scalability-2010-09-11-Google's Colossus Makes Search Real-time by Dumping MapReduce</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

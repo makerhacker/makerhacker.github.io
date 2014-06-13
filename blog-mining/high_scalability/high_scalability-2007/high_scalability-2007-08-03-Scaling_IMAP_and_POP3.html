@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>57 high scalability-2007-08-03-Scaling IMAP and POP3</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2007" href="../home/high_scalability-2007_home.html">high_scalability-2007</a> <a title="high_scalability-2007-57" href="#">high_scalability-2007-57</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>57 high scalability-2007-08-03-Scaling IMAP and POP3</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2007-57-html" href="http://highscalability.com//blog/2007/8/3/scaling-imap-and-pop3.html">html</a></p><p>Introduction: Just thought I'd drop a brief suggestion to anyone building a large mail
+system. Our solution for scaling mail pickup was to develop a sharded
+architecture whereby accounts are spread across a cluster of servers, each
+with imap/pop3 capability. Then we use a cluster of reverse proxies
+(Perdition) speaking to the backend imap/pop3 servers . The benefit of this
+approach is you can use simply use round-robin or HA loadbalancing on the
+perdition servers that end users connect to (e.g. admins can easily move
+accounts around on the backend storage servers without affecting end users).
+Perdition manages routing users to the appropriate backend servers and has
+MySQL support. What we also liked about this approach was that it had no
+dependency on a distributed or networked filesystem, so less chance of
+corruption or data consistency issues. When an individual server reaches
+capacity, we just off load users to a less used server. If any server goes
+offline, it only affects the fraction of users</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('perdition', 0.541), ('mail', 0.231), ('backend', 0.197), ('accounts', 0.189), ('loadbalancing', 0.18), ('whereby', 0.172), ('osterman', 0.166), ('users', 0.163), ('affects', 0.16), ('pickup', 0.156), ('suggestion', 0.138), ('servers', 0.137), ('admins', 0.136), ('corruption', 0.134), ('proxies', 0.126), ('affecting', 0.125), ('networked', 0.123), ('reaches', 0.121), ('speaking', 0.121), ('brief', 0.116)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0 <a title="57-tfidf-1" href="../high_scalability-2007/high_scalability-2007-08-03-Scaling_IMAP_and_POP3.html">57 high scalability-2007-08-03-Scaling IMAP and POP3</a></p>
+<p>Introduction: Just thought I'd drop a brief suggestion to anyone building a large mail
+system. Our solution for scaling mail pickup was to develop a sharded
+architecture whereby accounts are spread across a cluster of servers, each
+with imap/pop3 capability. Then we use a cluster of reverse proxies
+(Perdition) speaking to the backend imap/pop3 servers . The benefit of this
+approach is you can use simply use round-robin or HA loadbalancing on the
+perdition servers that end users connect to (e.g. admins can easily move
+accounts around on the backend storage servers without affecting end users).
+Perdition manages routing users to the appropriate backend servers and has
+MySQL support. What we also liked about this approach was that it had no
+dependency on a distributed or networked filesystem, so less chance of
+corruption or data consistency issues. When an individual server reaches
+capacity, we just off load users to a less used server. If any server goes
+offline, it only affects the fraction of users</p><p>2 0.95607495 <a title="57-tfidf-2" href="../high_scalability-2007/high_scalability-2007-09-06-Scaling_IMAP_and_POP3.html">81 high scalability-2007-09-06-Scaling IMAP and POP3</a></p>
+<p>Introduction: Another scalability strategy brought to you by Erik Osterman:Just thought I'd
+drop a brief suggestion to anyone building a large mail system. Our solution
+for scaling mail pickup was to develop a sharded architecture whereby accounts
+are spread across a cluster of servers, each with imap/pop3 capability. Then
+we use a cluster of reverse proxies (Perdition) speaking to the backend
+imap/pop3 servers .The benefit of this approach is you can use simply use
+round-robin or HA load balancing on the perdition servers that end users
+connect to (e.g. admins can easily move accounts around on the backend storage
+servers without affecting end users). Perdition manages routing users to the
+appropriate backend servers and has MySQL support.What we also liked about
+this approach was that it had no dependency on a distributed or networked file
+system, so less chance of corruption or data consistency issues. When an
+individual server reaches capacity, we just off load users to a less used
+server. If an</p><p>3 0.22882576 <a title="57-tfidf-3" href="../high_scalability-2007/high_scalability-2007-09-06-Product%3A_Perdition_Mail_Retrieval_Proxy.html">80 high scalability-2007-09-06-Product: Perdition Mail Retrieval Proxy</a></p>
+<p>Introduction: Perditionis a fully featured POP3 and IMAP4 proxy server. It is able to handle
+both SSL and non-SSL connections and redirect users to a real-server based on
+a database lookup. Perdition supports modular based database access. ODBC,
+MySQL, PostgreSQL, GDBM, POSIX Regular Expression and NIS modules ship with
+the distribution. The API for modules is open allowing arbitrary modules to be
+written to allow access to any data store.Perdition has many uses. Including,
+creating large mail systems where an end-user's mailbox may be stored on one
+of several hosts, integrating different mail systems together, migrating
+between different email infrastructures, and bridging plain-text, SSL and TLS
+services. It can also be used as part of a firewall. The use of perditon to
+scale mail services beyond a single box is discussed in high capacity email.</p><p>4 0.12651764 <a title="57-tfidf-4" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: With Lavabitshutting down undermurky circumstances, it seems fitting torepost
+an old(2009), yet still very good post byLadar Levisonon Lavabit's
+architecture. I don't know how much of this information is still current, but
+it should give you a general idea what Lavabit was all about.Getting to Know
+YouWhat is the name of your system and where can we find out more about
+it?Note: these links are no longer valid...Lavabithttp://lavabit.comhttp://lav
+abit.com/network.htmlhttp://lavabit.com/about.htmlWhat is your system
+for?Lavabit is a mid-sized email service provider. We currently have about
+140,000 registered users with more than 260,000 email addresses. While most of
+our accounts belong to individual users, we also provide corporate email
+services to approximately 70 companies.Why did you decide to build this
+system?We built the system to compete against the other large free email
+providers, with an emphasis on serving the privacy conscious and technically
+savvy user. Lavabit was one of</p><p>5 0.10452618 <a title="57-tfidf-5" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
+<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from
+over 600 hyperactive servers? If you think this sounds like the perfect battle
+ground for a head-to-head skirmish in the greatMapReduce Versus Database War,
+you would be correct.Bill Boebel, CTO of Mailtrust (Rackspace's mail
+division), has generously provided a fascinating account of how they evolved
+their log processing system from an early amoeba'ic text file stored on each
+machine approach, to a Neandertholic relational database solution that just
+couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that
+works wisely for them and has virtually unlimited scalability
+potential.Rackspace faced a now familiar problem. Lots and lots of data
+streaming in. Where do you store all that data? How do you do anything useful
+with it? In the first version of their system logs were stored in flat text
+files and had to be manually searched by engineers logging into each
+individual machine. Then came a</p><p>6 0.09921027 <a title="57-tfidf-6" href="../high_scalability-2010/high_scalability-2010-05-25-Strategy%3A_Rule_of_3_Admins_to_Save_Your_Sanity.html">830 high scalability-2010-05-25-Strategy: Rule of 3 Admins to Save Your Sanity</a></p>
+<p>7 0.097295731 <a title="57-tfidf-7" href="../high_scalability-2009/high_scalability-2009-02-12-MySpace_Architecture.html">511 high scalability-2009-02-12-MySpace Architecture</a></p>
+<p>8 0.077657662 <a title="57-tfidf-8" href="../high_scalability-2011/high_scalability-2011-03-24-Strategy%3A_Disk_Backup_for_Speed%2C_Tape_Backup_to_Save_Your_Bacon%2C_Just_Ask_Google.html">1010 high scalability-2011-03-24-Strategy: Disk Backup for Speed, Tape Backup to Save Your Bacon, Just Ask Google</a></p>
+<p>9 0.075558797 <a title="57-tfidf-9" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
+<p>10 0.074779302 <a title="57-tfidf-10" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
+<p>11 0.07100229 <a title="57-tfidf-11" href="../high_scalability-2007/high_scalability-2007-12-07-Synchronizing_databases_in_different_geographic_locations.html">176 high scalability-2007-12-07-Synchronizing databases in different geographic locations</a></p>
+<p>12 0.070851989 <a title="57-tfidf-12" href="../high_scalability-2007/high_scalability-2007-08-22-How_many_machines_do_you_need_to_run_your_site%3F.html">70 high scalability-2007-08-22-How many machines do you need to run your site?</a></p>
+<p>13 0.069182843 <a title="57-tfidf-13" href="../high_scalability-2008/high_scalability-2008-02-19-Building_a_email_communication_system.html">253 high scalability-2008-02-19-Building a email communication system</a></p>
+<p>14 0.066433951 <a title="57-tfidf-14" href="../high_scalability-2007/high_scalability-2007-08-09-Lots_of_questions_for_high_scalability_-_high_availability.html">63 high scalability-2007-08-09-Lots of questions for high scalability - high availability</a></p>
+<p>15 0.06444668 <a title="57-tfidf-15" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
+<p>16 0.063425034 <a title="57-tfidf-16" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>17 0.063178904 <a title="57-tfidf-17" href="../high_scalability-2013/high_scalability-2013-03-15-Stuff_The_Internet_Says_On_Scalability_For_March_15%2C_2013.html">1424 high scalability-2013-03-15-Stuff The Internet Says On Scalability For March 15, 2013</a></p>
+<p>18 0.062693618 <a title="57-tfidf-18" href="../high_scalability-2013/high_scalability-2013-03-08-Stuff_The_Internet_Says_On_Scalability_For_March_8%2C_2013.html">1420 high scalability-2013-03-08-Stuff The Internet Says On Scalability For March 8, 2013</a></p>
+<p>19 0.061811917 <a title="57-tfidf-19" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
+<p>20 0.060880136 <a title="57-tfidf-20" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.106), (1, 0.04), (2, -0.009), (3, -0.094), (4, 0.015), (5, -0.005), (6, 0.025), (7, -0.061), (8, 0.014), (9, 0.045), (10, -0.007), (11, 0.061), (12, 0.002), (13, -0.007), (14, 0.038), (15, 0.093), (16, 0.017), (17, 0.056), (18, -0.045), (19, 0.059), (20, 0.087), (21, -0.022), (22, -0.136), (23, -0.049), (24, 0.018), (25, 0.031), (26, 0.06), (27, 0.002), (28, -0.055), (29, -0.052), (30, -0.004), (31, -0.023), (32, -0.145), (33, -0.107), (34, -0.023), (35, 0.001), (36, -0.04), (37, -0.011), (38, 0.057), (39, 0.036), (40, 0.097), (41, 0.025), (42, 0.013), (43, -0.064), (44, -0.059), (45, -0.029), (46, 0.039), (47, -0.038), (48, -0.032), (49, 0.009)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.94671535 <a title="57-lsi-1" href="../high_scalability-2007/high_scalability-2007-08-03-Scaling_IMAP_and_POP3.html">57 high scalability-2007-08-03-Scaling IMAP and POP3</a></p>
+<p>Introduction: Just thought I'd drop a brief suggestion to anyone building a large mail
+system. Our solution for scaling mail pickup was to develop a sharded
+architecture whereby accounts are spread across a cluster of servers, each
+with imap/pop3 capability. Then we use a cluster of reverse proxies
+(Perdition) speaking to the backend imap/pop3 servers . The benefit of this
+approach is you can use simply use round-robin or HA loadbalancing on the
+perdition servers that end users connect to (e.g. admins can easily move
+accounts around on the backend storage servers without affecting end users).
+Perdition manages routing users to the appropriate backend servers and has
+MySQL support. What we also liked about this approach was that it had no
+dependency on a distributed or networked filesystem, so less chance of
+corruption or data consistency issues. When an individual server reaches
+capacity, we just off load users to a less used server. If any server goes
+offline, it only affects the fraction of users</p><p>2 0.91635269 <a title="57-lsi-2" href="../high_scalability-2007/high_scalability-2007-09-06-Scaling_IMAP_and_POP3.html">81 high scalability-2007-09-06-Scaling IMAP and POP3</a></p>
+<p>Introduction: Another scalability strategy brought to you by Erik Osterman:Just thought I'd
+drop a brief suggestion to anyone building a large mail system. Our solution
+for scaling mail pickup was to develop a sharded architecture whereby accounts
+are spread across a cluster of servers, each with imap/pop3 capability. Then
+we use a cluster of reverse proxies (Perdition) speaking to the backend
+imap/pop3 servers .The benefit of this approach is you can use simply use
+round-robin or HA load balancing on the perdition servers that end users
+connect to (e.g. admins can easily move accounts around on the backend storage
+servers without affecting end users). Perdition manages routing users to the
+appropriate backend servers and has MySQL support.What we also liked about
+this approach was that it had no dependency on a distributed or networked file
+system, so less chance of corruption or data consistency issues. When an
+individual server reaches capacity, we just off load users to a less used
+server. If an</p><p>3 0.71635693 <a title="57-lsi-3" href="../high_scalability-2007/high_scalability-2007-09-06-Product%3A_Perdition_Mail_Retrieval_Proxy.html">80 high scalability-2007-09-06-Product: Perdition Mail Retrieval Proxy</a></p>
+<p>Introduction: Perditionis a fully featured POP3 and IMAP4 proxy server. It is able to handle
+both SSL and non-SSL connections and redirect users to a real-server based on
+a database lookup. Perdition supports modular based database access. ODBC,
+MySQL, PostgreSQL, GDBM, POSIX Regular Expression and NIS modules ship with
+the distribution. The API for modules is open allowing arbitrary modules to be
+written to allow access to any data store.Perdition has many uses. Including,
+creating large mail systems where an end-user's mailbox may be stored on one
+of several hosts, integrating different mail systems together, migrating
+between different email infrastructures, and bridging plain-text, SSL and TLS
+services. It can also be used as part of a firewall. The use of perditon to
+scale mail services beyond a single box is discussed in high capacity email.</p><p>4 0.60501546 <a title="57-lsi-4" href="../high_scalability-2013/high_scalability-2013-11-19-We_Finally_Cracked_the_10K_Problem_-_This_Time_for_Managing_Servers_with_2000x_Servers_Managed_Per_Sysadmin.html">1550 high scalability-2013-11-19-We Finally Cracked the 10K Problem - This Time for Managing Servers with 2000x Servers Managed Per Sysadmin</a></p>
+<p>Introduction: In 1999 Dan Kegel issued a big hairy audacious challenge to web servers:It's
+time for web servers to handle ten thousand clients simultaneously, don't you
+think? After all, the web is a big place now.This became known as theC10K
+problem. Engineers solved the C10K scalability problems by fixing OS kernels
+and moving away from threaded servers like Apache to event-driven servers like
+Nginx and Node.Today we are considering an even bigger goal, how to support10
+Million Concurrent Connections, which requires even more radical techniques.No
+similar challenge was issued for managing servers in a datacenter, but
+according toDave Nearyfrom Red Hat, in a recentFLOSS Weekly episode, we have
+passed the 10K barrier for server management with 10,000 or more servers
+managed per sysadmin.Should we let this milestone pass without
+mention?Absolutely not! It's a stunning accomplishment with 200x-2000x
+increases in productivity. Dave said he remembered in the 1990s it took one
+sysadmin to manage 4 or 5 W</p><p>5 0.59358203 <a title="57-lsi-5" href="../high_scalability-2007/high_scalability-2007-08-09-Lots_of_questions_for_high_scalability_-_high_availability.html">63 high scalability-2007-08-09-Lots of questions for high scalability - high availability</a></p>
+<p>Introduction: Hey,I do have a website that I would like to scale. Right now we have 10
+servers but this does not scale well.I know how to deal with my apache web
+servers but have problems with sql servers.I would like to use the "scale out"
+system and add servers when we need. We have over 100Gb of data for mysql and
+we tried to have around 20G per server. It works well except that if a server
+goes down then 1/5 of the user can't access the website. We could use
+replication but we would need to at least double sql servers to replicate each
+server. And maybe in the future it's not gonna be enough we would need maybe 3
+slaves per master ... well I don't really like this idea.I would prefer to
+have 8 servers that all deal with data from the 5 servers we have right now
+and then we could add new servers when we need. I looked at NFS but that does
+not seem to be a good idea for SQL servers ? Can you confirm?</p><p>6 0.56806827 <a title="57-lsi-6" href="../high_scalability-2008/high_scalability-2008-02-19-Building_a_email_communication_system.html">253 high scalability-2008-02-19-Building a email communication system</a></p>
+<p>7 0.5654099 <a title="57-lsi-7" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>8 0.55778778 <a title="57-lsi-8" href="../high_scalability-2008/high_scalability-2008-04-22-Simple_NFS_failover_solution_with_symbolic_link%3F.html">308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</a></p>
+<p>9 0.5546487 <a title="57-lsi-9" href="../high_scalability-2008/high_scalability-2008-12-20-Second_Life_Architecture_-_The_Grid.html">473 high scalability-2008-12-20-Second Life Architecture - The Grid</a></p>
+<p>10 0.54084688 <a title="57-lsi-10" href="../high_scalability-2007/high_scalability-2007-07-23-GoogleTalk_Architecture.html">21 high scalability-2007-07-23-GoogleTalk Architecture</a></p>
+<p>11 0.54071105 <a title="57-lsi-11" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
+<p>12 0.53932977 <a title="57-lsi-12" href="../high_scalability-2007/high_scalability-2007-08-20-TypePad_Architecture.html">68 high scalability-2007-08-20-TypePad Architecture</a></p>
+<p>13 0.53076839 <a title="57-lsi-13" href="../high_scalability-2007/high_scalability-2007-07-30-Product%3A_GridLayer._Utility_computing_for_online_application.html">42 high scalability-2007-07-30-Product: GridLayer. Utility computing for online application</a></p>
+<p>14 0.52946198 <a title="57-lsi-14" href="../high_scalability-2007/high_scalability-2007-11-02-How_WordPress.com_Tracks_300_Servers_Handling_10_Million_Pageviews.html">140 high scalability-2007-11-02-How WordPress.com Tracks 300 Servers Handling 10 Million Pageviews</a></p>
+<p>15 0.51396167 <a title="57-lsi-15" href="../high_scalability-2014/high_scalability-2014-02-10-13_Simple_Tricks_for_Scaling_Python_and_Django_with_Apache_from_HackerEarth.html">1593 high scalability-2014-02-10-13 Simple Tricks for Scaling Python and Django with Apache from HackerEarth</a></p>
+<p>16 0.50447851 <a title="57-lsi-16" href="../high_scalability-2008/high_scalability-2008-09-23-How_to_Scale_with_Ruby_on_Rails.html">389 high scalability-2008-09-23-How to Scale with Ruby on Rails</a></p>
+<p>17 0.49977323 <a title="57-lsi-17" href="../high_scalability-2008/high_scalability-2008-02-18-How_to_deal_with_an_I-O_bottleneck_to_disk%3F.html">251 high scalability-2008-02-18-How to deal with an I-O bottleneck to disk?</a></p>
+<p>18 0.49770817 <a title="57-lsi-18" href="../high_scalability-2009/high_scalability-2009-02-19-Heavy_upload_server_scalability.html">516 high scalability-2009-02-19-Heavy upload server scalability</a></p>
+<p>19 0.49615642 <a title="57-lsi-19" href="../high_scalability-2007/high_scalability-2007-12-07-Synchronizing_databases_in_different_geographic_locations.html">176 high scalability-2007-12-07-Synchronizing databases in different geographic locations</a></p>
+<p>20 0.49307173 <a title="57-lsi-20" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.169), (2, 0.174), (47, 0.444), (61, 0.034), (74, 0.025), (85, 0.032)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.88564557 <a title="57-lda-1" href="../high_scalability-2007/high_scalability-2007-08-03-Scaling_IMAP_and_POP3.html">57 high scalability-2007-08-03-Scaling IMAP and POP3</a></p>
+<p>Introduction: Just thought I'd drop a brief suggestion to anyone building a large mail
+system. Our solution for scaling mail pickup was to develop a sharded
+architecture whereby accounts are spread across a cluster of servers, each
+with imap/pop3 capability. Then we use a cluster of reverse proxies
+(Perdition) speaking to the backend imap/pop3 servers . The benefit of this
+approach is you can use simply use round-robin or HA loadbalancing on the
+perdition servers that end users connect to (e.g. admins can easily move
+accounts around on the backend storage servers without affecting end users).
+Perdition manages routing users to the appropriate backend servers and has
+MySQL support. What we also liked about this approach was that it had no
+dependency on a distributed or networked filesystem, so less chance of
+corruption or data consistency issues. When an individual server reaches
+capacity, we just off load users to a less used server. If any server goes
+offline, it only affects the fraction of users</p><p>2 0.8451423 <a title="57-lda-2" href="../high_scalability-2007/high_scalability-2007-09-06-Scaling_IMAP_and_POP3.html">81 high scalability-2007-09-06-Scaling IMAP and POP3</a></p>
+<p>Introduction: Another scalability strategy brought to you by Erik Osterman:Just thought I'd
+drop a brief suggestion to anyone building a large mail system. Our solution
+for scaling mail pickup was to develop a sharded architecture whereby accounts
+are spread across a cluster of servers, each with imap/pop3 capability. Then
+we use a cluster of reverse proxies (Perdition) speaking to the backend
+imap/pop3 servers .The benefit of this approach is you can use simply use
+round-robin or HA load balancing on the perdition servers that end users
+connect to (e.g. admins can easily move accounts around on the backend storage
+servers without affecting end users). Perdition manages routing users to the
+appropriate backend servers and has MySQL support.What we also liked about
+this approach was that it had no dependency on a distributed or networked file
+system, so less chance of corruption or data consistency issues. When an
+individual server reaches capacity, we just off load users to a less used
+server. If an</p><p>3 0.82267964 <a title="57-lda-3" href="../high_scalability-2007/high_scalability-2007-11-21-n-phase_commit_for_FS_writes%2C_reads_stay_local.html">163 high scalability-2007-11-21-n-phase commit for FS writes, reads stay local</a></p>
+<p>Introduction: I am trying to find a Linux FS that will allow me to replicate all writes
+synchronously to n nodesin a web server cluster, while keeping all reads
+local. It should not require specialized hardware.</p><p>4 0.81088656 <a title="57-lda-4" href="../high_scalability-2007/high_scalability-2007-09-17-Blog%3A_Adding_Simplicity_by_Dan_Pritchett.html">94 high scalability-2007-09-17-Blog: Adding Simplicity by Dan Pritchett</a></p>
+<p>Introduction: Dan has genuine insight into building software and large scale scalable
+systems in particular. You'll always learn something interesting reading his
+blog.A Quick Hit of What's InsideInverting the Reliability Stack,In Support of
+Non-Stop Software,Chaotic Perspectives,Latency Exists, Cope!,A Real eBay
+Architect Analyzes Part 3,Avoiding Two Phase Commit,
+ReduxSite:http://www.addsimplicity.com/</p><p>5 0.77825987 <a title="57-lda-5" href="../high_scalability-2009/high_scalability-2009-12-30-Terrastore_-_Scalable%2C_elastic%2C_consistent_document_store..html">756 high scalability-2009-12-30-Terrastore - Scalable, elastic, consistent document store.</a></p>
+<p>Introduction: Terrastoreis a new-born document store which provides advanced scalability and
+elasticity features without sacrificing consistency.Here are a few
+highlights:Ubiquitous: based on the universally supported HTTP
+protocol.Distributed: nodes can run and live everywhere on your
+network.Elastic: you can add and remove nodes dynamically to/from your running
+cluster with no downtime and no changes at all to your configuration.Scalable
+at the data layer: documents are partitioned and distributed among your nodes,
+with automatic and transparent re-balancing when nodes join and leave.Scalable
+at the computational layer: query and update operations are distributed to the
+nodes which actually holds the queried/updated data, minimizing network
+traffic and spreading computational load.Consistent: providing per-document
+consistency, you're guaranteed to always get the latest value of a single
+document, with read committed isolation for concurrent
+modifications.Schemaless: providing a collection-based i</p><p>6 0.77142286 <a title="57-lda-6" href="../high_scalability-2010/high_scalability-2010-01-13-10_Hot_Scalability_Links_for_January_13%2C_2010.html">760 high scalability-2010-01-13-10 Hot Scalability Links for January 13, 2010</a></p>
+<p>7 0.76138347 <a title="57-lda-7" href="../high_scalability-2009/high_scalability-2009-09-17-Infinispan_narrows_the_gap_between_open_source_and_commercial_data_caches_.html">708 high scalability-2009-09-17-Infinispan narrows the gap between open source and commercial data caches </a></p>
+<p>8 0.74397165 <a title="57-lda-8" href="../high_scalability-2010/high_scalability-2010-07-07-Strategy%3A_Recompute_Instead_of_Remember_Big_Data.html">852 high scalability-2010-07-07-Strategy: Recompute Instead of Remember Big Data</a></p>
+<p>9 0.71342784 <a title="57-lda-9" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
+<p>10 0.71038651 <a title="57-lda-10" href="../high_scalability-2012/high_scalability-2012-09-20-How_Vimeo_Saves_50%25_on_EC2_by_Playing_a_Smarter_Game.html">1326 high scalability-2012-09-20-How Vimeo Saves 50% on EC2 by Playing a Smarter Game</a></p>
+<p>11 0.69052237 <a title="57-lda-11" href="../high_scalability-2011/high_scalability-2011-12-30-Stuff_The_Internet_Says_On_Scalability_For_December_30%2C_2011.html">1166 high scalability-2011-12-30-Stuff The Internet Says On Scalability For December 30, 2011</a></p>
+<p>12 0.68326455 <a title="57-lda-12" href="../high_scalability-2009/high_scalability-2009-03-30-Ebay_history_and_architecture.html">550 high scalability-2009-03-30-Ebay history and architecture</a></p>
+<p>13 0.66970903 <a title="57-lda-13" href="../high_scalability-2007/high_scalability-2007-11-07-What_CDN_would_you_recommend%3F.html">144 high scalability-2007-11-07-What CDN would you recommend?</a></p>
+<p>14 0.66351438 <a title="57-lda-14" href="../high_scalability-2011/high_scalability-2011-06-15-101_Questions_to_Ask_When_Considering_a_NoSQL_Database.html">1062 high scalability-2011-06-15-101 Questions to Ask When Considering a NoSQL Database</a></p>
+<p>15 0.63928795 <a title="57-lda-15" href="../high_scalability-2011/high_scalability-2011-06-06-NoSQL_Pain%3F_Learn_How_to_Read-write_Scale_Without_a_Complete_Re-write.html">1054 high scalability-2011-06-06-NoSQL Pain? Learn How to Read-write Scale Without a Complete Re-write</a></p>
+<p>16 0.62789309 <a title="57-lda-16" href="../high_scalability-2013/high_scalability-2013-10-11-Stuff_The_Internet_Says_On_Scalability_For_October_11th%2C_2013.html">1530 high scalability-2013-10-11-Stuff The Internet Says On Scalability For October 11th, 2013</a></p>
+<p>17 0.61940569 <a title="57-lda-17" href="../high_scalability-2008/high_scalability-2008-03-15-New_Website_Design_Considerations.html">276 high scalability-2008-03-15-New Website Design Considerations</a></p>
+<p>18 0.57302928 <a title="57-lda-18" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>19 0.55991566 <a title="57-lda-19" href="../high_scalability-2009/high_scalability-2009-08-18-Hardware_Architecture_Example_%28geographical_level_mapping_of_servers%29.html">683 high scalability-2009-08-18-Hardware Architecture Example (geographical level mapping of servers)</a></p>
+<p>20 0.55633104 <a title="57-lda-20" href="../high_scalability-2008/high_scalability-2008-12-05-Sprinkle_-_Provisioning_Tool_to_Build_Remote_Servers.html">461 high scalability-2008-12-05-Sprinkle - Provisioning Tool to Build Remote Servers</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
