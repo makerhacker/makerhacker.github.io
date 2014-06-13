@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2011" href="../home/high_scalability-2011_home.html">high_scalability-2011</a> <a title="high_scalability-2011-971" href="#">high_scalability-2011-971</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-971-html" href="http://highscalability.com//blog/2011/1/10/riaks-bitcask-a-log-structured-hash-table-for-fast-keyvalue.html">html</a></p><p>Introduction: How would you implement a key-value storage system if you were starting from
+scratch? The approach Basho settled on withBitcask, their new backend for
+Riak, is an interesting combination of using RAM to store a hash map of file
+pointers to values and a log-structured file system for efficient writes.  In
+this excellent Changelog interview, some folks from Basho describe Bitcask in
+more detail.The essential Bitcask:Keys are stored in memory for fast lookups.
+All keys must fit in RAM.Writes are append-only, which means writes are
+strictly sequential and do not require seeking. Writes are write-through.
+Every time a value is updated the data file on disk is appended and the in-
+memory key index is updated with the file pointer.Read queries are satisfied
+with O(1) random disk seeks. Latency is very predictable if all keys fit in
+memory because there's no random seeking around through a file.For reads, the
+file system cache in the kernel is used instead of writing a complicated
+caching sche</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('bitcask', 0.552), ('file', 0.208), ('keys', 0.203), ('basho', 0.176), ('updated', 0.142), ('hash', 0.14), ('writes', 0.14), ('appended', 0.138), ('hint', 0.122), ('merges', 0.122), ('memory', 0.12), ('pointers', 0.117), ('offset', 0.111), ('structured', 0.104), ('values', 0.102), ('value', 0.095), ('eric', 0.093), ('index', 0.087), ('commit', 0.084), ('riak', 0.084)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000001 <a title="971-tfidf-1" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
+<p>Introduction: How would you implement a key-value storage system if you were starting from
+scratch? The approach Basho settled on withBitcask, their new backend for
+Riak, is an interesting combination of using RAM to store a hash map of file
+pointers to values and a log-structured file system for efficient writes.  In
+this excellent Changelog interview, some folks from Basho describe Bitcask in
+more detail.The essential Bitcask:Keys are stored in memory for fast lookups.
+All keys must fit in RAM.Writes are append-only, which means writes are
+strictly sequential and do not require seeking. Writes are write-through.
+Every time a value is updated the data file on disk is appended and the in-
+memory key index is updated with the file pointer.Read queries are satisfied
+with O(1) random disk seeks. Latency is very predictable if all keys fit in
+memory because there's no random seeking around through a file.For reads, the
+file system cache in the kernel is used instead of writing a complicated
+caching sche</p><p>2 0.23679525 <a title="971-tfidf-2" href="../high_scalability-2011/high_scalability-2011-08-10-LevelDB_-_Fast_and_Lightweight_Key-Value_Database_From_the_Authors_of_MapReduce_and_BigTable.html">1096 high scalability-2011-08-10-LevelDB - Fast and Lightweight Key-Value Database From the Authors of MapReduce and BigTable</a></p>
+<p>Introduction: LevelDBis an exciting new entrant into the pantheon of embedded databases,
+notable both for its pedigree, being authored by the makers of the now
+mythical Google MapReduce and BigTable products, and for its emphasis on
+efficient disk based random access using log-structured-merge (LSM) trees. The
+plan is to keep LevelDB fairly low-level. The intention is that it will be a
+useful building block for higher-level storage systems. Basho isalready
+investigatingusing LevelDB as one if its storage engines.In the past many
+systems were built around embedded databases, though most developers now use
+database servers connected to via RPCs. An embedded database is a database
+distributed as a library and linked directly into your application. The
+application is responsible for providing a service level API, sharding,
+backups, initiating consistency checking, initiation rollback,  startup,
+shutdown, queries, etc. Applications become the container for the database and
+the manager of the database.Arc</p><p>3 0.19041209 <a title="971-tfidf-3" href="../high_scalability-2010/high_scalability-2010-08-30-Pomegranate_-_Storing_Billions_and_Billions_of_Tiny_Little_Files.html">889 high scalability-2010-08-30-Pomegranate - Storing Billions and Billions of Tiny Little Files</a></p>
+<p>Introduction: Pomegranateis a novel distributed file system built over distributed tabular
+storage that acts an awful lot like a NoSQL system. It's targeted at
+increasing the performance of tiny object access in order to support
+applications like online photo and micro-blog services, which require high
+concurrency, high throughput, and low latency. Their tests seem to indicate it
+works:We have demonstrate that file system over tabular storage performs well
+for highly concurrent access. In our test cluster, we observedlinearly
+increased more than100,000aggregate read and write requests served per second
+(RPS). Rather than sitting atop the file system like almost every other K-V
+store, Pomegranate is baked into file system. The idea is that the file system
+API is common to every platform so it wouldn't require a separate API to use.
+Every application could use it out of the box.The features of Pomegranate
+are:It handles billions of small files efficiently, even in one directory;It
+provide separate and</p><p>4 0.16088794 <a title="971-tfidf-4" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: For everything given something seems to be taken. Caching is a great
+scalability solution, but caching alsocomes with problems.Shardingis a great
+scalability solution, but as Foursquare recently revealed in apost-mortemabout
+their 17 hours of downtime, sharding also has problems. MongoDB, the database
+Foursquare uses, also contributed theirpost-mortemof what went wrong too.Now
+that everyone has shared and resharded, what can we learn to help us skip
+these mistakes and quickly move on to a different set of mistakes?First, like
+forFacebook, huge props to Foursquare and MongoDB for being upfront and honest
+about their problems. This helps everyone get better and is a sign we work in
+a pretty cool industry.Second, overall, the fault didn't flow from evil hearts
+or gross negligence. As usual the cause was more mundane: a key system, that
+could be a little more robust, combined with a very popular application built
+by a small group of people, under immense pressure, trying to get a lot of
+wo</p><p>5 0.13831 <a title="971-tfidf-5" href="../high_scalability-2009/high_scalability-2009-05-05-Drop_ACID_and_Think_About_Data.html">589 high scalability-2009-05-05-Drop ACID and Think About Data</a></p>
+<p>Introduction: The abstract for the talk given by Bob Ippolito, co-founder and CTO of Mochi
+Media, Inc:Building large systems on top of a traditional single-master RDBMS
+data storage layer is no longer good enough. This talk explores the landscape
+of new technologies available today to augment your data layer to improve
+performance and reliability. Is your application a good fit for caches, bloom
+filters, bitmap indexes, column stores, distributed key/value stores, or
+document databases? Learn how they work (in theory and practice) and decide
+for yourself.Bob does an excellent job highlighting different products and the
+key concepts to understand when pondering the wide variety of new database
+offerings. It's unlikely you'll be able to say oh, this is the database for me
+after watching the presentation, but you will be much better informed on your
+options. And I imagine slightly confused as to what to do :-)An interesting
+observation in the talk is that the more robust products are internal to large</p><p>6 0.13720374 <a title="971-tfidf-6" href="../high_scalability-2012/high_scalability-2012-03-07-Scale_Indefinitely_on_S3_With_These_Secrets_of_the_S3_Masters.html">1205 high scalability-2012-03-07-Scale Indefinitely on S3 With These Secrets of the S3 Masters</a></p>
+<p>7 0.13097182 <a title="971-tfidf-7" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
+<p>8 0.12071598 <a title="971-tfidf-8" href="../high_scalability-2011/high_scalability-2011-09-13-Must_see%3A_5_Steps_to_Scaling_MongoDB_%28Or_Any_DB%29_in_8_Minutes.html">1114 high scalability-2011-09-13-Must see: 5 Steps to Scaling MongoDB (Or Any DB) in 8 Minutes</a></p>
+<p>9 0.11562736 <a title="971-tfidf-9" href="../high_scalability-2014/high_scalability-2014-03-20-Paper%3A_Log-structured_Memory_for_DRAM-based_Storage_-_High_Memory_Utilization_Plus_High_Performance.html">1616 high scalability-2014-03-20-Paper: Log-structured Memory for DRAM-based Storage - High Memory Utilization Plus High Performance</a></p>
+<p>10 0.11505648 <a title="971-tfidf-10" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
+<p>11 0.11290601 <a title="971-tfidf-11" href="../high_scalability-2012/high_scalability-2012-10-04-Stuff_The_Internet_Says_On_Scalability_For_October_5%2C_2012.html">1334 high scalability-2012-10-04-Stuff The Internet Says On Scalability For October 5, 2012</a></p>
+<p>12 0.11194433 <a title="971-tfidf-12" href="../high_scalability-2013/high_scalability-2013-06-13-Busting_4_Modern_Hardware_Myths_-_Are_Memory%2C_HDDs%2C_and_SSDs_Really_Random_Access%3F.html">1475 high scalability-2013-06-13-Busting 4 Modern Hardware Myths - Are Memory, HDDs, and SSDs Really Random Access?</a></p>
+<p>13 0.11019047 <a title="971-tfidf-13" href="../high_scalability-2010/high_scalability-2010-12-21-SQL_%2B_NoSQL_%3D_Yes_%21.html">961 high scalability-2010-12-21-SQL + NoSQL = Yes !</a></p>
+<p>14 0.1093357 <a title="971-tfidf-14" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
+<p>15 0.10916748 <a title="971-tfidf-15" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
+<p>16 0.10728183 <a title="971-tfidf-16" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
+<p>17 0.10540272 <a title="971-tfidf-17" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
+<p>18 0.10330007 <a title="971-tfidf-18" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
+<p>19 0.10308446 <a title="971-tfidf-19" href="../high_scalability-2010/high_scalability-2010-09-30-Facebook_and_Site_Failures_Caused_by_Complex%2C_Weakly_Interacting%2C_Layered_Systems.html">910 high scalability-2010-09-30-Facebook and Site Failures Caused by Complex, Weakly Interacting, Layered Systems</a></p>
+<p>20 0.1030224 <a title="971-tfidf-20" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.164), (1, 0.126), (2, -0.056), (3, -0.019), (4, -0.004), (5, 0.132), (6, 0.078), (7, 0.011), (8, -0.022), (9, 0.002), (10, 0.034), (11, -0.059), (12, -0.004), (13, 0.021), (14, -0.0), (15, 0.022), (16, -0.058), (17, 0.022), (18, -0.036), (19, -0.017), (20, -0.014), (21, 0.005), (22, 0.005), (23, 0.135), (24, -0.041), (25, -0.081), (26, 0.034), (27, -0.033), (28, -0.06), (29, -0.029), (30, 0.006), (31, -0.057), (32, 0.039), (33, -0.04), (34, -0.042), (35, 0.02), (36, -0.023), (37, -0.006), (38, 0.033), (39, -0.04), (40, -0.082), (41, -0.036), (42, 0.028), (43, 0.037), (44, -0.032), (45, 0.012), (46, 0.012), (47, 0.007), (48, 0.052), (49, 0.041)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97222835 <a title="971-lsi-1" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
+<p>Introduction: How would you implement a key-value storage system if you were starting from
+scratch? The approach Basho settled on withBitcask, their new backend for
+Riak, is an interesting combination of using RAM to store a hash map of file
+pointers to values and a log-structured file system for efficient writes.  In
+this excellent Changelog interview, some folks from Basho describe Bitcask in
+more detail.The essential Bitcask:Keys are stored in memory for fast lookups.
+All keys must fit in RAM.Writes are append-only, which means writes are
+strictly sequential and do not require seeking. Writes are write-through.
+Every time a value is updated the data file on disk is appended and the in-
+memory key index is updated with the file pointer.Read queries are satisfied
+with O(1) random disk seeks. Latency is very predictable if all keys fit in
+memory because there's no random seeking around through a file.For reads, the
+file system cache in the kernel is used instead of writing a complicated
+caching sche</p><p>2 0.86946487 <a title="971-lsi-2" href="../high_scalability-2011/high_scalability-2011-08-10-LevelDB_-_Fast_and_Lightweight_Key-Value_Database_From_the_Authors_of_MapReduce_and_BigTable.html">1096 high scalability-2011-08-10-LevelDB - Fast and Lightweight Key-Value Database From the Authors of MapReduce and BigTable</a></p>
+<p>Introduction: LevelDBis an exciting new entrant into the pantheon of embedded databases,
+notable both for its pedigree, being authored by the makers of the now
+mythical Google MapReduce and BigTable products, and for its emphasis on
+efficient disk based random access using log-structured-merge (LSM) trees. The
+plan is to keep LevelDB fairly low-level. The intention is that it will be a
+useful building block for higher-level storage systems. Basho isalready
+investigatingusing LevelDB as one if its storage engines.In the past many
+systems were built around embedded databases, though most developers now use
+database servers connected to via RPCs. An embedded database is a database
+distributed as a library and linked directly into your application. The
+application is responsible for providing a service level API, sharding,
+backups, initiating consistency checking, initiation rollback,  startup,
+shutdown, queries, etc. Applications become the container for the database and
+the manager of the database.Arc</p><p>3 0.83271962 <a title="971-lsi-3" href="../high_scalability-2013/high_scalability-2013-04-17-Tachyon__-_Fault_Tolerant_Distributed_File_System_with_300_Times_Higher_Throughput_than_HDFS.html">1442 high scalability-2013-04-17-Tachyon  - Fault Tolerant Distributed File System with 300 Times Higher Throughput than HDFS</a></p>
+<p>Introduction: Tachyon  (github) is interesting new filesystem brought to by the folks at
+theUC Berkeley AMP Lab:Tachyon is a fault tolerant distributed ďŹ le system
+enabling reliable file sharing at memory-speed across cluster frameworks, such
+as Spark and MapReduce.It offers up to 300 times higher throughput than HDFS,
+by leveraging lineage information and using memory aggressively. Tachyon
+caches working set files in memory, and enables different jobs/queries and
+frameworks to access cached files at memory speed. Thus, Tachyon avoids going
+to disk to load datasets that is frequently read.It has a Java-like File API,
+native support for raw tables, a pluggable file system, and it works with
+Hadoop with no modifications. It might work well for streaming media too as
+you wouldn't have to wait for the complete file to hit the disk before
+rendering.Discuss on Hacker News</p><p>4 0.8326506 <a title="971-lsi-4" href="../high_scalability-2010/high_scalability-2010-08-30-Pomegranate_-_Storing_Billions_and_Billions_of_Tiny_Little_Files.html">889 high scalability-2010-08-30-Pomegranate - Storing Billions and Billions of Tiny Little Files</a></p>
+<p>Introduction: Pomegranateis a novel distributed file system built over distributed tabular
+storage that acts an awful lot like a NoSQL system. It's targeted at
+increasing the performance of tiny object access in order to support
+applications like online photo and micro-blog services, which require high
+concurrency, high throughput, and low latency. Their tests seem to indicate it
+works:We have demonstrate that file system over tabular storage performs well
+for highly concurrent access. In our test cluster, we observedlinearly
+increased more than100,000aggregate read and write requests served per second
+(RPS). Rather than sitting atop the file system like almost every other K-V
+store, Pomegranate is baked into file system. The idea is that the file system
+API is common to every platform so it wouldn't require a separate API to use.
+Every application could use it out of the box.The features of Pomegranate
+are:It handles billions of small files efficiently, even in one directory;It
+provide separate and</p><p>5 0.78673375 <a title="971-lsi-5" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
+<p>Introduction: This is a guest post bySachin Sinha, Founder ofIqlectand developer
+ofBangDB.The goal for the paper is to provide the performances data for
+following embedded databases under various scenarios for random operations
+such as write and read. The data is presented in graphical manner to make the
+data self explanatory to some extent.LevelDB:LevelDB is a fast key-value
+storage library written at Google that provides an ordered mapping from string
+keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and
+uses SSTable and MemTable for the database implementation. It's written in C++
+and availabe under BSD license. LevelDB treats key and value as arbitrary byte
+arrays and stores keys in ordered fashion. It uses snappy compression for the
+data compression. Write and Read are concurrent for the db, but write performs
+best with single thread whereas Read scales with number of
+coresBerkleyDB:BerkleyDB (BDB) is a library that provides high performance
+embedded database for key/va</p><p>6 0.77188712 <a title="971-lsi-6" href="../high_scalability-2007/high_scalability-2007-07-31-BerkeleyDB_%26_other_distributed_high_performance_key-value_databases.html">50 high scalability-2007-07-31-BerkeleyDB & other distributed high performance key-value databases</a></p>
+<p>7 0.76155871 <a title="971-lsi-7" href="../high_scalability-2007/high_scalability-2007-09-28-Kosmos_File_System_%28KFS%29_is_a_New_High_End_Google_File_System_Option.html">103 high scalability-2007-09-28-Kosmos File System (KFS) is a New High End Google File System Option</a></p>
+<p>8 0.74601865 <a title="971-lsi-8" href="../high_scalability-2007/high_scalability-2007-10-01-SmugMug_Found_their_Perfect_Storage_Array.html">104 high scalability-2007-10-01-SmugMug Found their Perfect Storage Array</a></p>
+<p>9 0.74152547 <a title="971-lsi-9" href="../high_scalability-2011/high_scalability-2011-09-13-Must_see%3A_5_Steps_to_Scaling_MongoDB_%28Or_Any_DB%29_in_8_Minutes.html">1114 high scalability-2011-09-13-Must see: 5 Steps to Scaling MongoDB (Or Any DB) in 8 Minutes</a></p>
+<p>10 0.73226798 <a title="971-lsi-10" href="../high_scalability-2013/high_scalability-2013-06-13-Busting_4_Modern_Hardware_Myths_-_Are_Memory%2C_HDDs%2C_and_SSDs_Really_Random_Access%3F.html">1475 high scalability-2013-06-13-Busting 4 Modern Hardware Myths - Are Memory, HDDs, and SSDs Really Random Access?</a></p>
+<p>11 0.73040676 <a title="971-lsi-11" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
+<p>12 0.73034137 <a title="971-lsi-12" href="../high_scalability-2014/high_scalability-2014-03-20-Paper%3A_Log-structured_Memory_for_DRAM-based_Storage_-_High_Memory_Utilization_Plus_High_Performance.html">1616 high scalability-2014-03-20-Paper: Log-structured Memory for DRAM-based Storage - High Memory Utilization Plus High Performance</a></p>
+<p>13 0.7284767 <a title="971-lsi-13" href="../high_scalability-2011/high_scalability-2011-05-05-Paper%3A_A_Study_of_Practical_Deduplication.html">1035 high scalability-2011-05-05-Paper: A Study of Practical Deduplication</a></p>
+<p>14 0.7247048 <a title="971-lsi-14" href="../high_scalability-2012/high_scalability-2012-12-10-Switch_your_databases_to_Flash_storage._Now._Or_you%27re_doing_it_wrong..html">1369 high scalability-2012-12-10-Switch your databases to Flash storage. Now. Or you're doing it wrong.</a></p>
+<p>15 0.71605879 <a title="971-lsi-15" href="../high_scalability-2011/high_scalability-2011-08-25-Colmux_-_Finding_Memory_Leaks%2C_High_I-O_Wait_Times%2C_and_Hotness_on_3000_Node_Clusters.html">1104 high scalability-2011-08-25-Colmux - Finding Memory Leaks, High I-O Wait Times, and Hotness on 3000 Node Clusters</a></p>
+<p>16 0.69815081 <a title="971-lsi-16" href="../high_scalability-2009/high_scalability-2009-05-05-Drop_ACID_and_Think_About_Data.html">589 high scalability-2009-05-05-Drop ACID and Think About Data</a></p>
+<p>17 0.68475938 <a title="971-lsi-17" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
+<p>18 0.68420702 <a title="971-lsi-18" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
+<p>19 0.68358433 <a title="971-lsi-19" href="../high_scalability-2012/high_scalability-2012-07-09-Data_Replication_in_NoSQL_Databases.html">1279 high scalability-2012-07-09-Data Replication in NoSQL Databases</a></p>
+<p>20 0.68024123 <a title="971-lsi-20" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.162), (2, 0.255), (10, 0.054), (35, 0.141), (47, 0.013), (56, 0.012), (61, 0.067), (77, 0.026), (79, 0.099), (85, 0.027), (94, 0.051)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.94928986 <a title="971-lda-1" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
+<p>Introduction: How would you implement a key-value storage system if you were starting from
+scratch? The approach Basho settled on withBitcask, their new backend for
+Riak, is an interesting combination of using RAM to store a hash map of file
+pointers to values and a log-structured file system for efficient writes.  In
+this excellent Changelog interview, some folks from Basho describe Bitcask in
+more detail.The essential Bitcask:Keys are stored in memory for fast lookups.
+All keys must fit in RAM.Writes are append-only, which means writes are
+strictly sequential and do not require seeking. Writes are write-through.
+Every time a value is updated the data file on disk is appended and the in-
+memory key index is updated with the file pointer.Read queries are satisfied
+with O(1) random disk seeks. Latency is very predictable if all keys fit in
+memory because there's no random seeking around through a file.For reads, the
+file system cache in the kernel is used instead of writing a complicated
+caching sche</p><p>2 0.94724756 <a title="971-lda-2" href="../high_scalability-2008/high_scalability-2008-08-14-Product%3A_Terracotta_-_Open_Source_Network-Attached_Memory.html">364 high scalability-2008-08-14-Product: Terracotta - Open Source Network-Attached Memory</a></p>
+<p>Introduction: Update:Evaluating Terracottaby Piotr Woloszyn. Nice writeup that covers
+resilience, failover, DB persistence, Distributed caching implementation,
+OS/Platform restrictions, Ease of implementation, Hardware requirements,
+Performance, Support package, Code stability, partitioning, Transactional,
+Replication and consistency.Terracottais Network Attached Memory (NAM) for
+Java VMs. It provides up to a terabyte of virtual heap for Java applications
+that spans hundreds of connected JVMs.NAM is best suited for storing what they
+call scratch data. Scratch data is defined as object oriented data that is
+critical to the execution of a series of Java operations inside the JVM, but
+may not be critical once a business transaction is complete.The Terracotta
+Architecture has three components:Client Nodes - Each client node corresponds
+to a client node in the cluster which runs on a standard JVMServer Cluster -
+java process that provides the clustering intelligence. The current Terracotta
+implementation</p><p>3 0.94187623 <a title="971-lda-3" href="../high_scalability-2012/high_scalability-2012-05-23-Averages%2C_web_performance_data%2C_and_how_your_analytics_product_is_lying_to_you__.html">1250 high scalability-2012-05-23-Averages, web performance data, and how your analytics product is lying to you  </a></p>
+<p>Introduction: This guest post is written byJosh Fraser, co-founder and CEO ofTorbit. Torbit
+creates tools for measuring, analyzing and optimizing web performance.  Did
+you know that 5% of the pageviews on Walmart.com take over 20 seconds to load?
+Walmart discovered this recently after adding real user measurement (RUM) to
+analyze their web performance for every single visitor to their site. Walmart
+used JavaScript to measure their median load time as well as key metrics like
+their 95th percentile. While 20 seconds is a long time to wait for a website
+to load,the Walmart storyis actually not that uncommon. Remember, this is the
+worst 5% of their pageviews, not the typical experience.Walmart's median load
+time was reported at around 4 seconds, meaning half of their visitors loaded
+Walmart.com faster than 4 seconds and the other half took longer than 4
+seconds to load. Using this knowledge, Walmart was prepared to act. By
+reducing page load times by even one second, Walmart found that they would
+increa</p><p>4 0.94091904 <a title="971-lda-4" href="../high_scalability-2009/high_scalability-2009-11-11-Hot_Scalability_Links_for_Nov_11_2009__.html">740 high scalability-2009-11-11-Hot Scalability Links for Nov 11 2009  </a></p>
+<p>Introduction: The Cost of Latency by James Hamilton. James summarizes latency info from
+Steve Souder, Greg Linden, and Marissa Mayer.Speed [is] an undervalued and
+under-discussed asset on the web.Dynamo - Part I: a followup and re-rebuttals.
+Dynamo under attack as having Design flaws and the resounding rebuttal in
+response.Programming Bits and Atoms. Thinking about programming and scaling as
+a problem in physics. Absolutely fascinating and inspiring.Scaling Servers
+with the Cloud: Amazon S3. Build a static site using S3 for pennies. An oldly
+but still a goody idea.Are Wireless Road Trains the Cure for Traffic
+Congestion? The concept of road trains--up to eight vehicles zooming down the
+road together--has long been considered a faster, safer, and greener way of
+traveling long distances by car.Erlang at Facebookby Eugene Letuchy. How
+Facebook uses Erlang to implement Chat, AIM Presence, and Chat Jabber support.
+Yahoo Open Sources Traffic Server.Traffic Server enables the session
+management, authentica</p><p>5 0.92912138 <a title="971-lda-5" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
+<p>Introduction: My impression of DynamoDB before attending aAmazon DynamoDB for Developerstalk
+is that it's the usual quality service produced by Amazon: simple, fast,
+scalable, geographically redundant, expensive enough to make you think twice
+about using it, and delightfully NoOp.After the talk my impression has become
+more nuanced. The quality impression still stands. Look at theforumsand you'll
+see the typical issues every product has, but no real surprises. And as a
+SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced
+a more elegant design.What was surprising is how un-cloudy DynamoDB appears to
+be. The cloud pillars of pay for what you use and quick elastic response to
+bursty traffic have been abandoned, for some understandable reasons, but the
+result is you really have to consider your use cases before making DynamoDB
+the default choice.Here are some of my impressions from the talk...DynamoDB is
+a clean well lighted place for key-value data. The interface is simple,
+co</p><p>6 0.92322481 <a title="971-lda-6" href="../high_scalability-2008/high_scalability-2008-12-03-Java_World_Interview_on_Scalability_and_Other_Java_Scalability_Secrets.html">459 high scalability-2008-12-03-Java World Interview on Scalability and Other Java Scalability Secrets</a></p>
+<p>7 0.91757691 <a title="971-lda-7" href="../high_scalability-2012/high_scalability-2012-12-07-Stuff_The_Internet_Says_On_Scalability_For_December_7%2C_2012.html">1368 high scalability-2012-12-07-Stuff The Internet Says On Scalability For December 7, 2012</a></p>
+<p>8 0.91565061 <a title="971-lda-8" href="../high_scalability-2009/high_scalability-2009-08-07-The_Canonical_Cloud_Architecture_.html">674 high scalability-2009-08-07-The Canonical Cloud Architecture </a></p>
+<p>9 0.91495782 <a title="971-lda-9" href="../high_scalability-2010/high_scalability-2010-03-22-7_Secrets_to_Successfully_Scaling_with_Scalr_%28on_Amazon%29_by_Sebastian_Stadil.html">798 high scalability-2010-03-22-7 Secrets to Successfully Scaling with Scalr (on Amazon) by Sebastian Stadil</a></p>
+<p>10 0.91397601 <a title="971-lda-10" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
+<p>11 0.91345614 <a title="971-lda-11" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>
+<p>12 0.91334772 <a title="971-lda-12" href="../high_scalability-2012/high_scalability-2012-04-20-Stuff_The_Internet_Says_On_Scalability_For_April_20%2C_2012.html">1231 high scalability-2012-04-20-Stuff The Internet Says On Scalability For April 20, 2012</a></p>
+<p>13 0.91318667 <a title="971-lda-13" href="../high_scalability-2008/high_scalability-2008-03-12-YouTube_Architecture.html">274 high scalability-2008-03-12-YouTube Architecture</a></p>
+<p>14 0.91275227 <a title="971-lda-14" href="../high_scalability-2012/high_scalability-2012-08-03-Stuff_The_Internet_Says_On_Scalability_For_August_3%2C_2012.html">1297 high scalability-2012-08-03-Stuff The Internet Says On Scalability For August 3, 2012</a></p>
+<p>15 0.91238791 <a title="971-lda-15" href="../high_scalability-2012/high_scalability-2012-10-04-Stuff_The_Internet_Says_On_Scalability_For_October_5%2C_2012.html">1334 high scalability-2012-10-04-Stuff The Internet Says On Scalability For October 5, 2012</a></p>
+<p>16 0.91233736 <a title="971-lda-16" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>17 0.91209096 <a title="971-lda-17" href="../high_scalability-2014/high_scalability-2014-04-25-Stuff_The_Internet_Says_On_Scalability_For_April_25th%2C_2014.html">1637 high scalability-2014-04-25-Stuff The Internet Says On Scalability For April 25th, 2014</a></p>
+<p>18 0.91171056 <a title="971-lda-18" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
+<p>19 0.91136944 <a title="971-lda-19" href="../high_scalability-2012/high_scalability-2012-01-09-The_Etsy_Saga%3A_From_Silos_to_Happy_to_Billions_of_Pageviews_a_Month.html">1171 high scalability-2012-01-09-The Etsy Saga: From Silos to Happy to Billions of Pageviews a Month</a></p>
+<p>20 0.91117662 <a title="971-lda-20" href="../high_scalability-2014/high_scalability-2014-03-03-The_%E2%80%9CFour_Hamiltons%E2%80%9D_Framework_for_Mitigating_Faults_in_the_Cloud%3A_Avoid_it%2C_Mask_it%2C_Bound_it%2C_Fix_it_Fast.html">1604 high scalability-2014-03-03-The “Four Hamiltons” Framework for Mitigating Faults in the Cloud: Avoid it, Mask it, Bound it, Fix it Fast</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

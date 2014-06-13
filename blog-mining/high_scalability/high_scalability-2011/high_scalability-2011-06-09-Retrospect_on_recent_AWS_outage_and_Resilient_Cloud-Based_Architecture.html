@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>1056 high scalability-2011-06-09-Retrospect on recent AWS outage and Resilient Cloud-Based Architecture</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2011" href="../home/high_scalability-2011_home.html">high_scalability-2011</a> <a title="high_scalability-2011-1056" href="#">high_scalability-2011-1056</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>1056 high scalability-2011-06-09-Retrospect on recent AWS outage and Resilient Cloud-Based Architecture</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1056-html" href="http://highscalability.com//blog/2011/6/9/retrospect-on-recent-aws-outage-and-resilient-cloud-based-ar.html">html</a></p><p>Introduction: A bit over a month ago Amazon experienced its infamous AWS outage in the US
+East Region. As a cloud evangelist, I was intrigued by the history of the
+outage as it occurred. There were great posts during and after the outage from
+those who went down. But more interestingly for me as architect were the
+detailed posts of those who managed to survive the outage relatively unharmed,
+such as SimpleGeo, Netflix,SmugMug, SmugMug's CTO, Twilio, Bizo and
+others.Reading through the experience of others, I tried to summarize
+thepatterns, principles and best practicesthat emerged from these posts, as I
+believe we can learn a lot from them on how to design our business
+applications to truly leverage on the benefits that the cloud offers in high
+availability and scalability.The main principles, patterns and best practices
+are:Design for failureStateless and autonomous servicesRedundant hot copies
+spread across zonesSpread across several public cloud vendors and/or private
+cloudAutomation and monitori</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('outage', 0.354), ('elastic', 0.287), ('principles', 0.252), ('patterns', 0.213), ('posts', 0.174), ('application', 0.165), ('business', 0.132), ('coding', 0.126), ('unfamiliar', 0.12), ('bizo', 0.12), ('forrester', 0.12), ('twilio', 0.12), ('evangelist', 0.115), ('practices', 0.114), ('infamous', 0.112), ('cloud', 0.109), ('best', 0.109), ('experienced', 0.108), ('architect', 0.107), ('apis', 0.107)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999994 <a title="1056-tfidf-1" href="../high_scalability-2011/high_scalability-2011-06-09-Retrospect_on_recent_AWS_outage_and_Resilient_Cloud-Based_Architecture.html">1056 high scalability-2011-06-09-Retrospect on recent AWS outage and Resilient Cloud-Based Architecture</a></p>
+<p>Introduction: A bit over a month ago Amazon experienced its infamous AWS outage in the US
+East Region. As a cloud evangelist, I was intrigued by the history of the
+outage as it occurred. There were great posts during and after the outage from
+those who went down. But more interestingly for me as architect were the
+detailed posts of those who managed to survive the outage relatively unharmed,
+such as SimpleGeo, Netflix,SmugMug, SmugMug's CTO, Twilio, Bizo and
+others.Reading through the experience of others, I tried to summarize
+thepatterns, principles and best practicesthat emerged from these posts, as I
+believe we can learn a lot from them on how to design our business
+applications to truly leverage on the benefits that the cloud offers in high
+availability and scalability.The main principles, patterns and best practices
+are:Design for failureStateless and autonomous servicesRedundant hot copies
+spread across zonesSpread across several public cloud vendors and/or private
+cloudAutomation and monitori</p><p>2 0.29000437 <a title="1056-tfidf-2" href="../high_scalability-2011/high_scalability-2011-05-02-The_Updated_Big_List_of_Articles_on_the_Amazon_Outage.html">1033 high scalability-2011-05-02-The Updated Big List of Articles on the Amazon Outage</a></p>
+<p>Introduction: SinceThe Big List Of Articles On The Amazon Outage was published we've a had
+few updates that people might not have seen. Amazon of course released their
+Summary of the Amazon EC2 and Amazon RDS Service Disruption in the US East
+Region. Netlix shared theirLessons Learned from the AWS Outage as did Heroku
+(How Heroku Survived the Amazon Outage), Smug Mug (How SmugMug survived the
+Amazonpocalypse), and SimpleGeo (How SimpleGeo Stayed Up During the AWS
+Downtime). The curious thing from my perspective is the general lack of
+response to Amazon's explanation. I expected more discussion. There's been
+almost none that I've seen. My guess is very few people understand what Amazon
+was talking about enough to comment whereas almost everyone feels qualified to
+talk about the event itself.Lesson for crisis handlers: deep dive post-mortems
+that are timely, long, honestish, and highly technical are the most effective
+means of staunching the downward spiral of media attention. Amazon's
+Explanation of</p><p>3 0.26003426 <a title="1056-tfidf-3" href="../high_scalability-2011/high_scalability-2011-04-25-The_Big_List_of_Articles_on_the_Amazon_Outage.html">1029 high scalability-2011-04-25-The Big List of Articles on the Amazon Outage</a></p>
+<p>Introduction: Please seeThe Updated Big List Of Articles On The Amazon Outage for a new
+improved list.So many great articles have been written on the Amazon Outage.
+Some aim at being helpful, some chastise developers for being so stupid, some
+chastise Amazon for being so incompetent, some talk about the pain they and
+their companies have experienced, and some even predict the downfall of the
+cloud. Still others say we have seen a sea change in future of the cloud, a
+prediction that's hard to disagree with, though the shape of the change
+remains...cloudy.I'll try to keep this list update as more information comes
+out. There will be a lot for developers to consider going forward. If there's
+a resource you think should be added, just let me know.Amazon's Explanation of
+What HappenedSummary of the Amazon EC2 and Amazon RDS Service Disruption in
+the US East RegionHackers News thread on AWS Service Disruption Post Mortem
+Quite Funny Commentary on the SummaryExperiences from Specific Companies, Both
+Good a</p><p>4 0.20271033 <a title="1056-tfidf-4" href="../high_scalability-2010/high_scalability-2010-06-16-WTF_is_Elastic_Data_Grid%3F_%28By_Example%29.html">843 high scalability-2010-06-16-WTF is Elastic Data Grid? (By Example)</a></p>
+<p>Introduction: Forrester released their new wave report:  The Forrester Waveâ&bdquo;˘: Elastic
+Caching Platforms, Q2 2010where they listed GigaSpaces, IBM, Oracle, and
+Terracotta as leading vendors in the field. In this post I'd like to take some
+time to explain what some of these terms mean, and why they're important to
+you. I'll start with a definition of Elastic Data Grid (Elastic Caching), how
+it is different then other caching and NoSQL alternatives, and more
+importantly -- I'll illustrate how it works through some real code
+examples.You can read the full storyhere.</p><p>5 0.16272381 <a title="1056-tfidf-5" href="../high_scalability-2010/high_scalability-2010-04-28-Elasticity_for_the_Enterprise_--_Ensuring_Continuous_High_Availability_in_a_Disaster_Failure_Scenario.html">816 high scalability-2010-04-28-Elasticity for the Enterprise -- Ensuring Continuous High Availability in a Disaster Failure Scenario</a></p>
+<p>Introduction: Many enterprises' high-availability architecture is based on the assumption
+that you can prevent failure from happening by putting all your critical data
+in a centralized database, back it up with expensive storage, and replicate it
+somehow between the sites. As I argued in one of my previous posts (Why
+Existing Databases (RAC) are So Breakable!) many of those assumptions are
+broken at their core, as storage is doomed to failure just like any other
+device, expensive hardware doesn't make things any better and database
+replication is often not enough.One of the main lessons that we can take from
+the likes of Amazon and Google is that the right way to ensure continuous high
+availability is by designing our system to cope with failure. We need to
+assume that what we tend to think of as unthinkable will probably happen, as
+that's the nature of failure. So rather than trying to prevent failures, we
+need to build a system that will tolerate them.As we can learn from a recent
+outage event in</p><p>6 0.16242445 <a title="1056-tfidf-6" href="../high_scalability-2012/high_scalability-2012-05-07-Startups_are_Creating_a_New_System_of_the_World_for_IT.html">1240 high scalability-2012-05-07-Startups are Creating a New System of the World for IT</a></p>
+<p>7 0.14550604 <a title="1056-tfidf-7" href="../high_scalability-2011/high_scalability-2011-04-22-Stuff_The_Internet_Says_On_Scalability_For_April_22%2C_2011.html">1028 high scalability-2011-04-22-Stuff The Internet Says On Scalability For April 22, 2011</a></p>
+<p>8 0.14516558 <a title="1056-tfidf-8" href="../high_scalability-2010/high_scalability-2010-09-22-Applying_Scalability_Patterns_to_Infrastructure_Architecture.html">906 high scalability-2010-09-22-Applying Scalability Patterns to Infrastructure Architecture</a></p>
+<p>9 0.13953914 <a title="1056-tfidf-9" href="../high_scalability-2008/high_scalability-2008-10-01-The_Pattern_Bible_for_Distributed_Computing.html">400 high scalability-2008-10-01-The Pattern Bible for Distributed Computing</a></p>
+<p>10 0.1318645 <a title="1056-tfidf-10" href="../high_scalability-2011/high_scalability-2011-09-06-Big_Data_Application_Platform.html">1110 high scalability-2011-09-06-Big Data Application Platform</a></p>
+<p>11 0.13045606 <a title="1056-tfidf-11" href="../high_scalability-2009/high_scalability-2009-10-01-Private_Data_Cloud%3A_%27Do_It_Yourself%27_with_Eucalyptus_.html">713 high scalability-2009-10-01-Private Data Cloud: 'Do It Yourself' with Eucalyptus </a></p>
+<p>12 0.12596802 <a title="1056-tfidf-12" href="../high_scalability-2010/high_scalability-2010-10-12-The_CIO%E2%80%99s_Problem%3A_Cloud_%E2%80%9CMess%E2%80%9D_or_Cloud_%E2%80%9CMash%E2%80%9D.html">918 high scalability-2010-10-12-The CIO’s Problem: Cloud “Mess” or Cloud “Mash”</a></p>
+<p>13 0.12560505 <a title="1056-tfidf-13" href="../high_scalability-2007/high_scalability-2007-07-30-Product%3A_Amazon_Elastic_Compute_Cloud.html">40 high scalability-2007-07-30-Product: Amazon Elastic Compute Cloud</a></p>
+<p>14 0.12392386 <a title="1056-tfidf-14" href="../high_scalability-2012/high_scalability-2012-06-26-Sponsored_Post%3A_New_Relic%2C_Digital_Ocean%2C_NetDNA%2C_Torbit%2C_Reality_Check_Network%2C_Gigaspaces%2C_AiCache%2C_Logic_Monitor%2C_AppDynamics%2C_CloudSigma%2C_ManageEnine%2C_Site24x7.html">1272 high scalability-2012-06-26-Sponsored Post: New Relic, Digital Ocean, NetDNA, Torbit, Reality Check Network, Gigaspaces, AiCache, Logic Monitor, AppDynamics, CloudSigma, ManageEnine, Site24x7</a></p>
+<p>15 0.12262685 <a title="1056-tfidf-15" href="../high_scalability-2012/high_scalability-2012-01-03-Sponsored_Post%3A_Red_5_Studios%2C_SingleHop%2C_Spokeo%2C_Callfire%2C_Attribution_Modeling%2C_Logic_Monitor%2C_New_Relic%2C_ScaleOut%2C_AppDynamics%2C_CloudSigma%2C_ManageEngine%2C_Site24x7.html">1167 high scalability-2012-01-03-Sponsored Post: Red 5 Studios, SingleHop, Spokeo, Callfire, Attribution Modeling, Logic Monitor, New Relic, ScaleOut, AppDynamics, CloudSigma, ManageEngine, Site24x7</a></p>
+<p>16 0.12180454 <a title="1056-tfidf-16" href="../high_scalability-2009/high_scalability-2009-12-16-Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_in_the_Ambient_Cloud.html">750 high scalability-2009-12-16-Building Super Scalable Systems: Blade Runner Meets Autonomic Computing in the Ambient Cloud</a></p>
+<p>17 0.12163978 <a title="1056-tfidf-17" href="../high_scalability-2012/high_scalability-2012-11-05-Gone_Fishin%27%3A_Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_In_The_Ambient_Cloud.html">1355 high scalability-2012-11-05-Gone Fishin': Building Super Scalable Systems: Blade Runner Meets Autonomic Computing In The Ambient Cloud</a></p>
+<p>18 0.12121575 <a title="1056-tfidf-18" href="../high_scalability-2012/high_scalability-2012-06-05-Sponsored_Post%3A_Digital_Ocean%2C_NetDNA%2C_Torbit%2C_Velocity%2C_Reality_Check_Network%2C_Gigaspaces%2C_AiCache%2C_Logic_Monitor%2C_Attribution_Modeling%2C_AppDynamics%2C_CloudSigma%2C_ManageEnine%2C_Site24x7.html">1257 high scalability-2012-06-05-Sponsored Post: Digital Ocean, NetDNA, Torbit, Velocity, Reality Check Network, Gigaspaces, AiCache, Logic Monitor, Attribution Modeling, AppDynamics, CloudSigma, ManageEnine, Site24x7</a></p>
+<p>19 0.11810044 <a title="1056-tfidf-19" href="../high_scalability-2014/high_scalability-2014-04-29-Sponsored_Post%3A_Apple%2C_Wargaming.net%2C_PagerDuty%2C_HelloSign%2C_CrowdStrike%2C_Gengo%2C_ScaleOut_Software%2C_Couchbase%2C_Tokutek%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1639 high scalability-2014-04-29-Sponsored Post: Apple, Wargaming.net, PagerDuty, HelloSign, CrowdStrike, Gengo, ScaleOut Software, Couchbase, Tokutek, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
+<p>20 0.11592975 <a title="1056-tfidf-20" href="../high_scalability-2009/high_scalability-2009-08-07-The_Canonical_Cloud_Architecture_.html">674 high scalability-2009-08-07-The Canonical Cloud Architecture </a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.206), (1, -0.004), (2, 0.052), (3, 0.108), (4, -0.067), (5, -0.048), (6, -0.005), (7, -0.168), (8, 0.0), (9, -0.037), (10, -0.033), (11, 0.079), (12, -0.034), (13, -0.021), (14, -0.076), (15, -0.036), (16, 0.09), (17, -0.086), (18, 0.051), (19, -0.001), (20, 0.008), (21, 0.028), (22, 0.014), (23, 0.052), (24, -0.035), (25, -0.016), (26, -0.055), (27, -0.041), (28, 0.024), (29, 0.051), (30, 0.007), (31, -0.016), (32, 0.066), (33, -0.056), (34, 0.024), (35, 0.076), (36, -0.027), (37, -0.016), (38, 0.053), (39, 0.007), (40, 0.036), (41, -0.076), (42, -0.076), (43, -0.017), (44, 0.044), (45, 0.015), (46, 0.055), (47, -0.039), (48, -0.002), (49, -0.025)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.96436691 <a title="1056-lsi-1" href="../high_scalability-2011/high_scalability-2011-06-09-Retrospect_on_recent_AWS_outage_and_Resilient_Cloud-Based_Architecture.html">1056 high scalability-2011-06-09-Retrospect on recent AWS outage and Resilient Cloud-Based Architecture</a></p>
+<p>Introduction: A bit over a month ago Amazon experienced its infamous AWS outage in the US
+East Region. As a cloud evangelist, I was intrigued by the history of the
+outage as it occurred. There were great posts during and after the outage from
+those who went down. But more interestingly for me as architect were the
+detailed posts of those who managed to survive the outage relatively unharmed,
+such as SimpleGeo, Netflix,SmugMug, SmugMug's CTO, Twilio, Bizo and
+others.Reading through the experience of others, I tried to summarize
+thepatterns, principles and best practicesthat emerged from these posts, as I
+believe we can learn a lot from them on how to design our business
+applications to truly leverage on the benefits that the cloud offers in high
+availability and scalability.The main principles, patterns and best practices
+are:Design for failureStateless and autonomous servicesRedundant hot copies
+spread across zonesSpread across several public cloud vendors and/or private
+cloudAutomation and monitori</p><p>2 0.76173991 <a title="1056-lsi-2" href="../high_scalability-2009/high_scalability-2009-03-04-Its_time_for_auto_scaling_%E2%80%93_avoid_peak_load_provisioning_for_web_applications.html">524 high scalability-2009-03-04-Its time for auto scaling – avoid peak load provisioning for web applications</a></p>
+<p>Introduction: Many web applications, including eBanking, Trading, eCommerce and Online
+Gaming, face large, fluctuating loads. In this post will describe how to
+achieve Right Sizing using virtualization and cloud computing. Will use a
+standard JEE web application to demonstrate how auto-scaling works on AWS
+Cloud without changing your application code.</p><p>3 0.7604391 <a title="1056-lsi-3" href="../high_scalability-2010/high_scalability-2010-04-28-Elasticity_for_the_Enterprise_--_Ensuring_Continuous_High_Availability_in_a_Disaster_Failure_Scenario.html">816 high scalability-2010-04-28-Elasticity for the Enterprise -- Ensuring Continuous High Availability in a Disaster Failure Scenario</a></p>
+<p>Introduction: Many enterprises' high-availability architecture is based on the assumption
+that you can prevent failure from happening by putting all your critical data
+in a centralized database, back it up with expensive storage, and replicate it
+somehow between the sites. As I argued in one of my previous posts (Why
+Existing Databases (RAC) are So Breakable!) many of those assumptions are
+broken at their core, as storage is doomed to failure just like any other
+device, expensive hardware doesn't make things any better and database
+replication is often not enough.One of the main lessons that we can take from
+the likes of Amazon and Google is that the right way to ensure continuous high
+availability is by designing our system to cope with failure. We need to
+assume that what we tend to think of as unthinkable will probably happen, as
+that's the nature of failure. So rather than trying to prevent failures, we
+need to build a system that will tolerate them.As we can learn from a recent
+outage event in</p><p>4 0.73952448 <a title="1056-lsi-4" href="../high_scalability-2011/high_scalability-2011-04-25-The_Big_List_of_Articles_on_the_Amazon_Outage.html">1029 high scalability-2011-04-25-The Big List of Articles on the Amazon Outage</a></p>
+<p>Introduction: Please seeThe Updated Big List Of Articles On The Amazon Outage for a new
+improved list.So many great articles have been written on the Amazon Outage.
+Some aim at being helpful, some chastise developers for being so stupid, some
+chastise Amazon for being so incompetent, some talk about the pain they and
+their companies have experienced, and some even predict the downfall of the
+cloud. Still others say we have seen a sea change in future of the cloud, a
+prediction that's hard to disagree with, though the shape of the change
+remains...cloudy.I'll try to keep this list update as more information comes
+out. There will be a lot for developers to consider going forward. If there's
+a resource you think should be added, just let me know.Amazon's Explanation of
+What HappenedSummary of the Amazon EC2 and Amazon RDS Service Disruption in
+the US East RegionHackers News thread on AWS Service Disruption Post Mortem
+Quite Funny Commentary on the SummaryExperiences from Specific Companies, Both
+Good a</p><p>5 0.72985697 <a title="1056-lsi-5" href="../high_scalability-2011/high_scalability-2011-05-02-The_Updated_Big_List_of_Articles_on_the_Amazon_Outage.html">1033 high scalability-2011-05-02-The Updated Big List of Articles on the Amazon Outage</a></p>
+<p>Introduction: SinceThe Big List Of Articles On The Amazon Outage was published we've a had
+few updates that people might not have seen. Amazon of course released their
+Summary of the Amazon EC2 and Amazon RDS Service Disruption in the US East
+Region. Netlix shared theirLessons Learned from the AWS Outage as did Heroku
+(How Heroku Survived the Amazon Outage), Smug Mug (How SmugMug survived the
+Amazonpocalypse), and SimpleGeo (How SimpleGeo Stayed Up During the AWS
+Downtime). The curious thing from my perspective is the general lack of
+response to Amazon's explanation. I expected more discussion. There's been
+almost none that I've seen. My guess is very few people understand what Amazon
+was talking about enough to comment whereas almost everyone feels qualified to
+talk about the event itself.Lesson for crisis handlers: deep dive post-mortems
+that are timely, long, honestish, and highly technical are the most effective
+means of staunching the downward spiral of media attention. Amazon's
+Explanation of</p><p>6 0.72267753 <a title="1056-lsi-6" href="../high_scalability-2014/high_scalability-2014-01-08-Under_Snowden%27s_Light_Software_Architecture_Choices_Become_Murky.html">1575 high scalability-2014-01-08-Under Snowden's Light Software Architecture Choices Become Murky</a></p>
+<p>7 0.71285295 <a title="1056-lsi-7" href="../high_scalability-2010/high_scalability-2010-07-08-Cloud_AWS_Infrastructure_vs._Physical_Infrastructure.html">853 high scalability-2010-07-08-Cloud AWS Infrastructure vs. Physical Infrastructure</a></p>
+<p>8 0.71219504 <a title="1056-lsi-8" href="../high_scalability-2012/high_scalability-2012-03-21-The_Conspecific_Hybrid_Cloud.html">1212 high scalability-2012-03-21-The Conspecific Hybrid Cloud</a></p>
+<p>9 0.71088475 <a title="1056-lsi-9" href="../high_scalability-2014/high_scalability-2014-06-05-Cloud_Architecture_Revolution.html">1654 high scalability-2014-06-05-Cloud Architecture Revolution</a></p>
+<p>10 0.70984972 <a title="1056-lsi-10" href="../high_scalability-2011/high_scalability-2011-04-22-Stuff_The_Internet_Says_On_Scalability_For_April_22%2C_2011.html">1028 high scalability-2011-04-22-Stuff The Internet Says On Scalability For April 22, 2011</a></p>
+<p>11 0.70425481 <a title="1056-lsi-11" href="../high_scalability-2012/high_scalability-2012-01-31-Performance_in_the_Cloud%3A_Business_Jitter_is_Bad.html">1184 high scalability-2012-01-31-Performance in the Cloud: Business Jitter is Bad</a></p>
+<p>12 0.7033177 <a title="1056-lsi-12" href="../high_scalability-2009/high_scalability-2009-01-12-Getting_ready_for_the_cloud.html">490 high scalability-2009-01-12-Getting ready for the cloud</a></p>
+<p>13 0.7026214 <a title="1056-lsi-13" href="../high_scalability-2008/high_scalability-2008-12-30-Scalability_Perspectives_%235%3A_Werner_Vogels_%E2%80%93_The_Amazon_Technology_Platform.html">480 high scalability-2008-12-30-Scalability Perspectives #5: Werner Vogels – The Amazon Technology Platform</a></p>
+<p>14 0.69493765 <a title="1056-lsi-14" href="../high_scalability-2012/high_scalability-2012-11-05-Are_we_seeing_the_renaissance_of_enterprises_in_the_cloud%3F.html">1354 high scalability-2012-11-05-Are we seeing the renaissance of enterprises in the cloud?</a></p>
+<p>15 0.68650001 <a title="1056-lsi-15" href="../high_scalability-2010/high_scalability-2010-01-18-The_Missing_Piece_in_the_Virtualization_Stack_%28Part_1%29.html">762 high scalability-2010-01-18-The Missing Piece in the Virtualization Stack (Part 1)</a></p>
+<p>16 0.68544233 <a title="1056-lsi-16" href="../high_scalability-2008/high_scalability-2008-11-14-Private-Public_Cloud.html">444 high scalability-2008-11-14-Private-Public Cloud</a></p>
+<p>17 0.67662132 <a title="1056-lsi-17" href="../high_scalability-2012/high_scalability-2012-06-15-Cloud_Bursting_between_AWS_and_Rackspace.html">1264 high scalability-2012-06-15-Cloud Bursting between AWS and Rackspace</a></p>
+<p>18 0.67411298 <a title="1056-lsi-18" href="../high_scalability-2011/high_scalability-2011-07-26-Web_2.0_Killed_the_Middleware_Star.html">1087 high scalability-2011-07-26-Web 2.0 Killed the Middleware Star</a></p>
+<p>19 0.67145956 <a title="1056-lsi-19" href="../high_scalability-2010/high_scalability-2010-10-12-The_CIO%E2%80%99s_Problem%3A_Cloud_%E2%80%9CMess%E2%80%9D_or_Cloud_%E2%80%9CMash%E2%80%9D.html">918 high scalability-2010-10-12-The CIO’s Problem: Cloud “Mess” or Cloud “Mash”</a></p>
+<p>20 0.66731459 <a title="1056-lsi-20" href="../high_scalability-2010/high_scalability-2010-04-19-The_cost_of_High_Availability_%28HA%29_with_Oracle_.html">813 high scalability-2010-04-19-The cost of High Availability (HA) with Oracle </a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.231), (2, 0.125), (10, 0.015), (11, 0.012), (13, 0.04), (30, 0.034), (37, 0.026), (40, 0.043), (44, 0.017), (49, 0.033), (61, 0.097), (79, 0.207), (94, 0.041)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97598428 <a title="1056-lda-1" href="../high_scalability-2011/high_scalability-2011-06-09-Retrospect_on_recent_AWS_outage_and_Resilient_Cloud-Based_Architecture.html">1056 high scalability-2011-06-09-Retrospect on recent AWS outage and Resilient Cloud-Based Architecture</a></p>
+<p>Introduction: A bit over a month ago Amazon experienced its infamous AWS outage in the US
+East Region. As a cloud evangelist, I was intrigued by the history of the
+outage as it occurred. There were great posts during and after the outage from
+those who went down. But more interestingly for me as architect were the
+detailed posts of those who managed to survive the outage relatively unharmed,
+such as SimpleGeo, Netflix,SmugMug, SmugMug's CTO, Twilio, Bizo and
+others.Reading through the experience of others, I tried to summarize
+thepatterns, principles and best practicesthat emerged from these posts, as I
+believe we can learn a lot from them on how to design our business
+applications to truly leverage on the benefits that the cloud offers in high
+availability and scalability.The main principles, patterns and best practices
+are:Design for failureStateless and autonomous servicesRedundant hot copies
+spread across zonesSpread across several public cloud vendors and/or private
+cloudAutomation and monitori</p><p>2 0.94784814 <a title="1056-lda-2" href="../high_scalability-2008/high_scalability-2008-11-24-Scalability_Perspectives_%233%3A_Marc_Andreessen_%E2%80%93_Internet_Platforms.html">450 high scalability-2008-11-24-Scalability Perspectives #3: Marc Andreessen – Internet Platforms</a></p>
+<p>Introduction: Scalability Perspectivesis a series of posts that highlights the ideas that
+will shape the next decade of IT architecture. Each post is dedicated to a
+thought leader of the information age and his vision of the future. Be warned
+though - the journey into the minds and perspectives of these people requires
+an open mind.Marc AndreessenMarc Andreessen is known as an internet pioneer,
+entrepreneur, investor, startup coach, blogger, and a multi-millionaire
+software engineer best known as co-author of Mosaic, the first widely-used web
+browser, and founder of Netscape Communications Corporation. He was the chair
+of Opsware, a software company he founded originally as Loudcloud, when it was
+acquired by Hewlett-Packard. He is also a co-founder of Ning, a company which
+provides a platform for social-networking websites. He has recently joined the
+Board of Directors of Facebook and eBay.Marc is an investor in several
+startups including Digg, Metaplace, Plazes, Qik, and Twitter. His passion is
+to</p><p>3 0.94692481 <a title="1056-lda-3" href="../high_scalability-2014/high_scalability-2014-01-08-Under_Snowden%27s_Light_Software_Architecture_Choices_Become_Murky.html">1575 high scalability-2014-01-08-Under Snowden's Light Software Architecture Choices Become Murky</a></p>
+<p>Introduction: Adrian Cockcroft on the future ofCloud, Open Source, SaaS and the End of
+Enterprise Computing:Most big enterprise companies are actively working on
+their AWS rollout now. Most of them are also trying to get an in-house cloud
+to work, with varying amounts of success, but even the best private clouds are
+still years behind the feature set of public clouds, which is has a big impact
+on the agility and speed of product developmentWhile theSnowden
+revelationshave tattered the thin veil of trust secreting Big Brother from We
+the People, they may also be driving a fascinating new tension in architecture
+choices between Cloud Native (scale-out, IaaS), Amazon Native (rich service
+dependencies), and Enterprise Native (raw hardware, scale-up).This tension
+became evident in a recentHipChat interviewwhere HipChat, makers of an AWS
+based SaaS chat product, were busy creating an on-premises version of their
+product that could operate behind the firewall in enterprise datacenters. This
+is consistent w</p><p>4 0.94620758 <a title="1056-lda-4" href="../high_scalability-2012/high_scalability-2012-03-27-Big_Data_In_the_Cloud_Using_Cloudify.html">1216 high scalability-2012-03-27-Big Data In the Cloud Using Cloudify</a></p>
+<p>Introduction: Edd Dumbill wrote an interesting article on O'Reilly Radar covering the
+current solutions for running Big Data in the CloudBig data and cloud
+technology go hand-in-hand. Big data needs clusters of servers for processing,
+which clouds can readily provide.Big PaaSEdd touched briefly on the role of
+PaaS for delivering Big Data applications in the cloudBeyond IaaS, several
+cloud services provide application layer support for big data work. Sometimes
+referred to as managed solutions, or platform as a service (PaaS), these
+services remove the need to ucale things such as databases or MapReduce,
+reducing your workload and maintenance burden. Additionally, PaaS providers
+can realize great efficiencies by hosting at the application level, and pass
+those savings on to the customer.To put it simply, managing data clusters is
+one thing. Being able to process the data is yet another challenge that we
+need to think about when we're dealing with application platforms, as I noted
+in one of my earlier</p><p>5 0.94336301 <a title="1056-lda-5" href="../high_scalability-2013/high_scalability-2013-09-11-Ten_Lessons_from_GitHub%E2%80%99s_First_Year_in_2008.html">1515 high scalability-2013-09-11-Ten Lessons from GitHub’s First Year in 2008</a></p>
+<p>Introduction: Tom Preston-Werner, GitHub Cofounder, wroteTen Lessons from GitHub's First
+Year in 2008. Though the lessons are still relevant, and the war stories
+behind each lesson are great, I can't help but wonder what a 2013 version
+would look like?Start Early - GitHub created a market that didn't exist. By
+building early "on top of a nascent technology, we were able to construct a
+startup with basically no overhead, no competition, and in our free
+time."Adapt to Your Customers - "Don't give your customers what they ask for;
+give them what they want."Have Fun -"You have to goof off a lot in order to
+balance things out. Burnout is a real and dangerous phenomenon. "Pay attention
+to Twitter -"Twitter [is] an extremely valuable resource for instant
+feedback."Deploy at Will! -"The first year of a web offering is a magical one.
+Your customers are most likely early adopters and love to see new features
+roll out every few weeks. If this results in a little bit of downtime, they'll
+easily forgive you, as</p><p>6 0.94319022 <a title="1056-lda-6" href="../high_scalability-2008/high_scalability-2008-01-27-Scalability_vs_Performance_vs_Availability_vs_Reliability.._Also_scale_up_vs_scale_out_%3F%3F%3F.html">224 high scalability-2008-01-27-Scalability vs Performance vs Availability vs Reliability.. Also scale up vs scale out ???</a></p>
+<p>7 0.94311279 <a title="1056-lda-7" href="../high_scalability-2008/high_scalability-2008-09-05-Product%3A_Tungsten_Replicator.html">380 high scalability-2008-09-05-Product: Tungsten Replicator</a></p>
+<p>8 0.94265223 <a title="1056-lda-8" href="../high_scalability-2011/high_scalability-2011-05-06-Stuff_The_Internet_Says_On_Scalability_For_May_6th%2C_2011.html">1036 high scalability-2011-05-06-Stuff The Internet Says On Scalability For May 6th, 2011</a></p>
+<p>9 0.94200718 <a title="1056-lda-9" href="../high_scalability-2009/high_scalability-2009-05-11-Facebook%2C_Hadoop%2C_and_Hive.html">596 high scalability-2009-05-11-Facebook, Hadoop, and Hive</a></p>
+<p>10 0.94169587 <a title="1056-lda-10" href="../high_scalability-2011/high_scalability-2011-03-31-8_Lessons_We_Can_Learn_from_the_MySpace_Incident_-_Balance%2C_Vision%2C_Fearlessness.html">1014 high scalability-2011-03-31-8 Lessons We Can Learn from the MySpace Incident - Balance, Vision, Fearlessness</a></p>
+<p>11 0.9406051 <a title="1056-lda-11" href="../high_scalability-2007/high_scalability-2007-10-07-Product%3A_Wackamole.html">114 high scalability-2007-10-07-Product: Wackamole</a></p>
+<p>12 0.93828881 <a title="1056-lda-12" href="../high_scalability-2010/high_scalability-2010-08-27-OpenStack_-_The_Answer_to%3A_How_do_We_Compete_with_Amazon%3F.html">888 high scalability-2010-08-27-OpenStack - The Answer to: How do We Compete with Amazon?</a></p>
+<p>13 0.93760926 <a title="1056-lda-13" href="../high_scalability-2008/high_scalability-2008-11-13-Plenty_of_Fish_Says_Scaling_for_Free_Doesn%27t_Pay.html">442 high scalability-2008-11-13-Plenty of Fish Says Scaling for Free Doesn't Pay</a></p>
+<p>14 0.93759817 <a title="1056-lda-14" href="../high_scalability-2008/high_scalability-2008-12-30-Scalability_Perspectives_%235%3A_Werner_Vogels_%E2%80%93_The_Amazon_Technology_Platform.html">480 high scalability-2008-12-30-Scalability Perspectives #5: Werner Vogels – The Amazon Technology Platform</a></p>
+<p>15 0.93679845 <a title="1056-lda-15" href="../high_scalability-2008/high_scalability-2008-03-09-Best_Practices_for_Speeding_Up_Your_Web_Site.html">273 high scalability-2008-03-09-Best Practices for Speeding Up Your Web Site</a></p>
+<p>16 0.93669504 <a title="1056-lda-16" href="../high_scalability-2009/high_scalability-2009-09-16-The_VeriScale_Architecture_-_Elasticity_and_efficiency_for_private_clouds.html">706 high scalability-2009-09-16-The VeriScale Architecture - Elasticity and efficiency for private clouds</a></p>
+<p>17 0.93546957 <a title="1056-lda-17" href="../high_scalability-2009/high_scalability-2009-07-02-Product%3A_Hbase.html">650 high scalability-2009-07-02-Product: Hbase</a></p>
+<p>18 0.93327427 <a title="1056-lda-18" href="../high_scalability-2009/high_scalability-2009-04-21-What_CDN_would_you_recommend%3F.html">576 high scalability-2009-04-21-What CDN would you recommend?</a></p>
+<p>19 0.9318915 <a title="1056-lda-19" href="../high_scalability-2008/high_scalability-2008-02-12-Product%3A_rPath_-_Creating_and_Managing_Virtual_Appliances.html">245 high scalability-2008-02-12-Product: rPath - Creating and Managing Virtual Appliances</a></p>
+<p>20 0.93074977 <a title="1056-lda-20" href="../high_scalability-2009/high_scalability-2009-05-12-P2P_server_technology%3F.html">598 high scalability-2009-05-12-P2P server technology?</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
