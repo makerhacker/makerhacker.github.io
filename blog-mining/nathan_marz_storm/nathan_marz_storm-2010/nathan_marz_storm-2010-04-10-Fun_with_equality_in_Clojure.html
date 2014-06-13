@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>12 nathan marz storm-2010-04-10-Fun with equality in Clojure</title>
+</head>
+
+<body>
+<p><a title="nathan_marz_storm" href="../nathan_marz_storm_home.html">nathan_marz_storm</a> <a title="nathan_marz_storm-2010" href="../home/nathan_marz_storm-2010_home.html">nathan_marz_storm-2010</a> <a title="nathan_marz_storm-2010-12" href="#">nathan_marz_storm-2010-12</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>12 nathan marz storm-2010-04-10-Fun with equality in Clojure</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="nathan_marz_storm-2010-12-html" href="http://nathanmarz.com//blog/fun-with-equality-in-clojure.html">html</a></p><p>Introduction: I ran into some very non-intuitive behavior from Clojure recently. See if you
+can guess what "foo" is in the following examples:Example 1:user=> foo1user=>
+(= foo 1)trueuser=> (= [foo 2] [1 2])trueuser=> (= {foo 2} {1 2})falseExample
+2:user=> foofalseuser=> (= foo false)trueuser=> (when foo (println "shouldn't
+print?"))shouldn't print?nilYikes, huh? Here are the answers:Example 1: (def
+foo (Long. "1"))Example 2: (def foo (Boolean. false))For example 1, the map
+equality breaks down because Long and Integer have different hashcodes for the
+same numeric value. In example 2, Clojure considers anything besides false or
+nil to be true in a conditional, so that means a false Boolean object will be
+true in a conditional even though it's equal to "false".I would definitely
+consider #1 a bug, as part of the contract of equality is that two equal
+objects have the same hashcode. #2 is more debatable, but it seems more
+intuitive that the Boolean object false be considered false in conditionals as
+w</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('foo', 0.723), ('false', 0.396), ('trueuser', 0.271), ('conditional', 0.181), ('def', 0.181), ('print', 0.147), ('object', 0.127), ('equality', 0.127), ('equal', 0.113), ('boolean', 0.113), ('example', 0.107), ('user', 0.08), ('clojure', 0.074), ('huh', 0.074), ('answers', 0.074), ('guess', 0.074), ('intuitive', 0.074), ('nil', 0.074), ('true', 0.069), ('integer', 0.064)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999988 <a title="12-tfidf-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-10-Fun_with_equality_in_Clojure.html">12 nathan marz storm-2010-04-10-Fun with equality in Clojure</a></p>
+<p>Introduction: I ran into some very non-intuitive behavior from Clojure recently. See if you
+can guess what "foo" is in the following examples:Example 1:user=> foo1user=>
+(= foo 1)trueuser=> (= [foo 2] [1 2])trueuser=> (= {foo 2} {1 2})falseExample
+2:user=> foofalseuser=> (= foo false)trueuser=> (when foo (println "shouldn't
+print?"))shouldn't print?nilYikes, huh? Here are the answers:Example 1: (def
+foo (Long. "1"))Example 2: (def foo (Boolean. false))For example 1, the map
+equality breaks down because Long and Integer have different hashcodes for the
+same numeric value. In example 2, Clojure considers anything besides false or
+nil to be true in a conditional, so that means a false Boolean object will be
+true in a conditional even though it's equal to "false".I would definitely
+consider #1 a bug, as part of the contract of equality is that two equal
+objects have the same hashcode. #2 is more debatable, but it seems more
+intuitive that the Boolean object false be considered false in conditionals as
+w</p><p>2 0.064626597 <a title="12-tfidf-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
+<p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful
+features: joins, aggregates, subqueries, custom operations, and more. Since
+Cascalog's release a couple weeks ago, I've added a number of new features to
+Cascalog that seriously increase the expressiveness and performance of the
+language without compromising its simplicity or flexibility.Like the first
+tutorial, go ahead and load up the playground by issuing the following
+commands:lein compile-java && lein compilelein repluser=> (use
+'cascalog.playground) (bootstrap)moreOuter joinsAs we saw in the first
+tutorial, you can join together multiple sources of data in Cascalog by using
+the same variable name in multiple sources of data. For example, given "age"
+and "gender" sources, we can get the age and gender for each person by
+running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
+?person ?gender))This is aninner join. We will only have results for people
+that appear in both sets of data. We</p><p>3 0.046525132 <a title="12-tfidf-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
+<p>Introduction: In this tutorial forCascalog, we are going to create part of the back-end for
+a simplified version of a Facebook-like news feed. In doing so we are going to
+walk through an end-to-end example of running Cascalog on a production
+cluster. If you're new to Cascalog, you should first look at the introductory
+tutorialshereandhere.The code and sample data for the example presented in
+this tutorial can be found onGithub.Problem descriptionA news feed ranks
+events happening in your social network. Our program will take as input two
+sources of data. The first is "follows" relationships which are stored in text
+format:nathan bobchris mikemike chrismichelle nathanFollows relationships are
+2-tuples of (username, username) with fields separated by whitespace.Our
+second source of data is "action" data which is also stored in text
+format:nathan status=good 1273094927000nathan birthday 1273026922000david
+newjob 1273096922000david travelling 1273094927000bob status=tired
+1273026922000dan basketball-cap</p><p>4 0.045401365 <a title="12-tfidf-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-17-Proof_that_1_%3D_0_using_a_common_logical_fallacy.html">10 nathan marz storm-2010-03-17-Proof that 1 = 0 using a common logical fallacy</a></p>
+<p>Introduction: Awhile ago I read apostby Daniel Levine that shows a formal proof of x*0 = 0.
+Here's a reprint of the proof:y = y (identity axiom)y - y = 0 (arithmetic)x*(y
+- y) = 0 (substitution)x*y - x*y = 0 (distributive)x*y = x*y (arithmetic)The
+logic of this proof is that since we can reduce x*0 = 0 to the identity axiom,
+x*0 = 0 is true. Unfortunately, this is not logically sound.Now I don't mean
+to pick on Daniel Levine. He's a really smart guy. I've made this same
+mistake, and only when I lost points on problem sets a number of times did I
+really understand the fallacy of this logic.To show why this logic is unsound,
+here's a "proof" that 1 = 0:1 = 0 (hypothesis)0 * 1 = 0 * 0 (multiply each
+side by same amount maintains equality)0 = 0 (arithmetic)According to the
+logic of the previous proof, we have reduced 1 = 0 to 0 = 0, a known true
+statement, so 1 = 0 is true. Obviously this is incorrect.What we have actually
+shown is that 1 = 0implies0 = 0. You would write this out formally as:(1 = 0)
+-></p><p>5 0.041369602 <a title="12-tfidf-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-07-Cascalog_Presentation_at_Bay_Area_Clojure_User_Group.html">15 nathan marz storm-2010-05-07-Cascalog Presentation at Bay Area Clojure User Group</a></p>
+<p>Introduction: Here are the slides from my presentation about Cascalog at the Bay Area
+Clojure User Group last night:</p><p>6 0.032880399 <a title="12-tfidf-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
+<p>7 0.025846958 <a title="12-tfidf-7" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
+<p>8 0.019209497 <a title="12-tfidf-8" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-12-Interview_with_%22Programmer_Magazine%22.html">39 nathan marz storm-2014-02-12-Interview with "Programmer Magazine"</a></p>
+<p>9 0.014444835 <a title="12-tfidf-9" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-01-07-Analysis_of_the_%23LessAmbitiousMovies_Twitter_Meme.html">27 nathan marz storm-2011-01-07-Analysis of the #LessAmbitiousMovies Twitter Meme</a></p>
+<p>10 0.013357094 <a title="12-tfidf-10" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-06-16-Your_company_has_a_knowledge_debt_problem.html">18 nathan marz storm-2010-06-16-Your company has a knowledge debt problem</a></p>
+<p>11 0.011923847 <a title="12-tfidf-11" href="../nathan_marz_storm-2013/nathan_marz_storm-2013-04-12-Break_into_Silicon_Valley_with_a_blog.html">38 nathan marz storm-2013-04-12-Break into Silicon Valley with a blog</a></p>
+<p>12 0.011037777 <a title="12-tfidf-12" href="../nathan_marz_storm-2013/nathan_marz_storm-2013-04-02-Principles_of_Software_Engineering%2C_Part_1.html">37 nathan marz storm-2013-04-02-Principles of Software Engineering, Part 1</a></p>
+<p>13 0.01050084 <a title="12-tfidf-13" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
+<p>14 0.0088992612 <a title="12-tfidf-14" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-26-My_conversation_with_the_great_John_McCarthy.html">4 nathan marz storm-2010-01-26-My conversation with the great John McCarthy</a></p>
+<p>15 0.0087287761 <a title="12-tfidf-15" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-07-12-My_experience_as_the_first_employee_of_a_Y_Combinator_startup.html">19 nathan marz storm-2010-07-12-My experience as the first employee of a Y Combinator startup</a></p>
+<p>16 0.0087057976 <a title="12-tfidf-16" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-05-10-Why_we_in_tech_must_support_Lawrence_Lessig.html">41 nathan marz storm-2014-05-10-Why we in tech must support Lawrence Lessig</a></p>
+<p>17 0.008436677 <a title="12-tfidf-17" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
+<p>18 0.0082641207 <a title="12-tfidf-18" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-01-11-Cascalog_workshop.html">28 nathan marz storm-2011-01-11-Cascalog workshop</a></p>
+<p>19 0.0078008627 <a title="12-tfidf-19" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-24-The_inexplicable_rise_of_open_floor_plans_in_tech_companies.html">40 nathan marz storm-2014-02-24-The inexplicable rise of open floor plans in tech companies</a></p>
+<p>20 0.0069641769 <a title="12-tfidf-20" href="../nathan_marz_storm-2009/nathan_marz_storm-2009-12-28-The_mathematics_behind_Hadoop-based_systems.html">1 nathan marz storm-2009-12-28-The mathematics behind Hadoop-based systems</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/nathan_marz_storm_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.065), (1, -0.108), (2, -0.028), (3, -0.027), (4, -0.011), (5, -0.02), (6, 0.057), (7, -0.011), (8, 0.005), (9, 0.005), (10, 0.324), (11, 0.34), (12, 0.284), (13, -0.263), (14, -0.018), (15, 0.373), (16, -0.245), (17, -0.194), (18, -0.131), (19, -0.309), (20, 0.11), (21, -0.125), (22, -0.442), (23, 0.009), (24, 0.051), (25, 0.091), (26, -0.082), (27, 0.038), (28, 0.054), (29, 0.047), (30, 0.061), (31, -0.026), (32, -0.041), (33, -0.022), (34, -0.006), (35, -0.038), (36, -0.057), (37, 0.012), (38, -0.002), (39, 0.002), (40, 0.023)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99741876 <a title="12-lsi-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-10-Fun_with_equality_in_Clojure.html">12 nathan marz storm-2010-04-10-Fun with equality in Clojure</a></p>
+<p>Introduction: I ran into some very non-intuitive behavior from Clojure recently. See if you
+can guess what "foo" is in the following examples:Example 1:user=> foo1user=>
+(= foo 1)trueuser=> (= [foo 2] [1 2])trueuser=> (= {foo 2} {1 2})falseExample
+2:user=> foofalseuser=> (= foo false)trueuser=> (when foo (println "shouldn't
+print?"))shouldn't print?nilYikes, huh? Here are the answers:Example 1: (def
+foo (Long. "1"))Example 2: (def foo (Boolean. false))For example 1, the map
+equality breaks down because Long and Integer have different hashcodes for the
+same numeric value. In example 2, Clojure considers anything besides false or
+nil to be true in a conditional, so that means a false Boolean object will be
+true in a conditional even though it's equal to "false".I would definitely
+consider #1 a bug, as part of the contract of equality is that two equal
+objects have the same hashcode. #2 is more debatable, but it seems more
+intuitive that the Boolean object false be considered false in conditionals as
+w</p><p>2 0.07636781 <a title="12-lsi-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
+<p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful
+features: joins, aggregates, subqueries, custom operations, and more. Since
+Cascalog's release a couple weeks ago, I've added a number of new features to
+Cascalog that seriously increase the expressiveness and performance of the
+language without compromising its simplicity or flexibility.Like the first
+tutorial, go ahead and load up the playground by issuing the following
+commands:lein compile-java && lein compilelein repluser=> (use
+'cascalog.playground) (bootstrap)moreOuter joinsAs we saw in the first
+tutorial, you can join together multiple sources of data in Cascalog by using
+the same variable name in multiple sources of data. For example, given "age"
+and "gender" sources, we can get the age and gender for each person by
+running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
+?person ?gender))This is aninner join. We will only have results for people
+that appear in both sets of data. We</p><p>3 0.070993036 <a title="12-lsi-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-17-Proof_that_1_%3D_0_using_a_common_logical_fallacy.html">10 nathan marz storm-2010-03-17-Proof that 1 = 0 using a common logical fallacy</a></p>
+<p>Introduction: Awhile ago I read apostby Daniel Levine that shows a formal proof of x*0 = 0.
+Here's a reprint of the proof:y = y (identity axiom)y - y = 0 (arithmetic)x*(y
+- y) = 0 (substitution)x*y - x*y = 0 (distributive)x*y = x*y (arithmetic)The
+logic of this proof is that since we can reduce x*0 = 0 to the identity axiom,
+x*0 = 0 is true. Unfortunately, this is not logically sound.Now I don't mean
+to pick on Daniel Levine. He's a really smart guy. I've made this same
+mistake, and only when I lost points on problem sets a number of times did I
+really understand the fallacy of this logic.To show why this logic is unsound,
+here's a "proof" that 1 = 0:1 = 0 (hypothesis)0 * 1 = 0 * 0 (multiply each
+side by same amount maintains equality)0 = 0 (arithmetic)According to the
+logic of the previous proof, we have reduced 1 = 0 to 0 = 0, a known true
+statement, so 1 = 0 is true. Obviously this is incorrect.What we have actually
+shown is that 1 = 0implies0 = 0. You would write this out formally as:(1 = 0)
+-></p><p>4 0.059672397 <a title="12-lsi-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
+<p>Introduction: In this tutorial forCascalog, we are going to create part of the back-end for
+a simplified version of a Facebook-like news feed. In doing so we are going to
+walk through an end-to-end example of running Cascalog on a production
+cluster. If you're new to Cascalog, you should first look at the introductory
+tutorialshereandhere.The code and sample data for the example presented in
+this tutorial can be found onGithub.Problem descriptionA news feed ranks
+events happening in your social network. Our program will take as input two
+sources of data. The first is "follows" relationships which are stored in text
+format:nathan bobchris mikemike chrismichelle nathanFollows relationships are
+2-tuples of (username, username) with fields separated by whitespace.Our
+second source of data is "action" data which is also stored in text
+format:nathan status=good 1273094927000nathan birthday 1273026922000david
+newjob 1273096922000david travelling 1273094927000bob status=tired
+1273026922000dan basketball-cap</p><p>5 0.055406678 <a title="12-lsi-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-07-Cascalog_Presentation_at_Bay_Area_Clojure_User_Group.html">15 nathan marz storm-2010-05-07-Cascalog Presentation at Bay Area Clojure User Group</a></p>
+<p>Introduction: Here are the slides from my presentation about Cascalog at the Bay Area
+Clojure User Group last night:</p><p>6 0.042526498 <a title="12-lsi-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
+<p>7 0.041717015 <a title="12-lsi-7" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
+<p>8 0.025304904 <a title="12-lsi-8" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-12-Interview_with_%22Programmer_Magazine%22.html">39 nathan marz storm-2014-02-12-Interview with "Programmer Magazine"</a></p>
+<p>9 0.023084501 <a title="12-lsi-9" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-06-16-Your_company_has_a_knowledge_debt_problem.html">18 nathan marz storm-2010-06-16-Your company has a knowledge debt problem</a></p>
+<p>10 0.020728409 <a title="12-lsi-10" href="../nathan_marz_storm-2013/nathan_marz_storm-2013-04-02-Principles_of_Software_Engineering%2C_Part_1.html">37 nathan marz storm-2013-04-02-Principles of Software Engineering, Part 1</a></p>
+<p>11 0.018927371 <a title="12-lsi-11" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
+<p>12 0.018877884 <a title="12-lsi-12" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-01-07-Analysis_of_the_%23LessAmbitiousMovies_Twitter_Meme.html">27 nathan marz storm-2011-01-07-Analysis of the #LessAmbitiousMovies Twitter Meme</a></p>
+<p>13 0.01719239 <a title="12-lsi-13" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-26-My_conversation_with_the_great_John_McCarthy.html">4 nathan marz storm-2010-01-26-My conversation with the great John McCarthy</a></p>
+<p>14 0.015932078 <a title="12-lsi-14" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-01-11-Cascalog_workshop.html">28 nathan marz storm-2011-01-11-Cascalog workshop</a></p>
+<p>15 0.015327943 <a title="12-lsi-15" href="../nathan_marz_storm-2013/nathan_marz_storm-2013-04-12-Break_into_Silicon_Valley_with_a_blog.html">38 nathan marz storm-2013-04-12-Break into Silicon Valley with a blog</a></p>
+<p>16 0.015205287 <a title="12-lsi-16" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
+<p>17 0.014710318 <a title="12-lsi-17" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-05-10-Why_we_in_tech_must_support_Lawrence_Lessig.html">41 nathan marz storm-2014-05-10-Why we in tech must support Lawrence Lessig</a></p>
+<p>18 0.014229125 <a title="12-lsi-18" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-07-12-My_experience_as_the_first_employee_of_a_Y_Combinator_startup.html">19 nathan marz storm-2010-07-12-My experience as the first employee of a Y Combinator startup</a></p>
+<p>19 0.013999408 <a title="12-lsi-19" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-24-The_inexplicable_rise_of_open_floor_plans_in_tech_companies.html">40 nathan marz storm-2014-02-24-The inexplicable rise of open floor plans in tech companies</a></p>
+<p>20 0.013530063 <a title="12-lsi-20" href="../nathan_marz_storm-2009/nathan_marz_storm-2009-12-28-The_mathematics_behind_Hadoop-based_systems.html">1 nathan marz storm-2009-12-28-The mathematics behind Hadoop-based systems</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/nathan_marz_storm_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(41, 0.013), (59, 0.776), (88, 0.02)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99720353 <a title="12-lda-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-10-Fun_with_equality_in_Clojure.html">12 nathan marz storm-2010-04-10-Fun with equality in Clojure</a></p>
+<p>Introduction: I ran into some very non-intuitive behavior from Clojure recently. See if you
+can guess what "foo" is in the following examples:Example 1:user=> foo1user=>
+(= foo 1)trueuser=> (= [foo 2] [1 2])trueuser=> (= {foo 2} {1 2})falseExample
+2:user=> foofalseuser=> (= foo false)trueuser=> (when foo (println "shouldn't
+print?"))shouldn't print?nilYikes, huh? Here are the answers:Example 1: (def
+foo (Long. "1"))Example 2: (def foo (Boolean. false))For example 1, the map
+equality breaks down because Long and Integer have different hashcodes for the
+same numeric value. In example 2, Clojure considers anything besides false or
+nil to be true in a conditional, so that means a false Boolean object will be
+true in a conditional even though it's equal to "false".I would definitely
+consider #1 a bug, as part of the contract of equality is that two equal
+objects have the same hashcode. #2 is more debatable, but it seems more
+intuitive that the Boolean object false be considered false in conditionals as
+w</p><p>2 0.94213098 <a title="12-lda-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-07-12-My_experience_as_the_first_employee_of_a_Y_Combinator_startup.html">19 nathan marz storm-2010-07-12-My experience as the first employee of a Y Combinator startup</a></p>
+<p>Introduction: I'm the first employee ofBackType, a Summer '08 YC company. My joining the
+company increased the company size by 50%. The experience has been awesome,
+but I will say up front that being the first employee of a startup is not for
+everyone.The best part of being the first employee of a startup is the total
+exposure to all parts of the company. I've learned a ton about product
+development, customer development, recruiting, and entrepreneurship.
+Additionally, I've met and connected with lots of other awesome people through
+the YC network. I've gotten all these benefits at relatively low risk for
+myself, as I still have a salary and a solid chunk of equity.No RulesThere are
+a lot of rules working at most companies. You don't even realize that some of
+the rulesarerules until you work at a company with no rules. I'm talking about
+the most basic things like what hours you work, what days of the week you
+work, what tools you use, and whether you come into the office or not.Because
+there are no</p><p>3 0.3165009 <a title="12-lda-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-10-27-Fastest_Viable_Product%3A_Investing_in_Speed_at_a_Startup.html">23 nathan marz storm-2010-10-27-Fastest Viable Product: Investing in Speed at a Startup</a></p>
+<p>Introduction: A startup is like a rat in a maze searching for a piece of cheese. The cheese
+in the startup's case isproduct-market fit, that pivotal point when the
+startup can scale and monetize the business.In the maze, the startup has a
+dazzling amount of choices of where to go. Should we build this new feature?
+Should we try this new idea we have for a product? Should we backtrack and
+completely change our idea?Lean startupsuse a strategy called "Minimum Viable
+Products" to help navigate the maze. The idea is that a startup formulates
+hypotheses about what users want or do not want; each of these hypotheses is a
+"turn" in the maze. A "Minimum Viable Product" is the smallest test that will
+let the startup know whether their "turn" was a good one. A startup wants to
+stop going the wrong direction as early as possible.A "Minimum Viable Product"
+can be anything from a working application to anSEO'd survey that will gauge
+interest in an idea. "Minimum Viable Products"
+havebeenwrittenaboutextensively.T</p><p>4 0.30136174 <a title="12-lda-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
+<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what
+kind of data you can put in it. A lot of people think that Hadoop is meant for
+unstructured data like log files. While Hadoop is great for log files, it's
+alsofantasticfor strongly typed, structured data.In this post I'll discuss how
+you can use a tool likeThriftto store strongly typed data in Hadoop while
+retaining the flexibility to evolve your schema. We'll look at graph-based
+schemas and see why they are an ideal fit for many Hadoop-based
+applications.OK, so what kind of "structured" data can you put in
+Hadoop?Anything! AtBackTypewe put data about news, conversations, and people
+into Hadoop as structured objects. You can easily push structured information
+about social graphs, financial information, or anything you want into Hadoop.
+That sounds all well and good, but why not just use JSON as the data
+format?JSON doesn't give you a real schema and doesn't protect against data
+inconsistency. For example, if you</p><p>5 0.28664342 <a title="12-lda-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-08-Follow-up_to_%22The_mathematics_behind_Hadoop-based_systems%22.html">8 nathan marz storm-2010-03-08-Follow-up to "The mathematics behind Hadoop-based systems"</a></p>
+<p>Introduction: In aprevious post, I developed an equation modeling the stable runtime of an
+iterative, batch-oriented workflow. We saw how the equation explained a number
+of counter-intuitive behaviors of batch-oriented systems. In this post, we
+will learn how to measure the amount of overhead versus dynamic time in a
+workflow, which is the first step in applying the theory to optimize a
+workflow.Recall that we started with the equation for the runtime of a single
+iteration of a workflow:Runtime = Overhead + {Time to process one hour of
+data} * {Hours of Data}T = O + P * HWe ended with the equation for the stable
+runtime of a workflow that runs repeatedly:{Stable Runtime} = Overhead / (1 -
+{Time to process one hour of data}T = O / (1 - P)Measuring O and PThe first
+step towards utilizing this theory for optimizing your workflow will be to
+measure the values of O and P for your workflow. This can be difficult if the
+cluster is shared with lots of other jobs, as the P for each run will vary.
+Let's start</p><p>6 0.27358007 <a title="12-lda-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-12-06-You_Are_a_Product.html">25 nathan marz storm-2010-12-06-You Are a Product</a></p>
+<p>7 0.26075536 <a title="12-lda-7" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-06-16-Your_company_has_a_knowledge_debt_problem.html">18 nathan marz storm-2010-06-16-Your company has a knowledge debt problem</a></p>
+<p>8 0.25944707 <a title="12-lda-8" href="../nathan_marz_storm-2009/nathan_marz_storm-2009-12-28-The_mathematics_behind_Hadoop-based_systems.html">1 nathan marz storm-2009-12-28-The mathematics behind Hadoop-based systems</a></p>
+<p>9 0.24937117 <a title="12-lda-9" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-12-Interview_with_%22Programmer_Magazine%22.html">39 nathan marz storm-2014-02-12-Interview with "Programmer Magazine"</a></p>
+<p>10 0.19735296 <a title="12-lda-10" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
+<p>11 0.19556268 <a title="12-lda-11" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
+<p>12 0.18460062 <a title="12-lda-12" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-13-Mimi_Silbert%3A_the_greatest_hacker_in_the_world.html">3 nathan marz storm-2010-01-13-Mimi Silbert: the greatest hacker in the world</a></p>
+<p>13 0.17287801 <a title="12-lda-13" href="../nathan_marz_storm-2013/nathan_marz_storm-2013-04-02-Principles_of_Software_Engineering%2C_Part_1.html">37 nathan marz storm-2013-04-02-Principles of Software Engineering, Part 1</a></p>
+<p>14 0.16453731 <a title="12-lda-14" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-24-The_inexplicable_rise_of_open_floor_plans_in_tech_companies.html">40 nathan marz storm-2014-02-24-The inexplicable rise of open floor plans in tech companies</a></p>
+<p>15 0.14746244 <a title="12-lda-15" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
+<p>16 0.13961613 <a title="12-lda-16" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-01-07-Analysis_of_the_%23LessAmbitiousMovies_Twitter_Meme.html">27 nathan marz storm-2011-01-07-Analysis of the #LessAmbitiousMovies Twitter Meme</a></p>
+<p>17 0.13855898 <a title="12-lda-17" href="../nathan_marz_storm-2013/nathan_marz_storm-2013-04-01-My_new_startup.html">36 nathan marz storm-2013-04-01-My new startup</a></p>
+<p>18 0.13213603 <a title="12-lda-18" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-04-Introducing_%22Nanny%22_-_a_really_simple_dependency_management_tool.html">7 nathan marz storm-2010-03-04-Introducing "Nanny" - a really simple dependency management tool</a></p>
+<p>19 0.12947926 <a title="12-lda-19" href="../nathan_marz_storm-2013/nathan_marz_storm-2013-04-12-Break_into_Silicon_Valley_with_a_blog.html">38 nathan marz storm-2013-04-12-Break into Silicon Valley with a blog</a></p>
+<p>20 0.12326117 <a title="12-lda-20" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-05-10-Why_we_in_tech_must_support_Lawrence_Lessig.html">41 nathan marz storm-2014-05-10-Why we in tech must support Lawrence Lessig</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
