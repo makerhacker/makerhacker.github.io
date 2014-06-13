@@ -30,9 +30,30 @@ presentations.PlatformPHPMySQLShardsMemcached for a caching layer.Squid in
 reverse-proxy for html and images.Linux (RedHat)Smarty for templatingPerlPEAR
 for XML and Email parsingImageMagick, for image processingJava, for the node
 serviceApacheSystemImager for deploymentGanglia for distributed system
-m</p><br/>
+m</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 ~35M photos in squid cache (total)~2M photos in squid's RAM~470M photos, 4 or 5 sizes of each38k req/sec to memcached (12M objects)2 PB raw storage (consumed about ~1. [sent-17, score-0.765]
+</p><p>2 5TB on SundayOver 400,000 photos being added every dayThe ArchitectureA pretty picture of Flickr's architecture can be found on thisslide. [sent-18, score-0.373]
+</p><p>3 - The central database includes data like the 'users' table, which includes primary userkeys (a few different IDs) and a pointer to which shard a users' data can be found on. [sent-21, score-0.451]
+</p><p>4 Every page view, calculate where your data is, at that moment of time. [sent-39, score-0.256]
+</p><p>5 - PHP logic to connect to the shards and keep the data consistent (10 lines of code with comments! [sent-40, score-0.367]
+</p><p>6 Clicking a Favorite:- Pulls the Photo owners Account from Cache, to get the shard location (say on shard-5)- Pulls my Information from cache, to get my shard location (say on shard-13)- Starts a "distributed transaction" \- to answer the question: Who favorited the photo? [sent-47, score-0.642]
+</p><p>7 To get rid of replication lagâ&euro;Ś\- every page load, the user is assigned to a bucket- if host is down, go to next host in the list; if all hosts are down, display an error page. [sent-51, score-0.272]
+</p><p>8 So 1 server in the shard can take the full load if a server of that shard is down or in maintenance mode. [sent-58, score-0.642]
+</p><p>9 Over 36,000 queries per second - running within capacity threshold. [sent-67, score-0.264]
+</p><p>10 Transactions are used to prevent out of sync data: open transaction 1, write commands, open transaction 2, write commands, commit 1st transaction if all is well, commit 2nd transaction if 1st committed. [sent-74, score-0.578]
+</p><p>11 Search:- Two search back- ends: shards 35k qps on a few shards and Yahoo! [sent-76, score-0.464]
+</p><p>12 's (proprietary) web search- Owner's single tag search or a batch tag change (say, via Organizr) goes to the Shards due to real-time requirements, everything else goes to Yahoo! [sent-77, score-0.272]
+</p><p>13 - Data size is at 12 TB of user metadata (these are not photos, this is just innodb ibdata files - the photos are a lot larger). [sent-79, score-0.441]
+</p><p>14 Backup procedure:- ibbackup on a cron job, that runs across various shards at different times. [sent-82, score-0.201]
+</p><p>15 - Writing or deleting several huge backup files at once to a replication filestore can wreck performance on that filestore for the next few hours as it replicates the backup files. [sent-85, score-0.473]
+</p><p>16 Stick it into a table, or recover data from another copy from other users shards. [sent-94, score-0.206]
+</p><p>17 max_connections = 400 connections per shard, or 800 connections per server & shard. [sent-95, score-0.402]
+</p><p>18 Create clear levels of abstraction between database work, business logic, page logic, page mark-up and the presentation layer. [sent-121, score-0.244]
+</p><p>19 Layering allows developers to create page level logic which designers can use to build the user experience. [sent-124, score-0.223]
+</p><p>20 More users means more content, more content means more connections, more connections mean more usage. [sent-150, score-0.201]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('shard', 0.321), ('photos', 0.307), ('shards', 0.201), ('flickr', 0.152), ('squid', 0.151), ('photo', 0.137), ('filestore', 0.128), ('page', 0.122), ('connections', 0.122), ('transaction', 0.113), ('ring', 0.107), ('tag', 0.105), ('henderson', 0.104), ('comment', 0.103), ('stored', 0.102), ('logic', 0.101), ('queries', 0.096), ('favorites', 0.092), ('capacity', 0.089), ('replication', 0.084)]</p>
+<p>[('shard', 0.321), ('photos', 0.307), ('shards', 0.201), ('flickr', 0.152), ('squid', 0.151), ('photo', 0.137), ('filestore', 0.128), ('page', 0.122), ('connections', 0.122), ('transaction', 0.113), ('ring', 0.107), ('tag', 0.105), ('henderson', 0.104), ('comment', 0.103), ('stored', 0.102), ('logic', 0.101), ('queries', 0.096), ('favorites', 0.092), ('capacity', 0.089), ('replication', 0.084), ('pulls', 0.08), ('per', 0.079), ('users', 0.079), ('artificial', 0.078), ('shut', 0.077), ('files', 0.075), ('tags', 0.074), ('lag', 0.074), ('uploads', 0.073), ('planning', 0.072), ('calculate', 0.069), ('ids', 0.067), ('every', 0.066), ('data', 0.065), ('email', 0.065), ('active', 0.065), ('commit', 0.063), ('recover', 0.062), ('search', 0.062), ('migration', 0.061), ('metadata', 0.059), ('dual', 0.059), ('php', 0.059), ('backups', 0.059), ('commands', 0.058), ('statsmore', 0.058), ('autoincrement', 0.058), ('powerpoint', 0.058), ('wreck', 0.058), ('double', 0.058)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999976 <a title="152-tfidf-1" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
 <p>Introduction: Update:Flickr hits2 Billion photosserved. That's a lot of hamburgers.Flickr is
