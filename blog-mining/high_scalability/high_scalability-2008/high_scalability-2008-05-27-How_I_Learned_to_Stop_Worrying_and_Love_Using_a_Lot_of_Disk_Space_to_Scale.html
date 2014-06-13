@@ -28,9 +28,30 @@ good, others not so good. My GMT watch broke and I was late to arrive. Maybe
 next time. Also added a few new design rules from the post.Update: Added a few
 new rules gleaned from theGAE Meetup: Design By Explicit Cost Model and Puts
 are Precious.How do you structure your database using a distributed hash table
-likeBigTable? The answer isn't what you might expect. If you were thinking of</p><br/>
+likeBigTable? The answer isn't what you might expect. If you were thinking of</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In a relational world duplication is removed in order to prevent update anomalies. [sent-34, score-0.368]
+</p><p>2 Every get of an entity could be from adifferent disk block on a different machinein a cluster. [sent-55, score-0.374]
+</p><p>3 Store data in the same entity based on what data needs to be read concurrently. [sent-66, score-0.667]
+</p><p>4 Store entities so they can be read in one access rather than performing a join requiring multiple reads. [sent-69, score-0.445]
+</p><p>5 Instead of storing attributes in separate entities in order to remove duplication, duplicate the attributes and store them where they need to be used. [sent-70, score-0.693]
+</p><p>6 This isn't the same as an object oriented database because the behavior is provided by applications, behavior is not bound to the entity so multiple applications can read the same entities yet implement very different behaviors. [sent-85, score-0.831]
+</p><p>7 Since looping over large columns of data is inefficient with BigTable the idea is to calculate values at write time instead of read time. [sent-87, score-0.403]
+</p><p>8 For example, instead of calculating an average by reading an entire column at read time, track the total number and the total value at write time so the average can be calculated with one read on page display. [sent-88, score-0.638]
+</p><p>9 Instead, create larger entities with optional parts so you can do one read and then determine what's present at run time. [sent-95, score-0.386]
+</p><p>10 Place a many-to-many relation in the entity with the fewest number of elements. [sent-118, score-0.519]
+</p><p>11 A Company entity, for example, could contain a list of keys to Contact entities or a Contact entity could contain a list of keys to Company entities. [sent-120, score-0.863]
+</p><p>12 If every request to your app reads or writes a particular entity, latency will increase as your traffic goes up because reads and writes on a given entity are sequential. [sent-127, score-0.887]
+</p><p>13 an entity that keeps track of a count and is updated or read on every request. [sent-130, score-0.562]
+</p><p>14 Any two entities that share a common ancestor belong to the same entity group. [sent-132, score-0.726]
+</p><p>15 All writes to an entity group are sequential, so large entity groups can bog down popular apps quickly if there are a lot of writes to that group. [sent-133, score-0.985]
+</p><p>16 To recreate the original purchase order a join on purchases, produce and customer is needed. [sent-142, score-0.362]
+</p><p>17 Notice how the entity looks more like an original purchase order. [sent-147, score-0.54]
+</p><p>18 But what if you want to update a product name or a customer name? [sent-149, score-0.34]
+</p><p>19 Only one entity needs updating in a normalized model. [sent-152, score-0.46]
+</p><p>20 In BigTable you have to remember everywhere a customer name and product name and change every instance to new values. [sent-153, score-0.424]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('bigtable', 0.378), ('entity', 0.374), ('entities', 0.253), ('gae', 0.179), ('relational', 0.151), ('read', 0.133), ('attributes', 0.128), ('customer', 0.113), ('reads', 0.112), ('explicit', 0.106), ('duplicate', 0.101), ('belong', 0.099), ('purchase', 0.097), ('name', 0.097), ('rules', 0.096), ('ethics', 0.094), ('relation', 0.09), ('writes', 0.09), ('normalized', 0.086), ('batches', 0.085)]</p>
+<p>[('bigtable', 0.378), ('entity', 0.374), ('entities', 0.253), ('gae', 0.179), ('relational', 0.151), ('read', 0.133), ('attributes', 0.128), ('customer', 0.113), ('reads', 0.112), ('explicit', 0.106), ('duplicate', 0.101), ('belong', 0.099), ('purchase', 0.097), ('name', 0.097), ('rules', 0.096), ('ethics', 0.094), ('relation', 0.09), ('writes', 0.09), ('normalized', 0.086), ('batches', 0.085), ('order', 0.083), ('data', 0.08), ('updates', 0.077), ('ethical', 0.073), ('instead', 0.072), ('applications', 0.071), ('column', 0.07), ('comments', 0.069), ('original', 0.069), ('update', 0.068), ('duplication', 0.066), ('contact', 0.065), ('list', 0.062), ('product', 0.062), ('inefficient', 0.061), ('iterating', 0.06), ('rather', 0.059), ('average', 0.059), ('schema', 0.058), ('model', 0.057), ('comment', 0.057), ('write', 0.057), ('groups', 0.057), ('keys', 0.056), ('every', 0.055), ('minimize', 0.055), ('number', 0.055), ('app', 0.054), ('example', 0.054), ('reasoning', 0.054)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999982 <a title="327-tfidf-1" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
 <p>Introduction: Update 3: ReadWriteWeb saysGoogle App Engine Announces New Pricing Plans,

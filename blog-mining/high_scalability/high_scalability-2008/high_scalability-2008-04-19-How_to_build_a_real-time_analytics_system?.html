@@ -29,9 +29,29 @@ just read only.But this is not a problem since this configuration is working
 for us and we don't have any problems with it.Right now we are planning to
 build our own analytics service that would be customized for our needs. We
 tried various different software packages but were not satisfied with any of
-them.</p><br/>
+them.</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I am a developer of a website with a lot of traffic. [sent-2, score-0.08]
+</p><p>2 Right now we are managing the whole website using perl + postgresql + fastcgi + memcached + mogileFS + lighttpd + roundrobin DNS distributed over 5 servers and I must say it works like a charm, load is stable and everything works very fast and we are recording about 8 million pageviews per day. [sent-3, score-0.576]
+</p><p>3 The only problem is with postgres database since we have it installed only on one server and if this server goes down, the whole "cluster" goes down. [sent-4, score-0.272]
+</p><p>4 That's why we have a master2slave replication so we still have a backup database except that when the master goes down, all inserts/updates are disabled so the whole website is just read only. [sent-5, score-0.348]
+</p><p>5 Right now we are planning to build our own analytics service that would be customized for our needs. [sent-7, score-0.144]
+</p><p>6 We tried various different software packages but were not satisfied with any of them. [sent-8, score-0.146]
+</p><p>7 We want to build something like Google Analytics so it would allow us to create reports in real-time with "drill-down" possibility to make interactive reports. [sent-9, score-0.471]
+</p><p>8 We don't need real-time data to be included in report - we just need a possibility to make different reports very fast. [sent-10, score-0.578]
+</p><p>9 For example right now we are logging requests into plain text log files in the following format:date | hour | user_id | site_id | action_id | some_other_attributes. [sent-12, score-0.604]
+</p><p>10 You can display any type of report by combining different columns as well as counting all or only distinct occurrences of certain attributes. [sent-20, score-0.798]
+</p><p>11 I know how to parse these log files and calculate any type of report I want, but it takes time. [sent-21, score-0.99]
+</p><p>12 There are about 9 million rows in each daily log file and if I want to calculate monthly reports I need to parse all daily log files for one month - meaning I have to parse almost 300 million of lines, count what I want and then display the summary. [sent-22, score-2.408]
+</p><p>13 calculating a number of users that have been on site_id=1 but not on site_id=2 - in this case I have to export users on site 1, export users on site 2 and then compare results and count the differences). [sent-25, score-1.168]
+</p><p>14 If you take a look at Google Analytics it calculates any type of similar report in real-time. [sent-26, score-0.372]
+</p><p>15 If I put 300 million of rows (requests per month) into the Postgres/MySQL table, selects are even slower than parsing plain text log files using Perl. [sent-29, score-1.06]
+</p><p>16 I am aware that they have a huge amount of servers but I am also aware that they have even bigger amount of hits per day. [sent-32, score-0.531]
+</p><p>17 I have a possibility to store and process this kind of analytics on multiple servers at the same time but I don't have enough knowledge how to construct a software and database that would be able to do a job like this. [sent-33, score-0.336]
+</p><p>18 To calculate unique users during certain period you have to count all the distinct user_ids during that time period. [sent-37, score-1.111]
+</p><p>19 where date>='2008-04-10' and date <='2008-04-18' - with a 9million rows per day this statement would take about two minutes to complete and we are not satisfied with it. [sent-43, score-0.664]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('distinct', 0.243), ('parse', 0.222), ('count', 0.201), ('reports', 0.195), ('possibility', 0.192), ('report', 0.191), ('hits', 0.183), ('calculate', 0.182), ('log', 0.17), ('date', 0.165), ('satisfied', 0.146), ('rows', 0.144), ('analytics', 0.144), ('export', 0.142), ('per', 0.14), ('period', 0.14), ('users', 0.139), ('files', 0.133), ('unique', 0.132), ('plain', 0.131)]</p>
+<p>[('distinct', 0.243), ('parse', 0.222), ('count', 0.201), ('reports', 0.195), ('possibility', 0.192), ('report', 0.191), ('hits', 0.183), ('calculate', 0.182), ('log', 0.17), ('date', 0.165), ('satisfied', 0.146), ('rows', 0.144), ('analytics', 0.144), ('export', 0.142), ('per', 0.14), ('period', 0.14), ('users', 0.139), ('files', 0.133), ('unique', 0.132), ('plain', 0.131), ('month', 0.113), ('million', 0.111), ('aware', 0.104), ('display', 0.102), ('occurrences', 0.096), ('number', 0.094), ('type', 0.092), ('charm', 0.092), ('text', 0.092), ('whole', 0.092), ('goes', 0.09), ('calculates', 0.089), ('disabled', 0.086), ('site', 0.086), ('want', 0.084), ('fastcgi', 0.084), ('mogilefs', 0.084), ('daily', 0.082), ('hint', 0.081), ('website', 0.08), ('requests', 0.078), ('certain', 0.074), ('suggestion', 0.074), ('hello', 0.073), ('selects', 0.072), ('simplest', 0.07), ('day', 0.069), ('recording', 0.069), ('specific', 0.068), ('parsing', 0.067)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999982 <a title="304-tfidf-1" href="../high_scalability-2008/high_scalability-2008-04-19-How_to_build_a_real-time_analytics_system%3F.html">304 high scalability-2008-04-19-How to build a real-time analytics system?</a></p>
 <p>Introduction: Hello everybody!I am a developer of a website with a lot of traffic. Right now

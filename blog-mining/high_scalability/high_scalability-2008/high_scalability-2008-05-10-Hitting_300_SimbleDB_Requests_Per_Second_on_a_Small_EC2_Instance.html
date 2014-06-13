@@ -29,9 +29,30 @@ approach taken by Haakon@AWS in his Java code example of how to get the most
 out of SimpleDB. You can find the code atIndexing and Querying Amazon S3
 Metadata with Amazon SimpleDB. We'll also consider how a back-end service
 architecture built on Erlang may be a better fit with cloud computing.breakTwo
-general mechanisms of parallelism are a</p><br/>
+general mechanisms of parallelism are a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Remember, in SimpleDB you get keys to records from queries so if you want to get all the fields for records you need to make separate requests. [sent-3, score-0.441]
+</p><p>2 Even if a job takes a 100 msecs you can get a lot done in a little time if you can execute enough jobs in parallel. [sent-5, score-0.234]
+</p><p>3 Parallelization is the approach taken by Haakon@AWS in his Java code example of how to get the most out of SimpleDB. [sent-6, score-0.163]
+</p><p>4 breakTwo general mechanisms of parallelism are available: threads and boxes. [sent-9, score-0.323]
+</p><p>5 To get the most bang out of a single machine you need threads (events, etc). [sent-10, score-0.322]
+</p><p>6 The items were pulled by the thread pool and processed. [sent-16, score-0.602]
+</p><p>7 The idea is to balance processing overhead with work overhead. [sent-18, score-0.209]
+</p><p>8 You don't want popping items off SQS to dominate your processing time so you have to do enough work in each pass to make it worth the investment. [sent-19, score-0.507]
+</p><p>9 The architecture uses two thread pools: one to run queries and one to get record values. [sent-20, score-0.53]
+</p><p>10 Applications must carefully tune the number of threads in each pool so the queries to overwhelm the gets. [sent-21, score-0.637]
+</p><p>11 Using a query thread pool with 2 threads and a get thread pool with 32 threads it was possible to perform 300 TPS on a small EC2 instances. [sent-22, score-1.594]
+</p><p>12 SQS is your work distribution backbone and you just spin up the number of thread pool instances you need. [sent-24, score-0.656]
+</p><p>13 Instead of thread pools something like Java'sfork/join frameworkcould be used. [sent-35, score-0.48]
+</p><p>14 Yes, it is a "'multicore-friendly lightweight parallel framework' that supports a style of parallel programming where problems are recursively split into smaller fragments, solved in parallel and recombined," but it's also a style of programming that is very difficult to program correctly. [sent-37, score-0.868]
+</p><p>15 Erlang style architectures described by Luke Hoersten inScalable Web Apps: Erlang + Pythonis a simpler more reliable to programming model. [sent-39, score-0.225]
+</p><p>16 An event driven actor based approach is much harder to screw up than closely cooperating threads in a shared memory space. [sent-40, score-0.559]
+</p><p>17 Erlang originally ran in embedded systems where the requirement was to reliably squeeze the most work possible out of limited CPU and other compute resources. [sent-41, score-0.303]
+</p><p>18 Oddly enough the embedded node of old closely parallels your basic cloud VM. [sent-42, score-0.363]
+</p><p>19 Start your work horse Erlang (or other similar system) instances and let them efficiently chew up your work loads. [sent-43, score-0.431]
+</p><p>20 It will get more work done then your typical thread based system ever would. [sent-45, score-0.5]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('thread', 0.272), ('erlang', 0.254), ('pool', 0.25), ('sqs', 0.249), ('threads', 0.228), ('pools', 0.208), ('simpledb', 0.174), ('work', 0.134), ('style', 0.121), ('closely', 0.117), ('parallel', 0.11), ('programming', 0.104), ('embedded', 0.098), ('howgoogle', 0.098), ('idiom', 0.098), ('inscalable', 0.098), ('punts', 0.098), ('parallelism', 0.095), ('get', 0.094), ('chew', 0.092)]</p>
+<p>[('thread', 0.272), ('erlang', 0.254), ('pool', 0.25), ('sqs', 0.249), ('threads', 0.228), ('pools', 0.208), ('simpledb', 0.174), ('work', 0.134), ('style', 0.121), ('closely', 0.117), ('parallel', 0.11), ('programming', 0.104), ('embedded', 0.098), ('howgoogle', 0.098), ('idiom', 0.098), ('inscalable', 0.098), ('punts', 0.098), ('parallelism', 0.095), ('get', 0.094), ('chew', 0.092), ('recursively', 0.088), ('records', 0.086), ('oddly', 0.085), ('amazon', 0.084), ('record', 0.083), ('disadvantage', 0.082), ('piling', 0.082), ('queries', 0.081), ('items', 0.08), ('inhow', 0.08), ('luke', 0.078), ('overwhelm', 0.078), ('parallels', 0.078), ('popping', 0.076), ('processing', 0.075), ('fragments', 0.075), ('screw', 0.073), ('compose', 0.073), ('dominate', 0.072), ('cooperating', 0.072), ('horse', 0.071), ('squeeze', 0.071), ('equation', 0.071), ('enough', 0.07), ('msecs', 0.07), ('differs', 0.07), ('approach', 0.069), ('primitive', 0.069), ('primitives', 0.069), ('multithreaded', 0.068)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="317-tfidf-1" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
 <p>Introduction: High Performance Multithreaded Access to Amazon SimpleDBis a great follow up

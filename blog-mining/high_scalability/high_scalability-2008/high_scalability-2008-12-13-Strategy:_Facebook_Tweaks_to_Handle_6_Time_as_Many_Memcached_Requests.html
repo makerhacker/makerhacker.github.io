@@ -29,9 +29,30 @@ connection use was always a priority because the OS simply couldn't handle
 large numbers of connections or large numbers of threads or large numbers of
 CPUs. To get to this point is a big accomplishment. Still, at that scale there
 are problems that are often solved.Some of the problem Facebook faced and
-fixed:Pe</p><br/>
+fixed:Pe</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Our latest strategy is taken from agreat post by Paul Saab of Facebook, detailing how with changes Facebook has made to memcached they have:. [sent-1, score-0.523]
+</p><p>2 been able to scale memcached to handle 200,000 UDP requests per second with an average latency of 173 microseconds. [sent-4, score-0.249]
+</p><p>3 To scale Facebook has hundreds of thousands of TCP connections open to their memcached processes. [sent-7, score-0.232]
+</p><p>4 Optimizing connection use was always a priority because the OS simply couldn't handle large numbers of connections or large numbers of threads or large numbers of CPUs. [sent-10, score-0.684]
+</p><p>5 Some of the problem Facebook faced and fixed:Per connection consumption of resources. [sent-13, score-0.176]
+</p><p>6 What works well at low number of inputs can totally kill a system as inputs grow. [sent-14, score-0.264]
+</p><p>7 Memcached uses a per- connection buffer which adds up to a lot of memory that could be used to store data. [sent-15, score-0.29]
+</p><p>8 Nothing wrong with this design choice, but Facebook made changes to use a per-thread shared connection buffer and reclaimed gigabytes of RAM on each server. [sent-16, score-0.565]
+</p><p>9 Facebook discovered under load there was lock contention when transmitting through a single UDP socket from multiple threads. [sent-18, score-0.485]
+</p><p>10 Sockets are data structures too and they are subject to the usual lock contention issues. [sent-19, score-0.391]
+</p><p>11 Facebook got around this issue by maintaining separate reply sockets in different threads so they would not contend with the receive sockets. [sent-20, score-0.371]
+</p><p>12 They changed the dequeue algorithm to batch dequeues so more work was done when they had the CPU. [sent-22, score-0.272]
+</p><p>13 Nothing brings out lock issues like moving to more cores. [sent-24, score-0.286]
+</p><p>14 Facebook found when they moved to 8 core machines a global lock protecting stats collection used 20-30% of CPU usage. [sent-25, score-0.46]
+</p><p>15 In application that require little processing per request, as does memcached, this is not unexpected, but doing real work with your CPU is a better idea. [sent-26, score-0.167]
+</p><p>16 So they collected stats on a per thread basis and then calculated a global view on demand. [sent-27, score-0.189]
+</p><p>17 Notice using a nifty new parallel language or moving to a cloud wouldn't have made a bit difference. [sent-35, score-0.189]
+</p><p>18 When you have the CPU do all the work you possibly can in the quantum or the whole system grinds to a halt in processing overhead. [sent-46, score-0.248]
+</p><p>19 Otherwise locking for shared resources takes more and more time when there's less and less time to do the work that needs to be done. [sent-48, score-0.322]
+</p><p>20 You can find their changes ongithub, the hub that says "git. [sent-52, score-0.183]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('udp', 0.296), ('lock', 0.286), ('facebook', 0.264), ('connection', 0.176), ('memcached', 0.156), ('sockets', 0.138), ('inputs', 0.132), ('paul', 0.127), ('cpu', 0.125), ('profiling', 0.123), ('numbers', 0.116), ('buffer', 0.114), ('floods', 0.109), ('dequeue', 0.109), ('contention', 0.105), ('made', 0.103), ('halt', 0.102), ('ongithub', 0.102), ('tanks', 0.102), ('hub', 0.097)]</p>
+<p>[('udp', 0.296), ('lock', 0.286), ('facebook', 0.264), ('connection', 0.176), ('memcached', 0.156), ('sockets', 0.138), ('inputs', 0.132), ('paul', 0.127), ('cpu', 0.125), ('profiling', 0.123), ('numbers', 0.116), ('buffer', 0.114), ('floods', 0.109), ('dequeue', 0.109), ('contention', 0.105), ('made', 0.103), ('halt', 0.102), ('ongithub', 0.102), ('tanks', 0.102), ('hub', 0.097), ('stats', 0.096), ('tcp', 0.095), ('detailing', 0.094), ('transmitting', 0.094), ('per', 0.093), ('changed', 0.089), ('multiplexing', 0.088), ('resources', 0.088), ('nifty', 0.086), ('reclaimed', 0.086), ('changes', 0.086), ('strategies', 0.085), ('threads', 0.084), ('agreat', 0.084), ('regression', 0.083), ('flood', 0.081), ('proportion', 0.081), ('less', 0.08), ('protecting', 0.078), ('contend', 0.078), ('interrupts', 0.078), ('connections', 0.076), ('work', 0.074), ('quantum', 0.072), ('tweaking', 0.071), ('nothing', 0.071), ('reply', 0.071), ('sits', 0.07), ('offload', 0.069), ('stock', 0.069)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="464-tfidf-1" href="../high_scalability-2008/high_scalability-2008-12-13-Strategy%3A_Facebook_Tweaks_to_Handle_6_Time_as_Many_Memcached_Requests.html">464 high scalability-2008-12-13-Strategy: Facebook Tweaks to Handle 6 Time as Many Memcached Requests</a></p>
 <p>Introduction: Our latest strategy is taken from agreat post by Paul Saab of Facebook,

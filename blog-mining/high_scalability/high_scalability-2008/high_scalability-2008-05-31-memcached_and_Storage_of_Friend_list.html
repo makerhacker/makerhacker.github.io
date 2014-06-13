@@ -28,9 +28,27 @@ of friend's ID -- so have up to 1000 arrays for you.--comma-delimited string
 of ID's as one elementI'm using the second one because I think it is faster to
 update. The single array or hash of arrays feels like too much overhead
 calculating and updating – and even just loading – to check for existence of a
-friend.The key is FRIEND[small ID#]_[big ID#]. The value is 1.This way</p><br/>
+friend.The key is FRIEND[small ID#]_[big ID#]. The value is 1.This way</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 You are all like doctors - the more info, the better the diagnosis. [sent-3, score-0.1]
+</p><p>2 -----------What is the best way to store a list of all of your friends in the memcached cache (a simple boolean saying “yes this user is your friend”, or “no”)? [sent-4, score-0.612]
+</p><p>3 He views a list of ALL existing users, and in this list, his friends are highlighted. [sent-7, score-0.518]
+</p><p>4 I came up with 4 possible methods:--store in memcache as an array, a list of all the "yes" friend ID's--store your friend ID's as individual elements. [sent-8, score-1.018]
+</p><p>5 --store as a hash of arrays based on last 3 digits of friend's ID -- so have up to 1000 arrays for you. [sent-9, score-0.681]
+</p><p>6 --comma-delimited string of ID's as one elementI'm using the second one because I think it is faster to update. [sent-10, score-0.112]
+</p><p>7 The single array or hash of arrays feels like too much overhead calculating and updating – and even just loading – to check for existence of a friend. [sent-11, score-0.87]
+</p><p>8 (I add u as friend, it always adds me as ur friend. [sent-15, score-0.09]
+</p><p>9 Store with it 2 additional flags: One denotes start of entries. [sent-19, score-0.298]
+</p><p>10 As friends are added, the end flag position relative to new friends will become meaningless, but that is ok (I think). [sent-21, score-1.204]
+</p><p>11 To see if someone is your friend, the system checks if both start and end flags exist. [sent-22, score-0.563]
+</p><p>12 If both exist, it can check for existence of friend ID - if exists, then friend. [sent-23, score-0.612]
+</p><p>13 If start flag is pushed out of cache, we must assume some friends were also pushed out. [sent-25, score-0.944]
+</p><p>14 Currently, the system loads from DB in a daemon in the background after you log in (if two flags are not already set). [sent-26, score-0.423]
+</p><p>15 Adding/removing friends to your account adds/removes to/from memcache - so, theoretically, it might never have to pre-load anything. [sent-29, score-0.539]
+</p><p>16 Downside of my method is if the elements span multiple servers and one dies, you loose some of your friends (that's the upside of using arrays). [sent-30, score-0.659]
+</p><p>17 I don't know how to resolve if the lost box didn't contain either of the flags -- in that case, the users' info will NEVER get refreshed. [sent-31, score-0.584]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('friend', 0.407), ('friends', 0.401), ('flags', 0.362), ('id', 0.26), ('arrays', 0.248), ('flag', 0.225), ('denotes', 0.222), ('existence', 0.135), ('list', 0.117), ('info', 0.108), ('doctors', 0.1), ('pushed', 0.097), ('array', 0.095), ('boolean', 0.094), ('digits', 0.094), ('meaningless', 0.094), ('hash', 0.091), ('yes', 0.091), ('ur', 0.09), ('memcache', 0.087)]</p>
+<p>[('friend', 0.407), ('friends', 0.401), ('flags', 0.362), ('id', 0.26), ('arrays', 0.248), ('flag', 0.225), ('denotes', 0.222), ('existence', 0.135), ('list', 0.117), ('info', 0.108), ('doctors', 0.1), ('pushed', 0.097), ('array', 0.095), ('boolean', 0.094), ('digits', 0.094), ('meaningless', 0.094), ('hash', 0.091), ('yes', 0.091), ('ur', 0.09), ('memcache', 0.087), ('remove', 0.086), ('db', 0.079), ('upside', 0.076), ('start', 0.076), ('theoretically', 0.074), ('check', 0.07), ('scoble', 0.069), ('dies', 0.068), ('end', 0.067), ('timeout', 0.065), ('loose', 0.064), ('resolve', 0.063), ('calculating', 0.063), ('span', 0.062), ('daemon', 0.061), ('feels', 0.059), ('relative', 0.059), ('string', 0.059), ('checks', 0.058), ('robert', 0.057), ('exists', 0.056), ('elements', 0.056), ('updating', 0.055), ('loading', 0.054), ('think', 0.053), ('ok', 0.051), ('contain', 0.051), ('never', 0.051), ('methods', 0.05), ('assume', 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9999997 <a title="337-tfidf-1" href="../high_scalability-2008/high_scalability-2008-05-31-memcached_and_Storage_of_Friend_list.html">337 high scalability-2008-05-31-memcached and Storage of Friend list</a></p>
 <p>Introduction: My first post, please be gentle. I know it is long. You are all like doctors -

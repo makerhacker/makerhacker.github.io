@@ -29,9 +29,30 @@ nobody has ever heard of, pulling in more page views than even Flickr. Fotolog
 has 51 instances of memcached on 21 servers with 175G in use and 254G
 available. As a large successful photo-blogging site they have very demanding
 performance and scaling requirements. To meet those requirements they've
-developed a soph</p><br/>
+developed a soph</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In the last half of the second seminar Farhan gives a number of excellent code examples showing how memcached is installed, used, and managed. [sent-25, score-0.586]
+</p><p>2 However, the recommended approach for using memcached and MySQL is:Write scale the database by sharding. [sent-28, score-0.669]
+</p><p>3 Applications access memcached first for data and if the data is not in memcached then the application tries the database. [sent-32, score-1.11]
+</p><p>4 Your cache may not be much of a cache at all depending on usage patterns. [sent-45, score-0.804]
+</p><p>5 Memcached can cache any type of data you want and it isn't limited to caching database rows. [sent-47, score-0.723]
+</p><p>6 Memcached can cache complex complex objects that are directly usable without a join. [sent-48, score-0.562]
+</p><p>7 Fotolog's Caching TypologyFotolog has come up with an interesting typology of their different caching strategies:Non-Deterministic Cache- the classic memcached model of reading through the cache and writing to the database. [sent-53, score-0.966]
+</p><p>8 Partial Page Cache- cache displayable page elements, not just data. [sent-57, score-0.577]
+</p><p>9 Good replacement for MySQL query cacheCaching relationships and other listsSlow data that's used across many pagesDon't cache if its more taxing to cache than you'll saveTag clouds and auto-suggest listsFor example, when a photo is uploaded the photo is uploaded on the page of every friend. [sent-65, score-1.34]
+</p><p>10 Stats45 memcached instances dedicated to nondeterministic cacheEach instance (on average):* ~440 gets per second* ~40 sets per second* ~11 gets/setFotolog likes to characterize their caching policy in terms of the ratio of gets to sets. [sent-70, score-0.662]
+</p><p>11 Potential ProblemsWhile memcached is usually a light CPU user, Fotolog ran their cache on their application servers and found some problems:* 90% CPU usage* Memory garbage collected nearly once a minute* Experienced blocking on memcached on app serversOperations are not transactional. [sent-71, score-1.352]
+</p><p>12 An application always assumes that the data they need is in the cache (deterministic), applications never go to the database for data. [sent-83, score-0.66]
+</p><p>13 The data will exist in the cache because the database is essentially loaded into the cache and is always kept in sync. [sent-85, score-1.064]
+</p><p>14 As updates happen to the database the cache is populated based on the database change. [sent-113, score-0.72]
+</p><p>15 Since the cache is updated as the database is updated the chances of data being in cache are high. [sent-114, score-1.152]
+</p><p>16 Useful ForPre-Populating Cache: Keeping memcached updated minimizes calls to database if object not present. [sent-116, score-0.701]
+</p><p>17 The other caching strategies cache data used to create pages, but some things are still compute intensive and require a lot of work. [sent-136, score-0.687]
+</p><p>18 So instead of just caching objects, prepare and cache entire page elements for reuse. [sent-137, score-0.693]
+</p><p>19 The API hides implementation details like:An application writes to one memcached client which writes to multiple memcached instances. [sent-142, score-1.17]
+</p><p>20 Don't run memcached on your database server, give your database all the memory it can get. [sent-158, score-0.746]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('memcached', 0.449), ('cache', 0.402), ('fotolog', 0.33), ('farhan', 0.191), ('pools', 0.142), ('mysql', 0.134), ('blackhole', 0.126), ('database', 0.126), ('caching', 0.115), ('pool', 0.114), ('photo', 0.113), ('mashraqi', 0.108), ('page', 0.091), ('strategies', 0.09), ('elements', 0.085), ('displayable', 0.084), ('seminar', 0.084), ('taxing', 0.084), ('webinar', 0.083), ('data', 0.08)]</p>
+<p>[('memcached', 0.449), ('cache', 0.402), ('fotolog', 0.33), ('farhan', 0.191), ('pools', 0.142), ('mysql', 0.134), ('blackhole', 0.126), ('database', 0.126), ('caching', 0.115), ('pool', 0.114), ('photo', 0.113), ('mashraqi', 0.108), ('page', 0.091), ('strategies', 0.09), ('elements', 0.085), ('displayable', 0.084), ('seminar', 0.084), ('taxing', 0.084), ('webinar', 0.083), ('data', 0.08), ('deterministic', 0.078), ('multiple', 0.072), ('updated', 0.071), ('objects', 0.068), ('populated', 0.066), ('update', 0.061), ('slab', 0.058), ('logins', 0.056), ('populate', 0.056), ('client', 0.056), ('object', 0.055), ('query', 0.055), ('exist', 0.054), ('second', 0.053), ('application', 0.052), ('speeding', 0.052), ('caches', 0.051), ('brian', 0.05), ('warm', 0.05), ('files', 0.05), ('gets', 0.049), ('recommended', 0.049), ('replicated', 0.048), ('overhead', 0.047), ('writes', 0.046), ('complex', 0.046), ('nfs', 0.046), ('calculate', 0.045), ('approach', 0.045), ('memory', 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000005 <a title="360-tfidf-1" href="../high_scalability-2008/high_scalability-2008-08-04-A_Bunch_of_Great_Strategies_for_Using_Memcached_and_MySQL_Better_Together.html">360 high scalability-2008-08-04-A Bunch of Great Strategies for Using Memcached and MySQL Better Together</a></p>
 <p>Introduction: The primero recommendation for speeding up a website is almost always to add

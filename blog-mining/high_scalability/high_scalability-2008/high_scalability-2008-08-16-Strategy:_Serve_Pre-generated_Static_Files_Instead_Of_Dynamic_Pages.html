@@ -29,9 +29,30 @@ is the process Thomas covers in his excellent articleServing static files with
 Django and AWS - going fast on a budget", where he explains how he converted
 600K thousand previously dynamic pages to static pages for his
 siteEventseer.net, a service for tracking academic events.Eventseer.net was
-experiencing per</p><br/>
+experiencing per</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Pre-generating static files is an oldy but a goody, and as Thomas Brox RĂ¸st says, it's probably an underused strategy today. [sent-1, score-0.405]
+</p><p>2 Then the age of dynamic web sites arrived and we spent all our time worrying how to make the database faster and add more caching to recover the speed we had lost in the transition from static to dynamic. [sent-3, score-0.34]
+</p><p>3 The issue is how do you bulk generate the initial files, how do you serve the files, and how do you keep the changed files up to date? [sent-8, score-0.394]
+</p><p>4 This is the process Thomas covers in his excellent articleServing static files with Django and AWS - going fast on a budget", where he explains how he converted 600K thousand previously dynamic pages to static pages for his siteEventseer. [sent-9, score-1.415]
+</p><p>5 Their solution was to convert the dynamic pages to static pages in order to keep search engines from killing the site. [sent-14, score-1.152]
+</p><p>6 Their data is backed up on S3 so the EC2 instances could read the data from S3, generate the static pages, and write them to their deployment area. [sent-22, score-0.449]
+</p><p>7 The next trick is figuring out how to regenerate static pages when changes occur. [sent-26, score-0.933]
+</p><p>8 When a new event is added to their system hundreds of pages could be impacted, which would require the effected static pages to be regenerated. [sent-27, score-1.222]
+</p><p>9 Since it's not important to update pages immediately they queued updates for processing later. [sent-28, score-0.395]
+</p><p>10 Twice a day EC2 instances are started to regenerate pages. [sent-32, score-0.367]
+</p><p>11 Instances read twork requests from SQS, access data from S3, regenerate the pages, and shutdown when the SQS is empty. [sent-33, score-0.33]
+</p><p>12 Using the backups on S3 as a source for the pages rather than hitting the database is inspired. [sent-41, score-0.395]
+</p><p>13 If a page is regenerated a 1000 times versus only once, who cares? [sent-50, score-0.547]
+</p><p>14 The local queue of changes still bothers me a little because it adds a complication into the system. [sent-52, score-0.415]
+</p><p>15 The local queue and the AWS SQS queue must be kept synced. [sent-53, score-0.361]
+</p><p>16 I understand that missing a change would be a disaster because the dependent pages would never be regenerated and nobody would ever know. [sent-54, score-1.056]
+</p><p>17 The page would only be regenerated the next time an event happened to impact the page. [sent-55, score-0.705]
+</p><p>18 If pages are regenerated frequently this isn't a serious problem, but for seldom touched pages they may never be regenerated again. [sent-56, score-1.739]
+</p><p>19 When it does go down I would record that fact and regenerate all the pages when SQS comes back up. [sent-59, score-0.755]
+</p><p>20 Another feature I have implemented in similar situations is to setup a rolling page regeneration schedule where a subset of pages are periodically regenerated, even if no event was detected that would cause a page to be regenerated. [sent-61, score-0.98]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('regenerated', 0.418), ('pages', 0.395), ('sqs', 0.355), ('regenerate', 0.279), ('static', 0.204), ('files', 0.136), ('page', 0.129), ('queue', 0.125), ('local', 0.111), ('thomas', 0.108), ('initial', 0.096), ('generate', 0.091), ('instances', 0.088), ('aws', 0.086), ('would', 0.081), ('dynamic', 0.081), ('event', 0.077), ('engines', 0.077), ('bulk', 0.071), ('meager', 0.07)]</p>
+<p>[('regenerated', 0.418), ('pages', 0.395), ('sqs', 0.355), ('regenerate', 0.279), ('static', 0.204), ('files', 0.136), ('page', 0.129), ('queue', 0.125), ('local', 0.111), ('thomas', 0.108), ('initial', 0.096), ('generate', 0.091), ('instances', 0.088), ('aws', 0.086), ('would', 0.081), ('dynamic', 0.081), ('event', 0.077), ('engines', 0.077), ('bulk', 0.071), ('meager', 0.07), ('effected', 0.07), ('regeneration', 0.07), ('backed', 0.066), ('underused', 0.065), ('goody', 0.065), ('bothers', 0.062), ('complication', 0.062), ('robust', 0.062), ('cares', 0.058), ('structuring', 0.058), ('touched', 0.058), ('complicated', 0.055), ('arrived', 0.055), ('seldom', 0.055), ('batched', 0.055), ('crawled', 0.055), ('wood', 0.055), ('changes', 0.055), ('offloaded', 0.054), ('cheap', 0.053), ('dominate', 0.051), ('shutdown', 0.051), ('alternate', 0.051), ('cause', 0.05), ('detected', 0.049), ('etc', 0.049), ('synchronously', 0.049), ('impacted', 0.049), ('academic', 0.048), ('protects', 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="365-tfidf-1" href="../high_scalability-2008/high_scalability-2008-08-16-Strategy%3A_Serve_Pre-generated_Static_Files_Instead_Of_Dynamic_Pages.html">365 high scalability-2008-08-16-Strategy: Serve Pre-generated Static Files Instead Of Dynamic Pages</a></p>
 <p>Introduction: Pre-generating static files is an oldy but a goody, and as Thomas Brox RĂ¸st

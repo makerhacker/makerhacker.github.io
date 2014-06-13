@@ -29,9 +29,21 @@ scalability, I would add a few more
 columns:serveroneidservertwoidserverthreeids3At the time the user uploads a
 file, it will go to a specific server (managed by the application) and the id
 of that server will be placed in the "serverone" column. Then hourly or so, a
-cron job will run through the "files" table, and copy</p><br/>
+cron job will run through the "files" table, and copy</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I am planning the scaling of a hosted service, similar to typepad etc. [sent-1, score-0.399]
+</p><p>2 Looking into scaling storage, I have come accross MogileFS and OpenAFS. [sent-3, score-0.175]
+</p><p>3 My concern with these is I am not at all experienced with them and as the sole tech guy I don't want to build something into this hosting service that proves complex to update and adminster. [sent-4, score-0.756]
+</p><p>4 So, I'm thinking of building replication and scalability right into the application, in a similar but simplified way to how MogileFS works (I think). [sent-5, score-0.431]
+</p><p>5 Then hourly or so, a cron job will run through the "files" table, and copy any files that haven't been replicated (where servertwo and serverthree are null) to other servers. [sent-7, score-0.822]
+</p><p>6 Another cron will copy files to Amazon's s3 for an extra backup (if null then copy to s3). [sent-8, score-1.252]
+</p><p>7 Now at the client level, when the page to display the file is loaded, it will know which of the three servers it can pull the file from. [sent-9, score-0.415]
+</p><p>8 If one server goes down, the application will know and use one of the other servers. [sent-10, score-0.165]
+</p><p>9 When storage capacity runs low, another server is added with a big drive, perhaps not even having raid on it. [sent-11, score-0.321]
+</p><p>10 These servers will also be used for php serving through load balancing. [sent-12, score-0.067]
+</p><p>11 I'm probably missing some big drawbacks of this approach but it appeals to me that it should be quite simple to implement and be less complex to adminster than systems like MogileFS which would present a lot more unknowns. [sent-13, score-0.582]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('mogilefs', 0.426), ('null', 0.302), ('files', 0.227), ('simplified', 0.22), ('cron', 0.21), ('copy', 0.186), ('accross', 0.175), ('unknowns', 0.164), ('typepad', 0.151), ('appeals', 0.146), ('sole', 0.133), ('drawbacks', 0.13), ('file', 0.129), ('proves', 0.128), ('hourly', 0.126), ('table', 0.121), ('concern', 0.11), ('uploads', 0.11), ('columns', 0.109), ('similar', 0.109)]</p>
+<p>[('mogilefs', 0.426), ('null', 0.302), ('files', 0.227), ('simplified', 0.22), ('cron', 0.21), ('copy', 0.186), ('accross', 0.175), ('unknowns', 0.164), ('typepad', 0.151), ('appeals', 0.146), ('sole', 0.133), ('drawbacks', 0.13), ('file', 0.129), ('proves', 0.128), ('hourly', 0.126), ('table', 0.121), ('concern', 0.11), ('uploads', 0.11), ('columns', 0.109), ('similar', 0.109), ('appreciate', 0.108), ('replication', 0.102), ('uploaded', 0.097), ('guy', 0.097), ('placed', 0.096), ('server', 0.093), ('feedback', 0.091), ('loaded', 0.089), ('display', 0.087), ('complex', 0.084), ('missing', 0.084), ('raid', 0.082), ('another', 0.076), ('extra', 0.074), ('replicated', 0.073), ('application', 0.072), ('planning', 0.072), ('experienced', 0.071), ('pull', 0.07), ('perhaps', 0.07), ('present', 0.07), ('drive', 0.07), ('managed', 0.068), ('would', 0.068), ('hosted', 0.067), ('tech', 0.067), ('serving', 0.067), ('backup', 0.067), ('hosting', 0.066), ('plan', 0.065)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="229-tfidf-1" href="../high_scalability-2008/high_scalability-2008-01-29-Building_scalable_storage_into_application_-_Instead_of_MogileFS_OpenAFS_etc..html">229 high scalability-2008-01-29-Building scalable storage into application - Instead of MogileFS OpenAFS etc.</a></p>
 <p>Introduction: I am planning the scaling of a hosted service, similar to typepad etc. and

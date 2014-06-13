@@ -28,9 +28,23 @@ some groups are expected to post hundreds or even thousands times per day,
 let's say about 500 of the groups, the rest of the groups won't be that active
 though) as I'll have to index the PostID, ParentPostID, GroupID and PostDate
 which can produce large indexes (consequentially causing slow inserts) if
-having everything in one table. So, I'm thinking of a way to divide the posts</p><br/>
+having everything in one table. So, I'm thinking of a way to divide the posts</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Hi gurus, I'm totally new to this high scalability thing. [sent-1, score-0.116]
+</p><p>2 I'm trying to create a website with scalability in mind (personal project). [sent-2, score-0.057]
+</p><p>3 In my application I'll have forums for different groups of people (each group will have their own forums, members of groups can still post in other groups' forums but each group will mainly be using their forums most of the time). [sent-3, score-2.564]
+</p><p>4 Now, I'm going to start with about 2000 groups with the potential of reaching up to 10000 groups (this is the maximum due to the nature of my application). [sent-4, score-1.145]
+</p><p>5 I was thinking that having all posts in one table will be way too much for one table (esp. [sent-5, score-0.522]
+</p><p>6 So, I'm thinking of a way to divide the posts in many tables, here are some of the things I thought of:1. [sent-7, score-0.263]
+</p><p>7 ForumsPosts_x, where x is the GroupID (which has its own pros and cons, some of the pros that I can have small indexes and also use identity columns, I also assume it should be easy to move the tables to other databases should the application grow. [sent-10, score-1.023]
+</p><p>8 Well, I posted this idea on some other forums and most people told me it's a sign of bad design if I have thousands of tables in my database. [sent-11, score-0.81]
+</p><p>9 I was also concerned how to design my DAL if I do this. [sent-12, score-0.2]
+</p><p>10 Should I use sprocs with dynamic SQL or use SQL text directly in my DAL code and what about the query plan caching if having a large number of tables . [sent-13, score-0.24]
+</p><p>11 Put everything in one table and if the site grows move some of the groups to another database (I'm concerned though about having many databases on the same machine, will it affect performance? [sent-17, score-1.273]
+</p><p>12 of course I won't have hundreds of databases on the same machine but may be about 5 or even 10 databases on the same machine)I also have some other questions:I'm going to use ASP. [sent-18, score-0.504]
+</p><p>13 NET for this project, I was planning initially to use SQL Server as a database but I'm worried about the SQL Server part and the cost of growth, should I consider an alternative like MySQL? [sent-19, score-0.15]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('groups', 0.484), ('forums', 0.408), ('dal', 0.268), ('groupid', 0.268), ('tables', 0.186), ('table', 0.167), ('pros', 0.161), ('concerned', 0.143), ('sql', 0.139), ('group', 0.117), ('databases', 0.113), ('though', 0.108), ('posts', 0.106), ('gurus', 0.102), ('indexes', 0.096), ('machine', 0.087), ('worried', 0.084), ('hi', 0.083), ('thinking', 0.082), ('cons', 0.081)]</p>
+<p>[('groups', 0.484), ('forums', 0.408), ('dal', 0.268), ('groupid', 0.268), ('tables', 0.186), ('table', 0.167), ('pros', 0.161), ('concerned', 0.143), ('sql', 0.139), ('group', 0.117), ('databases', 0.113), ('though', 0.108), ('posts', 0.106), ('gurus', 0.102), ('indexes', 0.096), ('machine', 0.087), ('worried', 0.084), ('hi', 0.083), ('thinking', 0.082), ('cons', 0.081), ('hundreds', 0.079), ('affect', 0.076), ('project', 0.076), ('inserts', 0.076), ('columns', 0.076), ('thousands', 0.075), ('divide', 0.075), ('posted', 0.074), ('mainly', 0.072), ('wo', 0.072), ('suggestions', 0.071), ('causing', 0.071), ('identity', 0.069), ('told', 0.067), ('members', 0.066), ('initially', 0.066), ('reaching', 0.066), ('move', 0.065), ('personal', 0.064), ('grows', 0.062), ('scenario', 0.061), ('produce', 0.06), ('totally', 0.059), ('assume', 0.058), ('also', 0.057), ('scalability', 0.057), ('maximum', 0.056), ('going', 0.055), ('everything', 0.055), ('text', 0.054)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="222-tfidf-1" href="../high_scalability-2008/high_scalability-2008-01-25-Application_Database_and_DAL_Architecture.html">222 high scalability-2008-01-25-Application Database and DAL Architecture</a></p>
 <p>Introduction: Hi gurus, I'm totally new to this high scalability thing. I'm trying to create

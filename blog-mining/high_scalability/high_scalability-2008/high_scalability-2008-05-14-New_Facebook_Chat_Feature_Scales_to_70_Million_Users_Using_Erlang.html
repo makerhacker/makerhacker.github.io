@@ -29,9 +29,30 @@ architectural challenges they faced and how they overcame them.A web based
 Jabber client poses a few problems because XMPP, like most IM protocols, is an
 asynchronous event driven system that pretty much assumes you have a full time
 open connection. After logging in the server sends a client roster information
-and presence information. Your client</p><br/>
+and presence information. Your client</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I've done someXMPPdevelopment so when I readFacebook was making a Jabber chat clientI was really curious how they would make it work. [sent-3, score-0.216]
+</p><p>2 While core XMPP is straightforward, a number of protocol extensions like discovery, forms, chat states, pubsub, multi user chat, and privacy lists really up the implementation complexity. [sent-4, score-0.398]
+</p><p>3 It's not clear what extensions they've implemented, but a blog entry by Facebook's Eugene Letuchy hits some of the architectural challenges they faced and how they overcame them. [sent-6, score-0.228]
+</p><p>4 A web based Jabber client poses a few problems because XMPP, like most IM protocols, is an asynchronous event driven system that pretty much assumes you have a full time open connection. [sent-7, score-0.371]
+</p><p>5 After logging in the server sends a client roster information and presence information. [sent-8, score-0.587]
+</p><p>6 Your client has to be present to receive the information. [sent-9, score-0.262]
+</p><p>7 If your client wants to discover the capabilities of another client then a request is sent over the wire and some time later the response comes back. [sent-10, score-0.586]
+</p><p>8 Facebook has the client open a persistent connection to the IM server and useslong pollingto send requests and continually get data from the server. [sent-15, score-0.579]
+</p><p>9 Long polling is a mixture of client pull and server push. [sent-16, score-0.592]
+</p><p>10 It works by having the client make a request to the server. [sent-17, score-0.324]
+</p><p>11 The client connection blocks until the server has data to return. [sent-18, score-0.41]
+</p><p>12 When it does data is returned, the client processes it, and then is in position to make another request of the server and get any more data that has queued up in the mean time. [sent-19, score-0.388]
+</p><p>13 From a client perspective I think this approach is workable, but obviously not ideal. [sent-22, score-0.332]
+</p><p>14 Your client's IMs, presence changes, subscription requests, and chat states etc are all blocked on the polling loop, which wouldn't have a predictable latency. [sent-23, score-0.754]
+</p><p>15 And consider all the data those IM servers must store up in between polling intervals. [sent-29, score-0.211]
+</p><p>16 Breath in- streams of data come in and must be stored waiting for the polling loop. [sent-31, score-0.267]
+</p><p>17 Breath out- the polling loops hit and all the data is written to the client and released from the server. [sent-32, score-0.473]
+</p><p>18 Now add network bandwidth for all the XMPP and TCP protocol overhead and CPU to process it all and you are talking some serious scalability issues. [sent-36, score-0.142]
+</p><p>19 Erlang is famously excellent for its concurrency prowess and equally famous for being poor at IO, so I imagine C++ was needed for efficiency. [sent-56, score-0.203]
+</p><p>20 A problem Facebook probably doesn't have to worry about scaling is the XMPP roster (contact list). [sent-62, score-0.152]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('erlang', 0.392), ('xmpp', 0.328), ('client', 0.262), ('jabber', 0.238), ('im', 0.226), ('chat', 0.216), ('polling', 0.211), ('roster', 0.152), ('facebook', 0.13), ('eugene', 0.129), ('breath', 0.112), ('presence', 0.109), ('extensions', 0.096), ('vps', 0.089), ('protocol', 0.086), ('connection', 0.084), ('concurrency', 0.078), ('states', 0.077), ('predictable', 0.073), ('obviously', 0.07)]</p>
+<p>[('erlang', 0.392), ('xmpp', 0.328), ('client', 0.262), ('jabber', 0.238), ('im', 0.226), ('chat', 0.216), ('polling', 0.211), ('roster', 0.152), ('facebook', 0.13), ('eugene', 0.129), ('breath', 0.112), ('presence', 0.109), ('extensions', 0.096), ('vps', 0.089), ('protocol', 0.086), ('connection', 0.084), ('concurrency', 0.078), ('states', 0.077), ('predictable', 0.073), ('obviously', 0.07), ('devoting', 0.069), ('prowess', 0.069), ('pubsub', 0.069), ('threadson', 0.069), ('workable', 0.069), ('subscription', 0.068), ('blog', 0.067), ('overcame', 0.065), ('server', 0.064), ('persistent', 0.063), ('request', 0.062), ('ims', 0.059), ('ali', 0.059), ('ejabberd', 0.059), ('reusing', 0.059), ('applicationsby', 0.058), ('overhead', 0.056), ('famously', 0.056), ('come', 0.056), ('poses', 0.055), ('mixture', 0.055), ('tower', 0.055), ('open', 0.054), ('functioning', 0.053), ('io', 0.053), ('requests', 0.052), ('shiny', 0.052), ('challenge', 0.052), ('erik', 0.051), ('downsides', 0.051)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999988 <a title="318-tfidf-1" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
 <p>Introduction: Update: Erlang at Facebook by Eugene Letuchy. How Facebook uses Erlang to

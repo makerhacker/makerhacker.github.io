@@ -29,9 +29,30 @@ meta data with all the events you pretty much have a complete picture of your
 operations. Once in the central repository logs can be scanned, indexed,
 summarized, aggregated, refactored, diced, data cubed, and mined for every
 scrap of potentially useful information.Just imagine the log stream from all
-of Faceboo</p><br/>
+of Faceboo</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Facebook obviously feels similarly which is why they opened sourcedScribe, their internal logging system, capable of logging 10s of billions of messages per day. [sent-6, score-0.562]
+</p><p>2 Imagine hundreds of thousands of machines across many geographical dispersed datacenters just aching to send their precious log payload to the central repository off all knowledge. [sent-8, score-0.5]
+</p><p>3 I browsed around the source and it's a well crafted, straightforward socket server that forwards messages to other servers and can write messages to disk. [sent-30, score-0.736]
+</p><p>4 There is a scribe server running on every node in the system, configured to aggregate messages and send them to a central scribe server (or servers) in larger groups. [sent-34, score-1.609]
+</p><p>5 If the central scribe server isn't available the local scribe server writes the messages to a file on local disk and sends them when the central server recovers. [sent-35, score-2.008]
+</p><p>6 The central scribe server(s) can write the messages to the files that are their final destination, typically on an nfs filer or a distributed file system, or send them to another layer of scribe servers. [sent-36, score-1.59]
+</p><p>7 Client Code InterfaceHere's what the Thrift interface looks like:enum ResultCode{OK,TRY_LATER}struct LogEntry{1: string category,2: string message}service scribe extends fb303. [sent-43, score-0.564]
+</p><p>8 NOTE(const char* name, const char* reason, const char* what, Module* module, msg) - something to take note of. [sent-54, score-0.939]
+</p><p>9 WARN(const char* name, const char* reason, const char* what, Module* module, msg) - a warning. [sent-55, score-0.902]
+</p><p>10 ERR(const char* name, const char* reason, const char* what, Module* module, msg) - an error occured. [sent-56, score-0.936]
+</p><p>11 CRIT(const char* name, const char* reason, const char* what, Module* module, msg) - a critical error occurred. [sent-57, score-0.936]
+</p><p>12 EMERG(const char* name, const char* reason, const char* what, Module* module, msg) - an emergency occurred. [sent-58, score-0.902]
+</p><p>13 The category is a high level description of the intended destination of the message and can have a specific configuration in the scribe server, which allows data stores to be moved by changing the scribe configuration instead of client code. [sent-64, score-1.397]
+</p><p>14 The server also allows for configurations based on category prefix, and a default configuration that can insert the category name in the file path. [sent-65, score-0.473]
+</p><p>15 You could imagine have a log server on each server that has file store to handle upstream server failures. [sent-83, score-0.601]
+</p><p>16 This log server forwards messages onto a centralized server for a datacenter. [sent-84, score-0.719]
+</p><p>17 Do Something UsefullizerYou may not have over 1 million log messages a second to process, but you are likely to have your own tanker trunk full of log messages. [sent-87, score-0.668]
+</p><p>18 Log messages stored in log files are next to useless. [sent-89, score-0.469]
+</p><p>19 You may have a sharded datawarehouse you can pump log messages into and do reasonably effective job of querying. [sent-91, score-0.469]
+</p><p>20 Ideally log messages never hit the file system until HDFS is writing them to their final destination. [sent-106, score-0.619]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('scribe', 0.5), ('const', 0.451), ('char', 0.384), ('messages', 0.27), ('log', 0.199), ('msg', 0.191), ('module', 0.157), ('central', 0.155), ('logging', 0.146), ('category', 0.105), ('file', 0.087), ('store', 0.078), ('forwards', 0.073), ('stores', 0.071), ('server', 0.069), ('payload', 0.065), ('name', 0.062), ('message', 0.062), ('logentry', 0.06), ('resultcode', 0.06)]</p>
+<p>[('scribe', 0.5), ('const', 0.451), ('char', 0.384), ('messages', 0.27), ('log', 0.199), ('msg', 0.191), ('module', 0.157), ('central', 0.155), ('logging', 0.146), ('category', 0.105), ('file', 0.087), ('store', 0.078), ('forwards', 0.073), ('stores', 0.071), ('server', 0.069), ('payload', 0.065), ('name', 0.062), ('message', 0.062), ('logentry', 0.06), ('resultcode', 0.06), ('logs', 0.06), ('reason', 0.057), ('thrift', 0.056), ('local', 0.052), ('idl', 0.047), ('conditions', 0.047), ('send', 0.046), ('configuration', 0.045), ('centralized', 0.039), ('strings', 0.038), ('something', 0.037), ('destination', 0.037), ('repository', 0.035), ('error', 0.034), ('hierarchy', 0.033), ('stream', 0.033), ('useful', 0.033), ('string', 0.032), ('client', 0.032), ('final', 0.032), ('system', 0.031), ('primary', 0.031), ('sends', 0.03), ('handle', 0.03), ('entry', 0.029), ('servers', 0.027), ('marshalling', 0.027), ('browsed', 0.027), ('discards', 0.027), ('enum', 0.027)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="449-tfidf-1" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
 <p>Introduction: InLog Everything All the TimeI advocate applications shouldn't bother logging
