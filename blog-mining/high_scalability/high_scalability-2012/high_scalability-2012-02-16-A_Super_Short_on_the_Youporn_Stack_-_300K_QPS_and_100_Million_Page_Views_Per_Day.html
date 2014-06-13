@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2012" href="../home/high_scalability-2012_home.html">high_scalability-2012</a> <a title="high_scalability-2012-1194" href="#">high_scalability-2012-1194</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1194-html" href="http://highscalability.com//blog/2012/2/16/a-super-short-on-the-youporn-stack-300k-qps-and-100-million.html">html</a></p><p>Introduction: Eric Pickup from Youporn.com posted on anews group that Youporn is now 100%
+Redis based and will soon be revealing more about their architecture at
+theConFoo conference. Some stunning, but not surprising numbers were
+revealed:100 million page views per dayA cluster of Redis slaves are handling
+over 300k queries per second.Some additional nuggets:Additional Redis nodes
+were added because the network cards couldn't keep up with Redis.Impressed
+with Redis' performance.All reads come from Redis;  we are maintaining MySQL
+just to allow us to build new sorted sets as our requirement changeMost data
+is found in hashes with ordered sets used to know what data to show.   A
+typical lookup would be an zInterStore on: videos:filters:released,
+Videos:filters:orientation:straight,Videos:filters:categories:{category_id},
+Videos:ordering:ratingThen perform a zRange to get the pages we want and get
+the list of video_ids back. Then start a pipeline and get all the videos from
+hashes.Do use some key/valu</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('redis', 0.386), ('videos', 0.366), ('filters', 0.361), ('zrange', 0.198), ('hashes', 0.186), ('youporn', 0.186), ('pickup', 0.161), ('revealing', 0.161), ('orientation', 0.157), ('additional', 0.151), ('sets', 0.149), ('revealed', 0.13), ('categories', 0.125), ('stunning', 0.122), ('posted', 0.121), ('ordered', 0.12), ('eric', 0.119), ('sorted', 0.117), ('ordering', 0.116), ('cards', 0.115)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0 <a title="1194-tfidf-1" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
+<p>Introduction: Eric Pickup from Youporn.com posted on anews group that Youporn is now 100%
+Redis based and will soon be revealing more about their architecture at
+theConFoo conference. Some stunning, but not surprising numbers were
+revealed:100 million page views per dayA cluster of Redis slaves are handling
+over 300k queries per second.Some additional nuggets:Additional Redis nodes
+were added because the network cards couldn't keep up with Redis.Impressed
+with Redis' performance.All reads come from Redis;  we are maintaining MySQL
+just to allow us to build new sorted sets as our requirement changeMost data
+is found in hashes with ordered sets used to know what data to show.   A
+typical lookup would be an zInterStore on: videos:filters:released,
+Videos:filters:orientation:straight,Videos:filters:categories:{category_id},
+Videos:ordering:ratingThen perform a zRange to get the pages we want and get
+the list of video_ids back. Then start a pipeline and get all the videos from
+hashes.Do use some key/valu</p><p>2 0.33163562 <a title="1194-tfidf-2" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
+<p>Introduction: Update: Here's thevideo of the talk.Erick Pickup, lead developer at
+YouPorn.com, presented their architecture in a talk titledBuilding a Website
+To Scalegiven at theConFooconference.  As you might expect, YouPorn is a
+beast, streaming three full DVDs of video every second, handing 300K queries
+every second, and generating up to 15GBs of log data per hour.Unfortunately,
+all we have are the slides of the talk, so this article isn't as technical as
+I might like, there's no visibility at all on the video handling for example,
+but we do get some interesting details.The most interesting takeway is that
+YouPorn is a pretty conventional LAMP stack, with a NoSQL twist as Redis now
+replaces MySQL in the live datapath. Reminds me a little ofYouTubein its
+simplicity.The second most interesting takeaway was thegreat switchover.
+Common wisdom says never rewrite, but in 2011 YouPorn rewrote their entire
+site to use PHP + Redis instead of a complex Perl + MySQL based architecture.
+And by all accounts</p><p>3 0.20621558 <a title="1194-tfidf-3" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
+<p>Introduction: With the introduction ofRedisyour options in the key-value space just grew and
+your choice of which to pick just got a lot harder. But when you think about
+it, that's not a bad position to be in at all.Redis (REmote DIctionary Server)
+-a key-value database. It's similar to memcached but the dataset is not
+volatile, and values can be strings, exactly like in memcached, but also lists
+and sets with atomic operations to push/pop elements.The key points are: open
+source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs,
+per second); persistence, but in an asynchronous way taking everything in
+memory; support for higher level data structures and atomic operations.The
+home page is well organized so I'll spare the excessive-copying-to-make-this-
+post-longer. For a good overview of Redis take a look at Antonio Cangiano's
+article:Introducing Redis: a fast key-value database.If you are looking at a
+way to understand how Redis is different than something like Tokyo
+Cabinet/Ty</p><p>4 0.19904983 <a title="1194-tfidf-4" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
+<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
+'antirez' Sanfilippo shows how to solve some common problems in Redis by
+taking advantage of its unique data structure handling capabilities. Common
+Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
+programmers need to get done, but that can be hard or slow in more traditional
+stores. A very useful and practical article. How would you accomplish these
+tasks in your framework?Show latest items listings in your home page. This is
+a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
+the head of the list stored at a key.LTRIMis used to limit the number of items
+in the list to 5000. If the user needs to page beyond this cache only then are
+they sent to the database.Deletion and filtering. If a cached article is
+deleted it can be removed from the cache using LREM.Leaderboards and related
+problems. A leader board is a set sorted by score. TheZADDcommands implements
+th</p><p>5 0.16319983 <a title="1194-tfidf-5" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
+<p>Introduction: We just released a social section to our iOS app several days ago and we are
+already facing scaling issues with the users' news feeds.We're basically using
+a Fan-out-on-write (push) model for the users' news feeds (posts of people and
+topics they follow) and we're using Redis for this (backend is Rails on
+Heroku).  However, our current 60,000 news feeds is ballooning our Redis store
+to almost 1GB in a just a few days (it's growing way too fast for our budget).
+Currently we're storing the entire news feed for the user (post id, post text,
+author, icon url, etc) and we cap the entries to 300 per feed.I'm wondering if
+we need to just store the post IDs of each user feed in Redis and then store
+the rest of the post information somewhere else?  Would love some feedback
+here.  In this case, our iOS app would make an api call to our Rails app to
+retrieve a user's news feed.  Rails app would retrieve news feed list (just
+post IDs) from Redis, and then Rails app would need to query to get the r</p><p>6 0.14086448 <a title="1194-tfidf-6" href="../high_scalability-2007/high_scalability-2007-09-08-MP3.com_Web_Templating_Architecture_%28March%2C_2000%29.html">84 high scalability-2007-09-08-MP3.com Web Templating Architecture (March, 2000)</a></p>
+<p>7 0.13167366 <a title="1194-tfidf-7" href="../high_scalability-2011/high_scalability-2011-06-24-Stuff_The_Internet_Says_On_Scalability_For_June_24%2C_2011.html">1067 high scalability-2011-06-24-Stuff The Internet Says On Scalability For June 24, 2011</a></p>
+<p>8 0.12519623 <a title="1194-tfidf-8" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
+<p>9 0.12074743 <a title="1194-tfidf-9" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>10 0.11683278 <a title="1194-tfidf-10" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
+<p>11 0.11578808 <a title="1194-tfidf-11" href="../high_scalability-2012/high_scalability-2012-10-10-Antirez%3A_You_Need_to_Think_in_Terms_of_Organizing_Your_Data_for_Fetching.html">1337 high scalability-2012-10-10-Antirez: You Need to Think in Terms of Organizing Your Data for Fetching</a></p>
+<p>12 0.11076357 <a title="1194-tfidf-12" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
+<p>13 0.10792416 <a title="1194-tfidf-13" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
+<p>14 0.10405335 <a title="1194-tfidf-14" href="../high_scalability-2008/high_scalability-2008-08-11-Distributed__Computing_%26_Google_Infrastructure.html">362 high scalability-2008-08-11-Distributed  Computing & Google Infrastructure</a></p>
+<p>15 0.10378709 <a title="1194-tfidf-15" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
+<p>16 0.10378709 <a title="1194-tfidf-16" href="../high_scalability-2012/high_scalability-2012-11-19-Gone_Fishin%27%3A_Tumblr_Architecture_-_15_Billion_Page_Views_A_Month_And_Harder_To_Scale_Than_Twitter.html">1360 high scalability-2012-11-19-Gone Fishin': Tumblr Architecture - 15 Billion Page Views A Month And Harder To Scale Than Twitter</a></p>
+<p>17 0.10324509 <a title="1194-tfidf-17" href="../high_scalability-2013/high_scalability-2013-05-20-The_Tumblr_Architecture_Yahoo_Bought_for_a_Cool_Billion_Dollars.html">1461 high scalability-2013-05-20-The Tumblr Architecture Yahoo Bought for a Cool Billion Dollars</a></p>
+<p>18 0.088887706 <a title="1194-tfidf-18" href="../high_scalability-2007/high_scalability-2007-07-16-Blog%3A_MySQL_Performance_Blog_-_Everything_about_MySQL_Performance._.html">15 high scalability-2007-07-16-Blog: MySQL Performance Blog - Everything about MySQL Performance. </a></p>
+<p>19 0.088590547 <a title="1194-tfidf-19" href="../high_scalability-2008/high_scalability-2008-03-12-YouTube_Architecture.html">274 high scalability-2008-03-12-YouTube Architecture</a></p>
+<p>20 0.086443797 <a title="1194-tfidf-20" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.11), (1, 0.065), (2, -0.044), (3, -0.044), (4, 0.025), (5, 0.035), (6, -0.028), (7, 0.017), (8, 0.072), (9, 0.003), (10, 0.022), (11, 0.015), (12, 0.046), (13, 0.0), (14, -0.057), (15, 0.07), (16, -0.042), (17, -0.053), (18, -0.025), (19, -0.074), (20, -0.026), (21, -0.046), (22, -0.081), (23, -0.011), (24, -0.004), (25, 0.011), (26, -0.015), (27, 0.073), (28, -0.002), (29, 0.013), (30, 0.054), (31, -0.007), (32, -0.018), (33, -0.01), (34, 0.011), (35, -0.056), (36, -0.007), (37, -0.006), (38, -0.016), (39, 0.041), (40, -0.104), (41, -0.018), (42, -0.009), (43, 0.074), (44, 0.135), (45, -0.015), (46, -0.004), (47, -0.039), (48, 0.015), (49, 0.005)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.95980513 <a title="1194-lsi-1" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
+<p>Introduction: Eric Pickup from Youporn.com posted on anews group that Youporn is now 100%
+Redis based and will soon be revealing more about their architecture at
+theConFoo conference. Some stunning, but not surprising numbers were
+revealed:100 million page views per dayA cluster of Redis slaves are handling
+over 300k queries per second.Some additional nuggets:Additional Redis nodes
+were added because the network cards couldn't keep up with Redis.Impressed
+with Redis' performance.All reads come from Redis;  we are maintaining MySQL
+just to allow us to build new sorted sets as our requirement changeMost data
+is found in hashes with ordered sets used to know what data to show.   A
+typical lookup would be an zInterStore on: videos:filters:released,
+Videos:filters:orientation:straight,Videos:filters:categories:{category_id},
+Videos:ordering:ratingThen perform a zRange to get the pages we want and get
+the list of video_ids back. Then start a pipeline and get all the videos from
+hashes.Do use some key/valu</p><p>2 0.79482526 <a title="1194-lsi-2" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
+<p>Introduction: Update: Here's thevideo of the talk.Erick Pickup, lead developer at
+YouPorn.com, presented their architecture in a talk titledBuilding a Website
+To Scalegiven at theConFooconference.  As you might expect, YouPorn is a
+beast, streaming three full DVDs of video every second, handing 300K queries
+every second, and generating up to 15GBs of log data per hour.Unfortunately,
+all we have are the slides of the talk, so this article isn't as technical as
+I might like, there's no visibility at all on the video handling for example,
+but we do get some interesting details.The most interesting takeway is that
+YouPorn is a pretty conventional LAMP stack, with a NoSQL twist as Redis now
+replaces MySQL in the live datapath. Reminds me a little ofYouTubein its
+simplicity.The second most interesting takeaway was thegreat switchover.
+Common wisdom says never rewrite, but in 2011 YouPorn rewrote their entire
+site to use PHP + Redis instead of a complex Perl + MySQL based architecture.
+And by all accounts</p><p>3 0.73490101 <a title="1194-lsi-3" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
+<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
+'antirez' Sanfilippo shows how to solve some common problems in Redis by
+taking advantage of its unique data structure handling capabilities. Common
+Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
+programmers need to get done, but that can be hard or slow in more traditional
+stores. A very useful and practical article. How would you accomplish these
+tasks in your framework?Show latest items listings in your home page. This is
+a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
+the head of the list stored at a key.LTRIMis used to limit the number of items
+in the list to 5000. If the user needs to page beyond this cache only then are
+they sent to the database.Deletion and filtering. If a cached article is
+deleted it can be removed from the cache using LREM.Leaderboards and related
+problems. A leader board is a set sorted by score. TheZADDcommands implements
+th</p><p>4 0.69246501 <a title="1194-lsi-4" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
+<p>Introduction: With the introduction ofRedisyour options in the key-value space just grew and
+your choice of which to pick just got a lot harder. But when you think about
+it, that's not a bad position to be in at all.Redis (REmote DIctionary Server)
+-a key-value database. It's similar to memcached but the dataset is not
+volatile, and values can be strings, exactly like in memcached, but also lists
+and sets with atomic operations to push/pop elements.The key points are: open
+source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs,
+per second); persistence, but in an asynchronous way taking everything in
+memory; support for higher level data structures and atomic operations.The
+home page is well organized so I'll spare the excessive-copying-to-make-this-
+post-longer. For a good overview of Redis take a look at Antonio Cangiano's
+article:Introducing Redis: a fast key-value database.If you are looking at a
+way to understand how Redis is different than something like Tokyo
+Cabinet/Ty</p><p>5 0.68730241 <a title="1194-lsi-5" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
+<p>Introduction: We just released a social section to our iOS app several days ago and we are
+already facing scaling issues with the users' news feeds.We're basically using
+a Fan-out-on-write (push) model for the users' news feeds (posts of people and
+topics they follow) and we're using Redis for this (backend is Rails on
+Heroku).  However, our current 60,000 news feeds is ballooning our Redis store
+to almost 1GB in a just a few days (it's growing way too fast for our budget).
+Currently we're storing the entire news feed for the user (post id, post text,
+author, icon url, etc) and we cap the entries to 300 per feed.I'm wondering if
+we need to just store the post IDs of each user feed in Redis and then store
+the rest of the post information somewhere else?  Would love some feedback
+here.  In this case, our iOS app would make an api call to our Rails app to
+retrieve a user's news feed.  Rails app would retrieve news feed list (just
+post IDs) from Redis, and then Rails app would need to query to get the r</p><p>6 0.67249125 <a title="1194-lsi-6" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
+<p>7 0.65545946 <a title="1194-lsi-7" href="../high_scalability-2012/high_scalability-2012-06-11-Monday_Fun%3A_Seven_Databases_in_Song.html">1262 high scalability-2012-06-11-Monday Fun: Seven Databases in Song</a></p>
+<p>8 0.64018238 <a title="1194-lsi-8" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
+<p>9 0.58608073 <a title="1194-lsi-9" href="../high_scalability-2012/high_scalability-2012-02-16-A_Short_on_the_Pinterest_Stack_for_Handling_3%2B_Million_Users.html">1193 high scalability-2012-02-16-A Short on the Pinterest Stack for Handling 3+ Million Users</a></p>
+<p>10 0.56102461 <a title="1194-lsi-10" href="../high_scalability-2009/high_scalability-2009-10-08-Riak_-_web-shaped_data_storage_system.html">718 high scalability-2009-10-08-Riak - web-shaped data storage system</a></p>
+<p>11 0.55075145 <a title="1194-lsi-11" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
+<p>12 0.55075145 <a title="1194-lsi-12" href="../high_scalability-2012/high_scalability-2012-11-19-Gone_Fishin%27%3A_Tumblr_Architecture_-_15_Billion_Page_Views_A_Month_And_Harder_To_Scale_Than_Twitter.html">1360 high scalability-2012-11-19-Gone Fishin': Tumblr Architecture - 15 Billion Page Views A Month And Harder To Scale Than Twitter</a></p>
+<p>13 0.54715407 <a title="1194-lsi-13" href="../high_scalability-2013/high_scalability-2013-05-20-The_Tumblr_Architecture_Yahoo_Bought_for_a_Cool_Billion_Dollars.html">1461 high scalability-2013-05-20-The Tumblr Architecture Yahoo Bought for a Cool Billion Dollars</a></p>
+<p>14 0.53660548 <a title="1194-lsi-14" href="../high_scalability-2012/high_scalability-2012-10-10-Antirez%3A_You_Need_to_Think_in_Terms_of_Organizing_Your_Data_for_Fetching.html">1337 high scalability-2012-10-10-Antirez: You Need to Think in Terms of Organizing Your Data for Fetching</a></p>
+<p>15 0.52980816 <a title="1194-lsi-15" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
+<p>16 0.49695504 <a title="1194-lsi-16" href="../high_scalability-2012/high_scalability-2012-01-20-Stuff_The_Internet_Says_On_Scalability_For_January_20%2C_2012.html">1178 high scalability-2012-01-20-Stuff The Internet Says On Scalability For January 20, 2012</a></p>
+<p>17 0.48796913 <a title="1194-lsi-17" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>18 0.48519984 <a title="1194-lsi-18" href="../high_scalability-2012/high_scalability-2012-02-06-The_Design_of_99designs_-_A_Clean_Tens_of_Millions_Pageviews_Architecture.html">1188 high scalability-2012-02-06-The Design of 99designs - A Clean Tens of Millions Pageviews Architecture</a></p>
+<p>19 0.48323289 <a title="1194-lsi-19" href="../high_scalability-2010/high_scalability-2010-05-20-Strategy%3A_Scale_Writes_to_734_Million_Records_Per_Day_Using_Time_Partitioning.html">829 high scalability-2010-05-20-Strategy: Scale Writes to 734 Million Records Per Day Using Time Partitioning</a></p>
+<p>20 0.478692 <a title="1194-lsi-20" href="../high_scalability-2007/high_scalability-2007-07-12-FeedBurner_Architecture.html">7 high scalability-2007-07-12-FeedBurner Architecture</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.156), (2, 0.223), (3, 0.158), (10, 0.032), (40, 0.029), (47, 0.077), (61, 0.023), (85, 0.074), (94, 0.109)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.91346788 <a title="1194-lda-1" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
+<p>Introduction: Eric Pickup from Youporn.com posted on anews group that Youporn is now 100%
+Redis based and will soon be revealing more about their architecture at
+theConFoo conference. Some stunning, but not surprising numbers were
+revealed:100 million page views per dayA cluster of Redis slaves are handling
+over 300k queries per second.Some additional nuggets:Additional Redis nodes
+were added because the network cards couldn't keep up with Redis.Impressed
+with Redis' performance.All reads come from Redis;  we are maintaining MySQL
+just to allow us to build new sorted sets as our requirement changeMost data
+is found in hashes with ordered sets used to know what data to show.   A
+typical lookup would be an zInterStore on: videos:filters:released,
+Videos:filters:orientation:straight,Videos:filters:categories:{category_id},
+Videos:ordering:ratingThen perform a zRange to get the pages we want and get
+the list of video_ids back. Then start a pipeline and get all the videos from
+hashes.Do use some key/valu</p><p>2 0.85225099 <a title="1194-lda-2" href="../high_scalability-2007/high_scalability-2007-11-12-Scaling_Using_Cache_Farms_and_Read_Pooling_.html">149 high scalability-2007-11-12-Scaling Using Cache Farms and Read Pooling </a></p>
+<p>Introduction: Michael Nygard talks aboutTwo Ways To Boost Your Flagging Web Site. The idea
+behind cache farms is to move memory devoted to the various caching layers
+into one large farm of caches, as with memcached. The idea behind read pools
+is to allocate your database read requests to a pool of dedicated read
+servers, thus offloading the write server. Using a combination of the
+strategies you aren't forced to scale up the database tier to scale your
+website.</p><p>3 0.8355844 <a title="1194-lda-3" href="../high_scalability-2012/high_scalability-2012-01-20-Stuff_The_Internet_Says_On_Scalability_For_January_20%2C_2012.html">1178 high scalability-2012-01-20-Stuff The Internet Says On Scalability For January 20, 2012</a></p>
+<p>Introduction: If you've got the time, we've got the HighScalability:Google+:90 million
+users;Internet 2011: 2.1 billion Internet users, 1 trillion YouTube views, 5.9
+billion mobile subscriptions; Fusion-io:One Billion IOPS; 12 atoms:size of
+IBM's new memory bit; 32 Million:Stack monthly visitors; Gmail:350 Million
+Users; TimTebow:1.5 million TweetsQuotable Quotes:Similarity : There is no
+canonical schema anymore. Instead you should ask: What high-volume queries
+will I need to serve with my data? Then work backwards from there.@kvirjee :
+Dis/Agree? -- "there is no problem but scalability, and architecture is its
+solution"@robpegoraro : Eternal vigilance can be crowdsourced.Didn't Bill
+Gates say once that 48 bits would always be enough for an ID? Well, Oracle ran
+out of bits: Fundamental Oracle flaw revealed. 64 bits, that's the ticket,
+ipv6 went 128 bits. The day Kodak died: We developed the world's first
+consumer digital camera but we could not get approval to launch or sell it
+because of fear of th</p><p>4 0.83496034 <a title="1194-lda-4" href="../high_scalability-2010/high_scalability-2010-04-16-Hot_Scalability_Links_for_April_16%2C_2010.html">811 high scalability-2010-04-16-Hot Scalability Links for April 16, 2010</a></p>
+<p>Introduction: Twitter gets a total of 3 billion requests a day via its API; 105,779,710
+registered users; 300,000 new registered users a day; 180 million unique
+visitors a month; 55 million tweets a day.Who has the most servers?Google 1
+million+; Intel 100K; 1&1 Internet 70K; Facebook 30K; Akamai 61K; Rackspace
+56k+.Cloud Computing Economies of Scale. James Hamilton gives a fabulous talk
+breaking down where the costs are in the cloud. It's not where you may think.
+Higher utilization is the key. Morehere.Erlang Factory: Andy Gross:
+Distributed Erlang Systems In Operation: Patterns and Pitfallsby Martin J.
+Logan. Great overview of architecting distributed systems in Erlang. Covers
+what you want and don't want in a distributed system and how to compromise
+those elements, what's common, system design, cluster membership, load
+balancing, upgrades, debugging, and more.Extreme Scale ComputingbyIrving
+Wladawsky-Berger."An exascale supercomputer capable of a million trillion
+calculations per second - dramati</p><p>5 0.81803024 <a title="1194-lda-5" href="../high_scalability-2008/high_scalability-2008-10-24-11_Secrets_of_a_Cloud_Scale_Consultant_That_They_Dont%27_Want_You_to_Know.html">428 high scalability-2008-10-24-11 Secrets of a Cloud Scale Consultant That They Dont' Want You to Know</a></p>
+<p>Introduction: OK, there is no "they" and "they" wouldn't care if you knew anyway. After all,
+this isn't a blog about really important stuff like investing, acne cures, or
+cheap natural cleansing products.But the secrets are real. Super cloud scaling
+consultant Kent Langley hasput together a comprehensive checklistto consider
+when developing for the cloud:ORM for Data Partitioning and Query Splitting-
+Split queries between updates and deletes from the startMonitoring process,
+resources, and uptime- Process Monitoring, Resource Monitoring, UpTime
+MonitoringPerformance Testing and Capacity Planning- Can't make good decisions
+without doing some degree of Performance Testing and Capacity planning.Static
+vs. Dynamic Content splitting / CDN- Reverse Proxy, Splitting Static and
+Dynamic contentBundling and Compressing JS and CSS- Bundle them, compress,
+version, and then properly cache those bundlesLogging- Log appropriately and
+monitor those logsPragmatic Caching- Most current web applications will have
+betw</p><p>6 0.81721044 <a title="1194-lda-6" href="../high_scalability-2010/high_scalability-2010-09-28-6_Strategies_for_Scaling_BBC_iPlayer.html">908 high scalability-2010-09-28-6 Strategies for Scaling BBC iPlayer</a></p>
+<p>7 0.81508374 <a title="1194-lda-7" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
+<p>8 0.81209821 <a title="1194-lda-8" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
+<p>9 0.81097972 <a title="1194-lda-9" href="../high_scalability-2008/high_scalability-2008-08-16-Strategy%3A_Serve_Pre-generated_Static_Files_Instead_Of_Dynamic_Pages.html">365 high scalability-2008-08-16-Strategy: Serve Pre-generated Static Files Instead Of Dynamic Pages</a></p>
+<p>10 0.80722952 <a title="1194-lda-10" href="../high_scalability-2012/high_scalability-2012-04-20-Stuff_The_Internet_Says_On_Scalability_For_April_20%2C_2012.html">1231 high scalability-2012-04-20-Stuff The Internet Says On Scalability For April 20, 2012</a></p>
+<p>11 0.80655175 <a title="1194-lda-11" href="../high_scalability-2010/high_scalability-2010-11-15-Strategy%3A_Biggest_Performance_Impact_is_to_Reduce_the_Number_of_HTTP_Requests.html">942 high scalability-2010-11-15-Strategy: Biggest Performance Impact is to Reduce the Number of HTTP Requests</a></p>
+<p>12 0.8065331 <a title="1194-lda-12" href="../high_scalability-2009/high_scalability-2009-03-30-Ebay_history_and_architecture.html">550 high scalability-2009-03-30-Ebay history and architecture</a></p>
+<p>13 0.80643314 <a title="1194-lda-13" href="../high_scalability-2010/high_scalability-2010-05-14-Hot_Scalability_Links_for_May_14%2C_2010.html">827 high scalability-2010-05-14-Hot Scalability Links for May 14, 2010</a></p>
+<p>14 0.80445993 <a title="1194-lda-14" href="../high_scalability-2014/high_scalability-2014-03-12-Paper%3A_Scalable_Eventually_Consistent_Counters_over_Unreliable_Networks.html">1611 high scalability-2014-03-12-Paper: Scalable Eventually Consistent Counters over Unreliable Networks</a></p>
+<p>15 0.80369592 <a title="1194-lda-15" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
+<p>16 0.80195707 <a title="1194-lda-16" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
+<p>17 0.80187982 <a title="1194-lda-17" href="../high_scalability-2008/high_scalability-2008-07-22-Scaling_Bumper_Sticker%3A_A_1_Billion_Page_Per_Month_Facebook_RoR_App__.html">356 high scalability-2008-07-22-Scaling Bumper Sticker: A 1 Billion Page Per Month Facebook RoR App  </a></p>
+<p>18 0.80125123 <a title="1194-lda-18" href="../high_scalability-2013/high_scalability-2013-10-31-Paper%3A_Everything_You_Always_Wanted_to_Know_About_Synchronization_but_Were_Afraid_to_Ask.html">1541 high scalability-2013-10-31-Paper: Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a></p>
+<p>19 0.8009029 <a title="1194-lda-19" href="../high_scalability-2013/high_scalability-2013-02-15-Stuff_The_Internet_Says_On_Scalability_For_February_15%2C_2013.html">1407 high scalability-2013-02-15-Stuff The Internet Says On Scalability For February 15, 2013</a></p>
+<p>20 0.80043447 <a title="1194-lda-20" href="../high_scalability-2009/high_scalability-2009-01-26-Paper%3A_Scalability_by_Design_-_Coding_for_Systems_With_Large_CPU_Counts.html">502 high scalability-2009-01-26-Paper: Scalability by Design - Coding for Systems With Large CPU Counts</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

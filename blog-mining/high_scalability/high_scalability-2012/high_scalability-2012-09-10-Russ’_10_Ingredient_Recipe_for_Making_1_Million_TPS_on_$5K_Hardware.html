@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2012" href="../home/high_scalability-2012_home.html">high_scalability-2012</a> <a title="high_scalability-2012-1319" href="#">high_scalability-2012-1319</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1319-html" href="http://highscalability.com//blog/2012/9/10/russ-10-ingredient-recipe-for-making-1-million-tps-on-5k-har.html">html</a></p><p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible
+NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent
+the last several years trying to find a way to sanely house multiple
+datastore-genres under one roof while (almost paradoxically) pushing
+performance to its limits.I recently joined the NoSQL
+companyAerospike(formerly Citrusleaf) with the goal of incrementally grafting
+AlchemyDB's flexible data-modeling capabilities onto Aerospike's high-velocity
+horizontally-scalable key-value data-fabric. We recently completed a peak-
+performanceTPS optimization project: starting at 200K TPS, pushing to the
+recent community edition launch at 500K TPS, and finally arriving at our 2012
+goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
+database-requests per-second on a single machine costing $5K is a balance
+between trimming overhead on many axes and using a shared nothing architecture
+toisolatethe paths taken by unique req</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('nic', 0.252), ('ipy', 0.239), ('designated', 0.226), ('irq', 0.226), ('cores', 0.226), ('packet', 0.212), ('ingredients', 0.187), ('tps', 0.182), ('core', 0.174), ('packets', 0.167), ('affinity', 0.147), ('near', 0.121), ('citrusleaf', 0.119), ('datax', 0.119), ('irqs', 0.119), ('interrupts', 0.117), ('alchemydb', 0.108), ('port', 0.095), ('tcp', 0.095), ('attain', 0.093)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000001 <a title="1319-tfidf-1" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
+<p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible
+NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent
+the last several years trying to find a way to sanely house multiple
+datastore-genres under one roof while (almost paradoxically) pushing
+performance to its limits.I recently joined the NoSQL
+companyAerospike(formerly Citrusleaf) with the goal of incrementally grafting
+AlchemyDB's flexible data-modeling capabilities onto Aerospike's high-velocity
+horizontally-scalable key-value data-fabric. We recently completed a peak-
+performanceTPS optimization project: starting at 200K TPS, pushing to the
+recent community edition launch at 500K TPS, and finally arriving at our 2012
+goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
+database-requests per-second on a single machine costing $5K is a balance
+between trimming overhead on many axes and using a shared nothing architecture
+toisolatethe paths taken by unique req</p><p>2 0.28698671 <a title="1319-tfidf-2" href="../high_scalability-2014/high_scalability-2014-05-06-The_Quest_for_Database_Scale%3A_the_1_M_TPS_challenge_-_Three_Design_Points_and_Five_common_Bottlenecks_to_avoid.html">1643 high scalability-2014-05-06-The Quest for Database Scale: the 1 M TPS challenge - Three Design Points and Five common Bottlenecks to avoid</a></p>
+<p>Introduction: This a guest post byRajkumar Iyer, a Member of Technical Staff at
+Aerospike.About a year ago, Aerospike embarked upon a quest to increase in-
+memory database performance - 1 Million TPS on a single inexpensive commodity
+server. NoSQL has the reputation of speed, and we saw great benefit from
+improving latency and throughput of cacheless architectures. At that time, we
+took a version of Aerospike delivering about 200K TPS, improved a few things -
+performance went to 500k TPS - and published the Aerospike 2.0 Community
+Edition. We then used kernel tuning techniques and published therecipefor how
+we achieved 1 M TPS on $5k of hardware.This year we continued the quest. Our
+goal was to achieve 1 Million database transactions per second per server;
+more than doubling previous performance. This compares to Cassandra's boast of
+1M TPS on over 300 servers in Google Compute Engine - at a cost of $2 million
+dollars per year. Weachieved thiswithout kernel tuning. This article describes
+the three d</p><p>3 0.25590947 <a title="1319-tfidf-3" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: Now that we have theC10K concurrent connection problemlicked, how do we level
+up and support 10 million concurrent connections? Impossible you say. Nope,
+systems right now are delivering 10 million concurrent connections using
+techniques that are as radical as they may be unfamiliar.To learn how it's
+done we turn toRobert Graham, CEO of Errata Security, and his absolutely
+fantastic talk atShmoocon 2013calledC10M Defending The Internet At
+Scale.Robert has a brilliant way of framing the problem that I've never heard
+of before. He starts with a little bit of history, relating how Unix wasn't
+originally designed to be a general server OS, it was designed to be a control
+system for a telephone network. It was the telephone network that actually
+transported the data so there was a clean separation between the control plane
+and the data plane. Theproblem is we now use Unix servers as part of the data
+plane, which we shouldn't do at all. If we were designing a kernel for
+handling one applicati</p><p>4 0.24552773 <a title="1319-tfidf-4" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
+<p>Introduction: This question comes from Ulysses on aninteresting threadfrom the Mechanical
+Sympathy news group, especially given how multiple processors are now the
+norm:Ulysses:On an 8xCPU Linux instance,  is it at all advantageous to use the
+Linux taskset command to pin an 8xJVM process set (co-ordinated as a
+www.infinispan.org distributed cache/data grid) to a specific CPU affinity set
+(i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to
+CPU 7) vs. just letting the Linux OS use its default mechanism for
+provisioning the 8xJVM process set to the available CPUs?In effrort to seek an
+optimal point (in the full event space), what are the conceptual trade-offs in
+considering "searching" each permutation of provisioning an 8xJVM process set
+to an 8xCPU set via taskset?Giventaskset is they key to the question, it would
+help to have a definition:Used to set or retrieve the CPU affinity of a
+running process given its PID or to launch a new COMMAND with a given CPU
+affinity.  CPU affi</p><p>5 0.16725048 <a title="1319-tfidf-5" href="../high_scalability-2012/high_scalability-2012-03-22-Paper%3A_Revisiting_Network_I-O_APIs%3A_The_netmap_Framework.html">1213 high scalability-2012-03-22-Paper: Revisiting Network I-O APIs: The netmap Framework</a></p>
+<p>Introduction: Here's a really good article in the Communications of the ACM on reducing
+network packet processing overhead by redesigning the network stack:
+Revisiting Network I/O APIs: The Netmap Framework by Luigi Rizzo. As commodity
+networking performance increases operating systems need to keep up or all
+those CPUs will go to waste. How do they make this happen? Abstract:Today
+10-gigabit interfaces are used more and more in datacenters and servers. On
+these links, packets flow as fast as one every 67.2 nanoseconds, yet modern
+operating systems can take 10-20 times longer just to move one packet between
+the wire and the application. We can do much better, not with more powerful
+hardware but by revising architectural decisions made long ago regarding the
+design of device drivers and network stacks.The netmap framework is a
+promising step in this direction. Thanks to a careful design and the
+engineering of a new packet I/O API, netmap eliminates much unnecessary
+overhead and moves traffic up to 40</p><p>6 0.1638201 <a title="1319-tfidf-6" href="../high_scalability-2012/high_scalability-2012-05-16-Big_List_of_20_Common_Bottlenecks.html">1246 high scalability-2012-05-16-Big List of 20 Common Bottlenecks</a></p>
+<p>7 0.15263426 <a title="1319-tfidf-7" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
+<p>8 0.12082934 <a title="1319-tfidf-8" href="../high_scalability-2009/high_scalability-2009-07-25-Latency_is_Everywhere_and_it_Costs_You_Sales_-_How_to_Crush_it.html">661 high scalability-2009-07-25-Latency is Everywhere and it Costs You Sales - How to Crush it</a></p>
+<p>9 0.12054147 <a title="1319-tfidf-9" href="../high_scalability-2012/high_scalability-2012-07-04-Top_Features_of_a_Scalable_Database.html">1276 high scalability-2012-07-04-Top Features of a Scalable Database</a></p>
+<p>10 0.11389808 <a title="1319-tfidf-10" href="../high_scalability-2012/high_scalability-2012-02-27-Zen_and_the_Art_of_Scaling_-_A_Koan_and_Epigram_Approach.html">1199 high scalability-2012-02-27-Zen and the Art of Scaling - A Koan and Epigram Approach</a></p>
+<p>11 0.11297187 <a title="1319-tfidf-11" href="../high_scalability-2012/high_scalability-2012-03-09-Stuff_The_Internet_Says_On_Scalability_For_March_9%2C_2012.html">1206 high scalability-2012-03-09-Stuff The Internet Says On Scalability For March 9, 2012</a></p>
+<p>12 0.10958546 <a title="1319-tfidf-12" href="../high_scalability-2012/high_scalability-2012-05-02-12_Ways_to_Increase_Throughput_by_32X_and_Reduce_Latency_by__20X.html">1237 high scalability-2012-05-02-12 Ways to Increase Throughput by 32X and Reduce Latency by  20X</a></p>
+<p>13 0.10931762 <a title="1319-tfidf-13" href="../high_scalability-2009/high_scalability-2009-06-30-Hot_New_Trend%3A_Linking_Clouds_Through_Cheap_IP_VPNs_Instead_of_Private_Lines_.html">645 high scalability-2009-06-30-Hot New Trend: Linking Clouds Through Cheap IP VPNs Instead of Private Lines </a></p>
+<p>14 0.10694204 <a title="1319-tfidf-14" href="../high_scalability-2014/high_scalability-2014-05-21-9_Principles_of_High_Performance_Programs.html">1652 high scalability-2014-05-21-9 Principles of High Performance Programs</a></p>
+<p>15 0.10437069 <a title="1319-tfidf-15" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
+<p>16 0.10375308 <a title="1319-tfidf-16" href="../high_scalability-2012/high_scalability-2012-11-26-BigData_using_Erlang%2C_C_and_Lisp_to_Fight_the_Tsunami_of_Mobile_Data.html">1362 high scalability-2012-11-26-BigData using Erlang, C and Lisp to Fight the Tsunami of Mobile Data</a></p>
+<p>17 0.10263211 <a title="1319-tfidf-17" href="../high_scalability-2008/high_scalability-2008-12-03-Java_World_Interview_on_Scalability_and_Other_Java_Scalability_Secrets.html">459 high scalability-2008-12-03-Java World Interview on Scalability and Other Java Scalability Secrets</a></p>
+<p>18 0.10215349 <a title="1319-tfidf-18" href="../high_scalability-2008/high_scalability-2008-12-13-Strategy%3A_Facebook_Tweaks_to_Handle_6_Time_as_Many_Memcached_Requests.html">464 high scalability-2008-12-13-Strategy: Facebook Tweaks to Handle 6 Time as Many Memcached Requests</a></p>
+<p>19 0.10192014 <a title="1319-tfidf-19" href="../high_scalability-2011/high_scalability-2011-03-09-Google_and_Netflix_Strategy%3A_Use_Partial_Responses_to_Reduce_Request_Sizes.html">1001 high scalability-2011-03-09-Google and Netflix Strategy: Use Partial Responses to Reduce Request Sizes</a></p>
+<p>20 0.10169069 <a title="1319-tfidf-20" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.182), (1, 0.095), (2, -0.025), (3, 0.002), (4, -0.023), (5, 0.017), (6, 0.088), (7, 0.087), (8, -0.143), (9, -0.017), (10, -0.004), (11, -0.02), (12, 0.07), (13, -0.002), (14, -0.054), (15, -0.026), (16, 0.039), (17, 0.029), (18, -0.054), (19, 0.005), (20, 0.012), (21, -0.026), (22, -0.056), (23, -0.01), (24, 0.082), (25, -0.013), (26, 0.011), (27, -0.059), (28, 0.067), (29, 0.052), (30, 0.044), (31, 0.01), (32, -0.002), (33, -0.053), (34, 0.036), (35, 0.004), (36, 0.018), (37, 0.069), (38, -0.045), (39, 0.063), (40, 0.001), (41, 0.018), (42, 0.017), (43, -0.037), (44, -0.0), (45, 0.053), (46, -0.062), (47, -0.037), (48, -0.026), (49, 0.027)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.96532333 <a title="1319-lsi-1" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
+<p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible
+NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent
+the last several years trying to find a way to sanely house multiple
+datastore-genres under one roof while (almost paradoxically) pushing
+performance to its limits.I recently joined the NoSQL
+companyAerospike(formerly Citrusleaf) with the goal of incrementally grafting
+AlchemyDB's flexible data-modeling capabilities onto Aerospike's high-velocity
+horizontally-scalable key-value data-fabric. We recently completed a peak-
+performanceTPS optimization project: starting at 200K TPS, pushing to the
+recent community edition launch at 500K TPS, and finally arriving at our 2012
+goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
+database-requests per-second on a single machine costing $5K is a balance
+between trimming overhead on many axes and using a shared nothing architecture
+toisolatethe paths taken by unique req</p><p>2 0.87934119 <a title="1319-lsi-2" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
+<p>Introduction: This question comes from Ulysses on aninteresting threadfrom the Mechanical
+Sympathy news group, especially given how multiple processors are now the
+norm:Ulysses:On an 8xCPU Linux instance,  is it at all advantageous to use the
+Linux taskset command to pin an 8xJVM process set (co-ordinated as a
+www.infinispan.org distributed cache/data grid) to a specific CPU affinity set
+(i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to
+CPU 7) vs. just letting the Linux OS use its default mechanism for
+provisioning the 8xJVM process set to the available CPUs?In effrort to seek an
+optimal point (in the full event space), what are the conceptual trade-offs in
+considering "searching" each permutation of provisioning an 8xJVM process set
+to an 8xCPU set via taskset?Giventaskset is they key to the question, it would
+help to have a definition:Used to set or retrieve the CPU affinity of a
+running process given its PID or to launch a new COMMAND with a given CPU
+affinity.  CPU affi</p><p>3 0.82999122 <a title="1319-lsi-3" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: Now that we have theC10K concurrent connection problemlicked, how do we level
+up and support 10 million concurrent connections? Impossible you say. Nope,
+systems right now are delivering 10 million concurrent connections using
+techniques that are as radical as they may be unfamiliar.To learn how it's
+done we turn toRobert Graham, CEO of Errata Security, and his absolutely
+fantastic talk atShmoocon 2013calledC10M Defending The Internet At
+Scale.Robert has a brilliant way of framing the problem that I've never heard
+of before. He starts with a little bit of history, relating how Unix wasn't
+originally designed to be a general server OS, it was designed to be a control
+system for a telephone network. It was the telephone network that actually
+transported the data so there was a clean separation between the control plane
+and the data plane. Theproblem is we now use Unix servers as part of the data
+plane, which we shouldn't do at all. If we were designing a kernel for
+handling one applicati</p><p>4 0.80747741 <a title="1319-lsi-4" href="../high_scalability-2013/high_scalability-2013-06-19-Paper%3A_MegaPipe%3A_A_New_Programming_Interface_for_Scalable_Network_I-O.html">1478 high scalability-2013-06-19-Paper: MegaPipe: A New Programming Interface for Scalable Network I-O</a></p>
+<p>Introduction: The paper MegaPipe: A New Programming Interface for Scalable Network I/O
+(video,slides) hits the common theme that if you want to go faster you need a
+better car design, not just a better driver. So that's why the authors started
+with a clean-slate and designed a network API from the ground up with support
+for concurrent I/O, a requirement for achieving high performance while scaling
+to large numbers of connections per thread, multiple cores, etc.  What they
+created is MegaPipe, "a new network programming API for message-oriented
+workloads to avoid the performance issues of BSD Socket API."The result:
+MegaPipe outperforms baseline Linux between 29% (for long connections) and
+582% (for short connections). MegaPipe improves the performance of a modiﬁed
+version of memcached between 15% and 320%. For a workload based on real-world
+HTTP traces, MegaPipe boosts the throughput of nginx by 75%.What's this most
+excellent and interesting paper about?Message-oriented network workloads,
+where conn</p><p>5 0.77993393 <a title="1319-lsi-5" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
+<p>Introduction: Martin Thompson wrote a really interestingarticleon the beneficial performance
+impact of taking advantage of Processor Affinity:The interesting thing I've
+observed is that the unpinned test will follow a step function of
+unpredictable performance.  Across many runs I've seen different patterns but
+all similar in this step function nature.  For the pinned tests I get
+consistent throughput with no step pattern and always the greatest
+throughput.The idea is by assigning a thread to a particular CPU that when a
+thread is rescheduled to run on the same CPU, it can take advantage of the
+"accumulated  state in the processor, including instructions and data in the
+cache."  With multi-core chips the norm now, you may want to decide for
+yourself how to assign work to cores and not let the OS do it for you. The
+results are surprisingly strong.</p><p>6 0.7685414 <a title="1319-lsi-6" href="../high_scalability-2009/high_scalability-2009-02-01-More_Chips_Means_Less_Salsa.html">505 high scalability-2009-02-01-More Chips Means Less Salsa</a></p>
+<p>7 0.74257624 <a title="1319-lsi-7" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
+<p>8 0.7415055 <a title="1319-lsi-8" href="../high_scalability-2014/high_scalability-2014-05-07-Update_on_Disqus%3A_It%27s_Still_About_Realtime%2C_But_Go_Demolishes_Python.html">1644 high scalability-2014-05-07-Update on Disqus: It's Still About Realtime, But Go Demolishes Python</a></p>
+<p>9 0.73442644 <a title="1319-lsi-9" href="../high_scalability-2012/high_scalability-2012-05-02-12_Ways_to_Increase_Throughput_by_32X_and_Reduce_Latency_by__20X.html">1237 high scalability-2012-05-02-12 Ways to Increase Throughput by 32X and Reduce Latency by  20X</a></p>
+<p>10 0.70387787 <a title="1319-lsi-10" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
+<p>11 0.7012642 <a title="1319-lsi-11" href="../high_scalability-2014/high_scalability-2014-01-03-Stuff_The_Internet_Says_On_Scalability_For_January_3rd%2C_2014.html">1572 high scalability-2014-01-03-Stuff The Internet Says On Scalability For January 3rd, 2014</a></p>
+<p>12 0.69977474 <a title="1319-lsi-12" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
+<p>13 0.69488126 <a title="1319-lsi-13" href="../high_scalability-2010/high_scalability-2010-10-04-Paper%3A_An_Analysis_of_Linux_Scalability_to_Many_Cores__.html">914 high scalability-2010-10-04-Paper: An Analysis of Linux Scalability to Many Cores  </a></p>
+<p>14 0.69351381 <a title="1319-lsi-14" href="../high_scalability-2014/high_scalability-2014-05-06-The_Quest_for_Database_Scale%3A_the_1_M_TPS_challenge_-_Three_Design_Points_and_Five_common_Bottlenecks_to_avoid.html">1643 high scalability-2014-05-06-The Quest for Database Scale: the 1 M TPS challenge - Three Design Points and Five common Bottlenecks to avoid</a></p>
+<p>15 0.68003327 <a title="1319-lsi-15" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
+<p>16 0.67610055 <a title="1319-lsi-16" href="../high_scalability-2014/high_scalability-2014-05-21-9_Principles_of_High_Performance_Programs.html">1652 high scalability-2014-05-21-9 Principles of High Performance Programs</a></p>
+<p>17 0.67567539 <a title="1319-lsi-17" href="../high_scalability-2013/high_scalability-2013-06-06-Paper%3A_Memory_Barriers%3A_a_Hardware_View_for_Software_Hackers.html">1471 high scalability-2013-06-06-Paper: Memory Barriers: a Hardware View for Software Hackers</a></p>
+<p>18 0.66902167 <a title="1319-lsi-18" href="../high_scalability-2012/high_scalability-2012-03-22-Paper%3A_Revisiting_Network_I-O_APIs%3A_The_netmap_Framework.html">1213 high scalability-2012-03-22-Paper: Revisiting Network I-O APIs: The netmap Framework</a></p>
+<p>19 0.66249478 <a title="1319-lsi-19" href="../high_scalability-2012/high_scalability-2012-11-26-BigData_using_Erlang%2C_C_and_Lisp_to_Fight_the_Tsunami_of_Mobile_Data.html">1362 high scalability-2012-11-26-BigData using Erlang, C and Lisp to Fight the Tsunami of Mobile Data</a></p>
+<p>20 0.65833336 <a title="1319-lsi-20" href="../high_scalability-2012/high_scalability-2012-06-01-Stuff_The_Internet_Says_On_Scalability_For_June_1%2C_2012.html">1255 high scalability-2012-06-01-Stuff The Internet Says On Scalability For June 1, 2012</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.121), (2, 0.22), (10, 0.039), (30, 0.052), (40, 0.013), (59, 0.019), (61, 0.067), (63, 0.012), (77, 0.029), (79, 0.097), (82, 0.176), (85, 0.035), (94, 0.045)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.91758412 <a title="1319-lda-1" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
+<p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible
+NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent
+the last several years trying to find a way to sanely house multiple
+datastore-genres under one roof while (almost paradoxically) pushing
+performance to its limits.I recently joined the NoSQL
+companyAerospike(formerly Citrusleaf) with the goal of incrementally grafting
+AlchemyDB's flexible data-modeling capabilities onto Aerospike's high-velocity
+horizontally-scalable key-value data-fabric. We recently completed a peak-
+performanceTPS optimization project: starting at 200K TPS, pushing to the
+recent community edition launch at 500K TPS, and finally arriving at our 2012
+goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
+database-requests per-second on a single machine costing $5K is a balance
+between trimming overhead on many axes and using a shared nothing architecture
+toisolatethe paths taken by unique req</p><p>2 0.90271401 <a title="1319-lda-2" href="../high_scalability-2011/high_scalability-2011-05-20-Stuff_The_Internet_Says_On_Scalability_For_May_20%2C_2011.html">1045 high scalability-2011-05-20-Stuff The Internet Says On Scalability For May 20, 2011</a></p>
+<p>Introduction: Submitted for your reading pleasure on this beautiful morning:  Group Decision
+Making in Honey Bee Swarms. In distributed computing systems nodes reach
+aquorum when deciding what to do as a group. It turns out bees also use quorum
+logic when deciding on where to nest! Bees do it a bit differently of course:
+A scout bee votes for a site by spending time at it, somehow the scouts act
+and interact so that their numbers rise faster at superior sites, and somehow
+the bees at each site monitor their numbers there so that they know whether
+they've reached the threshold number (quorum) and can proceed to initiating
+the swarm's move to this site.Ants use similar mechanisms to control foraging.
+Distributed systems may share common mechanisms based on their nature as being
+a distributed system,  the components may not matter that much.Fire! Fire!
+Brent Chapman shows how to put that IT fire out in Incident Command for IT:
+What We Can Learn from the Fire Department. Scale Fail (part 1). Josh Berkus</p><p>3 0.89429212 <a title="1319-lda-3" href="../high_scalability-2008/high_scalability-2008-05-25-Product%3A_Condor__-_Compute_Intensive_Workload_Management.html">326 high scalability-2008-05-25-Product: Condor  - Compute Intensive Workload Management</a></p>
+<p>Introduction: From their website:Condoris a specialized workload management system for
+compute-intensive jobs. Like other full-featured batch systems, Condor
+provides a job queueing mechanism, scheduling policy, priority scheme,
+resource monitoring, and resource management. Users submit their serial or
+parallel jobs to Condor, Condor places them into a queue, chooses when and
+where to run the jobs based upon a policy, carefully monitors their progress,
+and ultimately informs the user upon completion.While providing functionality
+similar to that of a more traditional batch queueing system, Condor's novel
+architecture allows it to succeed in areas where traditional scheduling
+systems fail. Condor can be used to manage a cluster of dedicated compute
+nodes (such as a "Beowulf" cluster). In addition, unique mechanisms enable
+Condor to effectively harness wasted CPU power from otherwise idle desktop
+workstations. For instance, Condor can be configured to only use desktop
+machines where the keyboard and mo</p><p>4 0.89251572 <a title="1319-lda-4" href="../high_scalability-2012/high_scalability-2012-12-14-Stuff_The_Internet_Says_On_Scalability_For_December_14%2C_2012.html">1372 high scalability-2012-12-14-Stuff The Internet Says On Scalability For December 14, 2012</a></p>
+<p>Introduction: In a hole in the Internet there lived HighScalability:$140 Billion: trivial
+cost of Google fiber everywhere; 5,200 GB: data for every person on Earth;6
+hours: time it takes for a 25-GPU cluster to crack all the passwords;
+Quoteable Quotes:hnriot: Good architecture eliminates the need for
+prayer.@adrianco: we break AWS, they fix it. Stuff that's breaking now is
+mostly stuff other clouds haven't got to yet.Scalability Rules: Design for 20x
+capacity. • Implement for 3x capacity. • Deploy for ~1.5x capacity.Fast typing
+Aaron Delp with his AWS re:Invent Werner Vogel Keynote Live Blog.  Some key
+points: Decompose into small loosely coupled, stateless building blocks;
+Automate your application and processes; Let Business levers control the
+system; Architect with cost in mind; Protecting your customer is the first
+priority; In production, deploy to at least two availability zones; Integrate
+security into your application from the ground up; Build, test, integrate and
+deploy continuously; Don't</p><p>5 0.88924521 <a title="1319-lda-5" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
+<p>Introduction: This is a guest post by Ron Pressler, the founder and CEO ofParallel Universe,
+a Y Combinator company building advanced middleware for real-time
+applications.A little over a month ago, we open-sourced a new in-memory data
+grid calledGalaxy. An in-memory data grid, or IMDG, is a clustered data
+storage and processing middleware that uses RAM as the authoritative and
+primary storage, and distributes data over a cluster for purposes of data and
+processing scalability and high-availability. A common feature of IMDGs is co-
+location of code and data, meaning that application code runs on all cluster
+nodes, each instance processing those data items residing in the local node's
+RAM.While quite a few commercial and open-source IMDGs are available (like
+Terracotta, Gigaspaces, Oracle Coherence, GemFire, Websphere eXtreme Scale,
+Infinispan and Hazelcast), Galaxy has adopted a completely different
+architecture from all other IMDGs, to service some usage scenarios ill-fitted
+to the other solutions.</p><p>6 0.85894108 <a title="1319-lda-6" href="../high_scalability-2007/high_scalability-2007-10-23-Hire_Facebook%2C_Ning%2C_and_Salesforce_to_Scale_for_You.html">129 high scalability-2007-10-23-Hire Facebook, Ning, and Salesforce to Scale for You</a></p>
+<p>7 0.84658897 <a title="1319-lda-7" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>
+<p>8 0.84588897 <a title="1319-lda-8" href="../high_scalability-2009/high_scalability-2009-01-16-Reducing_Your_Website%27s_Bandwidth_Usage_-_how_to.html">494 high scalability-2009-01-16-Reducing Your Website's Bandwidth Usage - how to</a></p>
+<p>9 0.84319109 <a title="1319-lda-9" href="../high_scalability-2014/high_scalability-2014-04-18-Stuff_The_Internet_Says_On_Scalability_For_April_18th%2C_2014.html">1634 high scalability-2014-04-18-Stuff The Internet Says On Scalability For April 18th, 2014</a></p>
+<p>10 0.84315604 <a title="1319-lda-10" href="../high_scalability-2012/high_scalability-2012-01-09-The_Etsy_Saga%3A_From_Silos_to_Happy_to_Billions_of_Pageviews_a_Month.html">1171 high scalability-2012-01-09-The Etsy Saga: From Silos to Happy to Billions of Pageviews a Month</a></p>
+<p>11 0.84315389 <a title="1319-lda-11" href="../high_scalability-2014/high_scalability-2014-04-25-Stuff_The_Internet_Says_On_Scalability_For_April_25th%2C_2014.html">1637 high scalability-2014-04-25-Stuff The Internet Says On Scalability For April 25th, 2014</a></p>
+<p>12 0.84262592 <a title="1319-lda-12" href="../high_scalability-2014/high_scalability-2014-02-14-Stuff_The_Internet_Says_On_Scalability_For_February_14th%2C_2014.html">1596 high scalability-2014-02-14-Stuff The Internet Says On Scalability For February 14th, 2014</a></p>
+<p>13 0.84236926 <a title="1319-lda-13" href="../high_scalability-2014/high_scalability-2014-02-21-Stuff_The_Internet_Says_On_Scalability_For_February_21st%2C_2014.html">1600 high scalability-2014-02-21-Stuff The Internet Says On Scalability For February 21st, 2014</a></p>
+<p>14 0.84185725 <a title="1319-lda-14" href="../high_scalability-2008/high_scalability-2008-02-21-Tracking_usage_of_public_resources_-_throttling_accesses_per_hour.html">256 high scalability-2008-02-21-Tracking usage of public resources - throttling accesses per hour</a></p>
+<p>15 0.84162295 <a title="1319-lda-15" href="../high_scalability-2009/high_scalability-2009-08-07-The_Canonical_Cloud_Architecture_.html">674 high scalability-2009-08-07-The Canonical Cloud Architecture </a></p>
+<p>16 0.84151596 <a title="1319-lda-16" href="../high_scalability-2013/high_scalability-2013-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_30%2C_2013.html">1509 high scalability-2013-08-30-Stuff The Internet Says On Scalability For August 30, 2013</a></p>
+<p>17 0.84138066 <a title="1319-lda-17" href="../high_scalability-2014/high_scalability-2014-01-28-How_Next_Big_Sound_Tracks_Over_a_Trillion_Song_Plays%2C_Likes%2C_and_More_Using_a_Version_Control_System_for_Hadoop_Data.html">1586 high scalability-2014-01-28-How Next Big Sound Tracks Over a Trillion Song Plays, Likes, and More Using a Version Control System for Hadoop Data</a></p>
+<p>18 0.84098649 <a title="1319-lda-18" href="../high_scalability-2013/high_scalability-2013-08-16-Stuff_The_Internet_Says_On_Scalability_For_August_16%2C_2013.html">1502 high scalability-2013-08-16-Stuff The Internet Says On Scalability For August 16, 2013</a></p>
+<p>19 0.84064931 <a title="1319-lda-19" href="../high_scalability-2009/high_scalability-2009-08-05-Stack_Overflow_Architecture.html">671 high scalability-2009-08-05-Stack Overflow Architecture</a></p>
+<p>20 0.84052706 <a title="1319-lda-20" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
