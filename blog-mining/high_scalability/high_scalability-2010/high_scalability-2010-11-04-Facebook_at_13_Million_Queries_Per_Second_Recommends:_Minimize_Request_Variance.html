@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>934 high scalability-2010-11-04-Facebook at 13 Million Queries Per Second Recommends: Minimize Request Variance</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2010" href="../home/high_scalability-2010_home.html">high_scalability-2010</a> <a title="high_scalability-2010-934" href="#">high_scalability-2010-934</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>934 high scalability-2010-11-04-Facebook at 13 Million Queries Per Second Recommends: Minimize Request Variance</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-934-html" href="http://highscalability.com//blog/2010/11/4/facebook-at-13-million-queries-per-second-recommends-minimiz.html">html</a></p><p>Introduction: Facebook gave aMySQL Tech Talk where they talked about many things MySQL, but
+one of the more subtle and interesting points was their focus on controlling
+the variance of request response times and not just worrying about maximizing
+queries per second.But first the scalability porn. Facebook's OLTP performance
+numbers were as usual, quite dramatic:Query response times: 4ms reads, 5ms
+writes. Rows read per second: 450M peakNetwork bytes per second: 38GB
+peakQueries per second: 13M peakRows changed per second: 3.5M peakInnoDB disk
+ops per second: 5.2M peak Some thoughts on creating quality, not quantity:They
+don't care about average response times, instead, they want to minimize
+variance. Every click must be responded to quickly. The quality of service for
+each request matters.It's OK if a query is slow as long as it is always slow.
+They don't try to get the highest queries per second out of each machine. What
+is important is that the edge cases are not the bad. They figure out why the
+r</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('second', 0.233), ('drill', 0.213), ('query', 0.204), ('per', 0.195), ('variance', 0.195), ('response', 0.158), ('highest', 0.157), ('quality', 0.157), ('notice', 0.144), ('gdb', 0.143), ('miniature', 0.143), ('subsecond', 0.143), ('amysql', 0.134), ('newsthread', 0.123), ('minimize', 0.122), ('responded', 0.119), ('notices', 0.119), ('color', 0.119), ('queries', 0.118), ('stalls', 0.116)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000001 <a title="934-tfidf-1" href="../high_scalability-2010/high_scalability-2010-11-04-Facebook_at_13_Million_Queries_Per_Second_Recommends%3A_Minimize_Request_Variance.html">934 high scalability-2010-11-04-Facebook at 13 Million Queries Per Second Recommends: Minimize Request Variance</a></p>
+<p>Introduction: Facebook gave aMySQL Tech Talk where they talked about many things MySQL, but
+one of the more subtle and interesting points was their focus on controlling
+the variance of request response times and not just worrying about maximizing
+queries per second.But first the scalability porn. Facebook's OLTP performance
+numbers were as usual, quite dramatic:Query response times: 4ms reads, 5ms
+writes. Rows read per second: 450M peakNetwork bytes per second: 38GB
+peakQueries per second: 13M peakRows changed per second: 3.5M peakInnoDB disk
+ops per second: 5.2M peak Some thoughts on creating quality, not quantity:They
+don't care about average response times, instead, they want to minimize
+variance. Every click must be responded to quickly. The quality of service for
+each request matters.It's OK if a query is slow as long as it is always slow.
+They don't try to get the highest queries per second out of each machine. What
+is important is that the edge cases are not the bad. They figure out why the
+r</p><p>2 0.1539533 <a title="934-tfidf-2" href="../high_scalability-2010/high_scalability-2010-11-22-Strategy%3A_Google_Sends_Canary_Requests_into_the_Data_Mine.html">946 high scalability-2010-11-22-Strategy: Google Sends Canary Requests into the Data Mine</a></p>
+<p>Introduction: Google runs queries against thousands of in-memory index nodes in parallel and
+then merges the results. One of the interesting problems with this approach,
+explains Google's Jeff Dean in thislecture at Stanford, is theQuery of Death.A
+query can cause a program to fail because of bugs or various other issues.
+This means that a single query can take down an entire cluster of machines,
+which is not good for availability and response times, as it takes quite a
+while for thousands of machines to recover. Thus the Query of Death. New
+queries are always coming into the system and when you are always rolling out
+new software, it's impossible to completely get rid of the problem.Two
+solutions:Test against logs. Google replays a month's worth of logs to see if
+any of those queries kill anything. That helps, but Queries of Death may still
+happen.Send a canary request. A request is sent to one machine. If the request
+succeeds then it will probably succeed on all machines, so go ahead with the
+quer</p><p>3 0.13776857 <a title="934-tfidf-3" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
+<p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a
+storage engine company that delivers 21st-Century capabilities to the leading
+open source data management platforms.As software developers, we value
+abstraction. The simpler the API, the more attractive it becomes. Arguably,
+MongoDB's greatest strengths are its elegant API and itsagility, which let
+developers simply code.But whenMongoDBruns into scalability problems onbig
+data, developers need to peek underneath the covers to understand the
+underlying issues and how to fix them. Without understanding, one may end up
+with an inefficient solution that costs time and money. For example, one may
+shard prematurely, increasing hardware and management costs, when a simpler
+replication setup would do. Or, one may increase the size of a replica set
+when upgrading to SSDs would suffice.This article showshow to reason about
+some big data scalability problemsin an effort to find efficient
+solutions.Defining the IssuesFirst, l</p><p>4 0.12878838 <a title="934-tfidf-4" href="../high_scalability-2008/high_scalability-2008-12-13-Strategy%3A_Facebook_Tweaks_to_Handle_6_Time_as_Many_Memcached_Requests.html">464 high scalability-2008-12-13-Strategy: Facebook Tweaks to Handle 6 Time as Many Memcached Requests</a></p>
+<p>Introduction: Our latest strategy is taken from agreat post by Paul Saab of Facebook,
+detailing how with changes Facebook has made to memcached they have:...been
+able to scale memcached to handle 200,000 UDP requests per second with an
+average latency of 173 microseconds. The total throughput achieved is 300,000
+UDP requests/s, but the latency at that request rate is too high to be useful
+in our system. This is an amazing increase from 50,000 UDP requests/s using
+the stock version of Linux and memcached.To scale Facebook has hundreds of
+thousands of TCP connections open to their memcached processes. First, this is
+still amazing. It's not so long ago you could have never done this. Optimizing
+connection use was always a priority because the OS simply couldn't handle
+large numbers of connections or large numbers of threads or large numbers of
+CPUs. To get to this point is a big accomplishment. Still, at that scale there
+are problems that are often solved.Some of the problem Facebook faced and
+fixed:Pe</p><p>5 0.12493512 <a title="934-tfidf-5" href="../high_scalability-2010/high_scalability-2010-11-09-Facebook_Uses_Non-Stored_Procedures_to_Update_Social_Graphs.html">936 high scalability-2010-11-09-Facebook Uses Non-Stored Procedures to Update Social Graphs</a></p>
+<p>Introduction: Facebook's Ryan Mack gave aMySQL Tech Talk where he talked about using what he
+called Non-stored Proceduresfor adding edges to Facebook's social graph. The
+question is: how can edges quickly be added to the social graph? The answer is
+ultimately one of deciding where logic should be executed, especially when
+locks are kept open during network hops.Ryan explained a key element of the
+Facebook data model are the connections between people, things they've liked,
+and places they've checked-in. A lot of their writes are adding edges to the
+social graph. Currently this is a two step process, run inside a
+transaction:add a new edge into the graphif the add was successful then
+increment the number of edges on a nodeThis approach works until there's a
+very hot node that is being added to rapidly. For example, a popular game adds
+a new character and everyone likes it at the same time or a new album comes
+out and everyone likes it at the same time.They were limited to the rate they
+could add edge</p><p>6 0.12215757 <a title="934-tfidf-6" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
+<p>7 0.12042525 <a title="934-tfidf-7" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
+<p>8 0.11722043 <a title="934-tfidf-8" href="../high_scalability-2011/high_scalability-2011-07-29-Stuff_The_Internet_Says_On_Scalability_For_July_29%2C_2011.html">1089 high scalability-2011-07-29-Stuff The Internet Says On Scalability For July 29, 2011</a></p>
+<p>9 0.11104326 <a title="934-tfidf-9" href="../high_scalability-2012/high_scalability-2012-11-15-Gone_Fishin%27%3A_Justin.Tv%27s_Live_Video_Broadcasting_Architecture.html">1359 high scalability-2012-11-15-Gone Fishin': Justin.Tv's Live Video Broadcasting Architecture</a></p>
+<p>10 0.11101646 <a title="934-tfidf-10" href="../high_scalability-2010/high_scalability-2010-03-16-Justin.tv%27s_Live_Video_Broadcasting_Architecture.html">796 high scalability-2010-03-16-Justin.tv's Live Video Broadcasting Architecture</a></p>
+<p>11 0.10940534 <a title="934-tfidf-11" href="../high_scalability-2013/high_scalability-2013-04-23-Facebook_Secrets_of_Web_Performance.html">1444 high scalability-2013-04-23-Facebook Secrets of Web Performance</a></p>
+<p>12 0.1092653 <a title="934-tfidf-12" href="../high_scalability-2008/high_scalability-2008-03-08-Audiogalaxy.com_Architecture.html">269 high scalability-2008-03-08-Audiogalaxy.com Architecture</a></p>
+<p>13 0.10918067 <a title="934-tfidf-13" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
+<p>14 0.10914089 <a title="934-tfidf-14" href="../high_scalability-2013/high_scalability-2013-10-08-F1_and_Spanner_Holistically_Compared.html">1529 high scalability-2013-10-08-F1 and Spanner Holistically Compared</a></p>
+<p>15 0.10812119 <a title="934-tfidf-15" href="../high_scalability-2007/high_scalability-2007-12-21-Strategy%3A_Limit_Result_Sets.html">189 high scalability-2007-12-21-Strategy: Limit Result Sets</a></p>
+<p>16 0.10732023 <a title="934-tfidf-16" href="../high_scalability-2014/high_scalability-2014-03-04-Sponsored_Post%3A_Uber%2C_ScaleOut_Software%2C_Couchbase%2C_Tokutek%2C_Logentries%2C_Booking%2C_Apple%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1605 high scalability-2014-03-04-Sponsored Post: Uber, ScaleOut Software, Couchbase, Tokutek, Logentries, Booking, Apple, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
+<p>17 0.10279331 <a title="934-tfidf-17" href="../high_scalability-2013/high_scalability-2013-12-13-Stuff_The_Internet_Says_On_Scalability_For_December_13th%2C_2013.html">1564 high scalability-2013-12-13-Stuff The Internet Says On Scalability For December 13th, 2013</a></p>
+<p>18 0.10263373 <a title="934-tfidf-18" href="../high_scalability-2010/high_scalability-2010-06-10-The_Four_Meta_Secrets_of_Scaling_at_Facebook.html">840 high scalability-2010-06-10-The Four Meta Secrets of Scaling at Facebook</a></p>
+<p>19 0.10248259 <a title="934-tfidf-19" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
+<p>20 0.10154351 <a title="934-tfidf-20" href="../high_scalability-2011/high_scalability-2011-10-31-15_Ways_to_Make_Your_Application_Feel_More_Responsive_under_Google_App_Engine.html">1135 high scalability-2011-10-31-15 Ways to Make Your Application Feel More Responsive under Google App Engine</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.195), (1, 0.09), (2, -0.062), (3, -0.034), (4, 0.031), (5, 0.016), (6, -0.001), (7, 0.075), (8, 0.035), (9, -0.05), (10, -0.01), (11, -0.011), (12, 0.026), (13, 0.063), (14, -0.018), (15, 0.016), (16, -0.009), (17, -0.022), (18, -0.016), (19, 0.014), (20, 0.087), (21, 0.003), (22, 0.056), (23, -0.002), (24, 0.022), (25, 0.009), (26, -0.091), (27, 0.02), (28, 0.09), (29, 0.029), (30, -0.011), (31, -0.018), (32, 0.05), (33, 0.08), (34, 0.014), (35, 0.072), (36, 0.045), (37, -0.006), (38, -0.046), (39, -0.016), (40, -0.076), (41, -0.064), (42, 0.059), (43, -0.068), (44, 0.029), (45, 0.0), (46, 0.018), (47, 0.02), (48, 0.083), (49, 0.032)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.98523796 <a title="934-lsi-1" href="../high_scalability-2010/high_scalability-2010-11-04-Facebook_at_13_Million_Queries_Per_Second_Recommends%3A_Minimize_Request_Variance.html">934 high scalability-2010-11-04-Facebook at 13 Million Queries Per Second Recommends: Minimize Request Variance</a></p>
+<p>Introduction: Facebook gave aMySQL Tech Talk where they talked about many things MySQL, but
+one of the more subtle and interesting points was their focus on controlling
+the variance of request response times and not just worrying about maximizing
+queries per second.But first the scalability porn. Facebook's OLTP performance
+numbers were as usual, quite dramatic:Query response times: 4ms reads, 5ms
+writes. Rows read per second: 450M peakNetwork bytes per second: 38GB
+peakQueries per second: 13M peakRows changed per second: 3.5M peakInnoDB disk
+ops per second: 5.2M peak Some thoughts on creating quality, not quantity:They
+don't care about average response times, instead, they want to minimize
+variance. Every click must be responded to quickly. The quality of service for
+each request matters.It's OK if a query is slow as long as it is always slow.
+They don't try to get the highest queries per second out of each machine. What
+is important is that the edge cases are not the bad. They figure out why the
+r</p><p>2 0.73922044 <a title="934-lsi-2" href="../high_scalability-2009/high_scalability-2009-06-08-Distribution_of_queries_per_second.html">622 high scalability-2009-06-08-Distribution of queries per second</a></p>
+<p>Introduction: We need to measure the number of queries-per-second our site gets for capacity
+planning purposes.Obviously, we need to provision the site based on the peak
+QPS, not average QPS. There will always be some spikes in traffic, though,
+where for one particular second we get a really huge number of queries. It's
+ok if site performance slightly degrades during that time. So what I'd really
+like to do is estimate the *near* peak QPS based on average or median QPS.
+Near peak might be defined as the QPS that I get at the 95th percentile of the
+busiest seconds during the day.My guess is that this is similar to what ISPs
+do when they measure your bandwidth usage and then charge for usage over the
+95th percentile.What we've done is analyzed our logs, counted the queries
+executed during each second during the day, sorted from the busiest seconds to
+the least busy ones, and graphed it. What you get is a histogram that steeply
+declines and flattens out near zero.Does anyone know if there is a
+mathemat</p><p>3 0.7045359 <a title="934-lsi-3" href="../high_scalability-2011/high_scalability-2011-05-02-Stack_Overflow_Makes_Slow_Pages_100x_Faster_by_Simple_SQL_Tuning.html">1032 high scalability-2011-05-02-Stack Overflow Makes Slow Pages 100x Faster by Simple SQL Tuning</a></p>
+<p>Introduction: The most common complaint against NoSQL is that if you know how to write good
+SQL queries then SQL works fine. If SQL is slow you can always tune it and
+make it faster. A great example of this incremental improvement process was
+written up by StackExchange's Sam Saffron, in A day in the life of a slow page
+at Stack Overflow, where he shows through profiling and SQL tuning it was
+possible to reduce page load times from 630ms to 40ms for some pages and for
+other pages the improvement was 100x.Sam provides a lot of wonderful detail of
+his tuning process, how it works, the thought process, the tools used, and the
+tradeoffs involved. Here's a short summary of the steps:Using theirmini-
+profiler it was shown that abadge detail pagewas taking 630.3 ms to load,
+298.1 ms of that was spent on SQL queries, and then the tool listed the SQL
+queries for the page and how long each took.From the historical logs, which
+are stored inHAProxy on a month-by-month basis, Sam was able to determine this
+page</p><p>4 0.6853959 <a title="934-lsi-4" href="../high_scalability-2010/high_scalability-2010-11-22-Strategy%3A_Google_Sends_Canary_Requests_into_the_Data_Mine.html">946 high scalability-2010-11-22-Strategy: Google Sends Canary Requests into the Data Mine</a></p>
+<p>Introduction: Google runs queries against thousands of in-memory index nodes in parallel and
+then merges the results. One of the interesting problems with this approach,
+explains Google's Jeff Dean in thislecture at Stanford, is theQuery of Death.A
+query can cause a program to fail because of bugs or various other issues.
+This means that a single query can take down an entire cluster of machines,
+which is not good for availability and response times, as it takes quite a
+while for thousands of machines to recover. Thus the Query of Death. New
+queries are always coming into the system and when you are always rolling out
+new software, it's impossible to completely get rid of the problem.Two
+solutions:Test against logs. Google replays a month's worth of logs to see if
+any of those queries kill anything. That helps, but Queries of Death may still
+happen.Send a canary request. A request is sent to one machine. If the request
+succeeds then it will probably succeed on all machines, so go ahead with the
+quer</p><p>5 0.66903907 <a title="934-lsi-5" href="../high_scalability-2007/high_scalability-2007-12-21-Strategy%3A_Limit_Result_Sets.html">189 high scalability-2007-12-21-Strategy: Limit Result Sets</a></p>
+<p>Introduction: Release It!authorMichael Nygard tells a tale of two web sites, both brought
+low by unexpectedly huge unbounded results sets that slowed down their sites
+to the speed of a Christmas checkout line.I've committed this error more than
+a few times. During testing the results sets are often small, so you don't see
+problems. Or when a product is new you don't have a lot of data so everything
+is fine, until some magic line is crossed and you get that dreaded 2AM fix it
+call.breakMy most embarrassing bug of this type caused a rather spectacular
+failure at a customer site as the variance in response times was out of spec
+and this kicked in penalty clauses. What happened was the customer had a
+larger network than we could even test (customers always get the good stuff).
+I took a lock and went to get all the data. Because the result set was so much
+larger in their larger system I took the lock for many more milliseconds than
+I should have. Unknown to me a chunk of code on the critical path also wa</p><p>6 0.66255772 <a title="934-lsi-6" href="../high_scalability-2014/high_scalability-2014-03-21-Stuff_The_Internet_Says_On_Scalability_For_March_21st%2C_2014.html">1617 high scalability-2014-03-21-Stuff The Internet Says On Scalability For March 21st, 2014</a></p>
+<p>7 0.66151696 <a title="934-lsi-7" href="../high_scalability-2010/high_scalability-2010-05-20-Strategy%3A_Scale_Writes_to_734_Million_Records_Per_Day_Using_Time_Partitioning.html">829 high scalability-2010-05-20-Strategy: Scale Writes to 734 Million Records Per Day Using Time Partitioning</a></p>
+<p>8 0.65792859 <a title="934-lsi-8" href="../high_scalability-2008/high_scalability-2008-12-13-Strategy%3A_Facebook_Tweaks_to_Handle_6_Time_as_Many_Memcached_Requests.html">464 high scalability-2008-12-13-Strategy: Facebook Tweaks to Handle 6 Time as Many Memcached Requests</a></p>
+<p>9 0.64550096 <a title="934-lsi-9" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
+<p>10 0.64275438 <a title="934-lsi-10" href="../high_scalability-2012/high_scalability-2012-07-11-FictionPress%3A_Publishing_6_Million_Works_of_Fiction_on_the_Web.html">1281 high scalability-2012-07-11-FictionPress: Publishing 6 Million Works of Fiction on the Web</a></p>
+<p>11 0.64125687 <a title="934-lsi-11" href="../high_scalability-2014/high_scalability-2014-01-10-Stuff_The_Internet_Says_On_Scalability_For_January_10th%2C_2014.html">1576 high scalability-2014-01-10-Stuff The Internet Says On Scalability For January 10th, 2014</a></p>
+<p>12 0.63794905 <a title="934-lsi-12" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
+<p>13 0.63714445 <a title="934-lsi-13" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
+<p>14 0.63356405 <a title="934-lsi-14" href="../high_scalability-2012/high_scalability-2012-05-23-Averages%2C_web_performance_data%2C_and_how_your_analytics_product_is_lying_to_you__.html">1250 high scalability-2012-05-23-Averages, web performance data, and how your analytics product is lying to you  </a></p>
+<p>15 0.63283706 <a title="934-lsi-15" href="../high_scalability-2012/high_scalability-2012-10-09-Batoo_JPA_-_The_new_JPA_Implementation_that_runs_over_15_times_faster....html">1336 high scalability-2012-10-09-Batoo JPA - The new JPA Implementation that runs over 15 times faster...</a></p>
+<p>16 0.63004851 <a title="934-lsi-16" href="../high_scalability-2012/high_scalability-2012-03-07-Scale_Indefinitely_on_S3_With_These_Secrets_of_the_S3_Masters.html">1205 high scalability-2012-03-07-Scale Indefinitely on S3 With These Secrets of the S3 Masters</a></p>
+<p>17 0.62929386 <a title="934-lsi-17" href="../high_scalability-2013/high_scalability-2013-12-18-How_to_get_started_with_sizing_and_capacity_planning%2C_assuming_you_don%27t_know_the_software_behavior%3F.html">1566 high scalability-2013-12-18-How to get started with sizing and capacity planning, assuming you don't know the software behavior?</a></p>
+<p>18 0.62678319 <a title="934-lsi-18" href="../high_scalability-2008/high_scalability-2008-03-03-Read_This_Site_and_Ace_Your_Next_Interview%21.html">264 high scalability-2008-03-03-Read This Site and Ace Your Next Interview!</a></p>
+<p>19 0.62452048 <a title="934-lsi-19" href="../high_scalability-2014/high_scalability-2014-02-13-Snabb_Switch_-_Skip_the_OS_and_Get_40_million_Requests_Per_Second_in_Lua.html">1595 high scalability-2014-02-13-Snabb Switch - Skip the OS and Get 40 million Requests Per Second in Lua</a></p>
+<p>20 0.62316185 <a title="934-lsi-20" href="../high_scalability-2012/high_scalability-2012-10-12-Stuff_The_Internet_Says_On_Scalability_For_October_12%2C_2012.html">1339 high scalability-2012-10-12-Stuff The Internet Says On Scalability For October 12, 2012</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.132), (2, 0.267), (10, 0.062), (42, 0.201), (61, 0.071), (79, 0.136), (85, 0.02), (94, 0.027)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.92982697 <a title="934-lda-1" href="../high_scalability-2012/high_scalability-2012-04-13-Stuff_The_Internet_Says_On_Scalability_For_April_13%2C_2012.html">1227 high scalability-2012-04-13-Stuff The Internet Says On Scalability For April 13, 2012</a></p>
+<p>Introduction: It's HighScalability Time:50 million in 50 days: Draw Something downloads;40
+million concurrent users: SkypeKey to making sensors ubiquitous is getting the
+BOM cost down. Here's a dream way of making that happen: Bye-Bye Batteries:
+Radio Waves as a Low-Power Source. "Silicon technology has advanced to the
+point where even tiny amounts of energy can do useful work." No batteries ==
+cheaper, smaller products == ubiquity.The MySQL "swap insanity" problem and
+the effects of the NUMA architecture. Jeremy Cole with a spectacular article
+on the differences between NUMA and SMP/UMA systems and the mostly
+unsatisfactory tricks required to get MySQL to perform on NUMA systems. There
+are really two issues: the evils of an OS controlled swap and NUMA performance
+effects due to a single node (in the NUMA sense) running out of memory. This
+is the kind of stuff you only see when you push your systems to the edge.
+Also,Measuring NUMA effects with the STREAM benchmark,MongoDB on NUMA, and You
+Buy a NUM</p><p>2 0.91887051 <a title="934-lda-2" href="../high_scalability-2008/high_scalability-2008-12-20-Second_Life_Architecture_-_The_Grid.html">473 high scalability-2008-12-20-Second Life Architecture - The Grid</a></p>
+<p>Introduction: Update:Presentation: Second Life's Architecture.Ian Wilkes, VP of Systems
+Engineering, describes the architecture used by the popular game named Second
+Life. Ian presents how the architecture was at its debut and how it evolved
+over years as users and features have been added.Second Lifeis a 3-D virtual
+world created by its Residents. Virtual Worlds are expected to be more and
+more popular on the internet so their architecture might be of interest.
+Especially important is the appearance of open virtual worlds or
+metaverses.What happens when video games meet Web 2.0? What happens is
+themetaverse.Information Sources Second Life runs MySQLInterview with Ian
+WilkesTechTrends: Inside Linden LabTown Hall with Cory LindenInformationWeek
+articles (1,2) andblogSecond Life Wiki: Server ArchitectureWikipedia: Second
+Life ServerSecond Life BlogSecond Life: A Guide to Your Virtual World Platform
+MySQLApacheSquidPythonC++MonoDebian What's Inside?  The Stats ~1M active
+users~95M user hours per quarte</p><p>3 0.91833538 <a title="934-lda-3" href="../high_scalability-2013/high_scalability-2013-03-20-Dart_-_Is_it_the_Future_of_the_Web%3F.html">1427 high scalability-2013-03-20-Dart - Is it the Future of the Web?</a></p>
+<p>Introduction: John McCutchan,after a long career spent working on the Linux kernel and being
+hired out as a code optimization guru, joined Google's Dart team. A curious
+hire until you watch Bringing SIMD to the Web via Dart, where John makes a
+programmer accessible explanation of why he likes Dart: performance,
+performance, performance.Dartis an open-source Web programming
+languagedeveloped by Google. The motivation for Dart is twofold: provide a
+language capable of scaling up to the complex web applications that are
+becoming the norm. Think Gmail. And provide a single language capable of
+working on both the client and server. Towards those ends Dart is a complete
+language, full tool environment, and provides an advanced Web UI framework for
+building web applications at a high level of abstraction.Why isn't JavaScript
+good enough? The fear is for large web apps the nature of JavaScript puts
+crippling limits on potential performance improvements, which will cause web
+apps to lose out to mobile apps.</p><p>4 0.91147137 <a title="934-lda-4" href="../high_scalability-2009/high_scalability-2009-04-16-Paper%3A_The_End_of_an_Architectural_Era_%28It%E2%80%99s_Time_for_a_Complete_Rewrite%29.html">572 high scalability-2009-04-16-Paper: The End of an Architectural Era (It’s Time for a Complete Rewrite)</a></p>
+<p>Introduction: Update 3:A Comparison of Approaches to Large-Scale Data Analysis: MapReduce
+vs. DBMS Benchmarks.Although the process to load data into and tune the
+execution of parallel DBMSs took much longer than the MR system, the observed
+performance of these DBMSs was strikingly better.Update 2:H-Store: A Next
+Generation OLTP DBMSis the project implementing the ideas in this paper:The
+goal of the H-Store project is to investigate how these architectural and
+application shifts affect the performance of OLTP databases, and to study what
+performance benefits would be possible with a complete redesign of OLTP
+systems in light of these trends. Our early results show that a simple
+prototype built from scratch using modern assumptions can outperform current
+commercial DBMS offerings by around a factor of 80 on OLTP workloads.Update:
+interesting related thread onLamda the Ultimate.A really fascinating paper
+bolstering many of the anti-RDBMS threads the have popped up on the intertube
+lately. The spirit of</p><p>same-blog 5 0.90496355 <a title="934-lda-5" href="../high_scalability-2010/high_scalability-2010-11-04-Facebook_at_13_Million_Queries_Per_Second_Recommends%3A_Minimize_Request_Variance.html">934 high scalability-2010-11-04-Facebook at 13 Million Queries Per Second Recommends: Minimize Request Variance</a></p>
+<p>Introduction: Facebook gave aMySQL Tech Talk where they talked about many things MySQL, but
+one of the more subtle and interesting points was their focus on controlling
+the variance of request response times and not just worrying about maximizing
+queries per second.But first the scalability porn. Facebook's OLTP performance
+numbers were as usual, quite dramatic:Query response times: 4ms reads, 5ms
+writes. Rows read per second: 450M peakNetwork bytes per second: 38GB
+peakQueries per second: 13M peakRows changed per second: 3.5M peakInnoDB disk
+ops per second: 5.2M peak Some thoughts on creating quality, not quantity:They
+don't care about average response times, instead, they want to minimize
+variance. Every click must be responded to quickly. The quality of service for
+each request matters.It's OK if a query is slow as long as it is always slow.
+They don't try to get the highest queries per second out of each machine. What
+is important is that the edge cases are not the bad. They figure out why the
+r</p><p>6 0.8995108 <a title="934-lda-6" href="../high_scalability-2011/high_scalability-2011-03-24-Strategy%3A_Disk_Backup_for_Speed%2C_Tape_Backup_to_Save_Your_Bacon%2C_Just_Ask_Google.html">1010 high scalability-2011-03-24-Strategy: Disk Backup for Speed, Tape Backup to Save Your Bacon, Just Ask Google</a></p>
+<p>7 0.89832532 <a title="934-lda-7" href="../high_scalability-2014/high_scalability-2014-01-31-Stuff_The_Internet_Says_On_Scalability_For_January_31st%2C_2014.html">1588 high scalability-2014-01-31-Stuff The Internet Says On Scalability For January 31st, 2014</a></p>
+<p>8 0.89204949 <a title="934-lda-8" href="../high_scalability-2014/high_scalability-2014-03-10-Let%27s_Play_a_Game_of_Take_It_or_Leave_It__-_Game_1.html">1608 high scalability-2014-03-10-Let's Play a Game of Take It or Leave It  - Game 1</a></p>
+<p>9 0.86627901 <a title="934-lda-9" href="../high_scalability-2009/high_scalability-2009-05-06-Dyrad.html">591 high scalability-2009-05-06-Dyrad</a></p>
+<p>10 0.85691673 <a title="934-lda-10" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
+<p>11 0.85598105 <a title="934-lda-11" href="../high_scalability-2008/high_scalability-2008-03-12-YouTube_Architecture.html">274 high scalability-2008-03-12-YouTube Architecture</a></p>
+<p>12 0.85565394 <a title="934-lda-12" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>13 0.85495424 <a title="934-lda-13" href="../high_scalability-2007/high_scalability-2007-07-23-GoogleTalk_Architecture.html">21 high scalability-2007-07-23-GoogleTalk Architecture</a></p>
+<p>14 0.85458356 <a title="934-lda-14" href="../high_scalability-2012/high_scalability-2012-01-19-Is_it_time_to_get_rid_of_the_Linux_OS_model_in_the_cloud%3F.html">1177 high scalability-2012-01-19-Is it time to get rid of the Linux OS model in the cloud?</a></p>
+<p>15 0.85420674 <a title="934-lda-15" href="../high_scalability-2011/high_scalability-2011-12-19-How_Twitter_Stores_250_Million_Tweets_a_Day_Using_MySQL.html">1159 high scalability-2011-12-19-How Twitter Stores 250 Million Tweets a Day Using MySQL</a></p>
+<p>16 0.85412657 <a title="934-lda-16" href="../high_scalability-2014/high_scalability-2014-03-03-The_%E2%80%9CFour_Hamiltons%E2%80%9D_Framework_for_Mitigating_Faults_in_the_Cloud%3A_Avoid_it%2C_Mask_it%2C_Bound_it%2C_Fix_it_Fast.html">1604 high scalability-2014-03-03-The “Four Hamiltons” Framework for Mitigating Faults in the Cloud: Avoid it, Mask it, Bound it, Fix it Fast</a></p>
+<p>17 0.85347241 <a title="934-lda-17" href="../high_scalability-2014/high_scalability-2014-02-03-How_Google_Backs_Up_the_Internet_Along_With_Exabytes_of_Other_Data.html">1589 high scalability-2014-02-03-How Google Backs Up the Internet Along With Exabytes of Other Data</a></p>
+<p>18 0.85301244 <a title="934-lda-18" href="../high_scalability-2013/high_scalability-2013-06-05-A_Simple_6_Step_Transition_Guide_for_Moving_Away_from_X_to_AWS_.html">1470 high scalability-2013-06-05-A Simple 6 Step Transition Guide for Moving Away from X to AWS </a></p>
+<p>19 0.85290426 <a title="934-lda-19" href="../high_scalability-2009/high_scalability-2009-07-25-Latency_is_Everywhere_and_it_Costs_You_Sales_-_How_to_Crush_it.html">661 high scalability-2009-07-25-Latency is Everywhere and it Costs You Sales - How to Crush it</a></p>
+<p>20 0.85290414 <a title="934-lda-20" href="../high_scalability-2012/high_scalability-2012-03-14-The_Azure_Outage%3A_Time_Is_a_SPOF%2C_Leap_Day_Doubly_So.html">1209 high scalability-2012-03-14-The Azure Outage: Time Is a SPOF, Leap Day Doubly So</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
