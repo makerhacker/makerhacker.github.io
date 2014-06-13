@@ -29,9 +29,30 @@ topic. Alexey Kovyrin talks about one common caching problem called theDog
 PileEffectinDog-pile Effect and How to Avoid it with Ruby on Rails. Glenn
 Franxman also has a Django solution inMintCache.Data is usually cached because
 it's too expensive to calculate for every hit. Maybe it's a gnarly SQL query
-you want to avoid an</p><br/>
+you want to avoid an</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Facebookmust have a lot of headaches because they popped 805 memcached servers between 10,000 web servers and 1,800 MySQL servers and they reportedly have a 99% cache hit rate. [sent-6, score-0.433]
+</p><p>2 But what's the best way for you to cache for your application? [sent-7, score-0.266]
+</p><p>3 Maybe it's a gnarly SQL query you want to avoid and a little stale data is OK. [sent-12, score-0.638]
+</p><p>4 Or maybe you have the temerity to write to your database and cause its cache to flush so database caching isn't sufficient at a certain level of scale. [sent-14, score-0.412]
+</p><p>5 Data freshness requires a refrigeration truck or an expiry time on your cache entry that causes stats to be periodically recalculated. [sent-21, score-0.744]
+</p><p>6 Now, what happens when your cached data expires and a 1000 requests simultaneously try to recalculate the expensive to calculate data? [sent-22, score-0.501]
+</p><p>7 And since memcached operations are not atomic it's possible stale data could be cached and you'll serve stale data. [sent-24, score-1.247]
+</p><p>8 No Expire SolutionIf cache items never expire then there can never be a recalculation storm. [sent-27, score-0.515]
+</p><p>9 This approach can also be used to pre-warm the the cache so a newly brought up system doesn't peg the database. [sent-31, score-0.352]
+</p><p>10 Memcached can still evict your cache item when it starts running out of memory. [sent-33, score-0.543]
+</p><p>11 It uses a LRU (least recently used) policy so your cache item may not be around when a program needs it which means it will have to go without, use a local cache, or recalculate. [sent-34, score-0.47]
+</p><p>12 This approach also doesn't work well for item specific caching. [sent-36, score-0.29]
+</p><p>13 It works for globally calculated items like top N posts, but it doesn't really make sense to periodically cache items for user data when the user isn't even active. [sent-37, score-0.651]
+</p><p>14 Stale Date SolutionThis solution introduces a stale date in addition to the expiration date. [sent-39, score-0.741]
+</p><p>15 For example, set the item to timeout in 24 hours, but the embedded timeout might be five minutes in the future. [sent-42, score-0.582]
+</p><p>16 On a get from the cache determine if the stale timeout expired and on expiry immediately set a time in the future and re-store the data as is. [sent-43, score-1.276]
+</p><p>17 Fetch data from the DB and update the cache with the latest value. [sent-45, score-0.419]
+</p><p>18 Alexey describes a different two key approach:Create two keys in memcached: MAIN key with expiration time a bit higher than normal + a STALE key which expires earlier. [sent-46, score-0.67]
+</p><p>19 If the stale has expired, re-calculate and set the stale key again. [sent-48, score-1.076]
+</p><p>20 I dislike embedding meta data with data so I like Alexey's approach a bit better, even though it doubles the key space. [sent-49, score-0.536]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('stale', 0.486), ('cache', 0.266), ('item', 0.204), ('timeout', 0.189), ('alexey', 0.188), ('glenn', 0.16), ('expire', 0.16), ('date', 0.156), ('expiry', 0.137), ('periodically', 0.131), ('recalculate', 0.126), ('expired', 0.122), ('expires', 0.118), ('key', 0.104), ('memcached', 0.104), ('expiration', 0.099), ('cached', 0.095), ('items', 0.089), ('calculate', 0.086), ('approach', 0.086)]</p>
+<p>[('stale', 0.486), ('cache', 0.266), ('item', 0.204), ('timeout', 0.189), ('alexey', 0.188), ('glenn', 0.16), ('expire', 0.16), ('date', 0.156), ('expiry', 0.137), ('periodically', 0.131), ('recalculate', 0.126), ('expired', 0.122), ('expires', 0.118), ('key', 0.104), ('memcached', 0.104), ('expiration', 0.099), ('cached', 0.095), ('items', 0.089), ('calculate', 0.086), ('approach', 0.086), ('window', 0.082), ('maybe', 0.078), ('update', 0.077), ('data', 0.076), ('avoid', 0.076), ('batalion', 0.073), ('evict', 0.073), ('freshness', 0.073), ('kovyrin', 0.073), ('memcachedby', 0.073), ('refrigeration', 0.073), ('thedog', 0.073), ('bit', 0.072), ('describes', 0.069), ('rails', 0.068), ('dogs', 0.068), ('effect', 0.068), ('caching', 0.068), ('defeats', 0.065), ('stats', 0.064), ('headaches', 0.063), ('hurts', 0.063), ('refreshed', 0.063), ('craig', 0.061), ('embedding', 0.061), ('dislike', 0.061), ('piling', 0.061), ('closes', 0.061), ('ruby', 0.06), ('suppose', 0.059)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999976 <a title="673-tfidf-1" href="../high_scalability-2009/high_scalability-2009-08-07-Strategy%3A_Break_Up_the_Memcache_Dog_Pile_.html">673 high scalability-2009-08-07-Strategy: Break Up the Memcache Dog Pile </a></p>
 <p>Introduction: Update:AsynchronousHTTP cache validations. A proposed HTTP caching

@@ -29,9 +29,30 @@ very good because a transaction only depends on 1 of the N servers that are
 currently online. Any of the other (N-1) servers can go down or fail with no
 impact on the transaction. So, single partition transactions can scale
 indefinitely from a throughput point of view, offer very consistent response
-times and</p><br/>
+times and</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 So, single partition transactions can scale indefinitely from a throughput point of view, offer very consistent response times and they are very available because they only point a small part of the grid at once. [sent-11, score-1.369]
+</p><p>2 The value is an account object with the users online username and their password, address, portal profile, bank account information etc. [sent-15, score-1.072]
+</p><p>3 Almost all access to the account is using the account number. [sent-16, score-0.766]
+</p><p>4 The user doesn't login with their account number, they login with the username. [sent-18, score-0.762]
+</p><p>5 We have not partitioned on user name, we partitioned on account and did so for good reason as every other transaction type is keyed on account number. [sent-19, score-1.091]
+</p><p>6 Lets do a parallel search across all partitions to find account objects whose user name attribute is 'billy'. [sent-22, score-1.121]
+</p><p>7 It will run a query within that partition to find any accounts in that partition with a username of 'billy'. [sent-25, score-0.997]
+</p><p>8 One account object should match across the whole grid and the client which called the agent should receive the account number as the result. [sent-26, score-1.229]
+</p><p>9 The grid is scaling in terms of account capacity and records searched/second but the throughput number is not scaling at all. [sent-44, score-0.931]
+</p><p>10 The single partition transactions only used a single partition/server. [sent-46, score-0.75]
+</p><p>11 The every partition transaction needs the whole grid to be up to complete. [sent-47, score-0.829]
+</p><p>12 This lack of throughput scalability for every partition transactions is a problem as login is a operation whose throughput needs to go up as the web site becomes more popular. [sent-53, score-1.469]
+</p><p>13 We could partition using user name instead of account but now we have the search problem for all the account number based transactions which are the bulk of all transactions and besides, users like being able to change the user name which would be a nightmare if everything was based on usernames. [sent-56, score-2.176]
+</p><p>14 get("billy") and receive the account id with a single partition transaction and the throughput of those does scale with grid size. [sent-66, score-1.569]
+</p><p>15 We have converted a parallel transaction to a single partition transaction and as a result, our login operation is now throughput scalable. [sent-74, score-1.511]
+</p><p>16 Larger grids can store larger amounts of data but the throughput typically stays the same as the grid grows (assuming the data size grows linearly with grid size). [sent-77, score-0.885]
+</p><p>17 This means using parallel operations for something whose throughput will grow as your application scales up is a mistake as the throughput of the grid has nothing to do with the grid size, it's limited to the throughput of the slowest box. [sent-78, score-1.651]
+</p><p>18 You need to convert that parallel search operation to a single partition get if you want the system to scale from a throughput point of view. [sent-79, score-1.252]
+</p><p>19 How can you make an every partition operation scale from a throughput point of view then if you can't use reverse indexes? [sent-81, score-1.025]
+</p><p>20 If you need throughput scalable every partition transactions then this is probably the only way to make it scale from a throughput point of view. [sent-84, score-1.279]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('account', 0.383), ('partition', 0.377), ('throughput', 0.265), ('grid', 0.214), ('transactions', 0.201), ('parallel', 0.199), ('transaction', 0.184), ('username', 0.15), ('login', 0.146), ('reverse', 0.142), ('slowest', 0.138), ('search', 0.138), ('name', 0.125), ('websphere', 0.112), ('twice', 0.11), ('mapgridagent', 0.104), ('mn', 0.104), ('map', 0.102), ('partitions', 0.098), ('loader', 0.094)]</p>
+<p>[('account', 0.383), ('partition', 0.377), ('throughput', 0.265), ('grid', 0.214), ('transactions', 0.201), ('parallel', 0.199), ('transaction', 0.184), ('username', 0.15), ('login', 0.146), ('reverse', 0.142), ('slowest', 0.138), ('search', 0.138), ('name', 0.125), ('websphere', 0.112), ('twice', 0.11), ('mapgridagent', 0.104), ('mn', 0.104), ('map', 0.102), ('partitions', 0.098), ('loader', 0.094), ('accounts', 0.093), ('whose', 0.091), ('lets', 0.09), ('index', 0.089), ('password', 0.089), ('billy', 0.089), ('bank', 0.088), ('user', 0.087), ('single', 0.086), ('second', 0.077), ('extreme', 0.074), ('double', 0.071), ('operation', 0.07), ('number', 0.069), ('size', 0.069), ('object', 0.068), ('cache', 0.065), ('persistent', 0.065), ('grids', 0.062), ('returning', 0.061), ('typically', 0.061), ('scale', 0.06), ('point', 0.057), ('agent', 0.057), ('per', 0.056), ('client', 0.055), ('delay', 0.054), ('every', 0.054), ('response', 0.052), ('searches', 0.052)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="623-tfidf-1" href="../high_scalability-2009/high_scalability-2009-06-10-Dealing_with_multi-partition_transactions_in_a_distributed_KV_solution.html">623 high scalability-2009-06-10-Dealing with multi-partition transactions in a distributed KV solution</a></p>
 <p>Introduction: I've been getting asked about this a lot lately so I figured I'd just blog

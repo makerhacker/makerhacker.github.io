@@ -29,9 +29,24 @@ that relate to ID generation and there have been some great suggestions --
 including a strategy that uses auto-increment in a way that avoids this
 pitfall... That said, I'm still nervous about it.2. Potential bottleneck when
 retrieving/assigning IDs -- IDs assigned at the database.My reasons for being
-nervous about non-sequential IDs:1. To guarant</p><br/>
+nervous about non-sequential IDs:1. To guarant</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 (Please bare with me, I'm a new, passionate, confident and terrified programmer :D )Background:I'm pre-launch and 1 year into the development of my application. [sent-1, score-0.172]
+</p><p>2 My target is to be able to eventually handle millions of registered users with 5-10% of them concurrent. [sent-2, score-0.082]
+</p><p>3 Up to this point I've used auto-increment to assign unique identifiers to rows. [sent-3, score-0.292]
+</p><p>4 I am now considering switching to a non-sequential strategy. [sent-4, score-0.076]
+</p><p>5 Risk of collision is significant (when running multiple masters). [sent-8, score-0.117]
+</p><p>6 Note: I've read the other entries in this forum that relate to ID generation and there have been some great suggestions -- including a strategy that uses auto-increment in a way that avoids this pitfall. [sent-9, score-0.579]
+</p><p>7 Potential bottleneck when retrieving/assigning IDs -- IDs assigned at the database. [sent-14, score-0.082]
+</p><p>8 To guarantee uniqueness, the IDs are going to be much larger -- potentially affecting performance significantlyMy New Strategy:(I haven't started to implement this. [sent-16, score-0.188]
+</p><p>9 I'm waiting for someone smarter than me to steer me in the right direction)1. [sent-19, score-0.221]
+</p><p>10 Generate a guaranteed- unique ID by concatenating the user id (1-9 digits) and the UNIX timestamp(10 digits). [sent-20, score-0.251]
+</p><p>11 The resulting string will be alphanumeric and 6-10 characters long. [sent-23, score-0.607]
+</p><p>12 This is, of course, much shorter (at least with regard to characters) then the standard GUID hash. [sent-24, score-0.223]
+</p><p>13 Pass the new identifier to a column in the database that is type CHAR() set to binary. [sent-26, score-0.203]
+</p><p>14 Is a 11-19 digit number (base 10) actually any larger (in terms of bytes) than its base-36 equivalent? [sent-34, score-0.335]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('ids', 0.332), ('digits', 0.27), ('digit', 0.24), ('characters', 0.218), ('nervous', 0.207), ('resulting', 0.161), ('id', 0.159), ('alphanumeric', 0.144), ('guid', 0.135), ('char', 0.135), ('steer', 0.135), ('strategy', 0.132), ('uniqueness', 0.129), ('identifier', 0.124), ('flawed', 0.117), ('collision', 0.117), ('graphic', 0.117), ('reasons', 0.116), ('supplying', 0.114), ('complicates', 0.114)]</p>
+<p>[('ids', 0.332), ('digits', 0.27), ('digit', 0.24), ('characters', 0.218), ('nervous', 0.207), ('resulting', 0.161), ('id', 0.159), ('alphanumeric', 0.144), ('guid', 0.135), ('char', 0.135), ('steer', 0.135), ('strategy', 0.132), ('uniqueness', 0.129), ('identifier', 0.124), ('flawed', 0.117), ('collision', 0.117), ('graphic', 0.117), ('reasons', 0.116), ('supplying', 0.114), ('complicates', 0.114), ('identifiers', 0.114), ('regard', 0.114), ('relate', 0.111), ('potential', 0.11), ('shorter', 0.109), ('designer', 0.107), ('timestamp', 0.1), ('larger', 0.095), ('affecting', 0.093), ('unique', 0.092), ('convert', 0.09), ('appreciate', 0.089), ('masters', 0.088), ('unix', 0.088), ('valid', 0.086), ('bare', 0.086), ('avoids', 0.086), ('assign', 0.086), ('smarter', 0.086), ('confident', 0.086), ('entries', 0.085), ('string', 0.084), ('suggestions', 0.084), ('registered', 0.082), ('assigned', 0.082), ('forum', 0.081), ('column', 0.079), ('pass', 0.078), ('direction', 0.077), ('switching', 0.076)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="606-tfidf-1" href="../high_scalability-2009/high_scalability-2009-05-25-non-sequential%2C_unique_identifier%2C_strategy_question.html">606 high scalability-2009-05-25-non-sequential, unique identifier, strategy question</a></p>
 <p>Introduction: (Please bare with me, I'm a new, passionate, confident and terrified

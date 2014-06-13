@@ -29,9 +29,30 @@ serve more requests. This puts you in a hole that simply adding more servers
 can't dig you out of. What's the treatment?Dr. House would immediately notice
 the hidden clue, we are talking requests not memory. We aren't running out of
 memory to store stuff, we arerunning out of CPU power to process requests.
-What happens when you add more servers is</p><br/>
+What happens when you add more servers is</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 You fall into the multiget hole when memcached servers areCPU bound, adding more memcached servers seems like the right way to add more capacity so more requests can be served, but against all logic adding servers doesn't help serve more requests. [sent-6, score-2.279]
+</p><p>2 This puts you in a hole that simply adding more servers can't dig you out of. [sent-7, score-0.677]
+</p><p>3 What happens when you add more servers is thatthe number of requests is not reduced, only the number of keys in each request is reduced. [sent-12, score-1.099]
+</p><p>4 Adding more machines doesn't change the number of request a server has to process and since these servers are already CPU bound they simply can't handle more load. [sent-15, score-0.579]
+</p><p>5 Understanding MultigetTo understand why we are serving the same number of requests we have to understand memcached'smultiget request. [sent-19, score-0.364]
+</p><p>6 The multiget request allows themultiple keys to be retrieved in one request. [sent-20, score-0.846]
+</p><p>7 If a user has 100 friends, for example, the changes for each of those friends can be retrieved by making one request. [sent-21, score-0.449]
+</p><p>8 Let's say there's a memcached pool containing two servers and 50 friends are stored on each server. [sent-24, score-0.859]
+</p><p>9 What a smart library implementation can do is batch up the requests destined for each memcached server and run those requests in parallel. [sent-25, score-0.954]
+</p><p>10 Memcached works by mapping keys to memcached servers, in practice there's no reason keys would be distributed 50 to each server, but this is just an example. [sent-26, score-0.563]
+</p><p>11 Instead of sending a request per friend we are just sending one request per server. [sent-27, score-0.456]
+</p><p>12 The power of batching is to radically reduce request latency by reducing the number of requests. [sent-28, score-0.372]
+</p><p>13 Now let's say we make 50 requests for all 100 hundred friends of our moderately popular user. [sent-29, score-0.664]
+</p><p>14 Each server will see 50 requests because half the friends are on each server. [sent-30, score-0.799]
+</p><p>15 If we see that the pool servers are running out of CPU our most likely reaction is to add another server to the pool. [sent-31, score-0.523]
+</p><p>16 When we send out 50 requests to gather info for the 100 friends each server is still seeing 50 requests because to collect all 100 friends we have to hit each server. [sent-34, score-1.283]
+</p><p>17 The astounding result of this exercise is that adding more machinesdoes not add more capacity. [sent-37, score-0.431]
+</p><p>18 They saw that adding more machines to increase capacity and had to work out what the heck was happening. [sent-41, score-0.357]
+</p><p>19 One classic technique to allow more CPU to churn on data is to replicate the data and load balance requests between the replicas. [sent-45, score-0.416]
+</p><p>20 Each pool would get half the requests so they do half the work and they would no longer CPU bound. [sent-47, score-0.613]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('multiget', 0.395), ('friends', 0.335), ('hole', 0.273), ('requests', 0.256), ('adding', 0.209), ('memcached', 0.193), ('keys', 0.185), ('request', 0.152), ('rothschild', 0.145), ('pool', 0.143), ('cpu', 0.135), ('servers', 0.132), ('retrieved', 0.114), ('number', 0.108), ('half', 0.107), ('classic', 0.102), ('server', 0.101), ('house', 0.099), ('add', 0.09), ('bound', 0.086)]</p>
+<p>[('multiget', 0.395), ('friends', 0.335), ('hole', 0.273), ('requests', 0.256), ('adding', 0.209), ('memcached', 0.193), ('keys', 0.185), ('request', 0.152), ('rothschild', 0.145), ('pool', 0.143), ('cpu', 0.135), ('servers', 0.132), ('retrieved', 0.114), ('number', 0.108), ('half', 0.107), ('classic', 0.102), ('server', 0.101), ('house', 0.099), ('add', 0.09), ('bound', 0.086), ('saw', 0.083), ('destined', 0.079), ('sending', 0.076), ('sat', 0.075), ('dubbed', 0.075), ('arerunning', 0.075), ('problem', 0.074), ('astounding', 0.073), ('moderately', 0.073), ('clue', 0.07), ('reasoned', 0.07), ('treatment', 0.07), ('library', 0.069), ('stepping', 0.068), ('thatthe', 0.068), ('capacity', 0.065), ('bleeding', 0.064), ('worthy', 0.063), ('dig', 0.063), ('doubled', 0.062), ('staggering', 0.061), ('tactics', 0.061), ('exercise', 0.059), ('churn', 0.058), ('makers', 0.057), ('reaction', 0.057), ('two', 0.056), ('batching', 0.056), ('power', 0.056), ('president', 0.055)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999982 <a title="728-tfidf-1" href="../high_scalability-2009/high_scalability-2009-10-26-Facebook%27s_Memcached_Multiget_Hole%3A_More_machines_%21%3D_More_Capacity_.html">728 high scalability-2009-10-26-Facebook's Memcached Multiget Hole: More machines != More Capacity </a></p>
 <p>Introduction: When you are on the bleeding edge of scale like Facebook is, you run into some

@@ -29,9 +29,30 @@ home page is well organized so I'll spare the excessive-copying-to-make-this-
 post-longer. For a good overview of Redis take a look at Antonio Cangiano's
 article:Introducing Redis: a fast key-value database.If you are looking at a
 way to understand how Redis is different than something like Tokyo
-Cabinet/Ty</p><br/>
+Cabinet/Ty</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 With the introduction ofRedisyour options in the key-value space just grew and your choice of which to pick just got a lot harder. [sent-1, score-0.058]
+</p><p>2 It's similar to memcached but the dataset is not volatile, and values can be strings, exactly like in memcached, but also lists and sets with atomic operations to push/pop elements. [sent-4, score-0.793]
+</p><p>3 The key points are: open source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs, per second); persistence, but in an asynchronous way taking everything in memory; support for higher level data structures and atomic operations. [sent-5, score-0.294]
+</p><p>4 The home page is well organized so I'll spare the excessive-copying-to-make-this- post-longer. [sent-6, score-0.124]
+</p><p>5 If you are looking at a way to understand how Redis is different than something like Tokyo Cabinet/Tyrant,Ezra Zygmuntowiczhas done a good job explaining their different niches:break Redis has a different use case then tokyo does. [sent-8, score-0.394]
+</p><p>6 I think tokyo is better for long term persistent data storage. [sent-9, score-0.486]
+</p><p>7 But redis is much better as a state/data structure server. [sent-10, score-0.395]
+</p><p>8 Redis is faster then tokyo by quite a bit but is not immediately durable as in the writes to disk happen in the background at certain trigger points so it is possible to lose a little bit of data if the server crashes. [sent-11, score-0.729]
+</p><p>9 Having LISTS and SETS as well as string values for keys means you can do O(1) push/pop/shift/unshift as well as indexing/slicing into lists. [sent-13, score-0.282]
+</p><p>10 And with the SET data type you can do set intersection in the server. [sent-14, score-0.421]
+</p><p>11 This allows for very cool thigs like storing a set of tags for each key and then querying for the intersection of the set of tags of multiple keys to find out the common set of tags. [sent-15, score-1.088]
+</p><p>12 I'm using this in nanite(an agent based messaging system) for the persistent storage of agent state and routing info. [sent-16, score-0.414]
+</p><p>13 Using the SET data types makes this faster then keeping the state in memory in my ruby processes since can do the SEt intersection routing inside of redis rather then iterating and comparing in ruby:http://gist. [sent-17, score-0.948]
+</p><p>14 You can also use redis LISTS as a queue to distribute work between multiple processes. [sent-20, score-0.395]
+</p><p>15 Since pushing and popping are atomic you can use it as a shared tuple space. [sent-21, score-0.479]
+</p><p>16 Also you can use a LIST as a circular log buffer by pushing to the end of a list and then doing an LTRIM to trim the list to the max size: redis. [sent-22, score-1.044]
+</p><p>17 That will keep your circular log buffer at a max of 100 items. [sent-27, score-0.501]
+</p><p>18 With tokyo you can store lists if you use lua on the server, but to push or pop from a list you have to pull the entire list down, alter it and then push it back up to the server. [sent-28, score-1.35]
+</p><p>19 There is no atomic push/pop of just a single item because tokyo cannot store real lists as values so you have to do marshaling of your list to/from a string. [sent-29, score-1.228]
+</p><p>20 A demo application calledRetwisshows how to use Redis to make a scalable Twitter clone, at least of the message posting aspects. [sent-30, score-0.128]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('redis', 0.395), ('tokyo', 0.394), ('intersection', 0.262), ('lists', 0.241), ('atomic', 0.225), ('list', 0.177), ('circular', 0.175), ('set', 0.159), ('values', 0.134), ('tags', 0.13), ('agent', 0.122), ('max', 0.12), ('buffer', 0.106), ('log', 0.1), ('ltrim', 0.095), ('trim', 0.095), ('pushing', 0.094), ('persistent', 0.092), ('antonio', 0.091), ('keys', 0.089)]</p>
+<p>[('redis', 0.395), ('tokyo', 0.394), ('intersection', 0.262), ('lists', 0.241), ('atomic', 0.225), ('list', 0.177), ('circular', 0.175), ('set', 0.159), ('values', 0.134), ('tags', 0.13), ('agent', 0.122), ('max', 0.12), ('buffer', 0.106), ('log', 0.1), ('ltrim', 0.095), ('trim', 0.095), ('pushing', 0.094), ('persistent', 0.092), ('antonio', 0.091), ('keys', 0.089), ('ruby', 0.083), ('alter', 0.082), ('tuple', 0.082), ('dictionary', 0.08), ('benchmarked', 0.078), ('popping', 0.078), ('routing', 0.078), ('niches', 0.077), ('lua', 0.077), ('sets', 0.076), ('iterating', 0.072), ('strings', 0.071), ('pop', 0.07), ('clone', 0.07), ('durable', 0.07), ('volatile', 0.069), ('points', 0.069), ('bit', 0.067), ('demo', 0.066), ('push', 0.066), ('spare', 0.064), ('posting', 0.062), ('trigger', 0.062), ('organized', 0.06), ('string', 0.059), ('dataset', 0.059), ('comparing', 0.058), ('grew', 0.058), ('memcached', 0.058), ('item', 0.057)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="545-tfidf-1" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
 <p>Introduction: With the introduction ofRedisyour options in the key-value space just grew and

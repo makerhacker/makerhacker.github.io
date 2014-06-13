@@ -29,9 +29,30 @@ that's 4000 fetches/secNumbers MiscellaneousThis group of numbers is from a
 presentationJeff Deangave at a Engineering All-Hands Meeting at Google.L1
 cache reference 0.5 nsBranch mispredict 5 nsL2 cache reference 7 nsMutex
 lock/unlock 100 nsMain memory reference 100 nsCompress 1K bytes with Zippy
-10,000 nsSend 2K bytes over</p><br/>
+10,000 nsSend 2K bytes over</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Datastore is transactional: writes require disk accessDisk access means disk seeksRule of thumb: 10ms for a disk seekSimple math: 1s / 10ms = 100 seeks/sec maximumDepends on:* The size and shape of your data* Doing work in batches (batch puts and gets)Reads are cheap! [sent-3, score-0.413]
+</p><p>2 Given the the number of writes that can be made per second is so limited, a high write load serializes and slows down the whole process. [sent-22, score-0.314]
+</p><p>3 Reads are cheap so we replace having a single easily read counter with having to make multiple reads to recover the actual count. [sent-31, score-0.436]
+</p><p>4 Frequently updated shared variables are expensive so we shard and parallelize those writes. [sent-32, score-0.331]
+</p><p>5 But to scale writes you need to partition and once you partition it becomes difficult to keep any shared state like counters. [sent-34, score-0.294]
+</p><p>6 As a comment is made you get a sequence number and that's the order comments are displayed. [sent-39, score-0.643]
+</p><p>7 But as we saw in the last section shared state like a single counter won't scale in high write environments. [sent-40, score-0.461]
+</p><p>8 A sharded counter won't work in this situation either because summing the shared counters isn't transactional. [sent-41, score-0.515]
+</p><p>9 There's no way to guarantee each comment will get back the sequence number it allocated so we could have duplicates. [sent-42, score-0.502]
+</p><p>10 So what is needed for a key is something unique and alphabetical so when searching through comments you can go forward and backward using only keys. [sent-44, score-0.459]
+</p><p>11 BigTable knows how to get things by keys so you must make keys that return data in the proper order. [sent-48, score-0.364]
+</p><p>12 In the grand old tradition of making unique keys we just keep appending stuff until it becomes unique. [sent-49, score-0.293]
+</p><p>13 The suggested key for GAE is:time stamp+ user ID + user comment ID. [sent-50, score-0.469]
+</p><p>14 What we need then is a sequence number for each user's comments. [sent-57, score-0.287]
+</p><p>15 Our goal is to remove write contention so we want to parallelize writes. [sent-59, score-0.287]
+</p><p>16 When a user adds a comment it's added to a user's comment list and a sequence number is allocated. [sent-62, score-0.844]
+</p><p>17 So each comment add is guaranteed to be unique because updates in an Entity Group are serialized. [sent-64, score-0.408]
+</p><p>18 The resulting key is guaranteed unique and sorts properly in alphabetical order. [sent-65, score-0.4]
+</p><p>19 When paging a query is made across entity groups using the ID index. [sent-66, score-0.299]
+</p><p>20 The idea of keeping per user comment indexes is out there. [sent-71, score-0.342]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('counter', 0.221), ('comment', 0.215), ('sequence', 0.211), ('alphabetical', 0.207), ('nsread', 0.207), ('keys', 0.182), ('entity', 0.152), ('sequentially', 0.149), ('shared', 0.148), ('paging', 0.147), ('writes', 0.146), ('comments', 0.141), ('nssend', 0.138), ('reads', 0.137), ('count', 0.135), ('user', 0.127), ('mb', 0.123), ('unique', 0.111), ('gae', 0.109), ('bigtable', 0.108)]</p>
+<p>[('counter', 0.221), ('comment', 0.215), ('sequence', 0.211), ('alphabetical', 0.207), ('nsread', 0.207), ('keys', 0.182), ('entity', 0.152), ('sequentially', 0.149), ('shared', 0.148), ('paging', 0.147), ('writes', 0.146), ('comments', 0.141), ('nssend', 0.138), ('reads', 0.137), ('count', 0.135), ('user', 0.127), ('mb', 0.123), ('unique', 0.111), ('gae', 0.109), ('bigtable', 0.108), ('stamp', 0.107), ('thumb', 0.105), ('reference', 0.102), ('contention', 0.1), ('parallelize', 0.095), ('appengine', 0.094), ('write', 0.092), ('transactional', 0.091), ('disk', 0.089), ('shard', 0.088), ('math', 0.083), ('guaranteed', 0.082), ('cheap', 0.078), ('counters', 0.076), ('number', 0.076), ('numbers', 0.074), ('bytes', 0.073), ('situation', 0.07), ('cleverly', 0.069), ('counterswe', 0.069), ('deangave', 0.069), ('inbuilding', 0.069), ('mispredict', 0.069), ('nsbranch', 0.069), ('nscompress', 0.069), ('nsdisk', 0.069), ('nsmain', 0.069), ('nsmutex', 0.069), ('nsround', 0.069), ('zippy', 0.069)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999988 <a title="514-tfidf-1" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
 <p>Introduction: Google AppEngine NumbersThis group of numbers is from Brett Slatkin inBuilding

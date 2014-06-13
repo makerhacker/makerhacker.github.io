@@ -29,9 +29,23 @@ database from which it can then extract historical plots. Some even put up
 graphics in real-time.From my experience working with large clusters - and I'm
 talking either many hundreds or even 1000s of nodes, most have to limit both
 the amount of data they manage centrally as well as the frequency that they
-collect it, oth</p><br/>
+collect it, oth</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I had posted a note the other day about collectl and its ganglia interface but perhaps I wasn't provocative enough to get any responses so let me ask it a different way, specifically how do people monitor their clusters and more importantly how often? [sent-1, score-1.406]
+</p><p>2 Do you monitor to get a general sense of what the system is doing OR do you monitor with the expectation that when something goes wrong you'll have enough data to diagnose the problem? [sent-2, score-0.649]
+</p><p>3 Many cluster-based monitoring tools tend to have a data collection daemon running on each target node which periodically sends data to some central management station. [sent-7, score-0.723]
+</p><p>4 That machine typically writes the data to some database from which it can then extract historical plots. [sent-8, score-0.165]
+</p><p>5 As a related example, how many of you run sar at the default monitoring interval of 10 minutes? [sent-11, score-0.378]
+</p><p>6 What happens if you have a 2 minutes burst of 100% network load and you're idle the other 8 minutes? [sent-13, score-0.224]
+</p><p>7 Sar will happily tell you the network load was 20% and you'll never know your network is tanking. [sent-14, score-0.08]
+</p><p>8 The point of all this is I do think there's a place for central monitoring, though I'm personally not a fan because of the inaccuracy of infrequent data samples, but I also appreciate some data is better than none, as long as you realize the inherent accuracy problems. [sent-15, score-1.011]
+</p><p>9 And that's where collectl comes in and my previous comment about ganglia. [sent-16, score-0.563]
+</p><p>10 When I wrote collectl my overarching design goal, from which I haven't wavered, was to provide highly accurate local data with minimal overhead so you will take samples in the 1-10 second range without fear of impacting the rest of the system. [sent-17, score-1.043]
+</p><p>11 You can literally sample just about everything going on every 10 seconds and use <0. [sent-18, score-0.173]
+</p><p>12 If you're willing to give up a few more tenths of a percent you can even monitor processes and slab activity, though you should only sample them at a 60 second frequency because it IS expensive to monitor them. [sent-20, score-0.8]
+</p><p>13 Collectl can provide it's data to a central management station while at the same time providing local logging for accuracy, which will let you do a deep dive into the data if a problem does arrive for which there is not enough data stored centrally. [sent-22, score-0.964]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('collectl', 0.503), ('ganglia', 0.267), ('central', 0.219), ('accuracy', 0.208), ('sar', 0.2), ('frequency', 0.186), ('monitor', 0.164), ('station', 0.159), ('samples', 0.152), ('interface', 0.137), ('clusters', 0.113), ('sample', 0.11), ('data', 0.105), ('monitoring', 0.104), ('tenths', 0.1), ('minutes', 0.096), ('realize', 0.095), ('provocative', 0.09), ('infrequent', 0.09), ('overarching', 0.087)]</p>
+<p>[('collectl', 0.503), ('ganglia', 0.267), ('central', 0.219), ('accuracy', 0.208), ('sar', 0.2), ('frequency', 0.186), ('monitor', 0.164), ('station', 0.159), ('samples', 0.152), ('interface', 0.137), ('clusters', 0.113), ('sample', 0.11), ('data', 0.105), ('monitoring', 0.104), ('tenths', 0.1), ('minutes', 0.096), ('realize', 0.095), ('provocative', 0.09), ('infrequent', 0.09), ('overarching', 0.087), ('happily', 0.08), ('overwhelm', 0.08), ('suspect', 0.08), ('expectation', 0.078), ('stations', 0.078), ('centrally', 0.076), ('slab', 0.076), ('interval', 0.074), ('dbs', 0.074), ('enough', 0.071), ('impacting', 0.07), ('management', 0.069), ('burst', 0.068), ('send', 0.068), ('personally', 0.067), ('arrive', 0.067), ('diagnose', 0.067), ('hundreds', 0.065), ('graphics', 0.064), ('local', 0.064), ('literally', 0.063), ('fear', 0.062), ('appreciate', 0.062), ('posted', 0.061), ('daemon', 0.061), ('periodically', 0.06), ('idle', 0.06), ('extract', 0.06), ('fan', 0.06), ('comes', 0.06)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="558-tfidf-1" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
 <p>Introduction: I had posted a note the other day about collectl and its ganglia interface but
