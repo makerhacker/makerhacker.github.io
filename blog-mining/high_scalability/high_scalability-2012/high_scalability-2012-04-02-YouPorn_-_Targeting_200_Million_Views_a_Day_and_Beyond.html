@@ -29,9 +29,28 @@ replaces MySQL in the live datapath. Reminds me a little ofYouTubein its
 simplicity.The second most interesting takeaway was thegreat switchover.
 Common wisdom says never rewrite, but in 2011 YouPorn rewrote their entire
 site to use PHP + Redis instead of a complex Perl + MySQL based architecture.
-And by all accounts</p><br/>
+And by all accounts</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 As you might expect, YouPorn is a beast, streaming three full DVDs of video every second, handing 300K queries every second, and generating up to 15GBs of log data per hour. [sent-4, score-0.147]
+</p><p>2 Unfortunately, all we have are the slides of the talk, so this article isn't as technical as I might like, there's no visibility at all on the video handling for example, but we do get some interesting details. [sent-5, score-0.061]
+</p><p>3 The most interesting takeway is that YouPorn is a pretty conventional LAMP stack, with a NoSQL twist as Redis now replaces MySQL in the live datapath. [sent-6, score-0.138]
+</p><p>4 Common wisdom says never rewrite, but in 2011 YouPorn rewrote their entire site to use PHP + Redis instead of a complex Perl + MySQL based architecture. [sent-9, score-0.266]
+</p><p>5 The site is 10% faster and they moved over 6 years of legacy data with no down time. [sent-11, score-0.223]
+</p><p>6 The entire site was rewritten in 2011 to use PHP instead of a complex Perl architecture and Redis instead of MySQL and ActiveMQ. [sent-18, score-0.329]
+</p><p>7 Targeted 200+ million daily requestsMoved  6 years of legacy data without downtimeNew site is 10% faster. [sent-19, score-0.306]
+</p><p>8 Varnish- reverse proxy helping speed up the site and reduce server load. [sent-21, score-0.12]
+</p><p>9 Used also for cache management, edge side includes (ESIs), and health check on web servers . [sent-22, score-0.102]
+</p><p>10 Syslog-ng- collects data on page views and is used for view counters and related videos. [sent-23, score-0.379]
+</p><p>11 Choosing a web framework doesn't mean killing performances as long as you use a solid architecture in front of it. [sent-28, score-0.141]
+</p><p>12 ActiveMQ- message bus designed for large sites, used for writes to MySQL and Redis. [sent-29, score-0.122]
+</p><p>13 They found it too rigid for a site undergoing constant changes and the gains did not justify maintaining a separate Java infrastructure. [sent-30, score-0.33]
+</p><p>14 Sorted sets are used for all listsPipelining,  executing several Redis commands with a single atomic command, is key for performanceAfter the switchover additional Redis nodes were added, not because Redis was overworked, but because the network cards couldn't keep up with Redis. [sent-34, score-0.386]
+</p><p>15 All reads come from RedisMySQL is used to allow the building new sorted sets as requirements change. [sent-35, score-0.194]
+</p><p>16 Append-only-file (AOF)format is used for incremental backups and is IO pain freeConsider using Redis as temporary cache in front of a Redis persistent store as a way to improve performance and reduce load. [sent-36, score-0.187]
+</p><p>17 MySQL- in a support role to feed RedisHighly normalized because it's not used directly for the site. [sent-37, score-0.187]
+</p><p>18 Used to populate Redis lists with new featuresBoth GIT and SVN are used, which doesn't work well. [sent-39, score-0.07]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('youporn', 0.451), ('redis', 0.375), ('switchover', 0.192), ('dvds', 0.166), ('perl', 0.133), ('php', 0.13), ('used', 0.122), ('site', 0.12), ('views', 0.115), ('mysql', 0.105), ('legacy', 0.103), ('health', 0.102), ('titledbuilding', 0.096), ('aof', 0.096), ('catalyst', 0.096), ('thevideo', 0.086), ('thegreat', 0.086), ('restructuring', 0.086), ('handing', 0.086), ('expected', 0.085)]</p>
+<p>[('youporn', 0.451), ('redis', 0.375), ('switchover', 0.192), ('dvds', 0.166), ('perl', 0.133), ('php', 0.13), ('used', 0.122), ('site', 0.12), ('views', 0.115), ('mysql', 0.105), ('legacy', 0.103), ('health', 0.102), ('titledbuilding', 0.096), ('aof', 0.096), ('catalyst', 0.096), ('thevideo', 0.086), ('thegreat', 0.086), ('restructuring', 0.086), ('handing', 0.086), ('expected', 0.085), ('million', 0.083), ('articleswhat', 0.083), ('kv', 0.083), ('beast', 0.083), ('pool', 0.082), ('fastcgi', 0.078), ('pickup', 0.078), ('undergoing', 0.078), ('svn', 0.076), ('rewrote', 0.076), ('replaces', 0.076), ('performances', 0.076), ('page', 0.076), ('takeaway', 0.073), ('sets', 0.072), ('reminds', 0.072), ('populate', 0.07), ('instead', 0.07), ('rewritten', 0.069), ('streamed', 0.067), ('rigid', 0.067), ('second', 0.067), ('collects', 0.066), ('justify', 0.065), ('front', 0.065), ('normalized', 0.065), ('qps', 0.064), ('acquired', 0.063), ('twist', 0.062), ('video', 0.061)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1220-tfidf-1" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
 <p>Introduction: Update: Here's thevideo of the talk.Erick Pickup, lead developer at

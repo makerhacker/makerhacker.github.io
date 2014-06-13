@@ -29,9 +29,30 @@ recent community edition launch at 500K TPS, and finally arriving at our 2012
 goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
 database-requests per-second on a single machine costing $5K is a balance
 between trimming overhead on many axes and using a shared nothing architecture
-toisolatethe paths taken by unique req</p><br/>
+toisolatethe paths taken by unique req</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 :Get packet from event loop (event-driven)Parse actionLookup data in memory (this is fast enough to happen in-thread)Form response packetSend packet back via non-blocking call4. [sent-24, score-0.632]
+</p><p>2 You can determine which core on which machine a piece of data will be written-to/served-from and the client can map a tcp-port to this core and all lookups go straight to the data. [sent-27, score-0.49]
+</p><p>3 Event loop threads reading and writing tcp packets should each be pinned to their own core and no other threads should be allowed on these cores. [sent-46, score-0.652]
+</p><p>4 These threads are so critical to performance; any context switching on their designated cores will degrade peak-performance significantly. [sent-47, score-0.595]
+</p><p>5 There are different methodologies depending on the number of cores you have:For QuadCore CPUs: round-robin spread IRQ affinity (of the NIC's Queue's) to the Network-facing-event-loop-threads (e. [sent-51, score-0.373]
+</p><p>6 8 Queue's, map 2 Queue's to each core)On Hexacore (and greater) CPUs: reserve 1+ cores to do nothing but IRQ-processing (i. [sent-53, score-0.314]
+</p><p>7 send IRQ's to these cores and don't let any other thread run on these cores) and use ALL other cores for Network-facing- event-loop-threads (similarly running w/o competition on their own designated core). [sent-55, score-0.753]
+</p><p>8 The core receiving the IRQ will then signal the recipient core and the packet has a near 100% chance of being in L3 cache, so the transport of the packet from core to core is near optimal. [sent-56, score-1.362]
+</p><p>9 Avoid inter-CPU communication; it is dog-slow when compared to communication between cores on the same CPU die. [sent-60, score-0.289]
+</p><p>10 The Proof is Always in the PuddingAny 10 step recipe is best illustrated via an example: the client knows (via multiple hashings) that dataX is presently on core8 of ipY, which has a predefined mapping of going to ipY:portZ. [sent-65, score-0.266]
+</p><p>11 NIC2 sends all of its IRQs to CPU2, where the packet gets to core8 w/ minimal hardware/OS overhead. [sent-67, score-0.272]
+</p><p>12 The packet creates an event, which triggers a dedicated thread that runs w/o competition on core8. [sent-68, score-0.287]
+</p><p>13 The packet is parsed; the operation is to look up dataX, which will be in its local NUMA memory pool. [sent-69, score-0.281]
+</p><p>14 The thread then replies with a non-blocking packet that goes back thru only cores on the local CPU2, which sends ALL of its IRQs to NIC2. [sent-71, score-0.642]
+</p><p>15 IRQ affinity insures software interrupts don't bottleneck on a single core and that they come from and go from/to their designated NIC. [sent-76, score-0.664]
+</p><p>16 TCP packets are processed as events by a single thread running dedicated on its own core. [sent-79, score-0.242]
+</p><p>17 At Aerospike,I knew I had it rightwhen I watched the output of the "top" command, (viewing all cores) and there was near zero idle % cpu and also a very uniform balance across cores. [sent-82, score-0.252]
+</p><p>18 Which is to say software-interrupts from tcp packets were using 22% of the core, context switches passing tcp-packets back and forth from the operating system were taking up 35%, and our software was taking up 39% to do the database transaction. [sent-84, score-0.397]
+</p><p>19 When the perfect balance across cores was achieved optimal performance was achieved, from an architectural standpoint. [sent-85, score-0.384]
+</p><p>20 We can still streamline our software but at least the flow of packets to & fro Aerospike is near optimal. [sent-86, score-0.288]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('nic', 0.252), ('ipy', 0.239), ('designated', 0.226), ('irq', 0.226), ('cores', 0.226), ('packet', 0.212), ('ingredients', 0.187), ('tps', 0.182), ('core', 0.174), ('packets', 0.167), ('affinity', 0.147), ('near', 0.121), ('citrusleaf', 0.119), ('datax', 0.119), ('irqs', 0.119), ('interrupts', 0.117), ('alchemydb', 0.108), ('port', 0.095), ('tcp', 0.095), ('attain', 0.093)]</p>
+<p>[('nic', 0.252), ('ipy', 0.239), ('designated', 0.226), ('irq', 0.226), ('cores', 0.226), ('packet', 0.212), ('ingredients', 0.187), ('tps', 0.182), ('core', 0.174), ('packets', 0.167), ('affinity', 0.147), ('near', 0.121), ('citrusleaf', 0.119), ('datax', 0.119), ('irqs', 0.119), ('interrupts', 0.117), ('alchemydb', 0.108), ('port', 0.095), ('tcp', 0.095), ('attain', 0.093), ('loop', 0.09), ('aerospike', 0.089), ('achieved', 0.089), ('nothing', 0.088), ('context', 0.08), ('client', 0.079), ('thread', 0.075), ('recipe', 0.075), ('cpus', 0.072), ('peak', 0.07), ('dollar', 0.07), ('local', 0.069), ('balance', 0.069), ('path', 0.068), ('dram', 0.066), ('threads', 0.063), ('communication', 0.063), ('lookups', 0.063), ('cpu', 0.062), ('paths', 0.062), ('event', 0.06), ('sends', 0.06), ('queue', 0.058), ('via', 0.058), ('goal', 0.056), ('switches', 0.055), ('interface', 0.055), ('presently', 0.054), ('grafting', 0.054), ('lockless', 0.054)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1319-tfidf-1" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
 <p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible

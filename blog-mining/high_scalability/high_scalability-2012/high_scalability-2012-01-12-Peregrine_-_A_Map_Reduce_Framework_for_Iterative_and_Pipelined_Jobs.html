@@ -29,9 +29,30 @@ Peregrine is important to you?Ideally it was designed to execute pagerank but
 many iterative applications that we deploy and WANT to deploy (k-means) would
 be horribly inefficient under Hadoop as it doesn't have any support for
 merging and joining IO between tasks.  It also doesn't support pipeline jobs
-from one MR ta</p><br/>
+from one MR ta</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Wait, sorry, it is Kevin Burton of Spinn3r's newPeregrine project--anew FAST modern map reduce framework optimized for iterative and pipelined map reduce jobs--that feeds on Hadoops. [sent-2, score-0.723]
+</p><p>2 Ideally it was designed to execute pagerank but many iterative applications that we deploy and WANT to deploy (k-means) would be horribly inefficient under Hadoop as it doesn't have any support for merging and joining IO between tasks. [sent-7, score-0.32]
+</p><p>3 It also doesn't support pipeline jobs from one MR task to another without first writing intermediate data to the filesystem. [sent-8, score-0.223]
+</p><p>4 This allows us to do some zero copy IO and also fadvise away pages from the VFS page cache to prevent Linux from becoming confused and swapping. [sent-12, score-0.185]
+</p><p>5 There are other optimizations including support for fallocate so that map chunks are extent based to provide for contiguous data allocation on disk. [sent-14, score-0.481]
+</p><p>6 We also avoid using the JVM heap at all and allocate memory directly from the OS. [sent-16, score-0.191]
+</p><p>7 there is just a core 64-128MB of memory used for smaller data structures in the JVM (and classes, etc) but the bulk of the memory used for caches and data structures, us used directly in the OS via anonymous mmap and mmap. [sent-19, score-0.32]
+</p><p>8 This means if you have two algorithms, one that uses mmap and another that uses the heap, you have to ditch the efficient mmap version and move all your data into the heap (which is not going to improve performance). [sent-22, score-0.582]
+</p><p>9 around 20k lines of codeThat directly shuffling IO to the reducer nodes is a better design than Hadoop's intermediate shuffling. [sent-30, score-0.338]
+</p><p>10 This also mandates using fully async IO to get past the C10k problemThat support for merge() along side map and reduce (ALA MapReduceMerge) was important and that we wanted it integrated. [sent-31, score-0.368]
+</p><p>11 so I have to be amazingly inefficient to even break EVEN with the current indirect shuffling that Hadoop does. [sent-43, score-0.411]
+</p><p>12 Essentially Hadoop takes all output from a map job, then writes it to the local filesystem. [sent-44, score-0.229]
+</p><p>13 What does "running iterative jobs across partitions of data" mean? [sent-46, score-0.254]
+</p><p>14 If you have two MR jobs , say MR0 and MR1 , and MR1 needs to join against the output from MR0, there is essentially no efficient way to do this with Hadoop because the HDFS blocks aren't stored on disk in a deterministic location. [sent-47, score-0.38]
+</p><p>15 You basically have to merge the output form MR0 and MR1 into MR' and then sort the records which is amazingly inefficient. [sent-48, score-0.285]
+</p><p>16 Peregrine just does a fast merge join on disk of the two files and then does a reduce() over the joined output. [sent-53, score-0.286]
+</p><p>17 This also means that you can take some invariant/static data, and keep it in Peregrine and constantly join against it across hundreds of jobs without having to copy the IO every time. [sent-54, score-0.167]
+</p><p>18 This isn't to say at all that Hadoop isn't an amazingly useful and powerful tool. [sent-62, score-0.185]
+</p><p>19 But if you're doing an iterative computation with discrete data structures and you need to join against iterations and performance is a must then you should investigate using Peregrine. [sent-64, score-0.411]
+</p><p>20 Related ArticlesA new map reduce framework for iterative and pipelined jobs. [sent-65, score-0.489]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('peregrine', 0.563), ('mr', 0.237), ('mmap', 0.196), ('io', 0.174), ('iterative', 0.169), ('shuffling', 0.16), ('hadoop', 0.152), ('map', 0.147), ('heap', 0.139), ('fadvise', 0.125), ('fallocate', 0.125), ('flumejava', 0.113), ('amazingly', 0.112), ('pr', 0.107), ('jvm', 0.106), ('ala', 0.102), ('kevin', 0.1), ('runtime', 0.094), ('merge', 0.091), ('iterations', 0.088)]</p>
+<p>[('peregrine', 0.563), ('mr', 0.237), ('mmap', 0.196), ('io', 0.174), ('iterative', 0.169), ('shuffling', 0.16), ('hadoop', 0.152), ('map', 0.147), ('heap', 0.139), ('fadvise', 0.125), ('fallocate', 0.125), ('flumejava', 0.113), ('amazingly', 0.112), ('pr', 0.107), ('jvm', 0.106), ('ala', 0.102), ('kevin', 0.1), ('runtime', 0.094), ('merge', 0.091), ('iterations', 0.088), ('reduce', 0.087), ('pipelined', 0.086), ('netty', 0.086), ('jobs', 0.085), ('pregel', 0.083), ('output', 0.082), ('join', 0.082), ('inefficient', 0.082), ('extent', 0.077), ('say', 0.073), ('structures', 0.072), ('support', 0.069), ('intermediate', 0.069), ('async', 0.065), ('optimizations', 0.063), ('initially', 0.062), ('pages', 0.06), ('etc', 0.06), ('os', 0.058), ('disk', 0.058), ('indirect', 0.057), ('reducer', 0.057), ('files', 0.055), ('compute', 0.055), ('sport', 0.053), ('articlesa', 0.053), ('onhis', 0.053), ('falcon', 0.053), ('directly', 0.052), ('improve', 0.051)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1173-tfidf-1" href="../high_scalability-2012/high_scalability-2012-01-12-Peregrine_-_A_Map_Reduce_Framework_for_Iterative_and_Pipelined_Jobs.html">1173 high scalability-2012-01-12-Peregrine - A Map Reduce Framework for Iterative and Pipelined Jobs</a></p>
 <p>Introduction: The Peregrine falcon is a bird of prey, famous for itshigh speed

@@ -29,9 +29,30 @@ improve reliability. The key goal we were shooting for was a database which
 degrades gracefully when there are many small failures over time, without
 needing human intervention.Why don't we like RAID for big NoSQL databases?Most
 big storage systems use RAID levels like 3, 4, 5, or 10 to improve
-reliability. A conservativ</p><br/>
+reliability. A conservativ</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 With R=3, my cluster is available as long as I can re-copy data on the failed disks before 3 failures happen. [sent-27, score-0.766]
+</p><p>2 A 5 disk, fully-used RAID-5 volume with a failure needs to read 4 disks completely and write one disk completely to return to full protection and performance. [sent-35, score-0.688]
+</p><p>3 This can take quite a while, and is getting worse over time as disk capacities increase faster than disk bandwidth. [sent-36, score-0.636]
+</p><p>4 In an R=3 cluster, a single disk contains chunks of data replicated to other disks elsewhere in the cluster. [sent-37, score-1.118]
+</p><p>5 For rebuild purposes, it's nice to have at least 10 chunks on a disk, and it's also nice for the 2 replicas for these 10 chunks to be on as many servers as possible. [sent-38, score-0.902]
+</p><p>6 A rebuild then involves copying 1/10 of a disk between 10 pairs of systems, and the entire rebuild can be done in 1/10 the time of reading an entire disk. [sent-39, score-0.826]
+</p><p>7 The rebuild of all the data on a failed server with 10 disks would involve 100 pairs of servers. [sent-40, score-0.783]
+</p><p>8 While we've chosen 10 chunks per disk at blekko, some other NoSQL databases have as many as a million chunks per disk. [sent-42, score-1.0]
+</p><p>9 Having a small number of chunks per disk leads to slow rebuilds that have big performance impact to a small number of nodes, and a performance hot-spot. [sent-43, score-0.739]
+</p><p>10 We call the R-level of a cluster the minimum replica count of any chunk in the cluster, but just to confuse things, we also refer to the R-level goal of the cluster (usually 3) or the R-level of an individual chunk of data. [sent-47, score-0.938]
+</p><p>11 So if our R3 (a goal of 3 copies of everything) cluster has a single chunk that's R2 (2 copies of this chunk), we call the entire cluster R2 (the worst R-level of any chunk in the cluster. [sent-48, score-1.324]
+</p><p>12 If all chunks are at R1, for example, and we return to R3, a lot of data will need to be replicated for all the replica chunks to become current. [sent-53, score-0.84]
+</p><p>13 The information that something is about to fail can come from sources such as disk errors and ECC errors in syslog, SMART daemon complaints, and failed fans or high temperature events reported by the bmc. [sent-65, score-0.798]
+</p><p>14 "draining" chunks off before the disk or server fails completely can reduce the time a cluster spends at R2, which makes it less likely that the cluster will go to R1 or R0 due to an unlucky rapid series of failures. [sent-66, score-1.123]
+</p><p>15 The repair daemon drains a disk or server by making a temporary 4th copy of the chunks involved, and then deleting the chunks on the drained disk or server. [sent-67, score-1.704]
+</p><p>16 When all chunks are removed, the disk or server can be repaired. [sent-68, score-0.739]
+</p><p>17 Failing disks happen often enough in our environment that we have fully automated the decision to drain a disk, or an entire server if the failing disk is the system disk. [sent-69, score-0.846]
+</p><p>18 The same arguments about disk checksums apply to network checksums -- TCP and IP have weak checksums, but with modern systems, checksum offload means that you aren't protected against errors between the checksum offload engine and the CPU. [sent-81, score-1.092]
+</p><p>19 In an R=3 system, it's important that servers with failed disks -- disk failures often happen at boot or reboot -- come up with as many disks as possible, instead of waiting for admin intervention due to a single failed disk. [sent-83, score-1.345]
+</p><p>20 We avoid this issue by renaming files to be deleted into a trash directory, where a dedicated trash daemon for each disk takes one file at a time, truncating it slowly down to nothing. [sent-89, score-0.66]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('chunks', 0.341), ('disk', 0.318), ('disks', 0.308), ('raid', 0.262), ('chunk', 0.247), ('cluster', 0.192), ('checksums', 0.162), ('copies', 0.161), ('rebuild', 0.159), ('daemon', 0.146), ('failed', 0.14), ('pdu', 0.132), ('nosql', 0.109), ('checksum', 0.1), ('errors', 0.097), ('degrades', 0.085), ('deleting', 0.085), ('gracefully', 0.084), ('switch', 0.082), ('rebuilds', 0.08)]</p>
+<p>[('chunks', 0.341), ('disk', 0.318), ('disks', 0.308), ('raid', 0.262), ('chunk', 0.247), ('cluster', 0.192), ('checksums', 0.162), ('copies', 0.161), ('rebuild', 0.159), ('daemon', 0.146), ('failed', 0.14), ('pdu', 0.132), ('nosql', 0.109), ('checksum', 0.1), ('errors', 0.097), ('degrades', 0.085), ('deleting', 0.085), ('gracefully', 0.084), ('switch', 0.082), ('rebuilds', 0.08), ('server', 0.08), ('failures', 0.078), ('draining', 0.075), ('ecc', 0.075), ('jargon', 0.075), ('repair', 0.075), ('trash', 0.072), ('entire', 0.071), ('blekko', 0.069), ('failing', 0.069), ('leaf', 0.063), ('failure', 0.062), ('complaints', 0.062), ('replicas', 0.061), ('replica', 0.06), ('raw', 0.059), ('cause', 0.057), ('protects', 0.055), ('everything', 0.054), ('single', 0.053), ('files', 0.052), ('network', 0.051), ('racks', 0.051), ('offload', 0.051), ('replicated', 0.05), ('database', 0.049), ('resilience', 0.049), ('pairs', 0.048), ('data', 0.048), ('twice', 0.047)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000006 <a title="1279-tfidf-1" href="../high_scalability-2012/high_scalability-2012-07-09-Data_Replication_in_NoSQL_Databases.html">1279 high scalability-2012-07-09-Data Replication in NoSQL Databases</a></p>
 <p>Introduction: This is the third guest post (part 1,part 2) of a series by Greg Lindahl, CTO

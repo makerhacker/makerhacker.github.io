@@ -29,9 +29,30 @@ structures,skip lists, andin-memory execution. Familiar as in SQL and nothing
 but SQL. The only interface to MemSQL is SQL.It's right to point out MemSQL
 gets a boost by being a first release. Only a limited subset of SQL is
 supported, neither replication or sharding are implemented yet, and writes
-queue in memory befo</p><br/>
+queue in memory befo</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Skip lists are the only efficient data structures for range queries and are more scalable thanb-trees. [sent-27, score-0.364]
+</p><p>2 The mix of lock-free data structures, code generation, skip lists, and MVCC makes sense when you consider the driving forces of data living in memory and the requirement for blindingly fast execution of SQL queries. [sent-38, score-0.362]
+</p><p>3 Code generation minimizes code execution paths within queries and removes interpretation overhead. [sent-88, score-0.277]
+</p><p>4 The lock-free hash table is used to map query shapes to compiled plans in the plan cache. [sent-102, score-0.444]
+</p><p>5 Lock-free skip lists and hash tables are available as index data structures. [sent-103, score-0.362]
+</p><p>6 Among the data structures that offer the efficient seek and insert properties of a tree, skip lists are notable for being implemented lock-free and perform extremely well in highly concurrent environments. [sent-110, score-0.424]
+</p><p>7 Skip lists have two main tradeoffs:Compared to b-trees, skip lists are slightly slower for long sequential scans. [sent-111, score-0.34]
+</p><p>8 Code GenerationHow it WorksMemSQL compiles SQL queries to native code with SQL to C++ code generation. [sent-151, score-0.274]
+</p><p>9 Compiled query plans are reused across server restarts so they only have to be compiled once in the lifetime of an application. [sent-155, score-0.273]
+</p><p>10 These plans are stored in a hash table that maps parameterized queries to compiled query plans. [sent-159, score-0.539]
+</p><p>11 If the hash table contains the plan, then the parameters are passed into the compiled code which executes the query. [sent-160, score-0.332]
+</p><p>12 The next time a query with the same shape is run, it will match the compiled plan in the hash table. [sent-162, score-0.36]
+</p><p>13 DDL queries (CREATE/ALTER) and DML queries (SELECT/INSERT/UPDATE/DELETE) all go through code generation. [sent-163, score-0.329]
+</p><p>14 The hot code path for query plans that have been compiled by the system is optimized very carefully. [sent-174, score-0.346]
+</p><p>15 Every new query shape not in plancache will be compiled with GCC. [sent-188, score-0.277]
+</p><p>16 GCC compilation is still a little bit slow compared to query compilation in MySQL. [sent-189, score-0.259]
+</p><p>17 MemSQL supports single-shard OLTP queries (routing) and complex cross-shard OLAP queries that iterate over the entire dataset. [sent-218, score-0.307]
+</p><p>18 Because the aggregators push most of the work to the leaf nodes, MemSQL scales almost linearly with each added leaf node. [sent-219, score-0.321]
+</p><p>19 MVCC only works on each leaf node, not across leaf nodes. [sent-224, score-0.254]
+</p><p>20 If memory usage exceeds maximum_table_memory then write queries are blocked but read queries stay up. [sent-280, score-0.291]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('memsql', 0.798), ('sql', 0.133), ('queries', 0.128), ('leaf', 0.127), ('compiled', 0.121), ('skip', 0.12), ('query', 0.117), ('lists', 0.11), ('combinator', 0.089), ('hash', 0.089), ('structures', 0.083), ('code', 0.073), ('compilation', 0.071), ('replication', 0.067), ('aggregators', 0.067), ('commit', 0.058), ('aggregator', 0.056), ('transaction', 0.056), ('metadata', 0.055), ('mvcc', 0.054)]</p>
+<p>[('memsql', 0.798), ('sql', 0.133), ('queries', 0.128), ('leaf', 0.127), ('compiled', 0.121), ('skip', 0.12), ('query', 0.117), ('lists', 0.11), ('combinator', 0.089), ('hash', 0.089), ('structures', 0.083), ('code', 0.073), ('compilation', 0.071), ('replication', 0.067), ('aggregators', 0.067), ('commit', 0.058), ('aggregator', 0.056), ('transaction', 0.056), ('metadata', 0.055), ('mvcc', 0.054), ('snapshot', 0.053), ('nikita', 0.053), ('supports', 0.051), ('gcc', 0.05), ('table', 0.049), ('fast', 0.048), ('transactions', 0.045), ('mysql', 0.043), ('data', 0.043), ('log', 0.041), ('generation', 0.04), ('hardwired', 0.039), ('plancache', 0.039), ('worksmemsql', 0.039), ('lock', 0.039), ('faster', 0.039), ('buffer', 0.037), ('disk', 0.036), ('minimizes', 0.036), ('bazillion', 0.036), ('plans', 0.035), ('cap', 0.035), ('memory', 0.035), ('instead', 0.035), ('nodes', 0.034), ('extremely', 0.034), ('concurrent', 0.034), ('theorem', 0.033), ('solved', 0.033), ('plan', 0.033)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1304-tfidf-1" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
 <p>Introduction: This is an interview withMemSQLcofounder'sEric FrenkielandNikita Shamgunov, in

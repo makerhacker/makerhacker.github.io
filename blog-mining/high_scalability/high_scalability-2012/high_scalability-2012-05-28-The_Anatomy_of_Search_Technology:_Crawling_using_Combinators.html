@@ -29,9 +29,30 @@ a constant supply of new challenges. The general difficulty of tightly-coupled
 parallel programming also rears its head, as the web has scaled from millions
 to 100s of billions of pages.Existing Open-Source Crawlers and CrawlsThis
 article is mainly going to discuss blekko's crawler and its use of
-combinators, but if you'd li</p><br/>
+combinators, but if you'd li</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 It's rumored that Google's web crawl and index is over 100 billion webpages, and Google announced in 2008 that their "crawl frontier"-- the list of all of the urls that they had seen on other webpages-- was over. [sent-8, score-0.542]
+</p><p>2 That's only a fraction of a percent of the webpages in Google's crawl frontier, so we need to be very good at crawling the best pages, and only the best pages. [sent-10, score-0.861]
+</p><p>3 One way to do this is to compute the ranks of webpages as we crawl, including the ranks of the pages we haven't crawled yet. [sent-11, score-0.584]
+</p><p>4 The rank of a page is dependent upon the number and quality of incoming links, plus many other on-page measures, such as the text on the page, the number of ads compared to the amount of text, and so forth. [sent-12, score-0.502]
+</p><p>5 The on-page measures can't be known before the page is first crawled, but the incoming links are known, from crawling other pages. [sent-13, score-0.969]
+</p><p>6 Using incoming links to rank a webpage is, of course, something which is already well-gamed by a lot of Internet spammers. [sent-14, score-0.687]
+</p><p>7 Some of these bogus links come from other spammer websites, and some come from legitimate websites with reasonable content. [sent-15, score-0.464]
+</p><p>8 Finding and ignoring bad links from legitimate websites is much more difficult, and often can't be done until many linked pages have been fully crawled. [sent-17, score-0.586]
+</p><p>9 First, we have many things which we'd like to make unique counts of: the geographic diversity of incoming links, the network diversity of incoming links, and so forth. [sent-19, score-0.72]
+</p><p>10 A page with a lot of incoming links is less interesting if all of the incoming links come from the same class-C IP network. [sent-20, score-1.135]
+</p><p>11 We use thelogcountcombinator to count these quantities efficiently (in both time and space -- 16 bytes per count), without double-counting anything as we crawl and recrawl the web. [sent-21, score-0.491]
+</p><p>12 Next, we frequently need to manipulate the lists of outgoing and incoming links to a webpage. [sent-23, score-0.749]
+</p><p>13 This is an expensive operation, and since the number of inbound links can be large (millions, in many cases), we would need some sort of way of getting rid of less important (lower-ranked) rows in this table, in order to keep the table size reasonable. [sent-25, score-0.455]
+</p><p>14 As an example of why we might want to manipulate this list of incoming webpages at crawl time, consider the fact that traded or purchased links often have identicalanchortext. [sent-28, score-1.183]
+</p><p>15 By examining the incoming anchortext before crawling a page, we can avoid crawling it at all. [sent-29, score-0.939]
+</p><p>16 All that other stuffIn addition to what we've discussed already -- finding outgoing links, and computing the ranks of uncrawled pages -- blekko's crawler does quite a bit of other work. [sent-33, score-0.589]
+</p><p>17 ) The crawler also immediately updates a bunch of lists such as the list of domains using a given IP address, the list of domains using a given analytics or advertising ID, and the lists of checksums which drive our duplicate text discovery system. [sent-35, score-0.834]
+</p><p>18 One important lesson is that it's critical to have an email address that webmasters can use to contact us privately if there's a crawler problem. [sent-37, score-0.659]
+</p><p>19 We also found that a significant fraction of websites, including many US government websites, only allow a small whitelist of crawlers to crawl their pages. [sent-42, score-0.642]
+</p><p>20 More and more of the web is hidden behind javascript, and while webmasters are somewhat careful to not hide their content where it can't be seen by most search engines, many webmasters do have an incentive to hide their analytics and advertising IDs so that they aren't as visible. [sent-45, score-0.829]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('crawl', 0.307), ('crawling', 0.296), ('links', 0.292), ('webmasters', 0.276), ('crawler', 0.272), ('blekko', 0.26), ('incoming', 0.236), ('crawlers', 0.225), ('webpages', 0.199), ('ranks', 0.117), ('anchortext', 0.111), ('logcount', 0.1), ('websites', 0.094), ('webpage', 0.09), ('frontier', 0.087), ('quantities', 0.082), ('counts', 0.081), ('crawled', 0.08), ('page', 0.079), ('legitimate', 0.078)]</p>
+<p>[('crawl', 0.307), ('crawling', 0.296), ('links', 0.292), ('webmasters', 0.276), ('crawler', 0.272), ('blekko', 0.26), ('incoming', 0.236), ('crawlers', 0.225), ('webpages', 0.199), ('ranks', 0.117), ('anchortext', 0.111), ('logcount', 0.1), ('websites', 0.094), ('webpage', 0.09), ('frontier', 0.087), ('quantities', 0.082), ('counts', 0.081), ('crawled', 0.08), ('page', 0.079), ('legitimate', 0.078), ('manipulate', 0.076), ('outgoing', 0.073), ('list', 0.073), ('lists', 0.072), ('pages', 0.071), ('rank', 0.069), ('text', 0.067), ('measures', 0.066), ('link', 0.063), ('trading', 0.061), ('hide', 0.061), ('important', 0.06), ('fraction', 0.059), ('diversity', 0.058), ('index', 0.057), ('discussed', 0.056), ('web', 0.055), ('domains', 0.054), ('bytes', 0.053), ('table', 0.052), ('contact', 0.051), ('many', 0.051), ('rumored', 0.05), ('topn', 0.05), ('theprevious', 0.05), ('greg', 0.05), ('count', 0.049), ('advertising', 0.049), ('bunch', 0.048), ('newsthe', 0.047)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="1253-tfidf-1" href="../high_scalability-2012/high_scalability-2012-05-28-The_Anatomy_of_Search_Technology%3A_Crawling_using_Combinators.html">1253 high scalability-2012-05-28-The Anatomy of Search Technology: Crawling using Combinators</a></p>
 <p>Introduction: This is the second guest post (part 1,part 3) of a series by Greg Lindahl, CTO

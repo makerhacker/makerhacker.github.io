@@ -29,9 +29,30 @@ datacenters. What is surprising is how OldSQL has been embraced. In anearlier
 OldSQL was the desire to make it easier and faster for programmers to build
 applications. The main ideas will seem quite familiar:There's a false
 dichotomy between little complicated databases and huge, scalable, simple
-ones. We can have featur</p><br/>
+ones. We can have featur</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 While the transaction side may be conventional, except for all the global repartitioning magic happening transparently under the covers, their timestamp approach to transactions does have a lot of cool capabilities on the read path. [sent-31, score-0.751]
+</p><p>2 Then integrated them with timestamp assignment in concurrency control:Total order of timestamps respects the partial order of transactions. [sent-56, score-0.467]
+</p><p>3 If transaction A happens before transaction B we know transaction A's timestamp is smaller than transaction B's timestamp. [sent-57, score-1.262]
+</p><p>4 Entity groups are their own transaction domain, you can't do transaction across entity groups. [sent-83, score-0.448]
+</p><p>5 You spend most of your time in cheap snapshot isolation reads and not a lot of time with pessimist transaction writes. [sent-128, score-0.534]
+</p><p>6 TrueTimeThe target invariant: with write A and B, if A happens before B, meaning A finishes before B starts, then A should have a smaller timestamp than B. [sent-187, score-0.492]
+</p><p>7 With this invariant it means you can say that snapshot reads at a particular timestamp are serializable. [sent-190, score-0.563]
+</p><p>8 A time daemon in every Google server, every server has a crystal, every datacenter has a few time masters with GPSs from different manufacturers for bug diversity, some of them have atomic clocks to crosscheck the GPSs. [sent-192, score-0.461]
+</p><p>9 By waiting until the commit timestamp is in the past we are pushing all future transactions into the future into bigger timestamps. [sent-226, score-0.731]
+</p><p>10 The next transaction is guaranteed to have a timestamp bigger than the previous transaction. [sent-227, score-0.66]
+</p><p>11 Every transaction agrees to pick a timestamp that's bigger than it's start point and every transaction agrees to defer its commit until its own commit timestamp is in the past. [sent-228, score-1.707]
+</p><p>12 When Paxos goes too quickly or just one replica and you are just committing to local disk the TrueTime epsilon can be large compared to what it would take to commit the write otherwise. [sent-229, score-0.465]
+</p><p>13 Reduce epsilon by polling time masters more often, poll at a high QoS, improve kernel handling, record timestamps in NIC driver, buy better oscillators, watch out for kernel bugs (power savings mode, which clock you are using). [sent-235, score-0.415]
+</p><p>14 Spanner will pick a bigger timestamp and read at that timestamp. [sent-239, score-0.57]
+</p><p>15 Spanner will pick the largest committed timestamp that falls within your staleness bounds. [sent-241, score-0.445]
+</p><p>16 Let the client pick a timestamp and say I want to know everything as of noon, for example. [sent-243, score-0.506]
+</p><p>17 You know that is also bigger than the commit timestamp of all previously committed transactions. [sent-245, score-0.625]
+</p><p>18 Not always the best timestamp to pick because you want to maximize the replicas that are capable of serving the read at that timestamp. [sent-246, score-0.701]
+</p><p>19 Because a distributed transaction has to commit at the same timestamp on every partition there is an uncertainty window where you don't what data is going to commit a timestamp for certain objects. [sent-253, score-1.64]
+</p><p>20 You could use a Spanner partition as a strongly ordered pub-sub scheme where you have read-only replicas all over the place of some partition and you are trying to use it to distribute some data in an ordered way to a lot of different datacenters. [sent-290, score-0.767]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('spanner', 0.381), ('timestamp', 0.366), ('transaction', 0.224), ('commit', 0.189), ('partition', 0.189), ('paxos', 0.185), ('epsilon', 0.165), ('truetime', 0.14), ('replicas', 0.14), ('semantics', 0.114), ('transactions', 0.106), ('timestamps', 0.101), ('time', 0.088), ('pick', 0.079), ('clocks', 0.078), ('different', 0.077), ('impressions', 0.075), ('reads', 0.074), ('dependency', 0.074), ('smoothly', 0.073)]</p>
+<p>[('spanner', 0.381), ('timestamp', 0.366), ('transaction', 0.224), ('commit', 0.189), ('partition', 0.189), ('paxos', 0.185), ('epsilon', 0.165), ('truetime', 0.14), ('replicas', 0.14), ('semantics', 0.114), ('transactions', 0.106), ('timestamps', 0.101), ('time', 0.088), ('pick', 0.079), ('clocks', 0.078), ('different', 0.077), ('impressions', 0.075), ('reads', 0.074), ('dependency', 0.074), ('smoothly', 0.073), ('bunch', 0.071), ('bigger', 0.07), ('atomic', 0.069), ('oldsql', 0.067), ('distributed', 0.065), ('finishes', 0.065), ('query', 0.064), ('updates', 0.063), ('means', 0.063), ('want', 0.061), ('masters', 0.061), ('write', 0.061), ('newsql', 0.061), ('ordered', 0.06), ('snapshot', 0.06), ('megastore', 0.059), ('google', 0.058), ('richer', 0.056), ('alex', 0.055), ('read', 0.055), ('ad', 0.055), ('causal', 0.055), ('datacenters', 0.053), ('data', 0.052), ('partitions', 0.052), ('replica', 0.05), ('sql', 0.05), ('programmers', 0.048), ('relational', 0.048), ('phase', 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999875 <a title="1345-tfidf-1" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
 <p>Introduction: A lot of people seem to passionately dislike the termNewSQL, or pretty much

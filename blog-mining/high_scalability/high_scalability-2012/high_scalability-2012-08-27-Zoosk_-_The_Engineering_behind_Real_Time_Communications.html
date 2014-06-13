@@ -29,9 +29,30 @@ communications within three distinct interactions:Presence.  When a member is
 actively connected to the Zoosk RTC infrastructure, their public status
 appears as 'available'. If they are idle for a period of time, their state
 transitions to 'away'. Their presence automatically changes to 'offline' when
-they</p><br/>
+they</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The Zoosk service utilizes these notification packets to tell the client applications to update the value of UI-related badges, such as the number of unread messages from another user. [sent-17, score-0.312]
+</p><p>2 If two users are online simultaneously, they can send messages to each other in a familiar 'instant messaging' chat format. [sent-19, score-0.293]
+</p><p>3 Message content is also persisted to a database for future message history retrieval if the user reconnects in the future using a different client application. [sent-21, score-0.305]
+</p><p>4 Full SizeA user's online state is tracked in real-time by the Tigase servers via persistent connections between Tigase and the client applications (web browser, mobile device, desktop application). [sent-36, score-0.521]
+</p><p>5 Many core Zoosk product features, including search results, profile views and messaging, require ensuring that this state is reflected in near real-time on all client applications. [sent-37, score-0.386]
+</p><p>6 To keep this state consistent throughout the rest of the Zoosk infrastructure, the user's record in the user database is updated to reflect their current online state including a timestamp of their most recent online transition. [sent-38, score-0.772]
+</p><p>7 The user's online state is also stored in cache on our search infrastructure, so that search results can take online state into account. [sent-39, score-0.741]
+</p><p>8 This cache of online state is updated in real- time through a dedicated Tigase instance referred to as the Online State Manager (OSM). [sent-42, score-0.381]
+</p><p>9 The OSM receives custom XMPP packets indicating the user's online state from the primary Tigase chat servers and then makes a network call to update the ehcache instance on each of the SOLR servers. [sent-43, score-0.56]
+</p><p>10 There are roughly 8,000 of these online state transitions a minute during peak traffic. [sent-44, score-0.338]
+</p><p>11 Maintaining this cache outside of the SOLR index allows the user's presence state to be updated in real-time, separate from the periodic index replication snaps from master to slave. [sent-45, score-0.295]
+</p><p>12 The user's presence state is then combined with search results at query time to either filter or rank results based on whether the user is online currently. [sent-46, score-0.694]
+</p><p>13 User interactions with the Zoosk service outside of the core RTC features can also trigger business logic that generates a real-time notification to a connected user. [sent-48, score-0.275]
+</p><p>14 For example, if another user views our user's profile, or accepts our user's friend request, we want to notify our user of that action immediately. [sent-49, score-0.357]
+</p><p>15 The PHP-based web application will trigger an asynchronous job that opens a network connection to a Tigase server and passes an XMPP data packet to the server, with a custom message payload providing the data for the notification. [sent-50, score-0.332]
+</p><p>16 This packet is processed by Tigase and routed to the client application from which user is currently connected. [sent-51, score-0.377]
+</p><p>17 The user's client application then processes this custom packet and displays the appropriate "toast" to the user or updates a "badge" reflecting the current value of a particular feature indicator (number of profile views, unread messages, etc. [sent-52, score-0.575]
+</p><p>18 If the user is offline at the time, Tigase will store the packet until the user reconnects. [sent-54, score-0.401]
+</p><p>19 It logs into all primary chat servers and tests connections and presence transmission. [sent-60, score-0.375]
+</p><p>20 Business Intelligence Reports- Every hour, a script checks the number of active connections to each primary Tigase server and the number of messages it has passed in the prior hour. [sent-65, score-0.39]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('tigase', 0.55), ('zoosk', 0.48), ('rtc', 0.275), ('xmpp', 0.17), ('user', 0.157), ('online', 0.153), ('state', 0.13), ('members', 0.097), ('client', 0.094), ('connections', 0.087), ('packet', 0.087), ('interactions', 0.086), ('communications', 0.086), ('solr', 0.086), ('primary', 0.08), ('presence', 0.075), ('chat', 0.075), ('actively', 0.074), ('unread', 0.071), ('osm', 0.071)]</p>
+<p>[('tigase', 0.55), ('zoosk', 0.48), ('rtc', 0.275), ('xmpp', 0.17), ('user', 0.157), ('online', 0.153), ('state', 0.13), ('members', 0.097), ('client', 0.094), ('connections', 0.087), ('packet', 0.087), ('interactions', 0.086), ('communications', 0.086), ('solr', 0.086), ('primary', 0.08), ('presence', 0.075), ('chat', 0.075), ('actively', 0.074), ('unread', 0.071), ('osm', 0.071), ('custom', 0.065), ('messages', 0.065), ('paired', 0.064), ('profile', 0.062), ('results', 0.061), ('connected', 0.061), ('member', 0.06), ('tests', 0.058), ('search', 0.057), ('desktop', 0.057), ('ehcache', 0.057), ('transitions', 0.055), ('message', 0.054), ('updated', 0.049), ('referred', 0.049), ('delivered', 0.047), ('browser', 0.044), ('trigger', 0.044), ('messaging', 0.044), ('connection', 0.043), ('notification', 0.043), ('views', 0.043), ('nagios', 0.041), ('socket', 0.041), ('outside', 0.041), ('script', 0.041), ('powered', 0.041), ('number', 0.039), ('application', 0.039), ('passed', 0.039)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1312-tfidf-1" href="../high_scalability-2012/high_scalability-2012-08-27-Zoosk_-_The_Engineering_behind_Real_Time_Communications.html">1312 high scalability-2012-08-27-Zoosk - The Engineering behind Real Time Communications</a></p>
 <p>Introduction: This is a guest post byPeter Offringa, VP of engineering atZoosk. Zoosk is a

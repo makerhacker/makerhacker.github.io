@@ -29,9 +29,30 @@ bursty traffic have been abandoned, for some understandable reasons, but the
 result is you really have to consider your use cases before making DynamoDB
 the default choice.Here are some of my impressions from the talk...DynamoDB is
 a clean well lighted place for key-value data. The interface is simple,
-co</p><br/>
+co</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 My impression of DynamoDB before attending aAmazon DynamoDB for Developerstalk is that it's the usual quality service produced by Amazon: simple, fast, scalable, geographically redundant, expensive enough to make you think twice about using it, and delightfully NoOp. [sent-1, score-0.279]
+</p><p>2 And as a SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced a more elegant design. [sent-5, score-0.126]
+</p><p>3 The cloud pillars of pay for what you use and quick elastic response to bursty traffic have been abandoned, for some understandable reasons, but the result is you really have to consider your use cases before making DynamoDB the default choice. [sent-7, score-0.31]
+</p><p>4 Reads can be consistent, or inconsistent, writes are always consistent, consistent reads cost 2x more. [sent-18, score-0.118]
+</p><p>5 5 msecs for the database component, depending on the size of your data. [sent-22, score-0.172]
+</p><p>6 A problem with the cloud is noisy neighbors can ruin the performance of other neighbors. [sent-33, score-0.147]
+</p><p>7 To ensure DynamoDB can meet SLAs in a multi-tenancy environment, a maximum size restriction of 64KB is put on values. [sent-34, score-0.115]
+</p><p>8 By fixing the data sizes and requiring the specification for a guaranteed throughput rate, DynamoDB has all the information it needs to schedule workloads in such a way as they can meet their SLAs with a high degree of confidence. [sent-36, score-0.263]
+</p><p>9 A downside of the provisioned throughput model is you pay for the throughput you have reserved, not the traffic you have actually generated. [sent-38, score-0.361]
+</p><p>10 From Amazon's perspective they are reserving the capacity so in a sense you are using the capacity, but this is the same capacity planning issue that made the elastic nature of the cloud so attractive to begin with. [sent-39, score-0.248]
+</p><p>11 And if your traffic is at all bursty you technically would have to reserve the peak usage, which is fiscal insanity. [sent-43, score-0.152]
+</p><p>12 You can adjust your throughput reservation, but you can't do it fast enough to meet a burst, and the drop notification mechanisms are clumsy, you get an email alert and then have to do the adjustment by hand. [sent-44, score-0.244]
+</p><p>13 A lack of transactionsmeans developers have to implement idempotency, garbage collection, and pay for all the accesses needed to implement features that DynamoDB should be supporting. [sent-50, score-0.223]
+</p><p>14 The provisioning model is not really automatic as hot keys are not automatically load balanced. [sent-53, score-0.145]
+</p><p>15 Eventually more functionality will be built into the dashboard, but it's a powerful way to look at your data, just factor this kind of management traffic into your throughput requirements. [sent-71, score-0.181]
+</p><p>16 Store Hot Data in DynamoDB, Cold Data in S3, and use Hadoop/Hive to Make them Look the SameOne of the most interesting ideas of the talk is how a new Hadoop/Hive ecosystem is being used to act as a unifying bridge between DynamoDB and S3. [sent-72, score-0.13]
+</p><p>17 The idea is that data stored in DynamoDB costs 10 times as much as data in S3, so what you want to do is move historical or cold data to S3 as soon possible and just keep the hot data in DynamoDB. [sent-73, score-0.511]
+</p><p>18 For example, time series data is often stored by day, week, or month, so rather than keep all that historical time series data in DynamoDB, move it to S3 and save some money. [sent-74, score-0.208]
+</p><p>19 The problem is now you have two very different ways to access data. [sent-75, score-0.1]
+</p><p>20 Using EMR and Hive sophisticated queries can be run against data in DynamoDB and S3, allowing a common data access layer against the cheapest storage option. [sent-78, score-0.195]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('dynamodb', 0.755), ('throughput', 0.125), ('msecs', 0.122), ('impression', 0.105), ('bursty', 0.096), ('noisy', 0.096), ('hot', 0.094), ('slas', 0.086), ('supported', 0.078), ('bridge', 0.074), ('capacity', 0.074), ('data', 0.073), ('produced', 0.069), ('hive', 0.066), ('meet', 0.065), ('cold', 0.063), ('historical', 0.062), ('specify', 0.062), ('amazon', 0.062), ('consistent', 0.061)]</p>
+<p>[('dynamodb', 0.755), ('throughput', 0.125), ('msecs', 0.122), ('impression', 0.105), ('bursty', 0.096), ('noisy', 0.096), ('hot', 0.094), ('slas', 0.086), ('supported', 0.078), ('bridge', 0.074), ('capacity', 0.074), ('data', 0.073), ('produced', 0.069), ('hive', 0.066), ('meet', 0.065), ('cold', 0.063), ('historical', 0.062), ('specify', 0.062), ('amazon', 0.062), ('consistent', 0.061), ('syndrome', 0.057), ('reads', 0.057), ('traffic', 0.056), ('ecosystem', 0.056), ('implement', 0.056), ('garbage', 0.056), ('pay', 0.055), ('rightly', 0.054), ('hinted', 0.054), ('noop', 0.054), ('attending', 0.054), ('adjustment', 0.054), ('idempotency', 0.054), ('pillars', 0.054), ('lose', 0.052), ('programmatic', 0.051), ('handoff', 0.051), ('aesthetic', 0.051), ('reserving', 0.051), ('delightfully', 0.051), ('problem', 0.051), ('keys', 0.051), ('size', 0.05), ('access', 0.049), ('elastic', 0.049), ('ip', 0.049), ('ssd', 0.048), ('example', 0.048), ('clumsy', 0.048), ('specifying', 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="1245-tfidf-1" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
 <p>Introduction: My impression of DynamoDB before attending aAmazon DynamoDB for Developerstalk

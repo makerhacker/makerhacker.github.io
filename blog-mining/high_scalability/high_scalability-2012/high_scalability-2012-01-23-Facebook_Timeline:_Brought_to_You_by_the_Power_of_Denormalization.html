@@ -29,9 +29,29 @@ expect that they would pioneer a new infrastructure for Timeline, but given
 the short schedule, they decided to go with proven technologies inside
 Facebook: MySQL,Multifeed (a custom distributed system which takes the tens of
 thousands of updates from friends and picks the most relevant), Thrift,
-Memcached,Opera</p><br/>
+Memcached,Opera</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 It wants to compile a complete scrollable version of your life story from photos, locations, videos, status updates, and everything you do. [sent-2, score-0.289]
+</p><p>2 That could be many decades of data (hopefully) that must stored and made quickly available at any point in time. [sent-3, score-0.216]
+</p><p>3 Facebook's Ryan Mack shares quite a bit of Timeline's own implementation story in his excellent article:Building Timeline: Scaling up to hold your life story. [sent-6, score-0.139]
+</p><p>4 Five big takeaways from the article are:Leverage infrastructure rather than build something new. [sent-7, score-0.184]
+</p><p>5 The last point about the operations infrastructure is a huge win for any team. [sent-9, score-0.116]
+</p><p>6 They can concentrate on solving the problem and skip the whole tooling dance, which is why new products can be generated amazingly fast inside a "big company", if the infrastructure is done right. [sent-11, score-0.286]
+</p><p>7 Denormalzation, creating special purpose objects instead of distributed rows that must be joined, minimizes random IO by reducing the number of trips to the database. [sent-14, score-0.195]
+</p><p>8 Caching can often get around the need for denormalization, but given the amount of timeline data and how much of it is cold, that is it will rarely be viewed, caching everything isn't a good design. [sent-15, score-0.776]
+</p><p>9 Timeline decides the order to display data by calculating a rank based on metadata. [sent-16, score-0.22]
+</p><p>10 The denormalization process brought all that metadata together in a format that meant ranking could be done in a few IOs and streamed efficiently from the database using a primary key range queryTimeline is like a datamart in a data warehouse. [sent-17, score-0.805]
+</p><p>11 Data must be slurped up from dozens of different systems, cleaned, merged, and reformatted into a new canonical format. [sent-18, score-0.161]
+</p><p>12 A timeline of recent activity is frequently invalidated because it is changing all the time as you perform actions through your life. [sent-23, score-0.68]
+</p><p>13 This cache is an in RAM row cache inside InnoDB that uses theFlashcachekernel driverto expand the OS cache onto a flash device. [sent-24, score-0.45]
+</p><p>14 The results of large queries, like the ranking of all your activities in 2010, can be efficiently cached since they will rarely be invalidated. [sent-27, score-0.47]
+</p><p>15 The Timeline Aggregator (geographically clustering nearby check-ins, ranking status updates, etc) runs on each database so it can max out the disks. [sent-29, score-0.347]
+</p><p>16 Only data that needs to be displayed is sent over the network. [sent-30, score-0.085]
+</p><p>17 The short 6 month development time was partly a product of the quality infrastructure, but of also running significant development activities in parallel. [sent-32, score-0.404]
+</p><p>18 The development team was split into design, front-end engineering, infrastructure engineering, and data migrations. [sent-33, score-0.267]
+</p><p>19 In parallel they built: UI prototypes on a test backend, production UI on a simulated backend, the scalable backend, the denormalization framework, the data warehouse, and simulated load testing. [sent-34, score-0.614]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('timeline', 0.586), ('denormalization', 0.188), ('ranking', 0.188), ('simulated', 0.136), ('format', 0.134), ('infrastructure', 0.116), ('activities', 0.108), ('inside', 0.105), ('rarely', 0.105), ('updates', 0.103), ('facebook', 0.102), ('backend', 0.097), ('invalidated', 0.094), ('reformatted', 0.094), ('mack', 0.094), ('short', 0.091), ('ui', 0.09), ('flash', 0.087), ('cache', 0.086), ('data', 0.085)]</p>
+<p>[('timeline', 0.586), ('denormalization', 0.188), ('ranking', 0.188), ('simulated', 0.136), ('format', 0.134), ('infrastructure', 0.116), ('activities', 0.108), ('inside', 0.105), ('rarely', 0.105), ('updates', 0.103), ('facebook', 0.102), ('backend', 0.097), ('invalidated', 0.094), ('reformatted', 0.094), ('mack', 0.094), ('short', 0.091), ('ui', 0.09), ('flash', 0.087), ('cache', 0.086), ('data', 0.085), ('status', 0.084), ('term', 0.083), ('deployed', 0.08), ('cleaned', 0.077), ('parallelizing', 0.077), ('nearby', 0.075), ('aggregator', 0.075), ('pioneer', 0.075), ('audacious', 0.075), ('datamart', 0.075), ('dance', 0.073), ('partly', 0.073), ('story', 0.073), ('decides', 0.07), ('picks', 0.07), ('custom', 0.069), ('prototypes', 0.069), ('efficiently', 0.069), ('takeaways', 0.068), ('conversion', 0.067), ('must', 0.067), ('compile', 0.066), ('streamed', 0.066), ('development', 0.066), ('life', 0.066), ('rank', 0.065), ('tooling', 0.065), ('trips', 0.064), ('decades', 0.064), ('minimizes', 0.064)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1179-tfidf-1" href="../high_scalability-2012/high_scalability-2012-01-23-Facebook_Timeline%3A_Brought_to_You_by_the_Power_of_Denormalization.html">1179 high scalability-2012-01-23-Facebook Timeline: Brought to You by the Power of Denormalization</a></p>
 <p>Introduction: Facebook Timeline is audacious in scope. It wants to compile a complete

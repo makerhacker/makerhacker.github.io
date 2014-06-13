@@ -29,9 +29,30 @@ characters represent 128 bits. 65K IDs would require 1 megabyte of space. We
 receive over 3 billion events per day, and each event has an ID. Those IDs
 require 384,000,000,000 bits or 45 gigabytes of storage. And that is just the
 space that the ID field requires! To get the cardinality of IDs in our daily
-e</p><br/>
+e</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing how they are able to accurately estimate the cardinality of sets with billions of distinct elements using surprisingly small data structures. [sent-1, score-1.052]
+</p><p>2 Counting the number of distinct elements (the cardinality) of a set is challenge when the cardinality of the set is large. [sent-4, score-1.078]
+</p><p>3 To better understand the challenge of determining the cardinality of large sets let's imagine that you have a 16 character ID and you'd like to count the number of distinct IDs that you've seen in your logs. [sent-5, score-1.072]
+</p><p>4 To get the cardinality of IDs in our daily events we could take a simplistic approach. [sent-11, score-0.639]
+</p><p>5 You would need a machine with several hundred gigs of memory to count distinct elements this way and that is only to count a single day's worth of unique IDs. [sent-14, score-0.703]
+</p><p>6 Bitmaps can be used to quickly and accurately get the cardinality of a given input. [sent-18, score-0.687]
+</p><p>7 The basic idea with a bitmap is mapping the input dataset to a bit field using a hash function where each input element uniquely maps to one of the bits in the field. [sent-19, score-1.001]
+</p><p>8 While bitmaps drastically reduce the space requirements from the naive set implementation described above they are still problematic when the cardinality is very high and/or you have a very large number of different sets to count. [sent-21, score-1.115]
+</p><p>9 We've leveraged this research to provide a open sourceimplementationof cardinality estimators, set membership detection, and top-k algorithms. [sent-25, score-0.716]
+</p><p>10 Note that our input dataset has extra data in it so the cardinality is higher than the standard reference answer to this question. [sent-28, score-0.895]
+</p><p>11 Compare that to a perfect count using a HashMap that requires nearly 10 megabytes of space and you can easily see why cardinality estimators are useful. [sent-31, score-1.121]
+</p><p>12 The name comes from the fact that you can estimate the cardinality of a set with cardinality Nmax using just loglog(Nmax) + O(1) bits. [sent-47, score-1.441]
+</p><p>13 In Hyper LogLog's case this is done by defining the desired relative standard deviation and the max cardinality you expect to count. [sent-49, score-0.771]
+</p><p>14 Taking the average of the additional observables yields a counter whose accuracy improves as m grows in size but only requires a constant number of operations to be performed on each element of the input set. [sent-53, score-0.794]
+</p><p>15 The result is that, according to the authors of thispaper, this counter can count one billion distinct items with an accuracy of 2% using only 1. [sent-54, score-0.672]
+</p><p>16 Merging Distributed CountersWe've shown that using the counters described above we can estimate the cardinality of large sets. [sent-57, score-0.872]
+</p><p>17 The idea is a little mind-bending but if you take a moment to think about it the concept is not that much different than basic cardinality estimation. [sent-62, score-0.686]
+</p><p>18 Because the counters represent the cardinality as set of bits in a map we can take two compatible counters and merge their bits into a single map. [sent-63, score-1.142]
+</p><p>19 The algorithms already handle collisions so we can still get a cardinality estimation with the desired precision even though we never brought all of the input data to a single machine. [sent-64, score-1.101]
+</p><p>20 If estimating the cardinality of large sets is a problem and you happen to use a JVM based language then you should check out thestream-libproject -- it provides implementations of the algorithms described above as well as several other stream-processing utilities. [sent-67, score-0.741]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('cardinality', 0.639), ('loglog', 0.235), ('bitmap', 0.215), ('input', 0.194), ('count', 0.174), ('hyper', 0.153), ('counter', 0.152), ('distinct', 0.147), ('bitmaps', 0.142), ('probabilistic', 0.141), ('collisions', 0.119), ('bits', 0.115), ('ids', 0.103), ('counters', 0.098), ('accuracy', 0.098), ('hash', 0.097), ('space', 0.096), ('megabytes', 0.092), ('desired', 0.09), ('estimate', 0.086)]</p>
+<p>[('cardinality', 0.639), ('loglog', 0.235), ('bitmap', 0.215), ('input', 0.194), ('count', 0.174), ('hyper', 0.153), ('counter', 0.152), ('distinct', 0.147), ('bitmaps', 0.142), ('probabilistic', 0.141), ('collisions', 0.119), ('bits', 0.115), ('ids', 0.103), ('counters', 0.098), ('accuracy', 0.098), ('hash', 0.097), ('space', 0.096), ('megabytes', 0.092), ('desired', 0.09), ('estimate', 0.086), ('gigs', 0.083), ('elements', 0.079), ('estimators', 0.078), ('hashset', 0.078), ('nmax', 0.078), ('observables', 0.078), ('set', 0.077), ('error', 0.074), ('counting', 0.066), ('element', 0.064), ('dataset', 0.062), ('size', 0.062), ('function', 0.06), ('estimation', 0.059), ('algorithm', 0.059), ('number', 0.059), ('sets', 0.053), ('result', 0.053), ('linear', 0.052), ('equation', 0.051), ('efficiency', 0.05), ('described', 0.049), ('empty', 0.048), ('billion', 0.048), ('accurately', 0.048), ('concept', 0.047), ('unique', 0.046), ('yields', 0.045), ('requires', 0.042), ('max', 0.042)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1222-tfidf-1" href="../high_scalability-2012/high_scalability-2012-04-05-Big_Data_Counting%3A_How_to_count_a_billion_distinct_objects_using_only_1.5KB_of_Memory.html">1222 high scalability-2012-04-05-Big Data Counting: How to count a billion distinct objects using only 1.5KB of Memory</a></p>
 <p>Introduction: This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing

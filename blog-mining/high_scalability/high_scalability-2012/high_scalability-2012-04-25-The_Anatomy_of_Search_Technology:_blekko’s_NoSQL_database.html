@@ -29,9 +29,30 @@ index that's about 100 terabytes in size.Serving query results quickly
 involves having most of the index in RAM or on solid state (flash) disk. If
 you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000
 servers at a capital cost of $3 million, plus about $1 million per year of
-server co-locatio</p><br/>
+server co-locatio</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Crawling and indexing a few billion webpages requires a cluster with several petabytes of usable disk -- that's several thousand 1 terabyte disks -- and produces an index that's about 100 terabytes in size. [sent-6, score-0.52]
+</p><p>2 Putting the index into RAM on Amazon is very expensive, and only makes sense for a search engine with several % market share. [sent-13, score-0.247]
+</p><p>3 In blekko's datastore, we heavily rely on a construct called combinators to do processing at the database cell level. [sent-30, score-0.535]
+</p><p>4 A combinator is an atomic operation on a cell of a database that is associative and preferably commutative. [sent-31, score-0.869]
+</p><p>5 The fact that addition is associative and commutative means that we will (eventually) get the same answer in all 3 replicas of this cell. [sent-35, score-0.333]
+</p><p>6 The hierarchy of combinations means that the total number of transactions is dramatically reduced compared to a naive implementation, where every process talks directly to the 3 replicas of the cell, and every addition operation results in 3 immediate transactions. [sent-36, score-0.248]
+</p><p>7 The Logcount CombinatorSearch engines frequently need to count unique items in a set. [sent-37, score-0.28]
+</p><p>8 Examples include counting the number of inlinks to a website, the number of unique geographic areas linking to a website, and the number of unique Class-C IP networks linking to a website, and so on. [sent-38, score-0.477]
+</p><p>9 Keeping a perfect count would require keeping a lot of data, so we invented anapproximate method, which can count a up to a billion things with accuracy of +- 50% in only 16 bytes. [sent-40, score-0.256]
+</p><p>10 This combinator, which we call logcount, is implemented in a way which is commutative and associative -- you can AND the bits of two of these together to combine their counts. [sent-41, score-0.261]
+</p><p>11 The TopN Combinator Another common search engine operation is remembering the most important N items in a set. [sent-46, score-0.35]
+</p><p>12 The TopN combinator can represent the top N URLs in a finite-sized array that fits into a single cell of the database: The TopN combinator can be updated incrementally, as we crawl new webpages, and these updates are inexpensive. [sent-49, score-0.933]
+</p><p>13 Thanks to the ranks used to decide which of the urls fit into the N most important, it is commutative and associative. [sent-51, score-0.246]
+</p><p>14 So far we've used combinators as single cells in our database tables. [sent-55, score-0.348]
+</p><p>15 Meta-Combinators: The Hash CombinatorIf a cell in the database contains a hash of (key,value) pairs, the hash meta- combinator can be used to atomically update only some of the (key,value) pairs, leaving the rest unchanged. [sent-58, score-0.758]
+</p><p>16 This gives us considerable freedom to make the columns in the database the ones that make sense to the programmer, instead of having to promote extra things to be columns in order to be able to change them atomically. [sent-59, score-0.252]
+</p><p>17 Taking The Reduce Out Of Map/ReduceSince we represent our database tables with combinators, why not use the combinators to shuffle and reduce the output of our MapReduce jobs? [sent-60, score-0.659]
+</p><p>18 Then we can write MapJobs that iterate over a table in the database, and write their output back into the database using combinators. [sent-61, score-0.349]
+</p><p>19 Let's wordcount the web:foreach row in "/crawl/url"  foreach word in html column    comb_add( "/wordcount", word, 1 )In this pseudo-code, we iterate over all of the html documents in the table /crawl/url, and for each word found, we increment the appropriate row in the table "/wordcount". [sent-62, score-0.759]
+</p><p>20 Our datastore:Looks like a tabular databaseSupports real-time and batch processing in the same clusterSupports high programmer productivityIn the next installment of this series, we'll take a more detailed look at web crawling, and using combinators to implement a crawler. [sent-72, score-0.394]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('combinator', 0.307), ('combinators', 0.226), ('cell', 0.187), ('datastore', 0.172), ('logcount', 0.157), ('topn', 0.157), ('crawling', 0.138), ('associative', 0.136), ('blekko', 0.136), ('count', 0.128), ('commutative', 0.125), ('database', 0.122), ('urls', 0.121), ('operation', 0.117), ('mapjob', 0.116), ('mapjobs', 0.116), ('wordcount', 0.116), ('disk', 0.107), ('index', 0.099), ('foreach', 0.098)]</p>
+<p>[('combinator', 0.307), ('combinators', 0.226), ('cell', 0.187), ('datastore', 0.172), ('logcount', 0.157), ('topn', 0.157), ('crawling', 0.138), ('associative', 0.136), ('blekko', 0.136), ('count', 0.128), ('commutative', 0.125), ('database', 0.122), ('urls', 0.121), ('operation', 0.117), ('mapjob', 0.116), ('mapjobs', 0.116), ('wordcount', 0.116), ('disk', 0.107), ('index', 0.099), ('foreach', 0.098), ('lindahl', 0.098), ('reduce', 0.096), ('indexing', 0.093), ('table', 0.09), ('items', 0.085), ('batch', 0.084), ('programmer', 0.084), ('search', 0.084), ('webpages', 0.083), ('row', 0.078), ('shuffle', 0.078), ('mapreduce', 0.077), ('output', 0.076), ('cluster', 0.076), ('word', 0.074), ('initial', 0.072), ('answer', 0.072), ('hash', 0.071), ('crawl', 0.071), ('linking', 0.071), ('sum', 0.068), ('number', 0.067), ('unique', 0.067), ('columns', 0.065), ('engine', 0.064), ('hierarchy', 0.064), ('pairs', 0.063), ('requires', 0.062), ('iterate', 0.061), ('represent', 0.061)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1233-tfidf-1" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
 <p>Introduction: This is a guest post (part 2,part 3) by Greg Lindahl, CTO of blekko, the spam

@@ -29,9 +29,30 @@ It's interesting to review the Azure incident in this light.The postmortem is
 worth reading in its entirety, but here's a quick summary: each time Azure
 launches a new VM, it creates a "transfer certificate" to secure
 communications with that VM. There was a bug in the code that determines the
-certificate expirat</p><br/>
+certificate expirat</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 There was a bug in the code that determines the certificate expiration date, such that all VMs launched on February 29th (Leap Day) were inoperable. [sent-11, score-0.343]
+</p><p>2 Beginning at 4:00 PM PST on February 28th (12:00 AM February 29th GMT), all Azure clusters worldwide were unable to launch new VMs. [sent-12, score-0.239]
+</p><p>3 In the face of repeated VM failures, Azure mistakenly decided that machines were physically broken, and attempted to migrate healthy VMs off of them, compounding the problem. [sent-13, score-0.247]
+</p><p>4 The calendar bug was dumb, but it's the sort of subtle, one-off dumbness that can happen even to good engineers at good companies. [sent-17, score-0.342]
+</p><p>5 Because the root cause was a bug that only manifests on leap days, and all regions entered Leap Day simultaneously. [sent-25, score-0.888]
+</p><p>6 A timeline of the key events (all times PST):4:00 PM -- bug first manifests; no new VMs can be created from this point. [sent-43, score-0.27]
+</p><p>7 5:23 AM -- fix pushed to most clusters, Microsoft announces that the majority of clusters are healthy again. [sent-50, score-0.43]
+</p><p>8 In a crisis, keep things simpleWhen the crisis hit, Microsoft was almost done rolling out a new release of the server platform, but seven clusters had only just started deploying it. [sent-57, score-0.773]
+</p><p>9 When pushing the fix, Microsoft decided to revert these clusters to the old release. [sent-58, score-0.31]
+</p><p>10 When Microsoft pushed the bad build, all servers in those seven clusters went offline. [sent-61, score-0.47]
+</p><p>11 Given that most clusters were already running the new release, and even these seven clusters had already started receiving it, it might have been better to use the new release everywhere and avoid the extra work of building and testing a Leap Day fix for the old release. [sent-62, score-0.909]
+</p><p>12 But in general, actions performed during a crisis should be kept as simple as possible. [sent-64, score-0.277]
+</p><p>13 Avoid compounding mistakesBecause the Leap Day fix to the old release was felt to be safe, and the build had passed some quick tests, Microsoft decided to bypass their normal slow-roll procedure and "blast" it to all servers on all seven clusters simultaneously. [sent-66, score-0.75]
+</p><p>14 The result was a catastrophic outage in those clusters, as well as "a number of servers â&euro;Ś in corrupted states as a result of the various transitions". [sent-67, score-0.224]
+</p><p>15 The Leap Day bug caused this to happen to every machine that tried to launch a new VM, causing healthy VMs to be migrated off of those machines and triggering a failure cascade. [sent-76, score-0.418]
+</p><p>16 When a certain number of machines were marked bad, Azure entered an emergency mode and stopped attempting to migrate VMs. [sent-77, score-0.229]
+</p><p>17 Some bad servers are to be expected in normal operation, but if many servers are being marked bad then something deeper may be wrong, and it's best to do nothing and request manual intervention. [sent-83, score-0.329]
+</p><p>18 I have seen a major production service experience a bug that caused it to begin madly deleting database records. [sent-85, score-0.267]
+</p><p>19 Milk each crisis for every lesson you canIt's obvious that the root cause of a crisis -- in this case, the faulty code for generating expiration dates -- should be fixed. [sent-89, score-0.799]
+</p><p>20 The Microsoft postmortem goes well beyond this, listing a dozen measures they have identified to better detect bugs before they trigger in production, increase the system's resilience, improve their ability to repair problems quickly, and improve communication with customers during a crisis. [sent-90, score-0.232]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('crisis', 0.277), ('leap', 0.269), ('azure', 0.246), ('microsoft', 0.209), ('bug', 0.206), ('pm', 0.185), ('clusters', 0.175), ('vms', 0.158), ('outage', 0.148), ('february', 0.145), ('calendar', 0.136), ('bad', 0.114), ('seven', 0.114), ('postmortem', 0.113), ('bugfix', 0.102), ('marked', 0.101), ('cause', 0.099), ('dangerous', 0.095), ('healthy', 0.094), ('fix', 0.094)]</p>
+<p>[('crisis', 0.277), ('leap', 0.269), ('azure', 0.246), ('microsoft', 0.209), ('bug', 0.206), ('pm', 0.185), ('clusters', 0.175), ('vms', 0.158), ('outage', 0.148), ('february', 0.145), ('calendar', 0.136), ('bad', 0.114), ('seven', 0.114), ('postmortem', 0.113), ('bugfix', 0.102), ('marked', 0.101), ('cause', 0.099), ('dangerous', 0.095), ('healthy', 0.094), ('fix', 0.094), ('gmt', 0.093), ('manifests', 0.093), ('release', 0.089), ('compounding', 0.087), ('root', 0.083), ('pst', 0.076), ('catastrophic', 0.076), ('certificate', 0.074), ('regions', 0.073), ('transitions', 0.072), ('spof', 0.071), ('vm', 0.071), ('old', 0.069), ('incident', 0.068), ('pushed', 0.067), ('decided', 0.066), ('entered', 0.065), ('avoid', 0.065), ('new', 0.064), ('expiration', 0.063), ('emergency', 0.063), ('day', 0.063), ('measures', 0.061), ('production', 0.061), ('repair', 0.058), ('build', 0.056), ('quickly', 0.056), ('important', 0.056), ('causing', 0.054), ('things', 0.054)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999923 <a title="1209-tfidf-1" href="../high_scalability-2012/high_scalability-2012-03-14-The_Azure_Outage%3A_Time_Is_a_SPOF%2C_Leap_Day_Doubly_So.html">1209 high scalability-2012-03-14-The Azure Outage: Time Is a SPOF, Leap Day Doubly So</a></p>
 <p>Introduction: This is a guest post by Steve Newman, co-founder of Writely (Google Docs),

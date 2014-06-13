@@ -29,9 +29,30 @@ order by key. On a 16-core machine Masstree achieves six to ten million
 operations per second on parts A-C of the Yahoo! Cloud Serving Benchmark
 benchmark, more than 30 as fast as VoltDB [5] or MongoDB [2].If you are
 looking for innovative detailed high performance design, this paper is for
-you. An example fro</p><br/>
+you. An example fro</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Any modiﬁcation to a node's keys or values requires holding the node's lock. [sent-11, score-0.199]
+</p><p>2 Some data is protected by other nodes' locks, however. [sent-12, score-0.114]
+</p><p>3 A node's parent pointer is protected by its parent's lock, and a border node's prev pointer is protected by its previous sibling's lock. [sent-13, score-0.559]
+</p><p>4 This minimizes the simultaneous locks required by split operations; when an interior node splits, for example, it can assign its children's parent pointers without obtaining their locks. [sent-14, score-0.416]
+</p><p>5 Should support range queries, skewed key popularity, small K-V pairs, many puts, and arbitrary keys. [sent-17, score-0.173]
+</p><p>6 Their first attempt was a fast binary tree, achieving 3. [sent-18, score-0.061]
+</p><p>7 In fact, when looking at local performance (without network/disk bottlenecks), cache craftiness results in a 1. [sent-24, score-0.239]
+</p><p>8 To reduce DRAM latency, they constructed a lock-free, unbalanced 4-way tree with the same concurrency properties as a binary tree, but is only half as deep for the same amount of data -- plus each node fits into a cache line. [sent-28, score-0.798]
+</p><p>9 It turns out, however, that the B+tree is 11% slower than the 4-way tree (because of cache line optimization, and since all nodes are full, while for their B+tree, only ~75% are)! [sent-31, score-0.489]
+</p><p>10 However, there are consistency issues with concurrent inserts in the B+tree (not with 4-way, as keys don't move), so pre-pend a "permuter" (index list array) to each node, so we can atomically swap keys around. [sent-33, score-0.468]
+</p><p>11 But there is an issue with long keys -- they require multiple memory accesses, and throughput drops rapidly as keys get longer. [sent-34, score-0.398]
+</p><p>12 So they use a Trie of B+trees, with each level (B+tree) responsible for 8 bytes of key length. [sent-35, score-0.058]
+</p><p>13 "Masstree" is the union of all these optimizations (I think), and despite having a trie of B+trees in it, it is 8% more efficient than a single B+tree with all the other optimizations. [sent-37, score-0.159]
+</p><p>14 Masstree uses a single, shared key that is accessed by all cores (presumably using the OCC+versioning techniques they alluded to). [sent-41, score-0.196]
+</p><p>15 They also find that they scale fairly well to 16 cores (about ⅕ drop in performance over perfect scalability). [sent-43, score-0.086]
+</p><p>16 Its design pays particular attention to concurrency and to efﬁciency for short and simple queries. [sent-45, score-0.106]
+</p><p>17 Masstree keeps all data in memory in a tree, with fanout chosen to minimize total DRAM delay when descending the tree with prefetching. [sent-46, score-0.437]
+</p><p>18 The tree is shared among all cores to preserve load balance when key popularities are skewed. [sent-47, score-0.582]
+</p><p>19 It maintains high concurrency using optimistic concurrency control for lookup and local locking for updates. [sent-48, score-0.275]
+</p><p>20 For good performance for keys with long shared preﬁxes, a Masstree consists of a trie-like concatenation of B+ trees, each of the latter supporting only ﬁxed-length keys for efﬁciency. [sent-49, score-0.501]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('masstree', 0.622), ('tree', 0.386), ('keys', 0.199), ('craftiness', 0.187), ('node', 0.137), ('parent', 0.124), ('protected', 0.114), ('concurrency', 0.106), ('trie', 0.106), ('dram', 0.104), ('trees', 0.099), ('cores', 0.086), ('ef', 0.081), ('pointer', 0.078), ('voltdb', 0.073), ('inserts', 0.07), ('optimistic', 0.063), ('arbitrary', 0.062), ('binary', 0.061), ('however', 0.058)]</p>
+<p>[('masstree', 0.622), ('tree', 0.386), ('keys', 0.199), ('craftiness', 0.187), ('node', 0.137), ('parent', 0.124), ('protected', 0.114), ('concurrency', 0.106), ('trie', 0.106), ('dram', 0.104), ('trees', 0.099), ('cores', 0.086), ('ef', 0.081), ('pointer', 0.078), ('voltdb', 0.073), ('inserts', 0.07), ('optimistic', 0.063), ('arbitrary', 0.062), ('binary', 0.061), ('however', 0.058), ('key', 0.058), ('papers', 0.057), ('unbalanced', 0.056), ('xes', 0.056), ('occ', 0.056), ('cation', 0.056), ('sibling', 0.056), ('thelive', 0.056), ('locks', 0.055), ('blog', 0.055), ('modi', 0.053), ('skewed', 0.053), ('union', 0.053), ('paper', 0.052), ('shared', 0.052), ('benchmark', 0.052), ('cache', 0.052), ('turns', 0.051), ('trail', 0.051), ('subsequently', 0.051), ('interior', 0.051), ('border', 0.051), ('concatenation', 0.051), ('descending', 0.051), ('lock', 0.049), ('subsets', 0.049), ('obtaining', 0.049), ('summaries', 0.049), ('checkpointing', 0.049), ('presumably', 0.047)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999982 <a title="1236-tfidf-1" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
 <p>Introduction: TheEuroSys 2012system conference has an excellent live blog summary of their

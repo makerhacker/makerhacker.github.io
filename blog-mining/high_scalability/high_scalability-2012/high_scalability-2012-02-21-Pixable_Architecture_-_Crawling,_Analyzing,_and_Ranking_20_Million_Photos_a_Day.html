@@ -29,9 +29,30 @@ organize, index, and store all the meta-data related to those photos.Sure,
 Pixable's infrastructure is changing continuously, but there are some things
 that we have learned over the last year. As a result, we have been able to
 build a scalable infrastructure that takes advantage of today's tools,
-languages and cloud s</p><br/>
+languages and cloud s</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Pixableaggregates photos from across your different social networks and finds the best ones so you never miss an important moment. [sent-2, score-0.346]
+</p><p>2 That means currently processing the metadata of more than 20 million new photos per day: crawling, analyzing, ranking, and sorting them along with the other 5+ billion that are already stored in our database. [sent-3, score-0.581]
+</p><p>3 Making sense of all that data has challenges, but two in particular rise above the rest:How to access millions of photos per day from Facebook, Twitter, Instagram, and other services in the most efficient manner. [sent-4, score-0.407]
+</p><p>4 To compensate for these load fluctuations, we developed our own auto-scaling technology that forecasts how many servers we need of each type according to the current and historic load for a particular time of the day. [sent-14, score-0.302]
+</p><p>5 Then we launch or terminate instances just to keep the right level of provisioning. [sent-15, score-0.275]
+</p><p>6 So for sudden spikes in traffic, we do some clever launch scheduling of on-demand instances (that launch much faster), and then swapping them out for spot- instances in the next hour. [sent-20, score-0.374]
+</p><p>7 Work queue- jobs for crawling and ranking photos, send notifications and moreVirtually all processing at Pixable is done via an asynchronous job (e. [sent-31, score-0.605]
+</p><p>8 , crawling new photos from different users from Facebook, sending push notifications, calculating friend rankings, etc). [sent-33, score-0.697]
+</p><p>9 We have several dozen worker servers crawling metadata from photos from different services and processing that data. [sent-34, score-0.873]
+</p><p>10 As expected, we have different types of jobs: some with high priority, such as real time user calls, messaging, and crawling photos for currently active users. [sent-36, score-0.838]
+</p><p>11 Lower priority jobs include offline crawling and long data-intensive deferred tasks. [sent-37, score-0.577]
+</p><p>12 by devoting the job server time to the high priority jobs and pausing the lower priority ones when certain sets of conditions on the platform-wide level are met. [sent-41, score-0.459]
+</p><p>13 Some are obvious, such as the average waiting time of jobs or the lag of the slaves (ssshhh, we never have lag on our slaves :-) ), to more complex metrics such as the status of our own PHP synchronization mutex locks for distributed environments. [sent-43, score-0.47]
+</p><p>14 Crawling Engine - crawl new photos across Facebook, Twitter and more 24/7We are constantly improving our crawling technology, which is a complex parallel algorithm that uses a mutex locking library, developed in-house, to synchronize all the processes for a particular user. [sent-45, score-0.997]
+</p><p>15 This algorithm has helped us to improve our Facebook crawling speed by at least 5x since launch. [sent-46, score-0.424]
+</p><p>16 We can now easily fetch in excess of 20 million new photos every day. [sent-47, score-0.404]
+</p><p>17 We'll get deeper into our crawling engine in a subsidiary document. [sent-49, score-0.351]
+</p><p>18 Data Storage - indexing photos and metadataNaturally, our data storage grows every day. [sent-50, score-0.404]
+</p><p>19 Logging, Profiling and AnalyticsWe developed a highly flexible logging and profiling framework that allows us to record events with high granularity --down to a single line of code. [sent-58, score-0.45]
+</p><p>20 On top of that, we can dynamically profile the time between any of the logging events, allowing us to build real-time profiling of our entire system. [sent-62, score-0.294]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('crawling', 0.351), ('photos', 0.346), ('pixable', 0.262), ('developed', 0.156), ('profiling', 0.134), ('frontends', 0.131), ('priority', 0.115), ('amazon', 0.115), ('launch', 0.112), ('jobs', 0.111), ('android', 0.093), ('fluctuations', 0.092), ('metadata', 0.091), ('terminate', 0.088), ('logging', 0.087), ('servers', 0.085), ('mutex', 0.083), ('api', 0.083), ('ranking', 0.079), ('mobile', 0.078)]</p>
+<p>[('crawling', 0.351), ('photos', 0.346), ('pixable', 0.262), ('developed', 0.156), ('profiling', 0.134), ('frontends', 0.131), ('priority', 0.115), ('amazon', 0.115), ('launch', 0.112), ('jobs', 0.111), ('android', 0.093), ('fluctuations', 0.092), ('metadata', 0.091), ('terminate', 0.088), ('logging', 0.087), ('servers', 0.085), ('mutex', 0.083), ('api', 0.083), ('ranking', 0.079), ('mobile', 0.078), ('actual', 0.077), ('lag', 0.075), ('instances', 0.075), ('currently', 0.075), ('priorities', 0.075), ('us', 0.073), ('stored', 0.069), ('tables', 0.068), ('calls', 0.067), ('mongodb', 0.067), ('user', 0.066), ('mysql', 0.065), ('notifications', 0.064), ('facebook', 0.064), ('slaves', 0.063), ('tracking', 0.062), ('virtually', 0.062), ('backend', 0.061), ('particular', 0.061), ('heavily', 0.06), ('php', 0.06), ('endthe', 0.059), ('devoting', 0.059), ('rankings', 0.059), ('pausing', 0.059), ('web', 0.058), ('every', 0.058), ('considering', 0.056), ('loving', 0.056), ('moneyball', 0.056)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000004 <a title="1197-tfidf-1" href="../high_scalability-2012/high_scalability-2012-02-21-Pixable_Architecture_-_Crawling%2C_Analyzing%2C_and_Ranking_20_Million_Photos_a_Day.html">1197 high scalability-2012-02-21-Pixable Architecture - Crawling, Analyzing, and Ranking 20 Million Photos a Day</a></p>
 <p>Introduction: This is a guest post by Alberto Lopez Toledo, PHD, CTO of Pixable, and Julio

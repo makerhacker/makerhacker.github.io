@@ -28,9 +28,19 @@ we need to just store the post IDs of each user feed in Redis and then store
 the rest of the post information somewhere else?  Would love some feedback
 here.  In this case, our iOS app would make an api call to our Rails app to
 retrieve a user's news feed.  Rails app would retrieve news feed list (just
-post IDs) from Redis, and then Rails app would need to query to get the r</p><br/>
+post IDs) from Redis, and then Rails app would need to query to get the r</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 We just released a social section to our iOS app several days ago and we are already facing scaling issues with the users' news feeds. [sent-1, score-0.928]
+</p><p>2 We're basically using a Fan-out-on-write (push) model for the users' news feeds (posts of people and topics they follow) and we're using Redis for this (backend is Rails on Heroku). [sent-2, score-0.629]
+</p><p>3 However, our current 60,000 news feeds is ballooning our Redis store to almost 1GB in a just a few days (it's growing way too fast for our budget). [sent-3, score-0.785]
+</p><p>4 Currently we're storing the entire news feed for the user (post id, post text, author, icon url, etc) and we cap the entries to 300 per feed. [sent-4, score-1.217]
+</p><p>5 I'm wondering if we need to just store the post IDs of each user feed in Redis and then store the rest of the post information somewhere else? [sent-5, score-1.442]
+</p><p>6 In this case, our iOS app would make an api call to our Rails app to retrieve a user's news feed. [sent-7, score-1.02]
+</p><p>7 Rails app would retrieve news feed list (just post IDs) from Redis, and then Rails app would need to query to get the rest of the info for each post. [sent-8, score-1.867]
+</p><p>8 Should we create another Redis store (so at least it's in memory) where we store all of the posts from our DB and we query this to get the post information? [sent-11, score-0.863]
+</p><p>9 Or should we forget Redis and go with MongoDB or Cassandra so we can have higher storage limits? [sent-12, score-0.081]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('redis', 0.379), ('news', 0.331), ('rails', 0.304), ('feed', 0.234), ('app', 0.205), ('retrieve', 0.196), ('post', 0.195), ('store', 0.194), ('ids', 0.187), ('ios', 0.173), ('feeds', 0.153), ('posts', 0.141), ('query', 0.139), ('icon', 0.135), ('db', 0.128), ('rest', 0.109), ('days', 0.107), ('postgres', 0.096), ('entries', 0.096), ('advance', 0.095)]</p>
+<p>[('redis', 0.379), ('news', 0.331), ('rails', 0.304), ('feed', 0.234), ('app', 0.205), ('retrieve', 0.196), ('post', 0.195), ('store', 0.194), ('ids', 0.187), ('ios', 0.173), ('feeds', 0.153), ('posts', 0.141), ('query', 0.139), ('icon', 0.135), ('db', 0.128), ('rest', 0.109), ('days', 0.107), ('postgres', 0.096), ('entries', 0.096), ('advance', 0.095), ('user', 0.089), ('heroku', 0.089), ('author', 0.088), ('info', 0.087), ('budget', 0.086), ('somewhere', 0.085), ('feedback', 0.084), ('would', 0.083), ('wondering', 0.081), ('forget', 0.081), ('cap', 0.08), ('facing', 0.08), ('thanks', 0.075), ('ago', 0.074), ('released', 0.074), ('basically', 0.074), ('url', 0.074), ('text', 0.072), ('topics', 0.071), ('limits', 0.068), ('information', 0.066), ('follow', 0.064), ('calls', 0.061), ('mongodb', 0.061), ('id', 0.06), ('else', 0.057), ('storing', 0.057), ('etc', 0.057), ('love', 0.057), ('section', 0.057)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1303-tfidf-1" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
 <p>Introduction: We just released a social section to our iOS app several days ago and we are
