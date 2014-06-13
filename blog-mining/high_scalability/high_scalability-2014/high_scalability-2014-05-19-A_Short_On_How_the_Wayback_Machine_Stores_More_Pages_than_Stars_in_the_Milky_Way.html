@@ -29,9 +29,30 @@ http://en.wikipedia.org/wiki/Web_ARChive) which is essentially a concatenation
 of separately gzipped records. That is, you can seek to a particular offset
 and start decompressing a record. Thus you could get at any archived web page
 with a triple (server, filename, file-offset) Thus it was spread across a lot
-of commodity g</p><br/>
+of commodity g</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 net/projects/wayback/ ), but as far as the wayback machine, there was no SQL database anywhere in it. [sent-7, score-0.471]
+</p><p>2 For the purposes of making the wayback machine go:Archived data was in ARC file format (predecessor to http://en. [sent-8, score-0.632]
+</p><p>3 org/wiki/Web_ARChive) which is essentially a concatenation of separately gzipped records. [sent-10, score-0.158]
+</p><p>4 An sorted index of all the content was built that would let you lookup (url) and give you a list of times or (url, time) to (filename, file-offset). [sent-13, score-0.544]
+</p><p>5 It was implemented by building a sorted text file (first sorted on the url, second on the time) and sharded across many machines by simply splitting it into N roughly equal sizes. [sent-14, score-0.544]
+</p><p>6 Binary search across a sorted text file is surprisingly fast -- in part because the first few points you look at in the file remain cached in RAM, since you hit them frequently. [sent-15, score-0.395]
+</p><p>7 (Here's where I'm a little rusty) The web frontend would get a request, query the appropriate index machine. [sent-16, score-0.308]
+</p><p>8 ) to find out what server that (unique) filename was on, then it would request the particular record from that server. [sent-18, score-0.223]
+</p><p>9 I know they've done some things to keep the index more current than they did back then. [sent-20, score-0.19]
+</p><p>10 If you want to change the data for that row in the table, you have to write a new file in the filesystem and update the 'pointer'. [sent-28, score-0.146]
+</p><p>11 Playback is accomplished by binary searching a 2-level index of pointers into the WARC data. [sent-32, score-0.367]
+</p><p>12 The second level of this index is a 20TB compressed sorted list of (url, date, pointer) tuples called CDX records[2]. [sent-33, score-0.486]
+</p><p>13 The first level fits in core, and is a 13GB sorted list of every 3000th entry in the CDX index, with a pointer to larger CDX block. [sent-34, score-0.411]
+</p><p>14 Index lookup works by binary searching the first level list stored in core, then HTTP range-request loading the appropriate second-level blocks from the CDX index. [sent-35, score-0.413]
+</p><p>15 org/2013/07/04/metadata-api/sytelusasked: Why not use a hashtable instead of binary search? [sent-46, score-0.121]
+</p><p>16 Some Wayback Machine queries require sorted key traversal: listing all dates for which captures of an URL are available, the discovery of the nearest-date for an URL, and listing all available URLs beginning with a certain URL-prefix. [sent-49, score-0.583]
+</p><p>17 Maintaining the canonically-ordered master index of (URL, date, pointer) - that 20TB second-level index rajbot mentions - allows both kinds of queries to be satisfied. [sent-50, score-0.38]
+</p><p>18 Then loading nearest-date captures for the page's inline resources starts hitting similar ranges, as do followup clicks on outlinks or nearby dates. [sent-54, score-0.205]
+</p><p>19 So even though the master index is still on spinning disk (unless there was a recent big SSD upgrade that escaped my notice), the ranges-being-browsed wind up in main-memory caches quite often. [sent-55, score-0.242]
+</p><p>20 However, the new TV news and search capability requires substantially more space than even the archive IIRC, or certainly is heading that way. [sent-62, score-0.258]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('wayback', 0.471), ('cdx', 0.307), ('sorted', 0.231), ('url', 0.23), ('filename', 0.223), ('index', 0.19), ('warc', 0.184), ('archive', 0.156), ('arc', 0.123), ('binary', 0.121), ('https', 0.117), ('pointer', 0.115), ('captures', 0.093), ('archived', 0.088), ('listing', 0.087), ('dates', 0.085), ('playback', 0.085), ('file', 0.082), ('employee', 0.082), ('machine', 0.079)]</p>
+<p>[('wayback', 0.471), ('cdx', 0.307), ('sorted', 0.231), ('url', 0.23), ('filename', 0.223), ('index', 0.19), ('warc', 0.184), ('archive', 0.156), ('arc', 0.123), ('binary', 0.121), ('https', 0.117), ('pointer', 0.115), ('captures', 0.093), ('archived', 0.088), ('listing', 0.087), ('dates', 0.085), ('playback', 0.085), ('file', 0.082), ('employee', 0.082), ('machine', 0.079), ('ranges', 0.077), ('former', 0.068), ('frontend', 0.065), ('list', 0.065), ('filesystem', 0.064), ('http', 0.063), ('loading', 0.06), ('date', 0.06), ('lookup', 0.058), ('essentially', 0.056), ('fyi', 0.056), ('browsed', 0.056), ('iirc', 0.056), ('brewster', 0.056), ('fathom', 0.056), ('raj', 0.056), ('searching', 0.056), ('appropriate', 0.053), ('followup', 0.052), ('gzipped', 0.052), ('escaped', 0.052), ('predecessor', 0.052), ('milky', 0.052), ('certainly', 0.052), ('thanks', 0.052), ('space', 0.05), ('crawlers', 0.05), ('amenable', 0.05), ('concatenation', 0.05), ('artifact', 0.05)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999976 <a title="1650-tfidf-1" href="../high_scalability-2014/high_scalability-2014-05-19-A_Short_On_How_the_Wayback_Machine_Stores_More_Pages_than_Stars_in_the_Milky_Way.html">1650 high scalability-2014-05-19-A Short On How the Wayback Machine Stores More Pages than Stars in the Milky Way</a></p>
 <p>Introduction: How does the Wayback Machinework? Now with over 400 billion webpages indexed,

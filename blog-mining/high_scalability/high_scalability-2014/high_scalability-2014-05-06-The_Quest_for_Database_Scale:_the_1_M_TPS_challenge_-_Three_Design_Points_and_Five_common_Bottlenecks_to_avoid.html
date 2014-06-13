@@ -29,9 +29,30 @@ goal was to achieve 1 Million database transactions per second per server;
 more than doubling previous performance. This compares to Cassandra's boast of
 1M TPS on over 300 servers in Google Compute Engine - at a cost of $2 million
 dollars per year. Weachieved thiswithout kernel tuning. This article describes
-the three d</p><br/>
+the three d</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 We then used kernel tuning techniques and published therecipefor how we achieved 1 M TPS on $5k of hardware. [sent-6, score-0.24]
+</p><p>2 Our goal was to achieve 1 Million database transactions per second per server; more than doubling previous performance. [sent-8, score-0.222]
+</p><p>3 This article describes the three design points we kept in mind and the five common bottlenecks we avoided to create a simpler recipe you can follow for high performance operations with Aerospike. [sent-11, score-0.338]
+</p><p>4 Three Design PointsAny distributed database system that operates with such intensity must be architected with 3 design points in mind: 1)Stability- is achieved by simplicity and short, understandable code paths. [sent-12, score-0.547]
+</p><p>5 Keeping each function slim and trim goes a long way to making sure the full system operates smoothly even when multiple such layers are stacked over one another. [sent-13, score-0.448]
+</p><p>6 Predicting the actions of your code means having complete control over precisely what the system is doing and painstakingly making sure that all resources are utilized efficiently. [sent-16, score-0.249]
+</p><p>7 In addition, databases don't exist in isolation, they must be architected as part of the full stack, so that the end to end system scales. [sent-25, score-0.253]
+</p><p>8 In an ideal world, the database server should be a single threaded event loop with no context switching - but there are two major drawbacks with this approach. [sent-35, score-0.561]
+</p><p>9 Building such a system as a single event loop makes things massively complicated. [sent-37, score-0.278]
+</p><p>10 Second, parallelizing such a system, going from single core to multi-core requires a lot of logic to be offloaded to the database client. [sent-38, score-0.343]
+</p><p>11 Allowing multi-threaded processes to run over multi- core multi-socket machines however has the problem of shared data moving across multiple NUMA regions. [sent-39, score-0.27]
+</p><p>12 To avoid single core implementations and NUMA overhead, the balanced approach is to build a system that scales by grouping multiple threads per CPU socket instead of per core with a single threaded system. [sent-40, score-0.936]
+</p><p>13 This makes sure no shared data is accessed across multiple NUMA regions and also allows the system to use simpler logical threads. [sent-41, score-0.43]
+</p><p>14 3) Context Switching OverheadIn a multi-threaded system, it is very easy to create a lot of threads, but unless this is done carefully, context switching is where the system bottlenecks. [sent-42, score-0.349]
+</p><p>15 As much as possible, operations should be written single threaded rather than passing requests from one thread to another. [sent-43, score-0.29]
+</p><p>16 4) Memory Bus DelaysThe next big bottleneck is around CPU stalls - when the CPU is not doing anything, waiting for data to be fetched, or because of branch mis-prediction. [sent-44, score-0.217]
+</p><p>17 The way around this problem is toCarefully design data structures to make sure that frequently and commonly accessed data has locality and falls within a single cache line. [sent-45, score-0.233]
+</p><p>18 Such secondary data should always be local to a thread and should be consolidated at query time to avoid unnecessary data movement from one core to another. [sent-49, score-0.225]
+</p><p>19 5) Cross Cluster ChatterFundamental to scaling up and out, the system needs to be near 100% shared nothing - minimizing cross cluster synchronization chatter. [sent-50, score-0.227]
+</p><p>20 Compared to theprevious results, this new recipe saw substantial performance improvements by using Aerospike Community Edition 3. [sent-54, score-0.403]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('tps', 0.31), ('aerospike', 0.29), ('recipe', 0.272), ('dpdk', 0.263), ('numa', 0.237), ('branch', 0.131), ('threaded', 0.124), ('system', 0.107), ('switching', 0.105), ('kernel', 0.098), ('single', 0.098), ('database', 0.088), ('core', 0.088), ('bottleneck', 0.086), ('architected', 0.084), ('sure', 0.076), ('operates', 0.075), ('context', 0.073), ('loop', 0.073), ('achieved', 0.072)]</p>
+<p>[('tps', 0.31), ('aerospike', 0.29), ('recipe', 0.272), ('dpdk', 0.263), ('numa', 0.237), ('branch', 0.131), ('threaded', 0.124), ('system', 0.107), ('switching', 0.105), ('kernel', 0.098), ('single', 0.098), ('database', 0.088), ('core', 0.088), ('bottleneck', 0.086), ('architected', 0.084), ('sure', 0.076), ('operates', 0.075), ('context', 0.073), ('loop', 0.073), ('achieved', 0.072), ('million', 0.071), ('published', 0.07), ('logic', 0.069), ('avoid', 0.069), ('thread', 0.068), ('balanced', 0.068), ('per', 0.067), ('simpler', 0.066), ('boast', 0.066), ('overheadthe', 0.066), ('painstakingly', 0.066), ('theprevious', 0.066), ('irqbalance', 0.066), ('slim', 0.066), ('utilization', 0.065), ('saw', 0.065), ('unless', 0.064), ('must', 0.062), ('trim', 0.062), ('russ', 0.062), ('indication', 0.062), ('multiple', 0.062), ('cpu', 0.061), ('shared', 0.06), ('moving', 0.06), ('cross', 0.06), ('accessed', 0.059), ('rdbmss', 0.059), ('intensity', 0.059), ('kit', 0.059)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9999997 <a title="1643-tfidf-1" href="../high_scalability-2014/high_scalability-2014-05-06-The_Quest_for_Database_Scale%3A_the_1_M_TPS_challenge_-_Three_Design_Points_and_Five_common_Bottlenecks_to_avoid.html">1643 high scalability-2014-05-06-The Quest for Database Scale: the 1 M TPS challenge - Three Design Points and Five common Bottlenecks to avoid</a></p>
 <p>Introduction: This a guest post byRajkumar Iyer, a Member of Technical Staff at

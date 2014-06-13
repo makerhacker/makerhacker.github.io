@@ -29,9 +29,30 @@ amount of data from day one, since a main feature of serendip is that it
 collectsevery piece of music being shared on Twitterfrom public music
 services. So when we approached the question of choosing the language and
 technologies to use, an important consideration was the ability to scale.The
-JVM seemed the right basis fo</p><br/>
+JVM seemed the right basis fo</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 me, on the architecture and scaling considerations behind making a startup music service. [sent-2, score-0.523]
+</p><p>2 meis a social music service that helps people discover great music shared by their friends, and also introduces them to their "music soulmates" \- people outside their immediate social circle that shares a similar taste in music. [sent-4, score-1.424]
+</p><p>3 Choosing the stackOne of the challenges of building serendip was the need to handle a large amount of data from day one, since a main feature of serendip is that it collectsevery piece of music being shared on Twitterfrom public music services. [sent-6, score-1.657]
+</p><p>4 When we looked at the JVM ecosystem, scala stood out as an interesting language option that allowed a modern approach to writing code, while keeping full interoperability with Java. [sent-10, score-0.295]
+</p><p>5 Its dynamic indexing schema and the many search and faceting possibilities it provides allowed us to build many features on top of it, making it a central component in our architecture. [sent-23, score-0.309]
+</p><p>6 Some numbersSerendip's "pump" (the part that processes the Twitter public stream and Facebook user feeds)digests around 5,000,000 items per day. [sent-28, score-0.285]
+</p><p>7 These items are passed through a series of "filters" that detect and resolve music links from supported services (YouTube, Soundcloud, Bandcamp etc. [sent-29, score-0.697]
+</p><p>8 The pump and filters are running as akka actors, and the whole process is managed by a singlem1. [sent-31, score-0.234]
+</p><p>9 Out of these items we get around 850,000 valid items per day (that is items that really contains relevant music links). [sent-34, score-1.102]
+</p><p>10 Building a feedWhen we started designing the architecture for serendip's main music feed, we knew we wanted the feed to be dynamic and reactive to user actions and input. [sent-46, score-0.912]
+</p><p>11 If a user "dislikes" an artist, we should not play that music again. [sent-48, score-0.65]
+</p><p>12 We also wanted the feed to be a combination of music from several sources, like the music shared by friends, music by favorite artists and music shared by "suggested" users that have the same musical taste. [sent-49, score-2.908]
+</p><p>13 The set of features Elasticsearch provides allowed us to build this kind of real-time feed generation. [sent-52, score-0.391]
+</p><p>14 The feed algorithm consists of several "strategies" for selecting items which are combined dynamically with different ratios on every feed fetch. [sent-53, score-0.651]
+</p><p>15 The combination of strategies is translated to several searches on the live data that is constantly indexed by Elasticsearch. [sent-55, score-0.277]
+</p><p>16 As part of the constant social stream processing, the system is preparing data by calculating the top shared artists for social network users it encounters (using a faceted search on their shared music). [sent-61, score-0.581]
+</p><p>17 When a serendip user gives out a signal (either by airing music or interacting with the feed), it can trigger a re-calculating of the music soulmates for that user. [sent-62, score-1.573]
+</p><p>18 The algorithm finds other users that are top matched according to the list of favorite artists (which is constantly updated), weighing in additional parameters like popularity, number of shares etc. [sent-63, score-0.235]
+</p><p>19 It then applies another set of algorithms to filter out spammers (yes, there are music spammersâ&euro;Ś) and outliers. [sent-64, score-0.6]
+</p><p>20 We found out that this process gives us good enough results while saving us from needing additional systems that can run more complex clustering or recommendation algorithms. [sent-65, score-0.239]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('music', 0.523), ('serendip', 0.262), ('elasticsearch', 0.213), ('feed', 0.206), ('mongodb', 0.179), ('items', 0.174), ('soulmates', 0.157), ('artists', 0.111), ('searches', 0.105), ('serverdensity', 0.105), ('akka', 0.101), ('scala', 0.1), ('shared', 0.087), ('wanted', 0.079), ('spammers', 0.077), ('pump', 0.075), ('musical', 0.075), ('language', 0.075), ('play', 0.074), ('beanstalk', 0.074)]</p>
+<p>[('music', 0.523), ('serendip', 0.262), ('elasticsearch', 0.213), ('feed', 0.206), ('mongodb', 0.179), ('items', 0.174), ('soulmates', 0.157), ('artists', 0.111), ('searches', 0.105), ('serverdensity', 0.105), ('akka', 0.101), ('scala', 0.1), ('shared', 0.087), ('wanted', 0.079), ('spammers', 0.077), ('pump', 0.075), ('musical', 0.075), ('language', 0.075), ('play', 0.074), ('beanstalk', 0.074), ('top', 0.073), ('artist', 0.07), ('taste', 0.07), ('scaled', 0.068), ('allowed', 0.068), ('enough', 0.068), ('several', 0.065), ('elastic', 0.061), ('deployed', 0.06), ('pretty', 0.06), ('provides', 0.059), ('us', 0.058), ('filters', 0.058), ('stream', 0.058), ('valid', 0.057), ('indexed', 0.057), ('social', 0.057), ('mainly', 0.057), ('actors', 0.056), ('also', 0.056), ('gives', 0.055), ('hosted', 0.055), ('seemed', 0.054), ('counters', 0.053), ('user', 0.053), ('looked', 0.052), ('actions', 0.051), ('shares', 0.051), ('search', 0.051), ('combination', 0.05)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999976 <a title="1609-tfidf-1" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
 <p>Introduction: This is aguest repostbyRotem Hermon, former Chief Architect forserendip.me, on

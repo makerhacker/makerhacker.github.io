@@ -29,9 +29,30 @@ to serve the billions of smartphones that will soon be a reality around the
 globe? The Erlang/FreeBSD-based server infrastructure at WhatsApp. We've faced
 many challenges in meeting the ever-growing demand for our messaging services,
 but as we continue to push the envelope on size (>8000 cores) and speed (>70M
-Erlang message</p><br/>
+Erlang message</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 19B messages in & 40B out per day600M pics, 200M voice, 100M videos147M peak concurrent connections - phones connected to the systems230K peak logins/sec - phones connecting and disconnecting342K peak msgs in/sec, 712K out~10 team member works on Erlang and they handle both development and ops. [sent-33, score-0.861]
+</p><p>2 146Gb/s out (Christmas Eve), quite a bit of bandwidth going out to phones360M videos downloaded (Christmas Even)2B pics downloaded (46k/s) (New Years Eve)1 pic downloaded 32M times (New Years Eve)StackErlang R16B01 (plus their own patches)FreeBSD 9. [sent-35, score-0.278]
+</p><p>3 Run at 1 million connections per server instead of the two million connections per server they did two years ago, generally because the servers are a lot busier:With more users they want to run with more head room on each server to soak up peak loads. [sent-56, score-0.742]
+</p><p>4 If a node or network connecting nodes runs into trouble, it can block work in an application. [sent-71, score-0.294]
+</p><p>5 So when sending to different nodes the messages are given to differentprocs(lightweight concurrency in Erlang) so only messages destined for a problem node are backed up. [sent-72, score-0.685]
+</p><p>6 This allows messages to healthy nodes to flow freely. [sent-73, score-0.307]
+</p><p>7 Patched mnesia to do this well at async_dirty replication time. [sent-75, score-0.435]
+</p><p>8 Example: two main clusters in two datacenters, two multimedia clusters in two different datacenters, and a shared global cluster between the two datacenters. [sent-82, score-0.565]
+</p><p>9 In Erlang, handle_call blocks for a response and messages are queued up, handle_cast doesn't block because the result of the operation isn't of interest. [sent-87, score-0.317]
+</p><p>10 At a certain load the dispatch process itself became a bottleneck and not just because of the execute time. [sent-96, score-0.359]
+</p><p>11 There's a high fan-in with a lot of nodes feeding into the dispatch process for a box, the locks on the process become a bottleneck with the distribution ports coming in and the process itself. [sent-97, score-0.607]
+</p><p>12 So created a gen_industry, a layer above gen_factory, so that there are multiple dispatch procs which allows for the parallelization of all the input coming into the box as well as the dispatch to the workers themselves. [sent-98, score-0.508]
+</p><p>13 Generally try to limit the number of procs that access a singleets(built-in term storage) or single mnesia fragment to 8. [sent-107, score-0.651]
+</p><p>14 Each mnesia fragment is only being written to or read from at the application level on one node, which allows replication streams that only go in one direction. [sent-112, score-0.515]
+</p><p>15 Patch to allow the mnesia library directory to be split over multiple libraries, which means it could be written to multiple drives, which increases throughput to the disk. [sent-115, score-0.599]
+</p><p>16 Gives better opportunity to support schema operations under load because there's only two nodes that have to complete the schema operation. [sent-121, score-0.397]
+</p><p>17 Slow access to mnesia table with lots of fragmentsThe account table as 512 fragments which are partitioned into the islands, which means there's a sparse mapping of users to these 512 fragments. [sent-138, score-0.518]
+</p><p>18 With a few million connections into a single host and each of those is setting and resetting a timer whenever something happens with a particular phone, the results is hundreds of thousands of timer sets and resets per second. [sent-145, score-0.495]
+</p><p>19 Some clusters span a continent, so mnesia should load from a nearby node rather than across the country. [sent-152, score-0.616]
+</p><p>20 Can't complete a schema operation with dumps pending so if a lot of dumps are queued it wasn't possible to do schema ops. [sent-157, score-0.312]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('mnesia', 0.435), ('erlang', 0.225), ('multimedia', 0.2), ('messages', 0.186), ('dispatch', 0.159), ('procs', 0.136), ('timer', 0.135), ('phones', 0.134), ('partitions', 0.131), ('nodes', 0.121), ('connections', 0.114), ('node', 0.11), ('eve', 0.108), ('islands', 0.091), ('fragments', 0.083), ('whatsapp', 0.083), ('sending', 0.082), ('wandist', 0.08), ('fragment', 0.08), ('peak', 0.079)]</p>
+<p>[('mnesia', 0.435), ('erlang', 0.225), ('multimedia', 0.2), ('messages', 0.186), ('dispatch', 0.159), ('procs', 0.136), ('timer', 0.135), ('phones', 0.134), ('partitions', 0.131), ('nodes', 0.121), ('connections', 0.114), ('node', 0.11), ('eve', 0.108), ('islands', 0.091), ('fragments', 0.083), ('whatsapp', 0.083), ('sending', 0.082), ('wandist', 0.08), ('fragment', 0.08), ('peak', 0.079), ('rick', 0.078), ('coupling', 0.076), ('two', 0.073), ('ets', 0.072), ('flapping', 0.072), ('blocking', 0.072), ('downloaded', 0.071), ('load', 0.071), ('io', 0.069), ('queued', 0.068), ('years', 0.067), ('distribution', 0.066), ('process', 0.066), ('schema', 0.066), ('pics', 0.065), ('bottleneck', 0.063), ('block', 0.063), ('async', 0.062), ('fifo', 0.061), ('beam', 0.059), ('patched', 0.058), ('throughput', 0.056), ('dumps', 0.056), ('per', 0.056), ('smp', 0.055), ('million', 0.055), ('problems', 0.055), ('multiple', 0.054), ('boxes', 0.054), ('christmas', 0.054)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999976 <a title="1622-tfidf-1" href="../high_scalability-2014/high_scalability-2014-03-31-How_WhatsApp_Grew_to_Nearly_500_Million_Users%2C_11%2C000_cores%2C_and_70_Million_Messages_a_Second.html">1622 high scalability-2014-03-31-How WhatsApp Grew to Nearly 500 Million Users, 11,000 cores, and 70 Million Messages a Second</a></p>
 <p>Introduction: When we lastvisited WhatsAppthey'd just been acquired by Facebook for $19

@@ -29,9 +29,26 @@ realtime service is a hybrid of CPU intensive tasks + lots of network IO.
 Gevent was handling the network IO without an issue, but at higher contention,
 the CPU was choking everything. Switching over to Go removed that contention,
 which was the primary issue that was being seen.Still runs on 5 machines Nginx
-machin</p><br/>
+machin</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Our last article on Disqus: How Disqus Went Realtime With 165K Messages Per Second And Less Than . [sent-1, score-0.062]
+</p><p>2 2 Seconds Latency, was a little out of date, but the folks at Disqus have been busy implementing, not talking, so we don't know a lot about what they are doing now, but we do have a short update in C1MM and NGINXby John Watson and an article Trying out this Go thing. [sent-2, score-0.062]
+</p><p>3 3 billion unique visitors10 billion page views500 million users engaged in discussions3 million communities25 million commentsThey are still all about realtime, but Go replaced Python in their Realtime system:Original Realtime backend was written in a pretty lightweight Python + gevent. [sent-4, score-0.442]
+</p><p>4 The realtime service is a hybrid of CPU intensive tasks + lots of network IO. [sent-5, score-0.589]
+</p><p>5 Gevent was handling the network IO without an issue, but at higher contention, the CPU was choking everything. [sent-6, score-0.073]
+</p><p>6 Switching over to Go removed that contention, which was the primary issue that was being seen. [sent-7, score-0.093]
+</p><p>7 On a normal day each machine sees 3200 connections/s, 1 million connections, 150K packets/s TX and 130K packets/s RX, 150 mbits/s TX and 80 mbits/s RC, with <15ms delay end-to-end (which is faster than Javascript can render a comment)Had many issues with resource exhaustion at first. [sent-11, score-0.391]
+</p><p>8 The configuration for Nginx and the OS are given that help alleviate the problems, tuning them to handle a scenario with many connections moving little data. [sent-12, score-0.163]
+</p><p>9 Using 10 gigabit network interface cards helped a lot. [sent-14, score-0.32]
+</p><p>10 Enabling gzip helped a lot, but Nginx preallocates a lot of memory per connection for gzip, but since comments are small this was overkill. [sent-15, score-0.29]
+</p><p>11 As message rates increased, at peak processing 10k+ messages per second, the machines maxed out, and end-to-end latency went to seconds and minutes in the worst case. [sent-17, score-0.568]
+</p><p>12 Liked Go because of its performance, native concurrency, and familiarity for Python programmers. [sent-19, score-0.078]
+</p><p>13 In only a week a replacement system was built with impressive results:End-to-end latency is on average, less than 10ms. [sent-20, score-0.143]
+</p><p>14 Node was not selected because it does not handle CPU intensive tasks wellGo does not directly access the database. [sent-23, score-0.257]
+</p><p>15 It consumes a queue from RabbitMQ and publishes to the Nginx frontends. [sent-24, score-0.178]
+</p><p>16 In the end, having a faster product yields its own benefits as well. [sent-29, score-0.072]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('disqus', 0.472), ('realtime', 0.324), ('nginx', 0.266), ('tx', 0.203), ('gzip', 0.179), ('python', 0.131), ('eventsource', 0.113), ('helped', 0.111), ('contention', 0.109), ('intensive', 0.107), ('exhaustion', 0.101), ('rx', 0.101), ('gevent', 0.101), ('go', 0.1), ('million', 0.098), ('publishes', 0.094), ('issue', 0.093), ('machines', 0.091), ('websocket', 0.09), ('seconds', 0.088)]</p>
+<p>[('disqus', 0.472), ('realtime', 0.324), ('nginx', 0.266), ('tx', 0.203), ('gzip', 0.179), ('python', 0.131), ('eventsource', 0.113), ('helped', 0.111), ('contention', 0.109), ('intensive', 0.107), ('exhaustion', 0.101), ('rx', 0.101), ('gevent', 0.101), ('go', 0.1), ('million', 0.098), ('publishes', 0.094), ('issue', 0.093), ('machines', 0.091), ('websocket', 0.09), ('seconds', 0.088), ('engaged', 0.086), ('maxed', 0.086), ('tasks', 0.085), ('watson', 0.084), ('alleviate', 0.084), ('consumes', 0.084), ('messages', 0.083), ('went', 0.081), ('connections', 0.079), ('cpu', 0.078), ('forever', 0.078), ('familiarity', 0.078), ('throwing', 0.077), ('latency', 0.077), ('network', 0.073), ('yields', 0.072), ('consuming', 0.07), ('gigabit', 0.07), ('polling', 0.069), ('articleson', 0.069), ('rabbitmq', 0.069), ('render', 0.066), ('replacement', 0.066), ('cards', 0.066), ('selected', 0.065), ('delay', 0.064), ('article', 0.062), ('sees', 0.062), ('worst', 0.062), ('lightweight', 0.062)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1644-tfidf-1" href="../high_scalability-2014/high_scalability-2014-05-07-Update_on_Disqus%3A_It%27s_Still_About_Realtime%2C_But_Go_Demolishes_Python.html">1644 high scalability-2014-05-07-Update on Disqus: It's Still About Realtime, But Go Demolishes Python</a></p>
 <p>Introduction: Our last article on Disqus: How Disqus Went Realtime With 165K Messages Per
