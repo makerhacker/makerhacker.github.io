@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2009" href="../home/high_scalability-2009_home.html">high_scalability-2009</a> <a title="high_scalability-2009-558" href="#">high_scalability-2009-558</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-558-html" href="http://highscalability.com//blog/2009/4/7/how-do-you-monitor-the-performance-of-your-cluster.html">html</a></p><p>Introduction: I had posted a note the other day about collectl and its ganglia interface but
+perhaps I wasn't provocative enough to get any responses so let me ask it a
+different way, specifically how do people monitor their clusters and more
+importantly how often? Do you monitor to get a general sense of what the
+system is doing OR do you monitor with the expectation that when something
+goes wrong you'll have enough data to diagnose the problem? Or both? I suspect
+both...Many cluster-based monitoring tools tend to have a data collection
+daemon running on each target node which periodically sends data to some
+central management station. That machine typically writes the data to some
+database from which it can then extract historical plots. Some even put up
+graphics in real-time.From my experience working with large clusters - and I'm
+talking either many hundreds or even 1000s of nodes, most have to limit both
+the amount of data they manage centrally as well as the frequency that they
+collect it, oth</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('collectl', 0.503), ('ganglia', 0.267), ('central', 0.219), ('accuracy', 0.208), ('sar', 0.2), ('frequency', 0.186), ('monitor', 0.164), ('station', 0.159), ('samples', 0.152), ('interface', 0.137), ('clusters', 0.113), ('sample', 0.11), ('data', 0.105), ('monitoring', 0.104), ('tenths', 0.1), ('minutes', 0.096), ('realize', 0.095), ('provocative', 0.09), ('infrequent', 0.09), ('overarching', 0.087)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000001 <a title="558-tfidf-1" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
+<p>Introduction: I had posted a note the other day about collectl and its ganglia interface but
+perhaps I wasn't provocative enough to get any responses so let me ask it a
+different way, specifically how do people monitor their clusters and more
+importantly how often? Do you monitor to get a general sense of what the
+system is doing OR do you monitor with the expectation that when something
+goes wrong you'll have enough data to diagnose the problem? Or both? I suspect
+both...Many cluster-based monitoring tools tend to have a data collection
+daemon running on each target node which periodically sends data to some
+central management station. That machine typically writes the data to some
+database from which it can then extract historical plots. Some even put up
+graphics in real-time.From my experience working with large clusters - and I'm
+talking either many hundreds or even 1000s of nodes, most have to limit both
+the amount of data they manage centrally as well as the frequency that they
+collect it, oth</p><p>2 0.36072877 <a title="558-tfidf-2" href="../high_scalability-2009/high_scalability-2009-04-03-Collectl_interface_to_Ganglia_-_any_interest%3F.html">553 high scalability-2009-04-03-Collectl interface to Ganglia - any interest?</a></p>
+<p>Introduction: It's been awhile since I've said anything about collectl and I wanted to let
+this group know I'm currently working on an interface to ganglia since I've
+seen a variety of posts ranging from how much data to log and where to log it
+as well as which tools/mechanism to use for logging. From my perspective there
+are essentially 2 camps on the monitoring front - one says to have distributed
+agents all sending their data to a central point, but don't send too much or
+too often. The other camp (which is the one I'm in) says do it all locally
+with a highly efficient data collector, because you need a lot of data (I also
+read a post in here about logging everything) and you can't possibly monitors
+100s or 1Ks of nodes remotely at the granularity necessary to get anything
+meaningful.Enter collectl and its evolving interface for ganglia. This will
+allow you to log lots of detailed data on local nodes at the usual 10 sec
+interval (or more frequent if you prefer) at about 0.1% system overhead while</p><p>3 0.27954027 <a title="558-tfidf-3" href="../high_scalability-2011/high_scalability-2011-08-25-Colmux_-_Finding_Memory_Leaks%2C_High_I-O_Wait_Times%2C_and_Hotness_on_3000_Node_Clusters.html">1104 high scalability-2011-08-25-Colmux - Finding Memory Leaks, High I-O Wait Times, and Hotness on 3000 Node Clusters</a></p>
+<p>Introduction: Todd had originally posted an entry oncollectlhere atCollectl - Performance
+Data Collector. Collectl collects real-time data from a large number of
+subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory,
+network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool
+and in one consistent format.Since then a lot has happened.  It's now part of
+both Fedora and Debian distros, not to mention several others. There has also
+been a pretty good summary written up byJoe Brockmeier. It's also pretty well
+documented (I like to think) onsourceforge. There have also been a few blog
+postings by Martin Bachon his blog.Anyhow, awhile back I released a new
+version of collectl-utils and gave a complete face-lift to one of the
+utilities, colmux, which is a collectl multiplexor.  This tool has the ability
+to run collectl on multiple systems, which in turn send all their output back
+to colmux.  Colmux then sorts the output on a user-specified column and
+reports the 'top-n'</p><p>4 0.23210011 <a title="558-tfidf-4" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
+<p>Introduction: From theirwebsite:There are a number of times in which you find yourself
+needing performance data. These can include benchmarking, monitoring a
+system's general heath or trying to determine what your system was doing at
+some time in the past. Sometimes you just want to know what the system is
+doing right now. Depending on what you're doing, you often end up using
+different tools, each designed to for that specific situation. Features
+include:You are be able to run with non-integral sampling
+intervals.Collectluses very little CPU. In fact it has been measured to use
+<0.1% when run as a daemon using the default sampling interval of 60 seconds
+for process and slab data and 10 seconds for everything else.Brief, verbose,
+and plot formats are supported.You can report aggregated performance numbers
+on many devices such as CPUs, Disks, interconnects such as Infiniband or
+Quadrics, Networks or even Lustre file systems.Collectl will align its
+sampling on integral second boundaries.Supports proce</p><p>5 0.1593148 <a title="558-tfidf-5" href="../high_scalability-2009/high_scalability-2009-10-09-Have_you_collectl%27d_yet%3F__If_not%2C_maybe_collectl-utils_will_make_it_easier_to_do_so.html">719 high scalability-2009-10-09-Have you collectl'd yet?  If not, maybe collectl-utils will make it easier to do so</a></p>
+<p>Introduction: I'm not sure how many people who follow this have even tried collectl but I
+wanted to let you all know that I just released a set of utilities called
+strangely enough collectl-utils, which you can get athttp://collectl-
+utils.sourceforge.net. One web-based utility called colplot gives you the
+ability to very easily plot data from multiple systems in a way that makes
+correlating them over time very easy.Another utility called colmux lets you
+look at multiple systems in real time. In fact if you go the page that
+describes it in more detail you'll see a photo which shows the CPU loads on
+192 systems one a second, one set of data/line! in fact the display so wide it
+takes 3 large monitors side-by-side to see it all and even though you can't
+actually read the displays you can easily see which systems are loaded and
+which aren't.Anyhow give it a look and let me know what you think.-mark</p><p>6 0.099363215 <a title="558-tfidf-6" href="../high_scalability-2013/high_scalability-2013-10-15-Sponsored_Post%3A_Apple%2C_ScaleOut%2C_FreeAgent%2C_CloudStats.me%2C_Intechnica%2C_Couchbase%2C_MongoDB%2C_Stackdriver%2C_BlueStripe%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1532 high scalability-2013-10-15-Sponsored Post: Apple, ScaleOut, FreeAgent, CloudStats.me, Intechnica, Couchbase, MongoDB, Stackdriver, BlueStripe, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>7 0.097809844 <a title="558-tfidf-7" href="../high_scalability-2013/high_scalability-2013-09-03-Sponsored_Post%3A_Apple%2C_Couchbase%2C_Evernote%2C_10gen%2C_Stackdriver%2C_BlueStripe%2C_Surge%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1510 high scalability-2013-09-03-Sponsored Post: Apple, Couchbase, Evernote, 10gen, Stackdriver, BlueStripe, Surge, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>8 0.097642235 <a title="558-tfidf-8" href="../high_scalability-2013/high_scalability-2013-09-17-Sponsored_Post%3A_Apple%2C_Couchbase%2C_Evernote%2C_MongoDB%2C_Stackdriver%2C_BlueStripe%2C_Surge%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1518 high scalability-2013-09-17-Sponsored Post: Apple, Couchbase, Evernote, MongoDB, Stackdriver, BlueStripe, Surge, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>9 0.095298566 <a title="558-tfidf-9" href="../high_scalability-2014/high_scalability-2014-02-18-Sponsored_Post%3A_Couchbase%2C_Tokutek%2C_Logentries%2C_Booking%2C_Apple%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1598 high scalability-2014-02-18-Sponsored Post: Couchbase, Tokutek, Logentries, Booking, Apple, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
+<p>10 0.094693787 <a title="558-tfidf-10" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
+<p>11 0.094673648 <a title="558-tfidf-11" href="../high_scalability-2014/high_scalability-2014-04-29-Sponsored_Post%3A_Apple%2C_Wargaming.net%2C_PagerDuty%2C_HelloSign%2C_CrowdStrike%2C_Gengo%2C_ScaleOut_Software%2C_Couchbase%2C_Tokutek%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1639 high scalability-2014-04-29-Sponsored Post: Apple, Wargaming.net, PagerDuty, HelloSign, CrowdStrike, Gengo, ScaleOut Software, Couchbase, Tokutek, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
+<p>12 0.093232855 <a title="558-tfidf-12" href="../high_scalability-2014/high_scalability-2014-02-04-Sponsored_Post%3A_Logentries%2C_Booking%2C_Apple%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1590 high scalability-2014-02-04-Sponsored Post: Logentries, Booking, Apple, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
+<p>13 0.092783391 <a title="558-tfidf-13" href="../high_scalability-2013/high_scalability-2013-10-01-Sponsored_Post%3A_Apple%2C_Intechnica%2C_Couchbase%2C_MongoDB%2C_Stackdriver%2C_BlueStripe%2C_Surge%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1525 high scalability-2013-10-01-Sponsored Post: Apple, Intechnica, Couchbase, MongoDB, Stackdriver, BlueStripe, Surge, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>14 0.092762761 <a title="558-tfidf-14" href="../high_scalability-2013/high_scalability-2013-10-29-Sponsored_Post%3A_Apple%2C_NuoDB%2C_ScaleOut%2C_FreeAgent%2C_CloudStats.me%2C_Intechnica%2C_MongoDB%2C_Stackdriver%2C_BlueStripe%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1539 high scalability-2013-10-29-Sponsored Post: Apple, NuoDB, ScaleOut, FreeAgent, CloudStats.me, Intechnica, MongoDB, Stackdriver, BlueStripe, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>15 0.09177506 <a title="558-tfidf-15" href="../high_scalability-2013/high_scalability-2013-04-30-Sponsored_Post%3A_Spotify%2C_Evernote%2C_Surge%2C_Rackspace%2C_Simple%2C_Amazon%2C_Booking%2C_aiCache%2C_Aerospike%2C_Percona%2C_ScaleOut%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1449 high scalability-2013-04-30-Sponsored Post: Spotify, Evernote, Surge, Rackspace, Simple, Amazon, Booking, aiCache, Aerospike, Percona, ScaleOut, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>16 0.091617405 <a title="558-tfidf-16" href="../high_scalability-2013/high_scalability-2013-11-12-Sponsored_Post%3A_Klout%2C_Apple%2C_NuoDB%2C_ScaleOut%2C_FreeAgent%2C_CloudStats.me%2C_Intechnica%2C_MongoDB%2C_Stackdriver%2C_BlueStripe%2C_Booking%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1547 high scalability-2013-11-12-Sponsored Post: Klout, Apple, NuoDB, ScaleOut, FreeAgent, CloudStats.me, Intechnica, MongoDB, Stackdriver, BlueStripe, Booking, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>17 0.091000907 <a title="558-tfidf-17" href="../high_scalability-2012/high_scalability-2012-01-31-Sponsored_Post%3A_aiCache%2C_Next_Big_Sound%2C_ElasticHosts%2C_Red_5_Studios%2C_Attribution_Modeling%2C_Logic_Monitor%2C_New_Relic%2C_AppDynamics%2C_CloudSigma%2C_ManageEngine%2C_Site24x7.html">1185 high scalability-2012-01-31-Sponsored Post: aiCache, Next Big Sound, ElasticHosts, Red 5 Studios, Attribution Modeling, Logic Monitor, New Relic, AppDynamics, CloudSigma, ManageEngine, Site24x7</a></p>
+<p>18 0.090164028 <a title="558-tfidf-18" href="../high_scalability-2013/high_scalability-2013-04-02-Sponsored_Post%3A_Rackspace%2C_Simple%2C_Fitbit%2C_Amazon%2C_Booking%2C_aiCache%2C_Aerospike%2C_Percona%2C_ScaleOut%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1433 high scalability-2013-04-02-Sponsored Post: Rackspace, Simple, Fitbit, Amazon, Booking, aiCache, Aerospike, Percona, ScaleOut, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>19 0.090087079 <a title="558-tfidf-19" href="../high_scalability-2013/high_scalability-2013-12-24-Sponsored_Post%3A_Netflix%2C_Logentries%2C_Host_Color%2C_Booking%2C_Spokeo%2C_Apple%2C_ScaleOut%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1569 high scalability-2013-12-24-Sponsored Post: Netflix, Logentries, Host Color, Booking, Spokeo, Apple, ScaleOut, MongoDB, BlueStripe, AiScaler, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>20 0.08988373 <a title="558-tfidf-20" href="../high_scalability-2013/high_scalability-2013-12-10-Sponsored_Post%3A_Booking%2C_Spokeo%2C_Apple%2C_NuoDB%2C_ScaleOut%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1562 high scalability-2013-12-10-Sponsored Post: Booking, Spokeo, Apple, NuoDB, ScaleOut, MongoDB, BlueStripe, AiScaler, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.163), (1, 0.011), (2, -0.015), (3, -0.01), (4, 0.009), (5, 0.026), (6, 0.085), (7, 0.047), (8, 0.016), (9, -0.025), (10, -0.017), (11, 0.046), (12, 0.018), (13, -0.013), (14, 0.077), (15, -0.002), (16, 0.024), (17, 0.027), (18, -0.041), (19, 0.004), (20, 0.001), (21, -0.008), (22, 0.004), (23, 0.056), (24, 0.011), (25, -0.017), (26, -0.001), (27, 0.018), (28, -0.05), (29, -0.002), (30, -0.027), (31, -0.066), (32, 0.034), (33, 0.022), (34, -0.016), (35, 0.052), (36, 0.042), (37, -0.067), (38, -0.024), (39, 0.044), (40, -0.014), (41, -0.006), (42, 0.0), (43, 0.013), (44, 0.036), (45, 0.105), (46, -0.016), (47, -0.013), (48, 0.022), (49, 0.003)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.88832194 <a title="558-lsi-1" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
+<p>Introduction: I had posted a note the other day about collectl and its ganglia interface but
+perhaps I wasn't provocative enough to get any responses so let me ask it a
+different way, specifically how do people monitor their clusters and more
+importantly how often? Do you monitor to get a general sense of what the
+system is doing OR do you monitor with the expectation that when something
+goes wrong you'll have enough data to diagnose the problem? Or both? I suspect
+both...Many cluster-based monitoring tools tend to have a data collection
+daemon running on each target node which periodically sends data to some
+central management station. That machine typically writes the data to some
+database from which it can then extract historical plots. Some even put up
+graphics in real-time.From my experience working with large clusters - and I'm
+talking either many hundreds or even 1000s of nodes, most have to limit both
+the amount of data they manage centrally as well as the frequency that they
+collect it, oth</p><p>2 0.83049589 <a title="558-lsi-2" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
+<p>Introduction: From theirwebsite:There are a number of times in which you find yourself
+needing performance data. These can include benchmarking, monitoring a
+system's general heath or trying to determine what your system was doing at
+some time in the past. Sometimes you just want to know what the system is
+doing right now. Depending on what you're doing, you often end up using
+different tools, each designed to for that specific situation. Features
+include:You are be able to run with non-integral sampling
+intervals.Collectluses very little CPU. In fact it has been measured to use
+<0.1% when run as a daemon using the default sampling interval of 60 seconds
+for process and slab data and 10 seconds for everything else.Brief, verbose,
+and plot formats are supported.You can report aggregated performance numbers
+on many devices such as CPUs, Disks, interconnects such as Infiniband or
+Quadrics, Networks or even Lustre file systems.Collectl will align its
+sampling on integral second boundaries.Supports proce</p><p>3 0.81087655 <a title="558-lsi-3" href="../high_scalability-2011/high_scalability-2011-08-25-Colmux_-_Finding_Memory_Leaks%2C_High_I-O_Wait_Times%2C_and_Hotness_on_3000_Node_Clusters.html">1104 high scalability-2011-08-25-Colmux - Finding Memory Leaks, High I-O Wait Times, and Hotness on 3000 Node Clusters</a></p>
+<p>Introduction: Todd had originally posted an entry oncollectlhere atCollectl - Performance
+Data Collector. Collectl collects real-time data from a large number of
+subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory,
+network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool
+and in one consistent format.Since then a lot has happened.  It's now part of
+both Fedora and Debian distros, not to mention several others. There has also
+been a pretty good summary written up byJoe Brockmeier. It's also pretty well
+documented (I like to think) onsourceforge. There have also been a few blog
+postings by Martin Bachon his blog.Anyhow, awhile back I released a new
+version of collectl-utils and gave a complete face-lift to one of the
+utilities, colmux, which is a collectl multiplexor.  This tool has the ability
+to run collectl on multiple systems, which in turn send all their output back
+to colmux.  Colmux then sorts the output on a user-specified column and
+reports the 'top-n'</p><p>4 0.76884645 <a title="558-lsi-4" href="../high_scalability-2009/high_scalability-2009-10-09-Have_you_collectl%27d_yet%3F__If_not%2C_maybe_collectl-utils_will_make_it_easier_to_do_so.html">719 high scalability-2009-10-09-Have you collectl'd yet?  If not, maybe collectl-utils will make it easier to do so</a></p>
+<p>Introduction: I'm not sure how many people who follow this have even tried collectl but I
+wanted to let you all know that I just released a set of utilities called
+strangely enough collectl-utils, which you can get athttp://collectl-
+utils.sourceforge.net. One web-based utility called colplot gives you the
+ability to very easily plot data from multiple systems in a way that makes
+correlating them over time very easy.Another utility called colmux lets you
+look at multiple systems in real time. In fact if you go the page that
+describes it in more detail you'll see a photo which shows the CPU loads on
+192 systems one a second, one set of data/line! in fact the display so wide it
+takes 3 large monitors side-by-side to see it all and even though you can't
+actually read the displays you can easily see which systems are loaded and
+which aren't.Anyhow give it a look and let me know what you think.-mark</p><p>5 0.76448733 <a title="558-lsi-5" href="../high_scalability-2009/high_scalability-2009-04-03-Collectl_interface_to_Ganglia_-_any_interest%3F.html">553 high scalability-2009-04-03-Collectl interface to Ganglia - any interest?</a></p>
+<p>Introduction: It's been awhile since I've said anything about collectl and I wanted to let
+this group know I'm currently working on an interface to ganglia since I've
+seen a variety of posts ranging from how much data to log and where to log it
+as well as which tools/mechanism to use for logging. From my perspective there
+are essentially 2 camps on the monitoring front - one says to have distributed
+agents all sending their data to a central point, but don't send too much or
+too often. The other camp (which is the one I'm in) says do it all locally
+with a highly efficient data collector, because you need a lot of data (I also
+read a post in here about logging everything) and you can't possibly monitors
+100s or 1Ks of nodes remotely at the granularity necessary to get anything
+meaningful.Enter collectl and its evolving interface for ganglia. This will
+allow you to log lots of detailed data on local nodes at the usual 10 sec
+interval (or more frequent if you prefer) at about 0.1% system overhead while</p><p>6 0.6984942 <a title="558-lsi-6" href="../high_scalability-2013/high_scalability-2013-02-19-Puppet_monitoring%3A_how_to_monitor_the_success_or_failure_of_Puppet_runs__.html">1408 high scalability-2013-02-19-Puppet monitoring: how to monitor the success or failure of Puppet runs  </a></p>
+<p>7 0.67878854 <a title="558-lsi-7" href="../high_scalability-2008/high_scalability-2008-04-02-Product%3A_Supervisor_-__Monitor_and_Control_Your_Processes.html">295 high scalability-2008-04-02-Product: Supervisor -  Monitor and Control Your Processes</a></p>
+<p>8 0.67642486 <a title="558-lsi-8" href="../high_scalability-2009/high_scalability-2009-08-13-Reconnoiter_-_Large-Scale_Trending_and_Fault-Detection.html">680 high scalability-2009-08-13-Reconnoiter - Large-Scale Trending and Fault-Detection</a></p>
+<p>9 0.66046196 <a title="558-lsi-9" href="../high_scalability-2012/high_scalability-2012-04-18-Ansible_-__A_Simple_Model-Driven_Configuration_Management_and_Command_Execution_Framework.html">1230 high scalability-2012-04-18-Ansible -  A Simple Model-Driven Configuration Management and Command Execution Framework</a></p>
+<p>10 0.65211987 <a title="558-lsi-10" href="../high_scalability-2014/high_scalability-2014-03-05-10_Things_You_Should_Know_About_Running_MongoDB_at_Scale.html">1606 high scalability-2014-03-05-10 Things You Should Know About Running MongoDB at Scale</a></p>
+<p>11 0.63147682 <a title="558-lsi-11" href="../high_scalability-2009/high_scalability-2009-01-08-file_synchronization_solutions.html">488 high scalability-2009-01-08-file synchronization solutions</a></p>
+<p>12 0.62317735 <a title="558-lsi-12" href="../high_scalability-2013/high_scalability-2013-08-23-Stuff_The_Internet_Says_On_Scalability_For_August_23%2C_2013.html">1506 high scalability-2013-08-23-Stuff The Internet Says On Scalability For August 23, 2013</a></p>
+<p>13 0.62239099 <a title="558-lsi-13" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
+<p>14 0.62217879 <a title="558-lsi-14" href="../high_scalability-2014/high_scalability-2014-01-29-10_Things_Bitly_Should_Have_Monitored.html">1587 high scalability-2014-01-29-10 Things Bitly Should Have Monitored</a></p>
+<p>15 0.61805493 <a title="558-lsi-15" href="../high_scalability-2013/high_scalability-2013-11-27-Hidden_History%3A_Driving_the_Last_Spike_of_the_Transcontinental_Railroad_was_an_Early_Version_of_the_Internet_of_Things.html">1555 high scalability-2013-11-27-Hidden History: Driving the Last Spike of the Transcontinental Railroad was an Early Version of the Internet of Things</a></p>
+<p>16 0.61757714 <a title="558-lsi-16" href="../high_scalability-2013/high_scalability-2013-05-31-Stuff_The_Internet_Says_On_Scalability_For_May_31%2C_2013.html">1468 high scalability-2013-05-31-Stuff The Internet Says On Scalability For May 31, 2013</a></p>
+<p>17 0.61748427 <a title="558-lsi-17" href="../high_scalability-2011/high_scalability-2011-11-14-Using_Gossip_Protocols_for_Failure_Detection%2C_Monitoring%2C_Messaging_and_Other_Good_Things.html">1142 high scalability-2011-11-14-Using Gossip Protocols for Failure Detection, Monitoring, Messaging and Other Good Things</a></p>
+<p>18 0.61317116 <a title="558-lsi-18" href="../high_scalability-2012/high_scalability-2012-11-26-BigData_using_Erlang%2C_C_and_Lisp_to_Fight_the_Tsunami_of_Mobile_Data.html">1362 high scalability-2012-11-26-BigData using Erlang, C and Lisp to Fight the Tsunami of Mobile Data</a></p>
+<p>19 0.60881418 <a title="558-lsi-19" href="../high_scalability-2007/high_scalability-2007-12-31-Product%3A_collectd.html">197 high scalability-2007-12-31-Product: collectd</a></p>
+<p>20 0.60881364 <a title="558-lsi-20" href="../high_scalability-2012/high_scalability-2012-04-09-Why_My_Slime_Mold_is_Better_than_Your_Hadoop_Cluster.html">1225 high scalability-2012-04-09-Why My Slime Mold is Better than Your Hadoop Cluster</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.201), (2, 0.203), (10, 0.043), (17, 0.013), (30, 0.03), (40, 0.011), (47, 0.023), (61, 0.067), (73, 0.028), (78, 0.105), (85, 0.107), (94, 0.072)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.92150128 <a title="558-lda-1" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
+<p>Introduction: I had posted a note the other day about collectl and its ganglia interface but
+perhaps I wasn't provocative enough to get any responses so let me ask it a
+different way, specifically how do people monitor their clusters and more
+importantly how often? Do you monitor to get a general sense of what the
+system is doing OR do you monitor with the expectation that when something
+goes wrong you'll have enough data to diagnose the problem? Or both? I suspect
+both...Many cluster-based monitoring tools tend to have a data collection
+daemon running on each target node which periodically sends data to some
+central management station. That machine typically writes the data to some
+database from which it can then extract historical plots. Some even put up
+graphics in real-time.From my experience working with large clusters - and I'm
+talking either many hundreds or even 1000s of nodes, most have to limit both
+the amount of data they manage centrally as well as the frequency that they
+collect it, oth</p><p>2 0.89370865 <a title="558-lda-2" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
+<p>Introduction: Update: Here's thevideo of the talk.Erick Pickup, lead developer at
+YouPorn.com, presented their architecture in a talk titledBuilding a Website
+To Scalegiven at theConFooconference.  As you might expect, YouPorn is a
+beast, streaming three full DVDs of video every second, handing 300K queries
+every second, and generating up to 15GBs of log data per hour.Unfortunately,
+all we have are the slides of the talk, so this article isn't as technical as
+I might like, there's no visibility at all on the video handling for example,
+but we do get some interesting details.The most interesting takeway is that
+YouPorn is a pretty conventional LAMP stack, with a NoSQL twist as Redis now
+replaces MySQL in the live datapath. Reminds me a little ofYouTubein its
+simplicity.The second most interesting takeaway was thegreat switchover.
+Common wisdom says never rewrite, but in 2011 YouPorn rewrote their entire
+site to use PHP + Redis instead of a complex Perl + MySQL based architecture.
+And by all accounts</p><p>3 0.889736 <a title="558-lda-3" href="../high_scalability-2009/high_scalability-2009-04-23-Which_Key_value_pair_database_to_be_used.html">578 high scalability-2009-04-23-Which Key value pair database to be used</a></p>
+<p>Introduction: My Table has 2 columsn .Column1 is id,Column2 contains information given by
+user about item in Column1 .User can give 3 types of information about item.I
+separate the opinion of single user by comma,and opinion of another user by
+;.Example-23-34,us,56;78,in,78I need to calculate opinions of all users very
+fast.My idea is to have index on key so the searching would be very
+fast.Currently i m using mysql .My problem is that maximum column size is
+below my requirement .If any overflow occurs i make new row with same id and
+insert data into new row.Practically I would have around maximum 5-10 for each
+row.I think if there is any database which removes this application code.I
+just learn about key value pair database which is exactly i needed .But which
+doesn't put constraint(i mean much better than RDMS on column size.This
+application is not in production.</p><p>4 0.88796687 <a title="558-lda-4" href="../high_scalability-2009/high_scalability-2009-05-19-Scaling_Memcached%3A_500%2C000%2B_Operations-Second_with_a_Single-Socket_UltraSPARC_T2.html">603 high scalability-2009-05-19-Scaling Memcached: 500,000+ Operations-Second with a Single-Socket UltraSPARC T2</a></p>
+<p>Introduction: A software-based distributed caching system such as memcached is an important
+piece of today's largest Internet sites that support millions of concurrent
+users and deliver user-friendly response times. The distributed nature of
+memcached design transforms 1000s of servers into one large caching pool with
+gigabytes of memory per node. This blog entry explores single-instance
+memcached scalability for a few usage patterns.Table below shows out-of-the-
+box (no custom OS rewrites or networking tuning required) performance with 10G
+networking hardware and one single-socket UltraSPARC T2-based server with 8
+cores and 8 threads per core (64 threads on a chip)...Object Size / Ops/Sec /
+Bandwidth100 bytes / 530,000 / 1.2 Gb/s2048 bytes / 370,000 / 6.9 Gb/s4096
+bytes / 255,000 / 9.2 Gb/sCheck out the link for more details!</p><p>5 0.885104 <a title="558-lda-5" href="../high_scalability-2011/high_scalability-2011-09-23-The_Real_News_is_Not_that_Facebook_Serves_Up_1_Trillion_Pages_a_Month%E2%80%A6.html">1123 high scalability-2011-09-23-The Real News is Not that Facebook Serves Up 1 Trillion Pages a Month…</a></p>
+<p>Introduction: There's some amount of debate whether Facebookreallycrossed over the one
+trillion page view per month threshold. While one report says it did,another
+respected firm says it did not; that its monthly page views are a mere 467
+billion per month.In the big scheme of things, the discrepancy is somewhat
+irrelevant, as neither show thetrueload on Facebook's infrastructure - which
+is far more impressive a set of numbers than its externally measured "page
+view" metric.  Mashable reported in "Facebook Surpasses 1 Trillion Pageviews
+per Month" that the social networking giant saw "approximately 870 million
+unique visitors in June and 860 million in July" and followed up with some per
+visitor statistics, indicating "each visitor averaged approximately 1,160 page
+views in July and 40 per visit -- enormous by any standard. Time spent on the
+site was around 25 minutes per user."From an architectural standpoint it's
+notjustabout the page views. It's about requests and responses, many of which
+occur u</p><p>6 0.88477254 <a title="558-lda-6" href="../high_scalability-2008/high_scalability-2008-12-16-Facebook_is_Hiring.html">466 high scalability-2008-12-16-Facebook is Hiring</a></p>
+<p>7 0.88433486 <a title="558-lda-7" href="../high_scalability-2009/high_scalability-2009-03-06-Product%3A_Lightcloud_-_Key-Value_Database.html">528 high scalability-2009-03-06-Product: Lightcloud - Key-Value Database</a></p>
+<p>8 0.88300359 <a title="558-lda-8" href="../high_scalability-2009/high_scalability-2009-03-17-IBM_WebSphere_eXtreme_Scale_%28IMDG%29.html">542 high scalability-2009-03-17-IBM WebSphere eXtreme Scale (IMDG)</a></p>
+<p>9 0.88126862 <a title="558-lda-9" href="../high_scalability-2009/high_scalability-2009-01-16-Database_Sharding_for_startups.html">492 high scalability-2009-01-16-Database Sharding for startups</a></p>
+<p>10 0.88078994 <a title="558-lda-10" href="../high_scalability-2010/high_scalability-2010-04-16-Hot_Scalability_Links_for_April_16%2C_2010.html">811 high scalability-2010-04-16-Hot Scalability Links for April 16, 2010</a></p>
+<p>11 0.87949085 <a title="558-lda-11" href="../high_scalability-2010/high_scalability-2010-11-15-Strategy%3A_Biggest_Performance_Impact_is_to_Reduce_the_Number_of_HTTP_Requests.html">942 high scalability-2010-11-15-Strategy: Biggest Performance Impact is to Reduce the Number of HTTP Requests</a></p>
+<p>12 0.87906301 <a title="558-lda-12" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
+<p>13 0.87855548 <a title="558-lda-13" href="../high_scalability-2008/high_scalability-2008-10-25-Product%3A_Puppet_the_Automated_Administration_System.html">429 high scalability-2008-10-25-Product: Puppet the Automated Administration System</a></p>
+<p>14 0.87792796 <a title="558-lda-14" href="../high_scalability-2012/high_scalability-2012-08-27-Zoosk_-_The_Engineering_behind_Real_Time_Communications.html">1312 high scalability-2012-08-27-Zoosk - The Engineering behind Real Time Communications</a></p>
+<p>15 0.87733179 <a title="558-lda-15" href="../high_scalability-2014/high_scalability-2014-02-07-Stuff_The_Internet_Says_On_Scalability_For_February_7th%2C_2014.html">1592 high scalability-2014-02-07-Stuff The Internet Says On Scalability For February 7th, 2014</a></p>
+<p>16 0.8749705 <a title="558-lda-16" href="../high_scalability-2011/high_scalability-2011-08-19-Stuff_The_Internet_Says_On_Scalability_For_August_19%2C_2011.html">1101 high scalability-2011-08-19-Stuff The Internet Says On Scalability For August 19, 2011</a></p>
+<p>17 0.87392372 <a title="558-lda-17" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
+<p>18 0.87336522 <a title="558-lda-18" href="../high_scalability-2009/high_scalability-2009-04-22-Gear6_Web_cache_-_the_hardware_solution_for_working_with_Memcache.html">577 high scalability-2009-04-22-Gear6 Web cache - the hardware solution for working with Memcache</a></p>
+<p>19 0.8732515 <a title="558-lda-19" href="../high_scalability-2011/high_scalability-2011-07-18-New_Relic_Architecture_-_Collecting_20%2B_Billion_Metrics_a_Day.html">1082 high scalability-2011-07-18-New Relic Architecture - Collecting 20+ Billion Metrics a Day</a></p>
+<p>20 0.87306929 <a title="558-lda-20" href="../high_scalability-2011/high_scalability-2011-03-03-Stack_Overflow_Architecture_Update_-_Now_at_95_Million_Page_Views_a_Month.html">998 high scalability-2011-03-03-Stack Overflow Architecture Update - Now at 95 Million Page Views a Month</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
