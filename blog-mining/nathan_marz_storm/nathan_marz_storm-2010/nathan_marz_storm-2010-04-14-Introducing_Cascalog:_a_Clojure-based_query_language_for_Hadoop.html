@@ -29,9 +29,30 @@ values- Null values can make life difficult. Cascalog has a feature called
 interoperability with Cascading- Operations defined for Cascalog can be used
 in a Cascading flow and vice-versaFirst class interoperability with Clojure-
 Can use regular Clojure functions as operations or filters, and since Cascalog
-is a</p><br/>
+is a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Expressive- Logical composition is very powerful, and you can run arbitrary Clojure code in your query with little effort. [sent-5, score-0.493]
+</p><p>2 Let's run our first query and find the people in our dataset who are 25 years old:user=> (? [sent-19, score-0.493]
+</p><p>3 This time we bound the age of the person to the variable ? [sent-33, score-0.826]
+</p><p>4 Let's run that query again but this time include the ages of the people in the results:user=> (? [sent-36, score-0.493]
+</p><p>5 "(stdout)" creates a Cascading tap which writes its contents to standard output after the query finishes. [sent-68, score-0.641]
+</p><p>6 After we define our sink, we define the result variables of the query in a Clojure vector. [sent-75, score-0.789]
+</p><p>7 Two kinds:Cascading Tap - for example, the data on HDFS at a certain pathAn existing query defined using <-Operations: Implicit relations that take in input variables defined elsewhere and either act as a function that binds new variables or a filterAggregators: Count, sum, min, max, etc. [sent-81, score-1.072]
+</p><p>8 If no :> keyword is specified, the variables are considered input variables for operations and output variables for generators and aggregators. [sent-89, score-0.876]
+</p><p>9 young as a boolean variable representing whether the person's age is less than 30. [sent-101, score-0.59]
+</p><p>10 age1))Let's do that query again and emit the age difference as well:user=> (? [sent-128, score-0.978]
+</p><p>11 For example, let's get the average age of people living in a country by combining a count and a sum:user=> (? [sent-160, score-0.721]
+</p><p>12 Any operations that are dependent on aggregator output variables will execute after the aggregators run. [sent-174, score-0.487]
+</p><p>13 Custom operationsNext, let's write a query to count the number of times each word appears in a set of sentences. [sent-175, score-0.7]
+</p><p>14 Our word count query has the problem in that the same word will be counted differently if it appears with different combinations of uppercase and lowercase letters. [sent-189, score-0.879]
+</p><p>15 We can fix our query as follows:user=> (defn lowercase [w] (. [sent-190, score-0.488]
+</p><p>16 Here's a query that will return counts of people bucketed by age group and gender:user=> (defn agebucket [age](find- first (partial <= age) [17 25 35 45 55 65 100 200]))user=> (? [sent-204, score-1.013]
+</p><p>17 city))The second query includes some null values in the result set. [sent-231, score-0.576]
+</p><p>18 The subquery is defined using <-, the query definition operator. [sent-245, score-0.496]
+</p><p>19 We can then make use of many-follows within the query we execute in the body of the let form. [sent-246, score-0.607]
+</p><p>20 You can expect more features to allow for richer queries and query planner improvements to be added over time. [sent-265, score-0.504]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('age', 0.502), ('query', 0.426), ('stdout', 0.29), ('person', 0.236), ('variables', 0.196), ('user', 0.181), ('count', 0.157), ('follows', 0.152), ('cascalog', 0.152), ('output', 0.142), ('word', 0.117), ('sentence', 0.103), ('filter', 0.093), ('variable', 0.088), ('city', 0.082), ('operations', 0.082), ('queries', 0.078), ('gender', 0.077), ('clojure', 0.076), ('let', 0.076)]</p>
+<p>[('age', 0.502), ('query', 0.426), ('stdout', 0.29), ('person', 0.236), ('variables', 0.196), ('user', 0.181), ('count', 0.157), ('follows', 0.152), ('cascalog', 0.152), ('output', 0.142), ('word', 0.117), ('sentence', 0.103), ('filter', 0.093), ('variable', 0.088), ('city', 0.082), ('operations', 0.082), ('queries', 0.078), ('gender', 0.077), ('clojure', 0.076), ('let', 0.076), ('defines', 0.073), ('predicate', 0.073), ('tap', 0.073), ('cascading', 0.07), ('defined', 0.07), ('run', 0.067), ('aggregators', 0.067), ('input', 0.064), ('country', 0.062), ('delta', 0.062), ('lowercase', 0.062), ('define', 0.059), ('null', 0.058), ('predicates', 0.058), ('sum', 0.058), ('use', 0.055), ('split', 0.052), ('functions', 0.052), ('used', 0.051), ('within', 0.05), ('act', 0.05), ('operator', 0.05), ('emit', 0.05), ('result', 0.049), ('constant', 0.047), ('location', 0.044), ('operation', 0.044), ('return', 0.044), ('values', 0.043), ('agebucket', 0.041)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.000001 <a title="13-tfidf-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
 <p>Introduction: I'm very excited to be releasingCascalogas open-source today. Cascalog is a

@@ -29,9 +29,30 @@ format:nathan bobchris mikemike chrismichelle nathanFollows relationships are
 second source of data is "action" data which is also stored in text
 format:nathan status=good 1273094927000nathan birthday 1273026922000david
 newjob 1273096922000david travelling 1273094927000bob status=tired
-1273026922000dan basketball-cap</p><br/>
+1273026922000dan basketball-cap</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Problem descriptionA news feed ranks events happening in your social network. [sent-5, score-0.334]
+</p><p>2 To rank the actions in someone's network, we will use a simple scoring function that produces a higher score for people with more followers and a lower score for an older action. [sent-9, score-0.757]
+</p><p>3 p2)(:distinct false))))"follows-data" is a function that takes the path to a directory as input and returns a subquery that emits the parsed tuples. [sent-17, score-0.503]
+</p><p>4 "hfs-textline" returns a Tap that reads text data from HDFS and emits each line of text as a 1-tuple. [sent-19, score-0.522]
+</p><p>5 Next, we define our subquery that will parse the line of text into its constituent fields. [sent-20, score-0.644]
+</p><p>6 Next, lets write the subquery that will read and parse the action data:(defn to-long [num] (Long/parseLong num))(defn action-data [dir](let [source (hfs-textline dir)](<\- [? [sent-28, score-0.509]
+</p><p>7 t) (:distinct false))))This function is very similar to the "follows-data" function, except it produces three fields and not two. [sent-38, score-0.333]
+</p><p>8 We also define a custom function "to-long" in order to convert the timestamp from its string representation to the proper type. [sent-39, score-0.387]
+</p><p>9 line :>> outargs)(:distinct false))))"textline-parsed" is our first example of a dynamic query and requires some explanation. [sent-43, score-0.396]
+</p><p>10 Since the output fields of the subquery are dynamic according to "num-fields", we have to generate those variable names dynamically. [sent-44, score-0.382]
+</p><p>11 vars", here referred as "v", provides a function "gen-nullable-vars" for producing a vector of some number of unique variables. [sent-46, score-0.336]
+</p><p>12 Using them as output fields is easy - we just put the generated vector where we normally specify our output fields. [sent-52, score-0.593]
+</p><p>13 Using our new "textline-parsed" helper function, we can rewrite "follows-data" and "action-data" like so:(defn follows-data [dir] (textline- parsed dir 2))(defn action-data [dir](let [source (textline-parsed dir 3)](<\- [? [sent-56, score-0.892]
+</p><p>14 News feed queryNext is the logic for the query that will produce the news feed. [sent-65, score-0.568]
+</p><p>15 We start with a custom aggregator to produce a JSON-like string out of the ranked actions from someone's network:(defbufferop mk-feed [tuples ][(pr-str (take 5 tuples))])"defbufferop" defines a "buffer aggregator". [sent-66, score-0.4]
+</p><p>16 In this case, our query will have scored and sorted the tuples beforehand, so we simply take the first five tuples and serialize them using "pr-str". [sent-68, score-0.398]
+</p><p>17 Finally, we have the function that builds and runs our news feed query:(defn compute-news-feed [output-tap follows-dir action-dir](let [follows (follows-data follows- dir)action (action-data action-dir)follower-count (<\- [? [sent-70, score-0.569]
+</p><p>18 We then run our "action-score" function to produce a score for each action. [sent-99, score-0.574]
+</p><p>19 To run the query on a cluster and output the results in text format to "/tmp/results", run:hadoop jar cascalog-demo-standalone. [sent-107, score-0.733]
+</p><p>20 OptimizationsIt's worth noting that there are a number of optimizations that can be done to speed up the news feed query. [sent-117, score-0.334]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('dir', 0.403), ('action', 0.243), ('function', 0.235), ('line', 0.234), ('feed', 0.23), ('defn', 0.187), ('score', 0.173), ('output', 0.162), ('query', 0.162), ('text', 0.144), ('parse', 0.144), ('status', 0.126), ('subquery', 0.122), ('actions', 0.115), ('folls', 0.115), ('nathan', 0.115), ('outargs', 0.115), ('news', 0.104), ('format', 0.101), ('vector', 0.101)]</p>
+<p>[('dir', 0.403), ('action', 0.243), ('function', 0.235), ('line', 0.234), ('feed', 0.23), ('defn', 0.187), ('score', 0.173), ('output', 0.162), ('query', 0.162), ('text', 0.144), ('parse', 0.144), ('status', 0.126), ('subquery', 0.122), ('actions', 0.115), ('folls', 0.115), ('nathan', 0.115), ('outargs', 0.115), ('news', 0.104), ('format', 0.101), ('vector', 0.101), ('source', 0.098), ('fields', 0.098), ('follows', 0.098), ('run', 0.094), ('tutorial', 0.094), ('false', 0.09), ('tuples', 0.089), ('alice', 0.086), ('parsed', 0.086), ('parsing', 0.086), ('uberjar', 0.086), ('username', 0.086), ('variables', 0.082), ('custom', 0.082), ('distinct', 0.082), ('production', 0.081), ('produce', 0.072), ('generated', 0.07), ('jar', 0.07), ('string', 0.07), ('mike', 0.07), ('sample', 0.07), ('aggregator', 0.061), ('tap', 0.061), ('followers', 0.061), ('network', 0.061), ('input', 0.06), ('danielle', 0.058), ('expression', 0.058), ('five', 0.058)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="16-tfidf-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
 <p>Introduction: In this tutorial forCascalog, we are going to create part of the back-end for

@@ -29,9 +29,30 @@ into Hadoop as structured objects. You can easily push structured information
 about social graphs, financial information, or anything you want into Hadoop.
 That sounds all well and good, but why not just use JSON as the data
 format?JSON doesn't give you a real schema and doesn't protect against data
-inconsistency. For example, if you</p><br/>
+inconsistency. For example, if you</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 JSON doesn't give you a real schema and doesn't protect against data inconsistency. [sent-11, score-0.43]
+</p><p>2 For example, if you're storing data about tweets, you can't enforce that every tweet structure contains an "id" attribute of type "long". [sent-12, score-0.764]
+</p><p>3 If someone makes a mistake and fills in a tweet structure with a string for the id, you won't know until you get a type error down the road when trying to use the string as a long value in a job. [sent-13, score-1.202]
+</p><p>4 A good schema protects you against these kinds of errors, keeps your data consistent, and gives you errors at the time of creating a bad object. [sent-14, score-0.518]
+</p><p>5 What happens if I need to add another attribute to the tweet structure that isn't present in the existing tweets? [sent-17, score-0.662]
+</p><p>6 Thrift lets you define language-neutral schemas, and Thrift will generate code to create objects of that schema in any language. [sent-22, score-0.475]
+</p><p>7 For example, I could create objects in Java and read them in Python, or create objects in Ruby and read them in Erlang. [sent-23, score-0.416]
+</p><p>8 serialize(tweet)To read that object in Java, we would:TDeserializer des = new TDeserializer();Tweet tweet = new Tweet();des. [sent-27, score-0.489]
+</p><p>9 Thrift also supports creating "union" structures, like so:union PersonID {1: string email;2: i64 facebook_id;3: i64 twitter_id;}A union is like a struct except only one field can be filled in. [sent-35, score-0.738]
+</p><p>10 Pictorially, our schema will look like this:Let's model this with a Thrift schema. [sent-54, score-0.398]
+</p><p>11 New kinds of nodes and edges can be added just as easily. [sent-60, score-0.375]
+</p><p>12 The first is the ability to add partial data about an entity in your system - for example, if I learn that a user is interested in "hadoop", I can easily add that one piece of data to the system independently of how other data is modeled. [sent-63, score-0.484]
+</p><p>13 With a more traditional schema where records contain all the attributes you know about someone (age, gender, etc. [sent-68, score-0.515]
+</p><p>14 Indeed, for this case I would recommend a structure like the following:struct Address {1: optional string street_component;2: optional i32 zipcode;3: optional string city_component;4: optional string state_component;5: optional string country_component;}union PersonPropertyValue {. [sent-74, score-2.226]
+</p><p>15 The data processing model is radically different from MySQL - so while you still need strong schema surroundingtypes, you can be more flexible when it comes torelationshipsbetween types. [sent-85, score-0.514]
+</p><p>16 So if you have multiple gender DataUnits for someone, but only want to show one gender at the application layer, you can resolve this during a "full recompute" when choosing the data to ship to the application. [sent-88, score-0.514]
+</p><p>17 For example, you may have multiple gender DataUnits for someone on your social networking site because the person has changed the gender in their profile. [sent-89, score-0.55]
+</p><p>18 When selecting a gender for that person for the application layer, you would select the most recent gender DataUnit. [sent-90, score-0.437]
+</p><p>19 The ability to be very selective of what data you read because of our graph-based schema is a big win. [sent-99, score-0.477]
+</p><p>20 There's been a lot of talk about the virtues of schema-less databases and the evils of tight schemas lately, and I've tried to show in this article that you can have a strong schema while still retaining flexibility (on Hadoop, anyway). [sent-107, score-0.448]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('tweet', 0.379), ('schema', 0.314), ('string', 0.308), ('required', 0.209), ('struct', 0.2), ('union', 0.181), ('edges', 0.178), ('optional', 0.178), ('personid', 0.178), ('gender', 0.167), ('schemas', 0.134), ('id', 0.127), ('data', 0.116), ('age', 0.114), ('objects', 0.112), ('attribute', 0.111), ('address', 0.11), ('nodes', 0.109), ('thrift', 0.109), ('structure', 0.104)]</p>
+<p>[('tweet', 0.379), ('schema', 0.314), ('string', 0.308), ('required', 0.209), ('struct', 0.2), ('union', 0.181), ('edges', 0.178), ('optional', 0.178), ('personid', 0.178), ('gender', 0.167), ('schemas', 0.134), ('id', 0.127), ('data', 0.116), ('age', 0.114), ('objects', 0.112), ('attribute', 0.111), ('address', 0.11), ('nodes', 0.109), ('thrift', 0.109), ('structure', 0.104), ('person', 0.103), ('properties', 0.094), ('attributes', 0.089), ('dataunits', 0.089), ('friendshipedge', 0.089), ('locationstring', 0.089), ('personproperty', 0.089), ('personpropertyvalue', 0.089), ('kinds', 0.088), ('model', 0.084), ('hadoop', 0.074), ('property', 0.07), ('add', 0.068), ('committer', 0.067), ('datastore', 0.067), ('dataunit', 0.067), ('friendship', 0.067), ('json', 0.067), ('projectid', 0.067), ('projectproperty', 0.067), ('multiple', 0.064), ('contain', 0.063), ('object', 0.063), ('structured', 0.063), ('type', 0.054), ('field', 0.049), ('someone', 0.049), ('create', 0.049), ('example', 0.048), ('read', 0.047)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000004 <a title="9-tfidf-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
 <p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what

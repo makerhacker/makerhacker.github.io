@@ -29,9 +29,30 @@ the same variable name in multiple sources of data. For example, given "age"
 and "gender" sources, we can get the age and gender for each person by
 running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
 ?person ?gender))This is aninner join. We will only have results for people
-that appear in both sets of data. We</p><br/>
+that appear in both sets of data. We</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 For example, given "age" and "gender" sources, we can get the age and gender for each person by running:user=> (? [sent-5, score-0.722]
+</p><p>2 A predicate that contains an ungrounding variable is called an "unground predicate", and a predicate that does not contain an ungrounding variable is called a "ground predicate". [sent-32, score-1.026]
+</p><p>3 Joining together two unground predicates results in a full outer join, while joining a ground predicate to an unground predicate results in a left join. [sent-33, score-0.957]
+</p><p>4 To get all the follow relationships for each person in our dataset, or null if the person has no follow relationships, we run:user=> (? [sent-35, score-0.598]
+</p><p>5 Now let's say we want the follows count for each person. [sent-59, score-0.424]
+</p><p>6 A normal "count" aggregation won't work because it counts the number of tuples and doesn't distinguish between null and non-null follows. [sent-60, score-0.332]
+</p><p>7 In this case, we want null follows to be counted as 0 and non-null follows to be counted as 1. [sent-61, score-0.624]
+</p><p>8 count))People that don't have a follows relationship will have a count of 0. [sent-74, score-0.424]
+</p><p>9 An ungrounding variable may only appear within a query one time. [sent-75, score-0.364]
+</p><p>10 Combiners and "Parallel Aggregators"A regular aggregator transfers all tuples for a group to a single machine and computes the aggregation in a single pass over the data. [sent-77, score-0.373]
+</p><p>11 For example, to compute "sum", you can split the tuples into subsets, compute the sum of each subset, and then sum the sums together to get your final answer. [sent-79, score-0.605]
+</p><p>12 There are many other aggregators that can be computed this way, such as min, max, and count. [sent-80, score-0.251]
+</p><p>13 Cascalog is even able to insert combiners when you use multiple parallel aggregators, such as both a count and a sum. [sent-83, score-0.596]
+</p><p>14 If you try to use a parallel aggregator with a regular aggregator defined using defaggregateop or defbufferop, Cascalog will be unable to insert combiners and all the aggregation will happen in the reduce task. [sent-92, score-0.783]
+</p><p>15 For example, the next query that makes use of a custom aggregator will do all the aggregation in the reduce phase:user=> (defaggregateop product([] 1)([total val] (* total val))([total] [total]))user=> (? [sent-93, score-0.426]
+</p><p>16 Implicit equality constraintsThe "implicit equality constraints" feature is a neat way to specify equality constraints. [sent-104, score-0.275]
+</p><p>17 n variable and will automatically filter out tuples where the output of the * predicate is not equal to the input. [sent-114, score-0.437]
+</p><p>18 For example, let's find the youngest person each person follows:user=> (defbufferop first-tuple [tuples] (take 1 tuples))user=> (? [sent-130, score-0.687]
+</p><p>19 youngest))To find the oldest person each person follows, we simply add a :reverse predicate:user=> (? [sent-140, score-0.524]
+</p><p>20 youngest))Duplicate eliminationIf your query doesn't have any aggregators, Cascalog will by default insert a reduce step to remove all duplicate tuples from your output. [sent-150, score-0.491]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('stdout', 0.322), ('age', 0.296), ('person', 0.262), ('user', 0.23), ('follows', 0.222), ('cascalog', 0.222), ('predicate', 0.207), ('count', 0.202), ('aggregators', 0.186), ('gender', 0.164), ('combiners', 0.163), ('ungrounding', 0.163), ('youngest', 0.163), ('tuples', 0.152), ('sum', 0.138), ('parallel', 0.133), ('query', 0.123), ('aggregator', 0.115), ('aggregation', 0.106), ('outer', 0.106)]</p>
+<p>[('stdout', 0.322), ('age', 0.296), ('person', 0.262), ('user', 0.23), ('follows', 0.222), ('cascalog', 0.222), ('predicate', 0.207), ('count', 0.202), ('aggregators', 0.186), ('gender', 0.164), ('combiners', 0.163), ('ungrounding', 0.163), ('youngest', 0.163), ('tuples', 0.152), ('sum', 0.138), ('parallel', 0.133), ('query', 0.123), ('aggregator', 0.115), ('aggregation', 0.106), ('outer', 0.106), ('insert', 0.098), ('unground', 0.098), ('integer', 0.092), ('total', 0.082), ('aggregations', 0.08), ('ground', 0.08), ('reverse', 0.08), ('variable', 0.078), ('null', 0.074), ('equality', 0.069), ('feature', 0.068), ('computed', 0.065), ('duplicate', 0.065), ('prod', 0.065), ('val', 0.065), ('called', 0.065), ('variables', 0.062), ('joins', 0.061), ('compute', 0.061), ('sort', 0.061), ('together', 0.055), ('sources', 0.055), ('example', 0.054), ('run', 0.053), ('results', 0.053), ('default', 0.053), ('nil', 0.053), ('counted', 0.053), ('defaggregateop', 0.053), ('max', 0.053)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.000001 <a title="14-tfidf-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
 <p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful

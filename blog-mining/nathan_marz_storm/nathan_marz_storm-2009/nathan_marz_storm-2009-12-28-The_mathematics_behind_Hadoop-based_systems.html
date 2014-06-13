@@ -29,9 +29,30 @@ running a workflow that processes a continuous stream of incoming data. The
 workflow runs in a "while(true)" loop, and each iteration of the workflow
 processes the data that accumulated since last iteration.The inspiration for
 the following analysis can be summarized in a simple example. Let's say you
-have a</p><br/>
+have a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Why does a 10% failure rate cause my runtime to go up by 300%? [sent-3, score-0.91]
+</p><p>2 How does optimizing out 30% of my workflow runtime cause the runtime to decrease by 80%? [sent-4, score-1.896]
+</p><p>3 The workflow runs in a "while(true)" loop, and each iteration of the workflow processes the data that accumulated since last iteration. [sent-9, score-1.115]
+</p><p>4 Your workflow runtime may increase by a lot more than two hours. [sent-14, score-1.14]
+</p><p>5 The issue is that you increased the runtime of a workflow that operated on12hours of data to14hours. [sent-17, score-1.185]
+</p><p>6 First, let's write an equation for the runtime of a single iteration of a workflow:Runtime = Overhead + {Time to process one hour of data} * {Hours of data}Overhead refers to anyconstant timespent in the workflow. [sent-22, score-1.105]
+</p><p>7 For conciseness, let's rewrite the above equation using variables:T = O + P * HTo determine the stable runtime of the workflow, we need to find out the point at which the runtime of the workflow is equal to the number of hours of data it processes. [sent-31, score-2.176]
+</p><p>8 As you can see, the stable runtime of a workflow islinearly proportionalto the amount of overhead in the workflow. [sent-33, score-1.345]
+</p><p>9 So if you're able to decrease overhead by 25%, your workflow runtime will also decrease by 25%. [sent-34, score-1.45]
+</p><p>10 However, the stable runtime of a workflow isnon-linearly proportionalwith the dynamic processing rate "P". [sent-35, score-1.373]
+</p><p>11 Let's call the runtime of your workflow before doubling the cluster size "T1", and the runtime of the workflow after doubling the cluster size "T2". [sent-42, score-2.836]
+</p><p>12 If your P was really high, say 54 minutes of dynamic time spent per hour of data, then doubling the cluster size will cause the new runtime to be18%of the original runtime, a speedup of82%! [sent-45, score-1.554]
+</p><p>13 , 6 minutes of dynamic time spent per hour of data), then doubling the cluster size will barely affect the runtime - only by about 6% or so. [sent-49, score-1.419]
+</p><p>14 This makes sense since the runtime is dominated by overhead, so dynamic time accounts for very little of the runtime. [sent-50, score-0.802]
+</p><p>15 Why does a 10% failure rate cause my runtime to go up by 300%? [sent-51, score-0.91]
+</p><p>16 Like the last question, let's call T1 the runtime before the failures start happening and T2 the runtime afterwards:T1 = O / (1 - P) T2 = O / (1 - 1. [sent-57, score-1.423]
+</p><p>17 How does optimizing out 30% of my workflow runtime cause the runtime to decrease by 80%? [sent-62, score-1.896]
+</p><p>18 I had a ridiculous bottleneck in a workflow that was causing about 10 hours of overhead6, and the total runtime of the workflow was 30 hours. [sent-64, score-1.61]
+</p><p>19 After I optimized out that bottleneck (which comprised 30% of the runtime), the runtime dropped like a rock until it stabilized at 6 hours (an 80% reduction). [sent-65, score-0.826]
+</p><p>20 Actually, adding more machines will have small adverse effects on both overhead (more machines to deal with) and data processing rate (mappers need to split the data up to more reducers). [sent-80, score-0.857]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('runtime', 0.671), ('workflow', 0.392), ('overhead', 0.183), ('hour', 0.172), ('cluster', 0.142), ('doubling', 0.125), ('tasks', 0.123), ('machines', 0.122), ('data', 0.122), ('equation', 0.11), ('hours', 0.105), ('decrease', 0.102), ('processing', 0.095), ('rate', 0.091), ('failure', 0.088), ('size', 0.088), ('iteration', 0.085), ('double', 0.081), ('failures', 0.081), ('processes', 0.081)]</p>
+<p>[('runtime', 0.671), ('workflow', 0.392), ('overhead', 0.183), ('hour', 0.172), ('cluster', 0.142), ('doubling', 0.125), ('tasks', 0.123), ('machines', 0.122), ('data', 0.122), ('equation', 0.11), ('hours', 0.105), ('decrease', 0.102), ('processing', 0.095), ('rate', 0.091), ('failure', 0.088), ('size', 0.088), ('iteration', 0.085), ('double', 0.081), ('failures', 0.081), ('processes', 0.081), ('increase', 0.077), ('speedup', 0.075), ('analysis', 0.071), ('dynamic', 0.071), ('process', 0.067), ('model', 0.063), ('time', 0.06), ('cause', 0.06), ('performance', 0.055), ('stable', 0.053), ('determine', 0.052), ('question', 0.051), ('adequately', 0.05), ('bottleneck', 0.05), ('derive', 0.05), ('diminishing', 0.05), ('incoming', 0.05), ('plotting', 0.05), ('power', 0.05), ('let', 0.048), ('longer', 0.047), ('minutes', 0.047), ('amount', 0.046), ('runs', 0.043), ('spent', 0.043), ('adds', 0.041), ('central', 0.041), ('former', 0.041), ('grows', 0.041), ('performant', 0.041)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1-tfidf-1" href="../nathan_marz_storm-2009/nathan_marz_storm-2009-12-28-The_mathematics_behind_Hadoop-based_systems.html">1 nathan marz storm-2009-12-28-The mathematics behind Hadoop-based systems</a></p>
 <p>Introduction: I wish I had known this a year ago. Now, with some simple mathematics I can
