@@ -29,9 +29,30 @@ write the same type of code they always have. A key component to making this
 possible is the dbShards Client. The dbShards Client is our intelligent driver
 that is an exact API emulation of a given vendor's database driver. For
 example, with MySQL we have full support for JDBC, and the the MySQL C driver
-(used in</p><br/>
+(used in</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The high-level view of dbShards is shown here:The above diagram shows how dbShards works for achieving massive database scalability across multiple database servers, using native DBMS engines and our dbShards components. [sent-4, score-0.521]
+</p><p>2 The important components are:dbS/Client: A design goal of dbShards is to make database sharding as seamless as possible to an application, so that application developers can write the same type of code they always have. [sent-5, score-0.318]
+</p><p>3 The dbShards Client is our intelligent driver that is an exact API emulation of a given vendor's database driver. [sent-7, score-0.237]
+</p><p>4 A key to this strategy is that all actual database calls are delegated to the underlying vendor driver, so there is actually nothing between the application and the native DBMS. [sent-11, score-0.44]
+</p><p>5 For a sharded query here is how it works:The dbS/Client driver evaluates the SQL statement (based on the dbShards configuration set up by the system administrator, this is where the sharding scheme is define). [sent-12, score-0.357]
+</p><p>6 The correct shard is identified, and dbS/Client delegates the statement to the native vendor driver. [sent-14, score-0.666]
+</p><p>7 In this case, the driver delegates the query to be run on all shards simultaneously, with the results seamlessly rolled up by the dbShards Agent running on the database servers. [sent-16, score-0.44]
+</p><p>8 Shard Server: Each shard server has two primary components on it:DB: The native DBMS (MySQL, Postgres, etc. [sent-21, score-0.543]
+</p><p>9 Since dbShards is database agnostic, and we rely on proven DBMS engines that have been around for years, we can take full advantage of these products in the sharded environment. [sent-23, score-0.312]
+</p><p>10 Using this sharded approach, applications can expect linear write scalability, and often better than linear read scalability. [sent-31, score-0.257]
+</p><p>11 Because the native DBMS engines perform exceedingly well on smaller, properly sized databases, and when the shard size is correct for a given application, we alter the Database Size to Memory/CPU balance, achieving incredibly fast query times. [sent-33, score-0.745]
+</p><p>12 The design goal was clear: Provide full reliability for each shard (for planned and unplanned "hot" failover), in a high-performance, scalable implementation. [sent-38, score-0.281]
+</p><p>13 For each shard, here is how the architecture works:We call this approach "out of band" replication, because we perform high-speed replication outside the native DBMS. [sent-42, score-0.359]
+</p><p>14 The way it works is as follows:The dbS/Client streams SQL write statements to the DB (DBMS) and dbS (dbS/Agent) simultaneously, on the Primary shard server. [sent-43, score-0.327]
+</p><p>15 The dbS/Agent then replicates the transaction to the dbS/Agent on the Secondary shard server. [sent-44, score-0.382]
+</p><p>16 A single shard can operate with just a single shard server temporarily, or a spare hot standby can be used as the new Secondary, maintaining the same level of reliability. [sent-49, score-0.513]
+</p><p>17 There are several advantages to this approach:It is very lightweight, and scales linearly as more shard servers are added. [sent-51, score-0.237]
+</p><p>18 The approach provides the lowest possible latency for write transactions (85% - 90% the speed of an unprotected native DBMS). [sent-52, score-0.283]
+</p><p>19 In summary, dbShards provides an easy to implement approach for a wide array of application requirements, with high scalability, reliable replication, and seamless implementation for both new and existing applications. [sent-56, score-0.274]
+</p><p>20 Because we rely on proven native DBMS engines, and get them to perform at their optimum (through proper balancing of database size, CPU and memory), we can take full advantage of these products at what they do best. [sent-57, score-0.379]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('dbshards', 0.747), ('dbms', 0.267), ('shard', 0.237), ('native', 0.183), ('secondary', 0.151), ('driver', 0.129), ('engines', 0.11), ('transaction', 0.093), ('vendor', 0.082), ('fish', 0.081), ('query', 0.079), ('delegates', 0.079), ('linear', 0.078), ('primary', 0.074), ('replication', 0.069), ('reliable', 0.069), ('database', 0.068), ('sharded', 0.057), ('sql', 0.057), ('approach', 0.056)]</p>
+<p>[('dbshards', 0.747), ('dbms', 0.267), ('shard', 0.237), ('native', 0.183), ('secondary', 0.151), ('driver', 0.129), ('engines', 0.11), ('transaction', 0.093), ('vendor', 0.082), ('fish', 0.081), ('query', 0.079), ('delegates', 0.079), ('linear', 0.078), ('primary', 0.074), ('replication', 0.069), ('reliable', 0.069), ('database', 0.068), ('sharded', 0.057), ('sql', 0.057), ('approach', 0.056), ('seamless', 0.056), ('application', 0.055), ('replicates', 0.052), ('nothing', 0.052), ('perform', 0.051), ('components', 0.049), ('shared', 0.049), ('agent', 0.048), ('administrator', 0.047), ('client', 0.046), ('sharding', 0.046), ('seamlessly', 0.046), ('works', 0.046), ('achieving', 0.046), ('statement', 0.046), ('write', 0.044), ('reliability', 0.044), ('simultaneously', 0.042), ('capability', 0.041), ('emulation', 0.04), ('articlesproduct', 0.04), ('isaacson', 0.04), ('adversely', 0.04), ('shards', 0.039), ('used', 0.039), ('correct', 0.039), ('advantage', 0.039), ('implementation', 0.038), ('maintenance', 0.038), ('rely', 0.038)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="857-tfidf-1" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
 <p>Introduction: This is a follow up article byCory Isaacson to the first article on DbShards,

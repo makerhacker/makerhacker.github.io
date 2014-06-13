@@ -29,9 +29,30 @@ paid. The outline and my interpretation (reading between the lines) of what
 happened is:Remember that Facebookcaches everything. They
 have28terabytesofmemcacheddata on 800 servers. The database is the system of
 record, but memory is where the action is. So when a problem happens that
-involves the caching layer,</p><br/>
+involves the caching layer,</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The root causes were feedback loops and transient spikes caused ultimately by the complexity of weakly interacting layers in modern systems. [sent-5, score-0.412]
+</p><p>2 Facebook has anautomated systemthat checks for invalid configuration values in the cache and replaces them with updated values from the persistent store. [sent-13, score-0.566]
+</p><p>3 We are not told what the configuration property was, but since configuration information is usually important centralized data that is widely shared by key subsystems, this helps explain why there would be an automated background check in the first place. [sent-14, score-0.411]
+</p><p>4 A change was made to thepersistent copyof the configuration value which then propagated to the cache. [sent-15, score-0.32]
+</p><p>5 Production code thought this new value was invalid, which caused every client to delete the key from the cache and then try toget a valid value from the database. [sent-16, score-1.151]
+</p><p>6 On a RAID system when an invalid value is written or deleted, it's written everywhere, and only valid data can be restored from a backup. [sent-20, score-1.017]
+</p><p>7 Even if a valid value had been written to that database it wouldn't have mattered. [sent-25, score-0.769]
+</p><p>8 The database was so busy handling requests no reply would ever be seen from the database, so the valid value couldn't propagate. [sent-27, score-0.97]
+</p><p>9 And if they put a valid value in the cache that wouldn't matter either because all the clients would still be spinning on the database, unaware that the cache now had a valid value. [sent-28, score-1.406]
+</p><p>10 What they ended up doing was: fix the code so the value would be considered valid; take down everything so the system could quiet down and restart normally. [sent-29, score-0.547]
+</p><p>11 The need for a caching layer in the first place, with all the implied cache coherency issues, is largely a function of the inability for the database to serve as both an object cache and a transactional data store. [sent-38, score-0.511]
+</p><p>12 Cassandra, for example, has added caching layer that along with key-value approach, may reduce the need for external caches for database type data (as apposed to HTML fragment caches and other transient caches). [sent-40, score-0.636]
+</p><p>13 This happens because integrity checks aren't centralized in the database anymore, they are in code, and that code can often be spread out and duplicated in many areas. [sent-43, score-0.662]
+</p><p>14 Yet the article seemed to also imply that value entered was valid, it's just that the production software didn't think it was valid. [sent-45, score-0.323]
+</p><p>15 Also, data is stored in MySQL as aBLOB, so itwouldn't be possible to do integrity checks at the database levelanyway. [sent-48, score-0.332]
+</p><p>16 This argues for using a database that can handle structured value types natively. [sent-49, score-0.345]
+</p><p>17 Another problem is again that thevalidation logic in the checker can easily be out of syncwhen validation logic elsewhere in the stack, which can lead to horrendous problems as different parts of the system fight each other over who is right. [sent-53, score-0.437]
+</p><p>18 The next major issue is how the application code hammered the database server. [sent-54, score-0.36]
+</p><p>19 Application code shouldn't decide policy because this type of policy is really a global policy. [sent-58, score-0.369]
+</p><p>20 The network component would issue up/down events that communication systems running inside each process would know to interpret and act upon. [sent-60, score-0.397]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('valid', 0.347), ('invalid', 0.228), ('value', 0.222), ('code', 0.148), ('checks', 0.125), ('database', 0.123), ('cache', 0.115), ('would', 0.111), ('centralized', 0.104), ('pile', 0.101), ('entered', 0.101), ('configuration', 0.098), ('caused', 0.097), ('facebook', 0.097), ('caches', 0.097), ('transient', 0.096), ('reply', 0.094), ('layer', 0.091), ('issue', 0.089), ('ddos', 0.087)]</p>
+<p>[('valid', 0.347), ('invalid', 0.228), ('value', 0.222), ('code', 0.148), ('checks', 0.125), ('database', 0.123), ('cache', 0.115), ('would', 0.111), ('centralized', 0.104), ('pile', 0.101), ('entered', 0.101), ('configuration', 0.098), ('caused', 0.097), ('facebook', 0.097), ('caches', 0.097), ('transient', 0.096), ('reply', 0.094), ('layer', 0.091), ('issue', 0.089), ('ddos', 0.087), ('component', 0.086), ('integrity', 0.084), ('clients', 0.081), ('happens', 0.078), ('policy', 0.078), ('written', 0.077), ('happen', 0.077), ('problem', 0.077), ('complexity', 0.076), ('outage', 0.076), ('bad', 0.076), ('logic', 0.075), ('feedback', 0.075), ('seen', 0.073), ('issues', 0.073), ('thedog', 0.072), ('ablob', 0.072), ('checker', 0.072), ('horrendous', 0.072), ('inopportune', 0.072), ('wedged', 0.072), ('percentages', 0.068), ('spawns', 0.068), ('unaware', 0.068), ('weakly', 0.068), ('raid', 0.067), ('caching', 0.067), ('system', 0.066), ('type', 0.065), ('checkers', 0.065)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000005 <a title="910-tfidf-1" href="../high_scalability-2010/high_scalability-2010-09-30-Facebook_and_Site_Failures_Caused_by_Complex%2C_Weakly_Interacting%2C_Layered_Systems.html">910 high scalability-2010-09-30-Facebook and Site Failures Caused by Complex, Weakly Interacting, Layered Systems</a></p>
 <p>Introduction: Facebook has been so reliable that when a site outage does occur it's a

@@ -29,9 +29,30 @@ originally created to understand the system behaviour from a search request.
 Now Google's production clustersgenerate more than 1 terabyte of sampled trace
 data per day. So how does Dapper do what Dapper does?Dapper is described in an
 very well written and intricately detailed paper:Dapper, a Large-Scale
-Distributed Systems Traci</p><br/>
+Distributed Systems Traci</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Now Google's production clustersgenerate more than 1 terabyte of sampled trace data per day. [sent-13, score-0.753]
+</p><p>2 The full paper is worth a full read and a re- read, but we'll just cover some of the highlights:There are so many operations going on that Google can't trace every request all the time, so in order to reduce overhead they sample one out of thousands of requests. [sent-20, score-0.724]
+</p><p>3 Tracing is laregly transparent to applications because the trace code in common libraries (threading, control flow, RPC) is sufficient to debug most problems. [sent-23, score-0.858]
+</p><p>4 Atrace idis allocated to bind all the spans to a particular trace session. [sent-34, score-0.72]
+</p><p>5 The trace id isn't a globally unique sequence number, it's a probabilistically unique 64-bit integer. [sent-35, score-0.844]
+</p><p>6 Each row is a single trace which each column mapped to a span. [sent-37, score-0.689]
+</p><p>7 The median latency for sending trace data from applications to the central repository is 15 seconds, but often it can take many hours. [sent-38, score-0.732]
+</p><p>8 There's also always the curious question of how do you trace the tracing system? [sent-39, score-0.903]
+</p><p>9 An out-of-bound trace mechanism is in place for that purpose. [sent-41, score-0.645]
+</p><p>10 For example, Google can look at the trace to pinpoint: which applications are not using proper levels of authentication and encryption; and find which applications accessing sensitive data are not logging at an appropriate level so they won't see data they shouldn't see. [sent-45, score-0.929]
+</p><p>11 Originally the sampling rate was uniform, they are now moving to an adaptive sampling rate that species a desired number of traces per unit of time. [sent-51, score-0.815]
+</p><p>12 If a trace is kept all spans for the trace are also kept. [sent-58, score-1.407]
+</p><p>13 DAPI is an API ontop of the trace data which makes it possible to write trace applications and analysis tools. [sent-62, score-1.377]
+</p><p>14 Data can be accessed by trace id, in bulk by MapReduce, or by index. [sent-63, score-0.645]
+</p><p>15 During development the trace information is used to characterize performance, determine correctness, understand how an application is working, and as a verification test to determine if an application is behaving as expected. [sent-66, score-0.776]
+</p><p>16 Developers have parallel debug logs that are outside of the trace system. [sent-67, score-0.746]
+</p><p>17 Using the trace data it's possible to generate charge back data based on actual usage. [sent-73, score-0.747]
+</p><p>18 Using the system view provided by the trace data they were able to identify unintended service interactions and fix them. [sent-76, score-0.802]
+</p><p>19 Dapper has a few downsides too:Work that is batched together for efficiency is not correctly mapped to the trace ids inside the batch. [sent-78, score-0.73]
+</p><p>20 A trace id might get blamed for work it is not doing. [sent-79, score-0.685]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('trace', 0.645), ('dapper', 0.37), ('sampling', 0.284), ('tracing', 0.258), ('traces', 0.127), ('debug', 0.101), ('google', 0.098), ('tree', 0.087), ('sample', 0.079), ('spans', 0.075), ('logging', 0.07), ('originating', 0.067), ('payloads', 0.067), ('probabilistically', 0.067), ('system', 0.062), ('binaries', 0.062), ('depths', 0.062), ('rate', 0.06), ('barroso', 0.057), ('sampled', 0.057)]</p>
+<p>[('trace', 0.645), ('dapper', 0.37), ('sampling', 0.284), ('tracing', 0.258), ('traces', 0.127), ('debug', 0.101), ('google', 0.098), ('tree', 0.087), ('sample', 0.079), ('spans', 0.075), ('logging', 0.07), ('originating', 0.067), ('payloads', 0.067), ('probabilistically', 0.067), ('system', 0.062), ('binaries', 0.062), ('depths', 0.062), ('rate', 0.06), ('barroso', 0.057), ('sampled', 0.057), ('andre', 0.056), ('workloads', 0.054), ('establish', 0.052), ('data', 0.051), ('indicates', 0.049), ('determine', 0.047), ('unique', 0.046), ('identify', 0.044), ('mapped', 0.044), ('detailed', 0.043), ('threading', 0.042), ('kept', 0.042), ('correctly', 0.041), ('originally', 0.04), ('level', 0.04), ('mapreduce', 0.04), ('id', 0.04), ('sufficient', 0.039), ('bigtable', 0.037), ('common', 0.037), ('information', 0.037), ('applications', 0.036), ('annotation', 0.036), ('patter', 0.036), ('undergo', 0.036), ('coursing', 0.036), ('drilling', 0.036), ('saul', 0.036), ('latencies', 0.035), ('developers', 0.035)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="815-tfidf-1" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
 <p>Introduction: Imagine a single search request coursing through Google's massive
