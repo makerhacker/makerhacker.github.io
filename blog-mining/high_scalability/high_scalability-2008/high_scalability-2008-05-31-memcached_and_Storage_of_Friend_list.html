@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>337 high scalability-2008-05-31-memcached and Storage of Friend list</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2008" href="../home/high_scalability-2008_home.html">high_scalability-2008</a> <a title="high_scalability-2008-337" href="#">high_scalability-2008-337</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>337 high scalability-2008-05-31-memcached and Storage of Friend list</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-337-html" href="http://highscalability.com//blog/2008/5/31/memcached-and-storage-of-friend-list.html">html</a></p><p>Introduction: My first post, please be gentle. I know it is long. You are all like doctors -
+the more info, the better the diagnosis.-----------What is the best way to
+store a list of all of your friends in the memcached cache (a simple boolean
+saying “yes this user is your friend”, or “no”)? Think Robert Scoble (26,000+
+“friends”) on Twitter.com. He views a list of ALL existing users, and in this
+list, his friends are highlighted.I came up with 4 possible methods:--store in
+memcache as an array, a list of all the "yes" friend ID's--store your friend
+ID's as individual elements.--store as a hash of arrays based on last 3 digits
+of friend's ID -- so have up to 1000 arrays for you.--comma-delimited string
+of ID's as one elementI'm using the second one because I think it is faster to
+update. The single array or hash of arrays feels like too much overhead
+calculating and updating – and even just loading – to check for existence of a
+friend.The key is FRIEND[small ID#]_[big ID#]. The value is 1.This way</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('friend', 0.407), ('friends', 0.401), ('flags', 0.362), ('id', 0.26), ('arrays', 0.248), ('flag', 0.225), ('denotes', 0.222), ('existence', 0.135), ('list', 0.117), ('info', 0.108), ('doctors', 0.1), ('pushed', 0.097), ('array', 0.095), ('boolean', 0.094), ('digits', 0.094), ('meaningless', 0.094), ('hash', 0.091), ('yes', 0.091), ('ur', 0.09), ('memcache', 0.087)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.9999997 <a title="337-tfidf-1" href="../high_scalability-2008/high_scalability-2008-05-31-memcached_and_Storage_of_Friend_list.html">337 high scalability-2008-05-31-memcached and Storage of Friend list</a></p>
+<p>Introduction: My first post, please be gentle. I know it is long. You are all like doctors -
+the more info, the better the diagnosis.-----------What is the best way to
+store a list of all of your friends in the memcached cache (a simple boolean
+saying “yes this user is your friend”, or “no”)? Think Robert Scoble (26,000+
+“friends”) on Twitter.com. He views a list of ALL existing users, and in this
+list, his friends are highlighted.I came up with 4 possible methods:--store in
+memcache as an array, a list of all the "yes" friend ID's--store your friend
+ID's as individual elements.--store as a hash of arrays based on last 3 digits
+of friend's ID -- so have up to 1000 arrays for you.--comma-delimited string
+of ID's as one elementI'm using the second one because I think it is faster to
+update. The single array or hash of arrays feels like too much overhead
+calculating and updating – and even just loading – to check for existence of a
+friend.The key is FRIEND[small ID#]_[big ID#]. The value is 1.This way</p><p>2 0.17847601 <a title="337-tfidf-2" href="../high_scalability-2010/high_scalability-2010-03-10-How_FarmVille_Scales_-_The_Follow-up.html">792 high scalability-2010-03-10-How FarmVille Scales - The Follow-up</a></p>
+<p>Introduction: Several readers had follow-up questions in response toHow FarmVille Scales to
+Harvest 75 Million Players a Month. Here are Luke's response to those
+questions (and a few of mine).How does social networking makes things easier
+or harder?The primary interesting aspect of social networking games is how you
+wind up with a graph of connected users who need to be access each other's
+data on a frequent basis. This makes the overall dataset difficult if not
+impossible to partition.What are examples of the Facebook calls you try to
+avoid and how they impact game play?We can make a call for facebook friend
+data to retrieve information about your friends playing the game. Normally, we
+show a friend ladder at the bottom of the game that shows friend information,
+including name and facebook photo. Can you say where your cache is, what form
+it takes, and how much cached there is? Do you have a peering relationship
+with Facebook, as one might expect at that bandwidth?We use memcache as our
+caching tec</p><p>3 0.17484626 <a title="337-tfidf-3" href="../high_scalability-2009/high_scalability-2009-10-26-Facebook%27s_Memcached_Multiget_Hole%3A_More_machines_%21%3D_More_Capacity_.html">728 high scalability-2009-10-26-Facebook's Memcached Multiget Hole: More machines != More Capacity </a></p>
+<p>Introduction: When you are on the bleeding edge of scale like Facebook is, you run into some
+interesting problems. As of 2008Facebook had over 800 memcached
+serverssupplying over 28 terabytes of cache. With those staggering numbers
+it's a fair bet to think they've seen their share of Dr. House worthy
+memcached problems.Jeff Rothschild, Vice President of Technology at
+Facebook,describes one such problemthey've dubbed theMultiget Hole.You fall
+into the multiget hole when memcached servers areCPU bound, adding more
+memcached servers seems like the right way to add more capacity so more
+requests can be served, but against all logic adding servers doesn't help
+serve more requests. This puts you in a hole that simply adding more servers
+can't dig you out of. What's the treatment?Dr. House would immediately notice
+the hidden clue, we are talking requests not memory. We aren't running out of
+memory to store stuff, we arerunning out of CPU power to process requests.
+What happens when you add more servers is</p><p>4 0.14027159 <a title="337-tfidf-4" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
+<p>Introduction: Real-time social graphs (connectivity between people, places, and things).
+That's why scaling Facebook is hardsays Jeff Rothschild, Vice President of
+Technology at Facebook. Social networking sites like Facebook, Digg, and
+Twitter are simply harder than traditional websites to scale. Why is that? Why
+would social networking sites be any more difficult to scale than traditional
+web sites? Let's find out.Traditional websites are easier to scale than social
+networking sites for two reasons:They usually access only their own data and
+common cached data.Only 1-2% of users are active on the site at one
+time.Imagine a huge site like Yahoo. When you come to Yahoo they can get your
+profile record with one get and that's enough to build your view of the
+website for you. It's relatively straightforward to scale systems based around
+single records usingdistributed hashing schemes. And since only a few percent
+of the people are on the site at once it takes comparatively little RAM cache
+to handle a</p><p>5 0.12086775 <a title="337-tfidf-5" href="../high_scalability-2009/high_scalability-2009-06-27-Scaling_Twitter%3A_Making_Twitter_10000_Percent_Faster.html">639 high scalability-2009-06-27-Scaling Twitter: Making Twitter 10000 Percent Faster</a></p>
+<p>Introduction: Update 6:Some interesting changes from Twitter'sEvan Weaver: everything in RAM
+now, database is a backup; peaks at 300 tweets/second; every tweet followed by
+average 126 people; vector cache of tweet IDs; row cache; fragment cache; page
+cache; keep separate caches; GC makes Ruby optimization resistant so went with
+Scala; Thrift and HTTP are used internally; 100s internal requests for every
+external request; rewrote MQ but kept interface the same; 3 queues are used to
+load balance requests; extensive A/B testing for backwards capability;
+switched to C memcached client for speed; optimize critical path; faster to
+get the cached results from the network memory than recompute them
+locally.Update 5:Twitter on Scala. A Conversation with Steve Jenson, Alex
+Payne, and Robey Pointer by Bill Venners. A fascinating discussion of why
+Twitter moved to the Java JVM for their server infrastructure (long lived
+processes) and why they moved toScalato program against it (high level
+language, static typi</p><p>6 0.11830161 <a title="337-tfidf-6" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
+<p>7 0.11731361 <a title="337-tfidf-7" href="../high_scalability-2007/high_scalability-2007-11-05-Quick_question_about_efficiently_implementing_Facebook_%27news_feed%27_like_functionality.html">141 high scalability-2007-11-05-Quick question about efficiently implementing Facebook 'news feed' like functionality</a></p>
+<p>8 0.10880406 <a title="337-tfidf-8" href="../high_scalability-2007/high_scalability-2007-10-08-Lessons_from_Pownce_-_The_Early_Years.html">116 high scalability-2007-10-08-Lessons from Pownce - The Early Years</a></p>
+<p>9 0.10168159 <a title="337-tfidf-9" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>10 0.097646259 <a title="337-tfidf-10" href="../high_scalability-2007/high_scalability-2007-11-27-Solving_the_Client_Side_API_Scalability_Problem_with_a_Little_Game_Theory.html">166 high scalability-2007-11-27-Solving the Client Side API Scalability Problem with a Little Game Theory</a></p>
+<p>11 0.094561055 <a title="337-tfidf-11" href="../high_scalability-2007/high_scalability-2007-12-12-Report_from_OpenSocial_Meetup_at_Google.html">183 high scalability-2007-12-12-Report from OpenSocial Meetup at Google</a></p>
+<p>12 0.089847401 <a title="337-tfidf-12" href="../high_scalability-2007/high_scalability-2007-07-11-Friendster_Architecture.html">6 high scalability-2007-07-11-Friendster Architecture</a></p>
+<p>13 0.089206196 <a title="337-tfidf-13" href="../high_scalability-2013/high_scalability-2013-08-28-Sean_Hull%27s_20_Biggest_Bottlenecks_that_Reduce_and_Slow_Down_Scalability.html">1508 high scalability-2013-08-28-Sean Hull's 20 Biggest Bottlenecks that Reduce and Slow Down Scalability</a></p>
+<p>14 0.085021496 <a title="337-tfidf-14" href="../high_scalability-2010/high_scalability-2010-09-21-Playfish%27s_Social_Gaming_Architecture_-_50_Million_Monthly_Users_and_Growing.html">904 high scalability-2010-09-21-Playfish's Social Gaming Architecture - 50 Million Monthly Users and Growing</a></p>
+<p>15 0.083141886 <a title="337-tfidf-15" href="../high_scalability-2009/high_scalability-2009-05-25-non-sequential%2C_unique_identifier%2C_strategy_question.html">606 high scalability-2009-05-25-non-sequential, unique identifier, strategy question</a></p>
+<p>16 0.080684915 <a title="337-tfidf-16" href="../high_scalability-2010/high_scalability-2010-06-10-The_Four_Meta_Secrets_of_Scaling_at_Facebook.html">840 high scalability-2010-06-10-The Four Meta Secrets of Scaling at Facebook</a></p>
+<p>17 0.076718718 <a title="337-tfidf-17" href="../high_scalability-2009/high_scalability-2009-04-26-Poem%3A_Partly_Cloudy.html">582 high scalability-2009-04-26-Poem: Partly Cloudy</a></p>
+<p>18 0.073229142 <a title="337-tfidf-18" href="../high_scalability-2008/high_scalability-2008-04-01-How_to_update_video_views_count_effectively%3F.html">294 high scalability-2008-04-01-How to update video views count effectively?</a></p>
+<p>19 0.07285922 <a title="337-tfidf-19" href="../high_scalability-2008/high_scalability-2008-08-04-A_Bunch_of_Great_Strategies_for_Using_Memcached_and_MySQL_Better_Together.html">360 high scalability-2008-08-04-A Bunch of Great Strategies for Using Memcached and MySQL Better Together</a></p>
+<p>20 0.072344959 <a title="337-tfidf-20" href="../high_scalability-2013/high_scalability-2013-12-16-22_Recommendations_for_Building_Effective_High_Traffic_Web_Software.html">1565 high scalability-2013-12-16-22 Recommendations for Building Effective High Traffic Web Software</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.097), (1, 0.061), (2, -0.01), (3, -0.063), (4, 0.046), (5, 0.002), (6, -0.007), (7, 0.018), (8, 0.009), (9, -0.032), (10, 0.025), (11, 0.056), (12, -0.002), (13, 0.052), (14, -0.008), (15, 0.003), (16, -0.007), (17, -0.003), (18, 0.011), (19, -0.005), (20, -0.032), (21, -0.023), (22, 0.035), (23, 0.054), (24, -0.012), (25, -0.012), (26, 0.02), (27, 0.001), (28, -0.036), (29, -0.029), (30, -0.007), (31, -0.069), (32, -0.023), (33, 0.001), (34, -0.02), (35, -0.029), (36, 0.059), (37, -0.023), (38, 0.036), (39, -0.037), (40, 0.028), (41, 0.012), (42, -0.033), (43, -0.002), (44, -0.014), (45, 0.002), (46, -0.039), (47, -0.001), (48, -0.018), (49, -0.02)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.95637888 <a title="337-lsi-1" href="../high_scalability-2008/high_scalability-2008-05-31-memcached_and_Storage_of_Friend_list.html">337 high scalability-2008-05-31-memcached and Storage of Friend list</a></p>
+<p>Introduction: My first post, please be gentle. I know it is long. You are all like doctors -
+the more info, the better the diagnosis.-----------What is the best way to
+store a list of all of your friends in the memcached cache (a simple boolean
+saying “yes this user is your friend”, or “no”)? Think Robert Scoble (26,000+
+“friends”) on Twitter.com. He views a list of ALL existing users, and in this
+list, his friends are highlighted.I came up with 4 possible methods:--store in
+memcache as an array, a list of all the "yes" friend ID's--store your friend
+ID's as individual elements.--store as a hash of arrays based on last 3 digits
+of friend's ID -- so have up to 1000 arrays for you.--comma-delimited string
+of ID's as one elementI'm using the second one because I think it is faster to
+update. The single array or hash of arrays feels like too much overhead
+calculating and updating – and even just loading – to check for existence of a
+friend.The key is FRIEND[small ID#]_[big ID#]. The value is 1.This way</p><p>2 0.71416295 <a title="337-lsi-2" href="../high_scalability-2007/high_scalability-2007-11-05-Quick_question_about_efficiently_implementing_Facebook_%27news_feed%27_like_functionality.html">141 high scalability-2007-11-05-Quick question about efficiently implementing Facebook 'news feed' like functionality</a></p>
+<p>Introduction: Im sure most are familiar with Facebooks 'news feed'. If not, the 'news feed'
+basically lists recent activity of all of your friends.I dont see how you can
+get this information efficiently from a DB:* Im assuming all user activity is
+inserted in a "actions" table.* first get a list of all your friends* then
+query the actions table to return recent activity where the activity belongs
+to someone on your friends listThis can't be efficient especially considering
+some people have 200+ friends.So what am I missing? How do you think Facebook
+is implementing their "news feed".Im not asking for any specific details, just
+a general point in the right direction, as I cant see how they are
+implementing the 'news feed efficiently.Thanks.</p><p>3 0.66777593 <a title="337-lsi-3" href="../high_scalability-2010/high_scalability-2010-05-17-7_Lessons_Learned_While_Building_Reddit_to_270_Million_Page_Views_a_Month.html">828 high scalability-2010-05-17-7 Lessons Learned While Building Reddit to 270 Million Page Views a Month</a></p>
+<p>Introduction: Steve Huffman, co-founder of social news site Reddit, gave an
+excellentpresentation (slides,transcript) on the lessons he learned while
+building and growing Reddit to 7.5 million users per month, 270 million page
+views per month, and 20+ database servers.Steve says a lot of the lessons were
+really obvious, so you may not find a lot of completely new ideas in the
+presentation. But Steve has an earnestness and genuineness about him that is
+so obviously grounded in experience that you can't help but think deeply about
+what you could be doing different. And if Steve didn't know about these
+lessons, I'm betting others don't either.There are seven lessons, each has
+their own summary section: Lesson one: Crash Often; Lesson 2: Separation of
+Services; Lesson 3: Open Schema; Lesson 4: Keep it Stateless; Lesson 5:
+Memcache; Lesson 6: Store Redundant Data; Lesson 7: Work Offline.By far the
+most surprising feature of their architecture is in Lesson Six, whose
+essential idea is: The key to speed is</p><p>4 0.66368973 <a title="337-lsi-4" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
+<p>Introduction: Real-time social graphs (connectivity between people, places, and things).
+That's why scaling Facebook is hardsays Jeff Rothschild, Vice President of
+Technology at Facebook. Social networking sites like Facebook, Digg, and
+Twitter are simply harder than traditional websites to scale. Why is that? Why
+would social networking sites be any more difficult to scale than traditional
+web sites? Let's find out.Traditional websites are easier to scale than social
+networking sites for two reasons:They usually access only their own data and
+common cached data.Only 1-2% of users are active on the site at one
+time.Imagine a huge site like Yahoo. When you come to Yahoo they can get your
+profile record with one get and that's enough to build your view of the
+website for you. It's relatively straightforward to scale systems based around
+single records usingdistributed hashing schemes. And since only a few percent
+of the people are on the site at once it takes comparatively little RAM cache
+to handle a</p><p>5 0.65129888 <a title="337-lsi-5" href="../high_scalability-2008/high_scalability-2008-06-09-Apple%27s_iPhone_to_Use_a_Centralized_Push_Based_Notification_Architecture.html">343 high scalability-2008-06-09-Apple's iPhone to Use a Centralized Push Based Notification Architecture</a></p>
+<p>Introduction: Update 2: Hank Williams saysiPhone Background Processing: Not Fixed But
+Halfway There. Excellent analysis of all the reasons you need real background
+processing. Hey, you can't even build an alarm clock! Hard to believe some
+commenters say it's not so..Update: Josh Lowensohn of Webware tells usWhy
+users should be scared of Apple's new notification system.A big item on the
+iPhone developer iWishlist has been background processing. If you can't write
+an app to poll for new data in the background how will you keep your even more
+important non-foreground app in sync? Live from the Apple developer conference
+we learn the solution is a centralized push based architecture.Here's the
+relevant MacRumorsLive transcript:Thanking the developers for their hard work.
+Now talking about how the #1 request has been background support. Apple wants
+to solve this problem.The wrong solution would be to allow for background
+processes -- bad for battery life and performance. Poking fun at Windows
+Mobile's ta</p><p>6 0.64979213 <a title="337-lsi-6" href="../high_scalability-2009/high_scalability-2009-08-07-Strategy%3A_Break_Up_the_Memcache_Dog_Pile_.html">673 high scalability-2009-08-07-Strategy: Break Up the Memcache Dog Pile </a></p>
+<p>7 0.64855385 <a title="337-lsi-7" href="../high_scalability-2007/high_scalability-2007-10-08-Lessons_from_Pownce_-_The_Early_Years.html">116 high scalability-2007-10-08-Lessons from Pownce - The Early Years</a></p>
+<p>8 0.6429944 <a title="337-lsi-8" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
+<p>9 0.64141512 <a title="337-lsi-9" href="../high_scalability-2009/high_scalability-2009-06-27-Scaling_Twitter%3A_Making_Twitter_10000_Percent_Faster.html">639 high scalability-2009-06-27-Scaling Twitter: Making Twitter 10000 Percent Faster</a></p>
+<p>10 0.61644399 <a title="337-lsi-10" href="../high_scalability-2012/high_scalability-2012-07-30-Prismatic_Architecture_-_Using_Machine_Learning_on_Social_Networks_to_Figure_Out_What_You_Should_Read_on_the_Web_.html">1293 high scalability-2012-07-30-Prismatic Architecture - Using Machine Learning on Social Networks to Figure Out What You Should Read on the Web </a></p>
+<p>11 0.61555237 <a title="337-lsi-11" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
+<p>12 0.61384165 <a title="337-lsi-12" href="../high_scalability-2012/high_scalability-2012-04-16-Instagram_Architecture_Update%3A_What%E2%80%99s_new_with_Instagram%3F.html">1228 high scalability-2012-04-16-Instagram Architecture Update: What’s new with Instagram?</a></p>
+<p>13 0.61153764 <a title="337-lsi-13" href="../high_scalability-2010/high_scalability-2010-09-21-Playfish%27s_Social_Gaming_Architecture_-_50_Million_Monthly_Users_and_Growing.html">904 high scalability-2010-09-21-Playfish's Social Gaming Architecture - 50 Million Monthly Users and Growing</a></p>
+<p>14 0.6061523 <a title="337-lsi-14" href="../high_scalability-2010/high_scalability-2010-02-08-How_FarmVille_Scales_to_Harvest_75_Million_Players_a_Month.html">774 high scalability-2010-02-08-How FarmVille Scales to Harvest 75 Million Players a Month</a></p>
+<p>15 0.60236889 <a title="337-lsi-15" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
+<p>16 0.59992057 <a title="337-lsi-16" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
+<p>17 0.59328276 <a title="337-lsi-17" href="../high_scalability-2009/high_scalability-2009-05-25-non-sequential%2C_unique_identifier%2C_strategy_question.html">606 high scalability-2009-05-25-non-sequential, unique identifier, strategy question</a></p>
+<p>18 0.59249932 <a title="337-lsi-18" href="../high_scalability-2012/high_scalability-2012-08-01-Prismatic_Update%3A_Machine_Learning_on_Documents_and_Users.html">1294 high scalability-2012-08-01-Prismatic Update: Machine Learning on Documents and Users</a></p>
+<p>19 0.59154165 <a title="337-lsi-19" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>20 0.58999628 <a title="337-lsi-20" href="../high_scalability-2013/high_scalability-2013-08-26-Reddit%3A_Lessons_Learned_from_Mistakes_Made_Scaling_to_1_Billion_Pageviews_a_Month.html">1507 high scalability-2013-08-26-Reddit: Lessons Learned from Mistakes Made Scaling to 1 Billion Pageviews a Month</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.147), (2, 0.181), (25, 0.015), (30, 0.026), (40, 0.028), (61, 0.193), (79, 0.015), (82, 0.215), (85, 0.015), (94, 0.05)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.88485825 <a title="337-lda-1" href="../high_scalability-2008/high_scalability-2008-05-31-memcached_and_Storage_of_Friend_list.html">337 high scalability-2008-05-31-memcached and Storage of Friend list</a></p>
+<p>Introduction: My first post, please be gentle. I know it is long. You are all like doctors -
+the more info, the better the diagnosis.-----------What is the best way to
+store a list of all of your friends in the memcached cache (a simple boolean
+saying “yes this user is your friend”, or “no”)? Think Robert Scoble (26,000+
+“friends”) on Twitter.com. He views a list of ALL existing users, and in this
+list, his friends are highlighted.I came up with 4 possible methods:--store in
+memcache as an array, a list of all the "yes" friend ID's--store your friend
+ID's as individual elements.--store as a hash of arrays based on last 3 digits
+of friend's ID -- so have up to 1000 arrays for you.--comma-delimited string
+of ID's as one elementI'm using the second one because I think it is faster to
+update. The single array or hash of arrays feels like too much overhead
+calculating and updating – and even just loading – to check for existence of a
+friend.The key is FRIEND[small ID#]_[big ID#]. The value is 1.This way</p><p>2 0.81719786 <a title="337-lda-2" href="../high_scalability-2009/high_scalability-2009-01-16-Reducing_Your_Website%27s_Bandwidth_Usage_-_how_to.html">494 high scalability-2009-01-16-Reducing Your Website's Bandwidth Usage - how to</a></p>
+<p>Introduction: In this article Jeff Atwood (a rockstar programmer and one
+ofStackOverflowwebsite founders) discusses the measures of how you can reduce
+you bandwidth usage and refers specifically on high trafficked websites for
+which bandwidth is more costly than for an average website.This is his
+experience and you can read more on his post onCodingHorror.com.</p><p>3 0.80674803 <a title="337-lda-3" href="../high_scalability-2011/high_scalability-2011-05-20-Stuff_The_Internet_Says_On_Scalability_For_May_20%2C_2011.html">1045 high scalability-2011-05-20-Stuff The Internet Says On Scalability For May 20, 2011</a></p>
+<p>Introduction: Submitted for your reading pleasure on this beautiful morning:  Group Decision
+Making in Honey Bee Swarms. In distributed computing systems nodes reach
+aquorum when deciding what to do as a group. It turns out bees also use quorum
+logic when deciding on where to nest! Bees do it a bit differently of course:
+A scout bee votes for a site by spending time at it, somehow the scouts act
+and interact so that their numbers rise faster at superior sites, and somehow
+the bees at each site monitor their numbers there so that they know whether
+they've reached the threshold number (quorum) and can proceed to initiating
+the swarm's move to this site.Ants use similar mechanisms to control foraging.
+Distributed systems may share common mechanisms based on their nature as being
+a distributed system,  the components may not matter that much.Fire! Fire!
+Brent Chapman shows how to put that IT fire out in Incident Command for IT:
+What We Can Learn from the Fire Department. Scale Fail (part 1). Josh Berkus</p><p>4 0.80054003 <a title="337-lda-4" href="../high_scalability-2012/high_scalability-2012-01-31-Performance_in_the_Cloud%3A_Business_Jitter_is_Bad.html">1184 high scalability-2012-01-31-Performance in the Cloud: Business Jitter is Bad</a></p>
+<p>Introduction: One of the benefits of web applications is that they are generally
+transported via TCP, which is a connection-oriented protocol designed to
+assure delivery. TCP has a variety of native mechanisms through which delivery
+issues can be addressed - from window sizes to selective acks to idle time
+specification to ramp up parameters. All these technical knobs and buttons
+serve as a way for operators and administrators to tweak the protocol, often
+at run time, to ensure the exchange of requests and responses upon which web
+applications rely. This is unlike UDP, which is more of a "fire and forget"
+protocol in which the server doesn't really care if you receive the data or
+not.Now, voice and streaming video and audio over the web has always leveraged
+UDP and thus it has always been highly sensitive to jitter. Jitter is, without
+getting into layer one (physical) jargon, an undesirable delay in the
+otherwise consistent delivery of packets. It causes the delay of and sometimes
+outright loss of p</p><p>5 0.80022019 <a title="337-lda-5" href="../high_scalability-2010/high_scalability-2010-02-10-ElasticSearch_-_Open_Source%2C_Distributed%2C_RESTful_Search_Engine.html">775 high scalability-2010-02-10-ElasticSearch - Open Source, Distributed, RESTful Search Engine</a></p>
+<p>Introduction: ElasticSearchis an open source, distributed, RESTful search engine built on
+top ofLucene. Itsfeaturesinclude:Distributed and Highly Available Search
+Engine.Each index is fully sharded with a configurable number of shards.Each
+shard can have zero or more replicas.Read / Search operations performed on
+either replica shard.Multi Tenant with Multi Types.Support for more than one
+index.Support for more than one type per index.Index level configuration
+(number of shards, index storage, ...).Various set of APIs.HTTP RESTful
+API.Native Java API.All APIs perform automatic node operation
+rerouting.Document oriented.No need for upfront schema definition.Schema can
+be defined per type for customization of the indexing process.Reliable,
+Asynchronous Write Behind for long term persistency.(Near) Real Time
+Search.Built on top of Lucene.Each shard is a fully functional Lucene
+index.All the power of Lucene easily exposed through simple configuration /
+plugins.Per operation consistency.Single document l</p><p>6 0.79700816 <a title="337-lda-6" href="../high_scalability-2007/high_scalability-2007-11-12-Slashdot_Architecture_-_How_the_Old_Man_of_the_Internet_Learned_to_Scale.html">150 high scalability-2007-11-12-Slashdot Architecture - How the Old Man of the Internet Learned to Scale</a></p>
+<p>7 0.79340398 <a title="337-lda-7" href="../high_scalability-2013/high_scalability-2013-02-22-Stuff_The_Internet_Says_On_Scalability_For_February_22%2C_2013.html">1411 high scalability-2013-02-22-Stuff The Internet Says On Scalability For February 22, 2013</a></p>
+<p>8 0.79153043 <a title="337-lda-8" href="../high_scalability-2011/high_scalability-2011-04-28-PaaS_on_OpenStack_-_Run_Applications_on_Any_Cloud%2C_Any_Time_Using_Any_Thing.html">1031 high scalability-2011-04-28-PaaS on OpenStack - Run Applications on Any Cloud, Any Time Using Any Thing</a></p>
+<p>9 0.79033673 <a title="337-lda-9" href="../high_scalability-2009/high_scalability-2009-01-25-Where_do_I_start%3F.html">501 high scalability-2009-01-25-Where do I start?</a></p>
+<p>10 0.78673285 <a title="337-lda-10" href="../high_scalability-2008/high_scalability-2008-10-19-Alternatives_to_Google_App_Engine.html">423 high scalability-2008-10-19-Alternatives to Google App Engine</a></p>
+<p>11 0.78638893 <a title="337-lda-11" href="../high_scalability-2011/high_scalability-2011-07-29-Stuff_The_Internet_Says_On_Scalability_For_July_29%2C_2011.html">1089 high scalability-2011-07-29-Stuff The Internet Says On Scalability For July 29, 2011</a></p>
+<p>12 0.7860083 <a title="337-lda-12" href="../high_scalability-2009/high_scalability-2009-06-10-Paper%3A_Graph_Databases_and_the_Future_of_Large-Scale_Knowledge_Management.html">626 high scalability-2009-06-10-Paper: Graph Databases and the Future of Large-Scale Knowledge Management</a></p>
+<p>13 0.7844674 <a title="337-lda-13" href="../high_scalability-2012/high_scalability-2012-11-19-Gone_Fishin%27%3A_Tumblr_Architecture_-_15_Billion_Page_Views_A_Month_And_Harder_To_Scale_Than_Twitter.html">1360 high scalability-2012-11-19-Gone Fishin': Tumblr Architecture - 15 Billion Page Views A Month And Harder To Scale Than Twitter</a></p>
+<p>14 0.78446722 <a title="337-lda-14" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
+<p>15 0.78396928 <a title="337-lda-15" href="../high_scalability-2013/high_scalability-2013-05-20-The_Tumblr_Architecture_Yahoo_Bought_for_a_Cool_Billion_Dollars.html">1461 high scalability-2013-05-20-The Tumblr Architecture Yahoo Bought for a Cool Billion Dollars</a></p>
+<p>16 0.78253049 <a title="337-lda-16" href="../high_scalability-2009/high_scalability-2009-08-20-Dependency_Injection_and_AOP_frameworks_for_.NET_.html">685 high scalability-2009-08-20-Dependency Injection and AOP frameworks for .NET </a></p>
+<p>17 0.78121752 <a title="337-lda-17" href="../high_scalability-2007/high_scalability-2007-09-26-Use_a_CDN_to_Instantly_Improve_Your_Website%27s_Performance_by_20%25_or_More_.html">100 high scalability-2007-09-26-Use a CDN to Instantly Improve Your Website's Performance by 20% or More </a></p>
+<p>18 0.77909505 <a title="337-lda-18" href="../high_scalability-2010/high_scalability-2010-07-12-Creating_Scalable_Digital_Libraries.html">856 high scalability-2010-07-12-Creating Scalable Digital Libraries</a></p>
+<p>19 0.77408975 <a title="337-lda-19" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
+<p>20 0.77252066 <a title="337-lda-20" href="../high_scalability-2008/high_scalability-2008-01-01-S3_for_image_storing.html">199 high scalability-2008-01-01-S3 for image storing</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2008" href="../home/high_scalability-2008_home.html">high_scalability-2008</a> <a title="high_scalability-2008-315" href="#">high_scalability-2008-315</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-315-html" href="http://highscalability.com//blog/2008/5/5/hscale-handling-200-million-transactions-per-month-using-tra.html">html</a></p><p>Introduction: Update 2:AHSCALE benchmarkfinds HSCALE "adds a maximum overhead of about 0.24
+ms per query (against a partitioned table)."Future releasespromise much
+improved results.Update:A new presentation atAn Introduction to HSCALE.After
+writingSkype Plans for PostgreSQL to Scale to 1 Billion Users, which shows how
+Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL
+Proxy articles all over the place. It's like those "get rich quick" books that
+say all you have to do is visualize a giraffe with a big yellow dot
+superimposed over it and by sympathetic magic giraffes will suddenly stampede
+into your life. Without realizing it I must have visualized transparent
+proxies smothered in yellow dots.One of the brightest images is a wonderful
+series of articles by Peter Romianowski describing the evolution of their
+proxy architecture. Their application is an OLTP system executing 200 million
+transaction per month, tables with more than 1.5 billion rows, and a 600 GB
+total database size</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('hscale', 0.4), ('proxy', 0.349), ('mysql', 0.228), ('partition', 0.202), ('transparent', 0.197), ('partitioning', 0.192), ('yellow', 0.177), ('partitions', 0.166), ('table', 0.166), ('query', 0.16), ('tables', 0.123), ('logically', 0.116), ('released', 0.111), ('application', 0.11), ('split', 0.103), ('directory', 0.093), ('statement', 0.092), ('hashing', 0.089), ('rewrite', 0.088), ('scheme', 0.08)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0 <a title="315-tfidf-1" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
+<p>Introduction: Update 2:AHSCALE benchmarkfinds HSCALE "adds a maximum overhead of about 0.24
+ms per query (against a partitioned table)."Future releasespromise much
+improved results.Update:A new presentation atAn Introduction to HSCALE.After
+writingSkype Plans for PostgreSQL to Scale to 1 Billion Users, which shows how
+Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL
+Proxy articles all over the place. It's like those "get rich quick" books that
+say all you have to do is visualize a giraffe with a big yellow dot
+superimposed over it and by sympathetic magic giraffes will suddenly stampede
+into your life. Without realizing it I must have visualized transparent
+proxies smothered in yellow dots.One of the brightest images is a wonderful
+series of articles by Peter Romianowski describing the evolution of their
+proxy architecture. Their application is an OLTP system executing 200 million
+transaction per month, tables with more than 1.5 billion rows, and a 600 GB
+total database size</p><p>2 0.33271989 <a title="315-tfidf-2" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
+<p>Introduction: Skypeuses PostgreSQL as their backend database. PostgreSQL doesn't get enough
+run in the database world so I was excited to see how PostgreSQL is used "as
+the main DB for most of [Skype's] business needs." Their approach is to use a
+traditional stored procedure interface for accessing data and on top of that
+layer proxy servers which hash SQL requests to a set of database servers that
+actually carry out queries. The result is a horizontally partitioned system
+that they think will scale to handle 1 billion users.Skype's goal is an
+architecture that can handle 1 billion plus users. This level of scale isn't
+practically solvable with one really big computer, so our masked superhero
+horizontal scaling comes to the rescue.Hardware is dual or quad Opterons with
+SCSI RAID.Followed common database progression: Start with one DB. Add new
+databases partitioned by functionality. Replicate read-mostly data for better
+read access. Then horizontally partition data across multiple nodes..In a
+first f</p><p>3 0.16092084 <a title="315-tfidf-3" href="../high_scalability-2010/high_scalability-2010-05-20-Strategy%3A_Scale_Writes_to_734_Million_Records_Per_Day_Using_Time_Partitioning.html">829 high scalability-2010-05-20-Strategy: Scale Writes to 734 Million Records Per Day Using Time Partitioning</a></p>
+<p>Introduction: InScaling writes in MySQL (slides) Philip Tellis, while working for Yahoo,
+describes how using time based partitions they were able to increase their
+write capability from 2100 inserts per second (7 million a day) to a sustained
+8500 inserts per second (734 million a day). This was capacity enough to
+handle the load during Michael Jackson's memorial service. In summary, the
+secrets to scalable writes are:Bulk inserts push up insert ratePartitioning
+lets you insert more recordsPartition based on incoming data for fast
+insertsPartitioning is a standard approach for handling high write loads
+because it means data can be written to different hard disks in parallel. In
+this example Phillip created a separate table for each day with each table
+having it's own database file. Each table is partitioned on time, 12
+partitions per day, 2 hours of data per partition. Huge log streams are often
+handled this way. Other advantages of this approach: 1) fast drop table
+operations 2) space for dropped t</p><p>4 0.15533595 <a title="315-tfidf-4" href="../high_scalability-2008/high_scalability-2008-12-01-Sun%27s_High-Performance_and_Reliable_Web_Proxy_Solution.html">456 high scalability-2008-12-01-Sun's High-Performance and Reliable Web Proxy Solution</a></p>
+<p>Introduction: As individuals and businesses depend on the Web more than ever to conduct
+business, rapid and reliable content retrieval is critical. Reducing wait time
+improves productivity and increases user satisfaction. Web proxy technology
+has emerged as an effective solution to improve performance, help ensure
+content availability and enhance network security by caching and filtering Web
+content. The combination of Sun SPARC Enterprise servers with CoolThreads
+technology and the Sun Java System Web Proxy Server software provides a
+compelling foundation for a robust Web proxy solution. Sun SPARC Enterprise
+T1000 and T2000 servers include the UltraSPARC T1 processor with CoolThreads
+technology, offering six or eight cores with four threads per core. The Sun
+Java System Web Proxy Server software is highly threaded and takes advantage
+of the large number of threads supported by Sun UltraSPARC T1 processors with
+CoolThreads technology. Together, these products provide a highly scalable
+solution that</p><p>5 0.15191098 <a title="315-tfidf-5" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>Introduction: Pinterest has been riding an exponential growth curve, doubling every month
+and half. They've gone from 0 to 10s of billions of page views a month in two
+years, from 2 founders and one engineer to over 40 engineers, from one little
+MySQL server to 180 Web Engines, 240 API Engines, 88 MySQL DBs (cc2.8xlarge) +
+1 slave each, 110 Redis Instances, and 200 Memcache Instances.Stunning growth.
+So what's Pinterest's story? To tell their story we have our bards,
+Pinterest'sYashwanth NelapatiandMarty Weiner, who tell the dramatic story of
+Pinterest's architecture evolution in a talk titledScaling Pinterest. This is
+the talk they would have liked to hear a year and half ago when they were
+scaling fast and there were a lot of options to choose from. And they made a
+lot of incorrect choices.This is a great talk. It's full of amazing details.
+It's also very practical, down to earth, and it contains strategies adoptable
+by nearly anyone. Highly recommended.Two of my favorite lessons from the
+talk:Arc</p><p>6 0.14973879 <a title="315-tfidf-6" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
+<p>7 0.14631663 <a title="315-tfidf-7" href="../high_scalability-2007/high_scalability-2007-12-30-MySQL_clustering_strategies_and_comparisions.html">196 high scalability-2007-12-30-MySQL clustering strategies and comparisions</a></p>
+<p>8 0.14061099 <a title="315-tfidf-8" href="../high_scalability-2009/high_scalability-2009-06-10-Dealing_with_multi-partition_transactions_in_a_distributed_KV_solution.html">623 high scalability-2009-06-10-Dealing with multi-partition transactions in a distributed KV solution</a></p>
+<p>9 0.14025185 <a title="315-tfidf-9" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_MySQL_Scale-Out_by_application_partitioning.html">18 high scalability-2007-07-16-Paper: MySQL Scale-Out by application partitioning</a></p>
+<p>10 0.13823655 <a title="315-tfidf-10" href="../high_scalability-2008/high_scalability-2008-07-20-Strategy%3A_Front_S3_with_a_Caching_Proxy.html">353 high scalability-2008-07-20-Strategy: Front S3 with a Caching Proxy</a></p>
+<p>11 0.13519703 <a title="315-tfidf-11" href="../high_scalability-2013/high_scalability-2013-10-08-F1_and_Spanner_Holistically_Compared.html">1529 high scalability-2013-10-08-F1 and Spanner Holistically Compared</a></p>
+<p>12 0.12854035 <a title="315-tfidf-12" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
+<p>13 0.12763894 <a title="315-tfidf-13" href="../high_scalability-2009/high_scalability-2009-06-10-Managing_cross_partition_transactions_in_a_distributed_KV_system.html">625 high scalability-2009-06-10-Managing cross partition transactions in a distributed KV system</a></p>
+<p>14 0.12394895 <a title="315-tfidf-14" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_Guide_to_Cost-effective_Database_Scale-Out_using_MySQL.html">17 high scalability-2007-07-16-Paper: Guide to Cost-effective Database Scale-Out using MySQL</a></p>
+<p>15 0.12337577 <a title="315-tfidf-15" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
+<p>16 0.12296537 <a title="315-tfidf-16" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>17 0.11547129 <a title="315-tfidf-17" href="../high_scalability-2007/high_scalability-2007-12-02-nginx%3A_high_performance_smpt-pop-imap_proxy.html">172 high scalability-2007-12-02-nginx: high performance smpt-pop-imap proxy</a></p>
+<p>18 0.11505082 <a title="315-tfidf-18" href="../high_scalability-2008/high_scalability-2008-04-18-Scaling_Mania_at_MySQL_Conference_2008.html">303 high scalability-2008-04-18-Scaling Mania at MySQL Conference 2008</a></p>
+<p>19 0.11366009 <a title="315-tfidf-19" href="../high_scalability-2009/high_scalability-2009-10-28-And_the_winner_is%3A_MySQL_or_Memcached_or_Tokyo_Tyrant%3F.html">729 high scalability-2009-10-28-And the winner is: MySQL or Memcached or Tokyo Tyrant?</a></p>
+<p>20 0.11339939 <a title="315-tfidf-20" href="../high_scalability-2008/high_scalability-2008-09-23-The_7_Stages_of_Scaling_Web_Apps.html">391 high scalability-2008-09-23-The 7 Stages of Scaling Web Apps</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.172), (1, 0.081), (2, -0.061), (3, -0.097), (4, 0.042), (5, 0.145), (6, -0.062), (7, -0.127), (8, 0.007), (9, -0.037), (10, -0.003), (11, 0.034), (12, 0.003), (13, 0.072), (14, 0.03), (15, 0.023), (16, -0.062), (17, -0.014), (18, 0.026), (19, 0.024), (20, 0.086), (21, 0.034), (22, -0.105), (23, 0.013), (24, 0.034), (25, 0.131), (26, -0.039), (27, -0.035), (28, 0.112), (29, 0.064), (30, 0.032), (31, -0.039), (32, -0.063), (33, 0.079), (34, 0.038), (35, -0.039), (36, -0.028), (37, 0.017), (38, -0.005), (39, -0.033), (40, 0.003), (41, 0.001), (42, 0.058), (43, -0.09), (44, -0.04), (45, -0.021), (46, 0.051), (47, 0.012), (48, -0.065), (49, 0.04)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.96657515 <a title="315-lsi-1" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
+<p>Introduction: Update 2:AHSCALE benchmarkfinds HSCALE "adds a maximum overhead of about 0.24
+ms per query (against a partitioned table)."Future releasespromise much
+improved results.Update:A new presentation atAn Introduction to HSCALE.After
+writingSkype Plans for PostgreSQL to Scale to 1 Billion Users, which shows how
+Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL
+Proxy articles all over the place. It's like those "get rich quick" books that
+say all you have to do is visualize a giraffe with a big yellow dot
+superimposed over it and by sympathetic magic giraffes will suddenly stampede
+into your life. Without realizing it I must have visualized transparent
+proxies smothered in yellow dots.One of the brightest images is a wonderful
+series of articles by Peter Romianowski describing the evolution of their
+proxy architecture. Their application is an OLTP system executing 200 million
+transaction per month, tables with more than 1.5 billion rows, and a 600 GB
+total database size</p><p>2 0.74972528 <a title="315-lsi-2" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
+<p>Introduction: This is a follow up article byCory Isaacson to the first article on DbShards,
+Product: dbShards - Share Nothing. Shard Everything, describing some of the
+details about how DbShards works on the inside.The dbShards architecture is a
+true "shared nothing" implementation of Database Sharding. The high-level view
+of dbShards is shown here:The above diagram shows how dbShards works for
+achieving massive database scalability across multiple database servers, using
+native DBMS engines and our dbShards components. The important components
+are:dbS/Client: A design goal of dbShards is to make database sharding as
+seamless as possible to an application, so that application developers can
+write the same type of code they always have. A key component to making this
+possible is the dbShards Client. The dbShards Client is our intelligent driver
+that is an exact API emulation of a given vendor's database driver. For
+example, with MySQL we have full support for JDBC, and the the MySQL C driver
+(used in</p><p>3 0.7482087 <a title="315-lsi-3" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_MySQL_Scale-Out_by_application_partitioning.html">18 high scalability-2007-07-16-Paper: MySQL Scale-Out by application partitioning</a></p>
+<p>Introduction: MySQL Scale-Out by application partitioningby Oli SennhauserEventually every
+database system hit its limits. Especially on the Internet, where you have
+millions of users which theoretically access your database simultaneously,
+eventually your IO system will be a bottleneck. [A] promising but more complex
+solution with nearly no scale-out limits is application partitioning. If and
+when you get into the top-1000 rank on alexa [1], you have to think about such
+solutions.A Quick Hit of What's InsideHorizontal application partitioning,
+Vertical application partitioning, Disk IO calculations, How to partition an
+entity</p><p>4 0.74498469 <a title="315-lsi-4" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
+<p>Introduction: Skypeuses PostgreSQL as their backend database. PostgreSQL doesn't get enough
+run in the database world so I was excited to see how PostgreSQL is used "as
+the main DB for most of [Skype's] business needs." Their approach is to use a
+traditional stored procedure interface for accessing data and on top of that
+layer proxy servers which hash SQL requests to a set of database servers that
+actually carry out queries. The result is a horizontally partitioned system
+that they think will scale to handle 1 billion users.Skype's goal is an
+architecture that can handle 1 billion plus users. This level of scale isn't
+practically solvable with one really big computer, so our masked superhero
+horizontal scaling comes to the rescue.Hardware is dual or quad Opterons with
+SCSI RAID.Followed common database progression: Start with one DB. Add new
+databases partitioned by functionality. Replicate read-mostly data for better
+read access. Then horizontally partition data across multiple nodes..In a
+first f</p><p>5 0.73413312 <a title="315-lsi-5" href="../high_scalability-2008/high_scalability-2008-12-01-MySQL_Database_Scale-out_and_Replication_for_High_Growth_Businesses.html">455 high scalability-2008-12-01-MySQL Database Scale-out and Replication for High Growth Businesses</a></p>
+<p>Introduction: It is widely recognized that MySQL is the most popular database software in
+the world. Since its inception in 1995, there have been 11 million product
+installations around the world in a wide variety of markets. There are more
+installations of MySQL in use today than any other database architecture. From
+startup companies hoping to be the next Web2.0 poster child to large global
+enterprises, the MySQL database architecture has proven to be flexible,
+extendable, scalable, and more than capable of filling high-capacity database
+roles in very different venues.</p><p>6 0.72469491 <a title="315-lsi-6" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>7 0.71987069 <a title="315-lsi-7" href="../high_scalability-2010/high_scalability-2010-05-20-Strategy%3A_Scale_Writes_to_734_Million_Records_Per_Day_Using_Time_Partitioning.html">829 high scalability-2010-05-20-Strategy: Scale Writes to 734 Million Records Per Day Using Time Partitioning</a></p>
+<p>8 0.69541061 <a title="315-lsi-8" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
+<p>9 0.68644708 <a title="315-lsi-9" href="../high_scalability-2007/high_scalability-2007-07-16-Book%3A_High_Performance_MySQL.html">16 high scalability-2007-07-16-Book: High Performance MySQL</a></p>
+<p>10 0.68486112 <a title="315-lsi-10" href="../high_scalability-2008/high_scalability-2008-12-01-Deploying_MySQL_Database_in_Solaris_Cluster_Environments.html">454 high scalability-2008-12-01-Deploying MySQL Database in Solaris Cluster Environments</a></p>
+<p>11 0.67495847 <a title="315-lsi-11" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_Guide_to_Cost-effective_Database_Scale-Out_using_MySQL.html">17 high scalability-2007-07-16-Paper: Guide to Cost-effective Database Scale-Out using MySQL</a></p>
+<p>12 0.67130262 <a title="315-lsi-12" href="../high_scalability-2008/high_scalability-2008-06-11-Pyshards_aspires_to_build_sharding_toolkit_for_Python.html">345 high scalability-2008-06-11-Pyshards aspires to build sharding toolkit for Python</a></p>
+<p>13 0.66996837 <a title="315-lsi-13" href="../high_scalability-2008/high_scalability-2008-04-18-Scaling_Mania_at_MySQL_Conference_2008.html">303 high scalability-2008-04-18-Scaling Mania at MySQL Conference 2008</a></p>
+<p>14 0.66645139 <a title="315-lsi-14" href="../high_scalability-2011/high_scalability-2011-04-16-The_NewSQL_Market_Breakdown.html">1025 high scalability-2011-04-16-The NewSQL Market Breakdown</a></p>
+<p>15 0.66157234 <a title="315-lsi-15" href="../high_scalability-2010/high_scalability-2010-03-10-Saying_Yes_to_NoSQL%3B_Going_Steady_with_Cassandra_at_Digg.html">793 high scalability-2010-03-10-Saying Yes to NoSQL; Going Steady with Cassandra at Digg</a></p>
+<p>16 0.65765065 <a title="315-lsi-16" href="../high_scalability-2009/high_scalability-2009-10-28-And_the_winner_is%3A_MySQL_or_Memcached_or_Tokyo_Tyrant%3F.html">729 high scalability-2009-10-28-And the winner is: MySQL or Memcached or Tokyo Tyrant?</a></p>
+<p>17 0.64912885 <a title="315-lsi-17" href="../high_scalability-2007/high_scalability-2007-12-30-MySQL_clustering_strategies_and_comparisions.html">196 high scalability-2007-12-30-MySQL clustering strategies and comparisions</a></p>
+<p>18 0.6469478 <a title="315-lsi-18" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>19 0.64573085 <a title="315-lsi-19" href="../high_scalability-2008/high_scalability-2008-02-25-Make_Your_Site_Run_10_Times_Faster.html">261 high scalability-2008-02-25-Make Your Site Run 10 Times Faster</a></p>
+<p>20 0.63209391 <a title="315-lsi-20" href="../high_scalability-2011/high_scalability-2011-02-24-Strategy%3A_Eliminate_Unnecessary_SQL.html">995 high scalability-2011-02-24-Strategy: Eliminate Unnecessary SQL</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.15), (2, 0.187), (10, 0.05), (28, 0.013), (30, 0.042), (40, 0.023), (47, 0.027), (61, 0.107), (79, 0.073), (94, 0.051), (99, 0.191)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.94178712 <a title="315-lda-1" href="../high_scalability-2008/high_scalability-2008-12-29-Paper%3A_Spamalytics%3A_An_Empirical_Analysisof_Spam_Marketing_Conversion.html">478 high scalability-2008-12-29-Paper: Spamalytics: An Empirical Analysisof Spam Marketing Conversion</a></p>
+<p>Introduction: Under the philosophy thatthe best method to analyse spam is to become a
+spammer, this absolutely fascinating paper recounts how a team of UC Berkely
+researchers went under cover to infiltrate a spam network. Part CSI, part
+Mission Impossible, and part MacGyver, the team hijacked the botnet so that
+their code was actually part of the dark network itself. Once inside they
+figured out the architecture and protocols of the botnet and how many sales
+they were able to tally. Truly elegant work.Two different spam campaigns were
+run on aStormbotnet network of 75,800 zombie computers. Storm is a peer-to-
+peer botnet that uses spam to creep its tentacles through the world wide
+computer network. One of the campains distributed viruses in order to recruit
+new bots into the network. This is normally accomplished by enticing people to
+download email attachments. An astonishing one in ten people downloaded the
+executable and ran it, which means we won't run out of zombies soon. The
+downloaded compone</p><p>2 0.90529305 <a title="315-lda-2" href="../high_scalability-2008/high_scalability-2008-08-30-Paper%3A_GargantuanComputing%E2%80%94GRIDs_and_P2P.html">374 high scalability-2008-08-30-Paper: GargantuanComputing—GRIDs and P2P</a></p>
+<p>Introduction: I found the discussion of the available bandwidth of tree vs higher
+dimensional virtual networks topologies quite, to quote Spock,fascinating:A
+mathematical analysis by Ritter (2002) (one of the original developersof
+Napster) presented a detailed numerical argument demonstrating that
+theGnutella network could not scale to the capacity of its competitor,
+theNapster network. Essentially, that model showed that the Gnutella network
+isseverely bandwidth-limited long before the P2P population reaches a
+millionpeers. In each of these previous studies, the conclusions have
+overlooked theintrinsic bandwidth limits of the underlying topology in the
+Gnutella network:a Cayley tree (Rains and Sloane 1999) (see Sect. 9.4 for the
+definition).Trees are known to have lower aggregate bandwidth than higher
+dimensionaltopologies, e.g., hypercubes and hypertori. Studies of
+interconnectiontopologies in the literature have tended to focus on hardware
+implementations(see, e.g., Culler et al. 1996; Buyya 1999</p><p>3 0.90196961 <a title="315-lda-3" href="../high_scalability-2010/high_scalability-2010-09-23-Working_With_Large_Data_Sets.html">907 high scalability-2010-09-23-Working With Large Data Sets</a></p>
+<p>Introduction: This is an excerpt from my blogpostWorking With Large Data Sets...For the past
+18 months I've moved from working on the SMTP proxy to working on our other
+systems, all of which make use of the data we collect from each connection.
+It's a fair amount of data and it can be up to 2Kb in size for each
+connection. Our servers receive approximately 1000 of these pieces of data per
+second, which is fairly sustained due to our global distribution of customers.
+If you compare that toTwitter's peak of 3,283 tweets per second (maximum of
+140 characters), you can see it's not a small amount of data that we are
+dealing with here.I recently set out to scientifically prove the benefits of
+throttling, which is our technology for slowing down connections in order to
+detect spambots, who are kind enough to disconnect quite quickly when they see
+a slow connection. Due to the nature of the data we had, I needed to work with
+a long range of data to show evidence that an IP that appeared on Spamhaus had
+pre</p><p>4 0.89720416 <a title="315-lda-4" href="../high_scalability-2011/high_scalability-2011-12-23-Stuff_The_Internet_Says_On_Scalability_For_December_23%2C_2011.html">1163 high scalability-2011-12-23-Stuff The Internet Says On Scalability For December 23, 2011</a></p>
+<p>Introduction: A merry HighScalability to all and to all a good night:Santa: 3.7 million
+appointments; iPad2 == 1986 Cray 2 6 processor super computer; Watson: 200
+million pagesof natural language content Funny: a cautionary tale about
+storage and backup. Where is my data? I'm kinda big deal after all! I should
+have listened to my postdoc, he can build cheaper storage than you can.Nothing
+stirs up more energy than when someone says they are abandoning and old
+beloved framework for a newer sexier model. Feelings of betrayal and
+abandonment leak over everything, which is always a good draw for reality
+social networking. Here Paul Querna tells why The Switch: Python to Node.js.
+And here we see the response onHacker News. Python got the job done for
+cloudkick, they were acquired, but they wanted something more going forward, a
+trophy wife if you will, after the first wife put them through law school.
+Good discussion all around. You may find something that helps in your own
+platform decision. Or you just</p><p>5 0.89464295 <a title="315-lda-5" href="../high_scalability-2012/high_scalability-2012-10-29-Gone_Fishin%27_Two.html">1350 high scalability-2012-10-29-Gone Fishin' Two</a></p>
+<p>Introduction: Well, not exactly Fishin', I'll be on vacation starting today and I'll be back
+late November. I won't be posting anything new, so we'll all have a break.
+Disappointing, I know, but fear not, I will be posting some oldies for your
+re-enjoyment.And If you've ever wanted to write an article for
+HighScalability, this would be a great time :-) I especially need help on
+writingStuff the Internet Says on Scalabilityas I will be reading the
+Interwebs on a much reduced schedule. Shock! Horror! So if the spirit moves
+you, please write something.My connectivity in Italy will probably be good, so
+I will check in and approve articles on a regular basis. Ciao...</p><p>same-blog 6 0.89120382 <a title="315-lda-6" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
+<p>7 0.88734871 <a title="315-lda-7" href="../high_scalability-2011/high_scalability-2011-11-04-Stuff_The_Internet_Says_On_Scalability_For_November_4%2C_2011.html">1137 high scalability-2011-11-04-Stuff The Internet Says On Scalability For November 4, 2011</a></p>
+<p>8 0.88282239 <a title="315-lda-8" href="../high_scalability-2008/high_scalability-2008-09-16-EE-Appserver_Clustering_OR_Terracota_OR_Coherence_OR_something_else%3F.html">384 high scalability-2008-09-16-EE-Appserver Clustering OR Terracota OR Coherence OR something else?</a></p>
+<p>9 0.87898254 <a title="315-lda-9" href="../high_scalability-2012/high_scalability-2012-12-05-5_Ways_to_Make_Cloud_Failure_Not_an_Option.html">1367 high scalability-2012-12-05-5 Ways to Make Cloud Failure Not an Option</a></p>
+<p>10 0.85849744 <a title="315-lda-10" href="../high_scalability-2010/high_scalability-2010-04-14-Parallel_Information_Retrieval_and_Other_Search_Engine_Goodness.html">810 high scalability-2010-04-14-Parallel Information Retrieval and Other Search Engine Goodness</a></p>
+<p>11 0.85838717 <a title="315-lda-11" href="../high_scalability-2012/high_scalability-2012-09-12-Using_Varnish_for_Paywalls%3A_Moving_Logic_to_the_Edge.html">1321 high scalability-2012-09-12-Using Varnish for Paywalls: Moving Logic to the Edge</a></p>
+<p>12 0.85503209 <a title="315-lda-12" href="../high_scalability-2011/high_scalability-2011-09-30-Gone_Fishin%27.html">1128 high scalability-2011-09-30-Gone Fishin'</a></p>
+<p>13 0.84790576 <a title="315-lda-13" href="../high_scalability-2014/high_scalability-2014-05-23-Gone_Fishin%27_2014.html">1653 high scalability-2014-05-23-Gone Fishin' 2014</a></p>
+<p>14 0.84203231 <a title="315-lda-14" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
+<p>15 0.84119952 <a title="315-lda-15" href="../high_scalability-2012/high_scalability-2012-08-08-3_Tips_and_Tools_for_Creating_Reliable_Billion_Page_View_Web_Services.html">1301 high scalability-2012-08-08-3 Tips and Tools for Creating Reliable Billion Page View Web Services</a></p>
+<p>16 0.8380602 <a title="315-lda-16" href="../high_scalability-2012/high_scalability-2012-01-09-The_Etsy_Saga%3A_From_Silos_to_Happy_to_Billions_of_Pageviews_a_Month.html">1171 high scalability-2012-01-09-The Etsy Saga: From Silos to Happy to Billions of Pageviews a Month</a></p>
+<p>17 0.81522667 <a title="315-lda-17" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
+<p>18 0.81330657 <a title="315-lda-18" href="../high_scalability-2013/high_scalability-2013-09-11-Ten_Lessons_from_GitHub%E2%80%99s_First_Year_in_2008.html">1515 high scalability-2013-09-11-Ten Lessons from GitHub’s First Year in 2008</a></p>
+<p>19 0.81242508 <a title="315-lda-19" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
+<p>20 0.81208801 <a title="315-lda-20" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

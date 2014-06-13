@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2008" href="../home/high_scalability-2008_home.html">high_scalability-2008</a> <a title="high_scalability-2008-308" href="#">high_scalability-2008-308</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-308-html" href="http://highscalability.com//blog/2008/4/23/simple-nfs-failover-solution-with-symbolic-link.html">html</a></p><p>Introduction: I've been trying to find a high availability file storage solution without
+success. I tried GlusterFS which looks very promising but experienced problems
+with stability and don't want something I can't easily control and rely on.
+Other solutions are too complicated or have a SPOF.So I'm thinking of the
+following setup:Two NFS servers, a primary and a warm backup. The primary
+server will be rsynced with the warm backup every minute or two. I can do it
+so frequently as a PHP script will know which directories have changed
+recently from a database and only rsync those. Both servers will be NFS
+mounted on a cluster of web servers as /mnt/nfs-primary (sym linked as
+/home/websites) and /mnt/nfs-backup.I'll then use Ucarp
+(http://www.ucarp.org/project/ucarp) to monitor both NFS servers availability
+every couple of seconds and when one goes down, the Ucarp up script will be
+set to change the symbolic link on all web servers for the /home/websites dir
+from /mnt/nfs-primary to /mnt/nfs-backupThe</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('nfs', 0.508), ('ucarp', 0.372), ('script', 0.29), ('rsync', 0.257), ('primary', 0.252), ('warm', 0.219), ('backup', 0.193), ('directories', 0.158), ('symbolic', 0.146), ('glusterfs', 0.141), ('mounted', 0.122), ('servers', 0.121), ('linked', 0.101), ('promising', 0.098), ('setting', 0.085), ('availability', 0.083), ('trial', 0.081), ('missing', 0.081), ('rely', 0.08), ('frequently', 0.079)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000001 <a title="308-tfidf-1" href="../high_scalability-2008/high_scalability-2008-04-22-Simple_NFS_failover_solution_with_symbolic_link%3F.html">308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</a></p>
+<p>Introduction: I've been trying to find a high availability file storage solution without
+success. I tried GlusterFS which looks very promising but experienced problems
+with stability and don't want something I can't easily control and rely on.
+Other solutions are too complicated or have a SPOF.So I'm thinking of the
+following setup:Two NFS servers, a primary and a warm backup. The primary
+server will be rsynced with the warm backup every minute or two. I can do it
+so frequently as a PHP script will know which directories have changed
+recently from a database and only rsync those. Both servers will be NFS
+mounted on a cluster of web servers as /mnt/nfs-primary (sym linked as
+/home/websites) and /mnt/nfs-backup.I'll then use Ucarp
+(http://www.ucarp.org/project/ucarp) to monitor both NFS servers availability
+every couple of seconds and when one goes down, the Ucarp up script will be
+set to change the symbolic link on all web servers for the /home/websites dir
+from /mnt/nfs-primary to /mnt/nfs-backupThe</p><p>2 0.34011191 <a title="308-tfidf-2" href="../high_scalability-2008/high_scalability-2008-04-29-High_performance_file_server.html">310 high scalability-2008-04-29-High performance file server</a></p>
+<p>Introduction: What have bunch of applications which run on Debian servers, which processes
+huge amount of data stored in a shared NFS drive.we have 3 applications
+working as a pipeline, which process data stored in the NFS drive. The first
+application processes the data and store the output in some folder in the NFS
+drive, the second app in the pipeline process the data from the previous step
+and so on.The data load to the pipeline is like 1 GBytes per minute. I think
+the NFS drive is the bottleneck here.Would buying a specialized file server
+improve the performance of data read write from the disk ?</p><p>3 0.18540061 <a title="308-tfidf-3" href="../high_scalability-2007/high_scalability-2007-10-21-Paper%3A_Standardizing_Storage_Clusters_%28with_pNFS%29.html">128 high scalability-2007-10-21-Paper: Standardizing Storage Clusters (with pNFS)</a></p>
+<p>Introduction: pNFS (parallel NFS) is the next generation of NFS and its main claim to fame
+is that it's clustered, which "enables clients to directly access file data
+spread over multiple storage servers in parallel. As a result, each client can
+leverage the full aggregate bandwidth of a clustered storage service at the
+granularity of an individual file." About pNFSStorageMojosays:pNFS is going to
+commoditize parallel data access. In 5 years we won't know how we got along
+without it. Something to watch.</p><p>4 0.17531599 <a title="308-tfidf-4" href="../high_scalability-2007/high_scalability-2007-08-09-Lots_of_questions_for_high_scalability_-_high_availability.html">63 high scalability-2007-08-09-Lots of questions for high scalability - high availability</a></p>
+<p>Introduction: Hey,I do have a website that I would like to scale. Right now we have 10
+servers but this does not scale well.I know how to deal with my apache web
+servers but have problems with sql servers.I would like to use the "scale out"
+system and add servers when we need. We have over 100Gb of data for mysql and
+we tried to have around 20G per server. It works well except that if a server
+goes down then 1/5 of the user can't access the website. We could use
+replication but we would need to at least double sql servers to replicate each
+server. And maybe in the future it's not gonna be enough we would need maybe 3
+slaves per master ... well I don't really like this idea.I would prefer to
+have 8 servers that all deal with data from the 5 servers we have right now
+and then we could add new servers when we need. I looked at NFS but that does
+not seem to be a good idea for SQL servers ? Can you confirm?</p><p>5 0.17443193 <a title="308-tfidf-5" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
+<p>Introduction: This is a guest post byJeff Behl, VP Ops @ LogicMonitor. Jeffhas been a bit
+herder for the last 20 years, architecting and overseeing the infrastructure
+for a number of SaaS based companies.  Data Replication for Disaster
+RecoveryAn inevitable part of disaster recovery planning is making sure
+customer data exists in multiple locations.  In the case of LogicMonitor, a
+SaaS-based monitoring solution for physical, virtual, and cloud environments,
+we wanted copies of customer data files both within a data center and outside
+of it.  The former was to protect against the loss of individual servers
+within a facility, and the latter for recovery in the event of the complete
+loss of a data center.Where we were:  RsyncLike most everyone who starts off
+in a Linux environment, we used our trusty friend rsync to copy data around.
+Rsync is tried, true and tested, and works well when the number of servers,
+the amount of data, and the number of files is not horrendous.  When any of
+these are no longer</p><p>6 0.16353579 <a title="308-tfidf-6" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>7 0.15449926 <a title="308-tfidf-7" href="../high_scalability-2007/high_scalability-2007-09-18-Sync_data_on_all_servers.html">98 high scalability-2007-09-18-Sync data on all servers</a></p>
+<p>8 0.13639967 <a title="308-tfidf-8" href="../high_scalability-2011/high_scalability-2011-05-15-Building_a_Database_remote_availability_site.html">1041 high scalability-2011-05-15-Building a Database remote availability site</a></p>
+<p>9 0.13358539 <a title="308-tfidf-9" href="../high_scalability-2009/high_scalability-2009-02-19-Heavy_upload_server_scalability.html">516 high scalability-2009-02-19-Heavy upload server scalability</a></p>
+<p>10 0.13037865 <a title="308-tfidf-10" href="../high_scalability-2013/high_scalability-2013-09-23-Salesforce_Architecture_-_How_they_Handle_1.3_Billion_Transactions_a_Day.html">1521 high scalability-2013-09-23-Salesforce Architecture - How they Handle 1.3 Billion Transactions a Day</a></p>
+<p>11 0.11212905 <a title="308-tfidf-11" href="../high_scalability-2007/high_scalability-2007-08-20-TypePad_Architecture.html">68 high scalability-2007-08-20-TypePad Architecture</a></p>
+<p>12 0.10161661 <a title="308-tfidf-12" href="../high_scalability-2007/high_scalability-2007-11-12-Slashdot_Architecture_-_How_the_Old_Man_of_the_Internet_Learned_to_Scale.html">150 high scalability-2007-11-12-Slashdot Architecture - How the Old Man of the Internet Learned to Scale</a></p>
+<p>13 0.09414281 <a title="308-tfidf-13" href="../high_scalability-2009/high_scalability-2009-01-08-file_synchronization_solutions.html">488 high scalability-2009-01-08-file synchronization solutions</a></p>
+<p>14 0.090846039 <a title="308-tfidf-14" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
+<p>15 0.090314686 <a title="308-tfidf-15" href="../high_scalability-2007/high_scalability-2007-12-12-Oracle_Can_Do_Read-Write_Splitting_Too.html">182 high scalability-2007-12-12-Oracle Can Do Read-Write Splitting Too</a></p>
+<p>16 0.086706847 <a title="308-tfidf-16" href="../high_scalability-2010/high_scalability-2010-06-10-The_Four_Meta_Secrets_of_Scaling_at_Facebook.html">840 high scalability-2010-06-10-The Four Meta Secrets of Scaling at Facebook</a></p>
+<p>17 0.085414723 <a title="308-tfidf-17" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
+<p>18 0.084115364 <a title="308-tfidf-18" href="../high_scalability-2008/high_scalability-2008-09-10-Shard_servers_--_go_big_or_small%3F.html">383 high scalability-2008-09-10-Shard servers -- go big or small?</a></p>
+<p>19 0.082726657 <a title="308-tfidf-19" href="../high_scalability-2008/high_scalability-2008-03-16-Product%3A_GlusterFS.html">278 high scalability-2008-03-16-Product: GlusterFS</a></p>
+<p>20 0.077804893 <a title="308-tfidf-20" href="../high_scalability-2013/high_scalability-2013-12-10-Sponsored_Post%3A_Booking%2C_Spokeo%2C_Apple%2C_NuoDB%2C_ScaleOut%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1562 high scalability-2013-12-10-Sponsored Post: Booking, Spokeo, Apple, NuoDB, ScaleOut, MongoDB, BlueStripe, AiScaler, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.114), (1, 0.02), (2, -0.023), (3, -0.081), (4, -0.0), (5, -0.007), (6, 0.084), (7, -0.047), (8, 0.044), (9, 0.021), (10, -0.022), (11, -0.016), (12, -0.006), (13, 0.008), (14, 0.05), (15, 0.03), (16, 0.026), (17, 0.033), (18, -0.058), (19, 0.039), (20, 0.031), (21, -0.011), (22, -0.029), (23, 0.025), (24, 0.003), (25, 0.032), (26, 0.057), (27, -0.006), (28, -0.058), (29, 0.0), (30, -0.024), (31, -0.037), (32, 0.015), (33, -0.012), (34, -0.01), (35, 0.007), (36, 0.024), (37, -0.003), (38, 0.006), (39, 0.014), (40, 0.038), (41, -0.112), (42, -0.034), (43, 0.011), (44, -0.001), (45, 0.034), (46, 0.001), (47, 0.001), (48, 0.043), (49, -0.028)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.94665486 <a title="308-lsi-1" href="../high_scalability-2008/high_scalability-2008-04-22-Simple_NFS_failover_solution_with_symbolic_link%3F.html">308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</a></p>
+<p>Introduction: I've been trying to find a high availability file storage solution without
+success. I tried GlusterFS which looks very promising but experienced problems
+with stability and don't want something I can't easily control and rely on.
+Other solutions are too complicated or have a SPOF.So I'm thinking of the
+following setup:Two NFS servers, a primary and a warm backup. The primary
+server will be rsynced with the warm backup every minute or two. I can do it
+so frequently as a PHP script will know which directories have changed
+recently from a database and only rsync those. Both servers will be NFS
+mounted on a cluster of web servers as /mnt/nfs-primary (sym linked as
+/home/websites) and /mnt/nfs-backup.I'll then use Ucarp
+(http://www.ucarp.org/project/ucarp) to monitor both NFS servers availability
+every couple of seconds and when one goes down, the Ucarp up script will be
+set to change the symbolic link on all web servers for the /home/websites dir
+from /mnt/nfs-primary to /mnt/nfs-backupThe</p><p>2 0.74977601 <a title="308-lsi-2" href="../high_scalability-2008/high_scalability-2008-01-29-Building_scalable_storage_into_application_-_Instead_of_MogileFS_OpenAFS_etc..html">229 high scalability-2008-01-29-Building scalable storage into application - Instead of MogileFS OpenAFS etc.</a></p>
+<p>Introduction: I am planning the scaling of a hosted service, similar to typepad etc. and
+would appreciate feedback on my plan so far.Looking into scaling storage, I
+have come accross MogileFS and OpenAFS. My concern with these is I am not at
+all experienced with them and as the sole tech guy I don't want to build
+something into this hosting service that proves complex to update and
+adminster.So, I'm thinking of building replication and scalability right into
+the application, in a similar but simplified way to how MogileFS works (I
+think).So, for our database table of uploaded files, here's how it currently
+looks (simplified):fileid (pkey)filenameowneridFor adding the replication and
+scalability, I would add a few more
+columns:serveroneidservertwoidserverthreeids3At the time the user uploads a
+file, it will go to a specific server (managed by the application) and the id
+of that server will be placed in the "serverone" column. Then hourly or so, a
+cron job will run through the "files" table, and copy</p><p>3 0.73159385 <a title="308-lsi-3" href="../high_scalability-2007/high_scalability-2007-09-18-Sync_data_on_all_servers.html">98 high scalability-2007-09-18-Sync data on all servers</a></p>
+<p>Introduction: I have a few apache servers ( arround 11 atm ) serving a small amount of data
+( arround 44 gigs right now ).For some time I have been using rsync to keep
+all the content equal on all servers, but the amount of data has been growing,
+and rsync takes a few too much time to "compare" all data from source to
+destination, and create a lot of I/O.I have been taking a look at MogileFS, it
+seems a good and reliable option, but as the fuse module is not finished, we
+should have to rewrite all our apps, and its not an option atm.Any ideas?I
+just want a "real time, non resource-hungry" solution alternative for rsync.
+If I get more features on the way, then they are welcome :)Why I prefer to use
+a Distributed File System instead of using NAS + NFS?- I need 2 NAS, if I dont
+want a point of failure, and NAS hard is expensive.- Non-shared hardware, all
+server has their own local disks.- As files are replicated, I can save a lot
+of money, RAID is not a MUST.Thnx in advance for your help and sorry for</p><p>4 0.71153671 <a title="308-lsi-4" href="../high_scalability-2007/high_scalability-2007-08-09-Lots_of_questions_for_high_scalability_-_high_availability.html">63 high scalability-2007-08-09-Lots of questions for high scalability - high availability</a></p>
+<p>Introduction: Hey,I do have a website that I would like to scale. Right now we have 10
+servers but this does not scale well.I know how to deal with my apache web
+servers but have problems with sql servers.I would like to use the "scale out"
+system and add servers when we need. We have over 100Gb of data for mysql and
+we tried to have around 20G per server. It works well except that if a server
+goes down then 1/5 of the user can't access the website. We could use
+replication but we would need to at least double sql servers to replicate each
+server. And maybe in the future it's not gonna be enough we would need maybe 3
+slaves per master ... well I don't really like this idea.I would prefer to
+have 8 servers that all deal with data from the 5 servers we have right now
+and then we could add new servers when we need. I looked at NFS but that does
+not seem to be a good idea for SQL servers ? Can you confirm?</p><p>5 0.70393854 <a title="308-lsi-5" href="../high_scalability-2009/high_scalability-2009-02-19-Heavy_upload_server_scalability.html">516 high scalability-2009-02-19-Heavy upload server scalability</a></p>
+<p>Introduction: Hi,We are running a backup solution that uploads every night the files our
+clients worked on during the day (Cabonite-like).We have currently about 10GB
+of data per night, via http PUT requests (1 per file), and the files are
+written as-is on a NAS.Our architecture is basically compound of a load
+balancer (hardware, sticky sessions), 5 servers (Tomcat under RHEL4/5, ) and a
+NAS (nfs 3).Since our number of clients is rising, (as is our system load) how
+would you recommend we could scale our infrastructure? hardware and software?
+Should we go towards NAS sharding, more servers, NIO on tomcat...?Thanks for
+your inputs!</p><p>6 0.70142227 <a title="308-lsi-6" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
+<p>7 0.6847555 <a title="308-lsi-7" href="../high_scalability-2008/high_scalability-2008-03-18-Shared_filesystem_on_EC2.html">283 high scalability-2008-03-18-Shared filesystem on EC2</a></p>
+<p>8 0.68156266 <a title="308-lsi-8" href="../high_scalability-2012/high_scalability-2012-07-09-Data_Replication_in_NoSQL_Databases.html">1279 high scalability-2012-07-09-Data Replication in NoSQL Databases</a></p>
+<p>9 0.67741901 <a title="308-lsi-9" href="../high_scalability-2007/high_scalability-2007-09-28-Kosmos_File_System_%28KFS%29_is_a_New_High_End_Google_File_System_Option.html">103 high scalability-2007-09-28-Kosmos File System (KFS) is a New High End Google File System Option</a></p>
+<p>10 0.67294538 <a title="308-lsi-10" href="../high_scalability-2010/high_scalability-2010-08-23-6_Ways_to_Kill_Your_Servers_-__Learning_How_to_Scale_the_Hard_Way.html">884 high scalability-2010-08-23-6 Ways to Kill Your Servers -  Learning How to Scale the Hard Way</a></p>
+<p>11 0.66814911 <a title="308-lsi-11" href="../high_scalability-2007/high_scalability-2007-10-04-You_Can_Now_Store_All_Your_Stuff_on_Your_Own_Google_Like_File_System.html">112 high scalability-2007-10-04-You Can Now Store All Your Stuff on Your Own Google Like File System</a></p>
+<p>12 0.66769814 <a title="308-lsi-12" href="../high_scalability-2007/high_scalability-2007-10-21-Paper%3A_Standardizing_Storage_Clusters_%28with_pNFS%29.html">128 high scalability-2007-10-21-Paper: Standardizing Storage Clusters (with pNFS)</a></p>
+<p>13 0.66610754 <a title="308-lsi-13" href="../high_scalability-2009/high_scalability-2009-05-22-Distributed_content_system_with_bandwidth_balancing.html">605 high scalability-2009-05-22-Distributed content system with bandwidth balancing</a></p>
+<p>14 0.6540938 <a title="308-lsi-14" href="../high_scalability-2008/high_scalability-2008-10-26-Should_you_use_a_SAN_to_scale_your_architecture%3F_.html">430 high scalability-2008-10-26-Should you use a SAN to scale your architecture? </a></p>
+<p>15 0.64556515 <a title="308-lsi-15" href="../high_scalability-2013/high_scalability-2013-09-23-Salesforce_Architecture_-_How_they_Handle_1.3_Billion_Transactions_a_Day.html">1521 high scalability-2013-09-23-Salesforce Architecture - How they Handle 1.3 Billion Transactions a Day</a></p>
+<p>16 0.64436603 <a title="308-lsi-16" href="../high_scalability-2007/high_scalability-2007-11-06-Product%3A_ChironFS.html">143 high scalability-2007-11-06-Product: ChironFS</a></p>
+<p>17 0.6424641 <a title="308-lsi-17" href="../high_scalability-2009/high_scalability-2009-01-08-file_synchronization_solutions.html">488 high scalability-2009-01-08-file synchronization solutions</a></p>
+<p>18 0.63004768 <a title="308-lsi-18" href="../high_scalability-2007/high_scalability-2007-11-02-How_WordPress.com_Tracks_300_Servers_Handling_10_Million_Pageviews.html">140 high scalability-2007-11-02-How WordPress.com Tracks 300 Servers Handling 10 Million Pageviews</a></p>
+<p>19 0.61798376 <a title="308-lsi-19" href="../high_scalability-2008/high_scalability-2008-03-16-Product%3A_GlusterFS.html">278 high scalability-2008-03-16-Product: GlusterFS</a></p>
+<p>20 0.6160481 <a title="308-lsi-20" href="../high_scalability-2007/high_scalability-2007-09-06-Scaling_IMAP_and_POP3.html">81 high scalability-2007-09-06-Scaling IMAP and POP3</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.166), (2, 0.119), (30, 0.473), (61, 0.053), (79, 0.058)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.97818893 <a title="308-lda-1" href="../high_scalability-2007/high_scalability-2007-10-25-Should_JSPs_be_avoided_for_high_scalability%3F.html">131 high scalability-2007-10-25-Should JSPs be avoided for high scalability?</a></p>
+<p>Introduction: I just heard about some web sites where Velocity templates are used to render
+HTML instead of using JSPs and all the processing in performed in servlets.
+Can JSPs cause issue with scalability?Thanks,Unmesh</p><p>2 0.95727319 <a title="308-lda-2" href="../high_scalability-2011/high_scalability-2011-02-16-Paper%3A_An_Experimental_Investigation_of_the_Akamai_Adaptive_Video_Streaming.html">991 high scalability-2011-02-16-Paper: An Experimental Investigation of the Akamai Adaptive Video Streaming</a></p>
+<p>Introduction: Video is hot on the Internet and people are really interested in knowing how
+to make it work. Dan Rayburnhas a post pointing to a fascinating paper: An
+Experimental Investigation of the Akamai Adaptive Video Streaming, which talks
+in some detail about the protocols big players like YouTube, Skype and Akamai
+use to serve video over on an inherently video unfriendly medium like the
+Internet. For Akamai they found:Each video is encoded in five versions at
+different bit rates and stored in separate files.The client sends commands to
+the server with an average inter departure time of about 2 s, i.e. the control
+algorithm is executed on average each 2 seconds. Akamai uses only the video
+level to adapt the video source to the available bandwidth, whereas the frame
+rate of the video is kept constant.When a sudden drop in the available
+bandwidth occurs, short interruptions of the video playback can occur due to
+the a large actuation delay.For a sudden increase of the available bandwidth,
+the tr</p><p>3 0.95023662 <a title="308-lda-3" href="../high_scalability-2011/high_scalability-2011-04-04-Scaling_Social_Ecommerce_Architecture_Case_study.html">1016 high scalability-2011-04-04-Scaling Social Ecommerce Architecture Case study</a></p>
+<p>Introduction: A recent study showed that over 92 percent of executives from leading
+retailers are focusing their marketing efforts on Facebook and subsequent
+applications. Furthermore, over 71 percent of users have confirmed they are
+more likely to make a purchase after "liking" a brand they find online.
+(source)Sears Architect Tomer Gabel provides an insightful overview on how
+they built a Social Ecommerce solution for Sears.com that can handle complex
+relationship quires in real time. Tomer goes through:the architectural
+considerations behind their solutionwhy they chose memory over diskhow they
+partitioned the data to gain scalabilitywhy they chose to execute code with
+the data using GigaSpaces Map/Reduce execution frameworkhow they integrated
+with Facebookwhy they chose GigaSpaces over Coherence and Terracotta for in-
+memory caching and scaleIn this post I tried to summarize the main takeaway
+from the interview.You can also watch the full interview (highly
+recomended).Read the full storyhere</p><p>4 0.95014894 <a title="308-lda-4" href="../high_scalability-2007/high_scalability-2007-07-15-Web_Analytics%3A_An_Hour_a_Day.html">14 high scalability-2007-07-15-Web Analytics: An Hour a Day</a></p>
+<p>Introduction: Web Analytics: An Hour A Day is the first book by an in-the-trenches
+practitioner of web analytics. It provides a unique insider’s perspective of
+the challenges and opportunities that web analytics presents to each person
+who touches the Web in your organization. Rather than spamming you with
+metrics and definitions, Web Analytics: An Hour A Day will enhance your
+mindset and teach you how to fish for yourself.Avinash Kaushik is a expert in
+web analytics and author of the top-rated blog Occam’s Razor
+(http://www.kaushik.net/avinash). In this book, he goes beyond web analytics
+concepts and definitions to provide a step-by-step guide to implementing a
+successful web analytics strategy. His revolutionary approach to web analytics
+challenges prevalent thinking about the field and guides readers to a solution
+that will provide truly informed and actionable insights.</p><p>5 0.93225491 <a title="308-lda-5" href="../high_scalability-2013/high_scalability-2013-05-16-Paper%3A_Warp%3A_Multi-Key_Transactions_for_Key-Value_Stores.html">1459 high scalability-2013-05-16-Paper: Warp: Multi-Key Transactions for Key-Value Stores</a></p>
+<p>Introduction: Looks like an interesting take on "a completely asynchronous, low-latency
+transaction management protocol, in line with the fully distributed NoSQL
+architecture."Warp: Multi-Key Transactions for Key-Value Stores
+overview:Implementing ACID transactions has been a longstanding challenge for
+NoSQL systems. Because these systems are based on a sharded architecture,
+transactions necessarily require coordination across multiple servers. Past
+work in this space has relied either on heavyweight protocols such as Paxos or
+clock synchronization for this coordination.This paper presents a novel
+protocol for coordinating distributed transactions with ACID semantics on top
+of a sharded data store. Called linear transactions, this protocol achieves
+scalability by distributing the coordination task to only those servers that
+hold relevant data for each transaction. It achieves high performance by
+serializing only those transactions whose concurrent execution could
+potentially yield a violation of ACI</p><p>6 0.91108334 <a title="308-lda-6" href="../high_scalability-2007/high_scalability-2007-07-16-Book%3A_High_Performance_MySQL.html">16 high scalability-2007-07-16-Book: High Performance MySQL</a></p>
+<p>same-blog 7 0.87615073 <a title="308-lda-7" href="../high_scalability-2008/high_scalability-2008-04-22-Simple_NFS_failover_solution_with_symbolic_link%3F.html">308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</a></p>
+<p>8 0.87314731 <a title="308-lda-8" href="../high_scalability-2007/high_scalability-2007-12-12-Oracle_Can_Do_Read-Write_Splitting_Too.html">182 high scalability-2007-12-12-Oracle Can Do Read-Write Splitting Too</a></p>
+<p>9 0.86184084 <a title="308-lda-9" href="../high_scalability-2009/high_scalability-2009-01-22-Heterogeneous_vs._Homogeneous_System_Architectures.html">500 high scalability-2009-01-22-Heterogeneous vs. Homogeneous System Architectures</a></p>
+<p>10 0.82381272 <a title="308-lda-10" href="../high_scalability-2008/high_scalability-2008-02-25-Make_Your_Site_Run_10_Times_Faster.html">261 high scalability-2008-02-25-Make Your Site Run 10 Times Faster</a></p>
+<p>11 0.79173595 <a title="308-lda-11" href="../high_scalability-2008/high_scalability-2008-05-29-Amazon_Improves_Diagonal_Scaling_Support_with_High-CPU_Instances.html">334 high scalability-2008-05-29-Amazon Improves Diagonal Scaling Support with High-CPU Instances</a></p>
+<p>12 0.78630805 <a title="308-lda-12" href="../high_scalability-2010/high_scalability-2010-02-24-Hot_Scalability_Links_for_February_24%2C_2010.html">783 high scalability-2010-02-24-Hot Scalability Links for February 24, 2010</a></p>
+<p>13 0.78117543 <a title="308-lda-13" href="../high_scalability-2007/high_scalability-2007-07-30-Product%3A_ImageShack.html">43 high scalability-2007-07-30-Product: ImageShack</a></p>
+<p>14 0.77808177 <a title="308-lda-14" href="../high_scalability-2008/high_scalability-2008-02-27-Product%3A_System_Imager_-_Automate_Deployment_and_Installs.html">263 high scalability-2008-02-27-Product: System Imager - Automate Deployment and Installs</a></p>
+<p>15 0.77778798 <a title="308-lda-15" href="../high_scalability-2010/high_scalability-2010-05-26-End-To-End_Performance_Study_of_Cloud_Services.html">831 high scalability-2010-05-26-End-To-End Performance Study of Cloud Services</a></p>
+<p>16 0.76440895 <a title="308-lda-16" href="../high_scalability-2008/high_scalability-2008-05-31-Biggest_Under_Reported_Story%3A_Google%27s_BigTable_Costs_10_Times_Less_than_Amazon%27s_SimpleDB.html">336 high scalability-2008-05-31-Biggest Under Reported Story: Google's BigTable Costs 10 Times Less than Amazon's SimpleDB</a></p>
+<p>17 0.74913085 <a title="308-lda-17" href="../high_scalability-2012/high_scalability-2012-07-16-Cinchcast_Architecture_-_Producing_1%2C500_Hours_of_Audio_Every_Day.html">1284 high scalability-2012-07-16-Cinchcast Architecture - Producing 1,500 Hours of Audio Every Day</a></p>
+<p>18 0.69251299 <a title="308-lda-18" href="../high_scalability-2007/high_scalability-2007-07-30-Product%3A_Photobucket.html">44 high scalability-2007-07-30-Product: Photobucket</a></p>
+<p>19 0.68404377 <a title="308-lda-19" href="../high_scalability-2008/high_scalability-2008-03-29-20_New_Rules_for_Faster_Web_Pages.html">291 high scalability-2008-03-29-20 New Rules for Faster Web Pages</a></p>
+<p>20 0.67467374 <a title="308-lda-20" href="../high_scalability-2014/high_scalability-2014-03-24-Big%2C_Small%2C_Hot_or_Cold_-_Examples_of_Robust_Data_Pipelines_from_Stripe%2C_Tapad%2C_Etsy_and_Square.html">1618 high scalability-2014-03-24-Big, Small, Hot or Cold - Examples of Robust Data Pipelines from Stripe, Tapad, Etsy and Square</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

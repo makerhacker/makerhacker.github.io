@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>283 high scalability-2008-03-18-Shared filesystem on EC2</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2008" href="../home/high_scalability-2008_home.html">high_scalability-2008</a> <a title="high_scalability-2008-283" href="#">high_scalability-2008-283</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>283 high scalability-2008-03-18-Shared filesystem on EC2</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-283-html" href="http://highscalability.com//blog/2008/3/19/shared-filesystem-on-ec2.html">html</a></p><p>Introduction: Hi. I'm looking for a way to share files between EC2 nodes. Currently we are
+using glusterfs to do this. It has been reliable recently, but in the past it
+has crashed under high load and we've had trouble starting it up again. We've
+only been able to restart it by removing the files, restarting the cluster,
+and filing it up again with our files from backup. This takes ages, and will
+take even longer the more files we get.What worries me is that it seems to
+make each node a point of failure for the entire system. One node crashes and
+soon the entire cluster has crashed. The other problem is adding another node.
+It seems like you have to take down the whole thing, reconfigure to include
+the new node, and restart. This kind of defeats the horizontal scaling
+strategy.We are using 2 EC2 instances as web servers, 1 as a DB master, and 1
+as a slave. GlusterFS is installed on the web server machines as well as the
+DB slave machine (we backup files to s3 from this machine). The files are
+mostly</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('files', 0.427), ('thrudb', 0.337), ('glusterfs', 0.315), ('filesystem', 0.216), ('node', 0.172), ('defeats', 0.169), ('filing', 0.157), ('worries', 0.153), ('crashed', 0.153), ('reconfigure', 0.149), ('db', 0.149), ('thumbnails', 0.146), ('restarting', 0.146), ('ages', 0.134), ('mature', 0.124), ('crashes', 0.117), ('seems', 0.115), ('trouble', 0.112), ('kind', 0.112), ('restart', 0.11)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999976 <a title="283-tfidf-1" href="../high_scalability-2008/high_scalability-2008-03-18-Shared_filesystem_on_EC2.html">283 high scalability-2008-03-18-Shared filesystem on EC2</a></p>
+<p>Introduction: Hi. I'm looking for a way to share files between EC2 nodes. Currently we are
+using glusterfs to do this. It has been reliable recently, but in the past it
+has crashed under high load and we've had trouble starting it up again. We've
+only been able to restart it by removing the files, restarting the cluster,
+and filing it up again with our files from backup. This takes ages, and will
+take even longer the more files we get.What worries me is that it seems to
+make each node a point of failure for the entire system. One node crashes and
+soon the entire cluster has crashed. The other problem is adding another node.
+It seems like you have to take down the whole thing, reconfigure to include
+the new node, and restart. This kind of defeats the horizontal scaling
+strategy.We are using 2 EC2 instances as web servers, 1 as a DB master, and 1
+as a slave. GlusterFS is installed on the web server machines as well as the
+DB slave machine (we backup files to s3 from this machine). The files are
+mostly</p><p>2 0.20149402 <a title="283-tfidf-2" href="../high_scalability-2008/high_scalability-2008-03-16-Product%3A_GlusterFS.html">278 high scalability-2008-03-16-Product: GlusterFS</a></p>
+<p>Introduction: Adapted from their website:GlusterFSis a clustered file-system capable of
+scaling to several peta-bytes. It aggregates various storage bricks over
+Infiniband RDMA or TCP/IP interconnect into one large parallel network file
+system. Storage bricks can be made of any commodity hardware such as x86-64
+server with SATA-II RAID and Infiniband HBA).Cluster file systems are still
+not mature for enterprise market. They are too complex to deploy and maintain
+though they are extremely scalable and cheap. Can be entirely built out of
+commodity OS and hardware. GlusterFS hopes to solves this problem.GlusterFS
+achieved35 GBps read throughput. The GlusterFS Aggregated I/O Benchmark was
+performed on 64 bricks clustered storage system over 10 Gbps Infiniband
+interconnect. A cluster of 220 clients pounded the storage system with
+multiple dd (disk-dump) instances, each reading / writing a 1 GB file with 1MB
+block size. GlusterFS was configured with unify translator and round-robin
+scheduler.The advantage</p><p>3 0.18644832 <a title="283-tfidf-3" href="../high_scalability-2013/high_scalability-2013-02-07-Ask_HighScalability%3A_Web_asset_server_concept_-_3rd_party_software_available%3F.html">1402 high scalability-2013-02-07-Ask HighScalability: Web asset server concept - 3rd party software available?</a></p>
+<p>Introduction: We are serving dynamic (PHP) websites and their assets
+(JS/CSS/images/videos/binary downloads) via the same apache hosts. The static
+files are only being used as origins for CDN services used to distribute those
+files. Yet, in the current development-deploy pipeline, these files are
+checked into the same version control repositories as the code is. This is
+what we would like to change, for several reasons (decouple asset deployment
+from development & developers, lessen size of code repositories, etc.)My idea
+is to do the following: Set up a media server (cluster) which serves as an API
+(REST e.g.). You can PUT files to it, and get back the URL the file is
+available through from the public. In between input and output, the media
+service deals with everything that's necessary to serve the files: Upload them
+to the CDN, create the public URL, write the meta data to a (relational?)
+database, assign a version number... This API can be used by a) the
+application/website directly to provide C</p><p>4 0.12894788 <a title="283-tfidf-4" href="../high_scalability-2009/high_scalability-2009-03-05-Product%3A_Amazon_Simple_Storage_Service.html">525 high scalability-2009-03-05-Product: Amazon Simple Storage Service</a></p>
+<p>Introduction: Update:HostedFTP.com - Amazon S3 Performance Report. How fast is S3? Based on
+their own study HostedFTP.com has found: 10 to 12 MB/second when storing and
+receiving files and 140 ms per file stored as a fixed overhead
+cost.breakUpdate:A Quantitative Comparison of Rackspace and Amazon Cloud
+Storage Solutions. S3 isn't the only cloud storage service out there. Mosso is
+saying they can save you so money while offering support. There are number of
+scenarios in their paper, but For 5TB of cloud storage Mosso will save you 17%
+over S3 without support and 42% with support. For their CDN on a Global test
+Mosso says the average response time is 333ms for CloudFront vs. 107ms for
+Cloud Files which means globally, Cloud Files is 3.1 times or 211% faster than
+CloudFront.Amazon S3is storage for the Internet. It is designed to make web-
+scale computing easier for developers.This service allows you to link directly
+to files at a cost of 15 cents per GB of storage, and 20 cents per GB
+transfer.</p><p>5 0.1226511 <a title="283-tfidf-5" href="../high_scalability-2008/high_scalability-2008-01-29-Building_scalable_storage_into_application_-_Instead_of_MogileFS_OpenAFS_etc..html">229 high scalability-2008-01-29-Building scalable storage into application - Instead of MogileFS OpenAFS etc.</a></p>
+<p>Introduction: I am planning the scaling of a hosted service, similar to typepad etc. and
+would appreciate feedback on my plan so far.Looking into scaling storage, I
+have come accross MogileFS and OpenAFS. My concern with these is I am not at
+all experienced with them and as the sole tech guy I don't want to build
+something into this hosting service that proves complex to update and
+adminster.So, I'm thinking of building replication and scalability right into
+the application, in a similar but simplified way to how MogileFS works (I
+think).So, for our database table of uploaded files, here's how it currently
+looks (simplified):fileid (pkey)filenameowneridFor adding the replication and
+scalability, I would add a few more
+columns:serveroneidservertwoidserverthreeids3At the time the user uploads a
+file, it will go to a specific server (managed by the application) and the id
+of that server will be placed in the "serverone" column. Then hourly or so, a
+cron job will run through the "files" table, and copy</p><p>6 0.11880652 <a title="283-tfidf-6" href="../high_scalability-2009/high_scalability-2009-02-19-Heavy_upload_server_scalability.html">516 high scalability-2009-02-19-Heavy upload server scalability</a></p>
+<p>7 0.11266251 <a title="283-tfidf-7" href="../high_scalability-2009/high_scalability-2009-06-05-HotPads_Shows_the_True_Cost_of_Hosting_on_Amazon.html">619 high scalability-2009-06-05-HotPads Shows the True Cost of Hosting on Amazon</a></p>
+<p>8 0.10812598 <a title="283-tfidf-8" href="../high_scalability-2011/high_scalability-2011-08-22-Strategy%3A_Run_a_Scalable%2C_Available%2C_and_Cheap_Static_Site_on_S3_or_GitHub.html">1102 high scalability-2011-08-22-Strategy: Run a Scalable, Available, and Cheap Static Site on S3 or GitHub</a></p>
+<p>9 0.10739019 <a title="283-tfidf-9" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
+<p>10 0.10562605 <a title="283-tfidf-10" href="../high_scalability-2010/high_scalability-2010-08-23-6_Ways_to_Kill_Your_Servers_-__Learning_How_to_Scale_the_Hard_Way.html">884 high scalability-2010-08-23-6 Ways to Kill Your Servers -  Learning How to Scale the Hard Way</a></p>
+<p>11 0.10465055 <a title="283-tfidf-11" href="../high_scalability-2011/high_scalability-2011-11-14-Using_Gossip_Protocols_for_Failure_Detection%2C_Monitoring%2C_Messaging_and_Other_Good_Things.html">1142 high scalability-2011-11-14-Using Gossip Protocols for Failure Detection, Monitoring, Messaging and Other Good Things</a></p>
+<p>12 0.10257481 <a title="283-tfidf-12" href="../high_scalability-2012/high_scalability-2012-06-20-Ask_HighScalability%3A_How_do_I_organize_millions_of_images%3F.html">1268 high scalability-2012-06-20-Ask HighScalability: How do I organize millions of images?</a></p>
+<p>13 0.10211971 <a title="283-tfidf-13" href="../high_scalability-2010/high_scalability-2010-08-30-Pomegranate_-_Storing_Billions_and_Billions_of_Tiny_Little_Files.html">889 high scalability-2010-08-30-Pomegranate - Storing Billions and Billions of Tiny Little Files</a></p>
+<p>14 0.10011287 <a title="283-tfidf-14" href="../high_scalability-2007/high_scalability-2007-07-12-FeedBurner_Architecture.html">7 high scalability-2007-07-12-FeedBurner Architecture</a></p>
+<p>15 0.099445172 <a title="283-tfidf-15" href="../high_scalability-2012/high_scalability-2012-04-03-Hazelcast_2.0%3A_Big_Data_In-Memory.html">1221 high scalability-2012-04-03-Hazelcast 2.0: Big Data In-Memory</a></p>
+<p>16 0.098397657 <a title="283-tfidf-16" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
+<p>17 0.096737333 <a title="283-tfidf-17" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>18 0.095911883 <a title="283-tfidf-18" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
+<p>19 0.095588684 <a title="283-tfidf-19" href="../high_scalability-2008/high_scalability-2008-04-19-How_to_build_a_real-time_analytics_system%3F.html">304 high scalability-2008-04-19-How to build a real-time analytics system?</a></p>
+<p>20 0.095486812 <a title="283-tfidf-20" href="../high_scalability-2007/high_scalability-2007-08-01-Product%3A_MogileFS.html">53 high scalability-2007-08-01-Product: MogileFS</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.132), (1, 0.07), (2, -0.02), (3, -0.088), (4, -0.013), (5, -0.004), (6, 0.065), (7, -0.06), (8, 0.027), (9, 0.024), (10, -0.03), (11, -0.08), (12, 0.019), (13, -0.076), (14, 0.065), (15, 0.022), (16, -0.005), (17, 0.003), (18, -0.048), (19, 0.013), (20, -0.009), (21, 0.007), (22, -0.039), (23, 0.104), (24, 0.023), (25, 0.02), (26, 0.114), (27, -0.059), (28, -0.066), (29, -0.03), (30, 0.018), (31, -0.039), (32, -0.03), (33, -0.037), (34, -0.029), (35, 0.019), (36, 0.014), (37, -0.07), (38, 0.017), (39, -0.053), (40, -0.054), (41, -0.032), (42, -0.065), (43, 0.008), (44, -0.041), (45, 0.055), (46, 0.026), (47, 0.03), (48, -0.021), (49, -0.006)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97062498 <a title="283-lsi-1" href="../high_scalability-2008/high_scalability-2008-03-18-Shared_filesystem_on_EC2.html">283 high scalability-2008-03-18-Shared filesystem on EC2</a></p>
+<p>Introduction: Hi. I'm looking for a way to share files between EC2 nodes. Currently we are
+using glusterfs to do this. It has been reliable recently, but in the past it
+has crashed under high load and we've had trouble starting it up again. We've
+only been able to restart it by removing the files, restarting the cluster,
+and filing it up again with our files from backup. This takes ages, and will
+take even longer the more files we get.What worries me is that it seems to
+make each node a point of failure for the entire system. One node crashes and
+soon the entire cluster has crashed. The other problem is adding another node.
+It seems like you have to take down the whole thing, reconfigure to include
+the new node, and restart. This kind of defeats the horizontal scaling
+strategy.We are using 2 EC2 instances as web servers, 1 as a DB master, and 1
+as a slave. GlusterFS is installed on the web server machines as well as the
+DB slave machine (we backup files to s3 from this machine). The files are
+mostly</p><p>2 0.76540768 <a title="283-lsi-2" href="../high_scalability-2008/high_scalability-2008-01-29-Building_scalable_storage_into_application_-_Instead_of_MogileFS_OpenAFS_etc..html">229 high scalability-2008-01-29-Building scalable storage into application - Instead of MogileFS OpenAFS etc.</a></p>
+<p>Introduction: I am planning the scaling of a hosted service, similar to typepad etc. and
+would appreciate feedback on my plan so far.Looking into scaling storage, I
+have come accross MogileFS and OpenAFS. My concern with these is I am not at
+all experienced with them and as the sole tech guy I don't want to build
+something into this hosting service that proves complex to update and
+adminster.So, I'm thinking of building replication and scalability right into
+the application, in a similar but simplified way to how MogileFS works (I
+think).So, for our database table of uploaded files, here's how it currently
+looks (simplified):fileid (pkey)filenameowneridFor adding the replication and
+scalability, I would add a few more
+columns:serveroneidservertwoidserverthreeids3At the time the user uploads a
+file, it will go to a specific server (managed by the application) and the id
+of that server will be placed in the "serverone" column. Then hourly or so, a
+cron job will run through the "files" table, and copy</p><p>3 0.74526578 <a title="283-lsi-3" href="../high_scalability-2013/high_scalability-2013-04-17-Tachyon__-_Fault_Tolerant_Distributed_File_System_with_300_Times_Higher_Throughput_than_HDFS.html">1442 high scalability-2013-04-17-Tachyon  - Fault Tolerant Distributed File System with 300 Times Higher Throughput than HDFS</a></p>
+<p>Introduction: Tachyon  (github) is interesting new filesystem brought to by the folks at
+theUC Berkeley AMP Lab:Tachyon is a fault tolerant distributed ďŹ le system
+enabling reliable file sharing at memory-speed across cluster frameworks, such
+as Spark and MapReduce.It offers up to 300 times higher throughput than HDFS,
+by leveraging lineage information and using memory aggressively. Tachyon
+caches working set files in memory, and enables different jobs/queries and
+frameworks to access cached files at memory speed. Thus, Tachyon avoids going
+to disk to load datasets that is frequently read.It has a Java-like File API,
+native support for raw tables, a pluggable file system, and it works with
+Hadoop with no modifications. It might work well for streaming media too as
+you wouldn't have to wait for the complete file to hit the disk before
+rendering.Discuss on Hacker News</p><p>4 0.74037385 <a title="283-lsi-4" href="../high_scalability-2013/high_scalability-2013-02-07-Ask_HighScalability%3A_Web_asset_server_concept_-_3rd_party_software_available%3F.html">1402 high scalability-2013-02-07-Ask HighScalability: Web asset server concept - 3rd party software available?</a></p>
+<p>Introduction: We are serving dynamic (PHP) websites and their assets
+(JS/CSS/images/videos/binary downloads) via the same apache hosts. The static
+files are only being used as origins for CDN services used to distribute those
+files. Yet, in the current development-deploy pipeline, these files are
+checked into the same version control repositories as the code is. This is
+what we would like to change, for several reasons (decouple asset deployment
+from development & developers, lessen size of code repositories, etc.)My idea
+is to do the following: Set up a media server (cluster) which serves as an API
+(REST e.g.). You can PUT files to it, and get back the URL the file is
+available through from the public. In between input and output, the media
+service deals with everything that's necessary to serve the files: Upload them
+to the CDN, create the public URL, write the meta data to a (relational?)
+database, assign a version number... This API can be used by a) the
+application/website directly to provide C</p><p>5 0.71698266 <a title="283-lsi-5" href="../high_scalability-2009/high_scalability-2009-01-08-file_synchronization_solutions.html">488 high scalability-2009-01-08-file synchronization solutions</a></p>
+<p>Introduction: I have two servers connected via Internet (NOT IN THE SAME LAN) serving the
+same website (http://www.ourexample.com).The problem is files uploaded on
+serverA and serverB cannot see each other immediately,thus rsync with certain
+intervals is not a good solution.Can anybody give me some advice on the
+following options?1.NFS over Internet for file sharing2.sshfs3.inotify(our
+system's kernel does not support this and we donot want to risk upgrading our
+kernel as well)4.drbd in active-active mode5 or any other solutionsAny
+suggestions will be welcomed.Thank you in advance.</p><p>6 0.71212119 <a title="283-lsi-6" href="../high_scalability-2007/high_scalability-2007-09-18-Sync_data_on_all_servers.html">98 high scalability-2007-09-18-Sync data on all servers</a></p>
+<p>7 0.70720041 <a title="283-lsi-7" href="../high_scalability-2008/high_scalability-2008-03-16-Product%3A_GlusterFS.html">278 high scalability-2008-03-16-Product: GlusterFS</a></p>
+<p>8 0.67114478 <a title="283-lsi-8" href="../high_scalability-2009/high_scalability-2009-05-22-Distributed_content_system_with_bandwidth_balancing.html">605 high scalability-2009-05-22-Distributed content system with bandwidth balancing</a></p>
+<p>9 0.66428334 <a title="283-lsi-9" href="../high_scalability-2010/high_scalability-2010-08-30-Pomegranate_-_Storing_Billions_and_Billions_of_Tiny_Little_Files.html">889 high scalability-2010-08-30-Pomegranate - Storing Billions and Billions of Tiny Little Files</a></p>
+<p>10 0.65693408 <a title="283-lsi-10" href="../high_scalability-2009/high_scalability-2009-02-19-Heavy_upload_server_scalability.html">516 high scalability-2009-02-19-Heavy upload server scalability</a></p>
+<p>11 0.6441642 <a title="283-lsi-11" href="../high_scalability-2007/high_scalability-2007-09-28-Kosmos_File_System_%28KFS%29_is_a_New_High_End_Google_File_System_Option.html">103 high scalability-2007-09-28-Kosmos File System (KFS) is a New High End Google File System Option</a></p>
+<p>12 0.64081341 <a title="283-lsi-12" href="../high_scalability-2007/high_scalability-2007-08-01-Product%3A_MogileFS.html">53 high scalability-2007-08-01-Product: MogileFS</a></p>
+<p>13 0.60850286 <a title="283-lsi-13" href="../high_scalability-2008/high_scalability-2008-04-22-Simple_NFS_failover_solution_with_symbolic_link%3F.html">308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</a></p>
+<p>14 0.60608137 <a title="283-lsi-14" href="../high_scalability-2007/high_scalability-2007-07-31-BerkeleyDB_%26_other_distributed_high_performance_key-value_databases.html">50 high scalability-2007-07-31-BerkeleyDB & other distributed high performance key-value databases</a></p>
+<p>15 0.60058755 <a title="283-lsi-15" href="../high_scalability-2009/high_scalability-2009-04-13-High_Performance_Web_Pages_%E2%80%93_Real_World_Examples%3A_Netflix_Case_Study.html">566 high scalability-2009-04-13-High Performance Web Pages – Real World Examples: Netflix Case Study</a></p>
+<p>16 0.59423435 <a title="283-lsi-16" href="../high_scalability-2008/high_scalability-2008-02-26-Architecture_to_Allow_High_Availability_File_Upload.html">262 high scalability-2008-02-26-Architecture to Allow High Availability File Upload</a></p>
+<p>17 0.59135836 <a title="283-lsi-17" href="../high_scalability-2007/high_scalability-2007-10-04-You_Can_Now_Store_All_Your_Stuff_on_Your_Own_Google_Like_File_System.html">112 high scalability-2007-10-04-You Can Now Store All Your Stuff on Your Own Google Like File System</a></p>
+<p>18 0.59044802 <a title="283-lsi-18" href="../high_scalability-2007/high_scalability-2007-11-06-Product%3A_ChironFS.html">143 high scalability-2007-11-06-Product: ChironFS</a></p>
+<p>19 0.58295405 <a title="283-lsi-19" href="../high_scalability-2010/high_scalability-2010-08-23-6_Ways_to_Kill_Your_Servers_-__Learning_How_to_Scale_the_Hard_Way.html">884 high scalability-2010-08-23-6 Ways to Kill Your Servers -  Learning How to Scale the Hard Way</a></p>
+<p>20 0.57941389 <a title="283-lsi-20" href="../high_scalability-2012/high_scalability-2012-07-23-Ask_HighScalability%3A_How_Do_I_Build_My_MegaUpload_%2B_Itunes_%2B_YouTube_Startup%3F.html">1288 high scalability-2012-07-23-Ask HighScalability: How Do I Build My MegaUpload + Itunes + YouTube Startup?</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.054), (2, 0.207), (10, 0.018), (61, 0.106), (66, 0.166), (77, 0.017), (79, 0.239), (85, 0.067), (94, 0.017)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.95316589 <a title="283-lda-1" href="../high_scalability-2008/high_scalability-2008-03-18-Shared_filesystem_on_EC2.html">283 high scalability-2008-03-18-Shared filesystem on EC2</a></p>
+<p>Introduction: Hi. I'm looking for a way to share files between EC2 nodes. Currently we are
+using glusterfs to do this. It has been reliable recently, but in the past it
+has crashed under high load and we've had trouble starting it up again. We've
+only been able to restart it by removing the files, restarting the cluster,
+and filing it up again with our files from backup. This takes ages, and will
+take even longer the more files we get.What worries me is that it seems to
+make each node a point of failure for the entire system. One node crashes and
+soon the entire cluster has crashed. The other problem is adding another node.
+It seems like you have to take down the whole thing, reconfigure to include
+the new node, and restart. This kind of defeats the horizontal scaling
+strategy.We are using 2 EC2 instances as web servers, 1 as a DB master, and 1
+as a slave. GlusterFS is installed on the web server machines as well as the
+DB slave machine (we backup files to s3 from this machine). The files are
+mostly</p><p>2 0.92202842 <a title="283-lda-2" href="../high_scalability-2008/high_scalability-2008-01-27-Windows_and_SQL_Server_%3A_Receive_so_much_negativity_in_terms_of_the_Highly_Available%2C_Scalable_Platform...html">225 high scalability-2008-01-27-Windows and SQL Server : Receive so much negativity in terms of the Highly Available, Scalable Platform..</a></p>
+<p>Introduction: I remain neutral, but time and again, when people talk Windows or SQL Server,
+they seem to consider them unreliable with limits around scalability,
+performance and availability.And then you start looking at some of the big
+boys you have listed here in the architectural section and most of them are on
+Linux, MySQL,Oracle platforms that we dont see Windows and SQL Server in
+there..What are your thoughts ?</p><p>3 0.90421623 <a title="283-lda-3" href="../high_scalability-2008/high_scalability-2008-09-01-A_Scalability_checklist%3F.html">375 high scalability-2008-09-01-A Scalability checklist?</a></p>
+<p>Introduction: Hi everyone, I'm researching on Scalability for a college paper, and found
+this site great, but it has too many tips, articles and the like, but I can't
+see a hierarchical organization of subjects, I would need something like a
+checklist of things or fields, or technologies to take into account when
+assesing scalability.So far I've identified these:- Hardware scalability:-
+scale out- scale up- CacheWhat types of cache are there? app-level, os-level,
+network-level, I/O-level?- Load Balancing- DB ClusteringAm I missing something
+important? (I'm sure I am)I don't expect you to give a lecture here, but maybe
+point some things out, give me some useful links...Thanks!</p><p>4 0.8790251 <a title="283-lda-4" href="../high_scalability-2011/high_scalability-2011-05-27-Stuff_The_Internet_Says_On_Scalability_For_May_27%2C_2011.html">1048 high scalability-2011-05-27-Stuff The Internet Says On Scalability For May 27, 2011</a></p>
+<p>Introduction: Submitted for your scaling pleasure: Good idea:Open The Index And Speed Up The
+Internet.SmugMug estimates 50%of their CPU is spent serving crawler robots.
+Having a common meta-data repository wouldn't prevent search engines from
+having their own special sauce. Then the problem becomes one of syncing data
+between repositories and processing change events. A generous soul could even
+offer a shared MapReduce service over the data. Now that wouldspeed up the
+internet.Scaling Achievements:YouTube Sees 3 Billion Views per Day;Twitter
+produces a sustained feed of 35 Mb per second; companies processing billions
+of APIs calls (Twitter, Netflix, Amazon, NPR, Google, Facebook, eBay, Bing);
+Astronomers Identify the Farthest Object Ever Observed, 13.14 Billion Light
+Years AwayQuotes that are Quotably Quotable:eekygeeky: When cloud computing
+news is slow? Switch to "big data"-100% of the vaguery, none of the used-up,
+mushy marketing feel!singhns: an API is like diamonds, a huge range of value
+based</p><p>5 0.87833965 <a title="283-lda-5" href="../high_scalability-2010/high_scalability-2010-10-01-Google_Paper%3A_Large-scale_Incremental_Processing_Using_Distributed_Transactions_and_Notifications.html">912 high scalability-2010-10-01-Google Paper: Large-scale Incremental Processing Using Distributed Transactions and Notifications</a></p>
+<p>Introduction: This paper, Large-scale Incremental Processing Using Distributed Transactions
+and Notifications by Daniel Peng and Frank Dabek, is Google's much anticipated
+description of Percolator, their new real-time indexing system.The
+abstract:Updating an index of the web as documents are crawled requires
+continuously transforming a large repository of existing documents as new
+documents arrive. This task is one example of a class of data processing tasks
+that transform a large repository of data via small, independent mutations.
+These tasks lie in a gap between the capabilities of existing infrastructure.
+Databases do not meet the storage or throughput requirements of these tasks:
+Google's indexing system stores tens of petabytes of data and processes
+billions of updates per day on thousands of machines. MapReduce and other
+batch-processing systems cannot process small updates individually as they
+rely on creating large batches for efďŹ ciency. We have built Percolator, a
+system for incrementally</p><p>6 0.86607194 <a title="283-lda-6" href="../high_scalability-2013/high_scalability-2013-07-19-Stuff_The_Internet_Says_On_Scalability_For_July_19%2C_2013.html">1494 high scalability-2013-07-19-Stuff The Internet Says On Scalability For July 19, 2013</a></p>
+<p>7 0.86559427 <a title="283-lda-7" href="../high_scalability-2013/high_scalability-2013-03-08-Stuff_The_Internet_Says_On_Scalability_For_March_8%2C_2013.html">1420 high scalability-2013-03-08-Stuff The Internet Says On Scalability For March 8, 2013</a></p>
+<p>8 0.86526334 <a title="283-lda-8" href="../high_scalability-2010/high_scalability-2010-07-27-YeSQL%3A_An_Overview_of_the_Various_Query_Semantics_in_the_Post_Only-SQL_World.html">867 high scalability-2010-07-27-YeSQL: An Overview of the Various Query Semantics in the Post Only-SQL World</a></p>
+<p>9 0.86262578 <a title="283-lda-9" href="../high_scalability-2013/high_scalability-2013-02-08-Stuff_The_Internet_Says_On_Scalability_For_February_8%2C_2013.html">1403 high scalability-2013-02-08-Stuff The Internet Says On Scalability For February 8, 2013</a></p>
+<p>10 0.86075252 <a title="283-lda-10" href="../high_scalability-2010/high_scalability-2010-03-02-Using_the_Ambient_Cloud_as_an_Application_Runtime.html">786 high scalability-2010-03-02-Using the Ambient Cloud as an Application Runtime</a></p>
+<p>11 0.85921884 <a title="283-lda-11" href="../high_scalability-2010/high_scalability-2010-08-04-Dremel%3A_Interactive_Analysis_of_Web-Scale_Datasets_-_Data_as_a_Programming_Paradigm.html">871 high scalability-2010-08-04-Dremel: Interactive Analysis of Web-Scale Datasets - Data as a Programming Paradigm</a></p>
+<p>12 0.8575623 <a title="283-lda-12" href="../high_scalability-2009/high_scalability-2009-03-05-Strategy%3A__In_Cloud_Computing_Systematically_Drive_Load_to_the_CPU.html">526 high scalability-2009-03-05-Strategy:  In Cloud Computing Systematically Drive Load to the CPU</a></p>
+<p>13 0.85631883 <a title="283-lda-13" href="../high_scalability-2013/high_scalability-2013-01-23-Building_Redundant_Datacenter_Networks_is_Not_For_Sissies_-_Use_an_Outside_WAN_Backbone.html">1392 high scalability-2013-01-23-Building Redundant Datacenter Networks is Not For Sissies - Use an Outside WAN Backbone</a></p>
+<p>14 0.85592544 <a title="283-lda-14" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
+<p>15 0.85556626 <a title="283-lda-15" href="../high_scalability-2013/high_scalability-2013-10-21-Google%27s_Sanjay_Ghemawat_on_What_Made_Google_Google_and_Great_Big_Data_Career_Advice.html">1535 high scalability-2013-10-21-Google's Sanjay Ghemawat on What Made Google Google and Great Big Data Career Advice</a></p>
+<p>16 0.85546732 <a title="283-lda-16" href="../high_scalability-2011/high_scalability-2011-04-07-Paper%3A_A_Co-Relational_Model_of_Data_for_Large_Shared_Data_Banks.html">1018 high scalability-2011-04-07-Paper: A Co-Relational Model of Data for Large Shared Data Banks</a></p>
+<p>17 0.85545266 <a title="283-lda-17" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
+<p>18 0.85513902 <a title="283-lda-18" href="../high_scalability-2013/high_scalability-2013-07-01-PRISM%3A_The_Amazingly_Low_Cost_of_%C2%ADUsing_BigData_to_Know_More_About_You_in_Under_a_Minute.html">1485 high scalability-2013-07-01-PRISM: The Amazingly Low Cost of ­Using BigData to Know More About You in Under a Minute</a></p>
+<p>19 0.85448754 <a title="283-lda-19" href="../high_scalability-2013/high_scalability-2013-11-13-Google%3A_Multiplex_Multiple_Works_Loads_on_Computers_to_Increase_Machine_Utilization_and_Save_Money.html">1548 high scalability-2013-11-13-Google: Multiplex Multiple Works Loads on Computers to Increase Machine Utilization and Save Money</a></p>
+<p>20 0.84738815 <a title="283-lda-20" href="../high_scalability-2012/high_scalability-2012-05-09-Cell_Architectures.html">1242 high scalability-2012-05-09-Cell Architectures</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
