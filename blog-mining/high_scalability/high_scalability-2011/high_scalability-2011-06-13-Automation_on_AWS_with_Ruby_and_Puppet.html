@@ -29,9 +29,30 @@ ofPuppetonAWSto create a complete infrastructure.Workflow & XTR-LucidOur
 scalability combo is : a home-made Ruby scheduler (XTR-Lucid) to deal with AWS
 APIs + the Puppet Master to install services and configure EC2 instances and
 keep them up-to-date during all the production time. This leads to full
-automation.Here is</p><br/>
+automation.Here is</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Below you will find a summary of the goals we achieve by using a Ruby scheduler built on top ofPuppetonAWSto create a complete infrastructure. [sent-6, score-0.289]
+</p><p>2 Workflow & XTR-LucidOur scalability combo is : a home-made Ruby scheduler (XTR-Lucid) to deal with AWS APIs + the Puppet Master to install services and configure EC2 instances and keep them up-to-date during all the production time. [sent-7, score-0.626]
+</p><p>3 The dashboard allows you to select a template (which contains the following informations : AMI id, instance type, availability zone, key, list of security groups, list of EBS - from snapshots or not -, …) and to set a name for the instance in the « create » workflow. [sent-10, score-0.575]
+</p><p>4 To be more accurate and to explain the workflow just a bit :The scheduler can be outside or inside of AWS. [sent-12, score-0.473]
+</p><p>5 First anaction fileis put into theTODOdirectory, by the web application (simplerhtmldashboard) or by the monitoring tool directly. [sent-13, score-0.226]
+</p><p>6 For posting files from the monitoring tool, we will have to define thresholds after some weeks of use of the application. [sent-14, score-0.269]
+</p><p>7 The action file is then processed by the scheduler :Connection to AWS and request to start an EC2 instance from the AMI. [sent-16, score-0.592]
+</p><p>8 Scheduler checks that instance is running, EBS (Elastic Block Store) areavailable, thenin-use, and eventually that EC2 TCP stack is up and SSH is OK. [sent-17, score-0.226]
+</p><p>9 Puppet client is installed and started, so it sends a certificate request to the master. [sent-19, score-0.255]
+</p><p>10 Connection to the PuppetMaster : update the main files (nodes files of PuppetMaster, « /etc/hosts » file, roles file of Capistrano) and then accept the certificate request of the client. [sent-21, score-0.299]
+</p><p>11 Capistrano updates the « /etc/hosts » file on all instances of our infrastructure as soon as a new EC2 instance comes up (or down), without having to trigger (puppetrun) the simultaneous « pull configuration » of all the Puppet clients. [sent-22, score-0.87]
+</p><p>12 The installation occurs on the new instance that will be soon available. [sent-27, score-0.372]
+</p><p>13 The scheduler doesn't wait until the instance is fully configured to end the task : installation by Puppet is asynchronous. [sent-28, score-0.583]
+</p><p>14 The scheduler just ends by updating its repository and the monitoring tool. [sent-29, score-0.523]
+</p><p>15 AWS offer AMIs to « snapshot » an instance and clone this one as many as we want. [sent-41, score-0.302]
+</p><p>16 But when we come into production, we cannot build another AMI each time we do a change on a setting and deploy again EC2 instances from the new AMI. [sent-44, score-0.203]
+</p><p>17 So we keep a base and have to start quickly full configured up-to-date instances within a few minutes. [sent-48, score-0.14]
+</p><p>18 Then our tool lets Puppet take over which ensures for each brand-new instance started from a standard Lucid Lynx AMI that all services, configurations, security rules are installed/applied. [sent-50, score-0.466]
+</p><p>19 So with the feedback of our monitoring tool, the infrastructure can grow and decrease alone (depending on the thresholds set) or we can deploy and stop instances in just one click on our web dashboard. [sent-51, score-0.511]
+</p><p>20 Once we have real-life feedback on traffic, some services will stay on AWS, others, maybe, will migrate into our physical datacenter. [sent-58, score-0.236]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('puppet', 0.33), ('scheduler', 0.289), ('puppetmaster', 0.278), ('instance', 0.226), ('ami', 0.191), ('instances', 0.14), ('lucid', 0.139), ('lynx', 0.139), ('puppetrun', 0.139), ('thetododirectory', 0.139), ('aws', 0.136), ('repository', 0.12), ('trigger', 0.116), ('monitoring', 0.114), ('tool', 0.112), ('accurate', 0.108), ('ruby', 0.104), ('france', 0.102), ('pull', 0.101), ('le', 0.1)]</p>
+<p>[('puppet', 0.33), ('scheduler', 0.289), ('puppetmaster', 0.278), ('instance', 0.226), ('ami', 0.191), ('instances', 0.14), ('lucid', 0.139), ('lynx', 0.139), ('puppetrun', 0.139), ('thetododirectory', 0.139), ('aws', 0.136), ('repository', 0.12), ('trigger', 0.116), ('monitoring', 0.114), ('tool', 0.112), ('accurate', 0.108), ('ruby', 0.104), ('france', 0.102), ('pull', 0.101), ('le', 0.1), ('certificate', 0.1), ('feedback', 0.098), ('ops', 0.094), ('thresholds', 0.094), ('ebs', 0.093), ('client', 0.092), ('ubuntu', 0.083), ('soon', 0.078), ('connects', 0.078), ('file', 0.077), ('workflow', 0.076), ('configurations', 0.076), ('snapshot', 0.076), ('services', 0.075), ('installation', 0.068), ('simultaneous', 0.067), ('infrastructure', 0.065), ('security', 0.064), ('standard', 0.064), ('configure', 0.063), ('setting', 0.063), ('installed', 0.063), ('migrate', 0.063), ('ob', 0.063), ('traffic', 0.062), ('files', 0.061), ('combo', 0.059), ('informations', 0.059), ('ysance', 0.059), ('immersive', 0.059)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1058-tfidf-1" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
 <p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow

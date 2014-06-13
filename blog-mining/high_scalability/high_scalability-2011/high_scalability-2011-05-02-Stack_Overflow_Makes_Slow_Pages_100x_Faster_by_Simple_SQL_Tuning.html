@@ -29,9 +29,29 @@ profiler it was shown that abadge detail pagewas taking 630.3 ms to load,
 298.1 ms of that was spent on SQL queries, and then the tool listed the SQL
 queries for the page and how long each took.From the historical logs, which
 are stored inHAProxy on a month-by-month basis, Sam was able to determine this
-page</p><br/>
+page</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The most common complaint against NoSQL is that if you know how to write good SQL queries then SQL works fine. [sent-1, score-0.294]
+</p><p>2 If SQL is slow you can always tune it and make it faster. [sent-2, score-0.117]
+</p><p>3 Sam provides a lot of wonderful detail of his tuning process, how it works, the thought process, the tools used, and the tradeoffs involved. [sent-4, score-0.488]
+</p><p>4 Here's a short summary of the steps:Using theirmini- profiler it was shown that abadge detail pagewas taking 630. [sent-5, score-0.477]
+</p><p>5 1 ms of that was spent on SQL queries, and then the tool listed the SQL queries for the page and how long each took. [sent-7, score-0.788]
+</p><p>6 From the historical logs, which are stored inHAProxy on a month-by-month basis, Sam was able to determine this page is accessed 26,000 times a day and takes 532ms on average to render. [sent-8, score-0.365]
+</p><p>7 This is too long, yet there are probably higher value problems to be solved, but Google takes speed into account for page rank and Sam thinks this can be done faster. [sent-9, score-0.384]
+</p><p>8 Sam noticed:There were lots of select queries which Sam calls theN+1 Select Problem. [sent-10, score-0.344]
+</p><p>9 There are many individual detail select queries to get all the data for a master record. [sent-11, score-0.511]
+</p><p>10 Performing a code review the code uses a LINQ-2-SQLmulti join. [sent-15, score-0.288]
+</p><p>11 LINQ-2-SQL takes a high level ORM description and generates SQL code from it. [sent-16, score-0.272]
+</p><p>12 The generated code was slow and cost a 10x slowdown in production. [sent-17, score-0.34]
+</p><p>13 Linq2Sql is being removed from selects, but is still being used for writes on Stack Overflow. [sent-21, score-0.068]
+</p><p>14 In production this query was taking too long, so the next step was to look at the query plan, which showed a table scan was being used instead of an index. [sent-22, score-0.379]
+</p><p>15 A new index was created which cut the page load time by a factor of 10. [sent-23, score-0.202]
+</p><p>16 The N+1 problem was fixed by changing the ViewModel to use a left join which pulled all the records in one query. [sent-24, score-0.075]
+</p><p>17 A NoSQLite might counter that this is what key-value database is for. [sent-25, score-0.136]
+</p><p>18 All that data could have been retrieved in one get, no tuning, problem solved. [sent-26, score-0.087]
+</p><p>19 The counter is then you lose all the benefits of a relational database and it can be shown that the original was fast enough and could be made very fast through a simple turning process, so there is no reason to go NoSQL. [sent-27, score-0.338]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('sam', 0.395), ('sql', 0.255), ('page', 0.202), ('tuning', 0.176), ('queries', 0.175), ('overflow', 0.171), ('select', 0.169), ('detail', 0.167), ('orm', 0.162), ('counter', 0.136), ('ms', 0.131), ('shown', 0.13), ('improvement', 0.129), ('highscalabilityreddit', 0.127), ('mapper', 0.127), ('dapper', 0.119), ('complaint', 0.119), ('saffron', 0.119), ('slow', 0.117), ('slowdown', 0.114)]</p>
+<p>[('sam', 0.395), ('sql', 0.255), ('page', 0.202), ('tuning', 0.176), ('queries', 0.175), ('overflow', 0.171), ('select', 0.169), ('detail', 0.167), ('orm', 0.162), ('counter', 0.136), ('ms', 0.131), ('shown', 0.13), ('improvement', 0.129), ('highscalabilityreddit', 0.127), ('mapper', 0.127), ('dapper', 0.119), ('complaint', 0.119), ('saffron', 0.119), ('slow', 0.117), ('slowdown', 0.114), ('spent', 0.109), ('code', 0.109), ('process', 0.103), ('profiler', 0.097), ('takes', 0.094), ('stackexchange', 0.093), ('pages', 0.09), ('selects', 0.089), ('rank', 0.088), ('listed', 0.087), ('retrieved', 0.087), ('hibernate', 0.085), ('long', 0.084), ('taking', 0.083), ('scan', 0.079), ('tradeoffs', 0.077), ('noticed', 0.077), ('pulled', 0.075), ('query', 0.073), ('turning', 0.072), ('profiling', 0.072), ('showed', 0.071), ('resulting', 0.071), ('review', 0.07), ('rewrite', 0.07), ('generates', 0.069), ('historical', 0.069), ('removed', 0.068), ('wonderful', 0.068), ('stack', 0.066)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1032-tfidf-1" href="../high_scalability-2011/high_scalability-2011-05-02-Stack_Overflow_Makes_Slow_Pages_100x_Faster_by_Simple_SQL_Tuning.html">1032 high scalability-2011-05-02-Stack Overflow Makes Slow Pages 100x Faster by Simple SQL Tuning</a></p>
 <p>Introduction: The most common complaint against NoSQL is that if you know how to write good

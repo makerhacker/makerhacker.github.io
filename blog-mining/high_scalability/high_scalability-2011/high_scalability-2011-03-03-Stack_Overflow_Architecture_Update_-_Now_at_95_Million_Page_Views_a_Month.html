@@ -29,9 +29,30 @@ Stack Overflow's openness about what they are doing. And that's what prompted
 this update. A recent series of posts talks a lot about how they've been
 handling their growth: Stack Exchange's Architecture in Bullet Points, Stack
 Overflow's New York Data Center, Designing For Scalability of Management and
-Fault Tolera</p><br/>
+Fault Tolera</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Contrary to the theme of that last article, which lavished attention on Stack Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up and out in the last few years. [sent-2, score-0.061]
+</p><p>2 Stack Overflow has grown up by more then doubling in size to over 16 million users and multiplying its number of page views nearly 6 times to 95 million page views a month. [sent-3, score-0.425]
+</p><p>3 Stack Overflow has grown out by expanding into theStack Exchange Network, which includes Stack Overflow, Server Fault, and Super User for a grand total of 43 different sites. [sent-4, score-0.061]
+</p><p>4 More users, more page views, more datacenters, more sites, more developers, more operating systems, more databases, more machines. [sent-12, score-0.042]
+</p><p>5 Stack Overflow was known for their Windows stack, now they are using a lot more Linux machines for HAProxy, Redis, Bacula, Nagios, logs, and routers. [sent-15, score-0.042]
+</p><p>6 Stack Overflow is nowbeing served by two differentswitches on two different internet connections, they've added redundant machines, and some functions have moved to a second datacenter. [sent-18, score-0.052]
+</p><p>7 Unfortunately, I couldn't find any coverage on some of the open questions I had last time, like how they were going to deal with multi-tenancy across so many diffrent properties, but there's still plenty to learn from. [sent-22, score-0.082]
+</p><p>8 Data Centers1 Rack with Peak Internet in OR (Hosts our chat and Data Explorer)2 Racks with Peer 1 in NY (Hosts the rest of the Stack Exchange Network)Hardware10 Dell R610 IIS web servers (3 dedicated to Stack Overflow):1x Intel Xeon Processor E5640 @ 2. [sent-25, score-0.041]
+</p><p>9 66 GHz16 GB RAMCentOS1 Dell R610 Linux backup server running Bacula:1x Intel Xeon Processor E5640 @ 2. [sent-29, score-0.063]
+</p><p>10 66 GHz32 GB RAM1 Dell R610 Linux management server for Nagios and logs:1x Intel Xeon Processor E5640 @ 2. [sent-30, score-0.063]
+</p><p>11 NET:  for searchBacula: for backupsNagios: (withn2rrdand drraw plugins) for monitoringSplunk: for logsSQL Monitor:from Red Gate - for SQL Server monitoringBind: for DNSRovio:  a little robot (a real robot) allowing remote developers to visit the office "virtually. [sent-41, score-0.099]
+</p><p>12 5 GenericStandards:OpenSearch, AtomHost:PEAK InternetMore Architecture and Lessons LearnedHAProxy is used instead of Windows NLB because HAProxy is cheap, easy, free, works great as a 512MB VM "device" on a network via Hyper-V. [sent-48, score-0.063]
+</p><p>13 It also works in front of the boxes so it's completely transparent to them, and easier to troubleshoot as a different networking layer instead of being intermixed with all your windows configuration. [sent-49, score-0.106]
+</p><p>14 Mostly interested in peak HTTP request figures as this is what they need to make sure they can handle. [sent-54, score-0.051]
+</p><p>15 All pages accessed by (and subsequently served to) annonymous users are cached viaOutput Caching. [sent-60, score-0.105]
+</p><p>16 local cache: can only be accessed from 1 server/site pair To limit network latency they use a local "L1" cache, basically HttpRuntime. [sent-62, score-0.116]
+</p><p>17 This would reduce the cache lookup overhead to 0 bytes on the network. [sent-64, score-0.172]
+</p><p>18 This resides purely in memory, no network or DB access. [sent-66, score-0.194]
+</p><p>19 They have plenty of CPU and most of their data are strings so they get a great compression ratio. [sent-69, score-0.04]
+</p><p>20 When a specific cache invalidation is required they useRedis messaging to publish removal notices to the "L1" caches. [sent-72, score-0.144]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('overflow', 0.661), ('stack', 0.286), ('xeon', 0.19), ('dell', 0.183), ('exchange', 0.156), ('intel', 0.155), ('redis', 0.123), ('processor', 0.123), ('gb', 0.12), ('fault', 0.097), ('cache', 0.09), ('bacula', 0.087), ('threadstack', 0.087), ('stackoverflow', 0.08), ('resides', 0.075), ('meta', 0.072), ('multiplying', 0.07), ('haproxy', 0.068), ('windows', 0.066), ('network', 0.063)]</p>
+<p>[('overflow', 0.661), ('stack', 0.286), ('xeon', 0.19), ('dell', 0.183), ('exchange', 0.156), ('intel', 0.155), ('redis', 0.123), ('processor', 0.123), ('gb', 0.12), ('fault', 0.097), ('cache', 0.09), ('bacula', 0.087), ('threadstack', 0.087), ('stackoverflow', 0.08), ('resides', 0.075), ('meta', 0.072), ('multiplying', 0.07), ('haproxy', 0.068), ('windows', 0.066), ('network', 0.063), ('server', 0.063), ('views', 0.063), ('grown', 0.061), ('linux', 0.06), ('robot', 0.06), ('purely', 0.056), ('invalidation', 0.054), ('accessed', 0.053), ('bullet', 0.052), ('served', 0.052), ('peak', 0.051), ('db', 0.047), ('distinct', 0.047), ('nagios', 0.046), ('selected', 0.045), ('sql', 0.045), ('million', 0.042), ('debugging', 0.042), ('machines', 0.042), ('questions', 0.042), ('page', 0.042), ('bytes', 0.041), ('lookup', 0.041), ('chat', 0.041), ('hosts', 0.04), ('plenty', 0.04), ('easier', 0.04), ('york', 0.04), ('drraw', 0.039), ('acaching', 0.039)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="998-tfidf-1" href="../high_scalability-2011/high_scalability-2011-03-03-Stack_Overflow_Architecture_Update_-_Now_at_95_Million_Page_Views_a_Month.html">998 high scalability-2011-03-03-Stack Overflow Architecture Update - Now at 95 Million Page Views a Month</a></p>
 <p>Introduction: A lot has happened since my first article on the Stack Overflow Architecture.

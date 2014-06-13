@@ -29,9 +29,30 @@ are IO bound anyway, it's possible to reduce storage requirements by upto
 This comes up because of really good article Robin Harris of StorageMojo
 wrote, All de-dup works, on a paper,  A Study of Practical Deduplication by
 Dutch Meyer and William Bolosky, For a great explanation of deduplication we
-t</p><br/>
+t</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 One way to store less is simplynot to store the same data twice. [sent-2, score-0.329]
+</p><p>2 Using deduplication technology, for some upfront CPU usage, which is a plentiful resource in many systems that are IO bound anyway, it's possible to reduce storage requirements by upto 20:1, depending on your data, which saves both money and disk write overhead. [sent-6, score-0.857]
+</p><p>3 Chunks of data -- files, blocks, or byte ranges -- are checksummed using some hash function that uniquely identifies data with very high probability. [sent-9, score-0.354]
+</p><p>4 When using a secure hash like SHA256, the probability of a hash collision is about 2^-256 = 10^-77 or, in more familiar notation, 0. [sent-10, score-0.236]
+</p><p>5 Chunks of data are remembered in a table of some sort that maps the data's checksum to its storage location and reference count. [sent-13, score-0.368]
+</p><p>6 When you store another copy of existing data, instead of allocating new space on disk, the dedup code just increments the reference count on the existing data. [sent-14, score-0.521]
+</p><p>7 When data is highly replicated, which is typical of backup servers, virtual machine images, and source code repositories, deduplication can reduce space consumption not just by percentages, but by multiples. [sent-15, score-1.024]
+</p><p>8 What the paper is saying, for their type of data at least, is that dealing simply with files is nearly as affective as more complex block deduplication schemes. [sent-16, score-1.035]
+</p><p>9 From the paper:We collected file system content data from 857 desktop computers  at Microsoft over a span of 4 weeks. [sent-17, score-0.22]
+</p><p>10 We analyzed the data to determine the relative efficacy of data deduplication, particularly considering whole-file versus block-level elimination of redundancy. [sent-18, score-0.336]
+</p><p>11 We found that  whole-file deduplication achieves about three quarters of the space savings of the most aggressive block-level deduplication for storage of live file systems, and 87% of the savings for backup images. [sent-19, score-2.103]
+</p><p>12 We also studied file fragmentation finding that it is not prevalent, and updated prior file system metadata studies, finding that the distribution of file sizes continues to skew toward very large unstructured files. [sent-20, score-0.659]
+</p><p>13 Indirection and hashing are still the greatest weapons of computer science, which leads to some telling caveats from Robin :De-duplication trades direct access to save data capacity. [sent-21, score-0.23]
+</p><p>14 If it's at the storage layer, in the cloud, that buys you nothing because then all the cost savings simply go to the cloud provider as you will be billed for the size of the data you want to store, not the data actually stored. [sent-25, score-0.479]
+</p><p>15 And all these calculations must be applied to non- encrypted data so the implication is it should be in user space somewhere. [sent-26, score-0.206]
+</p><p>16 Why should source control systems, for example, have to store diffs anymore? [sent-28, score-0.175]
+</p><p>17 Why shouldn't they just store entire files and let the underlying file system or storage device figure out what's common? [sent-29, score-0.347]
+</p><p>18 With the mass of unstructured data rising it seems like there's an opportunity here. [sent-31, score-0.191]
+</p><p>19 Related ArticlesZFS Deduplication by Jeff BonwickCloud Based Deduplication Quick Start GuideDo any common OS file systems use hashes to avoid storing the same content data more than once? [sent-32, score-0.283]
+</p><p>20 Multi-level comparison of data deduplication in a backup scenarioby Dirk Meister andAndre Brinkmann. [sent-34, score-0.923]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('deduplication', 0.742), ('dedup', 0.147), ('file', 0.115), ('store', 0.112), ('savings', 0.107), ('data', 0.105), ('space', 0.101), ('reference', 0.098), ('hash', 0.091), ('eliminating', 0.09), ('unstructured', 0.086), ('robin', 0.085), ('backup', 0.076), ('jeff', 0.068), ('weapons', 0.067), ('bigstorage', 0.067), ('revisited', 0.067), ('files', 0.065), ('dutch', 0.063), ('meyer', 0.063)]</p>
+<p>[('deduplication', 0.742), ('dedup', 0.147), ('file', 0.115), ('store', 0.112), ('savings', 0.107), ('data', 0.105), ('space', 0.101), ('reference', 0.098), ('hash', 0.091), ('eliminating', 0.09), ('unstructured', 0.086), ('robin', 0.085), ('backup', 0.076), ('jeff', 0.068), ('weapons', 0.067), ('bigstorage', 0.067), ('revisited', 0.067), ('files', 0.065), ('dutch', 0.063), ('meyer', 0.063), ('bonwick', 0.063), ('efficacy', 0.063), ('diffs', 0.063), ('elimination', 0.063), ('percentages', 0.063), ('undetected', 0.063), ('ecc', 0.063), ('hashes', 0.063), ('increments', 0.063), ('paper', 0.062), ('dealing', 0.061), ('prevalent', 0.06), ('studied', 0.06), ('upto', 0.06), ('caveats', 0.058), ('quarters', 0.058), ('finding', 0.057), ('checksum', 0.056), ('william', 0.056), ('rethinking', 0.056), ('laugh', 0.056), ('storage', 0.055), ('billed', 0.054), ('remembered', 0.054), ('collision', 0.054), ('skew', 0.054), ('duplicating', 0.053), ('identifies', 0.053), ('buys', 0.053), ('zfs', 0.052)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1035-tfidf-1" href="../high_scalability-2011/high_scalability-2011-05-05-Paper%3A_A_Study_of_Practical_Deduplication.html">1035 high scalability-2011-05-05-Paper: A Study of Practical Deduplication</a></p>
 <p>Introduction: With BigData comes BigStorage costs. One way to store less is simplynot to

@@ -29,9 +29,30 @@ perform any other action. The querying user must be able to get a complete,
 consistent picture of the data, unaffected by other users' actions.Let's take
 the following scenario, which is based on an Orders table that has 1,000,000
 rows, with a disk size of 20 GB:8:00: UserA started a query "SELECT * FROM
-orde</p><br/>
+orde</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Let's take the following scenario, which is based on an Orders table that has 1,000,000 rows, with a disk size of 20 GB:8:00: UserA started a query "SELECT * FROM orders", which queries all the rows of the table. [sent-8, score-0.69]
+</p><p>2 In our scenario, this query usually takes approximately five minutes to complete, as the database must fully scan the table's blocks from start to end and extract the rows. [sent-9, score-0.482]
+</p><p>3 8:04: UserA's query process arrives at the row modified by UserB. [sent-12, score-0.553]
+</p><p>4 Will UserA get the original row value or the new row value? [sent-15, score-0.552]
+</p><p>5 The new row value is legitimate and committed, but it was updated after UserA's query started. [sent-16, score-0.605]
+</p><p>6 The answer is not clear cut, and depends on the isolation level of the transaction. [sent-17, score-0.493]
+</p><p>7 This isolation level is called dirty reads, which means that read data is not consistent with other parts of the table or the query, and may not yet have been committed. [sent-21, score-0.903]
+</p><p>8 This isolation level ensures the quickest performance, as data is read directly from the table's blocks with no further processing, verifications or any other validation. [sent-22, score-0.767]
+</p><p>9 This is because in the READ COMMITTED isolation level, the rows returned by a query are the rows that were committed when the query was started. [sent-25, score-1.519]
+</p><p>10 The change made by UserB was not present when the query started, and therefore will not be included in the query result. [sent-26, score-0.855]
+</p><p>11 This is because in the REPEATABLE READ isolation level, the rows returned by a query are the rows that were committed when the transaction was started. [sent-28, score-1.325]
+</p><p>12 The change made by UserB was not present when the transaction was started, and therefore will not be included in the query result. [sent-29, score-0.661]
+</p><p>13 This means that "All consistent reads within the same transaction read the snapshot established by the first read" (from MySQL documentation. [sent-30, score-0.535]
+</p><p>14 SERIALIZABLE: This isolation level specifies that all transactions occur in a completely isolated fashion, meaning as if all transactions in the system were executed serially, one after the other. [sent-36, score-0.729]
+</p><p>15 In Oracle, the REPEATABLE READ level is not supported and SERIALIZABLE provides the highest isolation level. [sent-39, score-0.493]
+</p><p>16 The default isolation level in MySQL's InnoDB is REPEATABLE READ, which provides a rather high isolation. [sent-41, score-0.493]
+</p><p>17 Consider again this key sentence for the REPEATABLE READ isolation level: "All consistent reads within the same transaction read the snapshot established by the first read". [sent-42, score-0.96]
+</p><p>18 Since old values of row data are required for current queries, databases use a special segment to store old row values and snapshots. [sent-43, score-0.715]
+</p><p>19 During query execution, each row is examined and if it is found to be too new, an older version of this row is extracted from the rollback segment to comprise the query result. [sent-47, score-1.397]
+</p><p>20 During the time it takes to process the query, more updates come in, making query execution time even longer! [sent-51, score-0.488]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('usera', 0.431), ('isolation', 0.369), ('query', 0.303), ('repeatable', 0.3), ('row', 0.25), ('userb', 0.185), ('committed', 0.169), ('read', 0.164), ('rows', 0.156), ('level', 0.124), ('segment', 0.117), ('table', 0.115), ('transaction', 0.109), ('serializable', 0.1), ('comprise', 0.096), ('orders', 0.08), ('consistent', 0.079), ('rollback', 0.078), ('select', 0.074), ('innodb', 0.07)]</p>
+<p>[('usera', 0.431), ('isolation', 0.369), ('query', 0.303), ('repeatable', 0.3), ('row', 0.25), ('userb', 0.185), ('committed', 0.169), ('read', 0.164), ('rows', 0.156), ('level', 0.124), ('segment', 0.117), ('table', 0.115), ('transaction', 0.109), ('serializable', 0.1), ('comprise', 0.096), ('orders', 0.08), ('consistent', 0.079), ('rollback', 0.078), ('select', 0.074), ('innodb', 0.07), ('scan', 0.07), ('execution', 0.069), ('snapshot', 0.067), ('made', 0.066), ('included', 0.064), ('transactions', 0.063), ('returned', 0.063), ('change', 0.062), ('queries', 0.062), ('updates', 0.061), ('established', 0.061), ('occur', 0.058), ('querying', 0.058), ('therefore', 0.057), ('scenario', 0.056), ('sentence', 0.056), ('verifications', 0.056), ('reads', 0.055), ('takes', 0.055), ('blocks', 0.054), ('started', 0.054), ('specifies', 0.052), ('called', 0.052), ('execute', 0.052), ('value', 0.052), ('complete', 0.051), ('examination', 0.05), ('completeness', 0.05), ('values', 0.049), ('undo', 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="986-tfidf-1" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
 <p>Introduction: Some of us are not aware of the tremendous job databases perform, particularly

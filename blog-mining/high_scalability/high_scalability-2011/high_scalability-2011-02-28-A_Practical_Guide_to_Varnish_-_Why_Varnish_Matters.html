@@ -28,9 +28,30 @@ features, you'll be able to increase performance by orders of magnitude.Some
 of the high profile companies using Varnish include: Twitter, Facebook, Heroku
 and LinkedIn.Our Use CaseOne of Factual's first high profile projects was
 Newsweek's "America's Best High Schools: The List". After realizing that we
-had only a few weeks to increase our throughput by tenfold, we looked into a</p><br/>
+had only a few weeks to increase our throughput by tenfold, we looked into a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Adding Varnish to your stack can be completely noninvasive, but if you tweak your stack to play along with some of varnish's more advanced features, you'll be able to increase performance by orders of magnitude. [sent-7, score-0.203]
+</p><p>2 A Simple Use CaseThe easiest and safest way to add Varnish to your stack is to serve and cache static content. [sent-15, score-0.191]
+</p><p>3 The rest of this guide will assume that you have your webserver running on port 8080, Varnish running on port 80. [sent-25, score-0.261]
+</p><p>4 There are a few things to note here that we'll explain later:the removal of the Accept-Encoding headerthe removal of Set- Cookiereturn(lookup) and return(pass) in vcl_recv# Defining your webserver. [sent-32, score-0.173]
+</p><p>5 port="8080";}  # Incoming request # canreturnpass or lookup(or pipe, but not used often)sub vcl_recv{  # setdefaultbackend set req. [sent-38, score-0.166]
+</p><p>6 Accept- Encoding;    # lookup stylesheets in the cacheif(req. [sent-41, score-0.334]
+</p><p>7 url~"^/stylesheets"){return(lookup);} return(pass);}  # called after recv and before fetch # allowsforspecial hashing before cache is accessed sub vcl_hash{ }    # Before fetching from webserver # returns pass or deliver sub vcl_fetch{if(req. [sent-42, score-1.164]
+</p><p>8 ttl=1d;return(deliver);}} # called after fetch or lookup yields a hit sub vcl_deliver{ }  # sub vcl_error{ }Now lets look at a few things in detail:Removing Accept-Encoding HeaderThe reason this is done is because Varnish doesn't handle encodings (gzip, deflate, etcâ&euro;Ś). [sent-46, score-0.973]
+</p><p>9 The proper way to handle encodings is to have the encoding normalized, but we'll discuss this later. [sent-49, score-0.191]
+</p><p>10 Returning "lookup" tells Varnish to lookup the object from its cache in lue of fetching it from the webserver. [sent-54, score-0.355]
+</p><p>11 This can be done by including the cookie in the hash function like this:sub vcl_hash{if(req. [sent-58, score-0.14]
+</p><p>12 cookie;}}Canonicalized Url CachingIn Ruby on Rails, it is common practice to attach trailing timestamps at the end of static content to ensure that the web browser doesn't cache it (e. [sent-62, score-0.253]
+</p><p>13 One trick we use is to have a small portion of our css be browser specific to handle various differences between browsers. [sent-74, score-0.176]
+</p><p>14 Varnish can still cache this by adding the User-Agent header to the hash like such:sub vcl_hash{if(req. [sent-77, score-0.2]
+</p><p>15 User-Agent}}ACLsVarnish has options to create ACL's to allow access to certain requests:# create ACL acl admin{"localhost";"192. [sent-82, score-0.14]
+</p><p>16 20";}  sub vcl_recv{# protect admin urls from unauthorized ip's if (req. [sent-85, score-0.42]
+</p><p>17 "; } } }PurgingThere are times when we need to purge certain cached objects without restarting the server. [sent-88, score-0.362]
+</p><p>18 org/trac/wiki/VCLExamplePurgingPurge by lookupPurging by lookup uses the vcl_hit function and "PURGE" http action:acl purgeable{"localhost";"192. [sent-92, score-0.246]
+</p><p>19 ";}}Handling EncodingsIts good to canonicalize your encoded requests because you could either get redundent cached objects, or you could end up returning incorrect encoded objects. [sent-117, score-0.222]
+</p><p>20 We hope this post has been helpful for anyone interested in getting varnish setup for the first time. [sent-168, score-0.611]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('varnish', 0.611), ('sub', 0.334), ('purge', 0.316), ('lookup', 0.202), ('acl', 0.14), ('pass', 0.133), ('stylesheets', 0.132), ('encoding', 0.13), ('webserver', 0.129), ('purgeable', 0.116), ('return', 0.1), ('deflate', 0.099), ('set', 0.089), ('admin', 0.086), ('gzip', 0.084), ('cache', 0.08), ('elsif', 0.077), ('headerthe', 0.077), ('noninvasive', 0.077), ('setdefaultbackend', 0.077)]</p>
+<p>[('varnish', 0.611), ('sub', 0.334), ('purge', 0.316), ('lookup', 0.202), ('acl', 0.14), ('pass', 0.133), ('stylesheets', 0.132), ('encoding', 0.13), ('webserver', 0.129), ('purgeable', 0.116), ('return', 0.1), ('deflate', 0.099), ('set', 0.089), ('admin', 0.086), ('gzip', 0.084), ('cache', 0.08), ('elsif', 0.077), ('headerthe', 0.077), ('noninvasive', 0.077), ('setdefaultbackend', 0.077), ('trailing', 0.077), ('unset', 0.077), ('stack', 0.073), ('fetching', 0.073), ('header', 0.072), ('returning', 0.068), ('localhost', 0.063), ('encodings', 0.061), ('css', 0.06), ('remove', 0.06), ('documentation', 0.059), ('specific', 0.058), ('browser', 0.058), ('advanced', 0.057), ('encoded', 0.054), ('guide', 0.05), ('webservers', 0.05), ('hash', 0.048), ('cookie', 0.048), ('removal', 0.048), ('cached', 0.046), ('robin', 0.045), ('function', 0.044), ('probably', 0.042), ('fetch', 0.042), ('port', 0.041), ('hashing', 0.039), ('static', 0.038), ('director', 0.038), ('removing', 0.038)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="996-tfidf-1" href="../high_scalability-2011/high_scalability-2011-02-28-A_Practical_Guide_to_Varnish_-_Why_Varnish_Matters.html">996 high scalability-2011-02-28-A Practical Guide to Varnish - Why Varnish Matters</a></p>
 <p>Introduction: This is a guest post byJeff Sufrom Factual.What is Varnish?Varnishis an open

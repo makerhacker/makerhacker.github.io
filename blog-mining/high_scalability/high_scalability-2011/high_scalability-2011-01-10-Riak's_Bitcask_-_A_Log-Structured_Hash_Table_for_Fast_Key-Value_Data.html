@@ -29,9 +29,30 @@ memory key index is updated with the file pointer.Read queries are satisfied
 with O(1) random disk seeks. Latency is very predictable if all keys fit in
 memory because there's no random seeking around through a file.For reads, the
 file system cache in the kernel is used instead of writing a complicated
-caching sche</p><br/>
+caching sche</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The approach Basho settled on withBitcask, their new backend for Riak, is an interesting combination of using RAM to store a hash map of file pointers to values and a log-structured file system for efficient writes. [sent-2, score-0.775]
+</p><p>2 Writes are append-only, which means writes are strictly sequential and do not require seeking. [sent-6, score-0.199]
+</p><p>3 Every time a value is updated the data file on disk is appended and the in- memory key index is updated with the file pointer. [sent-8, score-1.219]
+</p><p>4 Latency is very predictable if all keys fit in memory because there's no random seeking around through a file. [sent-10, score-0.44]
+</p><p>5 For reads, the file system cache in the kernel is used instead of writing a complicated caching scheme in Riak. [sent-11, score-0.208]
+</p><p>6 Bitcask haswindowed merges:Bitcask performs periodic merges over all non- active files to compact the space being occupied by old versions of stored data. [sent-13, score-0.345]
+</p><p>7 The key to value index exists in memory and in the filesystem in hint files. [sent-17, score-0.424]
+</p><p>8 The hint file is generated when data files are merged. [sent-18, score-0.405]
+</p><p>9 On restart the index only needs to be rebuilt for non-merged files which should be a small percentage of the data. [sent-19, score-0.225]
+</p><p>10 Eric Brewer (CAP theorem) came up with idea with Bitcask by considering if you have the capacity to keep all keys in memory, which is quite likely on modern systems, you can have a relatively easy to design and implement storage system. [sent-20, score-0.203]
+</p><p>11 Separate writes to a data file and a commit log is not necessary. [sent-23, score-0.432]
+</p><p>12 When a value is updated it is first appended to the on-disk commit log. [sent-24, score-0.459]
+</p><p>13 Then the  in-memory hash table that maps keys to disk pointers is updated to point to the file and the offset of the record in the file. [sent-25, score-1.0]
+</p><p>14 The hash key locates the file pointer and you just seek to the offset and read the value. [sent-27, score-0.459]
+</p><p>15 It's good compromise between a pure in-memory database and a disk based data store backed by a virtual memory layer. [sent-30, score-0.276]
+</p><p>16 Some potential issues:If you suspect you will have more keys than RAM then an architecture that keeps a working set in memory would be a better choice. [sent-31, score-0.384]
+</p><p>17 Problems commonly occur during the garbage collection phase as resource spike while space for deleted values are reclaimed. [sent-33, score-0.237]
+</p><p>18 Bitcask hopes to lessen this cost by enabling the scheduling of garbage collection to certain periods, though in a 24x7 property with an international set of users this may not be sufficient. [sent-34, score-0.199]
+</p><p>19 Write throughput could be increased if writes were buffered and the data was replicated synchronously to a backup node for high availability. [sent-36, score-0.212]
+</p><p>20 Without tuning, both reads and writes seem to be amortizing the cost of seeks over a very large number of operations. [sent-51, score-0.212]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('bitcask', 0.552), ('file', 0.208), ('keys', 0.203), ('basho', 0.176), ('updated', 0.142), ('hash', 0.14), ('writes', 0.14), ('appended', 0.138), ('hint', 0.122), ('merges', 0.122), ('memory', 0.12), ('pointers', 0.117), ('offset', 0.111), ('structured', 0.104), ('values', 0.102), ('value', 0.095), ('eric', 0.093), ('index', 0.087), ('commit', 0.084), ('riak', 0.084)]</p>
+<p>[('bitcask', 0.552), ('file', 0.208), ('keys', 0.203), ('basho', 0.176), ('updated', 0.142), ('hash', 0.14), ('writes', 0.14), ('appended', 0.138), ('hint', 0.122), ('merges', 0.122), ('memory', 0.12), ('pointers', 0.117), ('offset', 0.111), ('structured', 0.104), ('values', 0.102), ('value', 0.095), ('eric', 0.093), ('index', 0.087), ('commit', 0.084), ('riak', 0.084), ('disk', 0.079), ('performs', 0.079), ('tunable', 0.077), ('thesoftware', 0.077), ('changelog', 0.077), ('detailsthe', 0.077), ('pure', 0.077), ('files', 0.075), ('garbage', 0.074), ('advertised', 0.072), ('alfred', 0.072), ('amortizing', 0.072), ('buffered', 0.072), ('sheehy', 0.072), ('benchmark', 0.071), ('occupied', 0.069), ('compacted', 0.069), ('interview', 0.066), ('lessen', 0.064), ('beating', 0.064), ('rebuilt', 0.063), ('collection', 0.061), ('random', 0.061), ('brewer', 0.061), ('suspect', 0.061), ('lars', 0.06), ('strictly', 0.059), ('inspiration', 0.056), ('atomicity', 0.056), ('fit', 0.056)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="971-tfidf-1" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
 <p>Introduction: How would you implement a key-value storage system if you were starting from

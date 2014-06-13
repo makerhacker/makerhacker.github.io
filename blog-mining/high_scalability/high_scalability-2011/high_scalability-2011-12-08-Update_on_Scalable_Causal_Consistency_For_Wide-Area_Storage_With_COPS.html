@@ -29,9 +29,30 @@ state.) Q: Why not just use vector clocks?A: The problem with vector clocks
 and scalability has always been that the size of vector clocks in O(N), where
 N is the number of nodes.  So if we want to scale to a datacenter with 10K
 nodes, each piece of metadata must have size O(10K).  And in fact, vector
-clocks alone only allow yo</p><br/>
+clocks alone only allow yo</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Somebody would still run a two-tier architecture in their datacenter:  a front-tier of webservers running both (say) PHP and our client library, and a back tier of storage nodes running COPS. [sent-4, score-0.159]
+</p><p>2 (I'm not sure if it was obvious given the discussion of our "thick" client -- you should think of the COPS client dropping in where a memcache client library does. [sent-5, score-0.427]
+</p><p>3 A: The problem with vector clocks and scalability has always been that the size of vector clocks in O(N), where N is the number of nodes. [sent-10, score-1.072]
+</p><p>4 So if we want to scale to a datacenter with 10K nodes, each piece of metadata must have size O(10K). [sent-11, score-0.184]
+</p><p>5 And in fact, vector clocks alone only allow you to learn Lamport's happens-before relationship -- they don't actually govern how you would enforce causal consistency in the system. [sent-12, score-1.387]
+</p><p>6 You'd still need to employ either a serialization point or explicit dependency checking, as we do, in order to provide the desired consistency across the datacenter. [sent-13, score-0.718]
+</p><p>7 Distributed systems protocols (and DB systems) typically think about sites that include all the data they wish to establish causal ordering over. [sent-14, score-0.47]
+</p><p>8 In COPS, a datacenter node only has a shard of the total data set, so you are fundamentally going to need to do some consistency enforcement or verification protocol. [sent-15, score-0.68]
+</p><p>9 In short:  Vector clocks give you potential ordering between two observed operations. [sent-16, score-0.368]
+</p><p>10 We use explicit dependency metadata to tell a server what other operation it depends on, because that operation likely resides only on other servers in the cluster! [sent-17, score-0.484]
+</p><p>11 A:  I think it introduces a different consistency model. [sent-19, score-0.451]
+</p><p>12 To my knowledge, Cassandra doesn't actually allow you to achieve *any* consistency guarantees *across* keys, it's support for transactions and strong consistency is limited to each row (as is BigTable, PNUTS, etc. [sent-20, score-1.014]
+</p><p>13 COPS allows you to achieve gain stronger consistency than eventual *across* rows/tablets/servers, while preserving the ALPS properties. [sent-22, score-0.745]
+</p><p>14 This is why one of the directions of future work we are looking at is actually seeing how difficult it would be to "port" COPS' algorithms to Cassandra (or maybe even sharded MySQL) to provide cross-key consistency properties. [sent-23, score-0.521]
+</p><p>15 Likelihood ^ as consistency v from: strong -> causal -> eventual. [sent-25, score-0.737]
+</p><p>16 A: In your post, you noticed we have to deal with conflicting updates to the same key in a similar way to eventual consistency, either applying the last-writer-wins rule or some app-specific function. [sent-26, score-0.47]
+</p><p>17 This is a good point, and one of the things I like about eventual consistency is that it forces people to acknowledge that conflicts are possible and that you have to deal with them. [sent-27, score-0.872]
+</p><p>18 What's sort of surprising to many is that they are possible even with strong consistency (linearizability). [sent-28, score-0.607]
+</p><p>19 Even if two updates don't conflict explicitly, they can still conflict logically. [sent-29, score-0.441]
+</p><p>20 For instance, if two people (U and I) write to the same key (lock initially 0, U: lock = 1, I: lock = 1) at about the same time, the updates will be ordered by real time, but they should really conflict (the second lock = 1 should fail! [sent-30, score-0.729]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('cops', 0.399), ('consistency', 0.391), ('clocks', 0.268), ('vector', 0.268), ('causal', 0.249), ('eventual', 0.167), ('conflict', 0.159), ('lock', 0.149), ('updates', 0.123), ('conflicts', 0.117), ('explicit', 0.106), ('dependency', 0.101), ('ordering', 0.1), ('client', 0.099), ('datacenter', 0.097), ('strong', 0.097), ('operation', 0.095), ('metadata', 0.087), ('cassandra', 0.086), ('freedman', 0.085)]</p>
+<p>[('cops', 0.399), ('consistency', 0.391), ('clocks', 0.268), ('vector', 0.268), ('causal', 0.249), ('eventual', 0.167), ('conflict', 0.159), ('lock', 0.149), ('updates', 0.123), ('conflicts', 0.117), ('explicit', 0.106), ('dependency', 0.101), ('ordering', 0.1), ('client', 0.099), ('datacenter', 0.097), ('strong', 0.097), ('operation', 0.095), ('metadata', 0.087), ('cassandra', 0.086), ('freedman', 0.085), ('alps', 0.08), ('acknowledge', 0.08), ('linearizability', 0.08), ('govern', 0.08), ('thick', 0.076), ('wyatt', 0.076), ('lamport', 0.073), ('enforcement', 0.071), ('actually', 0.07), ('library', 0.07), ('likelihood', 0.067), ('pnuts', 0.066), ('achieve', 0.065), ('casual', 0.065), ('preserving', 0.065), ('verification', 0.063), ('settle', 0.063), ('conflicting', 0.062), ('establish', 0.061), ('enforce', 0.061), ('either', 0.061), ('webservers', 0.06), ('think', 0.06), ('possible', 0.06), ('directions', 0.06), ('sort', 0.059), ('employ', 0.059), ('fundamentally', 0.058), ('stronger', 0.057), ('deal', 0.057)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1153-tfidf-1" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
 <p>Introduction: Here are a few updates on the articlePaper: Don't Settle For Eventual:

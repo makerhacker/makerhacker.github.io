@@ -29,9 +29,30 @@ distributed as a library and linked directly into your application. The
 application is responsible for providing a service level API, sharding,
 backups, initiating consistency checking, initiation rollback,  startup,
 shutdown, queries, etc. Applications become the container for the database and
-the manager of the database.Arc</p><br/>
+the manager of the database.Arc</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 LevelDBis an exciting new entrant into the pantheon of embedded databases, notable both for its pedigree, being authored by the makers of the now mythical Google MapReduce and BigTable products, and for its emphasis on efficient disk based random access using log-structured-merge (LSM) trees. [sent-1, score-0.188]
+</p><p>2 An embedded database is a database distributed as a library and linked directly into your application. [sent-6, score-0.282]
+</p><p>3 Architectures using embedded databases typically never expose a raw database abstraction at all. [sent-9, score-0.214]
+</p><p>4 They have a service API and the services use the embedded database library call transparently behind the scene. [sent-10, score-0.236]
+</p><p>5 Often an embedded database will provide multiple access types, like indexed access for key-value uses and btrees for range queries and cursors. [sent-11, score-0.23]
+</p><p>6 BerkelyDBis one well known example of an embedded database,SQLiteis another, the file system is perhaps the most commonly used database, and there have been many many other btree libraries in common use. [sent-12, score-0.227]
+</p><p>7 Here are some excellent FAQish tips, performance suggestions, and porting issues extracted from the list:Largest tested database: 1 billion entries with 16 byte keys and 100 byte values (roughly 100 GB of raw data, about half that after compression). [sent-20, score-0.314]
+</p><p>8 TokyoCabinet could be filled with a million 100-byte writes in less than two seconds if writing sequentially, but the time  ballooned to ~2000 seconds when writing randomly. [sent-32, score-0.204]
+</p><p>9 What leveldb does differently from B+trees is that it trades off write latency for write throughput: write latency is reduced by doing bulk writes, but the same data may be rewritten multiple times (at high throughput) in the background due to compactions. [sent-43, score-0.925]
+</p><p>10 It always appends to a log file, or merges existing files together to produce new ones. [sent-45, score-0.271]
+</p><p>11 So an OS crash will cause a partially written log record (or a few partially written log records). [sent-46, score-0.595]
+</p><p>12 Every write will cause a log file to grow, regardless of whether or not you are writing to a key which already exists in the database, and regardless of whether or not you are overwriting a key with the exact same value. [sent-52, score-0.187]
+</p><p>13 LevelDB's performance improves greatly with more memory, a larger write buffer reduces the need to merge sorted files (since it creates a smaller number of larger sorted files). [sent-59, score-0.235]
+</p><p>14 A good sign of adoption, language bindings are being built:Java,Tie::LevelDB on CPANComparingLevelDB and Bitcask: LevelDB is a persistent ordered map; bitcask is a persistent hash table (no ordered iteration). [sent-68, score-0.268]
+</p><p>15 To clarify, leveldb stores data in a sequence of levels. [sent-73, score-0.778]
+</p><p>16 So if 10% of the db fits in memory, leveldb will need to do one seek (for the last level since all of the earlier levels should end up cached in the OS buffer cache). [sent-76, score-0.838]
+</p><p>17 If 1% fits in memory, leveldb will need two seeks. [sent-77, score-0.74]
+</p><p>18 Writes can be lost, but that doesn't trash the data files: Leveldb never writes in place: it always appends to a log file, or merges existing files together to produce new ones. [sent-79, score-0.395]
+</p><p>19 So an OS crash will cause a partially written log record (or a few partially written log records). [sent-80, score-0.595]
+</p><p>20 Possible future enhancements:Do not hold the mutex while the writer is appending to the log (allow concurrent readers to proceed)Implement group commit (so concurrent writers have their writes grouped together). [sent-98, score-0.332]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('leveldb', 0.74), ('kyoto', 0.274), ('bitcask', 0.184), ('writes', 0.124), ('embedded', 0.12), ('partially', 0.111), ('log', 0.091), ('keys', 0.09), ('bigtable', 0.09), ('byte', 0.082), ('tablet', 0.078), ('compactions', 0.075), ('indexeddb', 0.075), ('library', 0.07), ('random', 0.068), ('files', 0.067), ('btrees', 0.064), ('berkelydb', 0.061), ('sorted', 0.061), ('values', 0.06)]</p>
+<p>[('leveldb', 0.74), ('kyoto', 0.274), ('bitcask', 0.184), ('writes', 0.124), ('embedded', 0.12), ('partially', 0.111), ('log', 0.091), ('keys', 0.09), ('bigtable', 0.09), ('byte', 0.082), ('tablet', 0.078), ('compactions', 0.075), ('indexeddb', 0.075), ('library', 0.07), ('random', 0.068), ('files', 0.067), ('btrees', 0.064), ('berkelydb', 0.061), ('sorted', 0.061), ('values', 0.06), ('seek', 0.06), ('trees', 0.06), ('appends', 0.059), ('lsm', 0.059), ('btree', 0.057), ('crash', 0.056), ('riak', 0.056), ('checksums', 0.056), ('merges', 0.054), ('throughput', 0.053), ('incomplete', 0.053), ('compared', 0.052), ('file', 0.05), ('databases', 0.048), ('background', 0.047), ('database', 0.046), ('written', 0.046), ('write', 0.046), ('block', 0.045), ('record', 0.043), ('representation', 0.043), ('skip', 0.042), ('ordered', 0.042), ('suitable', 0.041), ('benchmarks', 0.041), ('seconds', 0.04), ('concurrent', 0.04), ('level', 0.038), ('stores', 0.038), ('readers', 0.037)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1096-tfidf-1" href="../high_scalability-2011/high_scalability-2011-08-10-LevelDB_-_Fast_and_Lightweight_Key-Value_Database_From_the_Authors_of_MapReduce_and_BigTable.html">1096 high scalability-2011-08-10-LevelDB - Fast and Lightweight Key-Value Database From the Authors of MapReduce and BigTable</a></p>
 <p>Introduction: LevelDBis an exciting new entrant into the pantheon of embedded databases,

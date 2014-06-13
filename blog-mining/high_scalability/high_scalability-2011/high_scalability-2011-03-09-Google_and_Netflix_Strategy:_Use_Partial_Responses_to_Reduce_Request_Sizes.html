@@ -29,9 +29,30 @@ API as a database. What does this mean?Apartial responseis like a SQL select
 statement where you can specify only the fields you want back. Only the
 attributes of interest are requested.  Previously all fields for objects were
 returned, even if the client didn't need them. So the goal is reduce payload
-sizes by being more sele</p><br/>
+sizes by being more sele</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This strategy targets reducing the amount of protocol data in packets by sending only the attributes that are needed. [sent-1, score-0.522]
+</p><p>2 Netflix posted about adopting this strategy in their recent Netflix API redesign. [sent-3, score-0.229]
+</p><p>3 We've seen previously how Netflix improved performance by creatingless chatty protocols. [sent-4, score-0.181]
+</p><p>4 As a consequence packet sizes rise as more data is being stuffed into each packet in order to reduce the number of round trips. [sent-5, score-0.707]
+</p><p>5 But we don't like large packets either (memory usage and packet processing overhead), so we have to think of creative ways to shrink them back down. [sent-6, score-0.4]
+</p><p>6 The change Netflx is making is to conceptualize their API as a database. [sent-7, score-0.166]
+</p><p>7 Apartial responseis like a SQL select statement where you can specify only the fields you want back. [sent-9, score-0.287]
+</p><p>8 Previously all fields for objects were returned, even if the client didn't need them. [sent-11, score-0.469]
+</p><p>9 So the goal is reduce payload sizes by being more selective about what data is returned. [sent-12, score-0.358]
+</p><p>10 fields=id,entry(author)Thefieldsparameter selects the attributes to return out of a much larger feeds resource. [sent-14, score-0.32]
+</p><p>11 Apartial updateworks similarly, you send only the fields you want to update. [sent-15, score-0.228]
+</p><p>12 Clearly this will reduce the number of attributes in flight, but are there any problems with this strategy? [sent-17, score-0.342]
+</p><p>13 A major problem I've experienced when using partial data aresynchronization issues. [sent-18, score-0.23]
+</p><p>14 Thinking of an API as a database moves the problem to be in the general problem class of keeping two distributed models in sync when both sides are changing and the connection between them is unreliable. [sent-19, score-0.399]
+</p><p>15 Now each model is receiving only partial data,  if any data is lost or retransmitted between requests, then resources get out of sync, which can lead to integrity problems. [sent-20, score-0.471]
+</p><p>16 Then the user could make a change to those preferences on the client and overwrite any updates that have happened since the last request. [sent-22, score-0.967]
+</p><p>17 With a state synchronization model where the entire resources is returned the window for these errors is much smaller as updated preferences are always being returned. [sent-24, score-0.721]
+</p><p>18 This brings up an entire rats nest of workarounds, like doing a complete resource sync before writes, but the system gets a lot more complicated. [sent-25, score-0.49]
+</p><p>19 In a database sync model there is really no need for direct responses anymore. [sent-27, score-0.553]
+</p><p>20 What's needed are for all aggregated changes to sync back to clients so the client can bring the client side model back in sync with the Netflix model. [sent-28, score-1.518]
+</p>
+<br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('preferences', 0.431), ('sync', 0.327), ('attributes', 0.248), ('client', 0.241), ('partial', 0.23), ('fields', 0.228), ('packet', 0.151), ('netflix', 0.121), ('returned', 0.116), ('model', 0.116), ('responses', 0.11), ('packets', 0.106), ('overwrite', 0.103), ('apartial', 0.103), ('netflx', 0.103), ('sizes', 0.102), ('previously', 0.101), ('alarms', 0.097), ('conceptualize', 0.097), ('nest', 0.097)]</p>
+<p>[('preferences', 0.431), ('sync', 0.327), ('attributes', 0.248), ('client', 0.241), ('partial', 0.23), ('fields', 0.228), ('packet', 0.151), ('netflix', 0.121), ('returned', 0.116), ('model', 0.116), ('responses', 0.11), ('packets', 0.106), ('overwrite', 0.103), ('apartial', 0.103), ('netflx', 0.103), ('sizes', 0.102), ('previously', 0.101), ('alarms', 0.097), ('conceptualize', 0.097), ('nest', 0.097), ('strategy', 0.095), ('reduce', 0.094), ('api', 0.086), ('workarounds', 0.084), ('payload', 0.082), ('stuffed', 0.082), ('flight', 0.08), ('selective', 0.08), ('chatty', 0.08), ('interval', 0.076), ('shrink', 0.074), ('targets', 0.073), ('selects', 0.072), ('sides', 0.072), ('adopting', 0.071), ('back', 0.069), ('consequence', 0.069), ('change', 0.069), ('gets', 0.066), ('could', 0.066), ('receiving', 0.065), ('side', 0.064), ('aggregated', 0.064), ('posted', 0.063), ('similarly', 0.063), ('integrity', 0.06), ('statement', 0.059), ('rise', 0.058), ('window', 0.058), ('user', 0.057)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1001-tfidf-1" href="../high_scalability-2011/high_scalability-2011-03-09-Google_and_Netflix_Strategy%3A_Use_Partial_Responses_to_Reduce_Request_Sizes.html">1001 high scalability-2011-03-09-Google and Netflix Strategy: Use Partial Responses to Reduce Request Sizes</a></p>
 <p>Introduction: This strategy targets reducing the amount of protocol data in packets by
