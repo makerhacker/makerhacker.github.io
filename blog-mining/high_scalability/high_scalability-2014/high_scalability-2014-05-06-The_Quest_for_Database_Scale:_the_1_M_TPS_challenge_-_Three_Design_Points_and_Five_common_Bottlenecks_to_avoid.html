@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>1643 high scalability-2014-05-06-The Quest for Database Scale: the 1 M TPS challenge - Three Design Points and Five common Bottlenecks to avoid</title>
+</head>
+
+<body>
+<p><a title="high_scalability" href="../high_scalability_home.html">high_scalability</a> <a title="high_scalability-2014" href="../home/high_scalability-2014_home.html">high_scalability-2014</a> <a title="high_scalability-2014-1643" href="#">high_scalability-2014-1643</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>1643 high scalability-2014-05-06-The Quest for Database Scale: the 1 M TPS challenge - Three Design Points and Five common Bottlenecks to avoid</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1643-html" href="http://highscalability.com//blog/2014/5/6/the-quest-for-database-scale-the-1-m-tps-challenge-three-des.html">html</a></p><p>Introduction: This a guest post byRajkumar Iyer, a Member of Technical Staff at
+Aerospike.About a year ago, Aerospike embarked upon a quest to increase in-
+memory database performance - 1 Million TPS on a single inexpensive commodity
+server. NoSQL has the reputation of speed, and we saw great benefit from
+improving latency and throughput of cacheless architectures. At that time, we
+took a version of Aerospike delivering about 200K TPS, improved a few things -
+performance went to 500k TPS - and published the Aerospike 2.0 Community
+Edition. We then used kernel tuning techniques and published therecipefor how
+we achieved 1 M TPS on $5k of hardware.This year we continued the quest. Our
+goal was to achieve 1 Million database transactions per second per server;
+more than doubling previous performance. This compares to Cassandra's boast of
+1M TPS on over 300 servers in Google Compute Engine - at a cost of $2 million
+dollars per year. Weachieved thiswithout kernel tuning. This article describes
+the three d</p><br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('tps', 0.31), ('aerospike', 0.29), ('recipe', 0.272), ('dpdk', 0.263), ('numa', 0.237), ('branch', 0.131), ('threaded', 0.124), ('system', 0.107), ('switching', 0.105), ('kernel', 0.098), ('single', 0.098), ('database', 0.088), ('core', 0.088), ('bottleneck', 0.086), ('architected', 0.084), ('sure', 0.076), ('operates', 0.075), ('context', 0.073), ('loop', 0.073), ('achieved', 0.072)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.9999997 <a title="1643-tfidf-1" href="../high_scalability-2014/high_scalability-2014-05-06-The_Quest_for_Database_Scale%3A_the_1_M_TPS_challenge_-_Three_Design_Points_and_Five_common_Bottlenecks_to_avoid.html">1643 high scalability-2014-05-06-The Quest for Database Scale: the 1 M TPS challenge - Three Design Points and Five common Bottlenecks to avoid</a></p>
+<p>Introduction: This a guest post byRajkumar Iyer, a Member of Technical Staff at
+Aerospike.About a year ago, Aerospike embarked upon a quest to increase in-
+memory database performance - 1 Million TPS on a single inexpensive commodity
+server. NoSQL has the reputation of speed, and we saw great benefit from
+improving latency and throughput of cacheless architectures. At that time, we
+took a version of Aerospike delivering about 200K TPS, improved a few things -
+performance went to 500k TPS - and published the Aerospike 2.0 Community
+Edition. We then used kernel tuning techniques and published therecipefor how
+we achieved 1 M TPS on $5k of hardware.This year we continued the quest. Our
+goal was to achieve 1 Million database transactions per second per server;
+more than doubling previous performance. This compares to Cassandra's boast of
+1M TPS on over 300 servers in Google Compute Engine - at a cost of $2 million
+dollars per year. Weachieved thiswithout kernel tuning. This article describes
+the three d</p><p>2 0.28698671 <a title="1643-tfidf-2" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
+<p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible
+NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent
+the last several years trying to find a way to sanely house multiple
+datastore-genres under one roof while (almost paradoxically) pushing
+performance to its limits.I recently joined the NoSQL
+companyAerospike(formerly Citrusleaf) with the goal of incrementally grafting
+AlchemyDB's flexible data-modeling capabilities onto Aerospike's high-velocity
+horizontally-scalable key-value data-fabric. We recently completed a peak-
+performanceTPS optimization project: starting at 200K TPS, pushing to the
+recent community edition launch at 500K TPS, and finally arriving at our 2012
+goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
+database-requests per-second on a single machine costing $5K is a balance
+between trimming overhead on many axes and using a shared nothing architecture
+toisolatethe paths taken by unique req</p><p>3 0.2219374 <a title="1643-tfidf-3" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: Now that we have theC10K concurrent connection problemlicked, how do we level
+up and support 10 million concurrent connections? Impossible you say. Nope,
+systems right now are delivering 10 million concurrent connections using
+techniques that are as radical as they may be unfamiliar.To learn how it's
+done we turn toRobert Graham, CEO of Errata Security, and his absolutely
+fantastic talk atShmoocon 2013calledC10M Defending The Internet At
+Scale.Robert has a brilliant way of framing the problem that I've never heard
+of before. He starts with a little bit of history, relating how Unix wasn't
+originally designed to be a general server OS, it was designed to be a control
+system for a telephone network. It was the telephone network that actually
+transported the data so there was a clean separation between the control plane
+and the data plane. Theproblem is we now use Unix servers as part of the data
+plane, which we shouldn't do at all. If we were designing a kernel for
+handling one applicati</p><p>4 0.1944524 <a title="1643-tfidf-4" href="../high_scalability-2013/high_scalability-2013-05-30-Google_Finds_NUMA_Up_to_20%25_Slower_for_Gmail_and_Websearch.html">1467 high scalability-2013-05-30-Google Finds NUMA Up to 20% Slower for Gmail and Websearch</a></p>
+<p>Introduction: When you have a large population of servers you have both the opportunity and
+the incentive to perform interesting studies. Authors from Google and the
+University of California in Optimizing Google's Warehouse Scale Computers: The
+NUMA Experience conducted such a study, taking a look at how jobs run on
+clusters of machines using a NUMA architecture. Since NUMA is common on server
+class machines it's a topic of general interest for those looking to maximize
+machine utilization across clusters.Some of the results are surprising:The
+methodology of how to attribute such fine performance variations to NUMA
+effects within such a complex system is perhaps more interesting than the
+results themselves. Well worth reading just for that story.The performance
+swing due to NUMA is up to 15% on AMD Barcelona for Gmail backend and 20% on
+Intel Westmere for Web-search frontend. Memory locality is not always King.
+Because of the interaction between NUMA and cache sharing/contention it turns
+out differe</p><p>5 0.17459202 <a title="1643-tfidf-5" href="../high_scalability-2012/high_scalability-2012-04-13-Stuff_The_Internet_Says_On_Scalability_For_April_13%2C_2012.html">1227 high scalability-2012-04-13-Stuff The Internet Says On Scalability For April 13, 2012</a></p>
+<p>Introduction: It's HighScalability Time:50 million in 50 days: Draw Something downloads;40
+million concurrent users: SkypeKey to making sensors ubiquitous is getting the
+BOM cost down. Here's a dream way of making that happen: Bye-Bye Batteries:
+Radio Waves as a Low-Power Source. "Silicon technology has advanced to the
+point where even tiny amounts of energy can do useful work." No batteries ==
+cheaper, smaller products == ubiquity.The MySQL "swap insanity" problem and
+the effects of the NUMA architecture. Jeremy Cole with a spectacular article
+on the differences between NUMA and SMP/UMA systems and the mostly
+unsatisfactory tricks required to get MySQL to perform on NUMA systems. There
+are really two issues: the evils of an OS controlled swap and NUMA performance
+effects due to a single node (in the NUMA sense) running out of memory. This
+is the kind of stuff you only see when you push your systems to the edge.
+Also,Measuring NUMA effects with the STREAM benchmark,MongoDB on NUMA, and You
+Buy a NUM</p><p>6 0.16894902 <a title="1643-tfidf-6" href="../high_scalability-2012/high_scalability-2012-12-10-Switch_your_databases_to_Flash_storage._Now._Or_you%27re_doing_it_wrong..html">1369 high scalability-2012-12-10-Switch your databases to Flash storage. Now. Or you're doing it wrong.</a></p>
+<p>7 0.14564094 <a title="1643-tfidf-7" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>8 0.14331819 <a title="1643-tfidf-8" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
+<p>9 0.13956356 <a title="1643-tfidf-9" href="../high_scalability-2013/high_scalability-2013-09-03-Sponsored_Post%3A_Apple%2C_Couchbase%2C_Evernote%2C_10gen%2C_Stackdriver%2C_BlueStripe%2C_Surge%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1510 high scalability-2013-09-03-Sponsored Post: Apple, Couchbase, Evernote, 10gen, Stackdriver, BlueStripe, Surge, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>10 0.13932437 <a title="1643-tfidf-10" href="../high_scalability-2013/high_scalability-2013-09-17-Sponsored_Post%3A_Apple%2C_Couchbase%2C_Evernote%2C_MongoDB%2C_Stackdriver%2C_BlueStripe%2C_Surge%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1518 high scalability-2013-09-17-Sponsored Post: Apple, Couchbase, Evernote, MongoDB, Stackdriver, BlueStripe, Surge, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>11 0.13778886 <a title="1643-tfidf-11" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
+<p>12 0.13683854 <a title="1643-tfidf-12" href="../high_scalability-2013/high_scalability-2013-04-30-Sponsored_Post%3A_Spotify%2C_Evernote%2C_Surge%2C_Rackspace%2C_Simple%2C_Amazon%2C_Booking%2C_aiCache%2C_Aerospike%2C_Percona%2C_ScaleOut%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1449 high scalability-2013-04-30-Sponsored Post: Spotify, Evernote, Surge, Rackspace, Simple, Amazon, Booking, aiCache, Aerospike, Percona, ScaleOut, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>13 0.13660055 <a title="1643-tfidf-13" href="../high_scalability-2013/high_scalability-2013-10-15-Sponsored_Post%3A_Apple%2C_ScaleOut%2C_FreeAgent%2C_CloudStats.me%2C_Intechnica%2C_Couchbase%2C_MongoDB%2C_Stackdriver%2C_BlueStripe%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1532 high scalability-2013-10-15-Sponsored Post: Apple, ScaleOut, FreeAgent, CloudStats.me, Intechnica, Couchbase, MongoDB, Stackdriver, BlueStripe, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>14 0.13577975 <a title="1643-tfidf-14" href="../high_scalability-2012/high_scalability-2012-07-04-Top_Features_of_a_Scalable_Database.html">1276 high scalability-2012-07-04-Top Features of a Scalable Database</a></p>
+<p>15 0.1331867 <a title="1643-tfidf-15" href="../high_scalability-2009/high_scalability-2009-07-25-Latency_is_Everywhere_and_it_Costs_You_Sales_-_How_to_Crush_it.html">661 high scalability-2009-07-25-Latency is Everywhere and it Costs You Sales - How to Crush it</a></p>
+<p>16 0.132974 <a title="1643-tfidf-16" href="../high_scalability-2013/high_scalability-2013-05-14-Sponsored_Post%3A_Dow_Jones%2C_Spotify%2C_Evernote%2C_Surge%2C_Rackspace%2C_Amazon%2C_Booking%2C_aiCache%2C_Aerospike%2C_Percona%2C_ScaleOut%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1457 high scalability-2013-05-14-Sponsored Post: Dow Jones, Spotify, Evernote, Surge, Rackspace, Amazon, Booking, aiCache, Aerospike, Percona, ScaleOut, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>17 0.12986164 <a title="1643-tfidf-17" href="../high_scalability-2013/high_scalability-2013-10-01-Sponsored_Post%3A_Apple%2C_Intechnica%2C_Couchbase%2C_MongoDB%2C_Stackdriver%2C_BlueStripe%2C_Surge%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1525 high scalability-2013-10-01-Sponsored Post: Apple, Intechnica, Couchbase, MongoDB, Stackdriver, BlueStripe, Surge, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<p>18 0.12972018 <a title="1643-tfidf-18" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
+<p>19 0.12963761 <a title="1643-tfidf-19" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
+<p>20 0.12807027 <a title="1643-tfidf-20" href="../high_scalability-2013/high_scalability-2013-05-28-Sponsored_Post%3A_Blurocket%2C_Incapsula%2C_Dow_Jones%2C_Surge%2C_Rackspace%2C_Amazon%2C_Booking%2C_aiCache%2C_Aerospike%2C_Percona%2C_ScaleOut%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1465 high scalability-2013-05-28-Sponsored Post: Blurocket, Incapsula, Dow Jones, Surge, Rackspace, Amazon, Booking, aiCache, Aerospike, Percona, ScaleOut, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/high_scalability_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.263), (1, 0.114), (2, -0.067), (3, 0.008), (4, 0.016), (5, 0.069), (6, 0.069), (7, 0.039), (8, -0.114), (9, -0.046), (10, 0.017), (11, -0.008), (12, 0.034), (13, 0.029), (14, -0.017), (15, -0.019), (16, 0.015), (17, 0.027), (18, -0.009), (19, 0.018), (20, 0.011), (21, 0.001), (22, -0.005), (23, -0.052), (24, 0.077), (25, -0.057), (26, -0.009), (27, -0.02), (28, 0.029), (29, 0.062), (30, 0.034), (31, 0.041), (32, -0.032), (33, -0.02), (34, 0.026), (35, 0.033), (36, 0.007), (37, 0.017), (38, 0.013), (39, 0.092), (40, -0.019), (41, -0.038), (42, -0.004), (43, -0.013), (44, -0.017), (45, 0.008), (46, -0.061), (47, -0.067), (48, -0.007), (49, 0.04)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.94832247 <a title="1643-lsi-1" href="../high_scalability-2014/high_scalability-2014-05-06-The_Quest_for_Database_Scale%3A_the_1_M_TPS_challenge_-_Three_Design_Points_and_Five_common_Bottlenecks_to_avoid.html">1643 high scalability-2014-05-06-The Quest for Database Scale: the 1 M TPS challenge - Three Design Points and Five common Bottlenecks to avoid</a></p>
+<p>Introduction: This a guest post byRajkumar Iyer, a Member of Technical Staff at
+Aerospike.About a year ago, Aerospike embarked upon a quest to increase in-
+memory database performance - 1 Million TPS on a single inexpensive commodity
+server. NoSQL has the reputation of speed, and we saw great benefit from
+improving latency and throughput of cacheless architectures. At that time, we
+took a version of Aerospike delivering about 200K TPS, improved a few things -
+performance went to 500k TPS - and published the Aerospike 2.0 Community
+Edition. We then used kernel tuning techniques and published therecipefor how
+we achieved 1 M TPS on $5k of hardware.This year we continued the quest. Our
+goal was to achieve 1 Million database transactions per second per server;
+more than doubling previous performance. This compares to Cassandra's boast of
+1M TPS on over 300 servers in Google Compute Engine - at a cost of $2 million
+dollars per year. Weachieved thiswithout kernel tuning. This article describes
+the three d</p><p>2 0.88590926 <a title="1643-lsi-2" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
+<p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible
+NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent
+the last several years trying to find a way to sanely house multiple
+datastore-genres under one roof while (almost paradoxically) pushing
+performance to its limits.I recently joined the NoSQL
+companyAerospike(formerly Citrusleaf) with the goal of incrementally grafting
+AlchemyDB's flexible data-modeling capabilities onto Aerospike's high-velocity
+horizontally-scalable key-value data-fabric. We recently completed a peak-
+performanceTPS optimization project: starting at 200K TPS, pushing to the
+recent community edition launch at 500K TPS, and finally arriving at our 2012
+goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
+database-requests per-second on a single machine costing $5K is a balance
+between trimming overhead on many axes and using a shared nothing architecture
+toisolatethe paths taken by unique req</p><p>3 0.86849231 <a title="1643-lsi-3" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: Now that we have theC10K concurrent connection problemlicked, how do we level
+up and support 10 million concurrent connections? Impossible you say. Nope,
+systems right now are delivering 10 million concurrent connections using
+techniques that are as radical as they may be unfamiliar.To learn how it's
+done we turn toRobert Graham, CEO of Errata Security, and his absolutely
+fantastic talk atShmoocon 2013calledC10M Defending The Internet At
+Scale.Robert has a brilliant way of framing the problem that I've never heard
+of before. He starts with a little bit of history, relating how Unix wasn't
+originally designed to be a general server OS, it was designed to be a control
+system for a telephone network. It was the telephone network that actually
+transported the data so there was a clean separation between the control plane
+and the data plane. Theproblem is we now use Unix servers as part of the data
+plane, which we shouldn't do at all. If we were designing a kernel for
+handling one applicati</p><p>4 0.82299274 <a title="1643-lsi-4" href="../high_scalability-2013/high_scalability-2013-11-25-How_To_Make_an_Infinitely_Scalable_Relational_Database_Management_System_%28RDBMS%29.html">1553 high scalability-2013-11-25-How To Make an Infinitely Scalable Relational Database Management System (RDBMS)</a></p>
+<p>Introduction: This is a guest post by Mark Travis, Founder ofInfiniSQL.InfiniSQL is the
+specific "Infinitely Scalable RDBMS" to which the title refers. It is free
+software, and instructions for getting, building, running and testing it are
+available in theguide.Benchmarkingshows that an InfiniSQL cluster can handle
+over 500,000 complex transactions per second with over 100,000 simultaneous
+connections, all on twelve small servers. The methods used to test are
+documented, and the code is all available so that any practitioner can achieve
+similar results. There are two main characteristics which make InfiniSQL
+extraordinary:It performs transactions with records on multiple nodes better
+than any clustered/distributed RDBMSIt is free, open source. Not just a teaser
+"community" version with the good stuff proprietary. The community version of
+InfiniSQL will also be the enterprise version, when it is ready.InfiniSQL is
+still in early stages of development--it already has many capabilities, but
+many more a</p><p>5 0.80147344 <a title="1643-lsi-5" href="../high_scalability-2012/high_scalability-2012-07-04-Top_Features_of_a_Scalable_Database.html">1276 high scalability-2012-07-04-Top Features of a Scalable Database</a></p>
+<p>Introduction: This is a guest post by Douglas Wilson, EMEA Field Application Engineer at
+Raima, based on insights from biulding theirRaima Database Manager.Scalability
+and HardwareScalability is the ability to maintain performance as demands on
+the system increase, by adding further resources. Normally those resources
+will be in the form of hardware. Since processor speeds are no longer
+increasing much, scaling up the hardware normally means adding extra
+processors or cores, and more memory.Scalability and SoftwareHowever,
+scalability requires software that can utilize the extra hardware effectively.
+The software must be designed to allow parallel processing. In the context of
+a database engine this means that the server component must be multi-threaded,
+to allow the operating system to schedule parallel tasks on all the cores that
+are available. Not only that, but the database engine must provide an
+efficient way to break its workload into as many parallel tasks as there are
+cores. So, for example,</p><p>6 0.79792452 <a title="1643-lsi-6" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
+<p>7 0.78923541 <a title="1643-lsi-7" href="../high_scalability-2013/high_scalability-2013-06-19-Paper%3A_MegaPipe%3A_A_New_Programming_Interface_for_Scalable_Network_I-O.html">1478 high scalability-2013-06-19-Paper: MegaPipe: A New Programming Interface for Scalable Network I-O</a></p>
+<p>8 0.78336024 <a title="1643-lsi-8" href="../high_scalability-2012/high_scalability-2012-11-26-BigData_using_Erlang%2C_C_and_Lisp_to_Fight_the_Tsunami_of_Mobile_Data.html">1362 high scalability-2012-11-26-BigData using Erlang, C and Lisp to Fight the Tsunami of Mobile Data</a></p>
+<p>9 0.77954096 <a title="1643-lsi-9" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
+<p>10 0.7696982 <a title="1643-lsi-10" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
+<p>11 0.75259864 <a title="1643-lsi-11" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
+<p>12 0.75204057 <a title="1643-lsi-12" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
+<p>13 0.75057775 <a title="1643-lsi-13" href="../high_scalability-2009/high_scalability-2009-02-16-Handle_1_Billion_Events_Per_Day_Using_a_Memory_Grid.html">513 high scalability-2009-02-16-Handle 1 Billion Events Per Day Using a Memory Grid</a></p>
+<p>14 0.74240541 <a title="1643-lsi-14" href="../high_scalability-2012/high_scalability-2012-05-16-Big_List_of_20_Common_Bottlenecks.html">1246 high scalability-2012-05-16-Big List of 20 Common Bottlenecks</a></p>
+<p>15 0.74133122 <a title="1643-lsi-15" href="../high_scalability-2012/high_scalability-2012-12-10-Switch_your_databases_to_Flash_storage._Now._Or_you%27re_doing_it_wrong..html">1369 high scalability-2012-12-10-Switch your databases to Flash storage. Now. Or you're doing it wrong.</a></p>
+<p>16 0.74108487 <a title="1643-lsi-16" href="../high_scalability-2014/high_scalability-2014-03-31-How_WhatsApp_Grew_to_Nearly_500_Million_Users%2C_11%2C000_cores%2C_and_70_Million_Messages_a_Second.html">1622 high scalability-2014-03-31-How WhatsApp Grew to Nearly 500 Million Users, 11,000 cores, and 70 Million Messages a Second</a></p>
+<p>17 0.73933458 <a title="1643-lsi-17" href="../high_scalability-2014/high_scalability-2014-01-03-Stuff_The_Internet_Says_On_Scalability_For_January_3rd%2C_2014.html">1572 high scalability-2014-01-03-Stuff The Internet Says On Scalability For January 3rd, 2014</a></p>
+<p>18 0.73409933 <a title="1643-lsi-18" href="../high_scalability-2014/high_scalability-2014-02-13-Snabb_Switch_-_Skip_the_OS_and_Get_40_million_Requests_Per_Second_in_Lua.html">1595 high scalability-2014-02-13-Snabb Switch - Skip the OS and Get 40 million Requests Per Second in Lua</a></p>
+<p>19 0.73285246 <a title="1643-lsi-19" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
+<p>20 0.7318635 <a title="1643-lsi-20" href="../high_scalability-2012/high_scalability-2012-05-02-12_Ways_to_Increase_Throughput_by_32X_and_Reduce_Latency_by__20X.html">1237 high scalability-2012-05-02-12 Ways to Increase Throughput by 32X and Reduce Latency by  20X</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/high_scalability_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(1, 0.161), (2, 0.239), (7, 0.055), (10, 0.052), (26, 0.012), (30, 0.051), (40, 0.029), (59, 0.014), (61, 0.077), (77, 0.03), (79, 0.133), (85, 0.035), (94, 0.024)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.97852147 <a title="1643-lda-1" href="../high_scalability-2013/high_scalability-2013-08-16-Stuff_The_Internet_Says_On_Scalability_For_August_16%2C_2013.html">1502 high scalability-2013-08-16-Stuff The Internet Says On Scalability For August 16, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:1 trillion: edges in Facebook's search
+graphQuotable Quotes:Miguel de Icaza: Callbacks as our Generations' Go To
+Statement@kaleidic: "Haskell is a great language as a way of thinking, but I
+prefer programming in a language where I can cheat."--MeijerT.S. Eliot, who
+totally got the Internet: Distracted from distraction by distractionThe
+argument eternal: Why Some Startups Say the Cloud Is a Waste of Money. The
+argument follows a getting back-to-nature pattern. Amazon is the glittering
+city of compromised values and colos are the familiar places of refuge and
+virtue. But be honest, don't we all really know the score by now?Fred Wilson:
+The Similarities Between Building and Scaling a Product and a Company: The
+system you and your team built will break if you don't keep tweaking it as
+demand grows. Greg Pass, who was VP Engineering at Twitter during the period
+where Twitter really scaled, talks about instrumenting your service so you can
+see when its reaching</p><p>2 0.97789699 <a title="1643-lda-2" href="../high_scalability-2013/high_scalability-2013-02-01-Stuff_The_Internet_Says_On_Scalability_For_February_1%2C_2013.html">1397 high scalability-2013-02-01-Stuff The Internet Says On Scalability For February 1, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:400 milliseconds : modern private wire for
+Natural Gas; 620,000:size of a mobile phone botnet; 1 million cores:jet noise
+modeling supercomputer; 2.2 petabytes per gram:DNA with storage density; 1
+billion:Google's one quarter infrastructure spendQuotable
+Quotes:@StartupLJackson: "Good thing we spent 6mo on scalability pre-launch.
+The thing went hyper-viral day one, just as planned." - nobody ever.@dysinger:
+WELCOME TO DEVOPS ADVENTURE! YOU ARE STANDING INSIDE AWS. NEARBY IS AN ANGRY
+ELB. THERE ARE SOME SSH KEYS ON THE GROUND.~@levie: Well cloud computing was
+fun while it lasted; now we can just store all our data in DNA
+strands.@mtnygard: Debates about "Tech X > tech T" aren't religious wars.
+They're also economic wars.@alfonsol: I do not believe your per load number of
+socks requires scalability.@mikeolson: Latency breeds contempt.@DrQz: GitHub
+looks to me like power-law growth with 4MM users ~ Oct 2013 and 5MM ~ April
+2014 @floodgateintern: It spends onl</p><p>same-blog 3 0.97758693 <a title="1643-lda-3" href="../high_scalability-2014/high_scalability-2014-05-06-The_Quest_for_Database_Scale%3A_the_1_M_TPS_challenge_-_Three_Design_Points_and_Five_common_Bottlenecks_to_avoid.html">1643 high scalability-2014-05-06-The Quest for Database Scale: the 1 M TPS challenge - Three Design Points and Five common Bottlenecks to avoid</a></p>
+<p>Introduction: This a guest post byRajkumar Iyer, a Member of Technical Staff at
+Aerospike.About a year ago, Aerospike embarked upon a quest to increase in-
+memory database performance - 1 Million TPS on a single inexpensive commodity
+server. NoSQL has the reputation of speed, and we saw great benefit from
+improving latency and throughput of cacheless architectures. At that time, we
+took a version of Aerospike delivering about 200K TPS, improved a few things -
+performance went to 500k TPS - and published the Aerospike 2.0 Community
+Edition. We then used kernel tuning techniques and published therecipefor how
+we achieved 1 M TPS on $5k of hardware.This year we continued the quest. Our
+goal was to achieve 1 Million database transactions per second per server;
+more than doubling previous performance. This compares to Cassandra's boast of
+1M TPS on over 300 servers in Google Compute Engine - at a cost of $2 million
+dollars per year. Weachieved thiswithout kernel tuning. This article describes
+the three d</p><p>4 0.97658736 <a title="1643-lda-4" href="../high_scalability-2007/high_scalability-2007-12-28-Amazon%27s_EC2%3A_Pay_as_You_Grow_Could_Cut_Your_Costs_in_Half.html">195 high scalability-2007-12-28-Amazon's EC2: Pay as You Grow Could Cut Your Costs in Half</a></p>
+<p>Introduction: Update 2: SummizeComputes Computing Resources for a Startup. Lots of nice
+graphs showing Amazon is hard to beat for small machines and become less cost
+efficient for well used larger machines. Long term storage costs may eat your
+saving away. And out of cloud bandwidth costs are high.Update:
+viaProductionScale, a nice Digital Web article onhow to setup S3 to store
+media filesand how Blue Origin was able to handle 3.5 million requests and 758
+GBs in bandwidth in a single day for very little $$$. Also a Right Scale
+article onNetwork performance within Amazon EC2 and to Amazon S3. 75MB/s
+between EC2 instances, 10.2MB/s between EC2 and S3 for download, 6.9MB/s
+upload.Now that Amazon's S3 (storage service) isout of betaand EC2 (elastic
+compute cloud) has added newinstance types(the class of machine you can rent)
+with more CPU and more RAM, I thought it would be interesting to take a look
+out how their pricing stacks up.The quick conclusion:the more you scale the
+more you save. A six node co</p><p>5 0.97541571 <a title="1643-lda-5" href="../high_scalability-2007/high_scalability-2007-08-20-TypePad_Architecture.html">68 high scalability-2007-08-20-TypePad Architecture</a></p>
+<p>Introduction: TypePad is considered the largest paid blogging service in the world. After
+experience problems because of their meteoric growth, they eventually
+transitioned to an architecture patterned after their sister company,
+LiveJournal.Site: http://www.typepad.com/The
+PlatformMySQLMemcachedPerlMogileFSApacheLinuxThe StatsAs of 2005 TypePad sends
+250mbps of traffic using multiple network pipes for 3TB of traffic a day. They
+were growing by 10-20% each month. I was unable to find more recent
+statistics.The ArchitectureOriginal Architecture:- Single server running
+Linux, Apache, Postgres, Perl, mod_perl- Storage was NFS on a filer.A
+Devastating Crash Caused a New Direction- A RAID controller failed and spewed
+data across all RAID disks.- The database was corrupted and the backups were
+corrupted.- Their redundant filers suffered from "split brain" syndrome.They
+move toLiveJournal Architecturetype architecture which isn't surprising since
+TypePad and LiveJounral are both owned by Six Apart.- Replic</p><p>6 0.97492725 <a title="1643-lda-6" href="../high_scalability-2014/high_scalability-2014-02-21-Stuff_The_Internet_Says_On_Scalability_For_February_21st%2C_2014.html">1600 high scalability-2014-02-21-Stuff The Internet Says On Scalability For February 21st, 2014</a></p>
+<p>7 0.97460413 <a title="1643-lda-7" href="../high_scalability-2013/high_scalability-2013-03-29-Stuff_The_Internet_Says_On_Scalability_For_March_29%2C_2013.html">1431 high scalability-2013-03-29-Stuff The Internet Says On Scalability For March 29, 2013</a></p>
+<p>8 0.97319555 <a title="1643-lda-8" href="../high_scalability-2012/high_scalability-2012-01-09-The_Etsy_Saga%3A_From_Silos_to_Happy_to_Billions_of_Pageviews_a_Month.html">1171 high scalability-2012-01-09-The Etsy Saga: From Silos to Happy to Billions of Pageviews a Month</a></p>
+<p>9 0.97282469 <a title="1643-lda-9" href="../high_scalability-2013/high_scalability-2013-06-21-Stuff_The_Internet_Says_On_Scalability_For_June_21%2C_2013.html">1479 high scalability-2013-06-21-Stuff The Internet Says On Scalability For June 21, 2013</a></p>
+<p>10 0.97204441 <a title="1643-lda-10" href="../high_scalability-2008/high_scalability-2008-05-25-How_do_you_explain_cloud_computing_to_your_grandma%3F.html">325 high scalability-2008-05-25-How do you explain cloud computing to your grandma?</a></p>
+<p>11 0.97193217 <a title="1643-lda-11" href="../high_scalability-2014/high_scalability-2014-02-14-Stuff_The_Internet_Says_On_Scalability_For_February_14th%2C_2014.html">1596 high scalability-2014-02-14-Stuff The Internet Says On Scalability For February 14th, 2014</a></p>
+<p>12 0.97170055 <a title="1643-lda-12" href="../high_scalability-2009/high_scalability-2009-08-05-Stack_Overflow_Architecture.html">671 high scalability-2009-08-05-Stack Overflow Architecture</a></p>
+<p>13 0.97163206 <a title="1643-lda-13" href="../high_scalability-2012/high_scalability-2012-02-02-The_Data-Scope_Project_-_6PB_storage%2C_500GBytes-sec_sequential_IO%2C_20M_IOPS%2C_130TFlops.html">1186 high scalability-2012-02-02-The Data-Scope Project - 6PB storage, 500GBytes-sec sequential IO, 20M IOPS, 130TFlops</a></p>
+<p>14 0.97137552 <a title="1643-lda-14" href="../high_scalability-2011/high_scalability-2011-03-25-Did_the_Microsoft_Stack_Kill_MySpace%3F.html">1011 high scalability-2011-03-25-Did the Microsoft Stack Kill MySpace?</a></p>
+<p>15 0.97132266 <a title="1643-lda-15" href="../high_scalability-2014/high_scalability-2014-01-28-How_Next_Big_Sound_Tracks_Over_a_Trillion_Song_Plays%2C_Likes%2C_and_More_Using_a_Version_Control_System_for_Hadoop_Data.html">1586 high scalability-2014-01-28-How Next Big Sound Tracks Over a Trillion Song Plays, Likes, and More Using a Version Control System for Hadoop Data</a></p>
+<p>16 0.97124386 <a title="1643-lda-16" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
+<p>17 0.97064006 <a title="1643-lda-17" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
+<p>18 0.97055817 <a title="1643-lda-18" href="../high_scalability-2011/high_scalability-2011-09-02-Stuff_The_Internet_Says_On_Scalability_For_September_2%2C_2011.html">1109 high scalability-2011-09-02-Stuff The Internet Says On Scalability For September 2, 2011</a></p>
+<p>19 0.97051042 <a title="1643-lda-19" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>
+<p>20 0.97042942 <a title="1643-lda-20" href="../high_scalability-2008/high_scalability-2008-02-19-Hadoop_Getting_Closer_to_1.0_Release.html">254 high scalability-2008-02-19-Hadoop Getting Closer to 1.0 Release</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
