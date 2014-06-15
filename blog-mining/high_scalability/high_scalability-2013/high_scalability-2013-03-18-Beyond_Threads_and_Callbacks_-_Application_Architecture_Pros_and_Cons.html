@@ -16,115 +16,69 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1425-html" href="http://highscalability.com//blog/2013/3/18/beyond-threads-and-callbacks-application-architecture-pros-a.html">html</a></p><p>Introduction: There's not a lot  of talk about application architectures at the process
-level. You have your threads, pools of threads, and you have your callback
-models. That's about it. Languages/frameworks making a virtue out of simple
-models, like Go and Erlang, do so at the price of control. It's difficult to
-make a low latency well conditioned application when a power full tool, like
-work scheduling, is taken out of the hands of the programmer.But that's not
-all there is my friend. We'll dive into different ways an application can be
-composed across threads of control.Your favorite language may not give you
-access to all the capabilities we are going to talk about, but lately there
-has been a sort of revival in considering performance important, especially
-for controlling latency variance, so I think it's time to talk about these
-kind of issues. When it was do everything in the thread of a web server thread
-pool none of these issues really mattered. But now that developers are
-creating sophist</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Scheduling High Priority Work- If high priority work comes in while lower priority work has the CPU, how do we make sure the high priority work gets handled in a bounded period of time? [sent-13, score-2.214]
-</p><p>2 Priority Inheritance- is a way of getting out of priority inversion problems by assuring that a task which holds a resource will execute at the priority of the highest priority task blocked on that resource. [sent-14, score-1.777]
-</p><p>3 Shared Locks- When there's a shared lock anywhere we are back to potentially poor scheduling because the high priority task must wait on the low priority task. [sent-20, score-1.715]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1425-html" href="http://highscalability.com//blog/2013/3/18/beyond-threads-and-callbacks-application-architecture-pros-a.html">html</a></p><p>Introduction: There's not a lot  of talk about application architectures at the process level. You have your threads, pools of threads, and you have your callback models. That's about it. Languages/frameworks making a virtue out of simple models, like Go and Erlang, do so at the price of control. It's difficult to make a low latency well conditioned application when a power full tool, like work scheduling, is taken out of the hands of the programmer.
+ 
+But that's not all there is my friend. We'll dive into different ways an application can be composed across threads of control.
+ 
+Your favorite language may not give you access to all the capabilities we are going to talk about, but lately there has been a sort of revival in considering performance important, especially for controlling  latency variance , so I think it's time to talk about these kind of issues. When it was do everything in the thread of a web server thread pool none of these issues really mattered. But now that developers are creating</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Scheduling High Priority Work  - If high priority work comes in while lower priority work has the CPU, how do we make sure the high priority work gets handled in a bounded period of time? [sent-13, score-2.214]
+</p><p>2 Priority Inheritance  - is a way of getting out of priority inversion problems by assuring that a task which holds a resource will execute at the priority of the highest priority task blocked on that resource. [sent-14, score-1.777]
+</p><p>3 Shared Locks  - When there's a shared lock anywhere we are back to potentially poor scheduling because the high priority task must wait on the low priority task. [sent-20, score-1.715]
 </p><p>4 This requires anyone who shares the lock to know there is high priority work and never to take more time than the worst case performance needed for the high priority work. [sent-21, score-1.511]
 </p><p>5 You suffer from dead lock or priority inheritance or large lock scope, but after bugs are accounted for, it may simply be that you have higher priority tasks that are using up all the CPU time, so even medium priority tasks in your system end up not getting serviced. [sent-42, score-2.15]
 </p><p>6 It is lock protected shared data structures that cause latency issues, deadlock, and priority inheritance. [sent-67, score-0.963]
 </p><p>7 An application that uses multiple threads and has a lock usable just within the application may not, if care is taken, suffer from the same problems as when locks are arbitrarily used from different application threads. [sent-74, score-0.86]
-</p><p>8 A single application can:guarantee the amount of time spent blocked on the lockprevent deadlock because it probably won't do work in different threadsprevent priority inheritanceWhen different components share a process space nothing can can be guaranteed. [sent-75, score-1.015]
+</p><p>8 A single application can:     guarantee the amount of time spent blocked on the lock   prevent deadlock because it probably won't do work in different threads   prevent priority inheritance     When different components share a process space nothing can can be guaranteed. [sent-75, score-1.466]
 </p><p>9 Your application state is shared amongst all these threads and there's no predictable order of when threads run and what work they are doing. [sent-100, score-0.961]
 </p><p>10 There's no shared state in this model so it eliminates locks which eliminates priority inheritance and deadlock issues. [sent-114, score-1.384]
 </p><p>11 As an Actor is processing a message it can't be interrupted if a higher priority message arrives. [sent-116, score-1.053]
-</p><p>12 If a higher priority message comes in on the queue then a thread variable "GiveUpWork" is set. [sent-119, score-1.18]
+</p><p>12 If a higher priority message comes in on the queue then a thread variable "  GiveUpWork  " is set. [sent-119, score-1.18]
 </p><p>13 An implication is to change the Actor's priority accordingly with the highest priority work in its queue. [sent-121, score-1.262]
 </p><p>14 With this approach work happens at the expected priority and another queue can preempt a lower priority queue. [sent-137, score-1.334]
 </p><p>15 One thread is safer, but then we have priority and latency issues. [sent-150, score-0.907]
-</p><p>16 Actor + Parallel State Machine ModelIf synchronous logic is used then an Actor can not process high priority messages when a low priority message is being processed. [sent-159, score-1.541]
+</p><p>16 Actor + Parallel State Machine Model   If synchronous logic is used then an Actor can not process high priority messages when a low priority message is being processed. [sent-159, score-1.541]
 </p><p>17 Next time it picks up a message it can look for the reply message and resume processing of the low priority message. [sent-163, score-1.121]
 </p><p>18 In short, having multiple message queues for different priority messages combined with state machine driven message processing when required can potentially give, in many situations, low latency processing of high priority messages. [sent-165, score-2.096]
 </p><p>19 Many applications can be implemented in a straight forward fashion in this model to achieve high throughput and low latency for high priority work. [sent-182, score-1.016]
-</p><p>20 Multiple Application Thread Pool Model (M - N)In this model multiple applications are multiplexed over a common thread pool and a scheduling system on top of the thread scheduling system is imposed. [sent-200, score-1.029]
+</p><p>20 Multiple Application Thread Pool Model (M - N)   In this model multiple applications are multiplexed over a common thread pool and a scheduling system on top of the thread scheduling system is imposed. [sent-200, score-1.029]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('priority', 0.577), ('actor', 0.271), ('thread', 0.249), ('threads', 0.209), ('message', 0.195), ('state', 0.195), ('locks', 0.163), ('scheduling', 0.141), ('lock', 0.137), ('model', 0.126), ('shared', 0.123), ('application', 0.117), ('work', 0.108), ('inheritance', 0.105), ('deadlock', 0.095), ('erlang', 0.081), ('latency', 0.081), ('process', 0.072), ('queue', 0.072), ('pool', 0.067), ('machine', 0.064), ('low', 0.064), ('applications', 0.056), ('high', 0.056), ('associated', 0.053), ('processed', 0.052), ('timer', 0.05), ('context', 0.05), ('safe', 0.047), ('comes', 0.047), ('cpu', 0.046), ('blocked', 0.046), ('processing', 0.046), ('variance', 0.046), ('protected', 0.045), ('usually', 0.045), ('events', 0.045), ('blocking', 0.045), ('completion', 0.045), ('processes', 0.044), ('locking', 0.044), ('holding', 0.044), ('reply', 0.044), ('asynchronous', 0.043), ('code', 0.042), ('preemptive', 0.042), ('preemption', 0.042), ('higher', 0.04), ('poor', 0.04), ('memory', 0.039)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999905 <a title="1425-tfidf-1" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
-<p>Introduction: There's not a lot  of talk about application architectures at the process
-level. You have your threads, pools of threads, and you have your callback
-models. That's about it. Languages/frameworks making a virtue out of simple
-models, like Go and Erlang, do so at the price of control. It's difficult to
-make a low latency well conditioned application when a power full tool, like
-work scheduling, is taken out of the hands of the programmer.But that's not
-all there is my friend. We'll dive into different ways an application can be
-composed across threads of control.Your favorite language may not give you
-access to all the capabilities we are going to talk about, but lately there
-has been a sort of revival in considering performance important, especially
-for controlling latency variance, so I think it's time to talk about these
-kind of issues. When it was do everything in the thread of a web server thread
-pool none of these issues really mattered. But now that developers are
-creating sophist</p><p>2 0.59664768 <a title="1425-tfidf-2" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
-<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around.
-Hidden in every application are ways of moving messages around and giving code
-CPU time to process them. Unhiding those capabilities and making them first
-class facilities for the programmer to control is the idea behind
-AppBackplane.This goes directly against the trend of hiding everything from
-the programmer and doing it all automagically. Which is great, until it
-doesn't work. Then it sucks. And the approach of giving the programmer all the
-power also sucks, until it's tuned to work together and performance is
-incredible even under increasing loads. Then it's great.These are two
-different curves going in opposite directions. You need to decide for your
-application which curve you need to be on.AppBackplane is an example framework
-supporting the multiple application architectures we talked about inBeyond
-Threads And Callbacks. It provides a scheduling system that supports
-continuous and high loads, meets crit</p><p>3 0.38550764 <a title="1425-tfidf-3" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
-<p>Introduction: For solutions take a look at:7 Life Saving Scalability Defenses Against Load
-Monster Attacks.This is a look at all the bad things that can happen to your
-carefully crafted program as loads increase: all hell breaks lose. Sure, you
-can scale out or scale up, but you can also choose to program better. Make
-your system handle larger loads. This saves money because fewer boxes are
-needed and it will make the entire application more reliable and have better
-response times. And it can be quite satisfying as a programmer.Large Number Of
-ObjectsWe usually get into scaling problems when the number of objects gets
-larger. Clearly resource usage of all types is stressed as the number of
-objects grow.Continuous Failures Makes An Infinite Event StreamDuring large
-network failure scenarios there is never time for the system recover. We are
-in a continual state of stress.Lots of High Priority WorkFor example,
-rerouting is a high priority activity. If there is a large amount of rerouting
-work that can</p><p>4 0.37499589 <a title="1425-tfidf-4" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
-<p>Introduction: What good are problems without solutions? In 42 Monster Problems That Attack
-As Loads Increase we talked about problems. In this first post (OK, there was
-an earlier post, but I'm doing some reorganizing), we'll cover what I
-callaggregation strategies.Keep in mind these are low level architecture type
-suggestions of how to structure the components of your code and how they
-interact. We're not talking about massive scale-out clusters here, but of what
-your applications might like like internally, way below the service level
-interface level. There's a lot more to the world than evented
-architectures.Aggregation simply means we aren't using stupid queues. Our
-queues will be smart. We are deeply aware of queues as containers of work that
-eventually dictate how the entire system performs. As work containers we know
-intimately what requests and data sit in our queues and we can use that
-intelligence to our great advantage.Prioritize WorkThe key idea to it all is
-an almost mindful approach to</p><p>5 0.32255226 <a title="1425-tfidf-5" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
-<p>Introduction: This is an email interview withViktor Klang, Director of Engineering
-atTypesafe, on theScala Futuresmodel &Akka;,both topics on which is he is
-immensely passionate and knowledgeable.How do you structure your application?
-That's the question I explored in the articleBeyond Threads And Callbacks. An
-option I did not talk about, mostly because of my own ignorance, is a powerful
-stack you may not be all that familiar with: Scala and Akka.To remedy my
-oversight is our acting tour guide, Typesafe's Viktor Klang, long time Scala
-hacker and Java enterprise systems architect. Viktor was very patient in
-answering my questions and was enthusiastic about sharing his knowledge. He's
-a guy who definitely knows what he is talking about.I've implemented several
-Actor systems along with the messaging infrastructure, threading, async IO,
-service orchestration, failover, etc, so I'm innately skeptical about
-frameworks that remove control from the programmer at the cost of latency.So
-at the end of the inte</p><p>6 0.27854028 <a title="1425-tfidf-6" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
+<p>Introduction: There's not a lot  of talk about application architectures at the process level. You have your threads, pools of threads, and you have your callback models. That's about it. Languages/frameworks making a virtue out of simple models, like Go and Erlang, do so at the price of control. It's difficult to make a low latency well conditioned application when a power full tool, like work scheduling, is taken out of the hands of the programmer.
+ 
+But that's not all there is my friend. We'll dive into different ways an application can be composed across threads of control.
+ 
+Your favorite language may not give you access to all the capabilities we are going to talk about, but lately there has been a sort of revival in considering performance important, especially for controlling  latency variance , so I think it's time to talk about these kind of issues. When it was do everything in the thread of a web server thread pool none of these issues really mattered. But now that developers are creating</p><p>2 0.59664768 <a title="1425-tfidf-2" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
+<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around. Hidden in every application are ways of moving messages around and giving code CPU time to process them. Unhiding those capabilities and making them first class facilities for the programmer to control is the idea behind AppBackplane.
+ 
+This goes directly against the trend of hiding everything from the programmer and doing it all automagically. Which is great, until it doesn't work. Then it sucks. And the approach of giving the programmer all the power also sucks, until it's tuned to work together and performance is incredible even under increasing loads. Then it's great.
+ 
+These are two different curves going in opposite directions. You need to decide for your application which curve you need to be on.
+ 
+AppBackplane is an example framework supporting the multiple  application architectures we talked about in  Beyond Threads And Callbacks .  It provides a scheduling system that supports continuous and high loa</p><p>3 0.38550764 <a title="1425-tfidf-3" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
+<p>Introduction: For solutions take a look at:  7 Life Saving Scalability Defenses Against Load Monster Attacks . 
+ 
+This is a look at all the bad things that can happen to your carefully crafted program as loads increase: all hell breaks lose. Sure, you can scale out or scale up, but you can also choose to program better. Make your system handle larger loads. This saves money because fewer boxes are needed and it will make the entire application more reliable and have better response times. And it can be quite satisfying as a programmer.
+  Large Number Of Objects  
+We usually get into scaling problems when the number of objects gets  larger. Clearly resource usage of all types is stressed as the number of objects grow.
+  Continuous Failures Makes An Infinite Event Stream  
+During large network failure scenarios there is never time for the system recover. We are in a continual state of stress.
+  Lots of High Priority Work  
+For example, rerouting is a high priority activity. If there is a large amount</p><p>4 0.37499589 <a title="1425-tfidf-4" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
+<p>Introduction: What good are problems without solutions? In  42 Monster Problems That Attack As Loads Increase  we talked about problems. In this first post (OK, there was an earlier post, but I'm doing some reorganizing), we'll cover what I call  aggregation  strategies.
+ 
+Keep in mind these are low level architecture type suggestions of how to structure the components of your code and how they interact. We're not talking about massive scale-out clusters here, but of what your applications might like like internally, way below the service level interface level. There's a lot more to the world than evented architectures.
+ 
+Aggregation simply means we aren't using stupid queues. Our queues will be smart. We are deeply aware of queues as containers of work that eventually dictate how the entire system performs. As work containers we know intimately what requests and data sit in our queues and we can use that intelligence to our great advantage.
+  Prioritize Work  
+The key idea to it all is an almost mi</p><p>5 0.32255226 <a title="1425-tfidf-5" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
+<p>Introduction: This is an email interview with   Viktor Klang   , Director of Engineering at    Typesafe   , on the    Scala Futures    model &    Akka,    both topics on which is he is immensely passionate and knowledgeable.  
+ 
+How do you structure your application? That’s the question I explored in the article  Beyond Threads And Callbacks . An option I did not talk about, mostly because of my own ignorance, is a powerful stack you may not be all that familiar with: Scala and Akka.
+   To remedy my oversight is our acting tour guide, Typesafe’s Viktor Klang, long time Scala hacker and Java enterprise systems architect. Viktor was very patient in answering my questions and was enthusiastic about sharing his knowledge. He’s a guy who definitely knows what he is talking about. 
+   I’ve implemented several Actor systems along with the messaging infrastructure, threading, async IO, service orchestration, failover, etc, so I’m innately skeptical about frameworks that remove control from the programmer at</p><p>6 0.27854028 <a title="1425-tfidf-6" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
 <p>7 0.22607876 <a title="1425-tfidf-7" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
 <p>8 0.21099193 <a title="1425-tfidf-8" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
 <p>9 0.20090646 <a title="1425-tfidf-9" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
@@ -144,76 +98,33 @@ at the end of the inte</p><p>6 0.27854028 <a title="1425-tfidf-6" href="../high_
 <p>[(0, 0.236), (1, 0.153), (2, -0.015), (3, 0.031), (4, -0.027), (5, 0.023), (6, 0.147), (7, 0.129), (8, -0.228), (9, -0.107), (10, 0.02), (11, 0.139), (12, 0.029), (13, -0.079), (14, -0.044), (15, -0.108), (16, 0.042), (17, -0.023), (18, 0.029), (19, 0.013), (20, 0.008), (21, -0.133), (22, -0.005), (23, -0.03), (24, 0.113), (25, -0.008), (26, 0.116), (27, 0.058), (28, 0.175), (29, -0.011), (30, 0.079), (31, 0.028), (32, 0.12), (33, 0.003), (34, 0.058), (35, -0.04), (36, -0.02), (37, -0.011), (38, 0.048), (39, 0.052), (40, 0.026), (41, -0.012), (42, -0.038), (43, 0.043), (44, -0.046), (45, -0.087), (46, 0.002), (47, -0.043), (48, 0.001), (49, 0.05)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97707188 <a title="1425-lsi-1" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
-<p>Introduction: There's not a lot  of talk about application architectures at the process
-level. You have your threads, pools of threads, and you have your callback
-models. That's about it. Languages/frameworks making a virtue out of simple
-models, like Go and Erlang, do so at the price of control. It's difficult to
-make a low latency well conditioned application when a power full tool, like
-work scheduling, is taken out of the hands of the programmer.But that's not
-all there is my friend. We'll dive into different ways an application can be
-composed across threads of control.Your favorite language may not give you
-access to all the capabilities we are going to talk about, but lately there
-has been a sort of revival in considering performance important, especially
-for controlling latency variance, so I think it's time to talk about these
-kind of issues. When it was do everything in the thread of a web server thread
-pool none of these issues really mattered. But now that developers are
-creating sophist</p><p>2 0.95596504 <a title="1425-lsi-2" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
-<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around.
-Hidden in every application are ways of moving messages around and giving code
-CPU time to process them. Unhiding those capabilities and making them first
-class facilities for the programmer to control is the idea behind
-AppBackplane.This goes directly against the trend of hiding everything from
-the programmer and doing it all automagically. Which is great, until it
-doesn't work. Then it sucks. And the approach of giving the programmer all the
-power also sucks, until it's tuned to work together and performance is
-incredible even under increasing loads. Then it's great.These are two
-different curves going in opposite directions. You need to decide for your
-application which curve you need to be on.AppBackplane is an example framework
-supporting the multiple application architectures we talked about inBeyond
-Threads And Callbacks. It provides a scheduling system that supports
-continuous and high loads, meets crit</p><p>3 0.8748495 <a title="1425-lsi-3" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
-<p>Introduction: This is an email interview withViktor Klang, Director of Engineering
-atTypesafe, on theScala Futuresmodel &Akka;,both topics on which is he is
-immensely passionate and knowledgeable.How do you structure your application?
-That's the question I explored in the articleBeyond Threads And Callbacks. An
-option I did not talk about, mostly because of my own ignorance, is a powerful
-stack you may not be all that familiar with: Scala and Akka.To remedy my
-oversight is our acting tour guide, Typesafe's Viktor Klang, long time Scala
-hacker and Java enterprise systems architect. Viktor was very patient in
-answering my questions and was enthusiastic about sharing his knowledge. He's
-a guy who definitely knows what he is talking about.I've implemented several
-Actor systems along with the messaging infrastructure, threading, async IO,
-service orchestration, failover, etc, so I'm innately skeptical about
-frameworks that remove control from the programmer at the cost of latency.So
-at the end of the inte</p><p>4 0.82024717 <a title="1425-lsi-4" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
-<p>Introduction: What good are problems without solutions? In 42 Monster Problems That Attack
-As Loads Increase we talked about problems. In this first post (OK, there was
-an earlier post, but I'm doing some reorganizing), we'll cover what I
-callaggregation strategies.Keep in mind these are low level architecture type
-suggestions of how to structure the components of your code and how they
-interact. We're not talking about massive scale-out clusters here, but of what
-your applications might like like internally, way below the service level
-interface level. There's a lot more to the world than evented
-architectures.Aggregation simply means we aren't using stupid queues. Our
-queues will be smart. We are deeply aware of queues as containers of work that
-eventually dictate how the entire system performs. As work containers we know
-intimately what requests and data sit in our queues and we can use that
-intelligence to our great advantage.Prioritize WorkThe key idea to it all is
-an almost mindful approach to</p><p>5 0.79083568 <a title="1425-lsi-5" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
-<p>Introduction: High Performance Multithreaded Access to Amazon SimpleDBis a great follow up
-to the idea inHow SimpleDB Differs from a RDBMSthat more programming is the
-price paid for performance in SimpleDB. It shows how much work and
-infrastructure is required to batter better performance out of
-SimpleDB.Remember, in SimpleDB you get keys to records from queries so if you
-want to get all the fields for records you need to make separate requests.
-Since SimpleDB isn't exactly a speed daemon the obvious strategy is to
-parallelize. Even if a job takes a 100 msecs you can get a lot done in a
-little time if you can execute enough jobs in parallel.Parallelization is the
-approach taken by Haakon@AWS in his Java code example of how to get the most
-out of SimpleDB. You can find the code atIndexing and Querying Amazon S3
-Metadata with Amazon SimpleDB. We'll also consider how a back-end service
-architecture built on Erlang may be a better fit with cloud computing.breakTwo
-general mechanisms of parallelism are a</p><p>6 0.77225441 <a title="1425-lsi-6" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
+<p>Introduction: There's not a lot  of talk about application architectures at the process level. You have your threads, pools of threads, and you have your callback models. That's about it. Languages/frameworks making a virtue out of simple models, like Go and Erlang, do so at the price of control. It's difficult to make a low latency well conditioned application when a power full tool, like work scheduling, is taken out of the hands of the programmer.
+ 
+But that's not all there is my friend. We'll dive into different ways an application can be composed across threads of control.
+ 
+Your favorite language may not give you access to all the capabilities we are going to talk about, but lately there has been a sort of revival in considering performance important, especially for controlling  latency variance , so I think it's time to talk about these kind of issues. When it was do everything in the thread of a web server thread pool none of these issues really mattered. But now that developers are creating</p><p>2 0.95596504 <a title="1425-lsi-2" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
+<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around. Hidden in every application are ways of moving messages around and giving code CPU time to process them. Unhiding those capabilities and making them first class facilities for the programmer to control is the idea behind AppBackplane.
+ 
+This goes directly against the trend of hiding everything from the programmer and doing it all automagically. Which is great, until it doesn't work. Then it sucks. And the approach of giving the programmer all the power also sucks, until it's tuned to work together and performance is incredible even under increasing loads. Then it's great.
+ 
+These are two different curves going in opposite directions. You need to decide for your application which curve you need to be on.
+ 
+AppBackplane is an example framework supporting the multiple  application architectures we talked about in  Beyond Threads And Callbacks .  It provides a scheduling system that supports continuous and high loa</p><p>3 0.8748495 <a title="1425-lsi-3" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
+<p>Introduction: This is an email interview with   Viktor Klang   , Director of Engineering at    Typesafe   , on the    Scala Futures    model &    Akka,    both topics on which is he is immensely passionate and knowledgeable.  
+ 
+How do you structure your application? That’s the question I explored in the article  Beyond Threads And Callbacks . An option I did not talk about, mostly because of my own ignorance, is a powerful stack you may not be all that familiar with: Scala and Akka.
+   To remedy my oversight is our acting tour guide, Typesafe’s Viktor Klang, long time Scala hacker and Java enterprise systems architect. Viktor was very patient in answering my questions and was enthusiastic about sharing his knowledge. He’s a guy who definitely knows what he is talking about. 
+   I’ve implemented several Actor systems along with the messaging infrastructure, threading, async IO, service orchestration, failover, etc, so I’m innately skeptical about frameworks that remove control from the programmer at</p><p>4 0.82024717 <a title="1425-lsi-4" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
+<p>Introduction: What good are problems without solutions? In  42 Monster Problems That Attack As Loads Increase  we talked about problems. In this first post (OK, there was an earlier post, but I'm doing some reorganizing), we'll cover what I call  aggregation  strategies.
+ 
+Keep in mind these are low level architecture type suggestions of how to structure the components of your code and how they interact. We're not talking about massive scale-out clusters here, but of what your applications might like like internally, way below the service level interface level. There's a lot more to the world than evented architectures.
+ 
+Aggregation simply means we aren't using stupid queues. Our queues will be smart. We are deeply aware of queues as containers of work that eventually dictate how the entire system performs. As work containers we know intimately what requests and data sit in our queues and we can use that intelligence to our great advantage.
+  Prioritize Work  
+The key idea to it all is an almost mi</p><p>5 0.79083568 <a title="1425-lsi-5" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
+<p>Introduction: High Performance Multithreaded Access to Amazon SimpleDB   is a great  follow up to the idea in  How SimpleDB Differs from a RDBMS  that more programming is the price paid for performance in SimpleDB.  It shows how much work and infrastructure is required to batter better performance out of SimpleDB.   Remember, in SimpleDB you get keys to records from queries so if you want to get all the fields for records you need to make separate requests. Since SimpleDB isn't exactly a speed daemon the obvious strategy is to parallelize.  Even if a job takes a 100 msecs you can get a lot done in a little time if you can execute enough jobs in parallel.   Parallelization is the approach taken by Haakon@AWS  in his Java code example of how to get the most out of SimpleDB. You can find the code at  Indexing and Querying Amazon S3 Metadata with Amazon SimpleDB . We'll also consider how a back-end service architecture built on Erlang may be a better fit with cloud computing.
+   
+ Two general mechanisms</p><p>6 0.77225441 <a title="1425-lsi-6" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
 <p>7 0.7716859 <a title="1425-lsi-7" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
 <p>8 0.76835078 <a title="1425-lsi-8" href="../high_scalability-2012/high_scalability-2012-12-17-11_Uses_For_the_Humble_Presents_Queue%2C_er%2C_Message_Queue.html">1373 high scalability-2012-12-17-11 Uses For the Humble Presents Queue, er, Message Queue</a></p>
 <p>9 0.76592112 <a title="1425-lsi-9" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
@@ -233,76 +144,44 @@ general mechanisms of parallelism are a</p><p>6 0.77225441 <a title="1425-lsi-6"
 <p>[(1, 0.084), (2, 0.301), (10, 0.22), (30, 0.015), (40, 0.021), (59, 0.011), (61, 0.045), (77, 0.017), (79, 0.097), (85, 0.042), (94, 0.03)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.98690265 <a title="1425-lda-1" href="../high_scalability-2014/high_scalability-2014-04-14-How_do_you_even_do_anything_without_using_EBS%3F.html">1631 high scalability-2014-04-14-How do you even do anything without using EBS?</a></p>
-<p>Introduction: In a recent thread on Hacker News discussing recent AWS price changes,seldo
-mentioned they use AWS for business, they just never use EBS on AWS. A good
-question was asked:How do you even do anything without using EBS?Amazon
-certainly makes using EBS the easiest path. And EBS has a better reliability
-record as of late, but it's still often recommended to not use EBS. This
-avoids a single point of failure at the cost of a lot of complexity, though as
-AWS uses EBS internally, not using EBS may not save you if you use other AWS
-services like RDS or ELB.If you don't want to use EBS, it's hard to know where
-to even start. A dilemma to which Kevin Nuckolls gives a great answer:Well,
-you break your services out onto stateless and stateful machines. After that,
-you make sure that each of your stateful services is resilient to individual
-node failure. I prefer to believe that if you can't roll your entire
-infrastructure over to new nodes monthly then you're unprepared for the
-eventual outage of</p><p>2 0.96421087 <a title="1425-lda-2" href="../high_scalability-2014/high_scalability-2014-01-24-Stuff_The_Internet_Says_On_Scalability_For_January_24th%2C_2014.html">1585 high scalability-2014-01-24-Stuff The Internet Says On Scalability For January 24th, 2014</a></p>
-<p>Introduction: Hey, it's HighScalability time:Gorgeous image from Scientific American'sYour
-Brain by the NumbersQuotable Quotes: @jezhumble: Google does everything off
-trunk despite 10k devs across 40 offices. @KentLangley: "in 2016. When it goes
-online, the SKA is expected to produce 700 terabytes of data each day"
-Jonathan Marks: It's actually a talk about how NOT to be creative. And what he
-[John Cleese] describes is the way most international broadcasters operated
-for most of their existence. They were content factories, slave to an
-artificial transmission schedule. Because they didn't take time to be
-creative, then ended up sounding like a tape machine. They were run by a
-computer algorithm. Not a human soul. There was never room for a creative
-pause. Routine was the solution. And that's creativities biggest enemy.40%
-better single-threaded performance in MariaDB. Using perf, cache misses were
-found and the fix was using the right gcc flags. But the big hairy key idea
-is: modern high-performance</p><p>3 0.96071559 <a title="1425-lda-3" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
-<p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><p>same-blog 4 0.95883077 <a title="1425-lda-4" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
-<p>Introduction: There's not a lot  of talk about application architectures at the process
-level. You have your threads, pools of threads, and you have your callback
-models. That's about it. Languages/frameworks making a virtue out of simple
-models, like Go and Erlang, do so at the price of control. It's difficult to
-make a low latency well conditioned application when a power full tool, like
-work scheduling, is taken out of the hands of the programmer.But that's not
-all there is my friend. We'll dive into different ways an application can be
-composed across threads of control.Your favorite language may not give you
-access to all the capabilities we are going to talk about, but lately there
-has been a sort of revival in considering performance important, especially
-for controlling latency variance, so I think it's time to talk about these
-kind of issues. When it was do everything in the thread of a web server thread
-pool none of these issues really mattered. But now that developers are
-creating sophist</p><p>5 0.9557752 <a title="1425-lda-5" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
-<p>Introduction: Vaibhav PuranikinWeb serving in the cloud - our experiences with nginx and
-instance sizesdescribes their experience trying to maximum traffic and minimum
-their web serving costs on EC2. Initially they tested with two m1.small
-instance types and then they the switched to two c1.mediums instance types.
-The m1s are the standard instance types and the c1s are the high CPU instance
-types. Obviously the mediums have greater capability, but the cost difference
-was interesting:In the long term they will save money using the larger
-instances and not autoscaling. With the small instances, traffic bursts caused
-autoscaling to kick in. New instances were started in response to load. The
-instances woud be up for a short period of time and then spin down again. This
-constant churn costs a lot of money. Selecting the larger instance sizes,
-which are capable of handling the load without autoscaling, turn out to save
-money even though they are more expensive. Starting new instances also takes a
-few min</p><p>6 0.95560837 <a title="1425-lda-6" href="../high_scalability-2009/high_scalability-2009-08-28-Strategy%3A_Solve_Only_80_Percent_of_the_Problem.html">689 high scalability-2009-08-28-Strategy: Solve Only 80 Percent of the Problem</a></p>
+<p>Introduction: In a recent thread on Hacker News discussing  recent AWS price changes ,  seldo  mentioned they use AWS for business, they just never use EBS on AWS. A good question was asked:
+  
+
+How do you even do anything without using EBS?
+
+  
+Amazon certainly makes using EBS the easiest path. And EBS has a better reliability record as of late, but it's still often recommended to not use EBS. This avoids a single point of failure at the cost of a lot of complexity, though as AWS uses EBS internally, not using EBS may not save you if you use other AWS services like RDS or ELB.
+ 
+If you don't want to use EBS, it's hard to know where to even start. A dilemma to which Kevin Nuckolls  gives a great answer :
+  
+
+Well, you break your services out onto stateless and stateful machines. After that, you make sure that each of your stateful services is resilient to individual node failure. I prefer to believe that if you can't roll your entire infrastructure over to new nodes monthly then you're unprepared fo</p><p>2 0.96421087 <a title="1425-lda-2" href="../high_scalability-2014/high_scalability-2014-01-24-Stuff_The_Internet_Says_On_Scalability_For_January_24th%2C_2014.html">1585 high scalability-2014-01-24-Stuff The Internet Says On Scalability For January 24th, 2014</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+     Gorgeous image from Scientific American's  Your Brain by the Numbers    
+ Quotable Quotes:                           
+ 
+  @jezhumble : Google does everything off trunk despite 10k devs across 40 offices.  
+  @KentLangley : "in 2016. When it goes online, the SKA is expected to produce 700 terabytes of data each day"  
+  Jonathan Marks : It's actually a talk about how NOT to be creative. And what he [John Cleese] describes is the way most international broadcasters operated for most of their existence. They were content factories, slave to an artificial transmission schedule. Because they didn't take time to be creative, then ended up sounding like a tape machine. They were run by a computer algorithm. Not a human soul. There was never room for a creative pause. Routine was the solution. And that's creativities biggest enemy. 
+ 
+ 
+ 
+  40% better single-threaded performance in MariaDB . Using perf, cache misses were found and the fix was using the righ</p><p>3 0.96071559 <a title="1425-lda-3" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
+<p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><p>same-blog 4 0.95883077 <a title="1425-lda-4" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
+<p>Introduction: There's not a lot  of talk about application architectures at the process level. You have your threads, pools of threads, and you have your callback models. That's about it. Languages/frameworks making a virtue out of simple models, like Go and Erlang, do so at the price of control. It's difficult to make a low latency well conditioned application when a power full tool, like work scheduling, is taken out of the hands of the programmer.
+ 
+But that's not all there is my friend. We'll dive into different ways an application can be composed across threads of control.
+ 
+Your favorite language may not give you access to all the capabilities we are going to talk about, but lately there has been a sort of revival in considering performance important, especially for controlling  latency variance , so I think it's time to talk about these kind of issues. When it was do everything in the thread of a web server thread pool none of these issues really mattered. But now that developers are creating</p><p>5 0.9557752 <a title="1425-lda-5" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
+<p>Introduction: Vaibhav Puranik  in  Web  serving in the cloud – our experiences with nginx and instance sizes  describes their experience trying to maximum traffic and minimum their web serving costs on EC2. Initially they tested with two m1.small instance types and then they the switched to two c1.mediums instance types. The m1s are the standard instance types and the c1s are the high CPU instance types. Obviously the mediums have greater capability, but the cost difference was interesting:
+  
+ In the long term they will save money using the larger instances and not autoscaling. With the small instances, traffic bursts caused autoscaling to kick in. New instances were started in response to load. The instances woud be up for a short period of time and then spin down again. This constant churn costs a lot of money. Selecting the larger instance sizes, which are capable of handling the load without autoscaling, turn out to save money even though they are more expensive. Starting new instances also tak</p><p>6 0.95560837 <a title="1425-lda-6" href="../high_scalability-2009/high_scalability-2009-08-28-Strategy%3A_Solve_Only_80_Percent_of_the_Problem.html">689 high scalability-2009-08-28-Strategy: Solve Only 80 Percent of the Problem</a></p>
 <p>7 0.95473224 <a title="1425-lda-7" href="../high_scalability-2010/high_scalability-2010-03-10-How_FarmVille_Scales_-_The_Follow-up.html">792 high scalability-2010-03-10-How FarmVille Scales - The Follow-up</a></p>
 <p>8 0.95145547 <a title="1425-lda-8" href="../high_scalability-2011/high_scalability-2011-05-23-Evernote_Architecture_-_9_Million_Users_and_150_Million_Requests_a_Day.html">1046 high scalability-2011-05-23-Evernote Architecture - 9 Million Users and 150 Million Requests a Day</a></p>
 <p>9 0.95033336 <a title="1425-lda-9" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>

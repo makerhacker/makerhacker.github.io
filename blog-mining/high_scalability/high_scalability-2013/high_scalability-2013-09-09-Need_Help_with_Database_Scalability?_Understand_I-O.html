@@ -16,102 +16,59 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1514-html" href="http://highscalability.com//blog/2013/9/9/need-help-with-database-scalability-understand-io.html">html</a></p><p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a
-storage engine company that delivers 21st-Century capabilities to the leading
-open source data management platforms.As software developers, we value
-abstraction. The simpler the API, the more attractive it becomes. Arguably,
-MongoDB's greatest strengths are its elegant API and itsagility, which let
-developers simply code.But whenMongoDBruns into scalability problems onbig
-data, developers need to peek underneath the covers to understand the
-underlying issues and how to fix them. Without understanding, one may end up
-with an inefficient solution that costs time and money. For example, one may
-shard prematurely, increasing hardware and management costs, when a simpler
-replication setup would do. Or, one may increase the size of a replica set
-when upgrading to SSDs would suffice.This article showshow to reason about
-some big data scalability problemsin an effort to find efficient
-solutions.Defining the IssuesFirst, l</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 For example, one may shard prematurely, increasing hardware and management costs, when a simpler replication setup would do. [sent-7, score-0.533]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1514-html" href="http://highscalability.com//blog/2013/9/9/need-help-with-database-scalability-understand-io.html">html</a></p><p>Introduction: This is a guest post by  Zardosht Kasheff , Software Developer at  Tokutek , a storage engine company that delivers 21st-Century capabilities to the leading open source data management platforms. 
+ 
+As software developers, we value abstraction. The simpler the API, the more attractive it becomes. Arguably, MongoDB’s greatest strengths are its elegant API and its   agility  , which let developers simply code.
+ 
+But when  MongoDB  runs into scalability problems on  big data , developers need to peek underneath the covers to understand the underlying issues and how to fix them. Without understanding, one may end up with an inefficient solution that costs time and money. For example, one may shard prematurely, increasing hardware and management costs, when a simpler replication setup would do. Or, one may increase the size of a replica set when upgrading to SSDs would suffice.
+ 
+This article shows  how to reason about some big data scalability problems  in an effort to find efficient solut</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 For example, one may shard prematurely, increasing hardware and management costs, when a simpler replication setup would do. [sent-7, score-0.533]
 </p><p>2 Or, one may increase the size of a replica set when upgrading to SSDs would suffice. [sent-8, score-0.492]
-</p><p>3 A range query used to retrieve 100 documents may induce 1 I/O, whereas 100 point queries to retrieve 100 documents may induce 100 I/O's. [sent-38, score-1.791]
+</p><p>3 A range query used to retrieve 100 documents may induce 1 I/O, whereas 100 point queries to retrieve 100 documents may induce 100 I/O’s. [sent-38, score-1.791]
 </p><p>4 Using an index on a collection, this does a combination of range queries and point queries. [sent-47, score-0.63]
 </p><p>5 If not, then a combination of range queries and point queries are used. [sent-49, score-0.919]
-</p><p>6 One can reduce the I/O of the application by avoiding doing individual point queries to retrieve each document. [sent-74, score-0.628]
-</p><p>7 To do this, we use covering or clustering indexes that smartly filter the documents analyzed by the query, and canreport results using range queries. [sent-75, score-0.438]
+</p><p>6 One can reduce the I/O of the application by avoiding doing individual point queries to retrieve each document . [sent-74, score-0.715]
+</p><p>7 To do this, we use covering or clustering indexes that smartly filter the documents analyzed by the query, and can  report results using range queries . [sent-75, score-0.727]
 </p><p>8 If you have an OLTP application and your queries are essentially point queries (because they retrieve very few documents), then even with proper indexes, you may still have an I/O bottleneck. [sent-77, score-1.033]
 </p><p>9 Also, additional indexes increase the cost of insertions, as each insertion must keep the indexes up to date as well, but write-optimized databases mitigate that cost. [sent-79, score-0.567]
 </p><p>10 Updates and deletes are tricky in that they are a combination of queries and inserts. [sent-83, score-0.461]
-</p><p>11 This solution may work for a wide range of applications, but our focus here is tackling applications that cannot do this. [sent-100, score-0.384]
+</p><p>11 Read scaling via replication    Read scaling with replication is effective for applications where queries are the bottleneck. [sent-110, score-0.435]
 </p><p>12 If inserts, updates, or deletes are your bottleneck, then replication may not be very effective, because the write work is duplicated on all servers that are added to the replica set. [sent-112, score-0.628]
-</p><p>13 ShardingShardingpartitions your data across different replica sets based on a shard key. [sent-114, score-0.664]
+</p><p>13 Sharding        Sharding    partitions your data across different replica sets based on a shard key. [sent-114, score-0.664]
 </p><p>14 Different replica sets in the cluster are responsible for ranges of values in the shard key space. [sent-115, score-0.719]
-</p><p>15 So, an application's write throughput is increased by spreading the write workload across separate replica sets in a cluster. [sent-116, score-0.595]
+</p><p>15 So, an application’s write throughput is increased by spreading the write workload across separate replica sets in a cluster. [sent-116, score-0.595]
 </p><p>16 By partitioning the data by ranges in the shard key space, queries that use the shard key can effectively do range queries on a few shards, making such queries very efficient. [sent-118, score-1.9]
 </p><p>17 If one makes the shard key a hash, then all range queries must run on all shards in the cluster, but point queries on the shard key run on single shards. [sent-119, score-1.684]
-</p><p>18 Agood shard keyhas the following properties:●Many (if not all) of your queriesuse the shard key. [sent-129, score-0.554]
-</p><p>19 ●The shard key should do a good job ofdistributing writesto different replica sets in the cluster. [sent-132, score-0.65]
-</p><p>20 If all writes are directed to the same replica set in the cluster, then that replica set becomes a bottleneck for writes, just as it was in a non-shardedsetup. [sent-133, score-0.615]
+</p><p>18 A  good shard key  has the following properties:    ●    Many (if not all) of your queries  use the shard key . [sent-129, score-0.987]
+</p><p>19 ●    The shard key should do a good job of  distributing writes  to different replica sets in the cluster. [sent-132, score-0.726]
+</p><p>20 If all writes are directed to the same replica set in the cluster, then that replica set becomes a bottleneck for writes, just as it was in a non- sharded  setup. [sent-133, score-0.615]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('queries', 0.289), ('shard', 0.277), ('replica', 0.226), ('range', 0.18), ('induces', 0.165), ('query', 0.157), ('retrieve', 0.152), ('documents', 0.14), ('oltp', 0.136), ('solutions', 0.13), ('induce', 0.129), ('indexes', 0.118), ('may', 0.116), ('write', 0.111), ('updates', 0.109), ('cost', 0.108), ('ssds', 0.103), ('deletes', 0.102), ('inducing', 0.1), ('understanding', 0.096), ('application', 0.096), ('point', 0.091), ('arguably', 0.09), ('bottlenecks', 0.089), ('solution', 0.088), ('causing', 0.087), ('bottleneck', 0.087), ('document', 0.087), ('data', 0.086), ('increase', 0.083), ('underneath', 0.079), ('basic', 0.078), ('peek', 0.076), ('writes', 0.076), ('sets', 0.075), ('replication', 0.073), ('improving', 0.072), ('workload', 0.072), ('key', 0.072), ('must', 0.07), ('combination', 0.07), ('databases', 0.07), ('big', 0.069), ('ranges', 0.069), ('discussing', 0.069), ('ram', 0.068), ('addressing', 0.067), ('elegant', 0.067), ('one', 0.067), ('software', 0.065)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999988 <a title="1514-tfidf-1" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
-<p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a
-storage engine company that delivers 21st-Century capabilities to the leading
-open source data management platforms.As software developers, we value
-abstraction. The simpler the API, the more attractive it becomes. Arguably,
-MongoDB's greatest strengths are its elegant API and itsagility, which let
-developers simply code.But whenMongoDBruns into scalability problems onbig
-data, developers need to peek underneath the covers to understand the
-underlying issues and how to fix them. Without understanding, one may end up
-with an inefficient solution that costs time and money. For example, one may
-shard prematurely, increasing hardware and management costs, when a simpler
-replication setup would do. Or, one may increase the size of a replica set
-when upgrading to SSDs would suffice.This article showshow to reason about
-some big data scalability problemsin an effort to find efficient
-solutions.Defining the IssuesFirst, l</p><p>2 0.28983939 <a title="1514-tfidf-2" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
-<p>Introduction: For everything given something seems to be taken. Caching is a great
-scalability solution, but caching alsocomes with problems.Shardingis a great
-scalability solution, but as Foursquare recently revealed in apost-mortemabout
-their 17 hours of downtime, sharding also has problems. MongoDB, the database
-Foursquare uses, also contributed theirpost-mortemof what went wrong too.Now
-that everyone has shared and resharded, what can we learn to help us skip
-these mistakes and quickly move on to a different set of mistakes?First, like
-forFacebook, huge props to Foursquare and MongoDB for being upfront and honest
-about their problems. This helps everyone get better and is a sign we work in
-a pretty cool industry.Second, overall, the fault didn't flow from evil hearts
-or gross negligence. As usual the cause was more mundane: a key system, that
-could be a little more robust, combined with a very popular application built
-by a small group of people, under immense pressure, trying to get a lot of
-wo</p><p>3 0.24869357 <a title="1514-tfidf-3" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
-<p>Introduction: Update 4:Why you don't want to shard.by Morgon on the MySQL Performance
-Blog.Optimize everything else first, and then if performance still isn't good
-enough, it's time to take a very bitter medicine.Update 3:Building Scalable
-Databases: Pros and Cons of Various Database Sharding Schemesby Dare Obasanjo.
-Excellent discussion of why and when you would choose a sharding architecture,
-how to shard, and problems with sharding.Update 2:Mr. Moore gets to punt on
-shardingby Alan Rimm-Kaufman of 37signals. Insightful article on design
-tradeoffs and the evils of premature optimization. With more memory, more CPU,
-and new tech like SSD, problems can be avoided before more exotic
-architectures like sharding are needed. Add features not infrastructure.Jeremy
-Zawodnysays he's wrong wrong wrong. we're running multi-core CPUs at slower
-clock speeds. Moore won't save you.Update:Dan Pritchett shares some
-excellentSharding Lessons: Size Your Shards, Use Math on Shard Counts,
-Carefully Consider the Spread</p><p>4 0.20677851 <a title="1514-tfidf-4" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
-<p>Introduction: Update:Flickr hits2 Billion photosserved. That's a lot of hamburgers.Flickr is
-both my favoritebirdand the web's leading photo sharing site. Flickr has an
-amazing challenge, they must handle a vast sea of ever expanding new content,
-ever increasing legions of users, and a constant stream of new features, all
-while providing excellent performance. How do they do it?Site:
-http://www.flickr.comInformation SourcesFlickr and PHP(an early
-document)Capacity Planning for LAMPFederation at Flickr: Doing Billions of
-Queries a Dayby Dathan Pattishall.Building Scalable Web Sitesby Cal Henderson
-from Flickr.Database War Stories #3: Flickrby Tim O'ReillyCal Henderson's
-Talks. A lot of useful PowerPoint
-presentations.PlatformPHPMySQLShardsMemcached for a caching layer.Squid in
-reverse-proxy for html and images.Linux (RedHat)Smarty for templatingPerlPEAR
-for XML and Email parsingImageMagick, for image processingJava, for the node
-serviceApacheSystemImager for deploymentGanglia for distributed system
-m</p><p>5 0.19934641 <a title="1514-tfidf-5" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>Introduction: This is a guest post by  Zardosht Kasheff , Software Developer at  Tokutek , a storage engine company that delivers 21st-Century capabilities to the leading open source data management platforms. 
+ 
+As software developers, we value abstraction. The simpler the API, the more attractive it becomes. Arguably, MongoDB’s greatest strengths are its elegant API and its   agility  , which let developers simply code.
+ 
+But when  MongoDB  runs into scalability problems on  big data , developers need to peek underneath the covers to understand the underlying issues and how to fix them. Without understanding, one may end up with an inefficient solution that costs time and money. For example, one may shard prematurely, increasing hardware and management costs, when a simpler replication setup would do. Or, one may increase the size of a replica set when upgrading to SSDs would suffice.
+ 
+This article shows  how to reason about some big data scalability problems  in an effort to find efficient solut</p><p>2 0.28983939 <a title="1514-tfidf-2" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: For everything given something seems to be taken. Caching is a great scalability solution, but caching also  comes with problems .  Sharding  is a great scalability solution, but as Foursquare recently revealed in a  post-mortem  about their 17 hours of downtime, sharding also has problems. MongoDB, the database Foursquare uses, also contributed their  post-mortem  of what went wrong too.
+ 
+Now that everyone has shared and resharded, what can we learn to help us skip these mistakes and quickly move on to a different set of mistakes?
+ 
+First, like for  Facebook , huge props to Foursquare and MongoDB for being upfront and honest about their problems. This helps everyone get better and is a sign we work in a pretty cool industry.
+ 
+Second, overall, the fault didn't flow from evil hearts or gross negligence. As usual the cause was more mundane: a key system, that could be a little more robust, combined with a very popular application built by a small group of people, under immense pressure</p><p>3 0.24869357 <a title="1514-tfidf-3" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
+<p>Introduction: Update 4:   Why you don’t want to shard.  by Morgon on the MySQL Performance Blog.  Optimize everything else first, and then if performance still isn’t good enough, it’s time to take a very bitter medicine.    Update 3:   Building Scalable Databases: Pros and Cons of Various Database Sharding Schemes  by Dare Obasanjo. Excellent discussion of why and when you would choose a sharding architecture, how to shard, and problems with sharding.  Update 2:   Mr. Moore gets to punt on sharding  by Alan Rimm-Kaufman of 37signals. Insightful article on design tradeoffs and the evils of premature optimization. With more memory, more CPU, and new tech like SSD,  problems can be avoided before more exotic architectures like sharding are needed.  Add features not infrastructure.  Jeremy Zawodny  says he's wrong wrong wrong. we're running multi-core CPUs at slower clock speeds. Moore won't save you.  Update:  Dan Pritchett shares some excellent  Sharding Lessons : Size Your Shards, Use Math on Shard C</p><p>4 0.20677851 <a title="1514-tfidf-4" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
+<p>Introduction: Update:  Flickr hits  2 Billion photos  served. That's a lot of hamburgers.   Flickr is both my favorite  bird  and the web's leading photo sharing site. Flickr has an amazing challenge, they must handle a vast sea of ever expanding new content, ever increasing legions of  users, and a constant stream of new features, all while providing excellent performance.  How do they do it?
+ 
+Site: http://www.flickr.com
+  Information Sources     Flickr and PHP  (an early document)     Capacity Planning for LAMP      Federation at Flickr: Doing Billions of Queries a Day  by Dathan Pattishall.     Building Scalable Web Sites  by Cal Henderson from Flickr.    Database War Stories #3: Flickr  by Tim O'Reilly    Cal Henderson's Talks . A lot of useful PowerPoint presentations. 
+ Platform 
+    PHP    MySQL    Shards    Memcached for a caching layer.    Squid in reverse-proxy for html and images.    Linux (RedHat)    Smarty for templating    Perl    PEAR for XML and Email parsing    ImageMagick, for ima</p><p>5 0.19934641 <a title="1514-tfidf-5" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>Introduction: Pinterest has been riding an exponential growth curve, doubling every month
 and half. They've gone from 0 to 10s of billions of page views a month in two
 years, from 2 founders and one engineer to over 40 engineers, from one little
@@ -145,70 +102,24 @@ talk:Arc</p><p>6 0.19478971 <a title="1514-tfidf-6" href="../high_scalability-20
 <p>[(0, 0.288), (1, 0.151), (2, -0.037), (3, -0.013), (4, 0.041), (5, 0.172), (6, 0.057), (7, -0.055), (8, 0.01), (9, -0.055), (10, 0.016), (11, 0.021), (12, -0.104), (13, 0.082), (14, 0.025), (15, 0.043), (16, -0.073), (17, -0.016), (18, 0.019), (19, 0.078), (20, 0.0), (21, -0.012), (22, 0.015), (23, 0.01), (24, -0.022), (25, -0.0), (26, -0.073), (27, -0.112), (28, 0.005), (29, 0.144), (30, 0.045), (31, 0.008), (32, 0.074), (33, 0.057), (34, 0.015), (35, 0.035), (36, 0.036), (37, -0.023), (38, -0.084), (39, -0.044), (40, -0.093), (41, 0.062), (42, 0.001), (43, 0.019), (44, 0.023), (45, -0.017), (46, -0.028), (47, -0.01), (48, 0.027), (49, -0.019)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9686681 <a title="1514-lsi-1" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
-<p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a
-storage engine company that delivers 21st-Century capabilities to the leading
-open source data management platforms.As software developers, we value
-abstraction. The simpler the API, the more attractive it becomes. Arguably,
-MongoDB's greatest strengths are its elegant API and itsagility, which let
-developers simply code.But whenMongoDBruns into scalability problems onbig
-data, developers need to peek underneath the covers to understand the
-underlying issues and how to fix them. Without understanding, one may end up
-with an inefficient solution that costs time and money. For example, one may
-shard prematurely, increasing hardware and management costs, when a simpler
-replication setup would do. Or, one may increase the size of a replica set
-when upgrading to SSDs would suffice.This article showshow to reason about
-some big data scalability problemsin an effort to find efficient
-solutions.Defining the IssuesFirst, l</p><p>2 0.85074341 <a title="1514-lsi-2" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
-<p>Introduction: Update 4:Why you don't want to shard.by Morgon on the MySQL Performance
-Blog.Optimize everything else first, and then if performance still isn't good
-enough, it's time to take a very bitter medicine.Update 3:Building Scalable
-Databases: Pros and Cons of Various Database Sharding Schemesby Dare Obasanjo.
-Excellent discussion of why and when you would choose a sharding architecture,
-how to shard, and problems with sharding.Update 2:Mr. Moore gets to punt on
-shardingby Alan Rimm-Kaufman of 37signals. Insightful article on design
-tradeoffs and the evils of premature optimization. With more memory, more CPU,
-and new tech like SSD, problems can be avoided before more exotic
-architectures like sharding are needed. Add features not infrastructure.Jeremy
-Zawodnysays he's wrong wrong wrong. we're running multi-core CPUs at slower
-clock speeds. Moore won't save you.Update:Dan Pritchett shares some
-excellentSharding Lessons: Size Your Shards, Use Math on Shard Counts,
-Carefully Consider the Spread</p><p>3 0.8487398 <a title="1514-lsi-3" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
-<p>Introduction: I met the CodeFutures folks, makers ofdbShards, atGluecon. They occupy an
-interesting niche in the database space, somewhere betweenNoSQL, which
-jettisons everything SQL, and high end analytics platformsthat completely
-rewrite the backend while keeping a SQL facade.High concept: I think of
-dbShards as a sort of commercial OLTP mashup of features from HSCALE
-(partitioning) +MySQL Proxy (transparent intermediate layer) +Memcached
-(client side sharding) +Gigaspaces(parallel query) + MySQL (transactions).You
-may find dbShards interesting if you are looking to keep SQL, need scale out
-writes and reads, need out of the box parallel query capabilities, and would
-prefer to use a standard platform like MySQL as a base. To learn more about
-dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult
-questions (not really).Who are you, what is dbShards, and what problem was
-dbShards created to solve?I'm Cory Isaacson, CEO/CTO of CodeFutures
-Corporation, the makers of dbShards. dbSha</p><p>4 0.83523262 <a title="1514-lsi-4" href="../high_scalability-2008/high_scalability-2008-12-28-How_to_Organize_a_Database_Table%E2%80%99s_Keys_for_Scalability.html">476 high scalability-2008-12-28-How to Organize a Database Table’s Keys for Scalability</a></p>
-<p>Introduction: The key (no pun intended) to understanding how to organize your dataset’s data
-is to think of each shard not as an individual database, but as one large
-singular database. Just as in a normal single server database setup where you
-have a unique key for each row within a table, each row key within each
-individual shard must be unique to the whole dataset partitioned across all
-shards.There are a few different ways we can accomplish uniqueness of row keys
-across a shard cluster. Each has its pro’s and con’s and the one chosen should
-be specific to the problems you’re trying to solve.</p><p>5 0.83232856 <a title="1514-lsi-5" href="../high_scalability-2008/high_scalability-2008-07-26-Sharding_the_Hibernate_Way.html">358 high scalability-2008-07-26-Sharding the Hibernate Way</a></p>
-<p>Introduction: Update:A very nice JavaWorld podcast interview withGoogle engineer Max Ross on
-Hibernate Shards. Max defines Hibernate Shards (horizontal partitioning), how
-it works (pretty well), virtual shards (don't ask), what they need to do in
-the future (query, replication, operational tools), and how it relates to
-Google AppEngine (not much).To scale you are supposed to partition your data.
-Sounds good, but how do you do it? When you actually sit down to work out all
-the details it's not that easy. Hibernate Shards to the rescue! Hibernate
-shards is: an extension to the core Hibernate product that adds facilities for
-horizontal partitioning. If you know the core Hibernate API you know the
-shards API. No learning curve at all. Here is what a few members of the core
-group had to say about the Hibernate Shards open source project. Although
-there are some limitations, from the sound of it they are doing useful stuff
-in the right way and it's very much worth looking at, especially if you use
-Hiberna</p><p>6 0.82001674 <a title="1514-lsi-6" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: This is a guest post by  Zardosht Kasheff , Software Developer at  Tokutek , a storage engine company that delivers 21st-Century capabilities to the leading open source data management platforms. 
+ 
+As software developers, we value abstraction. The simpler the API, the more attractive it becomes. Arguably, MongoDB’s greatest strengths are its elegant API and its   agility  , which let developers simply code.
+ 
+But when  MongoDB  runs into scalability problems on  big data , developers need to peek underneath the covers to understand the underlying issues and how to fix them. Without understanding, one may end up with an inefficient solution that costs time and money. For example, one may shard prematurely, increasing hardware and management costs, when a simpler replication setup would do. Or, one may increase the size of a replica set when upgrading to SSDs would suffice.
+ 
+This article shows  how to reason about some big data scalability problems  in an effort to find efficient solut</p><p>2 0.85074341 <a title="1514-lsi-2" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
+<p>Introduction: Update 4:   Why you don’t want to shard.  by Morgon on the MySQL Performance Blog.  Optimize everything else first, and then if performance still isn’t good enough, it’s time to take a very bitter medicine.    Update 3:   Building Scalable Databases: Pros and Cons of Various Database Sharding Schemes  by Dare Obasanjo. Excellent discussion of why and when you would choose a sharding architecture, how to shard, and problems with sharding.  Update 2:   Mr. Moore gets to punt on sharding  by Alan Rimm-Kaufman of 37signals. Insightful article on design tradeoffs and the evils of premature optimization. With more memory, more CPU, and new tech like SSD,  problems can be avoided before more exotic architectures like sharding are needed.  Add features not infrastructure.  Jeremy Zawodny  says he's wrong wrong wrong. we're running multi-core CPUs at slower clock speeds. Moore won't save you.  Update:  Dan Pritchett shares some excellent  Sharding Lessons : Size Your Shards, Use Math on Shard C</p><p>3 0.8487398 <a title="1514-lsi-3" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>Introduction: I met the CodeFutures folks, makers of  dbShards , at  Gluecon . They occupy an interesting niche in the database space, somewhere between  NoSQL , which jettisons everything SQL, and  high end analytics platforms  that completely rewrite the backend while keeping a SQL facade.
+ 
+High concept: I think of dbShards as a sort of commercial OLTP mashup of features from  HSCALE  (partitioning) +  MySQL Proxy  (transparent intermediate layer) +  Memcached  (client side sharding) +  Gigaspaces  (parallel query) + MySQL (transactions).
+ 
+You may find dbShards interesting if you are looking to keep SQL, need scale out writes and reads, need out of the box parallel query capabilities, and would prefer to use a standard platform like MySQL as a base. To learn more about dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult questions (not really).
+  Who are you, what is dbShards, and what problem was dbShards created to solve?   
+
+I’m Cory Isaacson, CEO/CTO of CodeFutures Corp</p><p>4 0.83523262 <a title="1514-lsi-4" href="../high_scalability-2008/high_scalability-2008-12-28-How_to_Organize_a_Database_Table%E2%80%99s_Keys_for_Scalability.html">476 high scalability-2008-12-28-How to Organize a Database Table’s Keys for Scalability</a></p>
+<p>Introduction: The key (no pun intended) to understanding how to organize your dataset’s data is to think of each shard not as an individual database, but as one large singular database. Just as in a normal single server database setup where you have a unique key for each row within a table, each row key within each individual shard must be unique to the whole dataset partitioned across all shards.     There are a few different ways we can accomplish uniqueness of row keys across a shard cluster. Each has its pro’s and con’s and the one chosen should be specific to the problems you’re trying to solve.</p><p>5 0.83232856 <a title="1514-lsi-5" href="../high_scalability-2008/high_scalability-2008-07-26-Sharding_the_Hibernate_Way.html">358 high scalability-2008-07-26-Sharding the Hibernate Way</a></p>
+<p>Introduction: Update :  A very nice JavaWorld podcast interview with  Google engineer Max Ross on Hibernate Shards . Max defines Hibernate Shards (horizontal partitioning), how it works (pretty well), virtual shards (don't ask), what they need to do in the future (query, replication, operational tools), and how it relates to Google AppEngine (not much).   To scale you are supposed to partition your data. Sounds good, but how do you do it? When you actually sit down to work out all the details it’s not that easy. Hibernate Shards to the rescue! Hibernate shards is: an extension to the core Hibernate product that adds facilities for horizontal partitioning. If you know the core Hibernate API you know the shards API. No learning curve at all. Here is what a few members of the core group had to say about the Hibernate Shards open source project. Although there are some limitations, from the sound of it they are doing useful stuff in the right way and it’s very much worth looking at, especially if you us</p><p>6 0.82001674 <a title="1514-lsi-6" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
 <p>7 0.81216985 <a title="1514-lsi-7" href="../high_scalability-2014/high_scalability-2014-03-05-10_Things_You_Should_Know_About_Running_MongoDB_at_Scale.html">1606 high scalability-2014-03-05-10 Things You Should Know About Running MongoDB at Scale</a></p>
 <p>8 0.79684341 <a title="1514-lsi-8" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
 <p>9 0.79597515 <a title="1514-lsi-9" href="../high_scalability-2008/high_scalability-2008-03-18-Database_Design_101.html">281 high scalability-2008-03-18-Database Design 101</a></p>
@@ -228,76 +139,37 @@ Hiberna</p><p>6 0.82001674 <a title="1514-lsi-6" href="../high_scalability-2010/
 <p>[(1, 0.175), (2, 0.21), (10, 0.076), (27, 0.011), (30, 0.033), (40, 0.019), (47, 0.011), (61, 0.115), (63, 0.067), (79, 0.119), (85, 0.012), (94, 0.06)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.98567963 <a title="1514-lda-1" href="../high_scalability-2011/high_scalability-2011-03-04-Stuff_The_Internet_Says_On_Scalability_For_March_4%2C_2011.html">999 high scalability-2011-03-04-Stuff The Internet Says On Scalability For March 4, 2011</a></p>
-<p>Introduction: Submitted for your reading pleasure on this beautifully blue and sunny
-Friday...@Werner: Each day #AWS adds enough computing muscle to power one
-whole Amazon.com circa 2000, when it was a $2.8 billion business
-http://wv.ly/gMr8LQBuilding servers to rule in hell. Datacenters spend a lot
-of energy on cooling down processors. Why can't they operate at higher
-temperatures? This is the proposition addressed by James Hamilton inExploring
-the Limits of Datacenter Temprature and Datacenter Knowledge in What's Next?
-Hotter Servers with 'Gas Pedals'.Quotable Quotes for 200 Watson:@jreichhold:
-One thing working at Twitter teaches me daily is that all scale is relative.
-What seemed impossible last year is now the daily case.@dannycast0nguay: If
-you're concerned about scalability, any algorithm that forces you to run
-agreement will eventually become your bottleneck.--Werner Vogels@rael: No
-shortcut ever goes undetected by scale.@sramji: Caching is for scalability,
-not for speed. Your cache *will* b</p><p>2 0.97598445 <a title="1514-lda-2" href="../high_scalability-2012/high_scalability-2012-09-26-WordPress.com_Serves_70%2C000_req-sec_and_over_15_Gbit-sec_of_Traffic_using_NGINX.html">1329 high scalability-2012-09-26-WordPress.com Serves 70,000 req-sec and over 15 Gbit-sec of Traffic using NGINX</a></p>
-<p>Introduction: This is a guest post by Barry Abrahamson, Chief Systems Wrangler at
-Automattic, andNginx's Coufounder Andrew Alexeev.WordPress.com serves more
-than 33 million sites attracting over 339 million people and 3.4 billion pages
-each month. Since April 2008, WordPress.com has experienced about 4.4 times
-growth in page views. WordPress.com VIP hosts many popular sites including
-CNN's Political Ticker, NFL, Time Inc's The Page, People Magazine's Style
-Watch, corporate blogs for Flickr and KROQ, and many more. Automattic operates
-two thousand servers in twelve, globally distributed, data centers.
-WordPress.com customer data is instantly replicated between different
-locations to provide an extremely reliable and fast web experience for
-hundreds of millions of visitors.ProblemWordPress.com, which began in 2005,
-started on shared hosting, much like all of the WordPress.org sites. It was
-soon moved to a single dedicated server and then to two servers. In late 2005,
-WordPress.com opened to the public</p><p>3 0.97241366 <a title="1514-lda-3" href="../high_scalability-2010/high_scalability-2010-11-12-Stuff_the_Internet_Says_on_Scalability_For_November_12th%2C_2010.html">940 high scalability-2010-11-12-Stuff the Internet Says on Scalability For November 12th, 2010</a></p>
-<p>Introduction: Google - A Study In Scalability And A Little Systems Horse Sense. A nice
-summary by Krishna Sankar of a version of Jeff Dean's classic talk onGoogle
-Scalability given to Stanford's EE380 class.Quotable Quotes:@jkalucki: Getting
-just 100 servers to work together for the first time is so ridiculously
-complicated. Horizontal scaling doesn't scale.@simeons: Yahoo's scalability is
-drivem by lots of asynchronous processing. "You learn to love it." -- @rstata
-Yahoo's CTOThe Economics of the Cloud: Dissecting a Must-Read White Paperby
-Bernard Golden. I love the depiction of the unseen and unfelt forces that
-nevertheless organize everything around them: After a brief introduction, the
-authors lay out a central thesis: despite initial concerns about shortcomings
-in new technology offerings, "historically, underlying economics have a much
-stronger impact on the direction and speed of disruptions, as technological
-challenges are resolved or overcome through the rapid innovation we've grown
-accusto</p><p>4 0.97092193 <a title="1514-lda-4" href="../high_scalability-2009/high_scalability-2009-09-22-How_Ravelry_Scales_to_10_Million_Requests_Using_Rails.html">711 high scalability-2009-09-22-How Ravelry Scales to 10 Million Requests Using Rails</a></p>
-<p>Introduction: Tim Brayhas a wonderfulinterview with Casey Forbes, creator of Ravelry, a Ruby
-on Rails site supporting a 400,000+ strong community of dedicated knitters and
-crocheters.Casey and his small team have done great things with Ravelry. It is
-a very focused site that provides a lot of value for users. And users
-absolutely adore the site. That's obvious from their enthusiastic comments and
-rocket fast adoption of Ravelry.Ten years ago a site like Ravelry would have
-been a multi-million dollar operation. Today Casey is the sole engineer for
-Ravelry and to run it takes only a few people. He was able to code it in 4
-months working nights and weekends. Take a look down below of all the
-technologies used to make Ravelry and you'll see how it is constructed almost
-completely from free of the shelf software that Casey has stitched together
-into a complete system. There's an amazing amount of leverage in today's
-ecosystem when you combine all the quality tools, languages, storage,
-bandwidth and hosti</p><p>same-blog 5 0.96966362 <a title="1514-lda-5" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
-<p>Introduction: This is a guest post byZardosht Kasheff, Software Developer atTokutek, a
-storage engine company that delivers 21st-Century capabilities to the leading
-open source data management platforms.As software developers, we value
-abstraction. The simpler the API, the more attractive it becomes. Arguably,
-MongoDB's greatest strengths are its elegant API and itsagility, which let
-developers simply code.But whenMongoDBruns into scalability problems onbig
-data, developers need to peek underneath the covers to understand the
-underlying issues and how to fix them. Without understanding, one may end up
-with an inefficient solution that costs time and money. For example, one may
-shard prematurely, increasing hardware and management costs, when a simpler
-replication setup would do. Or, one may increase the size of a replica set
-when upgrading to SSDs would suffice.This article showshow to reason about
-some big data scalability problemsin an effort to find efficient
-solutions.Defining the IssuesFirst, l</p><p>6 0.96960121 <a title="1514-lda-6" href="../high_scalability-2012/high_scalability-2012-01-24-The_State_of_NoSQL_in_2012.html">1180 high scalability-2012-01-24-The State of NoSQL in 2012</a></p>
+<p>Introduction: Submitted for your reading pleasure on this beautifully blue and sunny Friday...
+  
+  @Werner : Each day #AWS adds enough computing muscle to power one whole Amazon.com circa 2000, when it was a $2.8 billion business http://wv.ly/gMr8LQ 
+ Building servers to rule in hell. Datacenters spend a lot of energy on cooling down processors. Why can't they operate at higher temperatures? This is the proposition addressed by James Hamilton in  Exploring the Limits of Datacenter Temprature  and Datacenter Knowledge in  What’s Next? Hotter Servers with ‘Gas Pedals’ .  
+ Quotable Quotes for 200 Watson:                              
+ 
+  @jreichhold : One thing working at Twitter teaches me daily is that all scale is relative. What seemed impossible last year is now the daily case. 
+  @dannycast0nguay : If you’re concerned about scalability, any algorithm that forces you to run agreement will eventually become your bottleneck.—Werner Vogels 
+  @rael : No shortcut ever goes undetected by scale. 
+  @sr</p><p>2 0.97598445 <a title="1514-lda-2" href="../high_scalability-2012/high_scalability-2012-09-26-WordPress.com_Serves_70%2C000_req-sec_and_over_15_Gbit-sec_of_Traffic_using_NGINX.html">1329 high scalability-2012-09-26-WordPress.com Serves 70,000 req-sec and over 15 Gbit-sec of Traffic using NGINX</a></p>
+<p>Introduction: This is a guest post by  Barry Abrahamson , Chief Systems Wrangler at Automattic, and   Nginx's Coufounder  Andrew Alexeev.
+ 
+ WordPress.com  serves more than 33 million sites attracting over 339 million people and 3.4 billion pages each month. Since April 2008, WordPress.com has experienced about 4.4 times growth in page views.  WordPress.com VIP  hosts many popular sites including CNN’s Political Ticker, NFL, Time Inc’s The Page, People Magazine’s Style Watch, corporate blogs for Flickr and KROQ, and many more. Automattic operates two thousand servers in twelve, globally distributed, data centers. WordPress.com customer data is instantly replicated between different locations to provide an extremely reliable and fast web experience for hundreds of millions of visitors.
+  Problem  
+WordPress.com, which began in 2005, started on shared hosting, much like all of the  WordPress.org  sites. It was soon moved to a single dedicated server and then to two servers. In late 2005, WordPress.com</p><p>3 0.97241366 <a title="1514-lda-3" href="../high_scalability-2010/high_scalability-2010-11-12-Stuff_the_Internet_Says_on_Scalability_For_November_12th%2C_2010.html">940 high scalability-2010-11-12-Stuff the Internet Says on Scalability For November 12th, 2010</a></p>
+<p>Introduction: Google – A Study In Scalability And A Little Systems Horse Sense . A nice summary by Krishna Sankar of a version of Jeff Dean's classic talk on  Google Scalability  given to  Stanford's EE380 class .  
+ Quotable Quotes:     
+ 
+  @jkalucki : Getting just 100 servers to work together for the first time is so ridiculously complicated. Horizontal scaling doesn't scale.  
+  @simeons  : Yahoo's scalability is drivem by lots of asynchronous processing. "You learn to love it." -- @rstata Yahoo's CTO   
+ 
+    
+  The Economics of the Cloud: Dissecting a Must-Read White Paper  by Bernard Golden. I love the depiction of the unseen and unfelt forces that nevertheless organize everything around them:  After a brief introduction, the authors lay out a central thesis: despite initial concerns about shortcomings in new technology offerings, "historically, underlying economics have a much stronger impact on the direction and speed of disruptions, as technological challenges are resolved or overcome thro</p><p>4 0.97092193 <a title="1514-lda-4" href="../high_scalability-2009/high_scalability-2009-09-22-How_Ravelry_Scales_to_10_Million_Requests_Using_Rails.html">711 high scalability-2009-09-22-How Ravelry Scales to 10 Million Requests Using Rails</a></p>
+<p>Introduction: Tim Bray  has a wonderful  interview with Casey Forbes , creator of Ravelry, a Ruby on Rails site supporting a 400,000+ strong community of dedicated knitters and crocheters.   Casey and his small team have done great things with Ravelry. It is a very focused site that provides a lot of value for users. And users absolutely adore the site. That's obvious from their enthusiastic comments and rocket fast adoption of Ravelry.  Ten years ago a site like Ravelry would have been a multi-million dollar operation. Today Casey is the sole engineer for Ravelry and to run it takes only a few people. He was able to code it in 4 months working nights and weekends. Take a look down below of all the technologies used to make Ravelry and you'll see how it is constructed almost completely from free of the shelf software that Casey has stitched together into a complete system. There's an amazing amount of leverage in today's ecosystem when you combine all the quality tools, languages, storage, bandwidth</p><p>same-blog 5 0.96966362 <a title="1514-lda-5" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
+<p>Introduction: This is a guest post by  Zardosht Kasheff , Software Developer at  Tokutek , a storage engine company that delivers 21st-Century capabilities to the leading open source data management platforms. 
+ 
+As software developers, we value abstraction. The simpler the API, the more attractive it becomes. Arguably, MongoDB’s greatest strengths are its elegant API and its   agility  , which let developers simply code.
+ 
+But when  MongoDB  runs into scalability problems on  big data , developers need to peek underneath the covers to understand the underlying issues and how to fix them. Without understanding, one may end up with an inefficient solution that costs time and money. For example, one may shard prematurely, increasing hardware and management costs, when a simpler replication setup would do. Or, one may increase the size of a replica set when upgrading to SSDs would suffice.
+ 
+This article shows  how to reason about some big data scalability problems  in an effort to find efficient solut</p><p>6 0.96960121 <a title="1514-lda-6" href="../high_scalability-2012/high_scalability-2012-01-24-The_State_of_NoSQL_in_2012.html">1180 high scalability-2012-01-24-The State of NoSQL in 2012</a></p>
 <p>7 0.96816933 <a title="1514-lda-7" href="../high_scalability-2010/high_scalability-2010-07-08-Cloud_AWS_Infrastructure_vs._Physical_Infrastructure.html">853 high scalability-2010-07-08-Cloud AWS Infrastructure vs. Physical Infrastructure</a></p>
 <p>8 0.96524978 <a title="1514-lda-8" href="../high_scalability-2012/high_scalability-2012-08-10-Stuff_The_Internet_Says_On_Scalability_For_August_10%2C_2012.html">1302 high scalability-2012-08-10-Stuff The Internet Says On Scalability For August 10, 2012</a></p>
 <p>9 0.96327972 <a title="1514-lda-9" href="../high_scalability-2007/high_scalability-2007-12-28-Amazon%27s_EC2%3A_Pay_as_You_Grow_Could_Cut_Your_Costs_in_Half.html">195 high scalability-2007-12-28-Amazon's EC2: Pay as You Grow Could Cut Your Costs in Half</a></p>

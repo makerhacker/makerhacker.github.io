@@ -16,115 +16,75 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1586 high scalability-2014-01-28-How Next Big Sound Tracks Over a Trillion Song Plays, Likes, and More Using a Version Control System for Hadoop Data</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1586-html" href="http://highscalability.com//blog/2014/1/28/how-next-big-sound-tracks-over-a-trillion-song-plays-likes-a.html">html</a></p><p>Introduction: This is a guest post by Eric Czech, Chief Architect at Next Big Sound, talks
-about some unique approaches taken to solving scalability challenges in music
-analytics.Tracking online activity is hardly a new idea, but doing it for the
-entire music industry isn't easy. Half a billion music video streams, track
-downloads, and artist page likes occur each day and measuring all of this
-activity across platforms such as Spotify, iTunes, YouTube, Facebook, and
-more, poses some interesting scalability challenges. Next Big Sound collects
-this type of data from over a hundred sources, standardizes everything, and
-offers that information to record labels, band managers, and artists through a
-web-based analytics platform.While many of our applications use open-source
-systems like Hadoop, HBase, Cassandra, Mongo, RabbitMQ, and MySQL, our usage
-is fairly standard, but there is one aspect of what we do that is pretty
-unique. We collect or receive information from 100+ sources and we struggled
-early on</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Tracking online activity is hardly a new idea, but doing it for the entire music industry isn't easy. [sent-2, score-0.264]
-</p><p>2 Half a billion music video streams, track downloads, and artist page likes occur each day and measuring all of this activity across platforms such as Spotify, iTunes, YouTube, Facebook, and more, poses some interesting scalability challenges. [sent-3, score-0.422]
-</p><p>3 Next Big Sound collects this type of data from over a hundred sources, standardizes everything, and offers that information to record labels, band managers, and artists through a web-based analytics platform. [sent-4, score-0.524]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1586-html" href="http://highscalability.com//blog/2014/1/28/how-next-big-sound-tracks-over-a-trillion-song-plays-likes-a.html">html</a></p><p>Introduction: This is a guest post by  Eric Czech  ,  Chief Architect at Next Big Sound, talks about some unique approaches taken to solving scalability challenges in music analytics.  
+ 
+Tracking online activity is hardly a new idea, but doing it for the entire music industry isn't easy.  Half a billion music video streams,  track downloads, and artist page likes occur each day and measuring all of this activity across platforms such as Spotify, iTunes, YouTube,  Facebook, and more, poses some interesting scalability challenges.  Next Big Sound collects this type of data from over a hundred sources,  standardizes everything, and offers that information to record labels, band managers, and artists through a web-based analytics platform.
+ 
+While many of our applications use open-source systems like Hadoop, HBase, Cassandra, Mongo, RabbitMQ, and MySQL, our usage is fairly standard, but there is one aspect of what we do that is pretty unique. We collect or receive information from 100+ sources and we s</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Tracking online activity is hardly a new idea, but doing it for the entire music industry isn't easy. [sent-2, score-0.264]
+</p><p>2 Half a billion music video streams,  track downloads, and artist page likes occur each day and measuring all of this activity across platforms such as Spotify, iTunes, YouTube,  Facebook, and more, poses some interesting scalability challenges. [sent-3, score-0.422]
+</p><p>3 Next Big Sound collects this type of data from over a hundred sources,  standardizes everything, and offers that information to record labels, band managers, and artists through a web-based analytics platform. [sent-4, score-0.524]
 </p><p>4 We collect or receive information from 100+ sources and we struggled early on to find a way to deal with how data from those sources changed over time, and we ultimately decided that we needed a data storage solution that could represent those changes. [sent-6, score-0.468]
 </p><p>5 Basically, we needed to be able to "version" or "branch" the data from those sources in much the same way that we use revision control (via Git) to control the code that creates it. [sent-7, score-0.294]
-</p><p>6 As a sort of "Moneyball for Music," Next Big Sound has grown from a single server LAMP site tracking plays on MySpace (it was cool when we started) for a handful of artists to building industry-widepopularity charts for Billboardand ingesting records ofevery song streamed on Spotify. [sent-9, score-0.583]
-</p><p>7 With over 100 sources tracked coming from both public and proprietary providers, dealing with the heterogenous nature of music analytics has required some novel solutions that go beyond the features that come for free with modern distributed databases. [sent-11, score-0.337]
-</p><p>8 At Next Big Sound, aggregating data from 100+ sources involves a somewhat traditional HadoopETLpipeline where raw data is processed via MapReduce applications, Pig, or Hive and results are written to HBase for later retrieval viaFinagle/Thriftservices; but with a twist. [sent-20, score-0.46]
-</p><p>9 All data stored within Hadoop/HBase is maintained by a special version control system that supports changes in ETL results over time, allowing for changes in the code that defines the processing pipeline to align with the data itself. [sent-21, score-0.414]
+</p><p>6 As a sort of " Moneyball for Music, " Next Big Sound has grown from a single server LAMP site tracking plays on MySpace (it was cool when we started) for a handful of artists to building  industry-wide  popularity charts for Billboard  and ingesting records of  every song streamed on Spotify . [sent-9, score-0.583]
+</p><p>7 With over 100 sources tracked  coming from both public and proprietary providers, dealing with the heterogenous nature of music analytics has required some novel solutions that go beyond the features that come for free with modern distributed databases. [sent-11, score-0.337]
+</p><p>8 At Next Big Sound, aggregating data from 100+ sources involves a somewhat traditional Hadoop  ETL  pipeline where raw data is processed  via MapReduce applications, Pig, or Hive and results are written to HBase for later retrieval via   Finagle / Thrift  services; but with a twist. [sent-20, score-0.46]
+</p><p>9 All data stored within Hadoop/HBase is maintained by a special version control system that supports changes in ETL results  over time, allowing for changes in the code that defines the processing pipeline to align with the data itself. [sent-21, score-0.414]
 </p><p>10 This means, for example, that if we're recording the number of retweets by country of an artist on Twitter and we find that our logic for geocoding tweet locations was wrong for a few days, we can simply create new versions of data for just those days rather than rebuilding the entire dataset. [sent-25, score-0.328]
-</p><p>11 "Branching" data like this has been critical for keeping up with changes in data sources and customer requests as well as supporting efficient, incremental data pipelines. [sent-27, score-0.444]
-</p><p>12 FIND: We've invested heavily in building products that give our users the ability to search through our data for interesting artists or songs based on a number of criteria (we call our premier version of this the "FIND" product). [sent-41, score-0.603]
-</p><p>13 As something akin to a stock screener for music, this product lets users sort results after filtering by criteria like "Rap artists within the 30th - 40th percentile of YouTube video views that have never previously appeared on a popularity chart of some kind". [sent-42, score-0.606]
-</p><p>14 Alerts and Benchmarks: There are always a lot of things going on in the world of music and one way we try to dig up significant events in all the noise is by benchmarking data across whole platforms (e. [sent-59, score-0.313]
+</p><p>11 "Branching" data like this has been critical for keeping up with changes in  data sources and customer requests as well as supporting  efficient, incremental data pipelines. [sent-27, score-0.444]
+</p><p>12 FIND : We've invested heavily in building products that give our users the ability to search through our data for  interesting artists or songs based on a number of criteria (we call our premier version of this the "FIND" product). [sent-41, score-0.603]
+</p><p>13 As something  akin to a stock screener for music, this product lets users sort results after filtering by criteria like "Rap artists within the 30th - 40th  percentile of YouTube video views that have never previously appeared on a popularity chart of some kind". [sent-42, score-0.606]
+</p><p>14 Alerts and Benchmarks : There are always a lot of things going on in the world of music and one way we try to dig up significant  events in all the noise is by benchmarking data across whole platforms (e. [sent-59, score-0.313]
 </p><p>15 establishing overall trends in the number of Facebook likes happening every day) and by alerting our customers when the artists they care about see significant spikes in activity. [sent-61, score-0.419]
-</p><p>16 Billboard Charts: We license two charts to Billboard magazine, one for overall popularity of artists online (theSocial 50 Chart) and one basically attempting to predict which artists are most likely to make that list in the future (theNext Big Sound Chart). [sent-65, score-0.94]
-</p><p>17 We have a lot of problems with duplicate or near-duplicate artists within our system as well as the associations of those artists to their online profiles (e. [sent-67, score-0.901]
+</p><p>16 Billboard Charts : We license two charts to Billboard magazine, one for overall popularity of artists online (the  Social 50 Chart ) and one basically attempting to predict which artists are most  likely to make that list in the future (the   Next Big Sound Chart ). [sent-65, score-0.94]
+</p><p>17 We have a lot of problems with duplicate or near-duplicate artists within our system as well as the associations of those artists to  their online profiles (e. [sent-67, score-0.901]
 </p><p>18 removing even a single legitimate artist is a big problem), manual curation is necessary. [sent-73, score-0.282]
-</p><p>19 Predictive Billboard Score: One of the more interesting analytical results we've ever produced is apatented algorithmfor calculating the likelihood with which an artist will "breakout" in the next year. [sent-75, score-0.277]
-</p><p>20 TheNext Big Sound Blogalso has some more interesting posts on data mining in the music industry and if you're really into that sort of thing, we're alwayshiring! [sent-112, score-0.375]
+</p><p>19 Predictive Billboard Score : One of the more interesting analytical results we've ever produced is a   patented algorithm  for  calculating the likelihood with which an artist will "breakout" in the next year. [sent-75, score-0.277]
+</p><p>20 The   Next Big Sound Blog  also has some more interesting posts on data mining in the music industry and if you're really into that sort of thing, we're  always  hiring ! [sent-112, score-0.375]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('artists', 0.419), ('music', 0.208), ('artist', 0.158), ('sound', 0.149), ('hbase', 0.135), ('sources', 0.129), ('hadoop', 0.109), ('data', 0.105), ('charts', 0.102), ('pig', 0.102), ('fields', 0.1), ('metric', 0.093), ('api', 0.09), ('entities', 0.086), ('providers', 0.085), ('baselines', 0.079), ('codeigniter', 0.079), ('version', 0.079), ('cloudera', 0.075), ('parameter', 0.074), ('thenext', 0.072), ('colocation', 0.072), ('aside', 0.071), ('youtube', 0.071), ('backbone', 0.068), ('mongodb', 0.068), ('curation', 0.068), ('bieber', 0.068), ('timeseries', 0.068), ('impala', 0.068), ('coordinates', 0.065), ('eg', 0.065), ('retweets', 0.065), ('billboard', 0.065), ('within', 0.063), ('sort', 0.062), ('results', 0.062), ('cassandra', 0.061), ('delete', 0.061), ('much', 0.06), ('bursty', 0.06), ('involves', 0.059), ('externally', 0.059), ('likelihood', 0.057), ('spotify', 0.057), ('codebase', 0.057), ('pretty', 0.057), ('big', 0.056), ('activity', 0.056), ('iterations', 0.056)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1586-tfidf-1" href="../high_scalability-2014/high_scalability-2014-01-28-How_Next_Big_Sound_Tracks_Over_a_Trillion_Song_Plays%2C_Likes%2C_and_More_Using_a_Version_Control_System_for_Hadoop_Data.html">1586 high scalability-2014-01-28-How Next Big Sound Tracks Over a Trillion Song Plays, Likes, and More Using a Version Control System for Hadoop Data</a></p>
-<p>Introduction: This is a guest post by Eric Czech, Chief Architect at Next Big Sound, talks
-about some unique approaches taken to solving scalability challenges in music
-analytics.Tracking online activity is hardly a new idea, but doing it for the
-entire music industry isn't easy. Half a billion music video streams, track
-downloads, and artist page likes occur each day and measuring all of this
-activity across platforms such as Spotify, iTunes, YouTube, Facebook, and
-more, poses some interesting scalability challenges. Next Big Sound collects
-this type of data from over a hundred sources, standardizes everything, and
-offers that information to record labels, band managers, and artists through a
-web-based analytics platform.While many of our applications use open-source
-systems like Hadoop, HBase, Cassandra, Mongo, RabbitMQ, and MySQL, our usage
-is fairly standard, but there is one aspect of what we do that is pretty
-unique. We collect or receive information from 100+ sources and we struggled
-early on</p><p>2 0.27270246 <a title="1586-tfidf-2" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
-<p>Introduction: This is aguest repostbyRotem Hermon, former Chief Architect forserendip.me, on
-the architecture and scaling considerations behind making a startup music
-service.serendip.meis a social music service that helps people discover great
-music shared by their friends, and also introduces them to their "music
-soulmates" \- people outside their immediate social circle that shares a
-similar taste in music.Serendip is running on AWS and is built on the
-following stack:scala(and some Java),akka(for handling concurrency),Play
-framework(for the web and API front-ends),MongoDBandElasticsearch.Choosing the
-stackOne of the challenges of building serendip was the need to handle a large
-amount of data from day one, since a main feature of serendip is that it
-collectsevery piece of music being shared on Twitterfrom public music
-services. So when we approached the question of choosing the language and
-technologies to use, an important consideration was the ability to scale.The
-JVM seemed the right basis fo</p><p>3 0.1972557 <a title="1586-tfidf-3" href="../high_scalability-2012/high_scalability-2012-01-31-Sponsored_Post%3A_aiCache%2C_Next_Big_Sound%2C_ElasticHosts%2C_Red_5_Studios%2C_Attribution_Modeling%2C_Logic_Monitor%2C_New_Relic%2C_AppDynamics%2C_CloudSigma%2C_ManageEngine%2C_Site24x7.html">1185 high scalability-2012-01-31-Sponsored Post: aiCache, Next Big Sound, ElasticHosts, Red 5 Studios, Attribution Modeling, Logic Monitor, New Relic, AppDynamics, CloudSigma, ManageEngine, Site24x7</a></p>
-<p>Introduction: Who's Hiring?Anybody interested in helping manage a 100+ Linux server
-deployment? Next Big Sound is a an analytics company for the music industry
-and is looking someone to help them scale.Red 5 Studios. Wanted: DBAs and
-Programmers interested in MySQL scalability and replication. If
-interested,please see us here. Fun and Informative EventsSign up for this
-free30-minute webinar exploring how new technology can determine which ads
-have been seen by users and will discuss theC3 Metrics Labsanalysis of over 2
-billion impressions. Cool Products and ServicesaiCache creates a better user
-experience by increasing the speed scale and stability of your web-
-site.ElasticHostsaward winning cloud serverhosting launches across North
-America. Adding data centers in Los Angeles and Toronto. Free trial
-.LogicMonitor-Hosted monitoringof your entire technology stack. Dashboards,
-trending graphs, alerting. Try it free and be up and running in just 15
-minutes.New Relic- real user monitoring optimize for hu</p><p>4 0.18724433 <a title="1586-tfidf-4" href="../high_scalability-2012/high_scalability-2012-01-17-Sponsored_Post%3A_Next_Big_Sound%2C_ElasticHosts%2C_1%261%2C_Red_5_Studios%2C_SingleHop%2C_Spokeo%2C_Callfire%2C_Attribution_Modeling%2C_Logic_Monitor%2C_New_Relic%2C_ScaleOut%2C_AppDynamics%2C_CloudSigma%2C_ManageEngine%2C_Site24x7.html">1176 high scalability-2012-01-17-Sponsored Post: Next Big Sound, ElasticHosts, 1&1, Red 5 Studios, SingleHop, Spokeo, Callfire, Attribution Modeling, Logic Monitor, New Relic, ScaleOut, AppDynamics, CloudSigma, ManageEngine, Site24x7</a></p>
-<p>Introduction: Who's Hiring?Anybody interested in helping manage a 100+ Linux server
-deployment? Next Big Sound is a an analytics company for the music industry
-and is looking someone to help them scale.Red 5 Studios. Wanted: DBAs and
-Programmers interested in MySQL scalability and replication. If
-interested,please see us here. Callfire, one of the largest cloud telephony
-platforms on the web, is hiring a Sr. Software Engineer. You canlearn more
-here.Spokeois hiring backend & frontend developers, and system administrators
-to revolutionize the people search industry. Please visithere for more
-information.Fun and Informative EventsSign up for this free30-minute webinar
-exploring how new technology can determine which ads have been seen by users
-and will discuss theC3 Metrics Labsanalysis of over 2 billion impressions.
-Cool Products and ServicesElasticHostsaward winning cloud server hosting
-launches across North America. Adding data centers in Los Angeles and Toronto.
-Free trial. Justvisit our website.S</p><p>5 0.18617064 <a title="1586-tfidf-5" href="../high_scalability-2012/high_scalability-2012-02-14-Sponsored_Post%3A_Percona_Live%2C_AiCache%2C_Next_Big_Sound%2C_ElasticHosts%2C_Red_5_Studios%2C_Logic_Monitor%2C_New_Relic%2C_AppDynamics%2C_CloudSigma%2C_ManageEngine%2C_Site24x7.html">1192 high scalability-2012-02-14-Sponsored Post: Percona Live, AiCache, Next Big Sound, ElasticHosts, Red 5 Studios, Logic Monitor, New Relic, AppDynamics, CloudSigma, ManageEngine, Site24x7</a></p>
-<p>Introduction: Who's Hiring?Anybody interested in helping manage a 100+ Linux server
-deployment? Next Big Sound is a an analytics company for the music industry
-and is looking someone to help them scale.Red 5 Studios. Wanted: DBAs and
-Programmers interested in MySQL scalability and replication. If
-interested,please see us here. Fun and Informative EventsThePercona Live MySQL
-Conference & Expofeatures 60+ speakers, 72 breakout sessions, and keynotes
-from HP, Facebook, Box, Eucalyptus Systems, and more. April 10-12 in Santa
-ClaraCool Products and ServicesaiCache creates a better user experience by
-increasing the speed scale and stability of your web-site.ElasticHostsaward
-winning cloud serverhosting launches across North America. Adding data centers
-in Los Angeles and Toronto. Free trial.LogicMonitor-Hosted monitoringof your
-entire technology stack. Dashboards, trending graphs, alerting. Try it free
-and be up and running in just 15 minutes.New Relic- real user monitoring
-optimize for humans, not bots.</p><p>6 0.18017358 <a title="1586-tfidf-6" href="../high_scalability-2011/high_scalability-2011-03-08-Medialets_Architecture_-__Defeating_the_Daunting_Mobile_Device_Data_Deluge.html">1000 high scalability-2011-03-08-Medialets Architecture -  Defeating the Daunting Mobile Device Data Deluge</a></p>
+<p>Introduction: This is a guest post by  Eric Czech  ,  Chief Architect at Next Big Sound, talks about some unique approaches taken to solving scalability challenges in music analytics.  
+ 
+Tracking online activity is hardly a new idea, but doing it for the entire music industry isn't easy.  Half a billion music video streams,  track downloads, and artist page likes occur each day and measuring all of this activity across platforms such as Spotify, iTunes, YouTube,  Facebook, and more, poses some interesting scalability challenges.  Next Big Sound collects this type of data from over a hundred sources,  standardizes everything, and offers that information to record labels, band managers, and artists through a web-based analytics platform.
+ 
+While many of our applications use open-source systems like Hadoop, HBase, Cassandra, Mongo, RabbitMQ, and MySQL, our usage is fairly standard, but there is one aspect of what we do that is pretty unique. We collect or receive information from 100+ sources and we s</p><p>2 0.27270246 <a title="1586-tfidf-2" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
+<p>Introduction: This is a  guest repost  by  Rotem Hermon , former Chief Architect for  serendip.me , on the architecture and scaling considerations behind making a startup music service. 
+ 
+ serendip.me  is a social music service that helps people discover great music shared by their friends, and also introduces them to their “music soulmates” - people outside their immediate social circle that shares a similar taste in music.
+ 
+Serendip is running on AWS and is built on the following stack:  scala  (and some Java),  akka  (for handling concurrency),  Play framework  (for the web and API front-ends),  MongoDB  and  Elasticsearch .
+  Choosing the stack  
+One of the challenges of building serendip was the need to handle a large amount of data from day one, since a main feature of serendip is that it collects  every piece of music being shared on Twitter  from public music services. So when we approached the question of choosing the language and technologies to use, an important consideration was the ab</p><p>3 0.1972557 <a title="1586-tfidf-3" href="../high_scalability-2012/high_scalability-2012-01-31-Sponsored_Post%3A_aiCache%2C_Next_Big_Sound%2C_ElasticHosts%2C_Red_5_Studios%2C_Attribution_Modeling%2C_Logic_Monitor%2C_New_Relic%2C_AppDynamics%2C_CloudSigma%2C_ManageEngine%2C_Site24x7.html">1185 high scalability-2012-01-31-Sponsored Post: aiCache, Next Big Sound, ElasticHosts, Red 5 Studios, Attribution Modeling, Logic Monitor, New Relic, AppDynamics, CloudSigma, ManageEngine, Site24x7</a></p>
+<p>Introduction: Who's Hiring?   
+ Anybody interested in helping manage a 100+ Linux server deployment?  Next Big Sound  is a an analytics company for the music industry and is looking someone to help them scale. 
+    Red 5 Studios.  Wanted: DBAs and Programmers interested in MySQL scalability and replication. If interested,  please see us here .  
+   Fun and Informative Events   
+ Sign up for this free  30-minute webinar  exploring how new technology can determine which ads have been seen by users and will discuss the  C3 Metrics Labs  analysis of over 2 billion impressions.  
+   Cool Products and Services   
+   aiCache   creates a better user experience by increasing the speed scale and stability of your web-site.   
+  ElasticHosts  award winning    cloud server  hosting launches across North America.   Adding data centers in Los Angeles and Toronto.  Free trial . 
+  LogicMonitor  -  Hosted monitoring  of your entire technology stack. Dashboards, trending graphs, alerting. Try it free and be up and r</p><p>4 0.18724433 <a title="1586-tfidf-4" href="../high_scalability-2012/high_scalability-2012-01-17-Sponsored_Post%3A_Next_Big_Sound%2C_ElasticHosts%2C_1%261%2C_Red_5_Studios%2C_SingleHop%2C_Spokeo%2C_Callfire%2C_Attribution_Modeling%2C_Logic_Monitor%2C_New_Relic%2C_ScaleOut%2C_AppDynamics%2C_CloudSigma%2C_ManageEngine%2C_Site24x7.html">1176 high scalability-2012-01-17-Sponsored Post: Next Big Sound, ElasticHosts, 1&1, Red 5 Studios, SingleHop, Spokeo, Callfire, Attribution Modeling, Logic Monitor, New Relic, ScaleOut, AppDynamics, CloudSigma, ManageEngine, Site24x7</a></p>
+<p>Introduction: Who's Hiring?   
+ Anybody interested in helping manage a 100+ Linux server deployment?  Next Big Sound  is a an analytics company for the music industry and is looking someone to help them scale. 
+    Red 5 Studios.  Wanted: DBAs and Programmers interested in MySQL scalability and replication. If interested,  please see us here .  
+  Callfire,  one of the largest cloud telephony platforms on the web, is hiring a Sr. Software Engineer. You can  learn more here . 
+  Spokeo  is hiring backend & frontend developers, and system administrators to revolutionize the people search industry. Please visit  here for more information . 
+   Fun and Informative Events   
+ Sign up for this free  30-minute webinar  exploring how new technology can determine which ads have been seen by users and will discuss the  C3 Metrics Labs  analysis of over 2 billion impressions.  
+   Cool Products and Services   
+  ElasticHosts  award winning   cloud server hosting launches across North America.   Adding data cen</p><p>5 0.18617064 <a title="1586-tfidf-5" href="../high_scalability-2012/high_scalability-2012-02-14-Sponsored_Post%3A_Percona_Live%2C_AiCache%2C_Next_Big_Sound%2C_ElasticHosts%2C_Red_5_Studios%2C_Logic_Monitor%2C_New_Relic%2C_AppDynamics%2C_CloudSigma%2C_ManageEngine%2C_Site24x7.html">1192 high scalability-2012-02-14-Sponsored Post: Percona Live, AiCache, Next Big Sound, ElasticHosts, Red 5 Studios, Logic Monitor, New Relic, AppDynamics, CloudSigma, ManageEngine, Site24x7</a></p>
+<p>Introduction: Who's Hiring?   
+ Anybody interested in helping manage a 100+ Linux server deployment?  Next Big Sound  is a an analytics company for the music industry and is looking someone to help them scale. 
+    Red 5 Studios.  Wanted: DBAs and Programmers interested in MySQL scalability and replication. If interested,  please see us here .  
+   Fun and Informative Events   
+ The  Percona Live MySQL Conference & Expo  features 60+ speakers, 72 breakout sessions, and keynotes from HP, Facebook, Box, Eucalyptus Systems, and more. April 10-12 in Santa Clara 
+   Cool Products and Services   
+   aiCache   creates a better user experience by increasing the speed scale and stability of your web-site.   
+  ElasticHosts  award winning    cloud server  hosting launches across North America.   Adding data centers in Los Angeles and Toronto.  Free trial . 
+  LogicMonitor  -  Hosted monitoring  of your entire technology stack. Dashboards, trending graphs, alerting. Try it free and be up and running in just 15</p><p>6 0.18017358 <a title="1586-tfidf-6" href="../high_scalability-2011/high_scalability-2011-03-08-Medialets_Architecture_-__Defeating_the_Daunting_Mobile_Device_Data_Deluge.html">1000 high scalability-2011-03-08-Medialets Architecture -  Defeating the Daunting Mobile Device Data Deluge</a></p>
 <p>7 0.17281818 <a title="1586-tfidf-7" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
 <p>8 0.16564208 <a title="1586-tfidf-8" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
 <p>9 0.16326025 <a title="1586-tfidf-9" href="../high_scalability-2012/high_scalability-2012-11-15-Gone_Fishin%27%3A_Justin.Tv%27s_Live_Video_Broadcasting_Architecture.html">1359 high scalability-2012-11-15-Gone Fishin': Justin.Tv's Live Video Broadcasting Architecture</a></p>
@@ -144,75 +104,30 @@ optimize for humans, not bots.</p><p>6 0.18017358 <a title="1586-tfidf-6" href="
 <p>[(0, 0.312), (1, 0.123), (2, 0.008), (3, 0.01), (4, 0.042), (5, 0.021), (6, 0.008), (7, 0.049), (8, 0.111), (9, 0.038), (10, 0.043), (11, 0.064), (12, 0.042), (13, -0.049), (14, 0.05), (15, 0.008), (16, -0.005), (17, -0.027), (18, -0.034), (19, -0.028), (20, -0.03), (21, -0.003), (22, 0.063), (23, 0.033), (24, 0.005), (25, 0.015), (26, 0.017), (27, -0.022), (28, 0.001), (29, 0.062), (30, 0.045), (31, 0.066), (32, -0.006), (33, 0.006), (34, 0.028), (35, 0.051), (36, -0.027), (37, -0.024), (38, -0.005), (39, 0.005), (40, 0.005), (41, 0.001), (42, -0.002), (43, 0.047), (44, 0.038), (45, 0.04), (46, -0.026), (47, -0.016), (48, 0.032), (49, -0.009)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9613573 <a title="1586-lsi-1" href="../high_scalability-2014/high_scalability-2014-01-28-How_Next_Big_Sound_Tracks_Over_a_Trillion_Song_Plays%2C_Likes%2C_and_More_Using_a_Version_Control_System_for_Hadoop_Data.html">1586 high scalability-2014-01-28-How Next Big Sound Tracks Over a Trillion Song Plays, Likes, and More Using a Version Control System for Hadoop Data</a></p>
-<p>Introduction: This is a guest post by Eric Czech, Chief Architect at Next Big Sound, talks
-about some unique approaches taken to solving scalability challenges in music
-analytics.Tracking online activity is hardly a new idea, but doing it for the
-entire music industry isn't easy. Half a billion music video streams, track
-downloads, and artist page likes occur each day and measuring all of this
-activity across platforms such as Spotify, iTunes, YouTube, Facebook, and
-more, poses some interesting scalability challenges. Next Big Sound collects
-this type of data from over a hundred sources, standardizes everything, and
-offers that information to record labels, band managers, and artists through a
-web-based analytics platform.While many of our applications use open-source
-systems like Hadoop, HBase, Cassandra, Mongo, RabbitMQ, and MySQL, our usage
-is fairly standard, but there is one aspect of what we do that is pretty
-unique. We collect or receive information from 100+ sources and we struggled
-early on</p><p>2 0.85677838 <a title="1586-lsi-2" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
-<p>Introduction: I remember the excitement of when Twitter first opened up their firehose. As
-an early adopter of the Twitter API I could easily imagine some of the cool
-things you could do with all that data. I also remember the disappointment of
-learning that in the land of BigData, data has a price, and that price would
-be too high for little fish like me. It was like learning for the first time
-there would be no BigData Santa Clause.For a while though I had the pleasure
-of pondering just how I would handle all that data. It's a fascinating
-problem. You have to be able to reliably consume it, normalize it, merge it
-with other data, apply functions on it, store it, query it, distribute it, and
-oh yah, monetize it. Most of that in realish-time. And if you are trying to
-create a platform for allowing the entire Internet do to the same thing to the
-firehose, the challenge is exponentially harder.DataSift is in the exciting
-position of creating just such a firehose eating, data chomping machine. You
-see,</p><p>3 0.85235983 <a title="1586-lsi-3" href="../high_scalability-2011/high_scalability-2011-03-08-Medialets_Architecture_-__Defeating_the_Daunting_Mobile_Device_Data_Deluge.html">1000 high scalability-2011-03-08-Medialets Architecture -  Defeating the Daunting Mobile Device Data Deluge</a></p>
-<p>Introduction: Mobile developers have a huge scaling problem ahead: doing something useful
-with massive continuous streams of telemetry data from millions and millions
-of devices. This is a really good problem to have. It means smartphone sales
-are finally fulfilling their destiny: slaughtering PCsin the sales arena. And
-it also means mobile devices aren't just containers for simple standalone apps
-anymore, they are becoming the dominant interface to giant backend
-systems.While developers are now rocking mobile development on the client
-side, their next challenge is how to code those tricky backend bits. A company
-facing those same exact problems right now isMedialets, a mobile rich media ad
-platform. What they do is help publishers create high quality interactive ads,
-though for our purposes their ad stuff isn't that interesting. What I did find
-really interesting about their system is how they are tackling the problem of
-defeating the mobile device data deluge.Each day Medialets munches on billions</p><p>4 0.85004175 <a title="1586-lsi-4" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
-<p>Introduction: This is aguest repostbyRotem Hermon, former Chief Architect forserendip.me, on
-the architecture and scaling considerations behind making a startup music
-service.serendip.meis a social music service that helps people discover great
-music shared by their friends, and also introduces them to their "music
-soulmates" \- people outside their immediate social circle that shares a
-similar taste in music.Serendip is running on AWS and is built on the
-following stack:scala(and some Java),akka(for handling concurrency),Play
-framework(for the web and API front-ends),MongoDBandElasticsearch.Choosing the
-stackOne of the challenges of building serendip was the need to handle a large
-amount of data from day one, since a main feature of serendip is that it
-collectsevery piece of music being shared on Twitterfrom public music
-services. So when we approached the question of choosing the language and
-technologies to use, an important consideration was the ability to scale.The
-JVM seemed the right basis fo</p><p>5 0.82988 <a title="1586-lsi-5" href="../high_scalability-2010/high_scalability-2010-05-10-Sify.com_Architecture_-_A_Portal_at_3900_Requests_Per_Second.html">825 high scalability-2010-05-10-Sify.com Architecture - A Portal at 3900 Requests Per Second</a></p>
-<p>Introduction: Sify.com is one of the leading portals in India. Samachar.com is owned by the
-same company and is one of the top content aggregation sites in India,
-primarily targeting Non-resident Indians from around the world. Ramki
-Subramanian, an Architect at Sify, has been generous enough to describe the
-common back-end for both these sites. One of the most notable aspects of their
-architecture is that Sify does not use a traditional database. They query Solr
-and then retrieve records from a distributed file system. Over the years many
-people have argued for file systems over databases. Filesystems can work for
-key-value lookups, but they don't work for queries, using Solr is a good way
-around that problem. Another interesting aspect of their system is the use of
-Drools for intelligent cache invalidation. As we have more and more data
-duplicated in multiple specialized services, the problem of how to keep
-themsynchronized is a difficult one. A rules engine is a clever
-approach.Platform / ToolsLin</p><p>6 0.8254838 <a title="1586-lsi-6" href="../high_scalability-2013/high_scalability-2013-01-07-Analyzing_billions_of_credit_card_transactions_and_serving_low-latency_insights_in_the_cloud.html">1382 high scalability-2013-01-07-Analyzing billions of credit card transactions and serving low-latency insights in the cloud</a></p>
+<p>Introduction: This is a guest post by  Eric Czech  ,  Chief Architect at Next Big Sound, talks about some unique approaches taken to solving scalability challenges in music analytics.  
+ 
+Tracking online activity is hardly a new idea, but doing it for the entire music industry isn't easy.  Half a billion music video streams,  track downloads, and artist page likes occur each day and measuring all of this activity across platforms such as Spotify, iTunes, YouTube,  Facebook, and more, poses some interesting scalability challenges.  Next Big Sound collects this type of data from over a hundred sources,  standardizes everything, and offers that information to record labels, band managers, and artists through a web-based analytics platform.
+ 
+While many of our applications use open-source systems like Hadoop, HBase, Cassandra, Mongo, RabbitMQ, and MySQL, our usage is fairly standard, but there is one aspect of what we do that is pretty unique. We collect or receive information from 100+ sources and we s</p><p>2 0.85677838 <a title="1586-lsi-2" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
+<p>Introduction: I remember the excitement of when Twitter first opened up their firehose.  As an early adopter of the Twitter API I could easily imagine some of the cool things you could do with all that data. I also remember the disappointment of learning that in the land of BigData, data has a price, and that price would be too high for little fish like me. It was like learning for the first time there would be no BigData Santa Clause.
+ 
+For a while though I had the pleasure of pondering just how I would handle all that data. It's a fascinating problem. You have to be able to reliably consume it, normalize it, merge it with other data, apply functions on it, store it, query it, distribute it, and oh yah, monetize it. Most of that in realish-time. And if you are trying to create a platform for allowing the entire Internet do to the same thing to the firehose, the challenge is exponentially harder.
+ 
+DataSift is in the exciting position of creating just such a firehose eating, data chomping machine. Y</p><p>3 0.85235983 <a title="1586-lsi-3" href="../high_scalability-2011/high_scalability-2011-03-08-Medialets_Architecture_-__Defeating_the_Daunting_Mobile_Device_Data_Deluge.html">1000 high scalability-2011-03-08-Medialets Architecture -  Defeating the Daunting Mobile Device Data Deluge</a></p>
+<p>Introduction: Mobile developers have a huge scaling problem ahead: doing something useful with massive continuous streams of telemetry data from millions and millions of devices. This is a really good problem to have. It means smartphone sales are finally fulfilling their destiny:  slaughtering PCs  in the sales arena. And it also means mobile devices aren't just containers for simple standalone apps anymore, they are becoming the dominant interface to giant backend systems.
+    
+While developers are now rocking mobile development on the client side, their next challenge is how to code those tricky backend bits. A company facing those same exact problems right now is  Medialets , a mobile rich media ad platform. What they do is help publishers create high quality interactive ads, though for our purposes their ad stuff isn't that interesting. What I did find really interesting about their system is how they are tackling the problem of defeating the mobile device data deluge.
+ 
+Each day Medialets munc</p><p>4 0.85004175 <a title="1586-lsi-4" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
+<p>Introduction: This is a  guest repost  by  Rotem Hermon , former Chief Architect for  serendip.me , on the architecture and scaling considerations behind making a startup music service. 
+ 
+ serendip.me  is a social music service that helps people discover great music shared by their friends, and also introduces them to their “music soulmates” - people outside their immediate social circle that shares a similar taste in music.
+ 
+Serendip is running on AWS and is built on the following stack:  scala  (and some Java),  akka  (for handling concurrency),  Play framework  (for the web and API front-ends),  MongoDB  and  Elasticsearch .
+  Choosing the stack  
+One of the challenges of building serendip was the need to handle a large amount of data from day one, since a main feature of serendip is that it collects  every piece of music being shared on Twitter  from public music services. So when we approached the question of choosing the language and technologies to use, an important consideration was the ab</p><p>5 0.82988 <a title="1586-lsi-5" href="../high_scalability-2010/high_scalability-2010-05-10-Sify.com_Architecture_-_A_Portal_at_3900_Requests_Per_Second.html">825 high scalability-2010-05-10-Sify.com Architecture - A Portal at 3900 Requests Per Second</a></p>
+<p>Introduction: Sify.com is one of the leading portals in India. Samachar.com is owned by the same company and is one of the top content aggregation sites in India, primarily targeting Non-resident Indians from around the world. Ramki Subramanian, an Architect at Sify, has been generous enough to describe the common back-end for both these sites. One of the most notable aspects of their architecture is that Sify does not use a traditional database. They query Solr and then retrieve records from a distributed file system. Over the years many people have argued for file systems over databases. Filesystems can work for key-value lookups, but they don't work for queries, using Solr is a good way around that problem. Another interesting aspect of their system is the use of Drools for intelligent cache invalidation. As we have more and more data duplicated in multiple specialized services, the problem of how to keep them  synchronized  is a difficult one. A rules engine is a clever approach.
+         Platfo</p><p>6 0.8254838 <a title="1586-lsi-6" href="../high_scalability-2013/high_scalability-2013-01-07-Analyzing_billions_of_credit_card_transactions_and_serving_low-latency_insights_in_the_cloud.html">1382 high scalability-2013-01-07-Analyzing billions of credit card transactions and serving low-latency insights in the cloud</a></p>
 <p>7 0.81303692 <a title="1586-lsi-7" href="../high_scalability-2012/high_scalability-2012-07-27-Stuff_The_Internet_Says_On_Scalability_For_July_27%2C_2012.html">1292 high scalability-2012-07-27-Stuff The Internet Says On Scalability For July 27, 2012</a></p>
 <p>8 0.81135833 <a title="1586-lsi-8" href="../high_scalability-2014/high_scalability-2014-05-16-Stuff_The_Internet_Says_On_Scalability_For_May_16th%2C_2014.html">1649 high scalability-2014-05-16-Stuff The Internet Says On Scalability For May 16th, 2014</a></p>
 <p>9 0.80548376 <a title="1586-lsi-9" href="../high_scalability-2012/high_scalability-2012-07-30-Prismatic_Architecture_-_Using_Machine_Learning_on_Social_Networks_to_Figure_Out_What_You_Should_Read_on_the_Web_.html">1293 high scalability-2012-07-30-Prismatic Architecture - Using Machine Learning on Social Networks to Figure Out What You Should Read on the Web </a></p>
@@ -232,76 +147,37 @@ approach.Platform / ToolsLin</p><p>6 0.8254838 <a title="1586-lsi-6" href="../hi
 <p>[(1, 0.137), (2, 0.182), (10, 0.043), (23, 0.013), (30, 0.048), (39, 0.078), (40, 0.018), (43, 0.012), (47, 0.023), (51, 0.012), (61, 0.093), (77, 0.027), (79, 0.097), (85, 0.049), (94, 0.051), (96, 0.013)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.96507806 <a title="1586-lda-1" href="../high_scalability-2010/high_scalability-2010-09-16-How_Can_the_Large_Hadron_Collider_Withstand_One_Petabyte_of_Data_a_Second%3F.html">901 high scalability-2010-09-16-How Can the Large Hadron Collider Withstand One Petabyte of Data a Second?</a></p>
-<p>Introduction: Why is there something rather than nothing? That's the kind of question
-theLarge Hadron Colliderin CERN is hopefully poised to answer. And what is the
-output of this beautiful 17-mile long,6 billion dollar wabi-sabishproton
-smashing machine? Data. Great heaping torrents of Grand Canyon sized data. 15
-million gigabytes every year. That's 1000 times the information printed in
-books every year. It's so much data 10,000 scientists will use agridof80,000+
-computers, in 300 computer centers , in 50 different countries just to help
-make sense of it all.How will all this data be collected, transported, stored,
-and analyzed? It turns out, using what amounts to sort of Internet of
-Particles instead of an Internet of Things.Two good articles have recently
-shed some electro-magnetic energy in the human visible spectrum on the IT
-aspects of the collider:LHC computing grid pushes petabytes of data, beats
-expectations by John Timmer on Ars Technica and an overview of theBrookhaven's
-RHIC/ATLAS Comput</p><p>2 0.96073669 <a title="1586-lda-2" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
-<p>Introduction: I remember the excitement of when Twitter first opened up their firehose. As
-an early adopter of the Twitter API I could easily imagine some of the cool
-things you could do with all that data. I also remember the disappointment of
-learning that in the land of BigData, data has a price, and that price would
-be too high for little fish like me. It was like learning for the first time
-there would be no BigData Santa Clause.For a while though I had the pleasure
-of pondering just how I would handle all that data. It's a fascinating
-problem. You have to be able to reliably consume it, normalize it, merge it
-with other data, apply functions on it, store it, query it, distribute it, and
-oh yah, monetize it. Most of that in realish-time. And if you are trying to
-create a platform for allowing the entire Internet do to the same thing to the
-firehose, the challenge is exponentially harder.DataSift is in the exciting
-position of creating just such a firehose eating, data chomping machine. You
-see,</p><p>3 0.95959532 <a title="1586-lda-3" href="../high_scalability-2010/high_scalability-2010-06-16-Hot_Scalability_Links_for_June_16%2C_2010.html">842 high scalability-2010-06-16-Hot Scalability Links for June 16, 2010</a></p>
-<p>Introduction: You're Doing it Wrong by Poul-Henning Kamp. Don't look so guilty, he's not
-talking about you know what, he's talking about writing high-performance
-server programs: Not just wrong as in not perfect, but wrong as in wasting
-half, or more, of your performance. What good is an O(log2(n)) algorithm if
-those operations cause page faults and slow disk operations? For most relevant
-datasets an O(n) or even an O(n^2) algorithm, which avoids page faults, will
-run circles around it. A Microsoft Windows Azure primer: the basicsby Peter
-Bright. Nice article explaining the basics of Azure and how it compares to
-Google and Amazon.A call to change the name from NoSQL to Postmodern
-Databases. Interesting idea, but the problem is the same one I have for
-Postmodern Art, when is it? I always feel like I'm in the post-post modern
-period, yet for art it's really in the early 1900s. Let's save future
-developers from this existential time crisis.Constructions from Dots and
-Linesby Marko A. Rodriguez, Peter N</p><p>same-blog 4 0.95408928 <a title="1586-lda-4" href="../high_scalability-2014/high_scalability-2014-01-28-How_Next_Big_Sound_Tracks_Over_a_Trillion_Song_Plays%2C_Likes%2C_and_More_Using_a_Version_Control_System_for_Hadoop_Data.html">1586 high scalability-2014-01-28-How Next Big Sound Tracks Over a Trillion Song Plays, Likes, and More Using a Version Control System for Hadoop Data</a></p>
-<p>Introduction: This is a guest post by Eric Czech, Chief Architect at Next Big Sound, talks
-about some unique approaches taken to solving scalability challenges in music
-analytics.Tracking online activity is hardly a new idea, but doing it for the
-entire music industry isn't easy. Half a billion music video streams, track
-downloads, and artist page likes occur each day and measuring all of this
-activity across platforms such as Spotify, iTunes, YouTube, Facebook, and
-more, poses some interesting scalability challenges. Next Big Sound collects
-this type of data from over a hundred sources, standardizes everything, and
-offers that information to record labels, band managers, and artists through a
-web-based analytics platform.While many of our applications use open-source
-systems like Hadoop, HBase, Cassandra, Mongo, RabbitMQ, and MySQL, our usage
-is fairly standard, but there is one aspect of what we do that is pretty
-unique. We collect or receive information from 100+ sources and we struggled
-early on</p><p>5 0.9488824 <a title="1586-lda-5" href="../high_scalability-2011/high_scalability-2011-11-18-Stuff_The_Internet_Says_On_Scalability_For_November_18%2C_2011.html">1145 high scalability-2011-11-18-Stuff The Internet Says On Scalability For November 18, 2011</a></p>
-<p>Introduction: Every kiss begins with HighScalability:Amazon and the secret to life:
-42;10,240 coresMany quatloos worth of quotable quotes:@alesroubicek:  State
-kills scalability@cincura_net : Wrong. *Shared* state kills
-scalability.@kpshea: When I think "cloud" computing, I imagine the gaseous
-Star Trek blob that ate red blood cells (your sensitive data).@kotobuki: I'm
-interested in scalability of personal fabrication. How to 'scale' in batch
-production stages will be a key, but still there are barriers.@simonraikallen:
-The two rules of scalability testing: (1) The bottleneck is always the
-database (2) You can never predict what the bottleneck will be.@mastachand:
-Spot on Post by @storagebod about PetaByte-Scale storage. it's not only about
-scaling. It's about "Simple Scalability"
-(http://www.storagebod.com/wordpress/?p=930)@mschopman: don't forget about
-scalability, better response times due to shorter distances, ability to add
-nodes pretty fast@marksbirch: Photo: newyorker: The way we are producin</p><p>6 0.94867116 <a title="1586-lda-6" href="../high_scalability-2013/high_scalability-2013-08-07-RAFT_-_In_Search_of_an_Understandable_Consensus_Algorithm.html">1498 high scalability-2013-08-07-RAFT - In Search of an Understandable Consensus Algorithm</a></p>
+<p>Introduction: Why is there something rather than nothing? That's the kind of question the  Large Hadron Collider  in CERN is hopefully poised to answer. And what is the output of this beautiful 17-mile long,  6 billion  dollar  wabi-sabish  proton smashing machine? Data. Great heaping torrents of Grand Canyon sized data. 15 million gigabytes every year. That's 1000 times the information printed in books every year. It's so much data 10,000 scientists will use a  grid  of  80,000+ computers , in 300 computer centers , in 50 different countries just to help make sense of it all.
+ 
+How will all this data be collected, transported, stored, and analyzed? It turns out, using what amounts to sort of Internet of Particles instead of an Internet of Things.
+ 
+Two good articles have recently shed some electro-magnetic energy in the human visible spectrum on the IT aspects of the collider:  LHC computing grid pushes petabytes of data, beats expectations  by John Timmer on Ars Technica and an overview of the  Br</p><p>2 0.96073669 <a title="1586-lda-2" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
+<p>Introduction: I remember the excitement of when Twitter first opened up their firehose.  As an early adopter of the Twitter API I could easily imagine some of the cool things you could do with all that data. I also remember the disappointment of learning that in the land of BigData, data has a price, and that price would be too high for little fish like me. It was like learning for the first time there would be no BigData Santa Clause.
+ 
+For a while though I had the pleasure of pondering just how I would handle all that data. It's a fascinating problem. You have to be able to reliably consume it, normalize it, merge it with other data, apply functions on it, store it, query it, distribute it, and oh yah, monetize it. Most of that in realish-time. And if you are trying to create a platform for allowing the entire Internet do to the same thing to the firehose, the challenge is exponentially harder.
+ 
+DataSift is in the exciting position of creating just such a firehose eating, data chomping machine. Y</p><p>3 0.95959532 <a title="1586-lda-3" href="../high_scalability-2010/high_scalability-2010-06-16-Hot_Scalability_Links_for_June_16%2C_2010.html">842 high scalability-2010-06-16-Hot Scalability Links for June 16, 2010</a></p>
+<p>Introduction: You're Doing it Wrong  by Poul-Henning Kamp. Don't look so guilty, he's not talking about you know what, he's talking about writing high-performance server programs:  Not just wrong as in not perfect, but wrong as in wasting half, or more, of your performance. What good is an  O(log2(n))  algorithm if those operations cause page faults and slow disk operations? For most relevant datasets an  O(n)  or even an  O(n^2)  algorithm, which avoids page faults, will run circles around it.   
+  A Microsoft Windows Azure primer: the basics  by Peter Bright. Nice article explaining the basics of Azure and how it compares to Google and Amazon. 
+ A call to change the name from  NoSQL to Postmodern Databases . Interesting idea, but the problem is the same one I have for Postmodern Art, when is it? I always feel like I'm in the post-post modern period, yet for art it's really in the early 1900s. Let's save future developers from this existential time crisis. 
+  Constructions from Dots and Lines  by M</p><p>same-blog 4 0.95408928 <a title="1586-lda-4" href="../high_scalability-2014/high_scalability-2014-01-28-How_Next_Big_Sound_Tracks_Over_a_Trillion_Song_Plays%2C_Likes%2C_and_More_Using_a_Version_Control_System_for_Hadoop_Data.html">1586 high scalability-2014-01-28-How Next Big Sound Tracks Over a Trillion Song Plays, Likes, and More Using a Version Control System for Hadoop Data</a></p>
+<p>Introduction: This is a guest post by  Eric Czech  ,  Chief Architect at Next Big Sound, talks about some unique approaches taken to solving scalability challenges in music analytics.  
+ 
+Tracking online activity is hardly a new idea, but doing it for the entire music industry isn't easy.  Half a billion music video streams,  track downloads, and artist page likes occur each day and measuring all of this activity across platforms such as Spotify, iTunes, YouTube,  Facebook, and more, poses some interesting scalability challenges.  Next Big Sound collects this type of data from over a hundred sources,  standardizes everything, and offers that information to record labels, band managers, and artists through a web-based analytics platform.
+ 
+While many of our applications use open-source systems like Hadoop, HBase, Cassandra, Mongo, RabbitMQ, and MySQL, our usage is fairly standard, but there is one aspect of what we do that is pretty unique. We collect or receive information from 100+ sources and we s</p><p>5 0.9488824 <a title="1586-lda-5" href="../high_scalability-2011/high_scalability-2011-11-18-Stuff_The_Internet_Says_On_Scalability_For_November_18%2C_2011.html">1145 high scalability-2011-11-18-Stuff The Internet Says On Scalability For November 18, 2011</a></p>
+<p>Introduction: Every kiss begins with HighScalability:
+  
+  Amazon and the secret to life: 42 ;  10,240 cores  
+ Many quatloos worth of quotable quotes:               
+ 
+  @alesroubicek  :  State kills scalability 
+  @cincura_net  : Wrong. *Shared* state kills scalability. 
+  @kpshea  : When I think "cloud" computing, I imagine the gaseous Star Trek blob that ate red blood cells (your sensitive data). 
+  @kotobuki  : I'm interested in scalability of personal fabrication. How to 'scale' in batch production stages will be a key, but still there are barriers. 
+  @simonraikallen  : The two rules of scalability testing: (1) The bottleneck is always the database (2) You can never predict what the bottleneck will be. 
+  @mastachand  : Spot on Post by @storagebod about PetaByte-Scale storage. it's not only about scaling. It's about "Simple Scalability" ( http://www.storagebod.com/wordpress/?p=930 ) 
+  @mschopman  : don't forget about scalability, better response times due to shorter distances, ability to add</p><p>6 0.94867116 <a title="1586-lda-6" href="../high_scalability-2013/high_scalability-2013-08-07-RAFT_-_In_Search_of_an_Understandable_Consensus_Algorithm.html">1498 high scalability-2013-08-07-RAFT - In Search of an Understandable Consensus Algorithm</a></p>
 <p>7 0.9479267 <a title="1586-lda-7" href="../high_scalability-2011/high_scalability-2011-09-02-Stuff_The_Internet_Says_On_Scalability_For_September_2%2C_2011.html">1109 high scalability-2011-09-02-Stuff The Internet Says On Scalability For September 2, 2011</a></p>
 <p>8 0.94592726 <a title="1586-lda-8" href="../high_scalability-2012/high_scalability-2012-02-07-Hypertable_Routs_HBase_in_Performance_Test_--_HBase_Overwhelmed_by_Garbage_Collection.html">1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</a></p>
 <p>9 0.94533265 <a title="1586-lda-9" href="../high_scalability-2013/high_scalability-2013-12-06-Stuff_The_Internet_Says_On_Scalability_For_December_6th%2C_2013.html">1559 high scalability-2013-12-06-Stuff The Internet Says On Scalability For December 6th, 2013</a></p>

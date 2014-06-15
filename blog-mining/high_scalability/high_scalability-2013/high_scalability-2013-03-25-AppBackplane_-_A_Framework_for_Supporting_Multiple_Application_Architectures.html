@@ -16,30 +16,23 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1429-html" href="http://highscalability.com//blog/2013/3/25/appbackplane-a-framework-for-supporting-multiple-application.html">html</a></p><p>Introduction: Hidden in every computer is a hardware backplane for moving signals around.
-Hidden in every application are ways of moving messages around and giving code
-CPU time to process them. Unhiding those capabilities and making them first
-class facilities for the programmer to control is the idea behind
-AppBackplane.This goes directly against the trend of hiding everything from
-the programmer and doing it all automagically. Which is great, until it
-doesn't work. Then it sucks. And the approach of giving the programmer all the
-power also sucks, until it's tuned to work together and performance is
-incredible even under increasing loads. Then it's great.These are two
-different curves going in opposite directions. You need to decide for your
-application which curve you need to be on.AppBackplane is an example framework
-supporting the multiple application architectures we talked about inBeyond
-Threads And Callbacks. It provides a scheduling system that supports
-continuous and high loads, meets crit</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 As your application scales you decide if that phase of the work is more important and give it a higher priority or you can possible drop work elsewhere because you don't want to a request to fail once it has reached a certain processing point. [sent-42, score-1.196]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1429-html" href="http://highscalability.com//blog/2013/3/25/appbackplane-a-framework-for-supporting-multiple-application.html">html</a></p><p>Introduction: Hidden in every computer is a hardware backplane for moving signals around. Hidden in every application are ways of moving messages around and giving code CPU time to process them. Unhiding those capabilities and making them first class facilities for the programmer to control is the idea behind AppBackplane.
+ 
+This goes directly against the trend of hiding everything from the programmer and doing it all automagically. Which is great, until it doesn't work. Then it sucks. And the approach of giving the programmer all the power also sucks, until it's tuned to work together and performance is incredible even under increasing loads. Then it's great.
+ 
+These are two different curves going in opposite directions. You need to decide for your application which curve you need to be on.
+ 
+AppBackplane is an example framework supporting the multiple  application architectures we talked about in  Beyond Threads And Callbacks .  It provides a scheduling system that supports continuous and high loa</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 As your application scales you   decide if that phase of the work is more important and give it   a higher priority or you can possible drop work elsewhere because   you don't want to a request to fail once it has reached a certain   processing point. [sent-42, score-1.196]
 </p><p>2 Has work for an object be performed at the highest priority of outstanding requests. [sent-78, score-1.084]
 </p><p>3 If an event can not be dispatched quickly, by message type or other data in the message, then event should be queued to a '''digester''' object at a high priority so the event can be correctly prioritized based on more complicated calculations. [sent-122, score-1.005]
 </p><p>4 The scheduling algorithm supports multiple priorities so high priority work gets process first, quotas at each priority for fairness, and CPU limitation. [sent-123, score-1.546]
-</p><p>5 It may still be necessary to be able to interrupt low priority work with a flag when high priority work comes in. [sent-170, score-1.46]
-</p><p>6 The operation may:do its work and reply immediatelydo some work and block waiting on an asynchronous replyperform a synchronous callIf the object needs to send out more requests it will send the request and then call DoneWaitForReply so it will be put in the wait queue waiting for a reply. [sent-252, score-1.135]
-</p><p>7 Every priority then has 1/2 have the previous higher priority until a limit of 12 is reached. [sent-276, score-1.162]
-</p><p>8 priority check- after each event is processed the scheduler starts again at the highest priority that has not used its entire quota. [sent-277, score-1.19]
-</p><p>9 The idea is work may have come in for higher priority work while lower priority work was being processed. [sent-278, score-1.816]
-</p><p>10 A priority may run out of work before its quota has been used so there may be more work that can be done at a priority. [sent-279, score-1.0]
-</p><p>11 Priority Inheritance for Low Priority WorkLow priority work should have its priority raised to that of the highest work outstanding when the low priority work is blocking higher priority work that could execute. [sent-295, score-3.115]
+</p><p>5 It may still be necessary to be able to interrupt low priority work with a  flag when high priority work comes in. [sent-170, score-1.46]
+</p><p>6 "      priority queues  - work is performed in priority order. [sent-260, score-1.382]
+</p><p>7 Every priority then has 1/2 have the previous higher priority until       a limit of 12 is reached. [sent-276, score-1.162]
+</p><p>8 priority check  - after each event is processed the scheduler starts     again at the highest priority that has not used its entire quota. [sent-277, score-1.19]
+</p><p>9 The idea is work may have come in for higher priority work while     lower priority work was being processed. [sent-278, score-1.816]
+</p><p>10 A priority may run out of     work before its quota has been used so there may be more work that     can be done at a priority. [sent-279, score-1.0]
+</p><p>11 Priority Inheritance for Low Priority Work   Low priority work should have its priority raised to that of the highest work outstanding when the low priority work is blocking higher priority work that could execute. [sent-295, score-3.115]
 </p><p>12 Each backplane has priority based ready queues that are quota controlled. [sent-303, score-1.013]
 </p><p>13 Lower priority work is scheduled when there is no higher priority work or higher priority work has met its quota. [sent-309, score-2.444]
 </p><p>14 When lower priority work has been assigned to a thread higher priority work can come in. [sent-310, score-1.795]
@@ -48,83 +41,53 @@ continuous and high loads, meets crit</p><br/><h2>Summary: the most important se
 </p><p>17 By upping the task priority of the lower priority work's task to that of the higher priority work's task priority we give the lower priority work a chance to run so it can complete and let the higher priority work run. [sent-315, score-4.12]
 </p><p>18 The lower priority work can run to completion or it can use global flags to know if it should exit its function as soon as possible so the higher priority work can run. [sent-316, score-1.621]
 </p><p>19 The priority inheritance works across backplanes so high priority work in any backplane will not block on lower priority work in any other backplane. [sent-317, score-2.445]
-</p><p>20 Even if the lower priority work doesn't not give up the critical section immediately, just giving it a chance to run will make it so the higher priority work can get scheduled sooner. [sent-319, score-1.691]
+</p><p>20 Even if the lower priority work doesn't not give up the critical section immediately, just giving it a chance to run will make it so the higher  priority work can get scheduled sooner. [sent-319, score-1.691]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('priority', 0.535), ('backplane', 0.284), ('appbackplane', 0.232), ('object', 0.198), ('work', 0.195), ('thread', 0.174), ('reply', 0.168), ('threads', 0.125), ('appobject', 0.125), ('queue', 0.122), ('priorities', 0.112), ('appaction', 0.107), ('appworkerthread', 0.107), ('isa', 0.106), ('hermes', 0.097), ('backplanes', 0.097), ('scheduling', 0.094), ('higher', 0.092), ('application', 0.091), ('appcomponent', 0.089), ('msghandlerendpoint', 0.089), ('request', 0.088), ('state', 0.086), ('modules', 0.081), ('quota', 0.075), ('quotas', 0.075), ('appcomponents', 0.071), ('queued', 0.071), ('scheduled', 0.07), ('lower', 0.069), ('event', 0.067), ('cpu', 0.067), ('action', 0.067), ('operation', 0.066), ('task', 0.066), ('module', 0.065), ('queues', 0.064), ('timer', 0.06), ('dispatch', 0.059), ('operations', 0.058), ('objects', 0.057), ('ready', 0.055), ('appactions', 0.053), ('highest', 0.053), ('requests', 0.053), ('performed', 0.053), ('wait', 0.05), ('outstanding', 0.05), ('must', 0.049), ('dependencies', 0.047)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999982 <a title="1429-tfidf-1" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
-<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around.
-Hidden in every application are ways of moving messages around and giving code
-CPU time to process them. Unhiding those capabilities and making them first
-class facilities for the programmer to control is the idea behind
-AppBackplane.This goes directly against the trend of hiding everything from
-the programmer and doing it all automagically. Which is great, until it
-doesn't work. Then it sucks. And the approach of giving the programmer all the
-power also sucks, until it's tuned to work together and performance is
-incredible even under increasing loads. Then it's great.These are two
-different curves going in opposite directions. You need to decide for your
-application which curve you need to be on.AppBackplane is an example framework
-supporting the multiple application architectures we talked about inBeyond
-Threads And Callbacks. It provides a scheduling system that supports
-continuous and high loads, meets crit</p><p>2 0.59664768 <a title="1429-tfidf-2" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
-<p>Introduction: There's not a lot  of talk about application architectures at the process
-level. You have your threads, pools of threads, and you have your callback
-models. That's about it. Languages/frameworks making a virtue out of simple
-models, like Go and Erlang, do so at the price of control. It's difficult to
-make a low latency well conditioned application when a power full tool, like
-work scheduling, is taken out of the hands of the programmer.But that's not
-all there is my friend. We'll dive into different ways an application can be
-composed across threads of control.Your favorite language may not give you
-access to all the capabilities we are going to talk about, but lately there
-has been a sort of revival in considering performance important, especially
-for controlling latency variance, so I think it's time to talk about these
-kind of issues. When it was do everything in the thread of a web server thread
-pool none of these issues really mattered. But now that developers are
-creating sophist</p><p>3 0.3679876 <a title="1429-tfidf-3" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
-<p>Introduction: For solutions take a look at:7 Life Saving Scalability Defenses Against Load
-Monster Attacks.This is a look at all the bad things that can happen to your
-carefully crafted program as loads increase: all hell breaks lose. Sure, you
-can scale out or scale up, but you can also choose to program better. Make
-your system handle larger loads. This saves money because fewer boxes are
-needed and it will make the entire application more reliable and have better
-response times. And it can be quite satisfying as a programmer.Large Number Of
-ObjectsWe usually get into scaling problems when the number of objects gets
-larger. Clearly resource usage of all types is stressed as the number of
-objects grow.Continuous Failures Makes An Infinite Event StreamDuring large
-network failure scenarios there is never time for the system recover. We are
-in a continual state of stress.Lots of High Priority WorkFor example,
-rerouting is a high priority activity. If there is a large amount of rerouting
-work that can</p><p>4 0.3620787 <a title="1429-tfidf-4" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
-<p>Introduction: What good are problems without solutions? In 42 Monster Problems That Attack
-As Loads Increase we talked about problems. In this first post (OK, there was
-an earlier post, but I'm doing some reorganizing), we'll cover what I
-callaggregation strategies.Keep in mind these are low level architecture type
-suggestions of how to structure the components of your code and how they
-interact. We're not talking about massive scale-out clusters here, but of what
-your applications might like like internally, way below the service level
-interface level. There's a lot more to the world than evented
-architectures.Aggregation simply means we aren't using stupid queues. Our
-queues will be smart. We are deeply aware of queues as containers of work that
-eventually dictate how the entire system performs. As work containers we know
-intimately what requests and data sit in our queues and we can use that
-intelligence to our great advantage.Prioritize WorkThe key idea to it all is
-an almost mindful approach to</p><p>5 0.24545288 <a title="1429-tfidf-5" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
-<p>Introduction: We talked about 42 Monster Problems That Attack As Loads Increase. And inThe
-Aggregation Collection we talked about the value of prioritizing work and
-making smart queues as a way of absorbing and not reflecting traffic
-spikes.Now we move on to our next batch of strategies where the theme
-isconditioning, which is the idea of shaping and controlling flows of work
-within your application...Use Resources Proportional To a Fixed LimitThis is
-probably the most important rule for achieving scalability within an
-application. What it means:Find the resource that has a fixed limit that you
-know you can support. For example, a guarantee to handle a certain number of
-objects in memory. So if we always use resources proportional to the number of
-objects it is likely we can prevent resource exhaustion.Devise ways of tying
-what you need to do to the individual resources.Some examples:Keep a list of
-purchase orders with line items over $20 (or whatever). Do not keep a list of
-the line items because t</p><p>6 0.19870067 <a title="1429-tfidf-6" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
+<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around. Hidden in every application are ways of moving messages around and giving code CPU time to process them. Unhiding those capabilities and making them first class facilities for the programmer to control is the idea behind AppBackplane.
+ 
+This goes directly against the trend of hiding everything from the programmer and doing it all automagically. Which is great, until it doesn't work. Then it sucks. And the approach of giving the programmer all the power also sucks, until it's tuned to work together and performance is incredible even under increasing loads. Then it's great.
+ 
+These are two different curves going in opposite directions. You need to decide for your application which curve you need to be on.
+ 
+AppBackplane is an example framework supporting the multiple  application architectures we talked about in  Beyond Threads And Callbacks .  It provides a scheduling system that supports continuous and high loa</p><p>2 0.59664768 <a title="1429-tfidf-2" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
+<p>Introduction: There's not a lot  of talk about application architectures at the process level. You have your threads, pools of threads, and you have your callback models. That's about it. Languages/frameworks making a virtue out of simple models, like Go and Erlang, do so at the price of control. It's difficult to make a low latency well conditioned application when a power full tool, like work scheduling, is taken out of the hands of the programmer.
+ 
+But that's not all there is my friend. We'll dive into different ways an application can be composed across threads of control.
+ 
+Your favorite language may not give you access to all the capabilities we are going to talk about, but lately there has been a sort of revival in considering performance important, especially for controlling  latency variance , so I think it's time to talk about these kind of issues. When it was do everything in the thread of a web server thread pool none of these issues really mattered. But now that developers are creating</p><p>3 0.3679876 <a title="1429-tfidf-3" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
+<p>Introduction: For solutions take a look at:  7 Life Saving Scalability Defenses Against Load Monster Attacks . 
+ 
+This is a look at all the bad things that can happen to your carefully crafted program as loads increase: all hell breaks lose. Sure, you can scale out or scale up, but you can also choose to program better. Make your system handle larger loads. This saves money because fewer boxes are needed and it will make the entire application more reliable and have better response times. And it can be quite satisfying as a programmer.
+  Large Number Of Objects  
+We usually get into scaling problems when the number of objects gets  larger. Clearly resource usage of all types is stressed as the number of objects grow.
+  Continuous Failures Makes An Infinite Event Stream  
+During large network failure scenarios there is never time for the system recover. We are in a continual state of stress.
+  Lots of High Priority Work  
+For example, rerouting is a high priority activity. If there is a large amount</p><p>4 0.3620787 <a title="1429-tfidf-4" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
+<p>Introduction: What good are problems without solutions? In  42 Monster Problems That Attack As Loads Increase  we talked about problems. In this first post (OK, there was an earlier post, but I'm doing some reorganizing), we'll cover what I call  aggregation  strategies.
+ 
+Keep in mind these are low level architecture type suggestions of how to structure the components of your code and how they interact. We're not talking about massive scale-out clusters here, but of what your applications might like like internally, way below the service level interface level. There's a lot more to the world than evented architectures.
+ 
+Aggregation simply means we aren't using stupid queues. Our queues will be smart. We are deeply aware of queues as containers of work that eventually dictate how the entire system performs. As work containers we know intimately what requests and data sit in our queues and we can use that intelligence to our great advantage.
+  Prioritize Work  
+The key idea to it all is an almost mi</p><p>5 0.24545288 <a title="1429-tfidf-5" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
+<p>Introduction: We talked about  42 Monster Problems That Attack As Loads Increase . And in  The Aggregation Collection  we talked about the value of prioritizing work and making smart queues as a way of absorbing and not reflecting traffic spikes.
+ 
+Now we move on to our next batch of strategies where the theme is  conditioning , which is the idea of shaping and controlling flows of work within your application...
+  Use Resources Proportional To a Fixed Limit  
+This is probably the most important rule for achieving scalability within an application. What it means:
+  
+ Find the resource that has a fixed limit that you know you can support. For example, a guarantee to handle a certain number of objects in memory. So if we always use resources proportional to the number of objects it is likely we can prevent resource exhaustion. 
+ Devise ways of tying what you need to do to the individual resources. 
+  
+Some examples:
+  
+ Keep a list of purchase orders with line items over $20 (or whatever). Do not keep</p><p>6 0.19870067 <a title="1429-tfidf-6" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
 <p>7 0.1853749 <a title="1429-tfidf-7" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
 <p>8 0.16563649 <a title="1429-tfidf-8" href="../high_scalability-2009/high_scalability-2009-04-21-Thread_Pool_Engine_in_MS_CLR_4%2C_and_Work-Stealing_scheduling_algorithm.html">575 high scalability-2009-04-21-Thread Pool Engine in MS CLR 4, and Work-Stealing scheduling algorithm</a></p>
 <p>9 0.16051394 <a title="1429-tfidf-9" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
@@ -144,76 +107,42 @@ the line items because t</p><p>6 0.19870067 <a title="1429-tfidf-6" href="../hig
 <p>[(0, 0.202), (1, 0.119), (2, -0.022), (3, -0.011), (4, -0.014), (5, 0.003), (6, 0.14), (7, 0.09), (8, -0.201), (9, -0.107), (10, 0.024), (11, 0.119), (12, 0.028), (13, -0.075), (14, -0.019), (15, -0.073), (16, 0.006), (17, -0.025), (18, 0.031), (19, 0.024), (20, -0.009), (21, -0.109), (22, 0.022), (23, -0.031), (24, 0.099), (25, -0.015), (26, 0.117), (27, 0.074), (28, 0.143), (29, -0.015), (30, 0.062), (31, 0.01), (32, 0.109), (33, 0.021), (34, 0.078), (35, -0.037), (36, -0.023), (37, -0.028), (38, 0.029), (39, 0.024), (40, 0.035), (41, 0.003), (42, -0.01), (43, 0.041), (44, -0.039), (45, -0.106), (46, -0.012), (47, -0.028), (48, -0.021), (49, 0.032)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.98068845 <a title="1429-lsi-1" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
-<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around.
-Hidden in every application are ways of moving messages around and giving code
-CPU time to process them. Unhiding those capabilities and making them first
-class facilities for the programmer to control is the idea behind
-AppBackplane.This goes directly against the trend of hiding everything from
-the programmer and doing it all automagically. Which is great, until it
-doesn't work. Then it sucks. And the approach of giving the programmer all the
-power also sucks, until it's tuned to work together and performance is
-incredible even under increasing loads. Then it's great.These are two
-different curves going in opposite directions. You need to decide for your
-application which curve you need to be on.AppBackplane is an example framework
-supporting the multiple application architectures we talked about inBeyond
-Threads And Callbacks. It provides a scheduling system that supports
-continuous and high loads, meets crit</p><p>2 0.96016836 <a title="1429-lsi-2" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
-<p>Introduction: There's not a lot  of talk about application architectures at the process
-level. You have your threads, pools of threads, and you have your callback
-models. That's about it. Languages/frameworks making a virtue out of simple
-models, like Go and Erlang, do so at the price of control. It's difficult to
-make a low latency well conditioned application when a power full tool, like
-work scheduling, is taken out of the hands of the programmer.But that's not
-all there is my friend. We'll dive into different ways an application can be
-composed across threads of control.Your favorite language may not give you
-access to all the capabilities we are going to talk about, but lately there
-has been a sort of revival in considering performance important, especially
-for controlling latency variance, so I think it's time to talk about these
-kind of issues. When it was do everything in the thread of a web server thread
-pool none of these issues really mattered. But now that developers are
-creating sophist</p><p>3 0.85728532 <a title="1429-lsi-3" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
-<p>Introduction: What good are problems without solutions? In 42 Monster Problems That Attack
-As Loads Increase we talked about problems. In this first post (OK, there was
-an earlier post, but I'm doing some reorganizing), we'll cover what I
-callaggregation strategies.Keep in mind these are low level architecture type
-suggestions of how to structure the components of your code and how they
-interact. We're not talking about massive scale-out clusters here, but of what
-your applications might like like internally, way below the service level
-interface level. There's a lot more to the world than evented
-architectures.Aggregation simply means we aren't using stupid queues. Our
-queues will be smart. We are deeply aware of queues as containers of work that
-eventually dictate how the entire system performs. As work containers we know
-intimately what requests and data sit in our queues and we can use that
-intelligence to our great advantage.Prioritize WorkThe key idea to it all is
-an almost mindful approach to</p><p>4 0.83497244 <a title="1429-lsi-4" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
-<p>Introduction: This is an email interview withViktor Klang, Director of Engineering
-atTypesafe, on theScala Futuresmodel &Akka;,both topics on which is he is
-immensely passionate and knowledgeable.How do you structure your application?
-That's the question I explored in the articleBeyond Threads And Callbacks. An
-option I did not talk about, mostly because of my own ignorance, is a powerful
-stack you may not be all that familiar with: Scala and Akka.To remedy my
-oversight is our acting tour guide, Typesafe's Viktor Klang, long time Scala
-hacker and Java enterprise systems architect. Viktor was very patient in
-answering my questions and was enthusiastic about sharing his knowledge. He's
-a guy who definitely knows what he is talking about.I've implemented several
-Actor systems along with the messaging infrastructure, threading, async IO,
-service orchestration, failover, etc, so I'm innately skeptical about
-frameworks that remove control from the programmer at the cost of latency.So
-at the end of the inte</p><p>5 0.81057322 <a title="1429-lsi-5" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
-<p>Introduction: We talked about 42 Monster Problems That Attack As Loads Increase. And inThe
-Aggregation Collection we talked about the value of prioritizing work and
-making smart queues as a way of absorbing and not reflecting traffic
-spikes.Now we move on to our next batch of strategies where the theme
-isconditioning, which is the idea of shaping and controlling flows of work
-within your application...Use Resources Proportional To a Fixed LimitThis is
-probably the most important rule for achieving scalability within an
-application. What it means:Find the resource that has a fixed limit that you
-know you can support. For example, a guarantee to handle a certain number of
-objects in memory. So if we always use resources proportional to the number of
-objects it is likely we can prevent resource exhaustion.Devise ways of tying
-what you need to do to the individual resources.Some examples:Keep a list of
-purchase orders with line items over $20 (or whatever). Do not keep a list of
-the line items because t</p><p>6 0.79358321 <a title="1429-lsi-6" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
+<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around. Hidden in every application are ways of moving messages around and giving code CPU time to process them. Unhiding those capabilities and making them first class facilities for the programmer to control is the idea behind AppBackplane.
+ 
+This goes directly against the trend of hiding everything from the programmer and doing it all automagically. Which is great, until it doesn't work. Then it sucks. And the approach of giving the programmer all the power also sucks, until it's tuned to work together and performance is incredible even under increasing loads. Then it's great.
+ 
+These are two different curves going in opposite directions. You need to decide for your application which curve you need to be on.
+ 
+AppBackplane is an example framework supporting the multiple  application architectures we talked about in  Beyond Threads And Callbacks .  It provides a scheduling system that supports continuous and high loa</p><p>2 0.96016836 <a title="1429-lsi-2" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
+<p>Introduction: There's not a lot  of talk about application architectures at the process level. You have your threads, pools of threads, and you have your callback models. That's about it. Languages/frameworks making a virtue out of simple models, like Go and Erlang, do so at the price of control. It's difficult to make a low latency well conditioned application when a power full tool, like work scheduling, is taken out of the hands of the programmer.
+ 
+But that's not all there is my friend. We'll dive into different ways an application can be composed across threads of control.
+ 
+Your favorite language may not give you access to all the capabilities we are going to talk about, but lately there has been a sort of revival in considering performance important, especially for controlling  latency variance , so I think it's time to talk about these kind of issues. When it was do everything in the thread of a web server thread pool none of these issues really mattered. But now that developers are creating</p><p>3 0.85728532 <a title="1429-lsi-3" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
+<p>Introduction: What good are problems without solutions? In  42 Monster Problems That Attack As Loads Increase  we talked about problems. In this first post (OK, there was an earlier post, but I'm doing some reorganizing), we'll cover what I call  aggregation  strategies.
+ 
+Keep in mind these are low level architecture type suggestions of how to structure the components of your code and how they interact. We're not talking about massive scale-out clusters here, but of what your applications might like like internally, way below the service level interface level. There's a lot more to the world than evented architectures.
+ 
+Aggregation simply means we aren't using stupid queues. Our queues will be smart. We are deeply aware of queues as containers of work that eventually dictate how the entire system performs. As work containers we know intimately what requests and data sit in our queues and we can use that intelligence to our great advantage.
+  Prioritize Work  
+The key idea to it all is an almost mi</p><p>4 0.83497244 <a title="1429-lsi-4" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
+<p>Introduction: This is an email interview with   Viktor Klang   , Director of Engineering at    Typesafe   , on the    Scala Futures    model &    Akka,    both topics on which is he is immensely passionate and knowledgeable.  
+ 
+How do you structure your application? That’s the question I explored in the article  Beyond Threads And Callbacks . An option I did not talk about, mostly because of my own ignorance, is a powerful stack you may not be all that familiar with: Scala and Akka.
+   To remedy my oversight is our acting tour guide, Typesafe’s Viktor Klang, long time Scala hacker and Java enterprise systems architect. Viktor was very patient in answering my questions and was enthusiastic about sharing his knowledge. He’s a guy who definitely knows what he is talking about. 
+   I’ve implemented several Actor systems along with the messaging infrastructure, threading, async IO, service orchestration, failover, etc, so I’m innately skeptical about frameworks that remove control from the programmer at</p><p>5 0.81057322 <a title="1429-lsi-5" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
+<p>Introduction: We talked about  42 Monster Problems That Attack As Loads Increase . And in  The Aggregation Collection  we talked about the value of prioritizing work and making smart queues as a way of absorbing and not reflecting traffic spikes.
+ 
+Now we move on to our next batch of strategies where the theme is  conditioning , which is the idea of shaping and controlling flows of work within your application...
+  Use Resources Proportional To a Fixed Limit  
+This is probably the most important rule for achieving scalability within an application. What it means:
+  
+ Find the resource that has a fixed limit that you know you can support. For example, a guarantee to handle a certain number of objects in memory. So if we always use resources proportional to the number of objects it is likely we can prevent resource exhaustion. 
+ Devise ways of tying what you need to do to the individual resources. 
+  
+Some examples:
+  
+ Keep a list of purchase orders with line items over $20 (or whatever). Do not keep</p><p>6 0.79358321 <a title="1429-lsi-6" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
 <p>7 0.79008257 <a title="1429-lsi-7" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
 <p>8 0.78836483 <a title="1429-lsi-8" href="../high_scalability-2013/high_scalability-2013-03-04-7_Life_Saving_Scalability_Defenses_Against_Load_Monster_Attacks.html">1415 high scalability-2013-03-04-7 Life Saving Scalability Defenses Against Load Monster Attacks</a></p>
 <p>9 0.78097671 <a title="1429-lsi-9" href="../high_scalability-2012/high_scalability-2012-12-17-11_Uses_For_the_Humble_Presents_Queue%2C_er%2C_Message_Queue.html">1373 high scalability-2012-12-17-11 Uses For the Humble Presents Queue, er, Message Queue</a></p>
@@ -233,76 +162,45 @@ the line items because t</p><p>6 0.79358321 <a title="1429-lsi-6" href="../high_
 <p>[(1, 0.089), (2, 0.236), (10, 0.122), (40, 0.032), (41, 0.125), (47, 0.03), (56, 0.012), (61, 0.062), (77, 0.011), (79, 0.083), (85, 0.039), (94, 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.94311333 <a title="1429-lda-1" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
-<p>Introduction: This is an email interview withViktor Klang, Director of Engineering
-atTypesafe, on theScala Futuresmodel &Akka;,both topics on which is he is
-immensely passionate and knowledgeable.How do you structure your application?
-That's the question I explored in the articleBeyond Threads And Callbacks. An
-option I did not talk about, mostly because of my own ignorance, is a powerful
-stack you may not be all that familiar with: Scala and Akka.To remedy my
-oversight is our acting tour guide, Typesafe's Viktor Klang, long time Scala
-hacker and Java enterprise systems architect. Viktor was very patient in
-answering my questions and was enthusiastic about sharing his knowledge. He's
-a guy who definitely knows what he is talking about.I've implemented several
-Actor systems along with the messaging infrastructure, threading, async IO,
-service orchestration, failover, etc, so I'm innately skeptical about
-frameworks that remove control from the programmer at the cost of latency.So
-at the end of the inte</p><p>same-blog 2 0.94304198 <a title="1429-lda-2" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
-<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around.
-Hidden in every application are ways of moving messages around and giving code
-CPU time to process them. Unhiding those capabilities and making them first
-class facilities for the programmer to control is the idea behind
-AppBackplane.This goes directly against the trend of hiding everything from
-the programmer and doing it all automagically. Which is great, until it
-doesn't work. Then it sucks. And the approach of giving the programmer all the
-power also sucks, until it's tuned to work together and performance is
-incredible even under increasing loads. Then it's great.These are two
-different curves going in opposite directions. You need to decide for your
-application which curve you need to be on.AppBackplane is an example framework
-supporting the multiple application architectures we talked about inBeyond
-Threads And Callbacks. It provides a scheduling system that supports
-continuous and high loads, meets crit</p><p>3 0.91782939 <a title="1429-lda-3" href="../high_scalability-2012/high_scalability-2012-06-18-The_Clever_Ways_Chrome_Hides_Latency_by_Anticipating_Your_Every_Need.html">1267 high scalability-2012-06-18-The Clever Ways Chrome Hides Latency by Anticipating Your Every Need</a></p>
-<p>Introduction: Ilya Grigorik has written another wonderful article lavishly detailing the
-extraordinary tactics Chrome employs to hide network latency from users:
-Chrome Networking: DNS Prefetch & TCP Preconnect. Ilya springs some surpising
-factoids on us, revealing how the web has slowed and super sized:The size of
-an average page has grown to 1059kB and is now composed of over80 subresource
-requests.An average DNS lookup takes between 60 and 120ms. This creates a
-100-200ms of latency before a request can be sent because of th full round-
-trip (RTT) to perform the TCP handshake.Slow mobile experiences are largely
-due to the much higher RTT's (200-1000ms) on wireless networks. Reducing the
-number of outbound connections and the total byte size of your pages is the
-single best optimization you can make for mobile today. Chrome reduces
-apparent latency using a host of clever anticipatory mechanisms:Learns the
-network topology as you use it via a Predictor object that anticipates user
-behavior and futur</p><p>4 0.91637081 <a title="1429-lda-4" href="../high_scalability-2011/high_scalability-2011-03-18-Stuff_The_Internet_Says_On_Scalability_For_March_18%2C_2011.html">1007 high scalability-2011-03-18-Stuff The Internet Says On Scalability For March 18, 2011</a></p>
-<p>Introduction: Submitted for your reading pleasure on this day of wind and rain...The cloud
-is falling. Or at least shared networked storage as Reddit has a couple of
-long periods of downtime.Good write up at Why reddit was down for 6 of the
-last 24 hours. Upshot: Reddit is moving off EBS to local disks.Quotable
-Quotes:@thomleggett: 32 or so joins - the sweet-spot of suck for MySQL -
-@emileifrem #nosql #neo4j #qconlondon@jkalucki: The [Twitter] Streaming API
-pushes 100MB in less than a second.@LusciousPear: Finding the true test of a
-DB is recovery when things go wrong, not "who's most web-scale" on paper
-#nosql@TimelessP: Functionality, scalability, security... pick two.@beaknit:
-#ccevent #nosql @adrianco: A year from oracle to simpledb. A week from
-simpledb to cassandra. Mental shift biggest hurdle.Heather Willems captured
-this very cool Ogilvy Note, which is a visual representation of a panel talk
-on Scalability: Covering Your Rear with a Good Backend at SXSWi. It captures
-in cartoon like drawing</p><p>5 0.89845568 <a title="1429-lda-5" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
-<p>Introduction: There's not a lot  of talk about application architectures at the process
-level. You have your threads, pools of threads, and you have your callback
-models. That's about it. Languages/frameworks making a virtue out of simple
-models, like Go and Erlang, do so at the price of control. It's difficult to
-make a low latency well conditioned application when a power full tool, like
-work scheduling, is taken out of the hands of the programmer.But that's not
-all there is my friend. We'll dive into different ways an application can be
-composed across threads of control.Your favorite language may not give you
-access to all the capabilities we are going to talk about, but lately there
-has been a sort of revival in considering performance important, especially
-for controlling latency variance, so I think it's time to talk about these
-kind of issues. When it was do everything in the thread of a web server thread
-pool none of these issues really mattered. But now that developers are
-creating sophist</p><p>6 0.89778644 <a title="1429-lda-6" href="../high_scalability-2008/high_scalability-2008-03-31-Read_HighScalability_on_Your_Mobile_Phone_Using_WidSets_Widgets.html">293 high scalability-2008-03-31-Read HighScalability on Your Mobile Phone Using WidSets Widgets</a></p>
+<p>Introduction: This is an email interview with   Viktor Klang   , Director of Engineering at    Typesafe   , on the    Scala Futures    model &    Akka,    both topics on which is he is immensely passionate and knowledgeable.  
+ 
+How do you structure your application? That’s the question I explored in the article  Beyond Threads And Callbacks . An option I did not talk about, mostly because of my own ignorance, is a powerful stack you may not be all that familiar with: Scala and Akka.
+   To remedy my oversight is our acting tour guide, Typesafe’s Viktor Klang, long time Scala hacker and Java enterprise systems architect. Viktor was very patient in answering my questions and was enthusiastic about sharing his knowledge. He’s a guy who definitely knows what he is talking about. 
+   I’ve implemented several Actor systems along with the messaging infrastructure, threading, async IO, service orchestration, failover, etc, so I’m innately skeptical about frameworks that remove control from the programmer at</p><p>same-blog 2 0.94304198 <a title="1429-lda-2" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
+<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around. Hidden in every application are ways of moving messages around and giving code CPU time to process them. Unhiding those capabilities and making them first class facilities for the programmer to control is the idea behind AppBackplane.
+ 
+This goes directly against the trend of hiding everything from the programmer and doing it all automagically. Which is great, until it doesn't work. Then it sucks. And the approach of giving the programmer all the power also sucks, until it's tuned to work together and performance is incredible even under increasing loads. Then it's great.
+ 
+These are two different curves going in opposite directions. You need to decide for your application which curve you need to be on.
+ 
+AppBackplane is an example framework supporting the multiple  application architectures we talked about in  Beyond Threads And Callbacks .  It provides a scheduling system that supports continuous and high loa</p><p>3 0.91782939 <a title="1429-lda-3" href="../high_scalability-2012/high_scalability-2012-06-18-The_Clever_Ways_Chrome_Hides_Latency_by_Anticipating_Your_Every_Need.html">1267 high scalability-2012-06-18-The Clever Ways Chrome Hides Latency by Anticipating Your Every Need</a></p>
+<p>Introduction: Ilya Grigorik has written another wonderful article lavishly detailing the extraordinary tactics Chrome employs to hide network latency from users:  Chrome Networking: DNS Prefetch & TCP Preconnect . Ilya springs some surpising factoids on us, revealing how the web has slowed and super sized:
+  
+ The size of an average page has grown to 1059kB and is now composed of over  80 subresource requests . 
+ An average DNS lookup takes between 60 and 120ms. This creates a 100-200ms of latency before a request can be sent because of th full round-trip (RTT) to perform the TCP handshake. 
+ Slow mobile experiences are largely due to the much higher RTT's (200-1000ms) on wireless networks. Reducing the number of outbound connections and the total byte size of your pages is the single best optimization you can make for mobile today.  
+  
+Chrome reduces apparent latency using a host of clever anticipatory mechanisms:
+  
+ Learns the network topology as you use it via a Predictor object that anticipate</p><p>4 0.91637081 <a title="1429-lda-4" href="../high_scalability-2011/high_scalability-2011-03-18-Stuff_The_Internet_Says_On_Scalability_For_March_18%2C_2011.html">1007 high scalability-2011-03-18-Stuff The Internet Says On Scalability For March 18, 2011</a></p>
+<p>Introduction: Submitted for your reading pleasure on this day of wind and rain...
+  
+ The cloud is falling. Or at least shared networked storage as Reddit has a couple of long periods of downtime.  Good write up at Why reddit was down for 6 of the last 24 hours.  Upshot: Reddit is moving off EBS to local disks. 
+ Quotable Quotes:        
+ 
+  @thomleggett : 32 or so joins - the sweet-spot of suck for MySQL - @emileifrem #nosql #neo4j #qconlondon 
+  @jkalucki : The [Twitter] Streaming API pushes 100MB in less than a second. 
+  @LusciousPear : Finding the true test of a DB is recovery when things go wrong, not "who's most web-scale" on paper #nosql 
+  @TimelessP : Functionality, scalability, security... pick two. 
+  @beaknit : #ccevent #nosql @adrianco: A year from oracle to simpledb. A week from simpledb to cassandra. Mental shift biggest hurdle. 
+ 
+ 
+ Heather Willems captured this very cool  Ogilvy Note , which is a visual representation of a panel talk on  Scalability: Covering Your Rear with a Good</p><p>5 0.89845568 <a title="1429-lda-5" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
+<p>Introduction: There's not a lot  of talk about application architectures at the process level. You have your threads, pools of threads, and you have your callback models. That's about it. Languages/frameworks making a virtue out of simple models, like Go and Erlang, do so at the price of control. It's difficult to make a low latency well conditioned application when a power full tool, like work scheduling, is taken out of the hands of the programmer.
+ 
+But that's not all there is my friend. We'll dive into different ways an application can be composed across threads of control.
+ 
+Your favorite language may not give you access to all the capabilities we are going to talk about, but lately there has been a sort of revival in considering performance important, especially for controlling  latency variance , so I think it's time to talk about these kind of issues. When it was do everything in the thread of a web server thread pool none of these issues really mattered. But now that developers are creating</p><p>6 0.89778644 <a title="1429-lda-6" href="../high_scalability-2008/high_scalability-2008-03-31-Read_HighScalability_on_Your_Mobile_Phone_Using_WidSets_Widgets.html">293 high scalability-2008-03-31-Read HighScalability on Your Mobile Phone Using WidSets Widgets</a></p>
 <p>7 0.89765513 <a title="1429-lda-7" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
 <p>8 0.89534676 <a title="1429-lda-8" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
 <p>9 0.89480621 <a title="1429-lda-9" href="../high_scalability-2011/high_scalability-2011-04-08-Stuff_The_Internet_Says_On_Scalability_For_April_8%2C_2011.html">1019 high scalability-2011-04-08-Stuff The Internet Says On Scalability For April 8, 2011</a></p>

@@ -16,35 +16,31 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1386-html" href="http://highscalability.com//blog/2013/1/14/mongodb-and-gridfs-for-inter-and-intra-datacenter-data-repli.html">html</a></p><p>Introduction: This is a guest post byJeff Behl, VP Ops @ LogicMonitor. Jeffhas been a bit
-herder for the last 20 years, architecting and overseeing the infrastructure
-for a number of SaaS based companies.  Data Replication for Disaster
-RecoveryAn inevitable part of disaster recovery planning is making sure
-customer data exists in multiple locations.  In the case of LogicMonitor, a
-SaaS-based monitoring solution for physical, virtual, and cloud environments,
-we wanted copies of customer data files both within a data center and outside
-of it.  The former was to protect against the loss of individual servers
-within a facility, and the latter for recovery in the event of the complete
-loss of a data center.Where we were:  RsyncLike most everyone who starts off
-in a Linux environment, we used our trusty friend rsync to copy data around.
-Rsync is tried, true and tested, and works well when the number of servers,
-the amount of data, and the number of files is not horrendous.  When any of
-these are no longer</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Jeffhas been a bit herder for the last 20 years, architecting and overseeing the infrastructure for a number of SaaS based companies. [sent-2, score-0.204]
-</p><p>2 Data Replication for Disaster RecoveryAn inevitable part of disaster recovery planning is making sure customer data exists in multiple locations. [sent-3, score-0.239]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1386-html" href="http://highscalability.com//blog/2013/1/14/mongodb-and-gridfs-for-inter-and-intra-datacenter-data-repli.html">html</a></p><p>Introduction: This is a guest post by  Jeff Behl , VP Ops @ LogicMonitor.  Jeff  has been a bit herder for the last 20 years, architecting and overseeing the infrastructure for a number of SaaS based companies.   
+  Data Replication for Disaster Recovery  
+An inevitable part of disaster recovery planning is making sure customer data exists in multiple locations.  In the case of LogicMonitor, a SaaS-based monitoring solution for physical, virtual, and cloud environments, we wanted copies of customer data files both within a data center and outside of it.  The former was to protect against the loss of individual servers within a facility, and the latter for recovery in the event of the complete loss of a data center.
+  Where we were:  Rsync  
+Like most everyone who starts off in a Linux environment, we used our trusty friend rsync to copy data around.
+ 
+ 
+ 
+     
+  Rsync is tried, true and tested, and works well when the number of servers, the amount of data, and the number of files is not horrendous.</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Jeff  has been a bit herder for the last 20 years, architecting and overseeing the infrastructure for a number of SaaS based companies. [sent-2, score-0.204]
+</p><p>2 Data Replication for Disaster Recovery   An inevitable part of disaster recovery planning is making sure customer data exists in multiple locations. [sent-3, score-0.239]
 </p><p>3 In the case of LogicMonitor, a SaaS-based monitoring solution for physical, virtual, and cloud environments, we wanted copies of customer data files both within a data center and outside of it. [sent-4, score-0.407]
 </p><p>4 The former was to protect against the loss of individual servers within a facility, and the latter for recovery in the event of the complete loss of a data center. [sent-5, score-0.237]
-</p><p>5 Where we were:  RsyncLike most everyone who starts off in a Linux environment, we used our trusty friend rsync to copy data around. [sent-6, score-0.457]
+</p><p>5 Where we were:  Rsync   Like most everyone who starts off in a Linux environment, we used our trusty friend rsync to copy data around. [sent-6, score-0.457]
 </p><p>6 Rsync is tried, true and tested, and works well when the number of servers, the amount of data, and the number of files is not horrendous. [sent-7, score-0.326]
-</p><p>7 We needed to get better statistics and alerting, both in order to keep track of backup jobs, but also to be able to put some logic into the jobs themselves to prevent issues like too many running simultaneously. [sent-10, score-1.006]
+</p><p>7 We needed to get better statistics and alerting, both in order to keep track of backup jobs, but also to be able to put some logic into the jobs themselves to prevent issues like too many running simultaneously. [sent-10, score-1.006]
 </p><p>8 A database repository for backup job metadata, where jobs themselves can report their status, and where other backup components can get information in order to coordinate tasks such as removing old jobs, was clearly needed. [sent-12, score-1.322]
 </p><p>9 It would also enable us to monitor backup job status via simple queries for information such as the number of jobs running (total, and on a per-server basis), the time since the last backup, the size of the backup jobs, etc. [sent-13, score-1.879]
-</p><p>10 MongoDB as a Backup Job Metadata StoreThe type of backup job statistics was more than likely going to evolve over time, so MongoDB came to light with its "schemaless" document store design. [sent-15, score-0.73]
+</p><p>10 MongoDB as a Backup Job Metadata Store  The type of backup job statistics was more than likely going to evolve over time, so MongoDB came to light with its “ schemaless ” document store design. [sent-15, score-0.82]
 </p><p>11 It seemed the perfect fit: easy to setup, easy to query, schemaless, and a simple JSON style structure for storing job information. [sent-16, score-0.419]
 </p><p>12 So the first idea was to keep using rsync, but track the status of jobs in MongoDB. [sent-19, score-0.603]
 </p><p>13 The backup job metainfo and the actual backed up files were still separate and decoupled, with the metadata in MongoDB and the backed up files residing on a disk on some system (not necessarily the same). [sent-21, score-1.452]
 </p><p>14 If I could query for a specific backup job, then use the same query language again for an actual backed up file and get it. [sent-23, score-0.744]
 </p><p>15 If restoring data files was just a simple query away. [sent-24, score-0.356]
-</p><p>16 Why GridFSYou can read up on the details GridFS on the MongoDB site, but suffice it to say it is a simple file system overlay on top of MongoDB (files are simply chunked up and stored in the same manner that all documents are). [sent-28, score-0.172]
+</p><p>16 Why GridFS  You can read up on the details GridFS on the MongoDB site, but suffice it to say it is a simple file system overlay on top of MongoDB (files are simply chunked up and stored in the same manner that all documents are). [sent-28, score-0.172]
 </p><p>17 Instead of having scripts surround rsync, our backup scripts store the data and the metadata at the same time and into the same place, so everything is easily queried. [sent-29, score-0.801]
 </p><p>18 And of course MongoDB replication works with GridFS, meaning backed up files are immediately replicated both within the data center and off-site. [sent-30, score-0.475]
 </p><p>19 With a replica inside of Amazon EC2, snapshots can be taken to keep as many historical backups as desired. [sent-31, score-0.264]
@@ -55,75 +51,36 @@ these are no longer</p><br/><h2>Summary: the most important sentenses genereted 
 <p>[('backup', 0.338), ('rsync', 0.337), ('jobs', 0.331), ('mongodb', 0.262), ('statistics', 0.21), ('status', 0.197), ('job', 0.182), ('backed', 0.18), ('files', 0.164), ('metadata', 0.162), ('backups', 0.128), ('gridfs', 0.127), ('via', 0.102), ('scripts', 0.092), ('schemaless', 0.09), ('easy', 0.087), ('logicmonitor', 0.084), ('monitor', 0.083), ('actual', 0.082), ('number', 0.081), ('coordinate', 0.081), ('track', 0.075), ('replication', 0.074), ('completed', 0.073), ('query', 0.072), ('snapshots', 0.072), ('monitoring', 0.066), ('replica', 0.064), ('simple', 0.063), ('customer', 0.063), ('jmx', 0.063), ('trusty', 0.063), ('kludge', 0.063), ('storethe', 0.063), ('herder', 0.063), ('alerted', 0.063), ('disaster', 0.063), ('loss', 0.062), ('last', 0.06), ('overloading', 0.06), ('byjeff', 0.06), ('surround', 0.06), ('data', 0.057), ('suffice', 0.057), ('recovery', 0.056), ('temperature', 0.053), ('queries', 0.052), ('needed', 0.052), ('information', 0.052), ('chunked', 0.052)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1386-tfidf-1" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
-<p>Introduction: This is a guest post byJeff Behl, VP Ops @ LogicMonitor. Jeffhas been a bit
-herder for the last 20 years, architecting and overseeing the infrastructure
-for a number of SaaS based companies.  Data Replication for Disaster
-RecoveryAn inevitable part of disaster recovery planning is making sure
-customer data exists in multiple locations.  In the case of LogicMonitor, a
-SaaS-based monitoring solution for physical, virtual, and cloud environments,
-we wanted copies of customer data files both within a data center and outside
-of it.  The former was to protect against the loss of individual servers
-within a facility, and the latter for recovery in the event of the complete
-loss of a data center.Where we were:  RsyncLike most everyone who starts off
-in a Linux environment, we used our trusty friend rsync to copy data around.
-Rsync is tried, true and tested, and works well when the number of servers,
-the amount of data, and the number of files is not horrendous.  When any of
-these are no longer</p><p>2 0.24248341 <a title="1386-tfidf-2" href="../high_scalability-2014/high_scalability-2014-03-05-10_Things_You_Should_Know_About_Running_MongoDB_at_Scale.html">1606 high scalability-2014-03-05-10 Things You Should Know About Running MongoDB at Scale</a></p>
-<p>Introduction: Guest post byAsya Kamsky, Principal Solutions Architect at MongoDB.This post
-outlines ten things you need to know for operating MongoDB at scale based on
-my experience working with MongoDB customers and open source users:MongoDB
-requires DevOps, too.MongoDB is a database. Like any other data store, it
-requires capacity planning, tuning, monitoring, and maintenance. Just because
-it's easy to install and get started and it fits the developer paradigm more
-naturally than a relational database, don't assume that MongoDB doesn't need
-proper care and feeding. And just because it performs super-fast on a small
-sample dataset in development doesn't mean you can get away without having a
-good schema and indexing strategy, as well as the right hardware resources in
-production! But if you prepare well and understand the best practices,
-operating large MongoDB clusters can be boring instead of nerve-
-wracking.Successful MongoDB users monitor everything and prepare for
-growth.Tracking current capac</p><p>3 0.19191298 <a title="1386-tfidf-3" href="../high_scalability-2011/high_scalability-2011-05-15-Building_a_Database_remote_availability_site.html">1041 high scalability-2011-05-15-Building a Database remote availability site</a></p>
-<p>Introduction: The AWS East Region outage showed all of us the importance of running our apps
-and databases across multiple Amazon regions (or multiple cloud providers). In
-this post, I'll try to explain how to build a MySQL (or Amazon RDS) redundant
-site.For simplicity, we create a passive redundant site. This means that the
-site is not used during normal operation and only comes into action when the
-primary site crashes. There are many reasons for choosing such an architecture
-- it's easy to configure, simple to understand, and minimizes the risk of data
-collision. The downside is that you have hardware just sitting around doing
-nothing.Still, it's a common enough scenario. So what do we need to do to make
-it work?DATA SYNCHRONIZATIONWe need to synchronize the database. This is done
-by means of database replication. Now, there are two options for database
-replication: synchronous and a-synchronous. Synchronous replication is great;
-it ensures that the backup database is identical to the primary dat</p><p>4 0.17443193 <a title="1386-tfidf-4" href="../high_scalability-2008/high_scalability-2008-04-22-Simple_NFS_failover_solution_with_symbolic_link%3F.html">308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</a></p>
-<p>Introduction: I've been trying to find a high availability file storage solution without
-success. I tried GlusterFS which looks very promising but experienced problems
-with stability and don't want something I can't easily control and rely on.
-Other solutions are too complicated or have a SPOF.So I'm thinking of the
-following setup:Two NFS servers, a primary and a warm backup. The primary
-server will be rsynced with the warm backup every minute or two. I can do it
-so frequently as a PHP script will know which directories have changed
-recently from a database and only rsync those. Both servers will be NFS
-mounted on a cluster of web servers as /mnt/nfs-primary (sym linked as
-/home/websites) and /mnt/nfs-backup.I'll then use Ucarp
-(http://www.ucarp.org/project/ucarp) to monitor both NFS servers availability
-every couple of seconds and when one goes down, the Ucarp up script will be
-set to change the symbolic link on all web servers for the /home/websites dir
-from /mnt/nfs-primary to /mnt/nfs-backupThe</p><p>5 0.17237253 <a title="1386-tfidf-5" href="../high_scalability-2014/high_scalability-2014-02-18-Sponsored_Post%3A_Couchbase%2C_Tokutek%2C_Logentries%2C_Booking%2C_Apple%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1598 high scalability-2014-02-18-Sponsored Post: Couchbase, Tokutek, Logentries, Booking, Apple, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
-<p>Introduction: Who's Hiring?Apple is hiring for multiple positions. Imagine what you could do
-here. At Apple, great ideas have a way of becoming great products, services,
-and customer experiences very quickly.Sr Software Engineer. The Emerging
-Technology team is looking for a highly motivated, detail-oriented, energetic
-individual with experience in a variety of big data technologies. You will be
-part of a fast growing, cohesive team with many exciting responsibilities
-related to Big Data. Pleaseapply here.C++ Senior Developer and Architect-
-Maps. The Maps Team is looking for a senior developer and architect to support
-and grow some of the core backend services that support Apple Map's Front End
-Services. Pleaseapply here.  Senior Engineer. We are looking for a team player
-with focus on designing and developing WWDR's web-based applications. The
-successful candidate must have the ability to take minimal business
-requirements and work pro-actively with cross functional teams to obtain clear
-objectives</p><p>6 0.16651171 <a title="1386-tfidf-6" href="../high_scalability-2014/high_scalability-2014-03-04-Sponsored_Post%3A_Uber%2C_ScaleOut_Software%2C_Couchbase%2C_Tokutek%2C_Logentries%2C_Booking%2C_Apple%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1605 high scalability-2014-03-04-Sponsored Post: Uber, ScaleOut Software, Couchbase, Tokutek, Logentries, Booking, Apple, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
+<p>Introduction: This is a guest post by  Jeff Behl , VP Ops @ LogicMonitor.  Jeff  has been a bit herder for the last 20 years, architecting and overseeing the infrastructure for a number of SaaS based companies.   
+  Data Replication for Disaster Recovery  
+An inevitable part of disaster recovery planning is making sure customer data exists in multiple locations.  In the case of LogicMonitor, a SaaS-based monitoring solution for physical, virtual, and cloud environments, we wanted copies of customer data files both within a data center and outside of it.  The former was to protect against the loss of individual servers within a facility, and the latter for recovery in the event of the complete loss of a data center.
+  Where we were:  Rsync  
+Like most everyone who starts off in a Linux environment, we used our trusty friend rsync to copy data around.
+ 
+ 
+ 
+     
+  Rsync is tried, true and tested, and works well when the number of servers, the amount of data, and the number of files is not horrendous.</p><p>2 0.24248341 <a title="1386-tfidf-2" href="../high_scalability-2014/high_scalability-2014-03-05-10_Things_You_Should_Know_About_Running_MongoDB_at_Scale.html">1606 high scalability-2014-03-05-10 Things You Should Know About Running MongoDB at Scale</a></p>
+<p>Introduction: Guest post by  Asya Kamsky , Principal Solutions Architect at MongoDB. 
+ 
+This post outlines ten things you need to know for operating MongoDB at scale based on my experience working with MongoDB customers and open source users:
+  
+  MongoDB requires DevOps, too.  MongoDB is a database. Like any other data store, it requires capacity planning, tuning, monitoring, and maintenance. Just because it's easy to install and get started and it fits the developer paradigm more naturally than a relational database, don't assume that MongoDB doesn't need proper care and feeding.  And just because it performs super-fast on a small sample dataset in development doesn't mean you can get away without having a good schema and indexing strategy, as well as the right hardware resources in production! But if you prepare well and understand the best practices, operating large MongoDB clusters can be boring instead of nerve-wracking. 
+  Successful MongoDB users monitor everything and prepare for growth.</p><p>3 0.19191298 <a title="1386-tfidf-3" href="../high_scalability-2011/high_scalability-2011-05-15-Building_a_Database_remote_availability_site.html">1041 high scalability-2011-05-15-Building a Database remote availability site</a></p>
+<p>Introduction: The AWS East Region outage showed all of us the importance of running our apps and databases across multiple Amazon regions (or multiple cloud providers). In this post, I’ll try to explain how to build a MySQL (or Amazon RDS) redundant site.
+ 
+For simplicity, we create a passive redundant site. This means that the site is not used during normal operation and only comes into action when the primary site crashes. There are many reasons for choosing such an architecture – it’s easy to configure, simple to understand, and minimizes the risk of data collision. The downside is that you have hardware just sitting around doing nothing.
+ 
+Still, it’s a common enough scenario. So what do we need to do to make it work?
+  DATA SYNCHRONIZATION  
+We need to synchronize the database. This is done by means of database replication. Now, there are two options for database replication: synchronous and a-synchronous. Synchronous replication is great; it ensures that the backup database is identical to the</p><p>4 0.17443193 <a title="1386-tfidf-4" href="../high_scalability-2008/high_scalability-2008-04-22-Simple_NFS_failover_solution_with_symbolic_link%3F.html">308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</a></p>
+<p>Introduction: I've been trying to find a high availability file storage solution without success. I tried GlusterFS which looks very promising but experienced problems with stability and don't want something I can't easily control and rely on. Other solutions are too complicated or have a SPOF.     So I'm thinking of the following setup:     Two NFS servers, a primary and a warm backup. The primary server will be rsynced with the warm backup every minute or two. I can do it so frequently as a PHP script will know which directories have changed recently from a database and only rsync those. Both servers will be NFS mounted on a cluster of web servers as /mnt/nfs-primary (sym linked as /home/websites) and /mnt/nfs-backup.     I'll then use Ucarp (http://www.ucarp.org/project/ucarp) to monitor both NFS servers availability every couple of seconds and when one goes down, the Ucarp up script will be set to change the symbolic link on all web servers for the /home/websites dir from /mnt/nfs-primary to /mn</p><p>5 0.17237253 <a title="1386-tfidf-5" href="../high_scalability-2014/high_scalability-2014-02-18-Sponsored_Post%3A_Couchbase%2C_Tokutek%2C_Logentries%2C_Booking%2C_Apple%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1598 high scalability-2014-02-18-Sponsored Post: Couchbase, Tokutek, Logentries, Booking, Apple, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
+<p>Introduction: Who's Hiring?   
+ Apple is hiring for multiple positions. Imagine what you could do here. At Apple, great ideas have a way of becoming great products, services, and customer experiences very quickly.     
+ 
+  Sr Software Engineer . The Emerging Technology team is looking for a highly motivated, detail-oriented, energetic individual with experience in a variety of big data technologies. You will be part of a fast growing, cohesive team with many exciting responsibilities related to Big Data. Please  apply here . 
+  C++ Senior Developer and Architect- Maps . The Maps Team is looking for a senior developer and architect to support and grow some of the core backend services that support Apple Map's Front End Services. Please  apply here .   
+  Senior Engineer . We are looking for a team player with focus on designing and developing WWDR’s web-based applications. The successful candidate must have the ability to take minimal business requirements and work pro-actively with cross functional</p><p>6 0.16651171 <a title="1386-tfidf-6" href="../high_scalability-2014/high_scalability-2014-03-04-Sponsored_Post%3A_Uber%2C_ScaleOut_Software%2C_Couchbase%2C_Tokutek%2C_Logentries%2C_Booking%2C_Apple%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1605 high scalability-2014-03-04-Sponsored Post: Uber, ScaleOut Software, Couchbase, Tokutek, Logentries, Booking, Apple, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
 <p>7 0.14370897 <a title="1386-tfidf-7" href="../high_scalability-2014/high_scalability-2014-02-04-Sponsored_Post%3A_Logentries%2C_Booking%2C_Apple%2C_MongoDB%2C_BlueStripe%2C_AiScaler%2C_Aerospike%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7__.html">1590 high scalability-2014-02-04-Sponsored Post: Logentries, Booking, Apple, MongoDB, BlueStripe, AiScaler, Aerospike, LogicMonitor, AppDynamics, ManageEngine, Site24x7  </a></p>
 <p>8 0.1424147 <a title="1386-tfidf-8" href="../high_scalability-2014/high_scalability-2014-02-03-How_Google_Backs_Up_the_Internet_Along_With_Exabytes_of_Other_Data.html">1589 high scalability-2014-02-03-How Google Backs Up the Internet Along With Exabytes of Other Data</a></p>
 <p>9 0.1390413 <a title="1386-tfidf-9" href="../high_scalability-2012/high_scalability-2012-02-21-Pixable_Architecture_-_Crawling%2C_Analyzing%2C_and_Ranking_20_Million_Photos_a_Day.html">1197 high scalability-2012-02-21-Pixable Architecture - Crawling, Analyzing, and Ranking 20 Million Photos a Day</a></p>
@@ -143,76 +100,34 @@ objectives</p><p>6 0.16651171 <a title="1386-tfidf-6" href="../high_scalability-
 <p>[(0, 0.193), (1, 0.039), (2, -0.061), (3, -0.034), (4, 0.034), (5, 0.037), (6, 0.148), (7, -0.056), (8, 0.116), (9, -0.006), (10, -0.009), (11, -0.021), (12, 0.011), (13, -0.02), (14, 0.051), (15, 0.038), (16, -0.007), (17, 0.004), (18, -0.025), (19, 0.044), (20, 0.019), (21, -0.033), (22, 0.02), (23, 0.092), (24, 0.001), (25, 0.027), (26, -0.022), (27, 0.022), (28, -0.068), (29, 0.013), (30, 0.023), (31, -0.011), (32, 0.036), (33, 0.012), (34, 0.019), (35, -0.007), (36, 0.01), (37, -0.047), (38, -0.052), (39, -0.011), (40, 0.002), (41, -0.083), (42, -0.056), (43, 0.065), (44, -0.034), (45, -0.027), (46, -0.032), (47, -0.062), (48, 0.06), (49, -0.083)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96759754 <a title="1386-lsi-1" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
-<p>Introduction: This is a guest post byJeff Behl, VP Ops @ LogicMonitor. Jeffhas been a bit
-herder for the last 20 years, architecting and overseeing the infrastructure
-for a number of SaaS based companies.  Data Replication for Disaster
-RecoveryAn inevitable part of disaster recovery planning is making sure
-customer data exists in multiple locations.  In the case of LogicMonitor, a
-SaaS-based monitoring solution for physical, virtual, and cloud environments,
-we wanted copies of customer data files both within a data center and outside
-of it.  The former was to protect against the loss of individual servers
-within a facility, and the latter for recovery in the event of the complete
-loss of a data center.Where we were:  RsyncLike most everyone who starts off
-in a Linux environment, we used our trusty friend rsync to copy data around.
-Rsync is tried, true and tested, and works well when the number of servers,
-the amount of data, and the number of files is not horrendous.  When any of
-these are no longer</p><p>2 0.77879357 <a title="1386-lsi-2" href="../high_scalability-2014/high_scalability-2014-03-05-10_Things_You_Should_Know_About_Running_MongoDB_at_Scale.html">1606 high scalability-2014-03-05-10 Things You Should Know About Running MongoDB at Scale</a></p>
-<p>Introduction: Guest post byAsya Kamsky, Principal Solutions Architect at MongoDB.This post
-outlines ten things you need to know for operating MongoDB at scale based on
-my experience working with MongoDB customers and open source users:MongoDB
-requires DevOps, too.MongoDB is a database. Like any other data store, it
-requires capacity planning, tuning, monitoring, and maintenance. Just because
-it's easy to install and get started and it fits the developer paradigm more
-naturally than a relational database, don't assume that MongoDB doesn't need
-proper care and feeding. And just because it performs super-fast on a small
-sample dataset in development doesn't mean you can get away without having a
-good schema and indexing strategy, as well as the right hardware resources in
-production! But if you prepare well and understand the best practices,
-operating large MongoDB clusters can be boring instead of nerve-
-wracking.Successful MongoDB users monitor everything and prepare for
-growth.Tracking current capac</p><p>3 0.68156195 <a title="1386-lsi-3" href="../high_scalability-2012/high_scalability-2012-07-09-Data_Replication_in_NoSQL_Databases.html">1279 high scalability-2012-07-09-Data Replication in NoSQL Databases</a></p>
-<p>Introduction: This is the third guest post (part 1,part 2) of a series by Greg Lindahl, CTO
-of blekko, the spam free search engine. Previously, Greg was Founder and
-Distinguished Engineer at PathScale, at which he was the architect of the
-InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled
-supercomputing clusters.blekko's home-grown NoSQL database was designed from
-the start to support a web-scale search engine, with 1,000s of servers and
-petabytes of disk. Data replication is a very important part of keeping the
-database up and serving queries. Like many NoSQL database authors, we decided
-to keep R=3 copies of each piece of data in the database, and not use RAID to
-improve reliability. The key goal we were shooting for was a database which
-degrades gracefully when there are many small failures over time, without
-needing human intervention.Why don't we like RAID for big NoSQL databases?Most
-big storage systems use RAID levels like 3, 4, 5, or 10 to improve
-reliability. A conservativ</p><p>4 0.66604662 <a title="1386-lsi-4" href="../high_scalability-2011/high_scalability-2011-02-15-Wordnik_-_10_million_API_Requests_a_Day_on_MongoDB_and_Scala.html">990 high scalability-2011-02-15-Wordnik - 10 million API Requests a Day on MongoDB and Scala</a></p>
-<p>Introduction: Wordnik is an online dictionary and language resource that has both a website
-and an API component. Their goal is toshow you as much information as
-possible, as fast as we can find it, for every word in English, and to give
-you a place where you can make your own opinions about words known.As cool as
-that is, what is really cool is the information they share in theirblogabout
-their experiences building a web service. They've written an excellent series
-of articles and presentations you may find useful:What has technology doSave &
-Closene for words lately?Eventual consistency. Using an eventually consistent
-model they can do work in parallel andwe count as many words as possible when
-we can, and add them all up when there's a lag. The count's always in the
-ballpark, and we never have to stop.DDocument-oriented storage. Dictionary
-entries are more naturally modeled as hierarchical documents and using that
-model has made it quicker to find data and is easier for development.12 Months
-with</p><p>5 0.65816623 <a title="1386-lsi-5" href="../high_scalability-2008/high_scalability-2008-04-22-Simple_NFS_failover_solution_with_symbolic_link%3F.html">308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</a></p>
-<p>Introduction: I've been trying to find a high availability file storage solution without
-success. I tried GlusterFS which looks very promising but experienced problems
-with stability and don't want something I can't easily control and rely on.
-Other solutions are too complicated or have a SPOF.So I'm thinking of the
-following setup:Two NFS servers, a primary and a warm backup. The primary
-server will be rsynced with the warm backup every minute or two. I can do it
-so frequently as a PHP script will know which directories have changed
-recently from a database and only rsync those. Both servers will be NFS
-mounted on a cluster of web servers as /mnt/nfs-primary (sym linked as
-/home/websites) and /mnt/nfs-backup.I'll then use Ucarp
-(http://www.ucarp.org/project/ucarp) to monitor both NFS servers availability
-every couple of seconds and when one goes down, the Ucarp up script will be
-set to change the symbolic link on all web servers for the /home/websites dir
-from /mnt/nfs-primary to /mnt/nfs-backupThe</p><p>6 0.64970577 <a title="1386-lsi-6" href="../high_scalability-2011/high_scalability-2011-09-13-Must_see%3A_5_Steps_to_Scaling_MongoDB_%28Or_Any_DB%29_in_8_Minutes.html">1114 high scalability-2011-09-13-Must see: 5 Steps to Scaling MongoDB (Or Any DB) in 8 Minutes</a></p>
+<p>Introduction: This is a guest post by  Jeff Behl , VP Ops @ LogicMonitor.  Jeff  has been a bit herder for the last 20 years, architecting and overseeing the infrastructure for a number of SaaS based companies.   
+  Data Replication for Disaster Recovery  
+An inevitable part of disaster recovery planning is making sure customer data exists in multiple locations.  In the case of LogicMonitor, a SaaS-based monitoring solution for physical, virtual, and cloud environments, we wanted copies of customer data files both within a data center and outside of it.  The former was to protect against the loss of individual servers within a facility, and the latter for recovery in the event of the complete loss of a data center.
+  Where we were:  Rsync  
+Like most everyone who starts off in a Linux environment, we used our trusty friend rsync to copy data around.
+ 
+ 
+ 
+     
+  Rsync is tried, true and tested, and works well when the number of servers, the amount of data, and the number of files is not horrendous.</p><p>2 0.77879357 <a title="1386-lsi-2" href="../high_scalability-2014/high_scalability-2014-03-05-10_Things_You_Should_Know_About_Running_MongoDB_at_Scale.html">1606 high scalability-2014-03-05-10 Things You Should Know About Running MongoDB at Scale</a></p>
+<p>Introduction: Guest post by  Asya Kamsky , Principal Solutions Architect at MongoDB. 
+ 
+This post outlines ten things you need to know for operating MongoDB at scale based on my experience working with MongoDB customers and open source users:
+  
+  MongoDB requires DevOps, too.  MongoDB is a database. Like any other data store, it requires capacity planning, tuning, monitoring, and maintenance. Just because it's easy to install and get started and it fits the developer paradigm more naturally than a relational database, don't assume that MongoDB doesn't need proper care and feeding.  And just because it performs super-fast on a small sample dataset in development doesn't mean you can get away without having a good schema and indexing strategy, as well as the right hardware resources in production! But if you prepare well and understand the best practices, operating large MongoDB clusters can be boring instead of nerve-wracking. 
+  Successful MongoDB users monitor everything and prepare for growth.</p><p>3 0.68156195 <a title="1386-lsi-3" href="../high_scalability-2012/high_scalability-2012-07-09-Data_Replication_in_NoSQL_Databases.html">1279 high scalability-2012-07-09-Data Replication in NoSQL Databases</a></p>
+<p>Introduction: This is the third guest post  (  part 1  ,   part 2  ) of a series by Greg Lindahl, CTO of blekko, the spam free search engine. Previously, Greg was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters. 
+ 
+blekko's home-grown NoSQL database was designed from the start to support a web-scale search engine, with 1,000s of servers and petabytes of disk. Data replication is a very important part of keeping the database up and serving queries.  Like many NoSQL database authors, we decided to keep R=3 copies of each piece of data in the database, and not use RAID to improve reliability. The key goal we were shooting for was a database which degrades gracefully when there are many small failures over time, without needing human intervention.
+  Why don't we like RAID for big NoSQL databases?  
+Most big storage systems use RAID levels like 3, 4, 5, or 10 to improve relia</p><p>4 0.66604662 <a title="1386-lsi-4" href="../high_scalability-2011/high_scalability-2011-02-15-Wordnik_-_10_million_API_Requests_a_Day_on_MongoDB_and_Scala.html">990 high scalability-2011-02-15-Wordnik - 10 million API Requests a Day on MongoDB and Scala</a></p>
+<p>Introduction: Wordnik  is an online dictionary and language resource that has both a website and an API component. Their goal is to  show you as much information as possible, as fast as we can find it, for every word in English, and to give you a place where you can make your own opinions about words known.  As cool as that is, what is really cool is the information they share in their  blog  about their experiences building a web service. They've written an excellent series of articles and presentations you may find useful:   
+ 
+  What has technology do  Save & Close ne for words lately?    
+ 
+  Eventual consistency . Using an eventually consistent model they can do work in parallel and  we count as many words as possible when we can, and add them all up when there’s a lag. The count’s always in the ballpark, and we never have to stop .D 
+  Document-oriented storage . Dictionary entries are more naturally modeled as hierarchical documents and using that model has made it quicker to find data and is</p><p>5 0.65816623 <a title="1386-lsi-5" href="../high_scalability-2008/high_scalability-2008-04-22-Simple_NFS_failover_solution_with_symbolic_link%3F.html">308 high scalability-2008-04-22-Simple NFS failover solution with symbolic link?</a></p>
+<p>Introduction: I've been trying to find a high availability file storage solution without success. I tried GlusterFS which looks very promising but experienced problems with stability and don't want something I can't easily control and rely on. Other solutions are too complicated or have a SPOF.     So I'm thinking of the following setup:     Two NFS servers, a primary and a warm backup. The primary server will be rsynced with the warm backup every minute or two. I can do it so frequently as a PHP script will know which directories have changed recently from a database and only rsync those. Both servers will be NFS mounted on a cluster of web servers as /mnt/nfs-primary (sym linked as /home/websites) and /mnt/nfs-backup.     I'll then use Ucarp (http://www.ucarp.org/project/ucarp) to monitor both NFS servers availability every couple of seconds and when one goes down, the Ucarp up script will be set to change the symbolic link on all web servers for the /home/websites dir from /mnt/nfs-primary to /mn</p><p>6 0.64970577 <a title="1386-lsi-6" href="../high_scalability-2011/high_scalability-2011-09-13-Must_see%3A_5_Steps_to_Scaling_MongoDB_%28Or_Any_DB%29_in_8_Minutes.html">1114 high scalability-2011-09-13-Must see: 5 Steps to Scaling MongoDB (Or Any DB) in 8 Minutes</a></p>
 <p>7 0.64516282 <a title="1386-lsi-7" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
 <p>8 0.64121276 <a title="1386-lsi-8" href="../high_scalability-2009/high_scalability-2009-11-06-Product%3A_Resque_-_GitHub%27s_Distrubuted_Job_Queue.html">738 high scalability-2009-11-06-Product: Resque - GitHub's Distrubuted Job Queue</a></p>
 <p>9 0.6399042 <a title="1386-lsi-9" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
@@ -232,76 +147,40 @@ from /mnt/nfs-primary to /mnt/nfs-backupThe</p><p>6 0.64970577 <a title="1386-ls
 <p>[(1, 0.201), (2, 0.214), (10, 0.05), (30, 0.024), (40, 0.012), (51, 0.01), (58, 0.132), (61, 0.082), (77, 0.019), (79, 0.088), (85, 0.031), (94, 0.051)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.95354694 <a title="1386-lda-1" href="../high_scalability-2009/high_scalability-2009-05-01-FastBit%3A_An_Efficient_Compressed_Bitmap_Index_Technology.html">587 high scalability-2009-05-01-FastBit: An Efficient Compressed Bitmap Index Technology</a></p>
-<p>Introduction: Data mining and fast queries are always in that bin of hard to do things where
-doing something smarter can yield big results. Bloom Filters are one such do
-it smarter strategy, compressed bitmap indexes are another. In one application
-"FastBit outruns other search indexes by a factor of 10 to 100 and doesn't
-require much more room than the original data size." The data size is an
-interesting metric. Our old standard b-trees can be two to four times larger
-than the original data. In a test searching an Enron email database FastBit
-outran MySQL by 10 to 1,000 times.FastBit is a software tool for searching
-large read-only datasets. It organizes user data in a column-oriented
-structure which is efficient for on-line analytical processing (OLAP), and
-utilizes compressed bitmap indices to further speed up query processing.
-Analyses have proven the compressed bitmap index used in FastBit to be
-theoretically optimal for one-dimensional queries. Compared with other optimal
-indexing methods, bit</p><p>same-blog 2 0.94751394 <a title="1386-lda-2" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
-<p>Introduction: This is a guest post byJeff Behl, VP Ops @ LogicMonitor. Jeffhas been a bit
-herder for the last 20 years, architecting and overseeing the infrastructure
-for a number of SaaS based companies.  Data Replication for Disaster
-RecoveryAn inevitable part of disaster recovery planning is making sure
-customer data exists in multiple locations.  In the case of LogicMonitor, a
-SaaS-based monitoring solution for physical, virtual, and cloud environments,
-we wanted copies of customer data files both within a data center and outside
-of it.  The former was to protect against the loss of individual servers
-within a facility, and the latter for recovery in the event of the complete
-loss of a data center.Where we were:  RsyncLike most everyone who starts off
-in a Linux environment, we used our trusty friend rsync to copy data around.
-Rsync is tried, true and tested, and works well when the number of servers,
-the amount of data, and the number of files is not horrendous.  When any of
-these are no longer</p><p>3 0.9217279 <a title="1386-lda-3" href="../high_scalability-2010/high_scalability-2010-11-29-Stuff_the_Internet_Says_on_Scalability_For_November_29th%2C_2010.html">949 high scalability-2010-11-29-Stuff the Internet Says on Scalability For November 29th, 2010</a></p>
-<p>Introduction: Eating turkey all weekend and wondering what you might have missed?James
-Hamilton on why "all you have learned about disks so far is probably wrong" in
-Availability in Globally Distributed Storage. It turns out for the same reason
-our financial systems melt down:black swans. The world is predictably
-unpredictable. Murat Demirbas also has agood poston the same Google research
-paper.Stack OverflowHits10M UniquesVroom...Formula One racecarstreams 27
-gigabytes of telemetrydata during a race weekend! 200 sensors "measuring
-anything and everything that moves or gets warm. Quotable Quotes:@dmalenko:It
-is cool to sit by the ocean, oversee the sunset and think about scalability
-models for a web app@detroitpro: I have to admit; sometimes I think "This
-would be easier with a SQL DB" #NoSQL #NotOften #ComplextRelationships
-#FindingRootObjectsYou may have missed the Google App Enginecage match. First
-GAE sucks and then it's great. Whatever your conclusion it's an informative
-discussion. GAE is like</p><p>4 0.92019975 <a title="1386-lda-4" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
-<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from
-over 600 hyperactive servers? If you think this sounds like the perfect battle
-ground for a head-to-head skirmish in the greatMapReduce Versus Database War,
-you would be correct.Bill Boebel, CTO of Mailtrust (Rackspace's mail
-division), has generously provided a fascinating account of how they evolved
-their log processing system from an early amoeba'ic text file stored on each
-machine approach, to a Neandertholic relational database solution that just
-couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that
-works wisely for them and has virtually unlimited scalability
-potential.Rackspace faced a now familiar problem. Lots and lots of data
-streaming in. Where do you store all that data? How do you do anything useful
-with it? In the first version of their system logs were stored in flat text
-files and had to be manually searched by engineers logging into each
-individual machine. Then came a</p><p>5 0.92018968 <a title="1386-lda-5" href="../high_scalability-2011/high_scalability-2011-08-05-Stuff_The_Internet_Says_On_Scalability_For_August_5%2C_2011.html">1093 high scalability-2011-08-05-Stuff The Internet Says On Scalability For August 5, 2011</a></p>
-<p>Introduction: Submitted for your beginning of the end of summer scaling pleasure: Google
-Uses About 900,000 Servers;eBay deploys 100TB of flash storageThe cloud isn't
-for closers. Another gaming startup pulls back from the cloud by Derrick
-Harris. Digital Chocolate is following the Zynga strategy of moving games into
-higher performing datacenter infrastructure once it becomes popular enough in
-the cloud to justify the primo stuff. We talked about this strategy inZynga's
-Z Cloud - Scale Fast Or Fail Fast By Merging Private And Public Clouds. An
-architectural approach made all the more sensible with Amazon's new AWS Direct
-Connect service, which enables lower latency and higher bandwidth services by
-skipping the Internet and connecting directly to the AWS network.AWS Direct
-Connect FAQs.Amazon Virtual Private Cloud. Quotes that are quotable:@Werner :
-"If You Are Slow, You Can't Grow" - Peecho Architecture - scalability on a
-shoestring http://wv.ly/n4fpPC #aws #highscalability #peecho@tcolar: Using
-neo</p><p>6 0.91994226 <a title="1386-lda-6" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
+<p>Introduction: Data mining and fast queries are always in that bin of hard to do things where doing something smarter can yield big results. Bloom Filters are one such do it smarter strategy, compressed bitmap indexes are another. In one application "FastBit outruns other search indexes by a factor of 10 to 100 and doesnâ&euro;&trade;t require much more room than the original data size." The data size is an interesting metric. Our old standard b-trees can be two to four times larger than the original data. In a test searching an Enron email database FastBit outran MySQL by 10 to 1,000 times.      
+   FastBit is a software tool for searching large read-only datasets. It organizes user data in a column-oriented structure which is efficient for on-line analytical processing (OLAP), and utilizes compressed bitmap indices to further speed up query processing. Analyses have proven the compressed bitmap index used in FastBit to be theoretically optimal for one-dimensional queries. Compared with other optimal indexing me</p><p>same-blog 2 0.94751394 <a title="1386-lda-2" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
+<p>Introduction: This is a guest post by  Jeff Behl , VP Ops @ LogicMonitor.  Jeff  has been a bit herder for the last 20 years, architecting and overseeing the infrastructure for a number of SaaS based companies.   
+  Data Replication for Disaster Recovery  
+An inevitable part of disaster recovery planning is making sure customer data exists in multiple locations.  In the case of LogicMonitor, a SaaS-based monitoring solution for physical, virtual, and cloud environments, we wanted copies of customer data files both within a data center and outside of it.  The former was to protect against the loss of individual servers within a facility, and the latter for recovery in the event of the complete loss of a data center.
+  Where we were:  Rsync  
+Like most everyone who starts off in a Linux environment, we used our trusty friend rsync to copy data around.
+ 
+ 
+ 
+     
+  Rsync is tried, true and tested, and works well when the number of servers, the amount of data, and the number of files is not horrendous.</p><p>3 0.9217279 <a title="1386-lda-3" href="../high_scalability-2010/high_scalability-2010-11-29-Stuff_the_Internet_Says_on_Scalability_For_November_29th%2C_2010.html">949 high scalability-2010-11-29-Stuff the Internet Says on Scalability For November 29th, 2010</a></p>
+<p>Introduction: Eating turkey all weekend and wondering what you might have missed?
+  
+ James Hamilton on why “all you have learned about disks so far is probably wrong" in  Availability in Globally Distributed Storage . It turns out for the same reason our financial systems melt down:  black swans . The world is predictably unpredictable. Murat Demirbas also has a  good post  on the same  Google research paper . 
+  Stack Overflow  Hits  10M Uniques  
+ Vroom...Formula One racecar  streams 27 gigabytes of telemetry  data during a race weekend! 200 sensors “measuring anything and everything that moves or gets warm.  
+ Quotable Quotes:          
+ 
+  @dmalenko  :  It is cool to sit by the ocean, oversee the sunset and think about scalability models for a web app 
+  @detroitpro : I have to admit; sometimes I think "This would be easier with a SQL DB" #NoSQL #NotOften #ComplextRelationships #FindingRootObjects 
+ 
+ 
+ You may have missed the Google App Engine  cage match . First GAE  sucks  and then it's  gre</p><p>4 0.92019975 <a title="1386-lda-4" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
+<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from over 600 hyperactive servers? If you think this sounds like the perfect battle ground for a head-to-head skirmish in the great  MapReduce Versus Database War , you would be correct.   Bill Boebel, CTO of Mailtrust (Rackspace's mail division), has generously provided a fascinating account of how they evolved their log processing system from an early amoeba'ic text file stored on each machine approach,  to a Neandertholic relational database solution that just couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that works wisely for them and has virtually unlimited scalability potential.
+ 
+Rackspace faced a now familiar problem. Lots and lots of data streaming in. Where do you store all that data? How do you do anything useful with it? In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine.  T</p><p>5 0.92018968 <a title="1386-lda-5" href="../high_scalability-2011/high_scalability-2011-08-05-Stuff_The_Internet_Says_On_Scalability_For_August_5%2C_2011.html">1093 high scalability-2011-08-05-Stuff The Internet Says On Scalability For August 5, 2011</a></p>
+<p>Introduction: Submitted for your beginning of the end of summer scaling pleasure: 
+  
+  Google Uses About 900,000 Servers ;  eBay deploys 100TB of flash storage  
+ The cloud isn't for closers.  Another gaming startup pulls back from the cloud  by Derrick Harris. Digital Chocolate is following the Zynga strategy of moving games into higher performing datacenter infrastructure once it becomes popular enough in the cloud to justify the primo stuff. We talked about this strategy in  Zynga's Z Cloud - Scale Fast Or Fail Fast By Merging Private And Public Clouds . An architectural approach made all the more sensible with Amazon's new  AWS Direct Connect  service, which enables lower latency and higher bandwidth services by skipping the Internet and connecting directly to the AWS network.  AWS Direct Connect FAQs .  Amazon Virtual Private Cloud .  
+ Quotes that are quotable:        
+ 
+  @Werner  : "If You Are Slow, You Can't Grow" - Peecho Architecture - scalability on a shoestring http://wv.ly/n4fpPC #aws</p><p>6 0.91994226 <a title="1386-lda-6" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
 <p>7 0.91973782 <a title="1386-lda-7" href="../high_scalability-2014/high_scalability-2014-03-05-10_Things_You_Should_Know_About_Running_MongoDB_at_Scale.html">1606 high scalability-2014-03-05-10 Things You Should Know About Running MongoDB at Scale</a></p>
 <p>8 0.919608 <a title="1386-lda-8" href="../high_scalability-2012/high_scalability-2012-02-21-Pixable_Architecture_-_Crawling%2C_Analyzing%2C_and_Ranking_20_Million_Photos_a_Day.html">1197 high scalability-2012-02-21-Pixable Architecture - Crawling, Analyzing, and Ranking 20 Million Photos a Day</a></p>
 <p>9 0.91948301 <a title="1386-lda-9" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>

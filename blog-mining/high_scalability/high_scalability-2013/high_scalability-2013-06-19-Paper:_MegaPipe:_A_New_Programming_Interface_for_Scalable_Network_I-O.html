@@ -16,107 +16,70 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1478 high scalability-2013-06-19-Paper: MegaPipe: A New Programming Interface for Scalable Network I-O</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1478-html" href="http://highscalability.com//blog/2013/6/19/paper-megapipe-a-new-programming-interface-for-scalable-netw.html">html</a></p><p>Introduction: The paper MegaPipe: A New Programming Interface for Scalable Network I/O
-(video,slides) hits the common theme that if you want to go faster you need a
-better car design, not just a better driver. So that's why the authors started
-with a clean-slate and designed a network API from the ground up with support
-for concurrent I/O, a requirement for achieving high performance while scaling
-to large numbers of connections per thread, multiple cores, etc.  What they
-created is MegaPipe, "a new network programming API for message-oriented
-workloads to avoid the performance issues of BSD Socket API."The result:
-MegaPipe outperforms baseline Linux between 29% (for long connections) and
-582% (for short connections). MegaPipe improves the performance of a modiﬁed
-version of memcached between 15% and 320%. For a workload based on real-world
-HTTP traces, MegaPipe boosts the throughput of nginx by 75%.What's this most
-excellent and interesting paper about?Message-oriented network workloads,
-where conn</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 So that's why the authors started with a clean-slate and designed a network API from the ground up with support for concurrent I/O, a requirement for achieving high performance while scaling to large numbers of connections per thread, multiple cores, etc. [sent-2, score-0.254]
-</p><p>2 What they created is MegaPipe, "a new network programming API for message-oriented workloads to avoid the performance issues of BSD Socket API. [sent-3, score-0.139]
-</p><p>3 "The result: MegaPipe outperforms baseline Linux between 29% (for long connections) and 582% (for short connections). [sent-4, score-0.214]
-</p><p>4 MegaPipe improves the performance of a modiﬁed version of memcached between 15% and 320%. [sent-5, score-0.171]
-</p><p>5 For a workload based on real-world HTTP traces, MegaPipe boosts the throughput of nginx by 75%. [sent-6, score-0.197]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1478-html" href="http://highscalability.com//blog/2013/6/19/paper-megapipe-a-new-programming-interface-for-scalable-netw.html">html</a></p><p>Introduction: The paper  MegaPipe: A New Programming Interface for Scalable Network I/O  ( video ,  slides ) hits the common theme that if you want to go faster you need a better car design, not just a better driver. So that's why the authors started with a clean-slate and designed a network API from the ground up with support for concurrent I/O, a requirement for achieving high performance while scaling to large numbers of connections per thread, multiple cores, etc.  What they created is MegaPipe, "a new network programming API for message-oriented workloads to avoid the performance issues of BSD Socket API."
+ 
+The result: MegaPipe outperforms baseline Linux between  29% (for long connections)  and  582% (for short connections) . MegaPipe improves the performance of a modiﬁed version of  memcached between 15% and 320% . For a workload based on real-world HTTP traces, MegaPipe boosts the throughput of  nginx by 75% .
+ 
+What's this most excellent and interesting paper about?
+  Message-oriented netwo</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 So that's why the authors started with a clean-slate and designed a network API from the ground up with support for concurrent I/O, a requirement for achieving high performance while scaling to large numbers of connections per thread, multiple cores, etc. [sent-2, score-0.204]
+</p><p>2 What they created is MegaPipe, "a new network programming API for message-oriented workloads to avoid the performance issues of BSD Socket API. [sent-3, score-0.086]
+</p><p>3 "   The result: MegaPipe outperforms baseline Linux between  29% (for long connections)  and  582% (for short connections) . [sent-4, score-0.214]
+</p><p>4 MegaPipe improves the performance of a modiﬁed version of  memcached between 15% and 320% . [sent-5, score-0.171]
+</p><p>5 For a workload based on real-world HTTP traces, MegaPipe boosts the throughput of  nginx by 75% . [sent-6, score-0.197]
 </p><p>6 Message-oriented network workloads, where connections are short and/or message sizes are small, are CPU intensive and scale poorly on multi-core systems with the BSD Socket API. [sent-8, score-0.346]
 </p><p>7 We present MegaPipe, a new API for efﬁcient, scalable network I/O for message-oriented workloads. [sent-9, score-0.05]
 </p><p>8 The design of MegaPipe centers around the abstraction of a channel a per-core, bidirectional pipe between the kernel and user space, used to exchange both I/O requests and event notiﬁcations. [sent-10, score-0.288]
-</p><p>9 On top of the channel abstraction, we introduce three key concepts of MegaPipe:partitioning,lightweight socket (lwsocket), andbatching. [sent-11, score-0.242]
-</p><p>10 We implement MegaPipe in Linux and adapt memcached and nginx. [sent-12, score-0.045]
-</p><p>11 Our results show that, by embracing a clean-slate design approach, MegaPipe is able to exploit new opportunities for improved performance and ease of programmability. [sent-13, score-0.075]
-</p><p>12 In microbenchmarks on an 8-core server with 64 B messages, MegaPipe outperforms baseline Linux between 29% (for long connections) and 582% (for short connections). [sent-14, score-0.266]
-</p><p>13 MegaPipe improves the performance of a modiﬁed version of memcached between 15% and 320%. [sent-15, score-0.171]
-</p><p>14 For a workload based on real-world HTTP traces, MegaPipe boosts the throughput of nginx by 75%. [sent-16, score-0.197]
-</p><p>15 Performance with Small Messages:Small messages result in greater relative network I/O overhead in comparison to larger messages. [sent-17, score-0.221]
-</p><p>16 In fact, the per-message overhead remains roughly constant and thus, independent of message size; in comparison with a 64 B message, a 1 KiB message adds only about 2% overhead due to the copying between user and kernel on our system, despite the large size difference. [sent-18, score-0.414]
-</p><p>17 Partitioned listening sockets:Instead of a single listening socket shared across cores, MegaPipe allows applications to clone a listening socket and partition its associated queue across cores. [sent-19, score-0.691]
-</p><p>18 Such partitioning improves performance with multiple cores while giving applications control over their use of parallelism. [sent-20, score-0.185]
+</p><p>9 On top of the channel abstraction, we introduce three key concepts of MegaPipe:  partitioning ,  lightweight socket (lwsocket) , and  batching . [sent-11, score-0.311]
+</p><p>10 Our results show that, by embracing a clean-slate design approach, MegaPipe is able to exploit new opportunities for improved performance and ease of programmability. [sent-13, score-0.075]
+</p><p>11 In microbenchmarks on an 8-core server with 64 B messages, MegaPipe outperforms baseline Linux between 29% (for long connections) and 582% (for short connections). [sent-14, score-0.266]
+</p><p>12 MegaPipe improves the performance of a modiﬁed version of memcached between 15% and 320%. [sent-15, score-0.171]
+</p><p>13 For a workload based on real-world HTTP traces, MegaPipe boosts the throughput of nginx by 75%. [sent-16, score-0.197]
+</p><p>14 Performance with Small Messages :   Small messages result in greater relative network I/O overhead in comparison to larger messages. [sent-17, score-0.221]
+</p><p>15 In fact, the per-message overhead remains roughly constant and thus, independent of message size; in comparison with a 64 B message, a 1 KiB message adds only about 2% overhead due to the copying between user and kernel on our system, despite the large size difference. [sent-18, score-0.414]
+</p><p>16 Partitioned listening sockets :   Instead of a single listening socket shared across cores, MegaPipe allows applications to clone a listening socket and partition its associated queue across cores. [sent-19, score-0.791]
+</p><p>17 Such partitioning improves performance with multiple cores while giving applications control over their use of parallelism. [sent-20, score-0.185]
+</p><p>18 Lightweight sockets :   Sockets are represented by ﬁle descriptors and hence inherit some unnecessary ﬁlerelated overheads. [sent-21, score-0.14]
 </p><p>19 MegaPipe instead introduces lwsocket, a lightweight socket abstraction that is not wrapped in ﬁlerelated data structures and thus is free from system-wide synchronization. [sent-22, score-0.339]
-</p><p>20 System Call Batching:MegaPipe amortizes system call overheads by batching asynchronous I/O requests and completion notiﬁcations within a channel. [sent-23, score-0.148]
+</p><p>20 System Call Batching :   MegaPipe amortizes system call overheads by batching asynchronous I/O requests and completion notiﬁcations within a channel. [sent-23, score-0.148]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('megapipe', 0.835), ('socket', 0.182), ('connections', 0.128), ('lerelated', 0.115), ('lwsocket', 0.104), ('noti', 0.104), ('sockets', 0.1), ('boosts', 0.098), ('modi', 0.098), ('listening', 0.097), ('bsd', 0.094), ('improves', 0.09), ('baseline', 0.083), ('outperforms', 0.081), ('message', 0.079), ('kernel', 0.078), ('ed', 0.075), ('traces', 0.074), ('abstraction', 0.074), ('batching', 0.069), ('overhead', 0.064), ('channel', 0.06), ('cores', 0.059), ('messages', 0.057), ('workloads', 0.053), ('microbenchmarks', 0.052), ('network', 0.05), ('short', 0.05), ('workload', 0.05), ('comparison', 0.05), ('nginx', 0.049), ('kib', 0.049), ('linux', 0.048), ('memcached', 0.045), ('overheads', 0.044), ('api', 0.044), ('thus', 0.043), ('le', 0.041), ('bidirectional', 0.041), ('wrapped', 0.04), ('concurrent', 0.04), ('descriptors', 0.04), ('poorly', 0.039), ('embracing', 0.039), ('ef', 0.038), ('clone', 0.036), ('cient', 0.036), ('performance', 0.036), ('pipe', 0.035), ('completion', 0.035)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1478-tfidf-1" href="../high_scalability-2013/high_scalability-2013-06-19-Paper%3A_MegaPipe%3A_A_New_Programming_Interface_for_Scalable_Network_I-O.html">1478 high scalability-2013-06-19-Paper: MegaPipe: A New Programming Interface for Scalable Network I-O</a></p>
-<p>Introduction: The paper MegaPipe: A New Programming Interface for Scalable Network I/O
-(video,slides) hits the common theme that if you want to go faster you need a
-better car design, not just a better driver. So that's why the authors started
-with a clean-slate and designed a network API from the ground up with support
-for concurrent I/O, a requirement for achieving high performance while scaling
-to large numbers of connections per thread, multiple cores, etc.  What they
-created is MegaPipe, "a new network programming API for message-oriented
-workloads to avoid the performance issues of BSD Socket API."The result:
-MegaPipe outperforms baseline Linux between 29% (for long connections) and
-582% (for short connections). MegaPipe improves the performance of a modiﬁed
-version of memcached between 15% and 320%. For a workload based on real-world
-HTTP traces, MegaPipe boosts the throughput of nginx by 75%.What's this most
-excellent and interesting paper about?Message-oriented network workloads,
-where conn</p><p>2 0.21509537 <a title="1478-tfidf-2" href="../high_scalability-2013/high_scalability-2013-06-14-Stuff_The_Internet_Says_On_Scalability_For_June_14%2C_2013.html">1476 high scalability-2013-06-14-Stuff The Internet Says On Scalability For June 14, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(Steve Gibson on Security Now with a plausible
-analysis of the tech behind PRISM)27 billion:WhatsApp messages per dayQuotable
-Quotes:Richard Feinman: If Bill Gates walks into a bar, on average, everybody
-in the bar is a millionaire.@giltene: Financial Programmers get paid by the
-CPU cycle. Web developers get paid by the developer cycle.@johndmitchell:
-"It's the I/O, stupid." @PatrickMcFadin: More people registering at
-#cassandra13 No worries. Adding more nodes at the reg desk. Google does it
-with science. Here's a list ofExcellent Papers for 2012 from Googlers and
-friends. Most relevant for HS readers is a wildly inspiring Spanner: Google's
-Globally-Distributed Database. But you'll also see the influence of extracting
-knowledge from data to do subtle and interesting things. On that theme
-isImproving Photo Search: A Step Across the Semantic Gap. Google is doing hard
-hard things with seemingly small paybacks, but taken as whole it's clear what
-is being crea</p><p>3 0.11733934 <a title="1478-tfidf-3" href="../high_scalability-2009/high_scalability-2009-09-10-How_to_handle_so_many_socket_connection.html">699 high scalability-2009-09-10-How to handle so many socket connection</a></p>
-<p>Introduction: In my application, we receive request from many clients through socket.Client
-can connect to this socket and send data. this connection has to be maintained
-for indefinite hours. Client are continously sending data . There are so many
-clients simultaneously to server. I am using java to make application which
-listen on port and do processing on data. How can i scale this socket
-overhead. Is there any product which helps in maintening socket .</p><p>4 0.115878 <a title="1478-tfidf-4" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
-<p>Introduction: Now that we have theC10K concurrent connection problemlicked, how do we level
-up and support 10 million concurrent connections? Impossible you say. Nope,
-systems right now are delivering 10 million concurrent connections using
-techniques that are as radical as they may be unfamiliar.To learn how it's
-done we turn toRobert Graham, CEO of Errata Security, and his absolutely
-fantastic talk atShmoocon 2013calledC10M Defending The Internet At
-Scale.Robert has a brilliant way of framing the problem that I've never heard
-of before. He starts with a little bit of history, relating how Unix wasn't
-originally designed to be a general server OS, it was designed to be a control
-system for a telephone network. It was the telephone network that actually
-transported the data so there was a clean separation between the control plane
-and the data plane. Theproblem is we now use Unix servers as part of the data
-plane, which we shouldn't do at all. If we were designing a kernel for
-handling one applicati</p><p>5 0.081450179 <a title="1478-tfidf-5" href="../high_scalability-2013/high_scalability-2013-10-31-Paper%3A_Everything_You_Always_Wanted_to_Know_About_Synchronization_but_Were_Afraid_to_Ask.html">1541 high scalability-2013-10-31-Paper: Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a></p>
-<p>Introduction: Awesome paper on how particular synchronization mechanisms scale on multi-core
-architectures: Everything You Always Wanted to Know About Synchronization but
-Were Afraid to Ask.The goal is to pick a locking approach that doesn't degrade
-as the number of cores increase. Like everything else in life, that doesn't
-appear to be generically possible:None of the nine locking schemes we consider
-consistently outperforms any other one, on all target architectures or
-workloads. Strictly speaking, to seek optimality, a lock algorithm should thus
-be selected based on the hardware platform and the expected workload.
-Abstract:This paper presents the most exhaustive study of synchronization to
-date. We span multiple layers, from hardware cache-coherence protocols up to
-high-level concurrent software. We do so on different types architectures,
-from single-socket - uniform and nonuniform - to multi-socket - directory and
-broadcastbased - many-cores. We draw a set of observations that, roughly
-speaking,</p><p>6 0.075416729 <a title="1478-tfidf-6" href="../high_scalability-2014/high_scalability-2014-02-12-Paper%3A_Network_Stack_Specialization_for_Performance_.html">1594 high scalability-2014-02-12-Paper: Network Stack Specialization for Performance </a></p>
+<p>Introduction: The paper  MegaPipe: A New Programming Interface for Scalable Network I/O  ( video ,  slides ) hits the common theme that if you want to go faster you need a better car design, not just a better driver. So that's why the authors started with a clean-slate and designed a network API from the ground up with support for concurrent I/O, a requirement for achieving high performance while scaling to large numbers of connections per thread, multiple cores, etc.  What they created is MegaPipe, "a new network programming API for message-oriented workloads to avoid the performance issues of BSD Socket API."
+ 
+The result: MegaPipe outperforms baseline Linux between  29% (for long connections)  and  582% (for short connections) . MegaPipe improves the performance of a modiﬁed version of  memcached between 15% and 320% . For a workload based on real-world HTTP traces, MegaPipe boosts the throughput of  nginx by 75% .
+ 
+What's this most excellent and interesting paper about?
+  Message-oriented netwo</p><p>2 0.21509537 <a title="1478-tfidf-2" href="../high_scalability-2013/high_scalability-2013-06-14-Stuff_The_Internet_Says_On_Scalability_For_June_14%2C_2013.html">1476 high scalability-2013-06-14-Stuff The Internet Says On Scalability For June 14, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    ( Steve Gibson on Security Now with a plausible analysis of the tech behind PRISM)    
+ 27 billion:  WhatsApp messages per day  
+ Quotable Quotes:                                         
+ 
+  Richard Feinman : If Bill Gates walks into a bar, on average, everybody in the bar is a millionaire. 
+  @giltene : Financial Programmers get paid by the CPU cycle. Web developers get paid by the developer cycle. 
+  @johndmitchell : “It’s the I/O, stupid.”  
+  @PatrickMcFadin : More people registering at #cassandra13 No worries. Adding more nodes at the reg desk.  
+ 
+ 
+ 
+ Google does it with science. Here's a list of  Excellent Papers for 2012  from Googlers and friends. Most relevant for HS readers is a wildly inspiring  Spanner: Google's Globally-Distributed Database . But you'll also see the influence of extracting knowledge from data to do subtle and interesting things. On that theme is  Improving Photo Search: A Step Across the Semantic Gap . Google is doing</p><p>3 0.11733934 <a title="1478-tfidf-3" href="../high_scalability-2009/high_scalability-2009-09-10-How_to_handle_so_many_socket_connection.html">699 high scalability-2009-09-10-How to handle so many socket connection</a></p>
+<p>Introduction: In my application, we receive request from many clients through socket.Client can connect to this socket and send data. this connection has to be maintained for indefinite hours. Client are continously sending data . There are so many clients simultaneously to server.  I am using java to make application which listen on port and do processing on data. How can i scale this socket overhead. Is there any product which helps in maintening socket .</p><p>4 0.115878 <a title="1478-tfidf-4" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: Now that we have the    C10K concurrent connection problem    licked, how do we level up and support 10 million concurrent connections? Impossible you say. Nope, systems right now are delivering 10 million concurrent connections using techniques that are as radical as they may be unfamiliar. 
+   To learn how it’s done we turn to    Robert Graham   , CEO of Errata Security, and his absolutely fantastic talk at    Shmoocon 2013    called    C10M Defending The Internet At Scale   . 
+  Robert has a brilliant way of framing the problem that I’ve never heard of before. He starts with a little bit of history, relating how Unix wasn’t originally designed to be a general server OS, it was designed to be a control system for a telephone network. It was the telephone network that actually transported the data so there was a clean separation between the control plane and the data plane. The  problem is we now use Unix servers as part of the data plane , which we shouldn’t do at all. If we were des</p><p>5 0.081450179 <a title="1478-tfidf-5" href="../high_scalability-2013/high_scalability-2013-10-31-Paper%3A_Everything_You_Always_Wanted_to_Know_About_Synchronization_but_Were_Afraid_to_Ask.html">1541 high scalability-2013-10-31-Paper: Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a></p>
+<p>Introduction: Awesome paper on how particular synchronization mechanisms scale on multi-core architectures:  Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask .
+ 
+The goal is to pick a locking approach that doesn't degrade as the number of cores increase. Like everything else in life, that doesn't appear to be generically possible:
+  
+ None of the nine locking schemes we consider consistently outperforms any other one, on all target architectures or workloads. Strictly speaking, to seek optimality,  a lock algorithm should thus be selected based on the hardware platform and the expected workload .  
+  
+Abstract:
+  
+
+This paper presents the most exhaustive study of synchronization to date. We span multiple layers, from hardware cache-coherence protocols up to high-level concurrent software. We do so on different types architectures, from single-socket – uniform and nonuniform – to multi-socket – directory and broadcastbased – many-cores. We draw a set of observations t</p><p>6 0.075416729 <a title="1478-tfidf-6" href="../high_scalability-2014/high_scalability-2014-02-12-Paper%3A_Network_Stack_Specialization_for_Performance_.html">1594 high scalability-2014-02-12-Paper: Network Stack Specialization for Performance </a></p>
 <p>7 0.064661346 <a title="1478-tfidf-7" href="../high_scalability-2008/high_scalability-2008-12-13-Strategy%3A_Facebook_Tweaks_to_Handle_6_Time_as_Many_Memcached_Requests.html">464 high scalability-2008-12-13-Strategy: Facebook Tweaks to Handle 6 Time as Many Memcached Requests</a></p>
 <p>8 0.061124001 <a title="1478-tfidf-8" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
 <p>9 0.058804642 <a title="1478-tfidf-9" href="../high_scalability-2010/high_scalability-2010-04-12-Poppen.de_Architecture.html">808 high scalability-2010-04-12-Poppen.de Architecture</a></p>
@@ -136,76 +99,40 @@ speaking,</p><p>6 0.075416729 <a title="1478-tfidf-6" href="../high_scalability-
 <p>[(0, 0.078), (1, 0.04), (2, -0.007), (3, -0.006), (4, -0.008), (5, 0.022), (6, 0.038), (7, 0.041), (8, -0.053), (9, 0.013), (10, 0.012), (11, -0.001), (12, 0.027), (13, -0.007), (14, -0.042), (15, 0.002), (16, 0.026), (17, 0.003), (18, 0.017), (19, -0.005), (20, 0.026), (21, -0.006), (22, -0.039), (23, -0.015), (24, 0.025), (25, 0.005), (26, -0.008), (27, 0.02), (28, 0.051), (29, -0.015), (30, 0.018), (31, -0.014), (32, -0.01), (33, 0.006), (34, 0.026), (35, -0.003), (36, 0.016), (37, 0.021), (38, -0.0), (39, 0.051), (40, 0.012), (41, 0.012), (42, -0.023), (43, -0.021), (44, -0.021), (45, 0.027), (46, -0.049), (47, -0.005), (48, 0.001), (49, 0.008)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.94300658 <a title="1478-lsi-1" href="../high_scalability-2013/high_scalability-2013-06-19-Paper%3A_MegaPipe%3A_A_New_Programming_Interface_for_Scalable_Network_I-O.html">1478 high scalability-2013-06-19-Paper: MegaPipe: A New Programming Interface for Scalable Network I-O</a></p>
-<p>Introduction: The paper MegaPipe: A New Programming Interface for Scalable Network I/O
-(video,slides) hits the common theme that if you want to go faster you need a
-better car design, not just a better driver. So that's why the authors started
-with a clean-slate and designed a network API from the ground up with support
-for concurrent I/O, a requirement for achieving high performance while scaling
-to large numbers of connections per thread, multiple cores, etc.  What they
-created is MegaPipe, "a new network programming API for message-oriented
-workloads to avoid the performance issues of BSD Socket API."The result:
-MegaPipe outperforms baseline Linux between 29% (for long connections) and
-582% (for short connections). MegaPipe improves the performance of a modiﬁed
-version of memcached between 15% and 320%. For a workload based on real-world
-HTTP traces, MegaPipe boosts the throughput of nginx by 75%.What's this most
-excellent and interesting paper about?Message-oriented network workloads,
-where conn</p><p>2 0.74635589 <a title="1478-lsi-2" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
-<p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible
-NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent
-the last several years trying to find a way to sanely house multiple
-datastore-genres under one roof while (almost paradoxically) pushing
-performance to its limits.I recently joined the NoSQL
-companyAerospike(formerly Citrusleaf) with the goal of incrementally grafting
-AlchemyDB's flexible data-modeling capabilities onto Aerospike's high-velocity
-horizontally-scalable key-value data-fabric. We recently completed a peak-
-performanceTPS optimization project: starting at 200K TPS, pushing to the
-recent community edition launch at 500K TPS, and finally arriving at our 2012
-goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
-database-requests per-second on a single machine costing $5K is a balance
-between trimming overhead on many axes and using a shared nothing architecture
-toisolatethe paths taken by unique req</p><p>3 0.72232974 <a title="1478-lsi-3" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
-<p>Introduction: Now that we have theC10K concurrent connection problemlicked, how do we level
-up and support 10 million concurrent connections? Impossible you say. Nope,
-systems right now are delivering 10 million concurrent connections using
-techniques that are as radical as they may be unfamiliar.To learn how it's
-done we turn toRobert Graham, CEO of Errata Security, and his absolutely
-fantastic talk atShmoocon 2013calledC10M Defending The Internet At
-Scale.Robert has a brilliant way of framing the problem that I've never heard
-of before. He starts with a little bit of history, relating how Unix wasn't
-originally designed to be a general server OS, it was designed to be a control
-system for a telephone network. It was the telephone network that actually
-transported the data so there was a clean separation between the control plane
-and the data plane. Theproblem is we now use Unix servers as part of the data
-plane, which we shouldn't do at all. If we were designing a kernel for
-handling one applicati</p><p>4 0.70439422 <a title="1478-lsi-4" href="../high_scalability-2014/high_scalability-2014-05-07-Update_on_Disqus%3A_It%27s_Still_About_Realtime%2C_But_Go_Demolishes_Python.html">1644 high scalability-2014-05-07-Update on Disqus: It's Still About Realtime, But Go Demolishes Python</a></p>
-<p>Introduction: Our last article on Disqus: How Disqus Went Realtime With 165K Messages Per
-Second And Less Than .2 Seconds Latency, was a little out of date, but the
-folks at Disqus have been busy implementing, not talking, so we don't know a
-lot about what they are doing now, but we do have a short update in C1MM and
-NGINXby John Watson and an article Trying out this Go thing.So Disqus has
-grown a bit:1.3 billion unique visitors10 billion page views500 million users
-engaged in discussions3 million communities25 million commentsThey are still
-all about realtime, but Go replaced Python in their Realtime system:Original
-Realtime backend was written in a pretty lightweight Python + gevent.The
-realtime service is a hybrid of CPU intensive tasks + lots of network IO.
-Gevent was handling the network IO without an issue, but at higher contention,
-the CPU was choking everything. Switching over to Go removed that contention,
-which was the primary issue that was being seen.Still runs on 5 machines Nginx
-machin</p><p>5 0.69223934 <a title="1478-lsi-5" href="../high_scalability-2013/high_scalability-2013-10-31-Paper%3A_Everything_You_Always_Wanted_to_Know_About_Synchronization_but_Were_Afraid_to_Ask.html">1541 high scalability-2013-10-31-Paper: Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a></p>
-<p>Introduction: Awesome paper on how particular synchronization mechanisms scale on multi-core
-architectures: Everything You Always Wanted to Know About Synchronization but
-Were Afraid to Ask.The goal is to pick a locking approach that doesn't degrade
-as the number of cores increase. Like everything else in life, that doesn't
-appear to be generically possible:None of the nine locking schemes we consider
-consistently outperforms any other one, on all target architectures or
-workloads. Strictly speaking, to seek optimality, a lock algorithm should thus
-be selected based on the hardware platform and the expected workload.
-Abstract:This paper presents the most exhaustive study of synchronization to
-date. We span multiple layers, from hardware cache-coherence protocols up to
-high-level concurrent software. We do so on different types architectures,
-from single-socket - uniform and nonuniform - to multi-socket - directory and
-broadcastbased - many-cores. We draw a set of observations that, roughly
-speaking,</p><p>6 0.6882776 <a title="1478-lsi-6" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
+<p>Introduction: The paper  MegaPipe: A New Programming Interface for Scalable Network I/O  ( video ,  slides ) hits the common theme that if you want to go faster you need a better car design, not just a better driver. So that's why the authors started with a clean-slate and designed a network API from the ground up with support for concurrent I/O, a requirement for achieving high performance while scaling to large numbers of connections per thread, multiple cores, etc.  What they created is MegaPipe, "a new network programming API for message-oriented workloads to avoid the performance issues of BSD Socket API."
+ 
+The result: MegaPipe outperforms baseline Linux between  29% (for long connections)  and  582% (for short connections) . MegaPipe improves the performance of a modiﬁed version of  memcached between 15% and 320% . For a workload based on real-world HTTP traces, MegaPipe boosts the throughput of  nginx by 75% .
+ 
+What's this most excellent and interesting paper about?
+  Message-oriented netwo</p><p>2 0.74635589 <a title="1478-lsi-2" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
+<p>Introduction: My name is  Russell Sullivan , I am the author of AlchemyDB: a highly flexible NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent the last several years trying to find a way to sanely house multiple datastore-genres under one roof while (almost paradoxically) pushing performance to its limits.    I recently joined the NoSQL company    Aerospike    (formerly Citrusleaf) with the goal of incrementally grafting AlchemyDB’s flexible data-modeling capabilities onto Aerospike’s high-velocity horizontally-scalable key-value data-fabric. We recently completed a peak-performance    TPS optimization project   : starting at 200K TPS, pushing to the recent community edition launch at 500K TPS, and finally arriving at our 2012 goal:    1M TPS on $5K hardware   .    Getting to one million over-the-wire client-server database-requests per-second on a single machine costing $5K is a balance between trimming overhead on many axes and using a shared nothing architecture to   i</p><p>3 0.72232974 <a title="1478-lsi-3" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: Now that we have the    C10K concurrent connection problem    licked, how do we level up and support 10 million concurrent connections? Impossible you say. Nope, systems right now are delivering 10 million concurrent connections using techniques that are as radical as they may be unfamiliar. 
+   To learn how it’s done we turn to    Robert Graham   , CEO of Errata Security, and his absolutely fantastic talk at    Shmoocon 2013    called    C10M Defending The Internet At Scale   . 
+  Robert has a brilliant way of framing the problem that I’ve never heard of before. He starts with a little bit of history, relating how Unix wasn’t originally designed to be a general server OS, it was designed to be a control system for a telephone network. It was the telephone network that actually transported the data so there was a clean separation between the control plane and the data plane. The  problem is we now use Unix servers as part of the data plane , which we shouldn’t do at all. If we were des</p><p>4 0.70439422 <a title="1478-lsi-4" href="../high_scalability-2014/high_scalability-2014-05-07-Update_on_Disqus%3A_It%27s_Still_About_Realtime%2C_But_Go_Demolishes_Python.html">1644 high scalability-2014-05-07-Update on Disqus: It's Still About Realtime, But Go Demolishes Python</a></p>
+<p>Introduction: Our last article on Disqus:  How Disqus Went Realtime With 165K Messages Per Second And Less Than .2 Seconds Latency , was a little out of date, but the folks at Disqus have been busy implementing, not talking, so we don't know a lot about what they are doing now, but we do have a short update in  C1MM and NGINX  by John Watson and an article  Trying out this Go thing .
+ 
+So Disqus has grown a bit:
+  
+ 1.3 billion unique visitors 
+ 10 billion page views 
+ 500 million users engaged in discussions 
+ 3 million communities 
+ 25 million comments 
+  
+They are still all about realtime, but Go replaced Python in their Realtime system:
+  
+ Original Realtime backend was written in a pretty lightweight Python + gevent. 
+ The realtime service is a hybrid of CPU intensive tasks + lots of network IO. Gevent was handling the network IO without an issue, but at higher contention, the CPU was choking everything. Switching over to Go removed that contention, which was the primary issue that was being se</p><p>5 0.69223934 <a title="1478-lsi-5" href="../high_scalability-2013/high_scalability-2013-10-31-Paper%3A_Everything_You_Always_Wanted_to_Know_About_Synchronization_but_Were_Afraid_to_Ask.html">1541 high scalability-2013-10-31-Paper: Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a></p>
+<p>Introduction: Awesome paper on how particular synchronization mechanisms scale on multi-core architectures:  Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask .
+ 
+The goal is to pick a locking approach that doesn't degrade as the number of cores increase. Like everything else in life, that doesn't appear to be generically possible:
+  
+ None of the nine locking schemes we consider consistently outperforms any other one, on all target architectures or workloads. Strictly speaking, to seek optimality,  a lock algorithm should thus be selected based on the hardware platform and the expected workload .  
+  
+Abstract:
+  
+
+This paper presents the most exhaustive study of synchronization to date. We span multiple layers, from hardware cache-coherence protocols up to high-level concurrent software. We do so on different types architectures, from single-socket – uniform and nonuniform – to multi-socket – directory and broadcastbased – many-cores. We draw a set of observations t</p><p>6 0.6882776 <a title="1478-lsi-6" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
 <p>7 0.66575825 <a title="1478-lsi-7" href="../high_scalability-2010/high_scalability-2010-10-04-Paper%3A_An_Analysis_of_Linux_Scalability_to_Many_Cores__.html">914 high scalability-2010-10-04-Paper: An Analysis of Linux Scalability to Many Cores  </a></p>
 <p>8 0.64702368 <a title="1478-lsi-8" href="../high_scalability-2014/high_scalability-2014-02-12-Paper%3A_Network_Stack_Specialization_for_Performance_.html">1594 high scalability-2014-02-12-Paper: Network Stack Specialization for Performance </a></p>
 <p>9 0.63629872 <a title="1478-lsi-9" href="../high_scalability-2014/high_scalability-2014-04-30-10_Tips_for_Optimizing_NGINX_and_PHP-fpm_for_High_Traffic_Sites.html">1640 high scalability-2014-04-30-10 Tips for Optimizing NGINX and PHP-fpm for High Traffic Sites</a></p>
@@ -225,59 +152,43 @@ speaking,</p><p>6 0.6882776 <a title="1478-lsi-6" href="../high_scalability-2013
 <p>[(1, 0.067), (2, 0.192), (10, 0.018), (16, 0.028), (30, 0.087), (40, 0.024), (56, 0.014), (61, 0.043), (77, 0.01), (79, 0.066), (85, 0.026), (87, 0.244), (94, 0.06)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.89562416 <a title="1478-lda-1" href="../high_scalability-2008/high_scalability-2008-09-25-HighScalability.com_Rated_16th_Best_Blog_for_Development_Managers.html">394 high scalability-2008-09-25-HighScalability.com Rated 16th Best Blog for Development Managers</a></p>
-<p>Introduction: Jurgen Appelo of Noop.nl asked for nominations for top blogs and then
-performed a sophisticated weighting of their popularity based on page range,
-trust authority, Alexa rank, Google hits, and number of comments. When all the
-results poured out of the blender HighScalability was ranked 16th. Not bad!
-Joel on Software was number one, of course. The next few were: 2) Coding
-Horror by Jeff Atwood 3) Seth's Blog by Seth Godin and 4) Paul Graham: Essays
-Paul Graham. All excellent blogs. Very cool.</p><p>2 0.8575449 <a title="1478-lda-2" href="../high_scalability-2008/high_scalability-2008-12-06-Paper%3A_Real-world_Concurrency.html">462 high scalability-2008-12-06-Paper: Real-world Concurrency</a></p>
-<p>Introduction: An excellent article by Bryan Cantrill and Jeff Bonwick on how to write multi-
-threaded code. With more processors and no magic bullet solution for how to
-use them, knowing how to write multiprocessor code that doesn't screw up your
-system is still a valuable skill. Some topics:Know your cold paths from your
-hot paths.Intuition is frequently wrong--be data intensive.Know when--and when
-not--to break up a lock.Be wary of readers/writer locks.Consider per-CPU
-locking.Know when to broadcast--and when to signal.Learn to debug
-postmortem.Design your systems to be composable.Don't use a semaphore where a
-mutex would suffice.Consider memory retiring to implement per-chain hash-table
-locks.Be aware of false sharing.Consider using nonblocking synchronization
-routines to monitor contention.When reacquiring locks, consider using
-generation counts to detect state change.Use wait- and lock-free structures
-only if you absolutely must.Prepare for the thrill of victory--and the agony
-of defeat.While I</p><p>3 0.85150307 <a title="1478-lda-3" href="../high_scalability-2013/high_scalability-2013-10-02-RFC_1925_-_The_Twelve_%28Timeless%29_Networking_Truths.html">1526 high scalability-2013-10-02-RFC 1925 - The Twelve (Timeless) Networking Truths</a></p>
-<p>Introduction: The Twelve Networking Truths is one of a long series of timeless truths
-documented in sacred April Fools'RFCs. Though issued in 1996, it's no less
-true today.It's hard to pick a favorite because they are all good. But if I
-had to pick, it would be:Some things in life can never be fully appreciated
-nor understood unless experienced firsthand.As we grow comfortable behind
-garden walls, clutching gadgets like lifelines and ideologies like shields,
-empathy is the true social network. Network Working Group R.Callon, Editor
-Request for Comments: 1925IOOFCategory: Informational 1 April 1996 The Twelve
-Networking Truths Status of this Memo This memo provides information for the
-Internet community. This memo does not specify an Internet standard of any
-kind. Distribution of this memo is unlimited. Abstract This memo documents the
-fundamental truths of networking for the Internet community. This memo does
-not specify a standard, except in the sense that all standards must implicitly
-follow the f</p><p>same-blog 4 0.84991765 <a title="1478-lda-4" href="../high_scalability-2013/high_scalability-2013-06-19-Paper%3A_MegaPipe%3A_A_New_Programming_Interface_for_Scalable_Network_I-O.html">1478 high scalability-2013-06-19-Paper: MegaPipe: A New Programming Interface for Scalable Network I-O</a></p>
-<p>Introduction: The paper MegaPipe: A New Programming Interface for Scalable Network I/O
-(video,slides) hits the common theme that if you want to go faster you need a
-better car design, not just a better driver. So that's why the authors started
-with a clean-slate and designed a network API from the ground up with support
-for concurrent I/O, a requirement for achieving high performance while scaling
-to large numbers of connections per thread, multiple cores, etc.  What they
-created is MegaPipe, "a new network programming API for message-oriented
-workloads to avoid the performance issues of BSD Socket API."The result:
-MegaPipe outperforms baseline Linux between 29% (for long connections) and
-582% (for short connections). MegaPipe improves the performance of a modiﬁed
-version of memcached between 15% and 320%. For a workload based on real-world
-HTTP traces, MegaPipe boosts the throughput of nginx by 75%.What's this most
-excellent and interesting paper about?Message-oriented network workloads,
-where conn</p><p>5 0.75845438 <a title="1478-lda-5" href="../high_scalability-2009/high_scalability-2009-01-22-Coming_soon%3A_better_JRockit%2BCoherence_integration.html">499 high scalability-2009-01-22-Coming soon: better JRockit+Coherence integration</a></p>
-<p>Introduction: At the Oracle Coherence Special Interest Group meeting today in London, Tomas
-Nilsson, the product manager for JRockit RT and JRockit Mission Control spoke
-about the future plans for JRockit and especially plans for improved Coherence
-JRockit integration.</p><p>6 0.75691491 <a title="1478-lda-6" href="../high_scalability-2013/high_scalability-2013-01-04-Stuff_The_Internet_Says_On_Scalability_For_January_4%2C_2013.html">1381 high scalability-2013-01-04-Stuff The Internet Says On Scalability For January 4, 2013</a></p>
+<p>Introduction: Jurgen Appelo of Noop.nl asked for nominations for top blogs and then performed a sophisticated weighting of their popularity based on page range, trust authority, Alexa rank, Google hits, and number of comments. When all the results poured out of the blender HighScalability was ranked 16th. Not bad! Joel on Software was number one, of course. The next few were: 2) Coding Horror by Jeff Atwood 3) Seth's Blog by Seth Godin and 4) Paul Graham: Essays Paul Graham. All excellent blogs. Very cool.</p><p>2 0.8575449 <a title="1478-lda-2" href="../high_scalability-2008/high_scalability-2008-12-06-Paper%3A_Real-world_Concurrency.html">462 high scalability-2008-12-06-Paper: Real-world Concurrency</a></p>
+<p>Introduction: An excellent article by Bryan Cantrill and Jeff Bonwick on how to write multi-threaded code. With more processors and no magic bullet solution for how to use them, knowing how to write multiprocessor code that doesn't screw up your system is still a valuable skill. Some topics:
+   Know your cold paths from your hot paths.    Intuition is frequently wrong—be data intensive.    Know when—and when not—to break up a lock.     Be wary of readers/writer locks.   Consider per-CPU locking.   Know when to broadcast—and when to signal.    Learn to debug postmortem.   Design your systems to be composable.    Don't use a semaphore where a mutex would suffice.   Consider memory retiring to implement per-chain hash-table locks.    Be aware of false sharing.   Consider using nonblocking synchronization routines to monitor contention.   When reacquiring locks, consider using generation counts to detect state change.   Use wait- and lock-free structures only if you absolutely must.   Prepare for the th</p><p>3 0.85150307 <a title="1478-lda-3" href="../high_scalability-2013/high_scalability-2013-10-02-RFC_1925_-_The_Twelve_%28Timeless%29_Networking_Truths.html">1526 high scalability-2013-10-02-RFC 1925 - The Twelve (Timeless) Networking Truths</a></p>
+<p>Introduction: The Twelve Networking Truths  is one of a long series of timeless truths documented in sacred   April Fools'  RFC   s. Though issued in 1996, it's no less true today.
+ 
+It's hard to pick a favorite because they are all good. But if I had to pick, it would be:
+  
+
+Some things in life can never be fully appreciated nor understood unless experienced firsthand.
+
+  
+As we grow comfortable behind garden walls, clutching gadgets like lifelines and ideologies like shields, empathy is the true social network.
+ 
+ 
+    Network Working Group                                  R.  Callon , Editor
+Request for Comments: 1925                                           IOOF 
+Category: Informational                                     1 April 1996
+
+
+                      The Twelve Networking Truths
+
+Status of this Memo
+
+   This memo provides information for the Internet community.  This memo
+   does not specify an Internet standard of any kind.  Distribution of
+   this memo is unlimited.
+
+Abstract
+
+   Thi</p><p>same-blog 4 0.84991765 <a title="1478-lda-4" href="../high_scalability-2013/high_scalability-2013-06-19-Paper%3A_MegaPipe%3A_A_New_Programming_Interface_for_Scalable_Network_I-O.html">1478 high scalability-2013-06-19-Paper: MegaPipe: A New Programming Interface for Scalable Network I-O</a></p>
+<p>Introduction: The paper  MegaPipe: A New Programming Interface for Scalable Network I/O  ( video ,  slides ) hits the common theme that if you want to go faster you need a better car design, not just a better driver. So that's why the authors started with a clean-slate and designed a network API from the ground up with support for concurrent I/O, a requirement for achieving high performance while scaling to large numbers of connections per thread, multiple cores, etc.  What they created is MegaPipe, "a new network programming API for message-oriented workloads to avoid the performance issues of BSD Socket API."
+ 
+The result: MegaPipe outperforms baseline Linux between  29% (for long connections)  and  582% (for short connections) . MegaPipe improves the performance of a modiﬁed version of  memcached between 15% and 320% . For a workload based on real-world HTTP traces, MegaPipe boosts the throughput of  nginx by 75% .
+ 
+What's this most excellent and interesting paper about?
+  Message-oriented netwo</p><p>5 0.75845438 <a title="1478-lda-5" href="../high_scalability-2009/high_scalability-2009-01-22-Coming_soon%3A_better_JRockit%2BCoherence_integration.html">499 high scalability-2009-01-22-Coming soon: better JRockit+Coherence integration</a></p>
+<p>Introduction: At the Oracle Coherence Special Interest Group meeting today in London, Tomas Nilsson, the product manager for JRockit RT and JRockit Mission Control spoke about the future plans for JRockit and especially plans for improved Coherence JRockit integration.</p><p>6 0.75691491 <a title="1478-lda-6" href="../high_scalability-2013/high_scalability-2013-01-04-Stuff_The_Internet_Says_On_Scalability_For_January_4%2C_2013.html">1381 high scalability-2013-01-04-Stuff The Internet Says On Scalability For January 4, 2013</a></p>
 <p>7 0.74283141 <a title="1478-lda-7" href="../high_scalability-2009/high_scalability-2009-06-01-Guess_How_Many_Users_it_Takes_to_Kill_Your_Site%3F.html">614 high scalability-2009-06-01-Guess How Many Users it Takes to Kill Your Site?</a></p>
 <p>8 0.70429391 <a title="1478-lda-8" href="../high_scalability-2013/high_scalability-2013-11-13-Google%3A_Multiplex_Multiple_Works_Loads_on_Computers_to_Increase_Machine_Utilization_and_Save_Money.html">1548 high scalability-2013-11-13-Google: Multiplex Multiple Works Loads on Computers to Increase Machine Utilization and Save Money</a></p>
 <p>9 0.69004905 <a title="1478-lda-9" href="../high_scalability-2012/high_scalability-2012-04-27-Stuff_The_Internet_Says_On_Scalability_For_April_27%2C_2012.html">1235 high scalability-2012-04-27-Stuff The Internet Says On Scalability For April 27, 2012</a></p>

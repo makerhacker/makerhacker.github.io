@@ -16,28 +16,19 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1408 high scalability-2013-02-19-Puppet monitoring: how to monitor the success or failure of Puppet runs  </h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1408-html" href="http://highscalability.com//blog/2013/2/19/puppet-monitoring-how-to-monitor-the-success-or-failure-of-p.html">html</a></p><p>Introduction: This is a guest post by LogicMonitor's Director of Tech Ops,Jesse Aukeman,
-about the different ways they're monitoring the success or failure of Puppet
-runs.If you are like us, you are running some type of linux configuration
-management tool. The value of centralized configuration and deployment is well
-known and hard to overstate. Puppetis our tool of choice. It is powerful and
-works well for us, except when things don't go as planned. Failures of puppet
-can be innocuous and cosmetic, or they can cause production issues, for
-example when crucial updates do not get properly propagated.Why?In the most
-innocuous cases, the puppet agent craps out (we run puppet agent via cron). As
-nice as puppet is, we still need to goose it from time to time to get past
-some sort of network or host resource issue. A more dangerous case is when an
-administrator temporarily disables puppet runs on a host in order to perform
-some test or administrative task and then forgets to reenable it. In either
-case it</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Failures of puppet can be innocuous and cosmetic, or they can cause production issues, for example when crucial updates do not get properly propagated. [sent-6, score-0.848]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1408-html" href="http://highscalability.com//blog/2013/2/19/puppet-monitoring-how-to-monitor-the-success-or-failure-of-p.html">html</a></p><p>Introduction: This is a guest post by LogicMonitor's Director of Tech Ops,  Jesse Aukeman , about the different ways they're monitoring the success or failure of Puppet runs. 
+ 
+If you are like us, you are running some type of linux configuration management tool. The value of centralized configuration and deployment is well known and hard to overstate.   Puppet    is our tool of choice. It is powerful and works well for us, except when things don't go as planned. Failures of puppet can be innocuous and cosmetic, or they can cause production issues, for example when crucial updates do not get properly propagated.  
+   Why?   
+ In the most innocuous cases, the puppet agent craps out (we run puppet agent via cron). As nice as puppet is, we still need to goose it from time to time to get past some sort of network or host resource issue. A more dangerous case is when an administrator temporarily disables puppet runs on a host in order to perform some test or administrative task and then forgets to reenab</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Failures of puppet can be innocuous and cosmetic, or they can cause production issues, for example when crucial updates do not get properly propagated. [sent-6, score-0.848]
 </p><p>2 In the most innocuous cases, the puppet agent craps out (we run puppet agent via cron). [sent-8, score-1.668]
 </p><p>3 As nice as puppet is, we still need to goose it from time to time to get past some sort of network or host resource issue. [sent-9, score-0.823]
 </p><p>4 A more dangerous case is when an administrator temporarily disables puppet runs on a host in order to perform some test or administrative task and then forgets to reenable it. [sent-10, score-0.822]
 </p><p>5 Rather than just monitoring the status of the puppet server (a necessary, but not sufficient, state), we would like to monitor the success or failure of actual puppet runs on the end nodes themselves. [sent-15, score-1.509]
 </p><p>6 For that purpose, puppet has a built in feature to export status info about its last run into a file (by default /var/lib/puppet/state/last_run_summary. [sent-16, score-1.12]
-</p><p>7 For our approach, we had already been working with another puppet tool namedMCollectivealong with its included Registration plugin (http://docs. [sent-20, score-0.733]
+</p><p>7 For our approach, we had already been working with another puppet tool named    MCollective    along with its included Registration plugin (http://docs. [sent-20, score-0.733]
 </p><p>8 The default registration plugin will register all kinds of interesting information about puppet along with the last_run_summary info from the yaml file mentioned earlier. [sent-26, score-1.479]
-</p><p>9 All of our servers are part of a mcollective "collective" and they periodically send their registration info (including puppet facts and last run summary info) into the "collective". [sent-32, score-1.712]
+</p><p>9 All of our servers are part of a mcollective “collective” and they periodically send their registration info (including puppet facts and last run summary info) into the “collective”. [sent-32, score-1.712]
 </p><p>10 There is an MCollective registration agent that then receives the registration info and stores it in our central Mongo database in json format. [sent-33, score-1.115]
 </p><p>11 As it suggests, this data indicates the time that puppet last ran. [sent-36, score-0.759]
 </p><p>12 This value will be updated after each puppet run on the node itself, and then this updated value will be propagated to the database when the next registration run occurs. [sent-38, score-1.377]
@@ -45,9 +36,9 @@ case it</p><br/><h2>Summary: the most important sentenses genereted by tfidf mod
 </p><p>14 You can see below that the puppet runs are semi-random but generally occur every 15 minutes. [sent-41, score-0.706]
 </p><p>15 The sawtooth pattern is a confluence of the puppet cron schedule, the registration interval, and the interval between monitoring checks. [sent-42, score-1.251]
 </p><p>16 For example, we may want to generate warning alerts if puppet has not updated for a period of 1 hour, and further escalations, at the 2 and 3 hour marks. [sent-45, score-0.74]
-</p><p>17 Here are graphs tracking puppet events and the time per puppet run:and here is an example of when something has gone off the rails. [sent-47, score-1.342]
+</p><p>17 Here are graphs tracking puppet events and the time per puppet run:           and here is an example of when something has gone off the rails. [sent-47, score-1.342]
 </p><p>18 In the above graph you can easily see that puppet runs stopped occurring at approximately 18:00. [sent-49, score-0.706]
-</p><p>19 Here's an example of the alert generated within the LogicMonitor application:All of our hosts are automatically added to the Mcollective registration, and thus are also automatically added to puppet last run monitoring. [sent-51, score-0.981]
+</p><p>19 Here’s an example of the alert generated within the LogicMonitor application:            All of our hosts are automatically added to the Mcollective registration, and thus are also automatically added to puppet last run monitoring. [sent-51, score-0.981]
 </p><p>20 This gives us peace of mind that we will alway be notified if there are issues with puppet updates. [sent-52, score-0.79]
 </p>
 <br/>
@@ -55,76 +46,40 @@ case it</p><br/><h2>Summary: the most important sentenses genereted by tfidf mod
 <p>[('puppet', 0.625), ('registration', 0.356), ('mcollective', 0.329), ('info', 0.24), ('collective', 0.141), ('agent', 0.12), ('innocuous', 0.11), ('plugin', 0.108), ('logicmonitor', 0.099), ('last', 0.094), ('monitoring', 0.09), ('runs', 0.081), ('notified', 0.077), ('centrally', 0.076), ('interval', 0.073), ('host', 0.071), ('timestamp', 0.07), ('updated', 0.069), ('mongo', 0.069), ('run', 0.068), ('value', 0.061), ('crucial', 0.061), ('cron', 0.06), ('sufficient', 0.055), ('example', 0.052), ('hosts', 0.051), ('information', 0.051), ('cosmetic', 0.05), ('puppetis', 0.05), ('yaml', 0.05), ('default', 0.049), ('epoch', 0.047), ('goose', 0.047), ('peace', 0.047), ('confluence', 0.047), ('generated', 0.046), ('hour', 0.046), ('alert', 0.045), ('corrective', 0.045), ('forgets', 0.045), ('status', 0.044), ('success', 0.044), ('central', 0.043), ('registering', 0.043), ('snmp', 0.043), ('shortly', 0.043), ('us', 0.041), ('exceeded', 0.04), ('time', 0.04), ('configured', 0.04)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1408-tfidf-1" href="../high_scalability-2013/high_scalability-2013-02-19-Puppet_monitoring%3A_how_to_monitor_the_success_or_failure_of_Puppet_runs__.html">1408 high scalability-2013-02-19-Puppet monitoring: how to monitor the success or failure of Puppet runs  </a></p>
-<p>Introduction: This is a guest post by LogicMonitor's Director of Tech Ops,Jesse Aukeman,
-about the different ways they're monitoring the success or failure of Puppet
-runs.If you are like us, you are running some type of linux configuration
-management tool. The value of centralized configuration and deployment is well
-known and hard to overstate. Puppetis our tool of choice. It is powerful and
-works well for us, except when things don't go as planned. Failures of puppet
-can be innocuous and cosmetic, or they can cause production issues, for
-example when crucial updates do not get properly propagated.Why?In the most
-innocuous cases, the puppet agent craps out (we run puppet agent via cron). As
-nice as puppet is, we still need to goose it from time to time to get past
-some sort of network or host resource issue. A more dangerous case is when an
-administrator temporarily disables puppet runs on a host in order to perform
-some test or administrative task and then forgets to reenable it. In either
-case it</p><p>2 0.4514375 <a title="1408-tfidf-2" href="../high_scalability-2008/high_scalability-2008-10-25-Product%3A_Puppet_the_Automated_Administration_System.html">429 high scalability-2008-10-25-Product: Puppet the Automated Administration System</a></p>
-<p>Introduction: Update:Digg on their choice and use of Puppet. They chose puppet over
-cfengine, and bcfg2 because they liked Puppet's resource abstraction layer
-(RAL), the ability to implement configuration management incrementally,
-support for bundles, and the overall design philosophy.Puppetimplements a
-declarative (what not how) configuration language for automating common
-administration tasks. It's the system every large site writes for themselves
-and it's already made for you! Ilike was able to "easily" scale from0 to
-hundreds of serversusing Puppet. I can't believe I've never seen this before.
-It looks really cool. What is Puppet and how can it help you scale your
-website operations?breakFrom the Puppet website:Puppet has been developed to
-help the sysadmin community move to building and sharing mature tools that
-avoid the duplication of everyone solving the same problem. It does so in two
-ways:* It provides a powerful framework to simplify the majority of the
-technical tasks that sysadmins need</p><p>3 0.26344192 <a title="1408-tfidf-3" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.Urbandiveis an immersive view service launched by theFrench
-YellowPageswhich allows you to travel in cities in France thanks to a 360°
-view. Urbandive focuses on providing high definition pictures and accurate
-professional and social content. One of the biggest jobs was to enable a fast
-scalable architecture, because it was really difficult to forecast the traffic
-load at production time. Traffic load may be influenced if the service
-receives attention from users as a result of advertising.Below you will find a
-summary of the goals we achieve by using a Ruby scheduler built on top
-ofPuppetonAWSto create a complete infrastructure.Workflow & XTR-LucidOur
-scalability combo is : a home-made Ruby scheduler (XTR-Lucid) to deal with AWS
-APIs + the Puppet Master to install services and configure EC2 instances and
-keep them up-to-date during all the production time. This leads to full
-automation.Here is</p><p>4 0.16750295 <a title="1408-tfidf-4" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.How do you scale anAWS(Amazon Web Services) infrastructure?
-This article will give you a detailed reply in two parts: the tools you can
-use to make the most of Amazon's dynamic approach, and the architectural model
-you should adopt for a scalable infrastructure.I base my report on my
-experience gained in several AWS production projects in casual gaming
-(Facebook), e-commerce infrastructures and within the mainstream GIS
-(Geographic Information System). It's true that my experience in gaming
-(IsCool, The Game) is currently the most representative in terms of
-scalability, due to the number of users (over 800 thousand DAU - daily active
-users - at peak usage and over 20 million page views every day), however my
-experiences in e-commerce and GIS (currently underway) provide a different
-view of scalability, taking into account the various problems of availability
-and data management. I will therefore</p><p>5 0.14700098 <a title="1408-tfidf-5" href="../high_scalability-2012/high_scalability-2012-10-04-Stuff_The_Internet_Says_On_Scalability_For_October_5%2C_2012.html">1334 high scalability-2012-10-04-Stuff The Internet Says On Scalability For October 5, 2012</a></p>
-<p>Introduction: It's HighScalability Time:30 Million: Lady Gaga Twitter followers;1 Billion:
-active Facebook users; Quotable Quotes:@mappingbabel: Oracle exec says "we're
-not competing with Amazon for Netflix, we're competing with Amazon for
-Boeing,"@CompSciFact: "Most software looks more like a whirlpool than a
-pipeline." #gotoaarPeter Hunt: My experience with SSDs and Zookeeper has been
-discouraging. SSDs have some really terrible corner cases for latency. I've
-seen them take 40+ seconds (that's not a mistake - seconds) for fsync to
-complete. @kief: GCS uses AWS terminology for regions and zones, are these
-becoming industry standard? #velocityconf@ibogost: When someone says "Big
-Data," I always check to see if I still have my wallet.@samnewman: #newrelic
-went from 10 servers with 0 customers, to 12 servers supporting 5TB, 58
-billion metrics a day - @bjorn_fb at #gotoaar@beezly: Google Compute Engine is
-"LIKE A HUGE SPACE LASER" #FACT #velocityconf@mpaluchowski: 16 major websites
-in the US loading av</p><p>6 0.13007018 <a title="1408-tfidf-6" href="../high_scalability-2010/high_scalability-2010-04-01-Hot_Scalability_Links_for_April_1%2C_2010.html">802 high scalability-2010-04-01-Hot Scalability Links for April 1, 2010</a></p>
+<p>Introduction: This is a guest post by LogicMonitor's Director of Tech Ops,  Jesse Aukeman , about the different ways they're monitoring the success or failure of Puppet runs. 
+ 
+If you are like us, you are running some type of linux configuration management tool. The value of centralized configuration and deployment is well known and hard to overstate.   Puppet    is our tool of choice. It is powerful and works well for us, except when things don't go as planned. Failures of puppet can be innocuous and cosmetic, or they can cause production issues, for example when crucial updates do not get properly propagated.  
+   Why?   
+ In the most innocuous cases, the puppet agent craps out (we run puppet agent via cron). As nice as puppet is, we still need to goose it from time to time to get past some sort of network or host resource issue. A more dangerous case is when an administrator temporarily disables puppet runs on a host in order to perform some test or administrative task and then forgets to reenab</p><p>2 0.4514375 <a title="1408-tfidf-2" href="../high_scalability-2008/high_scalability-2008-10-25-Product%3A_Puppet_the_Automated_Administration_System.html">429 high scalability-2008-10-25-Product: Puppet the Automated Administration System</a></p>
+<p>Introduction: Update:   Digg on their choice and use of Puppet . They chose puppet over cfengine, and bcfg2 because they liked Puppet's resource abstraction layer (RAL), the ability to implement configuration management incrementally, support for bundles, and the overall design philosophy.   Puppet  implements a declarative (what not how) configuration language for automating common administration tasks. It's the system every large site writes for themselves and it's already made for you! Ilike was able to "easily" scale from  0 to hundreds of servers  using Puppet. I can't believe I've never seen this before. It looks really cool. What is Puppet and how can it help you scale your website operations?
+   
+ From the Puppet website:   Puppet has been developed to help the sysadmin community move to building and sharing mature tools that avoid the duplication of everyone solving the same problem. It does so in two ways: * It provides a powerful framework to simplify the majority of the technical tasks t</p><p>3 0.26344192 <a title="1408-tfidf-3" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
+<p>Introduction: This is a guest post by   Frédéric Faure    (architect at  Ysance ), you can follow him on  twitter .  
+ 
+ 
+ 
+ Urbandive  is an immersive view service launched by the  French YellowPages  which allows you to travel in cities in France thanks to a 360° view. Urbandive focuses on providing high definition pictures and accurate professional and social content. One of the biggest jobs was to enable a fast scalable architecture, because it was really difficult to forecast the traffic load at production time. Traffic load may be influenced if the service receives attention from users as a result of advertising.
+ 
+Below you will find a summary of the goals we achieve by using a Ruby scheduler built on top of  Puppet  on  AWS  to create a complete infrastructure.
+    Workflow & XTR-Lucid    
+Our scalability combo is : a home-made Ruby scheduler ( XTR-Lucid ) to deal with AWS APIs + the Puppet Master to install services and configure EC2 instances and keep them up-to-date during all the product</p><p>4 0.16750295 <a title="1408-tfidf-4" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
+<p>Introduction: This is a guest post by    Frédéric Faure    (architect at    Ysance   ), you can follow him on    twitter   . 
+ 
+How do you scale an  AWS  (Amazon Web Services) infrastructure? This article will give you a detailed reply in two parts: the tools you can use to make the most of Amazon’s dynamic approach, and the architectural model you should adopt for a scalable infrastructure.
+ 
+I base my report on my experience gained in several AWS production projects in casual gaming (Facebook), e-commerce infrastructures and within the mainstream GIS (Geographic Information System). It’s true that my experience in gaming ( IsCool, The Game ) is currently the most representative in terms of scalability, due to the number of users (over 800 thousand DAU – daily active users – at peak usage and over 20 million page views every day), however my experiences in e-commerce and GIS (currently underway) provide a different view of scalability, taking into account the various problems of availability and da</p><p>5 0.14700098 <a title="1408-tfidf-5" href="../high_scalability-2012/high_scalability-2012-10-04-Stuff_The_Internet_Says_On_Scalability_For_October_5%2C_2012.html">1334 high scalability-2012-10-04-Stuff The Internet Says On Scalability For October 5, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+  30 Million : Lady Gaga Twitter followers;  1 Billion : active Facebook users;  
+ Quotable Quotes:                                                                         
+ 
+  @mappingbabel : Oracle exec says "we're not competing with Amazon for Netflix, we're competing with Amazon for Boeing," 
+  @CompSciFact : "Most software looks more like a whirlpool than a pipeline." #gotoaar 
+  Peter Hunt : My experience with SSDs and Zookeeper has been discouraging. SSDs have some really terrible corner cases for latency. I've seen them take 40+ seconds (that's not a mistake - seconds) for fsync to complete.  
+  @kief : GCS uses AWS terminology for regions and zones, are these becoming industry standard? #velocityconf 
+  @ibogost : When someone says "Big Data," I always check to see if I still have my wallet. 
+  @samnewman : #newrelic went from 10 servers with 0 customers, to 12 servers supporting 5TB, 58 billion metrics a day - @bjorn_fb at #gotoaar 
+  @beezly : G</p><p>6 0.13007018 <a title="1408-tfidf-6" href="../high_scalability-2010/high_scalability-2010-04-01-Hot_Scalability_Links_for_April_1%2C_2010.html">802 high scalability-2010-04-01-Hot Scalability Links for April 1, 2010</a></p>
 <p>7 0.11234075 <a title="1408-tfidf-7" href="../high_scalability-2008/high_scalability-2008-12-05-Sprinkle_-_Provisioning_Tool_to_Build_Remote_Servers.html">461 high scalability-2008-12-05-Sprinkle - Provisioning Tool to Build Remote Servers</a></p>
 <p>8 0.098297827 <a title="1408-tfidf-8" href="../high_scalability-2013/high_scalability-2013-04-02-Sponsored_Post%3A_Rackspace%2C_Simple%2C_Fitbit%2C_Amazon%2C_Booking%2C_aiCache%2C_Aerospike%2C_Percona%2C_ScaleOut%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1433 high scalability-2013-04-02-Sponsored Post: Rackspace, Simple, Fitbit, Amazon, Booking, aiCache, Aerospike, Percona, ScaleOut, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
 <p>9 0.096911497 <a title="1408-tfidf-9" href="../high_scalability-2013/high_scalability-2013-04-16-Sponsored_Post%3A_Surge%2C_Rackspace%2C_Simple%2C_Fitbit%2C_Amazon%2C_Booking%2C_aiCache%2C_Aerospike%2C_Percona%2C_ScaleOut%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1441 high scalability-2013-04-16-Sponsored Post: Surge, Rackspace, Simple, Fitbit, Amazon, Booking, aiCache, Aerospike, Percona, ScaleOut, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
@@ -144,76 +99,32 @@ in the US loading av</p><p>6 0.13007018 <a title="1408-tfidf-6" href="../high_sc
 <p>[(0, 0.134), (1, 0.014), (2, -0.033), (3, -0.004), (4, 0.011), (5, 0.001), (6, 0.049), (7, -0.014), (8, 0.005), (9, -0.038), (10, 0.006), (11, 0.05), (12, 0.054), (13, -0.064), (14, 0.04), (15, -0.02), (16, -0.011), (17, 0.05), (18, 0.011), (19, 0.029), (20, -0.025), (21, -0.042), (22, 0.0), (23, 0.044), (24, -0.005), (25, 0.01), (26, -0.037), (27, 0.019), (28, -0.074), (29, -0.007), (30, -0.023), (31, -0.008), (32, 0.013), (33, 0.05), (34, -0.02), (35, -0.022), (36, -0.013), (37, -0.037), (38, -0.024), (39, 0.049), (40, -0.047), (41, -0.038), (42, -0.03), (43, 0.006), (44, -0.007), (45, -0.009), (46, -0.072), (47, 0.052), (48, -0.01), (49, 0.078)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.93700099 <a title="1408-lsi-1" href="../high_scalability-2013/high_scalability-2013-02-19-Puppet_monitoring%3A_how_to_monitor_the_success_or_failure_of_Puppet_runs__.html">1408 high scalability-2013-02-19-Puppet monitoring: how to monitor the success or failure of Puppet runs  </a></p>
-<p>Introduction: This is a guest post by LogicMonitor's Director of Tech Ops,Jesse Aukeman,
-about the different ways they're monitoring the success or failure of Puppet
-runs.If you are like us, you are running some type of linux configuration
-management tool. The value of centralized configuration and deployment is well
-known and hard to overstate. Puppetis our tool of choice. It is powerful and
-works well for us, except when things don't go as planned. Failures of puppet
-can be innocuous and cosmetic, or they can cause production issues, for
-example when crucial updates do not get properly propagated.Why?In the most
-innocuous cases, the puppet agent craps out (we run puppet agent via cron). As
-nice as puppet is, we still need to goose it from time to time to get past
-some sort of network or host resource issue. A more dangerous case is when an
-administrator temporarily disables puppet runs on a host in order to perform
-some test or administrative task and then forgets to reenable it. In either
-case it</p><p>2 0.76603901 <a title="1408-lsi-2" href="../high_scalability-2008/high_scalability-2008-10-25-Product%3A_Puppet_the_Automated_Administration_System.html">429 high scalability-2008-10-25-Product: Puppet the Automated Administration System</a></p>
-<p>Introduction: Update:Digg on their choice and use of Puppet. They chose puppet over
-cfengine, and bcfg2 because they liked Puppet's resource abstraction layer
-(RAL), the ability to implement configuration management incrementally,
-support for bundles, and the overall design philosophy.Puppetimplements a
-declarative (what not how) configuration language for automating common
-administration tasks. It's the system every large site writes for themselves
-and it's already made for you! Ilike was able to "easily" scale from0 to
-hundreds of serversusing Puppet. I can't believe I've never seen this before.
-It looks really cool. What is Puppet and how can it help you scale your
-website operations?breakFrom the Puppet website:Puppet has been developed to
-help the sysadmin community move to building and sharing mature tools that
-avoid the duplication of everyone solving the same problem. It does so in two
-ways:* It provides a powerful framework to simplify the majority of the
-technical tasks that sysadmins need</p><p>3 0.75364733 <a title="1408-lsi-3" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.Urbandiveis an immersive view service launched by theFrench
-YellowPageswhich allows you to travel in cities in France thanks to a 360°
-view. Urbandive focuses on providing high definition pictures and accurate
-professional and social content. One of the biggest jobs was to enable a fast
-scalable architecture, because it was really difficult to forecast the traffic
-load at production time. Traffic load may be influenced if the service
-receives attention from users as a result of advertising.Below you will find a
-summary of the goals we achieve by using a Ruby scheduler built on top
-ofPuppetonAWSto create a complete infrastructure.Workflow & XTR-LucidOur
-scalability combo is : a home-made Ruby scheduler (XTR-Lucid) to deal with AWS
-APIs + the Puppet Master to install services and configure EC2 instances and
-keep them up-to-date during all the production time. This leads to full
-automation.Here is</p><p>4 0.73111546 <a title="1408-lsi-4" href="../high_scalability-2012/high_scalability-2012-04-18-Ansible_-__A_Simple_Model-Driven_Configuration_Management_and_Command_Execution_Framework.html">1230 high scalability-2012-04-18-Ansible -  A Simple Model-Driven Configuration Management and Command Execution Framework</a></p>
-<p>Introduction: This is guest post byMichael DeHaan(@laserllama), a software developer and
-architect, on Ansible, a simple deployment, model-driven configuration
-management, and command execution framework.I owe High Scalability a great
-deal of credit for the idea behind my latest software project. I was reading
-about how an older tool I helped create, Func, was used atTumblr, and it
-kicked some ideas into gear. This article is about what happened from that
-idea.My observation, which the article reinforced, was that many shops end up
-using a configuration management tool (Puppet, Chef, cfengine), a separate
-deployment tool (Capistrano, Fabric) and yet another separate ad-hoc task
-execution tool (Func, pssh, etc) because one class of tool historically hasn't
-been good at all three jobs.My other observation (not from the article) was
-that the whole "infrastructure as code" movement, while revolutionary, and
-definitely great for many, was probably secretly grating on a good number of
-systems administrato</p><p>5 0.72804588 <a title="1408-lsi-5" href="../high_scalability-2008/high_scalability-2008-12-05-Sprinkle_-_Provisioning_Tool_to_Build_Remote_Servers.html">461 high scalability-2008-12-05-Sprinkle - Provisioning Tool to Build Remote Servers</a></p>
-<p>Introduction: At37 SignalsJoshua Sierles describes how 37 Signals usesSprinkleto configure
-their servers within EC2. Sprinkledefines a domain specific meta-language for
-describing and processing the installation of software. You can find an
-interesting discussion of Sprinkle's creation story by the creator himself,
-Marcus Crafter, inSprinkle Some Powder!.Marcus divides provisioning tools into
-two categories:Task Based- the tool issues a list of commands to run on the
-remote system, either remotely via a network connection or smart
-client.Policy/state Based- the tool determines what needs to be run on the
-remote system by examining its current and final state.Sprinkle combines both
-models together in a chocolate-in-my-peanut-butter approach using normal Ruby
-code as the DSL (domain specific language) to declaratively describe remote
-system configurations. 37 Signals likes the use of Ruby as the DSL because it
-makes learning a separate syntax unnecessary. I've successfully done similar
-things in Perl.</p><p>6 0.67926168 <a title="1408-lsi-6" href="../high_scalability-2013/high_scalability-2013-10-13-AIDA%3A_Badoo%E2%80%99s_journey_into_Continuous_Integration.html">1531 high scalability-2013-10-13-AIDA: Badoo’s journey into Continuous Integration</a></p>
+<p>Introduction: This is a guest post by LogicMonitor's Director of Tech Ops,  Jesse Aukeman , about the different ways they're monitoring the success or failure of Puppet runs. 
+ 
+If you are like us, you are running some type of linux configuration management tool. The value of centralized configuration and deployment is well known and hard to overstate.   Puppet    is our tool of choice. It is powerful and works well for us, except when things don't go as planned. Failures of puppet can be innocuous and cosmetic, or they can cause production issues, for example when crucial updates do not get properly propagated.  
+   Why?   
+ In the most innocuous cases, the puppet agent craps out (we run puppet agent via cron). As nice as puppet is, we still need to goose it from time to time to get past some sort of network or host resource issue. A more dangerous case is when an administrator temporarily disables puppet runs on a host in order to perform some test or administrative task and then forgets to reenab</p><p>2 0.76603901 <a title="1408-lsi-2" href="../high_scalability-2008/high_scalability-2008-10-25-Product%3A_Puppet_the_Automated_Administration_System.html">429 high scalability-2008-10-25-Product: Puppet the Automated Administration System</a></p>
+<p>Introduction: Update:   Digg on their choice and use of Puppet . They chose puppet over cfengine, and bcfg2 because they liked Puppet's resource abstraction layer (RAL), the ability to implement configuration management incrementally, support for bundles, and the overall design philosophy.   Puppet  implements a declarative (what not how) configuration language for automating common administration tasks. It's the system every large site writes for themselves and it's already made for you! Ilike was able to "easily" scale from  0 to hundreds of servers  using Puppet. I can't believe I've never seen this before. It looks really cool. What is Puppet and how can it help you scale your website operations?
+   
+ From the Puppet website:   Puppet has been developed to help the sysadmin community move to building and sharing mature tools that avoid the duplication of everyone solving the same problem. It does so in two ways: * It provides a powerful framework to simplify the majority of the technical tasks t</p><p>3 0.75364733 <a title="1408-lsi-3" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
+<p>Introduction: This is a guest post by   Frédéric Faure    (architect at  Ysance ), you can follow him on  twitter .  
+ 
+ 
+ 
+ Urbandive  is an immersive view service launched by the  French YellowPages  which allows you to travel in cities in France thanks to a 360° view. Urbandive focuses on providing high definition pictures and accurate professional and social content. One of the biggest jobs was to enable a fast scalable architecture, because it was really difficult to forecast the traffic load at production time. Traffic load may be influenced if the service receives attention from users as a result of advertising.
+ 
+Below you will find a summary of the goals we achieve by using a Ruby scheduler built on top of  Puppet  on  AWS  to create a complete infrastructure.
+    Workflow & XTR-Lucid    
+Our scalability combo is : a home-made Ruby scheduler ( XTR-Lucid ) to deal with AWS APIs + the Puppet Master to install services and configure EC2 instances and keep them up-to-date during all the product</p><p>4 0.73111546 <a title="1408-lsi-4" href="../high_scalability-2012/high_scalability-2012-04-18-Ansible_-__A_Simple_Model-Driven_Configuration_Management_and_Command_Execution_Framework.html">1230 high scalability-2012-04-18-Ansible -  A Simple Model-Driven Configuration Management and Command Execution Framework</a></p>
+<p>Introduction: This is guest post by  Michael DeHaan  (@laserllama), a software developer and architect, on  Ansible , a simple deployment, model-driven configuration management, and command execution framework. 
+ 
+I owe High Scalability a great deal of credit for the idea behind my latest software project. I was reading about how an older tool I helped create, Func, was used at  Tumblr , and it kicked some ideas into gear.  This article is about what happened from that idea.
+ 
+My observation, which the article reinforced, was that many shops end up using a configuration management tool (Puppet, Chef, cfengine), a separate deployment tool (Capistrano, Fabric) and yet another separate ad-hoc task execution tool (Func, pssh, etc) because one class of tool historically hasn't been good at all three jobs.
+ 
+My other observation (not from the article) was that the whole "infrastructure as code" movement, while revolutionary, and definitely great for many, was probably secretly grating on a good number of</p><p>5 0.72804588 <a title="1408-lsi-5" href="../high_scalability-2008/high_scalability-2008-12-05-Sprinkle_-_Provisioning_Tool_to_Build_Remote_Servers.html">461 high scalability-2008-12-05-Sprinkle - Provisioning Tool to Build Remote Servers</a></p>
+<p>Introduction: At  37 Signals  Joshua Sierles describes how 37 Signals uses  Sprinkle  to configure their servers within EC2. Sprinkle  defines a domain specific meta-language for describing and processing the installation of software . You can find an interesting discussion of Sprinkle's creation story by the creator himself, Marcus Crafter, in  Sprinkle Some Powder! .  Marcus divides provisioning tools into two categories:
+    Task Based  - the tool issues a list of commands to run on the remote system, either remotely via a network connection or smart client.     Policy/state Based  - the tool determines what needs to be run on the remote system by examining its current and final state.  Sprinkle combines both models together in a chocolate-in-my-peanut-butter approach using normal Ruby code as the DSL (domain specific language) to declaratively describe remote system configurations. 37 Signals likes the use of Ruby as the DSL because it makes learning a separate syntax unnecessary. I've successfu</p><p>6 0.67926168 <a title="1408-lsi-6" href="../high_scalability-2013/high_scalability-2013-10-13-AIDA%3A_Badoo%E2%80%99s_journey_into_Continuous_Integration.html">1531 high scalability-2013-10-13-AIDA: Badoo’s journey into Continuous Integration</a></p>
 <p>7 0.66544455 <a title="1408-lsi-7" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
 <p>8 0.66457075 <a title="1408-lsi-8" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
 <p>9 0.6639834 <a title="1408-lsi-9" href="../high_scalability-2008/high_scalability-2008-09-16-Product%3A_Func_-_Fedora_Unified_Network_Controller.html">385 high scalability-2008-09-16-Product: Func - Fedora Unified Network Controller</a></p>
@@ -233,70 +144,32 @@ things in Perl.</p><p>6 0.67926168 <a title="1408-lsi-6" href="../high_scalabili
 <p>[(1, 0.203), (2, 0.203), (10, 0.042), (30, 0.016), (47, 0.016), (60, 0.164), (61, 0.1), (77, 0.021), (79, 0.041), (85, 0.017), (94, 0.05)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.9661997 <a title="1408-lda-1" href="../high_scalability-2009/high_scalability-2009-09-10-Building_Scalable_Databases%3A_Denormalization%2C_the_NoSQL_Movement_and_Digg.html">698 high scalability-2009-09-10-Building Scalable Databases: Denormalization, the NoSQL Movement and Digg</a></p>
-<p>Introduction: Database normalization is a technique for designing relational database
-schemas that ensures that the data is optimal for ad-hoc querying and that
-modifications such as deletion or insertion of data does not lead to data
-inconsistency. Database denormalization is the process of optimizing your
-database for reads by creating redundant data. A consequence of
-denormalization is that insertions or deletions could cause data inconsistency
-if not uniformly applied to all redundant copies of the data within the
-database.Read more on Carnage4life blog...</p><p>2 0.93235356 <a title="1408-lda-2" href="../high_scalability-2012/high_scalability-2012-06-07-Case_Study_on_Scaling_PaaS_infrastructure_.html">1260 high scalability-2012-06-07-Case Study on Scaling PaaS infrastructure </a></p>
-<p>Introduction: In his blog post,Scaling WSO2 Stratos, Srinath Perera explains the scaling
-architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure.
-It is explained as a series of solutions where every solution adds a new
-concept to solve a specific problem found in the earlier solution.Overall,
-WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading
-to scale up the architecture. More details about Stratos can be found from the
-paper WSO2 Stratos: An Industrial Stack to Support Cloud Computing.
-ProblemStratos is multi-tenanted. In other words, there are many tenants. Each
-tenant generally represents an organization and isolated from other tenants,
-where each tenant has his own users, resources, and permissions. Stratos
-supports multiple PaaS services. Each PaaS service is actually a WSO2 Products
-(e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants
-may deploy their own Web Services, Mediation logic, Workflows, and Gadgets
-etc. WSO2 Str</p><p>3 0.92210519 <a title="1408-lda-3" href="../high_scalability-2008/high_scalability-2008-02-16-S3_Failed_Because_of_Authentication_Overload.html">249 high scalability-2008-02-16-S3 Failed Because of Authentication Overload</a></p>
-<p>Introduction: Being an authentic human being is difficult and apparently authenticating all
-those S3 requests can be a bit overwhelming as well. Amazon fingered a lot of
-processor heavy authentication requests as the reason for their
-downtime:breakEarly this morning, at 3:30am PST, we started seeing elevated
-levels of authenticated requests from multiple users in one of our locations.
-While we carefully monitor our overall request volumes and these remained
-within normal ranges, we had not been monitoring the proportion of
-authenticated requests. Importantly, these cryptographic requests consume more
-resources per call than other request types.Shortly before 4:00am PST, we
-began to see several other users significantly increase their volume of
-authenticated calls. The last of these pushed the authentication service over
-its maximum capacity before we could complete putting new capacity in place.
-In addition to processing authenticated requests, the authentication service
-also performs account valida</p><p>same-blog 4 0.91356313 <a title="1408-lda-4" href="../high_scalability-2013/high_scalability-2013-02-19-Puppet_monitoring%3A_how_to_monitor_the_success_or_failure_of_Puppet_runs__.html">1408 high scalability-2013-02-19-Puppet monitoring: how to monitor the success or failure of Puppet runs  </a></p>
-<p>Introduction: This is a guest post by LogicMonitor's Director of Tech Ops,Jesse Aukeman,
-about the different ways they're monitoring the success or failure of Puppet
-runs.If you are like us, you are running some type of linux configuration
-management tool. The value of centralized configuration and deployment is well
-known and hard to overstate. Puppetis our tool of choice. It is powerful and
-works well for us, except when things don't go as planned. Failures of puppet
-can be innocuous and cosmetic, or they can cause production issues, for
-example when crucial updates do not get properly propagated.Why?In the most
-innocuous cases, the puppet agent craps out (we run puppet agent via cron). As
-nice as puppet is, we still need to goose it from time to time to get past
-some sort of network or host resource issue. A more dangerous case is when an
-administrator temporarily disables puppet runs on a host in order to perform
-some test or administrative task and then forgets to reenable it. In either
-case it</p><p>5 0.9029299 <a title="1408-lda-5" href="../high_scalability-2011/high_scalability-2011-09-30-Stuff_The_Internet_Says_On_Scalability_For_September_30%2C_2011.html">1129 high scalability-2011-09-30-Stuff The Internet Says On Scalability For September 30, 2011</a></p>
-<p>Introduction: You deserve a HighScalability today:Tumblr > WikipediaPotent
-quotables:@tokutek: Yelp generates close to 400 GB of compressed logs per day
-according to @petersirota of Amazon #Strataconf #BigData. More atFrom Under
-the Desk to the Cloud@LHK_ITRG: Massive scalability: 80,000 users on a single
-AppSense server. I think that should do...@solarce: OH: "Automation is a great
-way to distribute failure across the system" #surgeconpalominodb: #surgeconf -
-DataDog presenting on their "Data Mullet" All SQL in front, NoSQL party in the
-back. Classic.Ryan Dahl : I hate almost all softwareSoftware Design Glossary.
-Apparently Kent Beck didn't get the memo, only algorithms matter now, software
-engineering is dead. In case you don't feel that way, Kent wrote a short
-glossary of important software design concepts. Also,Screaming Architecture by
-Bob Martin.Improving Percona Server performance with Flashcache on the
-Virident tachIOn Drive. If you are thinking of usingFlashcacheas storage for
-MySQL, Percon</p><p>6 0.89745313 <a title="1408-lda-6" href="../high_scalability-2014/high_scalability-2014-03-21-Stuff_The_Internet_Says_On_Scalability_For_March_21st%2C_2014.html">1617 high scalability-2014-03-21-Stuff The Internet Says On Scalability For March 21st, 2014</a></p>
+<p>Introduction: Database normalization is a technique for designing relational database schemas that ensures that the data is optimal for ad-hoc querying and that modifications such as deletion or insertion of data does not lead to data inconsistency. Database denormalization is the process of optimizing your database for reads by creating redundant data. A consequence of denormalization is that insertions or deletions could cause data inconsistency if not uniformly applied to all redundant copies of the data within the database.    Read more on Carnage4life blog...</p><p>2 0.93235356 <a title="1408-lda-2" href="../high_scalability-2012/high_scalability-2012-06-07-Case_Study_on_Scaling_PaaS_infrastructure_.html">1260 high scalability-2012-06-07-Case Study on Scaling PaaS infrastructure </a></p>
+<p>Introduction: In his blog post,  Scaling WSO2 Stratos , Srinath Perera explains the scaling architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure. It is explained as a series of solutions where every solution adds a new concept to solve a specific problem found in the earlier solution.
+ 
+Overall, WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading to scale up the architecture. More details about Stratos can be found from the paper     WSO2 Stratos: An Industrial Stack to Support Cloud Computing .   
+  Problem  
+ Stratos is   multi-tenanted  . In other words, there are many tenants. Each tenant generally represents an organization and isolated from other tenants, where each tenant has his own users, resources, and permissions. Stratos supports multiple PaaS services. Each PaaS service is actually a WSO2 Products (e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants may deploy their own Web Services, Mediation logic, Workflows, a</p><p>3 0.92210519 <a title="1408-lda-3" href="../high_scalability-2008/high_scalability-2008-02-16-S3_Failed_Because_of_Authentication_Overload.html">249 high scalability-2008-02-16-S3 Failed Because of Authentication Overload</a></p>
+<p>Introduction: Being an authentic human being is difficult and apparently authenticating all those S3 requests can be a bit overwhelming as well. Amazon fingered a lot of processor heavy authentication requests as the reason for their downtime:        Early this morning, at 3:30am PST, we started seeing elevated levels of authenticated requests from multiple users in one of our locations.  While we carefully monitor our overall request volumes and these remained within normal ranges, we had not been monitoring the proportion of authenticated requests.  Importantly, these cryptographic requests consume more resources per call than other request types.  Shortly before 4:00am PST, we began to see several other users significantly increase their volume of authenticated calls.  The last of these pushed the authentication service over its maximum capacity before we could complete putting new capacity in place.  In addition to processing authenticated requests, the authentication service also performs accou</p><p>same-blog 4 0.91356313 <a title="1408-lda-4" href="../high_scalability-2013/high_scalability-2013-02-19-Puppet_monitoring%3A_how_to_monitor_the_success_or_failure_of_Puppet_runs__.html">1408 high scalability-2013-02-19-Puppet monitoring: how to monitor the success or failure of Puppet runs  </a></p>
+<p>Introduction: This is a guest post by LogicMonitor's Director of Tech Ops,  Jesse Aukeman , about the different ways they're monitoring the success or failure of Puppet runs. 
+ 
+If you are like us, you are running some type of linux configuration management tool. The value of centralized configuration and deployment is well known and hard to overstate.   Puppet    is our tool of choice. It is powerful and works well for us, except when things don't go as planned. Failures of puppet can be innocuous and cosmetic, or they can cause production issues, for example when crucial updates do not get properly propagated.  
+   Why?   
+ In the most innocuous cases, the puppet agent craps out (we run puppet agent via cron). As nice as puppet is, we still need to goose it from time to time to get past some sort of network or host resource issue. A more dangerous case is when an administrator temporarily disables puppet runs on a host in order to perform some test or administrative task and then forgets to reenab</p><p>5 0.9029299 <a title="1408-lda-5" href="../high_scalability-2011/high_scalability-2011-09-30-Stuff_The_Internet_Says_On_Scalability_For_September_30%2C_2011.html">1129 high scalability-2011-09-30-Stuff The Internet Says On Scalability For September 30, 2011</a></p>
+<p>Introduction: You deserve a  HighScalability today :
+  
+  Tumblr > Wikipedia  
+ Potent quotables:                                      
+ 
+  @tokutek  : Yelp generates close to 400 GB of compressed logs per day according to @petersirota of Amazon #Strataconf #BigData. More at  From Under the Desk to the Cloud  
+  @LHK_ITRG  : Massive scalability: 80,000 users on a single AppSense server. I think that should do... 
+  @solarce  : OH: "Automation is a great way to distribute failure across the system" #surgecon 
+  palominodb  : #surgeconf - DataDog presenting on their "Data Mullet" All SQL in front, NoSQL party in the back. Classic. 
+  Ryan Dahl  : I hate almost all software 
+ 
+ 
+  Software Design Glossary . Apparently Kent Beck didn't get the memo, only algorithms matter now, software engineering is dead. In case you don't feel that way, Kent wrote a short glossary of important software design concepts. Also,  Screaming Architecture  by Bob Martin. 
+  Improving Percona Server performance with Flashcach</p><p>6 0.89745313 <a title="1408-lda-6" href="../high_scalability-2014/high_scalability-2014-03-21-Stuff_The_Internet_Says_On_Scalability_For_March_21st%2C_2014.html">1617 high scalability-2014-03-21-Stuff The Internet Says On Scalability For March 21st, 2014</a></p>
 <p>7 0.89517903 <a title="1408-lda-7" href="../high_scalability-2009/high_scalability-2009-07-12-SPHiveDB%3A_A_mixture_of_the_Key-Value_Store_and_the_Relational_Database..html">655 high scalability-2009-07-12-SPHiveDB: A mixture of the Key-Value Store and the Relational Database.</a></p>
 <p>8 0.88432842 <a title="1408-lda-8" href="../high_scalability-2008/high_scalability-2008-04-07-Rumors_of_Signs_and_Portents_Concerning_Freeish_Google_Cloud.html">299 high scalability-2008-04-07-Rumors of Signs and Portents Concerning Freeish Google Cloud</a></p>
 <p>9 0.88014096 <a title="1408-lda-9" href="../high_scalability-2012/high_scalability-2012-07-27-Stuff_The_Internet_Says_On_Scalability_For_July_27%2C_2012.html">1292 high scalability-2012-07-27-Stuff The Internet Says On Scalability For July 27, 2012</a></p>

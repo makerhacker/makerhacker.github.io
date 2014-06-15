@@ -16,38 +16,33 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1438 high scalability-2013-04-10-Check Yourself Before You Wreck Yourself - Avocado's 5 Early Stages of Architecture Evolution</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1438-html" href="http://highscalability.com//blog/2013/4/10/check-yourself-before-you-wreck-yourself-avocados-5-early-st.html">html</a></p><p>Introduction: In Don't panic! Here's how to quickly scale your mobile apps Mike
-Maelzerpaints a wonderful picture of howAvocado, a mobile app for connecting
-couples, evolved to handle 30x traffic within a few weeks. If you are just
-getting started then this is a great example to learn from.What I liked: it's
-well written, packing a lot of useful information in a little space; it's
-failure driven, showing the process of incremental change driven by purposeful
-testing and production experience; it shows awareness of what's important, in
-their case, user signup; a replica setup was used for testing, a nice cloud
-benefit. Their Biggest lesson learned is a good one:It would have been great
-to start the scaling process much earlier. Due to time pressure we had to make
-compromises -like dropping four of our media resizer boxes. While throwing
-more hardware at some scaling problems does work, it's less than ideal.Here's
-my gloss on the article:Evolution One - Make it WorkWhen just starting you
-just want to</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Here's how to quickly scale your mobile apps Mike Maelzerpaints a wonderful picture of howAvocado, a mobile app for connecting couples, evolved to handle 30x traffic within a few weeks. [sent-2, score-0.328]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1438-html" href="http://highscalability.com//blog/2013/4/10/check-yourself-before-you-wreck-yourself-avocados-5-early-st.html">html</a></p><p>Introduction: In  Don’t panic! Here’s how to quickly scale your mobile apps   Mike Maelzer  paints a wonderful picture of how  Avocado , a mobile app for connecting couples, evolved to handle 30x traffic within a few weeks. If you are just getting started then this is a great example to learn from.
+ 
+What I liked: it's well written, packing a lot of useful information in a little space; it's failure driven, showing the process of incremental change driven by purposeful testing and production experience; it shows awareness of what's important, in their case, user signup; a replica setup was used for testing, a nice cloud benefit. 
+ 
+Their Biggest lesson learned is a good one:
+  It would have been great to start the scaling process much earlier. Due to time pressure we had to make compromises –like dropping four of our media resizer boxes. While throwing more hardware at some scaling problems does work, it’s less than ideal.  
+Here's my gloss on the article:
+  Evolution One - Make it Work  
+When just</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Here’s how to quickly scale your mobile apps   Mike Maelzer  paints a wonderful picture of how  Avocado , a mobile app for connecting couples, evolved to handle 30x traffic within a few weeks. [sent-2, score-0.328]
 </p><p>2 What Avacodo did was purposefully test their software, look for weaknesses, fix them, iterate. [sent-10, score-0.282]
 </p><p>3 Avocado was having a promotion that they expected to drive a lot more traffic and they couldn't afford to have those potential new users have a bad experience. [sent-17, score-0.398]
 </p><p>4 They started with a typical have a server for every function kind of setup: 1 frontend server (stored: API, web presence, socket. [sent-19, score-0.25]
-</p><p>5 io, HAProxy, stunnel/SSL encryption); 1 Redis server; 1 MySQL server; 1 batch server (running miscellaneous daemons). [sent-20, score-0.196]
+</p><p>5 io, HAProxy, stunnel/SSL encryption); 1 Redis server; 1 MySQL server; 1 batch server (running miscellaneous daemons). [sent-20, score-0.196]
 </p><p>6 A replica test setup was used to run common scenarios like account creation. [sent-21, score-0.456]
 </p><p>7 Using smaller EC2 instances in the test environment saved money and flushed out resource related errors. [sent-22, score-0.308]
 </p><p>8 Testing was directed at finding weak spots using different scenarios, like adding a second server and using all the CPU on a server. [sent-24, score-0.198]
-</p><p>9 Performance crapped out with thousands of simultaneous registrations:CPU spikes caused by creating new Python processes to send email verifications and to resize profile pictures. [sent-25, score-0.331]
+</p><p>9 Performance crapped out with thousands of simultaneous registrations:                           CPU spikes caused by creating new Python processes to send email verifications and to resize profile pictures. [sent-25, score-0.331]
 </p><p>10 Again, fairly obvious that this could be a problem, and a larger machine could make it a non problem, but it's certainly easier to start on one box. [sent-46, score-0.338]
 </p><p>11 For the promotion four new instances were allocated for image resizing. [sent-47, score-0.431]
 </p><p>12 During the promotion monitoring alerted on slow response times, so a second front-end server was added. [sent-51, score-0.423]
 </p><p>13 It was noticed on larger EC2 instances that only one CPU was being used, node. [sent-54, score-0.284]
 </p><p>14 Restarting HAProxy to read in a new configuration to fix this situation took a few seconds, so they created a redundant HAProxy server to reduce downtime. [sent-56, score-0.211]
 </p><p>15 ELB was used to route traffic to the two HAProxy servers and handle SSL, which reduced the number of proxy boxes and saved money. [sent-57, score-0.346]
-</p><p>16 io as a user needs to maintain one session with one server. [sent-59, score-0.182]
+</p><p>16 This caused a multiple server problem with socket. [sent-58, score-0.202]
 </p><p>17 io server has one database connection, which queued up work to the database such that 60% of a box's 8 CPUs was used by socket. [sent-73, score-0.288]
-</p><p>18 Using  a pool of 2 to 10 database connections per server instance dropped CPU usage to 3% and improved response times dramatically. [sent-75, score-0.197]
-</p><p>19 Evolution Four - Going GlobalMobile couples exist throughout the world, so they adapted by launching servers throughout the world too, directing Amazon to route by latency. [sent-79, score-0.474]
+</p><p>18 Using  a pool of 2 to 10 database connections per server instance dropped CPU usage to 3% and improved response times dramatically. [sent-75, score-0.197]
+</p><p>19 Evolution Four - Going Global     Mobile couples exist throughout the world, so they adapted by launching servers throughout the world too, directing Amazon to route by latency. [sent-79, score-0.474]
 </p><p>20 Take it slow so you can worry about one kind of problem at a time. [sent-87, score-0.244]
 </p>
 <br/>
@@ -55,48 +50,29 @@ just want to</p><br/><h2>Summary: the most important sentenses genereted by tfid
 <p>[('haproxy', 0.246), ('promotion', 0.219), ('incremental', 0.175), ('couples', 0.142), ('python', 0.132), ('sensible', 0.129), ('driven', 0.129), ('server', 0.125), ('cpu', 0.118), ('test', 0.116), ('mobile', 0.112), ('instances', 0.108), ('four', 0.104), ('traffic', 0.104), ('connection', 0.104), ('setup', 0.098), ('fixing', 0.094), ('one', 0.091), ('crazy', 0.09), ('spikes', 0.089), ('start', 0.086), ('fix', 0.086), ('route', 0.086), ('replica', 0.086), ('throughout', 0.085), ('sucky', 0.085), ('verifications', 0.085), ('larger', 0.085), ('scenarios', 0.084), ('saved', 0.084), ('purposefully', 0.08), ('resize', 0.08), ('slow', 0.079), ('works', 0.078), ('caused', 0.077), ('obvious', 0.076), ('mattered', 0.076), ('directing', 0.076), ('finicky', 0.076), ('signup', 0.076), ('expected', 0.075), ('worry', 0.074), ('purposeful', 0.074), ('packing', 0.074), ('finding', 0.073), ('pool', 0.072), ('used', 0.072), ('miscellaneous', 0.071), ('panic', 0.071), ('weaknesses', 0.071)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999934 <a title="1438-tfidf-1" href="../high_scalability-2013/high_scalability-2013-04-10-Check_Yourself_Before_You_Wreck_Yourself_-_Avocado%27s_5_Early_Stages_of_Architecture_Evolution.html">1438 high scalability-2013-04-10-Check Yourself Before You Wreck Yourself - Avocado's 5 Early Stages of Architecture Evolution</a></p>
-<p>Introduction: In Don't panic! Here's how to quickly scale your mobile apps Mike
-Maelzerpaints a wonderful picture of howAvocado, a mobile app for connecting
-couples, evolved to handle 30x traffic within a few weeks. If you are just
-getting started then this is a great example to learn from.What I liked: it's
-well written, packing a lot of useful information in a little space; it's
-failure driven, showing the process of incremental change driven by purposeful
-testing and production experience; it shows awareness of what's important, in
-their case, user signup; a replica setup was used for testing, a nice cloud
-benefit. Their Biggest lesson learned is a good one:It would have been great
-to start the scaling process much earlier. Due to time pressure we had to make
-compromises -like dropping four of our media resizer boxes. While throwing
-more hardware at some scaling problems does work, it's less than ideal.Here's
-my gloss on the article:Evolution One - Make it WorkWhen just starting you
-just want to</p><p>2 0.18920889 <a title="1438-tfidf-2" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
-<p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><p>3 0.16464099 <a title="1438-tfidf-3" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
-<p>Introduction: For everything given something seems to be taken. Caching is a great
-scalability solution, but caching alsocomes with problems.Shardingis a great
-scalability solution, but as Foursquare recently revealed in apost-mortemabout
-their 17 hours of downtime, sharding also has problems. MongoDB, the database
-Foursquare uses, also contributed theirpost-mortemof what went wrong too.Now
-that everyone has shared and resharded, what can we learn to help us skip
-these mistakes and quickly move on to a different set of mistakes?First, like
-forFacebook, huge props to Foursquare and MongoDB for being upfront and honest
-about their problems. This helps everyone get better and is a sign we work in
-a pretty cool industry.Second, overall, the fault didn't flow from evil hearts
-or gross negligence. As usual the cause was more mundane: a key system, that
-could be a little more robust, combined with a very popular application built
-by a small group of people, under immense pressure, trying to get a lot of
-wo</p><p>4 0.16310777 <a title="1438-tfidf-4" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>Introduction: In  Don’t panic! Here’s how to quickly scale your mobile apps   Mike Maelzer  paints a wonderful picture of how  Avocado , a mobile app for connecting couples, evolved to handle 30x traffic within a few weeks. If you are just getting started then this is a great example to learn from.
+ 
+What I liked: it's well written, packing a lot of useful information in a little space; it's failure driven, showing the process of incremental change driven by purposeful testing and production experience; it shows awareness of what's important, in their case, user signup; a replica setup was used for testing, a nice cloud benefit. 
+ 
+Their Biggest lesson learned is a good one:
+  It would have been great to start the scaling process much earlier. Due to time pressure we had to make compromises –like dropping four of our media resizer boxes. While throwing more hardware at some scaling problems does work, it’s less than ideal.  
+Here's my gloss on the article:
+  Evolution One - Make it Work  
+When just</p><p>2 0.18920889 <a title="1438-tfidf-2" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
+<p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><p>3 0.16464099 <a title="1438-tfidf-3" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: For everything given something seems to be taken. Caching is a great scalability solution, but caching also  comes with problems .  Sharding  is a great scalability solution, but as Foursquare recently revealed in a  post-mortem  about their 17 hours of downtime, sharding also has problems. MongoDB, the database Foursquare uses, also contributed their  post-mortem  of what went wrong too.
+ 
+Now that everyone has shared and resharded, what can we learn to help us skip these mistakes and quickly move on to a different set of mistakes?
+ 
+First, like for  Facebook , huge props to Foursquare and MongoDB for being upfront and honest about their problems. This helps everyone get better and is a sign we work in a pretty cool industry.
+ 
+Second, overall, the fault didn't flow from evil hearts or gross negligence. As usual the cause was more mundane: a key system, that could be a little more robust, combined with a very popular application built by a small group of people, under immense pressure</p><p>4 0.16310777 <a title="1438-tfidf-4" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>Introduction: Pinterest has been riding an exponential growth curve, doubling every month
 and half. They've gone from 0 to 10s of billions of page views a month in two
 years, from 2 founders and one engineer to over 40 engineers, from one little
@@ -111,20 +87,13 @@ lot of incorrect choices.This is a great talk. It's full of amazing details.
 It's also very practical, down to earth, and it contains strategies adoptable
 by nearly anyone. Highly recommended.Two of my favorite lessons from the
 talk:Arc</p><p>5 0.16252396 <a title="1438-tfidf-5" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
-<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as
-a child: but when I became a man, I put away childish things. --
-CorinthiansWith this new pricing, developments will be driven by the costs.I
-like to optimize my apps to make them better or faster, but to optimize them
-just to make them cheaper is a waste of time.-- Sylvain onGoogle GroupsThe
-dream is dead. Google App Engine's boldpay for what you usedream dies as it
-leaves childish things behind and becomes areal product.Pricing will change.
-Architectures will change. Customers will change. Hearts and minds will
-change. But Google App Engine will survive. Google isshutting downmany of
-itsprojects. GAE is not among them. Do we have GAE's pricing change to thank
-for it surving the more wood behindmore deadly arrows push? Without a radical
-and quick shift towards profitably GAE would no doubt be a historical footnote
-in the long scroll of good ideas. The urgency involved is clearly reflected in
-GAE's offering a</p><p>6 0.16137643 <a title="1438-tfidf-6" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
+<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as a child: but when I became a man, I put away childish things . -- Corinthians
+ 
+ With this new pricing, developments will be driven by the costs .  I like to optimize my apps to make them better or faster, but to optimize them just to make them cheaper is a waste of time.  -- Sylvain on  Google Groups 
+ 
+The dream is dead. Google App Engine's bold  pay for what you use  dream dies as it leaves childish things behind and becomes a  real product .  Pricing will change . Architectures will change. Customers will change. Hearts and minds will change. But Google App Engine  will survive.   
+ 
+Google is  shutting down  many of its  projects . GAE is not among them. Do we have GAE's pricing change to thank for it surving the  more wood behind  more deadly arrows push? Without a radical and quick shift towards profitably GAE would no doubt be a historical footnote in the long scroll of good ideas. The urgency involve</p><p>6 0.16137643 <a title="1438-tfidf-6" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
 <p>7 0.15533881 <a title="1438-tfidf-7" href="../high_scalability-2010/high_scalability-2010-05-03-MocoSpace_Architecture_-_3_Billion_Mobile_Page_Views_a_Month.html">821 high scalability-2010-05-03-MocoSpace Architecture - 3 Billion Mobile Page Views a Month</a></p>
 <p>8 0.15252788 <a title="1438-tfidf-8" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
 <p>9 0.14853172 <a title="1438-tfidf-9" href="../high_scalability-2009/high_scalability-2009-12-16-Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_in_the_Ambient_Cloud.html">750 high scalability-2009-12-16-Building Super Scalable Systems: Blade Runner Meets Autonomic Computing in the Ambient Cloud</a></p>
@@ -144,76 +113,47 @@ GAE's offering a</p><p>6 0.16137643 <a title="1438-tfidf-6" href="../high_scalab
 <p>[(0, 0.29), (1, 0.135), (2, -0.048), (3, -0.097), (4, 0.0), (5, -0.082), (6, 0.043), (7, 0.023), (8, -0.02), (9, -0.11), (10, -0.045), (11, 0.003), (12, 0.066), (13, -0.015), (14, -0.018), (15, -0.013), (16, 0.003), (17, 0.034), (18, -0.044), (19, 0.049), (20, -0.007), (21, -0.044), (22, -0.021), (23, -0.068), (24, 0.011), (25, 0.031), (26, 0.005), (27, 0.032), (28, 0.011), (29, -0.01), (30, -0.002), (31, 0.031), (32, -0.042), (33, 0.032), (34, 0.014), (35, 0.0), (36, -0.015), (37, 0.012), (38, 0.006), (39, 0.007), (40, -0.021), (41, 0.008), (42, 0.025), (43, -0.002), (44, 0.012), (45, -0.028), (46, 0.034), (47, 0.049), (48, -0.026), (49, 0.037)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97574294 <a title="1438-lsi-1" href="../high_scalability-2013/high_scalability-2013-04-10-Check_Yourself_Before_You_Wreck_Yourself_-_Avocado%27s_5_Early_Stages_of_Architecture_Evolution.html">1438 high scalability-2013-04-10-Check Yourself Before You Wreck Yourself - Avocado's 5 Early Stages of Architecture Evolution</a></p>
-<p>Introduction: In Don't panic! Here's how to quickly scale your mobile apps Mike
-Maelzerpaints a wonderful picture of howAvocado, a mobile app for connecting
-couples, evolved to handle 30x traffic within a few weeks. If you are just
-getting started then this is a great example to learn from.What I liked: it's
-well written, packing a lot of useful information in a little space; it's
-failure driven, showing the process of incremental change driven by purposeful
-testing and production experience; it shows awareness of what's important, in
-their case, user signup; a replica setup was used for testing, a nice cloud
-benefit. Their Biggest lesson learned is a good one:It would have been great
-to start the scaling process much earlier. Due to time pressure we had to make
-compromises -like dropping four of our media resizer boxes. While throwing
-more hardware at some scaling problems does work, it's less than ideal.Here's
-my gloss on the article:Evolution One - Make it WorkWhen just starting you
-just want to</p><p>2 0.82915235 <a title="1438-lsi-2" href="../high_scalability-2013/high_scalability-2013-03-13-Iron.io_Moved_From_Ruby_to_Go%3A_28_Servers_Cut_and_Colossal_Clusterf%2A%2Aks_Prevented.html">1423 high scalability-2013-03-13-Iron.io Moved From Ruby to Go: 28 Servers Cut and Colossal Clusterf**ks Prevented</a></p>
-<p>Introduction: For the last few months I've been programming a system in Go, so I'm always on
-the lookout for information to feed my confirmation bias. An opportunity
-popped up when Iron.io wrote about theirexperience using Go to rewrite
-IronWorker, their ever busy job execution system, originally coded in Ruby.The
-result:Dropped from 30 to 2 servers and the second server was used only for
-redundancy.CPU utilization dropped to less than 5%.Memory usage dropped. Only
-a "few hundred KB's of memory (on startup) vs our Rails apps which were ~50MB
-(on startup)". Cascading failures are now a thing of the past.New services
-running on hundreds of servers are all written in Go.They believe using Go
-allows them to "build great products, to grow and scale, and attract grade A
-talent. And I believe it will continue to help us grow for the foreseeable
-future." Picking a language based on the size of the talent pool is a common
-recommendation, they've found selecting Go helps them attract top
-talent.Deployment is</p><p>3 0.82601798 <a title="1438-lsi-3" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
-<p>Introduction: This article is from an interview withZuhaib Siddique, a production engineer
-atHipChat, makers ofgroup chat and IM for teams.HipChat started in an unusual
-space, one you might not think would have much promise, enterprise group
-messaging, but as we are learning there is gold in them thereenterprise hills.
-Which is why Atlassian, makers of well thought of tools like JIRA and
-Confluence,acquired HipChat in 2012.And in a tale not often heard, the
-resources and connections of a larger parent have actually helped HipChat
-enter anexponential growth cycle. Having reached the 1.2 billion message
-storage mark they are now doubling the number of messages sent, stored, and
-indexed every few months.That kind of growth puts a lot of pressure on a once
-adequate infrastructure. HipChat exhibited a common scaling pattern. Start
-simple, experience traffic spikes, and then think what do we do now? Using
-bigger computers is usually the first and best answer. And they did that. That
-gave them some breathi</p><p>4 0.82571715 <a title="1438-lsi-4" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
-<p>Introduction: This is a guest post by Rodrigo Guzman, CTO ofiDoneThis, which makes status
-reporting happen at your company with the lightest possible touch.iDoneThisis
-a simple management application that emails your team at the end of every day
-to ask, "What'd you get done today?" Just reply with a few lines of what you
-got done. The following morning everyone on your team gets a digest with what
-the team accomplished the previous day to keep everyone in the loop and
-kickstart another awesome day.Before we launched, we built iDoneThis over a
-weekend in the most rudimentary way possible. I kid you not, we sent the first
-few batches of daily emails using the BCC field of a Gmail inbox. The upshot
-is that we've had users on the site from Day 3 of its existence on.We've gone
-from launch in January 2011 when we sent hundreds of emails out per day by
-hand to sending out over 1 million emails and handling over 200,000 incoming
-emails per month. In total, customers have recorded over 1.7 million
-dones.Stat</p><p>5 0.8228963 <a title="1438-lsi-5" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
-<p>Introduction: Here's anUpdate On Disqus: It's Still About Realtime, But Go Demolishes
-Python.How do you add realtime functionality to a web scale application?
-That's whatAdam Hitchcock, a Software Engineer at Disqus talks about in an
-excellent talk: Making DISQUS Realtime (slides).Disqus had to take their
-commenting system and add realtime capabilities to it. Not something that's
-easy to do when at the time of the talk (2013) they had had just hit a billion
-unique visitors a month.What Disqus developed is a realtime commenting system
-called "realertime" that was tested to handle 1.5 million concurrently
-connected users, 45,000 new connections per second, 165,000 messages/second,
-with less than .2 seconds latency end-to-end.The nature of a commenting system
-is that it is IO bound and has a high fanout, that is a comment comes in and
-must be sent out to a lot of readers. It's a problem very similar to
-whatTwitter must solve. Disqus' solution was quite interesting as was the path
-to their solution. The</p><p>6 0.81014067 <a title="1438-lsi-6" href="../high_scalability-2011/high_scalability-2011-08-31-Pud_is_the_Anti-Stack_-_Windows%2C_CFML%2C_Dropbox%2C_Xeround%2C_JungleDisk%2C_ELB.html">1108 high scalability-2011-08-31-Pud is the Anti-Stack - Windows, CFML, Dropbox, Xeround, JungleDisk, ELB</a></p>
+<p>Introduction: In  Don’t panic! Here’s how to quickly scale your mobile apps   Mike Maelzer  paints a wonderful picture of how  Avocado , a mobile app for connecting couples, evolved to handle 30x traffic within a few weeks. If you are just getting started then this is a great example to learn from.
+ 
+What I liked: it's well written, packing a lot of useful information in a little space; it's failure driven, showing the process of incremental change driven by purposeful testing and production experience; it shows awareness of what's important, in their case, user signup; a replica setup was used for testing, a nice cloud benefit. 
+ 
+Their Biggest lesson learned is a good one:
+  It would have been great to start the scaling process much earlier. Due to time pressure we had to make compromises –like dropping four of our media resizer boxes. While throwing more hardware at some scaling problems does work, it’s less than ideal.  
+Here's my gloss on the article:
+  Evolution One - Make it Work  
+When just</p><p>2 0.82915235 <a title="1438-lsi-2" href="../high_scalability-2013/high_scalability-2013-03-13-Iron.io_Moved_From_Ruby_to_Go%3A_28_Servers_Cut_and_Colossal_Clusterf%2A%2Aks_Prevented.html">1423 high scalability-2013-03-13-Iron.io Moved From Ruby to Go: 28 Servers Cut and Colossal Clusterf**ks Prevented</a></p>
+<p>Introduction: For the last few months I've been programming a system in Go, so I'm always on the lookout for information to feed my confirmation bias. An opportunity popped up when Iron.io wrote about their  experience using Go to rewrite IronWorker , their ever busy job execution system, originally coded in Ruby.
+ 
+The result:
+  
+ Dropped from 30 to 2 servers and the second server was used only for redundancy. 
+ CPU utilization dropped to less than 5%. 
+ Memory usage dropped. Only a "few hundred KB's of memory (on startup) vs our Rails apps which were ~50MB (on startup)".  
+ Cascading failures are now a thing of the past. 
+ New services running on hundreds of servers are all written in Go. 
+ They believe using Go allows them to "build great products, to grow and scale, and attract grade A talent. And I believe it will continue to help us grow for the foreseeable future." Picking a language based on the size of the talent pool is a common recommendation, they've found selecting Go helps them attract</p><p>3 0.82601798 <a title="1438-lsi-3" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
+<p>Introduction: This article is from an interview with    Zuhaib Siddique   , a production engineer at    HipChat   , makers of     group chat and IM for teams.  
+   HipChat started in an unusual space, one you might not think would have much promise, enterprise group messaging, but as we are learning there is gold in them there    enterprise hills   . Which is why Atlassian, makers of well thought of tools like JIRA and Confluence,    acquired HipChat in 2012   . 
+   And in a tale not often heard, the resources and connections of a larger parent have actually helped HipChat enter an    exponential growth cycle   . Having reached the 1.2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. 
+   That kind of growth puts a lot of pressure on a once adequate infrastructure. HipChat exhibited a common scaling pattern. Start simple, experience traffic spikes, and then think what do we do now? Using bigger computers is usually the first and bes</p><p>4 0.82571715 <a title="1438-lsi-4" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
+<p>Introduction: This is a guest post by Rodrigo Guzman, CTO of  iDoneThis , which makes status reporting happen at your company with the lightest possible touch. 
+ 
+ iDoneThis  is a simple management application that emails your team at the end of every day to ask, "What'd you get done today?"  Just reply with a few lines of what you got done. The following morning everyone on your team gets a digest with what the team accomplished the previous day to keep everyone in the loop and kickstart another awesome day.
+ 
+Before we launched, we built iDoneThis over a weekend in the most rudimentary way possible.  I kid you not, we sent the first few batches of daily emails using the BCC field of a Gmail inbox.  The upshot is that we’ve had users on the site from Day 3 of its existence on.
+ 
+We’ve gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month.  In total, customers have recorded over 1.</p><p>5 0.8228963 <a title="1438-lsi-5" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
+<p>Introduction: Here's an  Update On Disqus: It's Still About Realtime, But Go Demolishes Python . 
+ 
+How do you add realtime functionality to a web scale application? That's what  Adam Hitchcock , a Software Engineer at Disqus talks about in an excellent talk:  Making DISQUS Realtime  ( slides ).
+ 
+Disqus had to take their commenting system and add realtime capabilities to it. Not something that's easy to do when at the time of the talk (2013) they had had just hit a billion unique visitors a month.
+ 
+What Disqus developed is a realtime commenting system called “realertime” that was tested to handle 1.5 million concurrently connected users, 45,000 new connections per second, 165,000 messages/second, with less than .2 seconds latency end-to-end.
+ 
+The nature of a commenting system is that it is IO bound and has a high fanout, that is a comment comes in and must be sent out to a lot of readers. It's a problem very similar to what  Twitter must solve . 
+ 
+Disqus' solution was quite interesting as was th</p><p>6 0.81014067 <a title="1438-lsi-6" href="../high_scalability-2011/high_scalability-2011-08-31-Pud_is_the_Anti-Stack_-_Windows%2C_CFML%2C_Dropbox%2C_Xeround%2C_JungleDisk%2C_ELB.html">1108 high scalability-2011-08-31-Pud is the Anti-Stack - Windows, CFML, Dropbox, Xeround, JungleDisk, ELB</a></p>
 <p>7 0.80555201 <a title="1438-lsi-7" href="../high_scalability-2007/high_scalability-2007-08-29-Skype_Failed_the_Boot_Scalability_Test%3A_Is_P2P_fundamentally_flawed%3F.html">76 high scalability-2007-08-29-Skype Failed the Boot Scalability Test: Is P2P fundamentally flawed?</a></p>
 <p>8 0.80492097 <a title="1438-lsi-8" href="../high_scalability-2011/high_scalability-2011-02-08-Mollom_Architecture_-_Killing_Over_373_Million_Spams_at_100_Requests_Per_Second.html">985 high scalability-2011-02-08-Mollom Architecture - Killing Over 373 Million Spams at 100 Requests Per Second</a></p>
 <p>9 0.79973876 <a title="1438-lsi-9" href="../high_scalability-2013/high_scalability-2013-04-19-Stuff_The_Internet_Says_On_Scalability_For_April_19%2C_2013.html">1443 high scalability-2013-04-19-Stuff The Internet Says On Scalability For April 19, 2013</a></p>
@@ -233,76 +173,25 @@ to their solution. The</p><p>6 0.81014067 <a title="1438-lsi-6" href="../high_sc
 <p>[(1, 0.097), (2, 0.301), (10, 0.053), (20, 0.016), (30, 0.015), (40, 0.023), (47, 0.013), (61, 0.125), (77, 0.037), (79, 0.12), (85, 0.047), (94, 0.035), (97, 0.065)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97681069 <a title="1438-lda-1" href="../high_scalability-2013/high_scalability-2013-04-10-Check_Yourself_Before_You_Wreck_Yourself_-_Avocado%27s_5_Early_Stages_of_Architecture_Evolution.html">1438 high scalability-2013-04-10-Check Yourself Before You Wreck Yourself - Avocado's 5 Early Stages of Architecture Evolution</a></p>
-<p>Introduction: In Don't panic! Here's how to quickly scale your mobile apps Mike
-Maelzerpaints a wonderful picture of howAvocado, a mobile app for connecting
-couples, evolved to handle 30x traffic within a few weeks. If you are just
-getting started then this is a great example to learn from.What I liked: it's
-well written, packing a lot of useful information in a little space; it's
-failure driven, showing the process of incremental change driven by purposeful
-testing and production experience; it shows awareness of what's important, in
-their case, user signup; a replica setup was used for testing, a nice cloud
-benefit. Their Biggest lesson learned is a good one:It would have been great
-to start the scaling process much earlier. Due to time pressure we had to make
-compromises -like dropping four of our media resizer boxes. While throwing
-more hardware at some scaling problems does work, it's less than ideal.Here's
-my gloss on the article:Evolution One - Make it WorkWhen just starting you
-just want to</p><p>2 0.97515798 <a title="1438-lda-2" href="../high_scalability-2009/high_scalability-2009-06-13-Neo4j_-_a_Graph_Database_that_Kicks_Buttox.html">628 high scalability-2009-06-13-Neo4j - a Graph Database that Kicks Buttox</a></p>
-<p>Introduction: Update:Social networks in the database: using a graph database. A nice post on
-representing, traversing, and performing other common social network
-operations using a graph database.If you areDiggorLinkedInyou can build your
-own speedy graph database to represent your complex social network
-relationships. For those of more modest meansNeo4j, a graph database, is a
-good alternative.A graph is a collection nodes (things) and edges
-(relationships) that connect pairs of nodes. Slap properties (key-value pairs)
-on nodes and relationships and you have a surprisingly powerful way to
-represent most anything you can think of. In a graph database "relationships
-are first-class citizens. They connect two nodes and both nodes and
-relationships can hold an arbitrary amount of key-value pairs. So you can look
-at a graph database as a key-value store, with full support for
-relationships."A graph looks something like:For more lovely examples take a
-look at theGraph Image Gallery.Here's agood summaryby</p><p>3 0.97439164 <a title="1438-lda-3" href="../high_scalability-2008/high_scalability-2008-04-21-The_Search_for_the_Source_of_Data_-_How_SimpleDB_Differs_from_a_RDBMS.html">306 high scalability-2008-04-21-The Search for the Source of Data - How SimpleDB Differs from a RDBMS</a></p>
-<p>Introduction: Update 2: Yurii responds with theTop 10 Reasons to Avoid Document Databases
-FUD.Update:Top 10 Reasons to Avoid the SimpleDB Hypeby Ryan Park provides a
-well written counter take. Am I really that fawning? If so, doesn't that make
-me a dear?All your life you've used a relational database. At the tender age
-of five you banged out your first SQL query to track your allowance. Your
-RDBMS allegiance was just assumed, like your politics or religion would have
-been assumed 100 years ago. They now say--you know them--that relations won't
-scale and we have to do things differently. New databases like SimpleDB and
-BigTable are what's different. As a long time RDBMS user what can you expect
-of SimpleDB? That's what Alex Tolley of MyMeemz.com set out to discover. Like
-many brave explorers before him, Alex gave a report of his adventures to the
-Royal Society of theAWS Meetup. Alex told a wild almost unbelievable tale of
-cultures and practices so different from our own you almost could not believe
-h</p><p>4 0.97429472 <a title="1438-lda-4" href="../high_scalability-2009/high_scalability-2009-10-02-HighScalability_has_Moved_to_Squarespace.com%21_.html">714 high scalability-2009-10-02-HighScalability has Moved to Squarespace.com! </a></p>
-<p>Introduction: You may have noticed something is a little a different when visiting
-HighScalability today: We've Moved! HighScalability.com has switched hosting
-services to Squarespace.com. House warming gifts are completely unnecessary.
-Thanks for the thought though.It's been a long long long process. Importing a
-largish Drupal site to Wordpress and then into Squarespace is a bit like
-dental work without the happy juice, but the results are worth it. While the
-site is missing a few features I think it looks nicer, feels faster, and I'm
-betting it will be more scalable and more reliable. All good things.I'll
-explain more about the move later in this post, but there's some admistrivia
-that needs to be handled to make the move complete:If you have a user account
-and have posted on HighScalability before then you have a user account, but
-since I don't know your passwords I had to make new passwords up for you. So
-pleasecontact me and I'll give you your password so you can login and change
-it. Then you c</p><p>5 0.9709574 <a title="1438-lda-5" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
-<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
-'antirez' Sanfilippo shows how to solve some common problems in Redis by
-taking advantage of its unique data structure handling capabilities. Common
-Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
-programmers need to get done, but that can be hard or slow in more traditional
-stores. A very useful and practical article. How would you accomplish these
-tasks in your framework?Show latest items listings in your home page. This is
-a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
-the head of the list stored at a key.LTRIMis used to limit the number of items
-in the list to 5000. If the user needs to page beyond this cache only then are
-they sent to the database.Deletion and filtering. If a cached article is
-deleted it can be removed from the cache using LREM.Leaderboards and related
-problems. A leader board is a set sorted by score. TheZADDcommands implements
-th</p><p>6 0.97086066 <a title="1438-lda-6" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
+<p>Introduction: In  Don’t panic! Here’s how to quickly scale your mobile apps   Mike Maelzer  paints a wonderful picture of how  Avocado , a mobile app for connecting couples, evolved to handle 30x traffic within a few weeks. If you are just getting started then this is a great example to learn from.
+ 
+What I liked: it's well written, packing a lot of useful information in a little space; it's failure driven, showing the process of incremental change driven by purposeful testing and production experience; it shows awareness of what's important, in their case, user signup; a replica setup was used for testing, a nice cloud benefit. 
+ 
+Their Biggest lesson learned is a good one:
+  It would have been great to start the scaling process much earlier. Due to time pressure we had to make compromises –like dropping four of our media resizer boxes. While throwing more hardware at some scaling problems does work, it’s less than ideal.  
+Here's my gloss on the article:
+  Evolution One - Make it Work  
+When just</p><p>2 0.97515798 <a title="1438-lda-2" href="../high_scalability-2009/high_scalability-2009-06-13-Neo4j_-_a_Graph_Database_that_Kicks_Buttox.html">628 high scalability-2009-06-13-Neo4j - a Graph Database that Kicks Buttox</a></p>
+<p>Introduction: Update:   Social networks in the database: using a graph database . A nice post on representing, traversing, and performing other common social network operations using a graph database.  If you are  Digg  or  LinkedIn  you can build your own speedy graph database to represent your complex social network relationships. For those of more modest means  Neo4j , a graph database, is a good alternative.  A graph is a collection nodes (things) and edges (relationships) that connect pairs of nodes. Slap properties (key-value pairs) on nodes and relationships and you have a surprisingly powerful way to represent most anything you can think of. In a graph database "relationships are first-class citizens. They connect two nodes and both nodes and relationships can hold an arbitrary amount of key-value pairs. So you can look at a graph database as a key-value store, with full support for relationships."  A graph looks something like:    For more lovely examples take a look at the  Graph Image Gal</p><p>3 0.97439164 <a title="1438-lda-3" href="../high_scalability-2008/high_scalability-2008-04-21-The_Search_for_the_Source_of_Data_-_How_SimpleDB_Differs_from_a_RDBMS.html">306 high scalability-2008-04-21-The Search for the Source of Data - How SimpleDB Differs from a RDBMS</a></p>
+<p>Introduction: Update 2: Yurii responds with the  Top 10 Reasons to Avoid Document Databases FUD .     Update:  Top 10 Reasons to Avoid the SimpleDB Hype  by Ryan Park provides a well written counter take. Am I really that fawning? If so, doesn't that make me a dear?      All your life you've used a relational database. At the tender age of five you banged out your first SQL query to track your allowance. Your RDBMS allegiance was just assumed, like your politics or religion would have been assumed 100 years ago. They now say--you know them--that relations won't scale and we have to do things differently. New databases like SimpleDB and BigTable are what's different. As a long time RDBMS user what can you expect of SimpleDB? That's what Alex Tolley of MyMeemz.com set out to discover. Like many brave explorers before him, Alex gave a report of his adventures to the Royal Society of the   AWS Meetup  . Alex told a wild almost unbelievable tale of cultures and practices so different from our own you alm</p><p>4 0.97429472 <a title="1438-lda-4" href="../high_scalability-2009/high_scalability-2009-10-02-HighScalability_has_Moved_to_Squarespace.com%21_.html">714 high scalability-2009-10-02-HighScalability has Moved to Squarespace.com! </a></p>
+<p>Introduction: You may have noticed something is a little a different when visiting HighScalability today: We've Moved! HighScalability.com has switched hosting services to Squarespace.com. House warming gifts are completely unnecessary. Thanks for the thought though.  It's been a long long long process. Importing a largish Drupal site to Wordpress and then into Squarespace is a bit like dental work without the happy juice, but the results are worth it. While the site is missing a few features I think it looks nicer, feels faster, and I'm betting it will be more scalable and more reliable. All good things. I'll explain more about the move later in this post, but there's some admistrivia that needs to be handled to make the move complete:
+  
+ If you have a user account and have posted on HighScalability before then you have a user account, but since I don't know your passwords I had to make new passwords up for you. So please  contact  me and I'll give you your password so you can login and change it.</p><p>5 0.9709574 <a title="1438-lda-5" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
+<p>Introduction: In  How to take advantage of Redis just adding it to your stack  Salvatore 'antirez' Sanfilippo shows how to solve some common problems in Redis by taking advantage of its unique data structure handling capabilities. Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. A very useful and practical article. How would you accomplish these tasks in your framework?
+  
+  Show latest items listings in your home page . This is a live in-memory cache and is very fast.  LPUSH  is used to insert a content ID at the head of the list stored at a key.  LTRIM  is used to limit the number of items in the list to 5000. If the user needs to page beyond this cache only then are they sent to the database. 
+  Deletion and filtering . If a cached article is deleted it can be removed from the cache using  LREM . 
+  Leaderboards and related problems . A leader board is a set sorted by score.</p><p>6 0.97086066 <a title="1438-lda-6" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
 <p>7 0.9696368 <a title="1438-lda-7" href="../high_scalability-2009/high_scalability-2009-07-25-Latency_is_Everywhere_and_it_Costs_You_Sales_-_How_to_Crush_it.html">661 high scalability-2009-07-25-Latency is Everywhere and it Costs You Sales - How to Crush it</a></p>
 <p>8 0.96959293 <a title="1438-lda-8" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
 <p>9 0.96925414 <a title="1438-lda-9" href="../high_scalability-2010/high_scalability-2010-05-10-Sify.com_Architecture_-_A_Portal_at_3900_Requests_Per_Second.html">825 high scalability-2010-05-10-Sify.com Architecture - A Portal at 3900 Requests Per Second</a></p>

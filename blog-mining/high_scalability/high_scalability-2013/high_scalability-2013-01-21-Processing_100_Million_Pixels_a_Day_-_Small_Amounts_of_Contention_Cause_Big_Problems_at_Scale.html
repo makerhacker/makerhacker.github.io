@@ -16,28 +16,19 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1390-html" href="http://highscalability.com//blog/2013/1/21/processing-100-million-pixels-a-day-small-amounts-of-content.html">html</a></p><p>Introduction: This is a guest post byGordon Worley, a Software Engineer atKorrelate, where
-they correlate (see what they did there) online purchases to offline
-purchases.Several weeks ago, we came into the office one morning to find every
-server alarm going off. Pixel log processing was behind by 8 hours and not
-making headway. Checking the logs, we discovered that a big client had come
-online during the night and was giving us 10 times more traffic than we were
-originally told to expect. I wouldn't say we panicked, but the office was
-certainly more jittery than usual. Over the next several hours, though, thanks
-both to foresight and quick thinking, we were able to scale up to handle the
-added load and clear the backlog to return log processing to a steady state.At
-Korrelate, we deploytracking pixels, also known beacons or web bugs, that our
-partners use to send us information about their users. These tiny web objects
-contain no visible content, but may include transparent 1 by 1 gifs or
-Javascript,</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Over the next several hours, though, thanks both to foresight and quick thinking, we were able to scale up to handle the added load and clear the backlog to return log processing to a steady state. [sent-6, score-0.846]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1390-html" href="http://highscalability.com//blog/2013/1/21/processing-100-million-pixels-a-day-small-amounts-of-content.html">html</a></p><p>Introduction: This is a guest post by  Gordon Worley , a Software Engineer at  Korrelate , where they correlate (see what they did there) online purchases to offline purchases. 
+ 
+Several weeks ago, we came into the office one morning to find every server alarm going off. Pixel log processing was behind by 8 hours and not making headway. Checking the logs, we discovered that a big client had come online during the night and was giving us 10 times more traffic than we were originally told to expect. I wouldn’t say we panicked, but the office was certainly more jittery than usual. Over the next several hours, though, thanks both to foresight and quick thinking, we were able to scale up to handle the added load and clear the backlog to return log processing to a steady state.
+ 
+At Korrelate, we deploy  tracking pixels , also known beacons or web bugs, that our partners use to send us information about their users. These tiny web objects contain no visible content, but may include transparent 1 by 1 gif</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Over the next several hours, though, thanks both to foresight and quick thinking, we were able to scale up to handle the added load and clear the backlog to return log processing to a steady state. [sent-6, score-0.846]
 </p><p>2 At first the log processor was written as a Java servlet, but this proved difficult to manage on the server and none of us were very happy programming in Java. [sent-14, score-0.898]
 </p><p>3 Running lots of data through a Kettle job requires lots of memory (as I write this, the log processor requires 8 GB of memory to process files of 250,000 records). [sent-20, score-0.921]
 </p><p>4 When only one log processor ran the only performance problems we had were related to individual parts of the process taking a long time to complete. [sent-25, score-0.805]
 </p><p>5 For example, we discovered updates to tables in in our database took an impossibly long time, so we converted nearly all of our tables for storing pixel data to be append-only to allow for fast inserts. [sent-26, score-0.846]
-</p><p>6 A few tables couldn't be made append-only, so to work with those we created loading tables that log processing would insert data into quickly, then we would go back later and sync the loading tables with the main tables within the database much more quickly than we could have performed upserts. [sent-27, score-1.901]
+</p><p>6 A few tables couldn’t be made append-only, so to work with those we created loading tables that log processing would insert data into quickly, then we would go back later and sync the loading tables with the main tables within the database much more quickly than we could have performed upserts. [sent-27, score-1.901]
 </p><p>7 Bringing up a second log processor exposed us to new problems. [sent-28, score-0.898]
 </p><p>8 Although we were writing to the database quickly thanks to nonblocking writes on append-only tables, the few tables that needed to be synced with our loading tables caused enough contention that two log processors gained us almost nothing over running one. [sent-29, score-1.571]
-</p><p>9 To address this, we split log processing into two parts: the part that wrote only to append- only tables and that part that needed to insert into heap tables. [sent-30, score-0.985]
+</p><p>9 To address this, we split log processing into two parts: the part that wrote only to append-only tables and that part that needed to insert into heap tables. [sent-30, score-0.985]
 </p><p>10 We brought up additional servers running additional append-only log processor instances within a couple hours and began cranking through the logs (the heap table log processor continued to run quickly enough on its own to keep up). [sent-33, score-2.176]
 </p><p>11 We quickly discovered, though, that there was contention still lurking in the log processor. [sent-34, score-0.777]
 </p><p>12 In order to keep track how log processing is doing, we write out some basic statistics to several audit tables about how long log processing takes and how many pixels it processes. [sent-35, score-1.612]
@@ -47,71 +38,25 @@ Javascript,</p><br/><h2>Summary: the most important sentenses genereted by tfidf
 </p><p>16 Although the log processor can now handle a high level of concurrency, need to rebuild it to handle even more pixels without the high costs of the current log processor. [sent-44, score-1.52]
 </p><p>17 Bringing up new instances of the current log processors means adding servers with lots of RAM (typically about 24 GB to let us run two log processors on each server plus additional RAM for other processes), which is expensive to do. [sent-45, score-1.484]
 </p><p>18 And the current log processor still faces potential contention over limited connections to the database. [sent-46, score-0.963]
-</p><p>19 To that end we have started to build a new log processor usingStorm, which provides a flexible framework for creating custom real time stream processing workflows, similar to the wayHadoopprovides a flexible framework for batch processing. [sent-49, score-0.9]
-</p><p>20 Based on some of theother folksusing Storm, we hope to see our Storm log processor scale to billions of pixels a day. [sent-52, score-0.99]
+</p><p>19 To that end we have started to build a new log processor using  Storm , which provides a flexible framework for creating custom real time stream processing workflows, similar to the way  Hadoop  provides a flexible framework for batch processing. [sent-49, score-0.9]
+</p><p>20 Based on some of the  other folks  using Storm, we hope to see our Storm log processor scale to billions of pixels a day. [sent-52, score-0.99]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('log', 0.492), ('kettle', 0.372), ('processor', 0.313), ('tables', 0.253), ('pixel', 0.235), ('pixels', 0.185), ('korrelate', 0.182), ('quickly', 0.124), ('contention', 0.12), ('storm', 0.119), ('heap', 0.101), ('processing', 0.095), ('workflows', 0.094), ('us', 0.093), ('spoon', 0.091), ('processors', 0.091), ('partners', 0.078), ('ad', 0.073), ('discovered', 0.067), ('steady', 0.067), ('loading', 0.067), ('instances', 0.066), ('additional', 0.063), ('backlog', 0.063), ('lots', 0.058), ('morning', 0.058), ('hours', 0.056), ('able', 0.053), ('continued', 0.052), ('office', 0.046), ('knew', 0.045), ('insert', 0.044), ('tracking', 0.043), ('auditing', 0.041), ('lurking', 0.041), ('jittery', 0.041), ('beacons', 0.041), ('cranking', 0.041), ('although', 0.04), ('logging', 0.04), ('locks', 0.04), ('nonblocking', 0.039), ('gifs', 0.039), ('cleared', 0.039), ('receive', 0.039), ('thanks', 0.039), ('current', 0.038), ('ago', 0.038), ('allow', 0.038), ('foresight', 0.037)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1390-tfidf-1" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
-<p>Introduction: This is a guest post byGordon Worley, a Software Engineer atKorrelate, where
-they correlate (see what they did there) online purchases to offline
-purchases.Several weeks ago, we came into the office one morning to find every
-server alarm going off. Pixel log processing was behind by 8 hours and not
-making headway. Checking the logs, we discovered that a big client had come
-online during the night and was giving us 10 times more traffic than we were
-originally told to expect. I wouldn't say we panicked, but the office was
-certainly more jittery than usual. Over the next several hours, though, thanks
-both to foresight and quick thinking, we were able to scale up to handle the
-added load and clear the backlog to return log processing to a steady state.At
-Korrelate, we deploytracking pixels, also known beacons or web bugs, that our
-partners use to send us information about their users. These tiny web objects
-contain no visible content, but may include transparent 1 by 1 gifs or
-Javascript,</p><p>2 0.31008002 <a title="1390-tfidf-2" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
-<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from
-over 600 hyperactive servers? If you think this sounds like the perfect battle
-ground for a head-to-head skirmish in the greatMapReduce Versus Database War,
-you would be correct.Bill Boebel, CTO of Mailtrust (Rackspace's mail
-division), has generously provided a fascinating account of how they evolved
-their log processing system from an early amoeba'ic text file stored on each
-machine approach, to a Neandertholic relational database solution that just
-couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that
-works wisely for them and has virtually unlimited scalability
-potential.Rackspace faced a now familiar problem. Lots and lots of data
-streaming in. Where do you store all that data? How do you do anything useful
-with it? In the first version of their system logs were stored in flat text
-files and had to be manually searched by engineers logging into each
-individual machine. Then came a</p><p>3 0.29868588 <a title="1390-tfidf-3" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
-<p>Introduction: AWStatsis a free powerful and featureful tool that generates advanced web,
-streaming, ftp or mail server statistics, graphically. This log analyzer works
-as a CGI or from command line and shows you all possible information your log
-contains, in few graphical web pages. It uses a partial information file to be
-able to process large log files, often and quickly. It can analyze log files
-from all major server tools like Apache log files (NCSA combined/XLF/ELF log
-format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of
-other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>4 0.27551544 <a title="1390-tfidf-4" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
-<p>Introduction: breakThis JoelOnSoftwarethreadasks the age old question of what and how to
-log. The usual trace/error/warning/info advice is totally useless in a large
-scale distributed system. Instead, you need tolog everything all the timeso
-you can solve problems that have already happened across a potentially huge
-range of servers. Yes, it can be done.To see why the typical logging approach
-is broken, imagine this scenario: Your site has been up and running great for
-weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some
-users can no longer add comments to threads. Then you hear the debugging
-deathknell: it's an intermittent problem and customers are pissed. Fix it.
-Now.So how are you going to debug this? The monitoring system doesn't show any
-obvious problems or errors. You quickly post a comment and it works fine. This
-won't be easy. So you think. Commenting involves a bunch of servers and
-networks. There's the load balancer, spam filter, web server, database server,
-caching s</p><p>5 0.21624504 <a title="1390-tfidf-5" href="../high_scalability-2009/high_scalability-2009-03-16-Product%3A_Smart_Inspect.html">541 high scalability-2009-03-16-Product: Smart Inspect</a></p>
-<p>Introduction: Smart Inspecthas added quite a few features specifically tailored to
-highscalability and high performance environments to our tool over the
-years.This includes the ability to log to memory and dump log files on
-demand(when a crash occurs for example), special backlog queue features, a
-logservice application for central log storage and a lot more.
-Additionally,our SmartInspect Console (the viewer application) makes viewing,
-filteringand inspecting large amounts of logging data a lot easier/practical.</p><p>6 0.21093942 <a title="1390-tfidf-6" href="../high_scalability-2007/high_scalability-2007-07-28-Product%3A_Web_Log_Storming.html">37 high scalability-2007-07-28-Product: Web Log Storming</a></p>
+<p>Introduction: This is a guest post by  Gordon Worley , a Software Engineer at  Korrelate , where they correlate (see what they did there) online purchases to offline purchases. 
+ 
+Several weeks ago, we came into the office one morning to find every server alarm going off. Pixel log processing was behind by 8 hours and not making headway. Checking the logs, we discovered that a big client had come online during the night and was giving us 10 times more traffic than we were originally told to expect. I wouldn’t say we panicked, but the office was certainly more jittery than usual. Over the next several hours, though, thanks both to foresight and quick thinking, we were able to scale up to handle the added load and clear the backlog to return log processing to a steady state.
+ 
+At Korrelate, we deploy  tracking pixels , also known beacons or web bugs, that our partners use to send us information about their users. These tiny web objects contain no visible content, but may include transparent 1 by 1 gif</p><p>2 0.31008002 <a title="1390-tfidf-2" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
+<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from over 600 hyperactive servers? If you think this sounds like the perfect battle ground for a head-to-head skirmish in the great  MapReduce Versus Database War , you would be correct.   Bill Boebel, CTO of Mailtrust (Rackspace's mail division), has generously provided a fascinating account of how they evolved their log processing system from an early amoeba'ic text file stored on each machine approach,  to a Neandertholic relational database solution that just couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that works wisely for them and has virtually unlimited scalability potential.
+ 
+Rackspace faced a now familiar problem. Lots and lots of data streaming in. Where do you store all that data? How do you do anything useful with it? In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine.  T</p><p>3 0.29868588 <a title="1390-tfidf-3" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
+<p>Introduction: AWStats  is a free powerful and featureful tool that generates advanced web, streaming, ftp or mail server statistics, graphically. This log analyzer works as a CGI or from command line and shows you all possible information your log contains, in few graphical web pages. It uses a partial information file to be able to process large log files, often and quickly. It can analyze log files from all major server tools like Apache log files (NCSA combined/XLF/ELF log format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>4 0.27551544 <a title="1390-tfidf-4" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
+<p>Introduction: This JoelOnSoftware  thread  asks the age old question of what and how to log. The usual trace/error/warning/info advice is totally useless in a large scale distributed system. Instead, you need to  log everything all the time  so you can solve problems that have already happened across a potentially huge range of servers. Yes, it can be done.  To see why the typical logging approach is broken,  imagine this scenario: Your site has been up and running great for weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some users can no longer add comments to threads. Then you hear the debugging deathknell: it's an intermittent problem and customers are pissed. Fix it. Now.  So how are you going to debug this? The monitoring system doesn't show any obvious problems or errors. You quickly post a comment and it works fine. This won't be easy. So you think. Commenting involves a bunch of servers and networks. There's the load balancer, spam filter,  web server, database server,</p><p>5 0.21624504 <a title="1390-tfidf-5" href="../high_scalability-2009/high_scalability-2009-03-16-Product%3A_Smart_Inspect.html">541 high scalability-2009-03-16-Product: Smart Inspect</a></p>
+<p>Introduction: Smart Inspect  has added quite a few features specifically tailored to high scalability and high performance environments to our tool over the years. This includes the ability to log to memory and dump log files on demand (when a crash occurs for example), special backlog queue features, a log service application for central log storage and a lot more. Additionally, our SmartInspect Console (the viewer application) makes viewing, filtering and inspecting large amounts of logging data a lot easier/practical.</p><p>6 0.21093942 <a title="1390-tfidf-6" href="../high_scalability-2007/high_scalability-2007-07-28-Product%3A_Web_Log_Storming.html">37 high scalability-2007-07-28-Product: Web Log Storming</a></p>
 <p>7 0.18290491 <a title="1390-tfidf-7" href="../high_scalability-2010/high_scalability-2010-11-09-Paper%3A_Hyder_-_Scaling_Out_without_Partitioning_.html">937 high scalability-2010-11-09-Paper: Hyder - Scaling Out without Partitioning </a></p>
 <p>8 0.14978647 <a title="1390-tfidf-8" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
 <p>9 0.14305593 <a title="1390-tfidf-9" href="../high_scalability-2007/high_scalability-2007-10-01-Statistics_Logging_Scalability.html">105 high scalability-2007-10-01-Statistics Logging Scalability</a></p>
@@ -131,63 +76,25 @@ filteringand inspecting large amounts of logging data a lot easier/practical.</p
 <p>[(0, 0.181), (1, 0.092), (2, -0.036), (3, -0.066), (4, 0.012), (5, 0.016), (6, 0.096), (7, 0.031), (8, 0.027), (9, 0.017), (10, 0.005), (11, -0.004), (12, 0.057), (13, -0.077), (14, 0.063), (15, 0.004), (16, -0.013), (17, -0.011), (18, -0.021), (19, 0.03), (20, 0.048), (21, -0.127), (22, -0.082), (23, 0.191), (24, 0.152), (25, -0.057), (26, -0.157), (27, 0.016), (28, 0.018), (29, -0.042), (30, -0.042), (31, -0.062), (32, -0.01), (33, -0.033), (34, -0.092), (35, 0.023), (36, -0.09), (37, 0.003), (38, 0.13), (39, -0.047), (40, 0.005), (41, 0.081), (42, 0.017), (43, -0.024), (44, -0.048), (45, -0.069), (46, 0.081), (47, 0.007), (48, -0.034), (49, -0.028)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.98091537 <a title="1390-lsi-1" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
-<p>Introduction: This is a guest post byGordon Worley, a Software Engineer atKorrelate, where
-they correlate (see what they did there) online purchases to offline
-purchases.Several weeks ago, we came into the office one morning to find every
-server alarm going off. Pixel log processing was behind by 8 hours and not
-making headway. Checking the logs, we discovered that a big client had come
-online during the night and was giving us 10 times more traffic than we were
-originally told to expect. I wouldn't say we panicked, but the office was
-certainly more jittery than usual. Over the next several hours, though, thanks
-both to foresight and quick thinking, we were able to scale up to handle the
-added load and clear the backlog to return log processing to a steady state.At
-Korrelate, we deploytracking pixels, also known beacons or web bugs, that our
-partners use to send us information about their users. These tiny web objects
-contain no visible content, but may include transparent 1 by 1 gifs or
-Javascript,</p><p>2 0.90218008 <a title="1390-lsi-2" href="../high_scalability-2009/high_scalability-2009-03-16-Product%3A_Smart_Inspect.html">541 high scalability-2009-03-16-Product: Smart Inspect</a></p>
-<p>Introduction: Smart Inspecthas added quite a few features specifically tailored to
-highscalability and high performance environments to our tool over the
-years.This includes the ability to log to memory and dump log files on
-demand(when a crash occurs for example), special backlog queue features, a
-logservice application for central log storage and a lot more.
-Additionally,our SmartInspect Console (the viewer application) makes viewing,
-filteringand inspecting large amounts of logging data a lot easier/practical.</p><p>3 0.8901217 <a title="1390-lsi-3" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
-<p>Introduction: AWStatsis a free powerful and featureful tool that generates advanced web,
-streaming, ftp or mail server statistics, graphically. This log analyzer works
-as a CGI or from command line and shows you all possible information your log
-contains, in few graphical web pages. It uses a partial information file to be
-able to process large log files, often and quickly. It can analyze log files
-from all major server tools like Apache log files (NCSA combined/XLF/ELF log
-format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of
-other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>4 0.85904181 <a title="1390-lsi-4" href="../high_scalability-2010/high_scalability-2010-11-09-Paper%3A_Hyder_-_Scaling_Out_without_Partitioning_.html">937 high scalability-2010-11-09-Paper: Hyder - Scaling Out without Partitioning </a></p>
-<p>Introduction: Partitioning is what differentiates scaling-out from scaling-up, isn't it? I
-thought so too until I readPat Helland's blog post on Hyder, a research
-database at Microsoft, in whichthe database is the log, no partitioning is
-required, and the database is multi-versioned. Not much is available on Hyder.
-There's the excellent summary post from Mr. Helland and these documents:
-Scaling Out without Partitioning andScaling Out without Partitioning  \- Hyder
-Update by Phil Bernstein and Colin Reid of Microsoft.The idea behind Hyder as
-summarized by Pat Helland (see his blog for the full post):Hyder is a software
-stack for transactional record management. It can offer full database
-functionality and is designed to take advantage of flash in a novel way. Most
-approaches to scale-out use partitioning and spread the data across multiple
-machines leaving the application responsible for consistency. In Hyder, the
-database is the log, no partitioning is required, and the database is multi-
-versioned.</p><p>5 0.85506052 <a title="1390-lsi-5" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
-<p>Introduction: breakThis JoelOnSoftwarethreadasks the age old question of what and how to
-log. The usual trace/error/warning/info advice is totally useless in a large
-scale distributed system. Instead, you need tolog everything all the timeso
-you can solve problems that have already happened across a potentially huge
-range of servers. Yes, it can be done.To see why the typical logging approach
-is broken, imagine this scenario: Your site has been up and running great for
-weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some
-users can no longer add comments to threads. Then you hear the debugging
-deathknell: it's an intermittent problem and customers are pissed. Fix it.
-Now.So how are you going to debug this? The monitoring system doesn't show any
-obvious problems or errors. You quickly post a comment and it works fine. This
-won't be easy. So you think. Commenting involves a bunch of servers and
-networks. There's the load balancer, spam filter, web server, database server,
-caching s</p><p>6 0.79174453 <a title="1390-lsi-6" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
+<p>Introduction: This is a guest post by  Gordon Worley , a Software Engineer at  Korrelate , where they correlate (see what they did there) online purchases to offline purchases. 
+ 
+Several weeks ago, we came into the office one morning to find every server alarm going off. Pixel log processing was behind by 8 hours and not making headway. Checking the logs, we discovered that a big client had come online during the night and was giving us 10 times more traffic than we were originally told to expect. I wouldn’t say we panicked, but the office was certainly more jittery than usual. Over the next several hours, though, thanks both to foresight and quick thinking, we were able to scale up to handle the added load and clear the backlog to return log processing to a steady state.
+ 
+At Korrelate, we deploy  tracking pixels , also known beacons or web bugs, that our partners use to send us information about their users. These tiny web objects contain no visible content, but may include transparent 1 by 1 gif</p><p>2 0.90218008 <a title="1390-lsi-2" href="../high_scalability-2009/high_scalability-2009-03-16-Product%3A_Smart_Inspect.html">541 high scalability-2009-03-16-Product: Smart Inspect</a></p>
+<p>Introduction: Smart Inspect  has added quite a few features specifically tailored to high scalability and high performance environments to our tool over the years. This includes the ability to log to memory and dump log files on demand (when a crash occurs for example), special backlog queue features, a log service application for central log storage and a lot more. Additionally, our SmartInspect Console (the viewer application) makes viewing, filtering and inspecting large amounts of logging data a lot easier/practical.</p><p>3 0.8901217 <a title="1390-lsi-3" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
+<p>Introduction: AWStats  is a free powerful and featureful tool that generates advanced web, streaming, ftp or mail server statistics, graphically. This log analyzer works as a CGI or from command line and shows you all possible information your log contains, in few graphical web pages. It uses a partial information file to be able to process large log files, often and quickly. It can analyze log files from all major server tools like Apache log files (NCSA combined/XLF/ELF log format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>4 0.85904181 <a title="1390-lsi-4" href="../high_scalability-2010/high_scalability-2010-11-09-Paper%3A_Hyder_-_Scaling_Out_without_Partitioning_.html">937 high scalability-2010-11-09-Paper: Hyder - Scaling Out without Partitioning </a></p>
+<p>Introduction: Partitioning is what differentiates scaling-out from scaling-up, isn't it? I thought so too until I read  Pat Helland's blog post on Hyder , a research database at Microsoft, in which  the database is the log, no partitioning is required, and the database is multi-versioned . Not much is available on Hyder. There's the excellent summary post from Mr. Helland and these documents:  Scaling Out without Partitioning  and  Scaling Out without Partitioning  - Hyder Update  by Phil Bernstein and Colin Reid of Microsoft.
+ 
+ 
+ 
+The idea behind Hyder as summarized by Pat Helland (see his blog for the full post):
+  Hyder is a software stack for transactional record management. It can offer full database functionality and is designed to take advantage of flash in a novel way. Most approaches to scale-out use partitioning and spread the data across multiple machines leaving the application responsible for consistency.
+
+ 
+
+
+In Hyder, the database is the log, no partitioning is required, and the data</p><p>5 0.85506052 <a title="1390-lsi-5" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
+<p>Introduction: This JoelOnSoftware  thread  asks the age old question of what and how to log. The usual trace/error/warning/info advice is totally useless in a large scale distributed system. Instead, you need to  log everything all the time  so you can solve problems that have already happened across a potentially huge range of servers. Yes, it can be done.  To see why the typical logging approach is broken,  imagine this scenario: Your site has been up and running great for weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some users can no longer add comments to threads. Then you hear the debugging deathknell: it's an intermittent problem and customers are pissed. Fix it. Now.  So how are you going to debug this? The monitoring system doesn't show any obvious problems or errors. You quickly post a comment and it works fine. This won't be easy. So you think. Commenting involves a bunch of servers and networks. There's the load balancer, spam filter,  web server, database server,</p><p>6 0.79174453 <a title="1390-lsi-6" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
 <p>7 0.79006594 <a title="1390-lsi-7" href="../high_scalability-2007/high_scalability-2007-07-28-Product%3A_Web_Log_Storming.html">37 high scalability-2007-07-28-Product: Web Log Storming</a></p>
 <p>8 0.7810114 <a title="1390-lsi-8" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
 <p>9 0.77981657 <a title="1390-lsi-9" href="../high_scalability-2007/high_scalability-2007-07-28-Product%3A_FastStats_Log_Analyzer_.html">35 high scalability-2007-07-28-Product: FastStats Log Analyzer </a></p>
@@ -207,72 +114,33 @@ caching s</p><p>6 0.79174453 <a title="1390-lsi-6" href="../high_scalability-200
 <p>[(1, 0.174), (2, 0.144), (10, 0.076), (17, 0.013), (18, 0.139), (30, 0.013), (40, 0.049), (46, 0.012), (61, 0.1), (77, 0.011), (79, 0.075), (85, 0.047), (94, 0.057)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.91787988 <a title="1390-lda-1" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
-<p>Introduction: This is a guest post byGordon Worley, a Software Engineer atKorrelate, where
-they correlate (see what they did there) online purchases to offline
-purchases.Several weeks ago, we came into the office one morning to find every
-server alarm going off. Pixel log processing was behind by 8 hours and not
-making headway. Checking the logs, we discovered that a big client had come
-online during the night and was giving us 10 times more traffic than we were
-originally told to expect. I wouldn't say we panicked, but the office was
-certainly more jittery than usual. Over the next several hours, though, thanks
-both to foresight and quick thinking, we were able to scale up to handle the
-added load and clear the backlog to return log processing to a steady state.At
-Korrelate, we deploytracking pixels, also known beacons or web bugs, that our
-partners use to send us information about their users. These tiny web objects
-contain no visible content, but may include transparent 1 by 1 gifs or
-Javascript,</p><p>2 0.90469038 <a title="1390-lda-2" href="../high_scalability-2012/high_scalability-2012-10-19-Stuff_The_Internet_Says_On_Scalability_For_October_19%2C_2012.html">1344 high scalability-2012-10-19-Stuff The Internet Says On Scalability For October 19, 2012</a></p>
-<p>Introduction: It's HighScalability Time:@davilagrau: Youtube, GitHub,..., Are cloud services
-facing a entropic limit to scalability?Async all the way down? The Tyranny of
-the Clock: The cost of logic and memory dominated Turing's thinking, but
-today, communication rather than logic should dominate our thinking. Clock-
-free design uses less than half, about 40%, as much energy per addition as its
-clocked counterpart. We can regain the efficiency of local decision making by
-revolting against the pervasive beat of an external clock. Why Google Compute
-Engine for OpenStack. Smart move. Having OpenStack work inside a super charged
-cloud, in private clouds, and as a bridge between the two ought to be quite
-attractive to developers looking for some sort of ally for independence. All
-it will take are a few victories to cement new alliances.3 Lessons That
-Startups Can Learn From Facebook's Failed Credits Experiment. I thought this
-was a great idea too. So what happened? FACEBOOK DID NOT ENCOURAGE SHARING --</p><p>3 0.88165218 <a title="1390-lda-3" href="../high_scalability-2011/high_scalability-2011-11-10-Kill_the_Telcos_Save_the_Internet_-_The_Unsocial_Network.html">1140 high scalability-2011-11-10-Kill the Telcos Save the Internet - The Unsocial Network</a></p>
-<p>Introduction: Someone is killing the Internet. Since you probably use the Internet everyday
-you might find this surprising. It almost sounds silly, and the reason is
-technical, but our crack team of networking experts has examined the patient
-and made the diagnosis. What did they find?Diagnostic team: the Packet Pushers
-gang (Greg Ferro,Jan Zorz,Ivan Pepelnjak) in the podcast How We Are Killing
-the Internet.Diagnosis: invasive tunnelation. (tubes anyone?)Prognosis: even
-Dr. House might not be able to help.Cure: go back to what the Internet was;
-kill the tunnels; route IPv4 and IPv6; have public addresses on everything;
-disrupt the telcos.This is a classic story in a strange setting--the network--
-but the themes are universal: centralization vs. decentralization (that's
-where the telcos obviously come in), good vs. evil, order vs. disorder,
-tyranny vs. freedom, change vs. stasis, simplicity vs. complexity. And it's
-all being carried out on battlefield few get to see: the infrastructure of
-Internet.Ou</p><p>4 0.87900007 <a title="1390-lda-4" href="../high_scalability-2008/high_scalability-2008-12-22-SLAs_in_the_SaaS_space.html">475 high scalability-2008-12-22-SLAs in the SaaS space</a></p>
-<p>Introduction: This may be a bit higher level then the general discussion here, but I think
-this is an important issue in how it relates to reliability and uptime. What
-kind of SLAs should we be expecting from SaaS services and platforms (e.g.
-AWS, Google App Engine, Google Premium Apps, salesforce.com, etc.)? Up to
-today, most SaaS services either have no SLAs or offer very weak penalties.
-What will it take to get these services up to the point where they can offer
-the SLAs that users (and more importantly, businesses) require? I presume most
-of the members here want to see more movement into the cloud and to SaaS
-services, and I'm thinking that until we see more substantial SLA guarantees,
-most businesses will continue to shy away as long as they can.Would love to
-hear what others think. Or am I totally off base?</p><p>5 0.8708027 <a title="1390-lda-5" href="../high_scalability-2012/high_scalability-2012-02-07-Hypertable_Routs_HBase_in_Performance_Test_--_HBase_Overwhelmed_by_Garbage_Collection.html">1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</a></p>
-<p>Introduction: This is a guest post byDoug Judd, original creator of Hypertable and the CEO
-of Hypertable, Inc.Hypertable delivers 2X better throughput in most tests --
-HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage
-collection -- Both systems deliver similar results for random read uniform
-testWe recently conducted a test comparing the performance of Hypertable
-(@hypertable) version 0.9.5.5 to that of HBase (@HBase) version 0.90.4
-(CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and
-offer explanations for the discrepancies. For the full test report,
-seeHypertable vs. HBase II.IntroductionHypertable and HBase are both open
-source, scalable databases modeled after Google's proprietary Bigtable
-database.  The primary difference between the two systems is that Hypertable
-is written in C++, while HBase is written in Java.  We modeled this test after
-the one described in section 7 of theBigtable paperand tuned both systems for
-maximum performance.  The t</p><p>6 0.87052792 <a title="1390-lda-6" href="../high_scalability-2007/high_scalability-2007-10-30-Paper%3A_Dynamo%3A_Amazon%E2%80%99s_Highly_Available_Key-value_Store.html">139 high scalability-2007-10-30-Paper: Dynamo: Amazon’s Highly Available Key-value Store</a></p>
+<p>Introduction: This is a guest post by  Gordon Worley , a Software Engineer at  Korrelate , where they correlate (see what they did there) online purchases to offline purchases. 
+ 
+Several weeks ago, we came into the office one morning to find every server alarm going off. Pixel log processing was behind by 8 hours and not making headway. Checking the logs, we discovered that a big client had come online during the night and was giving us 10 times more traffic than we were originally told to expect. I wouldn’t say we panicked, but the office was certainly more jittery than usual. Over the next several hours, though, thanks both to foresight and quick thinking, we were able to scale up to handle the added load and clear the backlog to return log processing to a steady state.
+ 
+At Korrelate, we deploy  tracking pixels , also known beacons or web bugs, that our partners use to send us information about their users. These tiny web objects contain no visible content, but may include transparent 1 by 1 gif</p><p>2 0.90469038 <a title="1390-lda-2" href="../high_scalability-2012/high_scalability-2012-10-19-Stuff_The_Internet_Says_On_Scalability_For_October_19%2C_2012.html">1344 high scalability-2012-10-19-Stuff The Internet Says On Scalability For October 19, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+  @davilagrau : Youtube, GitHub,..., Are cloud services facing a entropic limit to scalability? 
+ Async all the way down?  The Tyranny of the Clock : The cost of logic and memory dominated Turing's thinking, but today, communication rather than logic should dominate our thinking. Clock-free design uses less than half, about 40%, as much energy per addition as its clocked counterpart. We can regain the efficiency of local decision making by revolting against the pervasive beat of an external clock.  
+  Why Google Compute Engine for OpenStack . Smart move. Having OpenStack work inside a super charged cloud, in private clouds, and as a bridge between the two ought to be quite attractive to developers looking for some sort of ally for independence. All it will take are a few victories to cement new alliances. 
+  3 Lessons That Startups Can Learn From Facebook’s Failed Credits Experiment . I thought this was a great idea too. So what happened? FACEBOOK DID NOT</p><p>3 0.88165218 <a title="1390-lda-3" href="../high_scalability-2011/high_scalability-2011-11-10-Kill_the_Telcos_Save_the_Internet_-_The_Unsocial_Network.html">1140 high scalability-2011-11-10-Kill the Telcos Save the Internet - The Unsocial Network</a></p>
+<p>Introduction: Someone is killing the Internet. Since you probably use the Internet everyday you might find this surprising. It almost sounds silly, and the reason is technical, but our crack team of networking experts has examined the patient and made the diagnosis. What did they find?
+  
+  Diagnostic team : the  Packet Pushers  gang ( Greg Ferro ,  Jan Zorz ,  Ivan Pepelnjak ) in the podcast  How We Are Killing the Internet .  
+  Diagnosis : invasive tunnelation. ( tubes anyone? ) 
+  Prognosis : even Dr. House might not be able to help. 
+  Cure : go back to what the Internet was; kill the tunnels; route IPv4 and IPv6; have public addresses on everything; disrupt the telcos. 
+  
+This is a classic story in a strange setting--the network--but the themes are universal: centralization vs. decentralization (that's where the telcos obviously come in), good vs. evil, order vs. disorder, tyranny vs. freedom, change vs. stasis, simplicity vs. complexity. And it's all being carried out on battlefield few get</p><p>4 0.87900007 <a title="1390-lda-4" href="../high_scalability-2008/high_scalability-2008-12-22-SLAs_in_the_SaaS_space.html">475 high scalability-2008-12-22-SLAs in the SaaS space</a></p>
+<p>Introduction: This may be a bit higher level then the general discussion here, but I think this is an important issue in how it relates to reliability and uptime. What kind of SLAs should we be expecting from SaaS services and platforms (e.g. AWS, Google App Engine, Google Premium Apps, salesforce.com, etc.)? Up to today, most SaaS services either have no SLAs or offer very weak penalties. What will it take to get these services up to the point where they can offer the SLAs that users (and more importantly, businesses) require? I presume most of the members here want to see more movement into the cloud and to SaaS services, and I'm thinking that until we see more substantial SLA guarantees, most businesses will continue to shy away as long as they can.     Would love to hear what others think. Or am I totally off base?</p><p>5 0.8708027 <a title="1390-lda-5" href="../high_scalability-2012/high_scalability-2012-02-07-Hypertable_Routs_HBase_in_Performance_Test_--_HBase_Overwhelmed_by_Garbage_Collection.html">1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</a></p>
+<p>Introduction: This is a guest post by  Doug Judd , original creator of Hypertable and the CEO of Hypertable, Inc. 
+ 
+ Hypertable delivers 2X better throughput in most tests -- HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage collection -- Both systems deliver similar results for random read uniform test 
+ 
+We recently conducted a test comparing the performance of Hypertable ( @hypertable ) version 0.9.5.5 to that of HBase ( @HBase ) version 0.90.4 (CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and offer explanations for the discrepancies. For the full test report, see  Hypertable vs. HBase II .
+  Introduction  
+Hypertable and HBase are both open source, scalable databases modeled after Google's proprietary Bigtable database.  The primary difference between the two systems is that Hypertable is written in C++, while HBase is written in Java.  We modeled this test after the one described in section 7 of the  Bigtable paper  and tuned both systems fo</p><p>6 0.87052792 <a title="1390-lda-6" href="../high_scalability-2007/high_scalability-2007-10-30-Paper%3A_Dynamo%3A_Amazon%E2%80%99s_Highly_Available_Key-value_Store.html">139 high scalability-2007-10-30-Paper: Dynamo: Amazon’s Highly Available Key-value Store</a></p>
 <p>7 0.86445433 <a title="1390-lda-7" href="../high_scalability-2008/high_scalability-2008-09-04-Database_question_for_upcoming_project.html">379 high scalability-2008-09-04-Database question for upcoming project</a></p>
 <p>8 0.86368322 <a title="1390-lda-8" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
 <p>9 0.86220741 <a title="1390-lda-9" href="../high_scalability-2010/high_scalability-2010-07-08-Cloud_AWS_Infrastructure_vs._Physical_Infrastructure.html">853 high scalability-2010-07-08-Cloud AWS Infrastructure vs. Physical Infrastructure</a></p>

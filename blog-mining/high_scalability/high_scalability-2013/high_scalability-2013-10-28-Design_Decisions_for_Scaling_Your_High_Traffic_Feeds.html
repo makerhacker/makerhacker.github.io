@@ -16,110 +16,59 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1538-html" href="http://highscalability.com//blog/2013/10/28/design-decisions-for-scaling-your-high-traffic-feeds.html">html</a></p><p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow
-@tschellenbach on Twitter and GithubFashiolistastarted out as a hobby project
-which we built on the side. We had absolutely no idea it would grow into one
-of the largest online fashion communities. The entire first version took about
-two weeks to develop and our feed implementation was dead simple. We've come a
-long way since then and I'd like to share our experience with scaling feed
-systems.Feeds are a core component of many large startups such as Pinterest,
-Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers
-theflat feed,aggregated feedand thenotification system. This article will
-explain the troubles we ran into when scaling our feeds and the design
-decisions involved with building your own solution. Understanding the basics
-of how these feed systems work is essential as more and more applications rely
-on them.Furthermore we've open sourcedFeedly, the Python module powering our
-feeds. Wh</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The entire first version took about two weeks to develop and our feed implementation was dead simple. [sent-4, score-0.549]
-</p><p>2 We've come a long way since then and I'd like to share our experience with scaling feed systems. [sent-5, score-0.481]
-</p><p>3 At Fashiolista the feed system powers theflat feed,aggregated feedand thenotification system. [sent-7, score-0.481]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1538-html" href="http://highscalability.com//blog/2013/10/28/design-decisions-for-scaling-your-high-traffic-feeds.html">html</a></p><p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow @tschellenbach on Twitter and Github 
+ 
+ Fashiolista  started out as a hobby project which we built on the side. We had absolutely no idea it would grow into one of the largest online fashion communities. The entire first version took about two weeks to develop and our feed implementation was dead simple. We’ve come a long way since then and I’d like to share our experience with scaling feed systems.
+ 
+Feeds are a core component of many large startups such as Pinterest, Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers the  flat feed ,  aggregated feed  and the  notification  system. This article will explain the troubles we ran into when scaling our feeds and the design decisions involved with building your own solution. Understanding the basics of how these feed systems work is essential as more and more applications rely on them.
+  
+ Furthermore we’ve open sourced  Feedly , the Python m</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The entire first version took about two weeks to develop and our feed implementation was dead simple. [sent-4, score-0.549]
+</p><p>2 We’ve come a long way since then and I’d like to share our experience with scaling feed systems. [sent-5, score-0.481]
+</p><p>3 At Fashiolista the feed system powers the  flat feed ,  aggregated feed  and the  notification  system. [sent-7, score-1.521]
 </p><p>4 Understanding the basics of how these feed systems work is essential as more and more applications rely on them. [sent-9, score-0.481]
-</p><p>5 Where applicable I'll reference how to use it to quickly build your own feed solution. [sent-11, score-0.481]
-</p><p>6 Introduction to FeedsThe problem of scaling feed systems has been widely discussed, but let me start by clarifying the basics. [sent-12, score-0.481]
-</p><p>7 There are two strategies for building feed systems:Pull, where the feed is gathered during readsPushwhere all the feeds are pre computed during the writes. [sent-17, score-1.145]
-</p><p>8 After reading many articles on feed design we built the very first version of Feedly with Redis. [sent-32, score-0.598]
-</p><p>9 Part two - Redis & FeedlyOur second approach stored a feed for every user in Redis. [sent-33, score-0.542]
-</p><p>10 Fashiolista currently does a full push flow for the flat feed and a combination between push and pull for the aggregated feed. [sent-45, score-0.588]
-</p><p>11 When the time comes for building your own feed system (hopefully using Feedly) there are a few important design decisions to consider. [sent-50, score-0.541]
-</p><p>12 The feed with the activities by people you follow either contains the ids of the activities (normalized) or the full activity (denormalized). [sent-53, score-1.092]
-</p><p>13 It makes a huge difference if you are building a notification system or a news feed system. [sent-57, score-0.619]
-</p><p>14 However with a follow based feed systems the action might get copied to thousands of followers. [sent-59, score-0.532]
-</p><p>15 At Fashiolista we used a modified version of this idea, by storing the last 3600 activities for active users, but only 180 activities for inactive ones. [sent-78, score-0.744]
-</p><p>16 The consumer requests their feed oftenFortunately such a complex solution hasn't been needed yet for Fashiolista. [sent-85, score-0.526]
-</p><p>17 You simply mark fan-outs to active users as high priority and fan-outs to inactive users as low priority. [sent-90, score-0.532]
-</p><p>18 ConclusionThere are many factors to take into account when building your own feed solution. [sent-110, score-0.541]
-</p><p>19 It's a framework for building feed systems and leaves it up to you to determine what works best for your use case. [sent-114, score-0.541]
-</p><p>20 To learn more about feed design I highly recommend reading some of the articles which we based Feedly on:Yahoo Research PaperTwitter 2013Redis based, with fallbackCassandra at InstagramEtsy feed scalingFacebook historyDjango project, with good naming conventions. [sent-119, score-1.066]
+</p><p>5 Where applicable I’ll reference how to use it to quickly build your own feed solution. [sent-11, score-0.481]
+</p><p>6 Introduction to Feeds   The problem of scaling feed systems has been widely discussed, but let me start by clarifying the basics. [sent-12, score-0.481]
+</p><p>7 The solutions are aimed at making a page like your Facebook news feed, Twitter stream or  Fashiolista  feed work under high traffic conditions. [sent-13, score-0.541]
+</p><p>8 There are two strategies for building feed systems:         Pull , where the feed is gathered during reads        Push  where all the feeds are pre computed during the writes. [sent-17, score-1.145]
+</p><p>9 After reading many articles on feed design we built the very first version of Feedly with Redis. [sent-32, score-0.598]
+</p><p>10 Part two - Redis & Feedly   Our second approach stored a feed for every user in Redis. [sent-33, score-0.542]
+</p><p>11 Fashiolista currently does a full push flow for the flat feed and a combination between push and pull for the aggregated feed. [sent-45, score-0.588]
+</p><p>12 When the time comes for building your own feed system (hopefully using Feedly) there are a few important design decisions to consider. [sent-50, score-0.541]
+</p><p>13 The feed with the activities by people you follow either contains the ids of the activities (normalized) or the full activity (denormalized). [sent-53, score-1.092]
+</p><p>14 It makes a huge difference if you are building a notification system   or a news feed system. [sent-57, score-0.619]
+</p><p>15 However with a follow based feed systems the action might get copied to thousands of followers. [sent-59, score-0.532]
+</p><p>16 At Fashiolista we used a modified version of this idea, by storing the last 3600 activities for active users, but only 180 activities for inactive ones. [sent-78, score-0.744]
+</p><p>17 The consumer requests their feed often   Fortunately such a complex solution hasn’t been needed yet for Fashiolista. [sent-85, score-0.526]
+</p><p>18 You simply mark fan-outs to active users as high priority and fan-outs to inactive users as low priority. [sent-90, score-0.532]
+</p><p>19 Conclusion  There are many factors to take into account when building your own feed solution. [sent-110, score-0.541]
+</p><p>20 It’s a framework for building feed systems and leaves it up to you to determine what works best for your use case. [sent-114, score-0.541]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('feed', 0.481), ('fashiolista', 0.383), ('redis', 0.237), ('activities', 0.224), ('feedly', 0.174), ('loves', 0.148), ('selective', 0.135), ('feeds', 0.123), ('inactive', 0.117), ('profile', 0.114), ('activity', 0.112), ('recommend', 0.104), ('users', 0.103), ('cassandra', 0.103), ('fallback', 0.101), ('fanout', 0.099), ('thierry', 0.096), ('priority', 0.084), ('producer', 0.082), ('notification', 0.078), ('silberstein', 0.078), ('disabling', 0.075), ('autoscaling', 0.071), ('version', 0.068), ('kept', 0.067), ('setup', 0.067), ('denormalize', 0.066), ('active', 0.065), ('briefly', 0.064), ('falling', 0.063), ('approach', 0.061), ('high', 0.06), ('building', 0.06), ('caused', 0.059), ('currently', 0.055), ('priorities', 0.055), ('instagram', 0.054), ('reduces', 0.054), ('choose', 0.053), ('pull', 0.052), ('follow', 0.051), ('sharding', 0.05), ('eventually', 0.05), ('item', 0.049), ('built', 0.049), ('looked', 0.048), ('storing', 0.046), ('consumer', 0.045), ('however', 0.045), ('postgresql', 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="1538-tfidf-1" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
-<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow
-@tschellenbach on Twitter and GithubFashiolistastarted out as a hobby project
-which we built on the side. We had absolutely no idea it would grow into one
-of the largest online fashion communities. The entire first version took about
-two weeks to develop and our feed implementation was dead simple. We've come a
-long way since then and I'd like to share our experience with scaling feed
-systems.Feeds are a core component of many large startups such as Pinterest,
-Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers
-theflat feed,aggregated feedand thenotification system. This article will
-explain the troubles we ran into when scaling our feeds and the design
-decisions involved with building your own solution. Understanding the basics
-of how these feed systems work is essential as more and more applications rely
-on them.Furthermore we've open sourcedFeedly, the Python module powering our
-feeds. Wh</p><p>2 0.28501704 <a title="1538-tfidf-2" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
-<p>Introduction: We just released a social section to our iOS app several days ago and we are
-already facing scaling issues with the users' news feeds.We're basically using
-a Fan-out-on-write (push) model for the users' news feeds (posts of people and
-topics they follow) and we're using Redis for this (backend is Rails on
-Heroku).  However, our current 60,000 news feeds is ballooning our Redis store
-to almost 1GB in a just a few days (it's growing way too fast for our budget).
-Currently we're storing the entire news feed for the user (post id, post text,
-author, icon url, etc) and we cap the entries to 300 per feed.I'm wondering if
-we need to just store the post IDs of each user feed in Redis and then store
-the rest of the post information somewhere else?  Would love some feedback
-here.  In this case, our iOS app would make an api call to our Rails app to
-retrieve a user's news feed.  Rails app would retrieve news feed list (just
-post IDs) from Redis, and then Rails app would need to query to get the r</p><p>3 0.22827712 <a title="1538-tfidf-3" href="../high_scalability-2007/high_scalability-2007-11-05-Quick_question_about_efficiently_implementing_Facebook_%27news_feed%27_like_functionality.html">141 high scalability-2007-11-05-Quick question about efficiently implementing Facebook 'news feed' like functionality</a></p>
-<p>Introduction: Im sure most are familiar with Facebooks 'news feed'. If not, the 'news feed'
-basically lists recent activity of all of your friends.I dont see how you can
-get this information efficiently from a DB:* Im assuming all user activity is
-inserted in a "actions" table.* first get a list of all your friends* then
-query the actions table to return recent activity where the activity belongs
-to someone on your friends listThis can't be efficient especially considering
-some people have 200+ friends.So what am I missing? How do you think Facebook
-is implementing their "news feed".Im not asking for any specific details, just
-a general point in the right direction, as I cant see how they are
-implementing the 'news feed efficiently.Thanks.</p><p>4 0.20419709 <a title="1538-tfidf-4" href="../high_scalability-2012/high_scalability-2012-01-17-Paper%3A_Feeding_Frenzy%3A_Selectively_Materializing_Users%E2%80%99_Event_Feeds.html">1175 high scalability-2012-01-17-Paper: Feeding Frenzy: Selectively Materializing Users’ Event Feeds</a></p>
-<p>Introduction: How do you scale an inbox that has multiple highly volatile feeds? That's a
-problem faced by social networks like Tumblr, Facebook, and Twitter. Follow a
-few hundred event sources and it's hard to scalably order an inbox so that you
-see a correct view as event sources continually publish new events.This can be
-considered like aview materializationproblem in a database. In a database a
-view is a virtual table defined by a query that can be accessed like a table.
-Materialization refers to when the data behind the view is created. If a view
-is a join on several tables and that join is performed when the view is
-accessed, then performance will be slow. If the view is precomputed access to
-the view will be fast, but more resources are used, especially considering
-that the view may never be accessed.Your wall/inbox/stream is a view on all
-the people/things you follow. If you never look at your inbox then
-materializing the view in your inbox is a waste of resources, yet you'll be
-mad if displ</p><p>5 0.17354774 <a title="1538-tfidf-5" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
-<p>Introduction: This is aguest repostbyRotem Hermon, former Chief Architect forserendip.me, on
-the architecture and scaling considerations behind making a startup music
-service.serendip.meis a social music service that helps people discover great
-music shared by their friends, and also introduces them to their "music
-soulmates" \- people outside their immediate social circle that shares a
-similar taste in music.Serendip is running on AWS and is built on the
-following stack:scala(and some Java),akka(for handling concurrency),Play
-framework(for the web and API front-ends),MongoDBandElasticsearch.Choosing the
-stackOne of the challenges of building serendip was the need to handle a large
-amount of data from day one, since a main feature of serendip is that it
-collectsevery piece of music being shared on Twitterfrom public music
-services. So when we approached the question of choosing the language and
-technologies to use, an important consideration was the ability to scale.The
-JVM seemed the right basis fo</p><p>6 0.15874696 <a title="1538-tfidf-6" href="../high_scalability-2012/high_scalability-2012-04-16-Instagram_Architecture_Update%3A_What%E2%80%99s_new_with_Instagram%3F.html">1228 high scalability-2012-04-16-Instagram Architecture Update: What’s new with Instagram?</a></p>
+<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow @tschellenbach on Twitter and Github 
+ 
+ Fashiolista  started out as a hobby project which we built on the side. We had absolutely no idea it would grow into one of the largest online fashion communities. The entire first version took about two weeks to develop and our feed implementation was dead simple. We’ve come a long way since then and I’d like to share our experience with scaling feed systems.
+ 
+Feeds are a core component of many large startups such as Pinterest, Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers the  flat feed ,  aggregated feed  and the  notification  system. This article will explain the troubles we ran into when scaling our feeds and the design decisions involved with building your own solution. Understanding the basics of how these feed systems work is essential as more and more applications rely on them.
+  
+ Furthermore we’ve open sourced  Feedly , the Python m</p><p>2 0.28501704 <a title="1538-tfidf-2" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
+<p>Introduction: We just released a social section to our iOS app several days ago and we are already facing scaling issues with the users' news feeds.    We're basically using a Fan-out-on-write (push) model for the users' news feeds (posts of people and topics they follow) and we're using Redis for this (backend is Rails on Heroku).  However, our current 60,000 news feeds is ballooning our Redis store to almost 1GB in a just a few days (it's growing way too fast for our budget). Currently we're storing the entire news feed for the user (post id, post text, author, icon url, etc) and we cap the entries to 300 per feed.    I'm wondering if we need to just store the post IDs of each user feed in Redis and then store the rest of the post information somewhere else?  Would love some feedback here.  In this case, our iOS app would make an api call to our Rails app to retrieve a user's news feed.  Rails app would retrieve news feed list (just post IDs) from Redis, and then Rails app would need to query to g</p><p>3 0.22827712 <a title="1538-tfidf-3" href="../high_scalability-2007/high_scalability-2007-11-05-Quick_question_about_efficiently_implementing_Facebook_%27news_feed%27_like_functionality.html">141 high scalability-2007-11-05-Quick question about efficiently implementing Facebook 'news feed' like functionality</a></p>
+<p>Introduction: Im sure most are fami  l  iar w  i  th Facebooks 'news feed'. If not, the 'news feed' basica  l  ly lists recent activ  i  ty of all of your friends.     I dont see how you can get th  i  s information eff  i  ciently from a DB:         * Im assuming a  l  l user activity is inserted in a "actions" tab  l  e.       * first get a l  i  st of all your friends       * then query the act  i  ons table to return recent activ  i  ty where the activity belongs to someone on your friends list     This can't be eff  i  cient especially considering some people have 200+ friends.     So what am I m  i  ssing? How do you think Facebook is imp  l  ementing their "news feed".    Im not asking for any specific details, just a general point in the right direction, as I cant see how they are implementing the 'news feed efficient  l  y.   Thanks.</p><p>4 0.20419709 <a title="1538-tfidf-4" href="../high_scalability-2012/high_scalability-2012-01-17-Paper%3A_Feeding_Frenzy%3A_Selectively_Materializing_Users%E2%80%99_Event_Feeds.html">1175 high scalability-2012-01-17-Paper: Feeding Frenzy: Selectively Materializing Users’ Event Feeds</a></p>
+<p>Introduction: How do you scale an inbox that has multiple highly volatile feeds? That's a problem faced by social networks like Tumblr, Facebook, and Twitter. Follow a few hundred event sources and it's hard to scalably order an inbox so that you see a correct view as event sources continually publish new events.
+ 
+This can be considered like a  view materialization  problem in a database. In a database a view is a virtual table defined by a query that can be accessed like a table. Materialization refers to when the data behind the view is created. If a view is a join on several tables and that join is performed when the view is accessed, then performance will be slow. If the view is precomputed access to the view will be fast, but more resources are used, especially considering that the view may never be accessed.
+ 
+Your wall/inbox/stream is a view on all the people/things you follow. If you never look at your inbox then materializing the view in your inbox is a waste of resources, yet you'll be ma</p><p>5 0.17354774 <a title="1538-tfidf-5" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
+<p>Introduction: This is a  guest repost  by  Rotem Hermon , former Chief Architect for  serendip.me , on the architecture and scaling considerations behind making a startup music service. 
+ 
+ serendip.me  is a social music service that helps people discover great music shared by their friends, and also introduces them to their “music soulmates” - people outside their immediate social circle that shares a similar taste in music.
+ 
+Serendip is running on AWS and is built on the following stack:  scala  (and some Java),  akka  (for handling concurrency),  Play framework  (for the web and API front-ends),  MongoDB  and  Elasticsearch .
+  Choosing the stack  
+One of the challenges of building serendip was the need to handle a large amount of data from day one, since a main feature of serendip is that it collects  every piece of music being shared on Twitter  from public music services. So when we approached the question of choosing the language and technologies to use, an important consideration was the ab</p><p>6 0.15874696 <a title="1538-tfidf-6" href="../high_scalability-2012/high_scalability-2012-04-16-Instagram_Architecture_Update%3A_What%E2%80%99s_new_with_Instagram%3F.html">1228 high scalability-2012-04-16-Instagram Architecture Update: What’s new with Instagram?</a></p>
 <p>7 0.15461229 <a title="1538-tfidf-7" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
 <p>8 0.15205291 <a title="1538-tfidf-8" href="../high_scalability-2012/high_scalability-2012-07-30-Prismatic_Architecture_-_Using_Machine_Learning_on_Social_Networks_to_Figure_Out_What_You_Should_Read_on_the_Web_.html">1293 high scalability-2012-07-30-Prismatic Architecture - Using Machine Learning on Social Networks to Figure Out What You Should Read on the Web </a></p>
 <p>9 0.15146509 <a title="1538-tfidf-9" href="../high_scalability-2010/high_scalability-2010-01-11-Strategy%3A_Don%27t_Use_Polling_for_Real-time_Feeds.html">759 high scalability-2010-01-11-Strategy: Don't Use Polling for Real-time Feeds</a></p>
@@ -139,75 +88,37 @@ JVM seemed the right basis fo</p><p>6 0.15874696 <a title="1538-tfidf-6" href=".
 <p>[(0, 0.208), (1, 0.111), (2, -0.038), (3, -0.044), (4, 0.059), (5, 0.004), (6, -0.021), (7, 0.028), (8, 0.045), (9, -0.032), (10, 0.023), (11, 0.093), (12, 0.046), (13, -0.024), (14, -0.082), (15, 0.049), (16, -0.007), (17, -0.067), (18, -0.024), (19, -0.023), (20, -0.059), (21, -0.052), (22, -0.027), (23, 0.026), (24, -0.001), (25, -0.031), (26, 0.025), (27, 0.021), (28, -0.047), (29, -0.028), (30, 0.053), (31, -0.035), (32, -0.003), (33, 0.006), (34, -0.012), (35, -0.07), (36, 0.014), (37, -0.057), (38, -0.06), (39, 0.056), (40, -0.018), (41, 0.022), (42, 0.026), (43, 0.044), (44, 0.071), (45, -0.008), (46, -0.052), (47, -0.067), (48, -0.025), (49, 0.013)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.94036853 <a title="1538-lsi-1" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
-<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow
-@tschellenbach on Twitter and GithubFashiolistastarted out as a hobby project
-which we built on the side. We had absolutely no idea it would grow into one
-of the largest online fashion communities. The entire first version took about
-two weeks to develop and our feed implementation was dead simple. We've come a
-long way since then and I'd like to share our experience with scaling feed
-systems.Feeds are a core component of many large startups such as Pinterest,
-Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers
-theflat feed,aggregated feedand thenotification system. This article will
-explain the troubles we ran into when scaling our feeds and the design
-decisions involved with building your own solution. Understanding the basics
-of how these feed systems work is essential as more and more applications rely
-on them.Furthermore we've open sourcedFeedly, the Python module powering our
-feeds. Wh</p><p>2 0.81402093 <a title="1538-lsi-2" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
-<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
-'antirez' Sanfilippo shows how to solve some common problems in Redis by
-taking advantage of its unique data structure handling capabilities. Common
-Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
-programmers need to get done, but that can be hard or slow in more traditional
-stores. A very useful and practical article. How would you accomplish these
-tasks in your framework?Show latest items listings in your home page. This is
-a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
-the head of the list stored at a key.LTRIMis used to limit the number of items
-in the list to 5000. If the user needs to page beyond this cache only then are
-they sent to the database.Deletion and filtering. If a cached article is
-deleted it can be removed from the cache using LREM.Leaderboards and related
-problems. A leader board is a set sorted by score. TheZADDcommands implements
-th</p><p>3 0.81145197 <a title="1538-lsi-3" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
-<p>Introduction: With the introduction ofRedisyour options in the key-value space just grew and
-your choice of which to pick just got a lot harder. But when you think about
-it, that's not a bad position to be in at all.Redis (REmote DIctionary Server)
--a key-value database. It's similar to memcached but the dataset is not
-volatile, and values can be strings, exactly like in memcached, but also lists
-and sets with atomic operations to push/pop elements.The key points are: open
-source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs,
-per second); persistence, but in an asynchronous way taking everything in
-memory; support for higher level data structures and atomic operations.The
-home page is well organized so I'll spare the excessive-copying-to-make-this-
-post-longer. For a good overview of Redis take a look at Antonio Cangiano's
-article:Introducing Redis: a fast key-value database.If you are looking at a
-way to understand how Redis is different than something like Tokyo
-Cabinet/Ty</p><p>4 0.80668223 <a title="1538-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
-<p>Introduction: We just released a social section to our iOS app several days ago and we are
-already facing scaling issues with the users' news feeds.We're basically using
-a Fan-out-on-write (push) model for the users' news feeds (posts of people and
-topics they follow) and we're using Redis for this (backend is Rails on
-Heroku).  However, our current 60,000 news feeds is ballooning our Redis store
-to almost 1GB in a just a few days (it's growing way too fast for our budget).
-Currently we're storing the entire news feed for the user (post id, post text,
-author, icon url, etc) and we cap the entries to 300 per feed.I'm wondering if
-we need to just store the post IDs of each user feed in Redis and then store
-the rest of the post information somewhere else?  Would love some feedback
-here.  In this case, our iOS app would make an api call to our Rails app to
-retrieve a user's news feed.  Rails app would retrieve news feed list (just
-post IDs) from Redis, and then Rails app would need to query to get the r</p><p>5 0.78340119 <a title="1538-lsi-5" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
-<p>Introduction: Eric Pickup from Youporn.com posted on anews group that Youporn is now 100%
-Redis based and will soon be revealing more about their architecture at
-theConFoo conference. Some stunning, but not surprising numbers were
-revealed:100 million page views per dayA cluster of Redis slaves are handling
-over 300k queries per second.Some additional nuggets:Additional Redis nodes
-were added because the network cards couldn't keep up with Redis.Impressed
-with Redis' performance.All reads come from Redis;  we are maintaining MySQL
-just to allow us to build new sorted sets as our requirement changeMost data
-is found in hashes with ordered sets used to know what data to show.   A
-typical lookup would be an zInterStore on: videos:filters:released,
-Videos:filters:orientation:straight,Videos:filters:categories:{category_id},
-Videos:ordering:ratingThen perform a zRange to get the pages we want and get
-the list of video_ids back. Then start a pipeline and get all the videos from
-hashes.Do use some key/valu</p><p>6 0.77084428 <a title="1538-lsi-6" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
+<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow @tschellenbach on Twitter and Github 
+ 
+ Fashiolista  started out as a hobby project which we built on the side. We had absolutely no idea it would grow into one of the largest online fashion communities. The entire first version took about two weeks to develop and our feed implementation was dead simple. We’ve come a long way since then and I’d like to share our experience with scaling feed systems.
+ 
+Feeds are a core component of many large startups such as Pinterest, Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers the  flat feed ,  aggregated feed  and the  notification  system. This article will explain the troubles we ran into when scaling our feeds and the design decisions involved with building your own solution. Understanding the basics of how these feed systems work is essential as more and more applications rely on them.
+  
+ Furthermore we’ve open sourced  Feedly , the Python m</p><p>2 0.81402093 <a title="1538-lsi-2" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
+<p>Introduction: In  How to take advantage of Redis just adding it to your stack  Salvatore 'antirez' Sanfilippo shows how to solve some common problems in Redis by taking advantage of its unique data structure handling capabilities. Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. A very useful and practical article. How would you accomplish these tasks in your framework?
+  
+  Show latest items listings in your home page . This is a live in-memory cache and is very fast.  LPUSH  is used to insert a content ID at the head of the list stored at a key.  LTRIM  is used to limit the number of items in the list to 5000. If the user needs to page beyond this cache only then are they sent to the database. 
+  Deletion and filtering . If a cached article is deleted it can be removed from the cache using  LREM . 
+  Leaderboards and related problems . A leader board is a set sorted by score.</p><p>3 0.81145197 <a title="1538-lsi-3" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
+<p>Introduction: With the introduction of  Redis  your options in the key-value space just grew and your choice of which to pick just got a lot harder. But when you think about it, that's not a bad position to be in at all.  Redis (REmote DIctionary Server) -  a key-value database. It's similar to memcached but the dataset is not volatile, and values can be strings, exactly like in memcached, but also lists and sets with atomic operations to push/pop elements.   The key points are: open source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs, per second); persistence, but in an asynchronous way taking everything in memory; support for higher level data structures and atomic operations.  The home page is well organized so I'll spare the excessive-copying-to-make-this-post-longer. For a good overview of Redis take a look at Antonio Cangiano's article:  Introducing Redis: a fast key-value database .  If you are looking at a way to understand how Redis is different than something like</p><p>4 0.80668223 <a title="1538-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
+<p>Introduction: We just released a social section to our iOS app several days ago and we are already facing scaling issues with the users' news feeds.    We're basically using a Fan-out-on-write (push) model for the users' news feeds (posts of people and topics they follow) and we're using Redis for this (backend is Rails on Heroku).  However, our current 60,000 news feeds is ballooning our Redis store to almost 1GB in a just a few days (it's growing way too fast for our budget). Currently we're storing the entire news feed for the user (post id, post text, author, icon url, etc) and we cap the entries to 300 per feed.    I'm wondering if we need to just store the post IDs of each user feed in Redis and then store the rest of the post information somewhere else?  Would love some feedback here.  In this case, our iOS app would make an api call to our Rails app to retrieve a user's news feed.  Rails app would retrieve news feed list (just post IDs) from Redis, and then Rails app would need to query to g</p><p>5 0.78340119 <a title="1538-lsi-5" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
+<p>Introduction: Eric Pickup from Youporn.com posted on a  news group  that Youporn is now 100% Redis based and will soon be revealing more about their architecture at the  ConFoo conference . Some stunning, but not surprising numbers were revealed:
+  
+ 
+ 100 million page views per day 
+ A cluster of Redis slaves are handling over 300k queries per second. 
+ 
+  
+Some additional nuggets:
+  
+ Additional Redis nodes were added because the network cards couldn't keep up with Redis. 
+ Impressed with Redis' performance. 
+ All reads come from Redis;  we are maintaining MySQL just to allow us to build new sorted sets as our requirement change 
+ Most data is found in hashes with ordered sets used to know what data to show.   
+ 
+ A typical lookup would be an zInterStore on: videos:filters:released, Videos:filters:orientation:straight,Videos:filters:categories:{category_id}, Videos:ordering:rating 
+ Then perform a zRange to get the pages we want and get the list of video_ids back.  
+ Then start a pipeline and get</p><p>6 0.77084428 <a title="1538-lsi-6" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
 <p>7 0.74631077 <a title="1538-lsi-7" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
 <p>8 0.74401337 <a title="1538-lsi-8" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
 <p>9 0.7143603 <a title="1538-lsi-9" href="../high_scalability-2012/high_scalability-2012-04-16-Instagram_Architecture_Update%3A_What%E2%80%99s_new_with_Instagram%3F.html">1228 high scalability-2012-04-16-Instagram Architecture Update: What’s new with Instagram?</a></p>
@@ -227,48 +138,37 @@ hashes.Do use some key/valu</p><p>6 0.77084428 <a title="1538-lsi-6" href="../hi
 <p>[(1, 0.107), (2, 0.213), (4, 0.114), (10, 0.061), (27, 0.016), (30, 0.027), (47, 0.012), (56, 0.014), (61, 0.195), (79, 0.063), (85, 0.044), (94, 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.96024132 <a title="1538-lda-1" href="../high_scalability-2009/high_scalability-2009-08-05-Anti-RDBMS%3A_A_list_of_distributed_key-value_stores.html">670 high scalability-2009-08-05-Anti-RDBMS: A list of distributed key-value stores</a></p>
-<p>Introduction: Update 8:Introducing MongoDB byEliot Horowit. Update 7: The Future of Scalable
-Databases by Robin Mathew.Update 6:NoSQL : If Only it Was that Easy. BJ Clark
-lays down the law on which databases are scalable: Tokyo - NO, Redis - NO,
-Voldemort - YES, MongoDB - Not Yet, Cassandra - Probably, Amazon S3 - YES * 2,
-MySQL - NO.The real thing to point out is that if you are being held back from
-making something super awesome because you can't choose a database, you are
-doing it wrong.Update 5:Exciting stuff happening in Japan at this Key-Value
-Storage meeting in Tokyo. Presentations on Groonga, Senna, Lux IO, Tokyo-
-Cabinet, Tx, repcached, Kai, Cagra, kumofs, ROMA, and Flare.Update 4:NoSQL and
-the Relational Model: don't throw the baby out with the bathwaterby Matthew
-Willson.So my key point is, this kind of modelling is WORTH DOING, regardless
-of which database tool you end up using for physical storage.Update 3:Choosing
-a non-relational database; why we migrated from MySQL to MongoDB. An
-ill</p><p>same-blog 2 0.94712347 <a title="1538-lda-2" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
-<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow
-@tschellenbach on Twitter and GithubFashiolistastarted out as a hobby project
-which we built on the side. We had absolutely no idea it would grow into one
-of the largest online fashion communities. The entire first version took about
-two weeks to develop and our feed implementation was dead simple. We've come a
-long way since then and I'd like to share our experience with scaling feed
-systems.Feeds are a core component of many large startups such as Pinterest,
-Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers
-theflat feed,aggregated feedand thenotification system. This article will
-explain the troubles we ran into when scaling our feeds and the design
-decisions involved with building your own solution. Understanding the basics
-of how these feed systems work is essential as more and more applications rely
-on them.Furthermore we've open sourcedFeedly, the Python module powering our
-feeds. Wh</p><p>3 0.93338972 <a title="1538-lda-3" href="../high_scalability-2010/high_scalability-2010-10-07-Hot_Scalability_Links_For_Oct_8%2C_2010.html">916 high scalability-2010-10-07-Hot Scalability Links For Oct 8, 2010</a></p>
-<p>Introduction: So what happened at the Surge 2010 Conference? A lot...Cosimo Streppone with a
-nicely detaileddaybyday summary.Conference organizer Theo Schlossnagle
-says:Surge. Year one. Done. Awesome.Robert Haas withSURGE RecapFrom SEOmoz we
-have their SurgeCon Review - our thoughts on a fabulous web scalability
-conferenceScaling myYearbook.comAvailability, The Cloud and Everything by Joe
-Williams of Cloudant.There's Plenty of Room at the Bottom. An Invitation to
-Explore with Network Flows by Benjamin Black.Quotable quotes for 200
-Alex:postwait: That which cannot be measured cannot be scaled.gsylvest:
-Cameron Purdy:Instead of performance, think about scalability. Michael
-Nygaard:Instead of scalability, think of response time distributionsjkalucki:
-Sometimes this job is a bit too much like high-energy physics: Blast the
-invisible with a beam of hell fury, then decode the backscatter.DrHayt: Shard
-for availability, not scalability. Do what is necessary to make sure that your
-shards to not share the sa</p><p>4 0.92865986 <a title="1538-lda-4" href="../high_scalability-2012/high_scalability-2012-11-19-Gone_Fishin%27%3A_Tumblr_Architecture_-_15_Billion_Page_Views_A_Month_And_Harder_To_Scale_Than_Twitter.html">1360 high scalability-2012-11-19-Gone Fishin': Tumblr Architecture - 15 Billion Page Views A Month And Harder To Scale Than Twitter</a></p>
+<p>Introduction: Update 8:   Introducing MongoDB  by  Eliot Horowit . 
+ 
+ Update 7:   The Future of Scalable Databases  by Robin Mathew.
+ 
+ Update 6:   NoSQL : If Only it Was that Easy . BJ Clark lays down the law on which databases are scalable: Tokyo - NO, Redis - NO, Voldemort - YES, MongoDB - Not Yet, Cassandra - Probably, Amazon S3 - YES * 2, MySQL - NO.  The real thing to point out is that if you are being held back from making something super awesome because you can’t choose a database, you are doing it wrong.   Update 5:   Exciting stuff happening in Japan at this Key-Value Storage meeting in Tokyo . Presentations on Groonga, Senna, Lux IO, Tokyo-Cabinet, Tx, repcached, Kai, Cagra, kumofs, ROMA, and Flare.
+ 
+ Update 4:   NoSQL and the Relational Model: don’t throw the baby out with the bathwater  by Matthew Willson.  So my key point is, this kind of modelling is WORTH DOING, regardless of which database tool you end up using for physical storage.   Update 3:   Choosing a non-relational database</p><p>same-blog 2 0.94712347 <a title="1538-lda-2" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
+<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow @tschellenbach on Twitter and Github 
+ 
+ Fashiolista  started out as a hobby project which we built on the side. We had absolutely no idea it would grow into one of the largest online fashion communities. The entire first version took about two weeks to develop and our feed implementation was dead simple. We’ve come a long way since then and I’d like to share our experience with scaling feed systems.
+ 
+Feeds are a core component of many large startups such as Pinterest, Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers the  flat feed ,  aggregated feed  and the  notification  system. This article will explain the troubles we ran into when scaling our feeds and the design decisions involved with building your own solution. Understanding the basics of how these feed systems work is essential as more and more applications rely on them.
+  
+ Furthermore we’ve open sourced  Feedly , the Python m</p><p>3 0.93338972 <a title="1538-lda-3" href="../high_scalability-2010/high_scalability-2010-10-07-Hot_Scalability_Links_For_Oct_8%2C_2010.html">916 high scalability-2010-10-07-Hot Scalability Links For Oct 8, 2010</a></p>
+<p>Introduction: So what happened at the  Surge 2010 Conference ? A lot...                         
+ 
+ Cosimo Streppone with a nicely detailed  day  by  day  summary. 
+ Conference organizer Theo Schlossnagle says:  Surge. Year one. Done. Awesome . 
+ Robert Haas with  SURGE Recap  
+ From SEOmoz we have their  SurgeCon Review – our thoughts on a fabulous web scalability conference  
+  Scaling myYearbook.com  
+  Availability, The Cloud and Everything  by Joe Williams of Cloudant. 
+  There's Plenty of Room at the Bottom . An Invitation to Explore with Network Flows by Benjamin Black. 
+ 
+ 
+ Quotable quotes for 200 Alex:                   
+ 
+  postwait : That which cannot be measured cannot be scaled.  
+  gsylvest : Cameron Purdy:Instead of performance, think about scalability. Michael Nygaard:Instead of scalability, think of response time distributions 
+  jkalucki : Sometimes this job is a bit too much like high-energy physics: Blast the invisible with a beam of hell fury, then decode the backscatter. 
+  Dr</p><p>4 0.92865986 <a title="1538-lda-4" href="../high_scalability-2012/high_scalability-2012-11-19-Gone_Fishin%27%3A_Tumblr_Architecture_-_15_Billion_Page_Views_A_Month_And_Harder_To_Scale_Than_Twitter.html">1360 high scalability-2012-11-19-Gone Fishin': Tumblr Architecture - 15 Billion Page Views A Month And Harder To Scale Than Twitter</a></p>
 <p>Introduction: With over 15 billion page views a month Tumblr has become an insanely popular
 blogging platform. Users may like Tumblr for its simplicity, its beauty, its
 strong focus on user experience, or its friendly and engaged community, but

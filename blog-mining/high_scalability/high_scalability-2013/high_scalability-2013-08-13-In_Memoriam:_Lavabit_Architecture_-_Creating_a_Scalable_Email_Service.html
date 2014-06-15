@@ -16,36 +16,39 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1501-html" href="http://highscalability.com//blog/2013/8/13/in-memoriam-lavabit-architecture-creating-a-scalable-email-s.html">html</a></p><p>Introduction: With Lavabitshutting down undermurky circumstances, it seems fitting torepost
-an old(2009), yet still very good post byLadar Levisonon Lavabit's
-architecture. I don't know how much of this information is still current, but
-it should give you a general idea what Lavabit was all about.Getting to Know
-YouWhat is the name of your system and where can we find out more about
-it?Note: these links are no longer valid...Lavabithttp://lavabit.comhttp://lav
-abit.com/network.htmlhttp://lavabit.com/about.htmlWhat is your system
-for?Lavabit is a mid-sized email service provider. We currently have about
-140,000 registered users with more than 260,000 email addresses. While most of
-our accounts belong to individual users, we also provide corporate email
-services to approximately 70 companies.Why did you decide to build this
-system?We built the system to compete against the other large free email
-providers, with an emphasis on serving the privacy conscious and technically
-savvy user. Lavabit was one of</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Lavabit currently averages about 12,000 daily logins, of which 80 percent are via POP, 10 percent are via IMAP and 10 percent are via the webmail system. [sent-34, score-0.928]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1501-html" href="http://highscalability.com//blog/2013/8/13/in-memoriam-lavabit-architecture-creating-a-scalable-email-s.html">html</a></p><p>Introduction: With Lavabit  shutting down  under  murky circumstances , it seems fitting to  repost an old  (2009), yet still very good post by  Ladar Levison  on Lavabit's architecture. I don't know how much of this information is still current, but it should give you a general idea what Lavabit was all about.
+  
+ Getting to Know You 
+ What is the name of your system and where can we find out more about it? 
+
+ Note: these links are no longer valid... 
+
+
+Lavabit   http://lavabit.com      http://lavabit.com/network.html    http://lavabit.com/about.html 
+
+ What is your system for? 
+
+Lavabit is a mid-sized email service provider. We currently have about 140,000 registered users with more than 260,000 email addresses. While most of our accounts belong to individual users, we also provide corporate email services to approximately 70 companies.
+
+ Why did you decide to build this system? 
+
+We built the system to compete against the other large free email providers, with an emphasis on serving the privacy c</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Lavabit currently averages about 12,000 daily logins, of which 80 percent are via POP, 10 percent are via IMAP and 10 percent are via the webmail system. [sent-34, score-0.928]
 </p><p>2 There is an application tier that runs our custom mail daemon and a support tier made up of NFS and MySQL servers. [sent-65, score-0.687]
 </p><p>3 We currently call our mail daemon "lavad" and it fluently speaks SMTP, POP and IMAP. [sent-76, score-0.587]
 </p><p>4 When retrieving messages for users that have the statistical spam filter enabled or users who have selected a plan with advertising, the daemon will also insert small text signature. [sent-92, score-0.63]
 </p><p>5 The preferences portal is currently written in Perl and the webmail system is based on a popular open source client and is written in PHP. [sent-107, score-0.548]
 </p><p>6 The webmail client currently connects to the mail system using IMAP, with each web server getting a dedicated IMAP server. [sent-109, score-0.894]
-</p><p>7 The Big ProblemWhile it is very easy to setup a mail system that reliably handles email for a few thousand users, it is incredibly difficult to scale that same system beyond a single server. [sent-111, score-0.605]
+</p><p>7 The Big Problem   While it is very easy to setup a mail system that reliably handles email for a few thousand users, it is incredibly difficult to scale that same system beyond a single server. [sent-111, score-0.605]
 </p><p>8 For example, if you wanted to implement a very large Cyrus system the typical solution is to use LDAP for authentication, and then use an IMAP/POP reverse proxy to intercept incoming connections and forward them to the specific Cyrus server for that user. [sent-116, score-0.543]
 </p><p>9 It is precisely because of how easy it is to implement small mail systems, and so difficult to implement large mail systems that the Internet sees literally hundreds if not thousands of free email companies start and then fail each year. [sent-128, score-0.649]
-</p><p>10 Also because the whole message is loaded when the webmail system is only requesting the header, a lot of unnecessary data is often pulled from the NFS servers. [sent-144, score-0.534]
-</p><p>11 For Lavabit that meant starting out with a custom mail platform, but continuing to use Postfix for outbound mail, MySQL for synchronization, and NFS for file storage. [sent-176, score-0.527]
-</p><p>12 htmlWe also wish we had finished the IMAP server earlier than October of 2007, and finished our custom webmail system by now. [sent-195, score-0.675]
-</p><p>13 We still have a number of legacy web applications and maintenance scripts written in Perl, and the webmail system is currently in PHP, but these are all slated for conversion to C as time allows. [sent-216, score-0.548]
-</p><p>14 The two areas where we currently have issues are the IMAP servers dedicated to handling webmail connections, and disk throughput on the NFS servers. [sent-260, score-0.583]
-</p><p>15 The "mars" cluster is made up of the two nodes dedicated to handling IMAP connections from the webmail system, and the CPU graphs for both nodes looks like:As you can see from the above graph, this server is having issues. [sent-267, score-0.604]
-</p><p>16 Both servers dedicated to handling webmail traffic will get memory upgrades sometime next week which will help, we also have plans to push a new build with some minor improvements that we hope will help with the problem. [sent-268, score-0.521]
-</p><p>17 Some of you may be wondering why we don't use servers from our "earth" cluster to handle more of the webmail load. [sent-270, score-0.608]
+</p><p>10 The webmail system does not keep IMAP connections open. [sent-142, score-0.525]
+</p><p>11 Also because the whole message is loaded when the webmail system is only requesting the header, a lot of unnecessary data is often pulled from the NFS servers. [sent-144, score-0.534]
+</p><p>12 For Lavabit that meant starting out with a custom mail platform, but continuing to use Postfix for outbound mail, MySQL for synchronization, and NFS for file storage. [sent-176, score-0.527]
+</p><p>13 html    We also wish we had finished the IMAP server earlier than October of 2007, and finished our custom webmail system by now. [sent-195, score-0.675]
+</p><p>14 We still have a number of legacy web applications and maintenance scripts written in Perl, and the webmail system is currently in PHP, but these are all slated for conversion to C as time allows. [sent-216, score-0.548]
+</p><p>15 The two areas where we currently have issues are the IMAP servers dedicated to handling webmail connections, and disk throughput on the NFS servers. [sent-260, score-0.583]
+</p><p>16 The "mars" cluster is made up of the two nodes dedicated to handling IMAP connections from the webmail system, and the CPU graphs for both nodes looks like:     As you can see from the above graph, this server is having issues. [sent-267, score-0.604]
+</p><p>17 Some of you may be wondering why we don’t use servers from our "earth" cluster to handle more of the webmail load. [sent-270, score-0.608]
 </p><p>18 Because our current webmail system has only been available publicly for about a year, it took some time for webmail traffic to grow large enough to make this problem critical. [sent-280, score-0.714]
 </p><p>19 I should note that 85 percent of this traffic is for the two IMAP servers handling webmail traffic. [sent-285, score-0.53]
 </p><p>20 The first was when we switched to our custom platform in February/March of 2005 (we had to fail back to the old system twice before our daemon was stable enough to use full time). [sent-413, score-0.552]
@@ -55,76 +58,34 @@ savvy user. Lavabit was one of</p><br/><h2>Summary: the most important sentenses
 <p>[('webmail', 0.301), ('imap', 0.277), ('mail', 0.268), ('lavabit', 0.196), ('nfs', 0.193), ('daemon', 0.184), ('pop', 0.135), ('currently', 0.135), ('messages', 0.124), ('message', 0.121), ('email', 0.113), ('connections', 0.112), ('system', 0.112), ('smtp', 0.112), ('custom', 0.111), ('servers', 0.094), ('use', 0.087), ('postfix', 0.084), ('percent', 0.082), ('via', 0.082), ('server', 0.078), ('balancer', 0.076), ('approximately', 0.074), ('also', 0.073), ('checks', 0.072), ('memcached', 0.071), ('database', 0.07), ('emails', 0.069), ('incoming', 0.067), ('application', 0.066), ('spam', 0.066), ('handle', 0.066), ('filter', 0.063), ('user', 0.062), ('outbound', 0.061), ('feel', 0.061), ('users', 0.06), ('cluster', 0.06), ('rely', 0.059), ('alteon', 0.059), ('clamav', 0.059), ('cyrus', 0.059), ('cent', 0.058), ('support', 0.058), ('platform', 0.058), ('graph', 0.056), ('password', 0.056), ('signature', 0.053), ('handling', 0.053), ('used', 0.053)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000006 <a title="1501-tfidf-1" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
-<p>Introduction: With Lavabitshutting down undermurky circumstances, it seems fitting torepost
-an old(2009), yet still very good post byLadar Levisonon Lavabit's
-architecture. I don't know how much of this information is still current, but
-it should give you a general idea what Lavabit was all about.Getting to Know
-YouWhat is the name of your system and where can we find out more about
-it?Note: these links are no longer valid...Lavabithttp://lavabit.comhttp://lav
-abit.com/network.htmlhttp://lavabit.com/about.htmlWhat is your system
-for?Lavabit is a mid-sized email service provider. We currently have about
-140,000 registered users with more than 260,000 email addresses. While most of
-our accounts belong to individual users, we also provide corporate email
-services to approximately 70 companies.Why did you decide to build this
-system?We built the system to compete against the other large free email
-providers, with an emphasis on serving the privacy conscious and technically
-savvy user. Lavabit was one of</p><p>2 0.3008886 <a title="1501-tfidf-2" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
-<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from
-over 600 hyperactive servers? If you think this sounds like the perfect battle
-ground for a head-to-head skirmish in the greatMapReduce Versus Database War,
-you would be correct.Bill Boebel, CTO of Mailtrust (Rackspace's mail
-division), has generously provided a fascinating account of how they evolved
-their log processing system from an early amoeba'ic text file stored on each
-machine approach, to a Neandertholic relational database solution that just
-couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that
-works wisely for them and has virtually unlimited scalability
-potential.Rackspace faced a now familiar problem. Lots and lots of data
-streaming in. Where do you store all that data? How do you do anything useful
-with it? In the first version of their system logs were stored in flat text
-files and had to be manually searched by engineers logging into each
-individual machine. Then came a</p><p>3 0.25824234 <a title="1501-tfidf-3" href="../high_scalability-2008/high_scalability-2008-02-25-Any_Suggestions_for_the_Architecture_Template%3F.html">259 high scalability-2008-02-25-Any Suggestions for the Architecture Template?</a></p>
-<p>Introduction: Here's my template for describing the architecture of a system. The idea is to
-have people fill out this template and that then becomes the basis for a
-profile. This is how theFriends for Salepost was created and I think that
-turned out well. People always want more detail, but realistically you can
-only expect so much.The template is definitely too long, but it's more just a
-series of questions to jog people's memories and then they can answer whatever
-they think is important.What I want to ask is if you can think of any things
-to add/delete/change in the template? What do you want to know about the
-systems people are building? So if you have the time, please take a look and
-tell me what you think.Getting to Know You* What is the name of your system
-and where can we find out more about it?* What is your system is for?* Why did
-you decide to build this system?* How is your project financed?* What is your
-revenue model?* How do you market your product?* How long have you been
-working on</p><p>4 0.25824234 <a title="1501-tfidf-4" href="../high_scalability-2008/high_scalability-2008-02-25-Architecture_Template_Advice_Needed.html">260 high scalability-2008-02-25-Architecture Template Advice Needed</a></p>
-<p>Introduction: Here's my template for describing the architecture of a system. The idea is to
-have people fill out this template and that then becomes the basis for a
-profile. This is how theFriends for Salepost was created and I think that
-turned out well. People always want more detail, but realistically you can
-only expect so much.The template is definitely too long, but it's more just a
-series of questions to jog people's memories and then they can answer whatever
-they think is important.What I want to ask is if you can think of any things
-to add/delete/change in the template? What do you want to know about the
-systems people are building? So if you have the time, please take a look and
-tell me what you think.breakGetting to Know You* What is the name of your
-system and where can we find out more about it?* What is your system is for?*
-Why did you decide to build this system?* How is your project financed?* What
-is your revenue model?* How do you market your product?* How long have you
-been worki</p><p>5 0.23564939 <a title="1501-tfidf-5" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
-<p>Introduction: Update:Jake inDoes Django really scale better than Rails?thinks apps like FFS
-shouldn't need so much hardware to scale.In a short three months Friends for
-Sale (think Hot-or-Not with a market economy) grew to become a top 10 Facebook
-application handling 200 gorgeous requests per second and a stunning 300
-million page views a month. They did all this using Ruby on Rails, two part
-time developers, a cluster of a dozen machines, and a fairly standard
-architecture. How did Friends for Sale scale to sell all those beautiful
-people? And how much do you think your friends are worth on the open market?
-Site: http://www.facebook.com/apps/application.php?id=7019261521Information
-SourcesSiqi Chen and Alexander Le, co-creators of Friends for Sale, answering
-my standard questionairre.Virality on FacebookThe PlatformRuby on RailsCentOS
-5 (64 bit)Capistrano- update and restart application
-servers.MemcachedMySQLNginxStarling- distributed queue serverSoftlayer-
-hosting servicePingdom- for website moni</p><p>6 0.20740019 <a title="1501-tfidf-6" href="../high_scalability-2009/high_scalability-2009-03-30-Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">551 high scalability-2009-03-30-Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: With Lavabit  shutting down  under  murky circumstances , it seems fitting to  repost an old  (2009), yet still very good post by  Ladar Levison  on Lavabit's architecture. I don't know how much of this information is still current, but it should give you a general idea what Lavabit was all about.
+  
+ Getting to Know You 
+ What is the name of your system and where can we find out more about it? 
+
+ Note: these links are no longer valid... 
+
+
+Lavabit   http://lavabit.com      http://lavabit.com/network.html    http://lavabit.com/about.html 
+
+ What is your system for? 
+
+Lavabit is a mid-sized email service provider. We currently have about 140,000 registered users with more than 260,000 email addresses. While most of our accounts belong to individual users, we also provide corporate email services to approximately 70 companies.
+
+ Why did you decide to build this system? 
+
+We built the system to compete against the other large free email providers, with an emphasis on serving the privacy c</p><p>2 0.3008886 <a title="1501-tfidf-2" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
+<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from over 600 hyperactive servers? If you think this sounds like the perfect battle ground for a head-to-head skirmish in the great  MapReduce Versus Database War , you would be correct.   Bill Boebel, CTO of Mailtrust (Rackspace's mail division), has generously provided a fascinating account of how they evolved their log processing system from an early amoeba'ic text file stored on each machine approach,  to a Neandertholic relational database solution that just couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that works wisely for them and has virtually unlimited scalability potential.
+ 
+Rackspace faced a now familiar problem. Lots and lots of data streaming in. Where do you store all that data? How do you do anything useful with it? In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine.  T</p><p>3 0.25824234 <a title="1501-tfidf-3" href="../high_scalability-2008/high_scalability-2008-02-25-Any_Suggestions_for_the_Architecture_Template%3F.html">259 high scalability-2008-02-25-Any Suggestions for the Architecture Template?</a></p>
+<p>Introduction: Here's my template for describing the architecture of a system. The idea is to have people fill out this template and that then becomes the basis for a profile. This is how the   Friends for Sale   post was created and I think that turned out well. People always want more detail, but realistically you can only expect so much.     The template is definitely too long, but it's more just a series of questions to jog people's memories and then they can answer whatever they think is important.     What I want to ask is if you can think of any things to add/delete/change in the template? What do you want to know about the systems people are building? So if you have the time, please take a look and tell me what you think.       Getting to Know You       * What is the name of your system and where can we find out more about it?   * What is your system is for?   * Why did you decide to build this system?   * How is your project financed?   * What is your revenue model?   * How do you market you</p><p>4 0.25824234 <a title="1501-tfidf-4" href="../high_scalability-2008/high_scalability-2008-02-25-Architecture_Template_Advice_Needed.html">260 high scalability-2008-02-25-Architecture Template Advice Needed</a></p>
+<p>Introduction: Here's my template for describing the architecture of a system. The idea is to have people fill out this template and that then becomes the basis for a profile. This is how the   Friends for Sale   post was created and I think that turned out well. People always want more detail, but realistically you can only expect so much.     The template is definitely too long, but it's more just a series of questions to jog people's memories and then they can answer whatever they think is important.     What I want to ask is if you can think of any things to add/delete/change in the template? What do you want to know about the systems people are building? So if you have the time, please take a look and tell me what you think.         Getting to Know You       * What is the name of your system and where can we find out more about it?   * What is your system is for?   * Why did you decide to build this system?   * How is your project financed?   * What is your revenue model?   * How do you market y</p><p>5 0.23564939 <a title="1501-tfidf-5" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
+<p>Introduction: Update:  Jake in  Does Django really scale better than Rails?  thinks apps like FFS shouldn't need so much hardware to scale.  In a short three months Friends for Sale (think Hot-or-Not with a market economy) grew to become a top 10 Facebook application handling 200 gorgeous requests per second and a stunning 300 million page views a month. They did all this using Ruby on Rails,  two part time developers, a cluster of a dozen machines, and a fairly standard architecture. How did Friends for Sale scale to sell all those beautiful people? And how much do you think your friends are worth on the open market? 
+ 
+Site: http://www.facebook.com/apps/application.php?id=7019261521
+  Information Sources    Siqi Chen and Alexander Le, co-creators of Friends for Sale, answering my standard questionairre.     Virality on Facebook  
+ The Platform 
+    Ruby on Rails    CentOS 5 (64 bit)     Capistrano  - update and restart application servers.     Memcached     MySQL     Nginx      Starling  - distrib</p><p>6 0.20740019 <a title="1501-tfidf-6" href="../high_scalability-2009/high_scalability-2009-03-30-Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">551 high scalability-2009-03-30-Lavabit Architecture - Creating a Scalable Email Service</a></p>
 <p>7 0.20085436 <a title="1501-tfidf-7" href="../high_scalability-2008/high_scalability-2008-10-01-Joyent_-_Cloud_Computing_Built_on_Accelerators.html">399 high scalability-2008-10-01-Joyent - Cloud Computing Built on Accelerators</a></p>
 <p>8 0.19738308 <a title="1501-tfidf-8" href="../high_scalability-2007/high_scalability-2007-09-06-Product%3A_Perdition_Mail_Retrieval_Proxy.html">80 high scalability-2007-09-06-Product: Perdition Mail Retrieval Proxy</a></p>
 <p>9 0.19613755 <a title="1501-tfidf-9" href="../high_scalability-2013/high_scalability-2013-09-23-Salesforce_Architecture_-_How_they_Handle_1.3_Billion_Transactions_a_Day.html">1521 high scalability-2013-09-23-Salesforce Architecture - How they Handle 1.3 Billion Transactions a Day</a></p>
@@ -144,76 +105,49 @@ hosting servicePingdom- for website moni</p><p>6 0.20740019 <a title="1501-tfidf
 <p>[(0, 0.387), (1, 0.134), (2, -0.045), (3, -0.172), (4, -0.006), (5, -0.042), (6, 0.087), (7, -0.055), (8, -0.024), (9, 0.047), (10, 0.006), (11, 0.068), (12, 0.027), (13, -0.044), (14, 0.073), (15, 0.022), (16, 0.003), (17, 0.071), (18, -0.031), (19, 0.041), (20, 0.003), (21, -0.047), (22, -0.053), (23, -0.036), (24, 0.049), (25, 0.038), (26, 0.037), (27, 0.015), (28, -0.049), (29, 0.016), (30, -0.062), (31, -0.025), (32, -0.04), (33, -0.033), (34, -0.008), (35, -0.004), (36, -0.012), (37, 0.046), (38, 0.094), (39, 0.024), (40, 0.083), (41, 0.054), (42, 0.055), (43, 0.023), (44, -0.053), (45, 0.013), (46, -0.03), (47, -0.019), (48, 0.01), (49, 0.031)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97853947 <a title="1501-lsi-1" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
-<p>Introduction: With Lavabitshutting down undermurky circumstances, it seems fitting torepost
-an old(2009), yet still very good post byLadar Levisonon Lavabit's
-architecture. I don't know how much of this information is still current, but
-it should give you a general idea what Lavabit was all about.Getting to Know
-YouWhat is the name of your system and where can we find out more about
-it?Note: these links are no longer valid...Lavabithttp://lavabit.comhttp://lav
-abit.com/network.htmlhttp://lavabit.com/about.htmlWhat is your system
-for?Lavabit is a mid-sized email service provider. We currently have about
-140,000 registered users with more than 260,000 email addresses. While most of
-our accounts belong to individual users, we also provide corporate email
-services to approximately 70 companies.Why did you decide to build this
-system?We built the system to compete against the other large free email
-providers, with an emphasis on serving the privacy conscious and technically
-savvy user. Lavabit was one of</p><p>2 0.85891992 <a title="1501-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-08-Mollom_Architecture_-_Killing_Over_373_Million_Spams_at_100_Requests_Per_Second.html">985 high scalability-2011-02-08-Mollom Architecture - Killing Over 373 Million Spams at 100 Requests Per Second</a></p>
-<p>Introduction: Mollomis one of those cool SaaS companies every developer dreams of creating
-when they wrack their brains looking for a viable software-as-a-service
-startup. Mollom profitably runs a useful service--spam filtering--with a small
-group of geographically distributed developers. Mollom helps protect nearly
-40,000 websites from spam, includingone of mine, which is where I first
-learned about Mollom. In a desperate attempt to stop spam on a Drupal site,
-where every other form of CAPTCHA had failed miserably, I installed Mollom in
-about 10 minutes and it immediately started working. That's the out of the box
-experience I was looking for.From the time Mollom opened its digital
-inspection system they've rejected over 373 million spams and in the process
-they've learned that a stunning 90% of all messages are spam. This spam
-torrent is handled by only two geographically distributed machines that handle
-100 requests/ second, each running a Java application server and Cassandra. So
-few resources a</p><p>3 0.84174663 <a title="1501-lsi-3" href="../high_scalability-2007/high_scalability-2007-07-23-GoogleTalk_Architecture.html">21 high scalability-2007-07-23-GoogleTalk Architecture</a></p>
-<p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM
-messages aren't the major architectural challenge, handling user presence
-indications dominate the design. They also have the challenge of handling
-small low latency messages and integrating with many other systems. How do
-they do it?Site: http://www.google.com/talkInformation SourcesGoogleTalk
-ArchitecturePlatformLinuxJavaGoogle StackShardWhat's Inside?The StatsSupport
-presence and messages for millions of users.Handles billions of packets per
-day in under 100ms.IM is different than many other applications because the
-requests are small packets.Routing and application logic are applied per
-packet for sender and receiver.Messages must be delivered in-
-order.Architecture extends to new clients and Google services.Lessons
-LearnedMeasure the right thing.- People ask about how many IMs do you deliver
-or how many active users. Turns out not to be the right engineering question.-
-Hard part of IM is how to show corre</p><p>4 0.84132075 <a title="1501-lsi-4" href="../high_scalability-2009/high_scalability-2009-07-28-37signals_Architecture.html">663 high scalability-2009-07-28-37signals Architecture</a></p>
-<p>Introduction: Update 7:Basecamp, now with more vroom. Basecamp application servers running
-Ruby code were upgraded and virtualization was removed. The result:A 66 %
-reduction in the response time while handling multiples of the traffic is
-beyond what I expected. They still use virtualization (Linux KVM), just less
-of it now.Update 6:Things We've Learned at 37Signals. Themes: less is more;
-don't worry be happy.Update 5:Nuts & Bolts: HAproxy. Nice explanation (post,
-screencast) by Mark Imbriaco of why HAProxy (load balancing proxy server) is
-their favorite (fast, efficient, graceful configuration, queues requests when
-Mongrels are busy) for spreading dynamic content between Apache web servers
-and Mongrel application servers.Update 4:O'Rielly's Tim O'Brien
-interviewsDavid Hansson, Rails creator and 37signals partner. Says BaseCamp
-scales horizontally on the application and web tier. Scales up for the
-database, using one "big ass" 128GB machine. Says:As technology moves on,
-hardware gets cheaper and che</p><p>5 0.83468449 <a title="1501-lsi-5" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
-<p>Introduction: Here's anUpdate On Disqus: It's Still About Realtime, But Go Demolishes
-Python.How do you add realtime functionality to a web scale application?
-That's whatAdam Hitchcock, a Software Engineer at Disqus talks about in an
-excellent talk: Making DISQUS Realtime (slides).Disqus had to take their
-commenting system and add realtime capabilities to it. Not something that's
-easy to do when at the time of the talk (2013) they had had just hit a billion
-unique visitors a month.What Disqus developed is a realtime commenting system
-called "realertime" that was tested to handle 1.5 million concurrently
-connected users, 45,000 new connections per second, 165,000 messages/second,
-with less than .2 seconds latency end-to-end.The nature of a commenting system
-is that it is IO bound and has a high fanout, that is a comment comes in and
-must be sent out to a lot of readers. It's a problem very similar to
-whatTwitter must solve. Disqus' solution was quite interesting as was the path
-to their solution. The</p><p>6 0.83319104 <a title="1501-lsi-6" href="../high_scalability-2007/high_scalability-2007-09-06-Product%3A_Perdition_Mail_Retrieval_Proxy.html">80 high scalability-2007-09-06-Product: Perdition Mail Retrieval Proxy</a></p>
+<p>Introduction: With Lavabit  shutting down  under  murky circumstances , it seems fitting to  repost an old  (2009), yet still very good post by  Ladar Levison  on Lavabit's architecture. I don't know how much of this information is still current, but it should give you a general idea what Lavabit was all about.
+  
+ Getting to Know You 
+ What is the name of your system and where can we find out more about it? 
+
+ Note: these links are no longer valid... 
+
+
+Lavabit   http://lavabit.com      http://lavabit.com/network.html    http://lavabit.com/about.html 
+
+ What is your system for? 
+
+Lavabit is a mid-sized email service provider. We currently have about 140,000 registered users with more than 260,000 email addresses. While most of our accounts belong to individual users, we also provide corporate email services to approximately 70 companies.
+
+ Why did you decide to build this system? 
+
+We built the system to compete against the other large free email providers, with an emphasis on serving the privacy c</p><p>2 0.85891992 <a title="1501-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-08-Mollom_Architecture_-_Killing_Over_373_Million_Spams_at_100_Requests_Per_Second.html">985 high scalability-2011-02-08-Mollom Architecture - Killing Over 373 Million Spams at 100 Requests Per Second</a></p>
+<p>Introduction: Mollom  is one of those cool SaaS companies every developer dreams of creating when they wrack their brains looking for a viable software-as-a-service startup. Mollom profitably runs a useful service— spam filtering —with a small group of geographically distributed developers. Mollom helps protect nearly 40,000 websites from spam, including  one of mine , which is where I first learned about Mollom. In a desperate attempt to stop spam on a Drupal site, where every other form of CAPTCHA had failed miserably, I installed Mollom in about 10 minutes and it immediately started working. That's the out of the box experience I was looking for.
+ 
+From the time Mollom opened its digital inspection system they've rejected over 373 million spams and in the process they've learned that a stunning 90% of all messages are spam. This spam torrent is handled by only two geographically distributed machines that handle 100 requests/ second, each running a Java application server and Cassandra. So few res</p><p>3 0.84174663 <a title="1501-lsi-3" href="../high_scalability-2007/high_scalability-2007-07-23-GoogleTalk_Architecture.html">21 high scalability-2007-07-23-GoogleTalk Architecture</a></p>
+<p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM messages aren't the major architectural challenge, handling user presence indications dominate the design. They also have the challenge of handling small low latency messages and integrating with many other systems. How do they do it?
+ 
+Site: http://www.google.com/talk
+  Information Sources     GoogleTalk Architecture  
+ Platform 
+    Linux    Java    Google Stack    Shard 
+ What's Inside? 
+ The Stats 
+    Support presence and messages for millions of users.    Handles billions of packets per day in under 100ms.    IM is different  than many other applications because the requests are small packets.    Routing and application logic are applied per packet for sender and receiver.    Messages must be delivered in-order.    Architecture extends to new clients and Google services. 
+ Lessons Learned 
+    Measure the right thing. - People ask about how many IMs do you deliver or how many active users. Turns out not</p><p>4 0.84132075 <a title="1501-lsi-4" href="../high_scalability-2009/high_scalability-2009-07-28-37signals_Architecture.html">663 high scalability-2009-07-28-37signals Architecture</a></p>
+<p>Introduction: Update 7:   Basecamp, now with more vroom . Basecamp application servers running Ruby code were upgraded and virtualization was removed. The result:  A 66 % reduction in the response time while handling multiples of the traffic is beyond what I expected . They still use virtualization (Linux KVM), just less of it now.  Update 6:   Things We’ve Learned at 37Signals . Themes: less is more; don't worry be happy.  Update 5:   Nuts & Bolts: HAproxy  . Nice explanation (post, screencast) by Mark Imbriaco of why HAProxy (load balancing proxy server) is their favorite (fast, efficient, graceful configuration, queues requests when Mongrels are busy) for spreading dynamic content between Apache web servers and Mongrel application servers.  Update 4:  O'Rielly's Tim O'Brien interviews  David Hansson , Rails creator and 37signals partner. Says BaseCamp scales horizontally on the application and web tier. Scales up for the database, using one "big ass" 128GB machine. Says:  As technology moves on,</p><p>5 0.83468449 <a title="1501-lsi-5" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
+<p>Introduction: Here's an  Update On Disqus: It's Still About Realtime, But Go Demolishes Python . 
+ 
+How do you add realtime functionality to a web scale application? That's what  Adam Hitchcock , a Software Engineer at Disqus talks about in an excellent talk:  Making DISQUS Realtime  ( slides ).
+ 
+Disqus had to take their commenting system and add realtime capabilities to it. Not something that's easy to do when at the time of the talk (2013) they had had just hit a billion unique visitors a month.
+ 
+What Disqus developed is a realtime commenting system called “realertime” that was tested to handle 1.5 million concurrently connected users, 45,000 new connections per second, 165,000 messages/second, with less than .2 seconds latency end-to-end.
+ 
+The nature of a commenting system is that it is IO bound and has a high fanout, that is a comment comes in and must be sent out to a lot of readers. It's a problem very similar to what  Twitter must solve . 
+ 
+Disqus' solution was quite interesting as was th</p><p>6 0.83319104 <a title="1501-lsi-6" href="../high_scalability-2007/high_scalability-2007-09-06-Product%3A_Perdition_Mail_Retrieval_Proxy.html">80 high scalability-2007-09-06-Product: Perdition Mail Retrieval Proxy</a></p>
 <p>7 0.83212614 <a title="1501-lsi-7" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
 <p>8 0.83079559 <a title="1501-lsi-8" href="../high_scalability-2007/high_scalability-2007-11-19-Tailrank_Architecture_-_Learn_How_to_Track_Memes_Across_the_Entire_Blogosphere.html">160 high scalability-2007-11-19-Tailrank Architecture - Learn How to Track Memes Across the Entire Blogosphere</a></p>
 <p>9 0.82655144 <a title="1501-lsi-9" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
@@ -233,76 +167,58 @@ to their solution. The</p><p>6 0.83319104 <a title="1501-lsi-6" href="../high_sc
 <p>[(1, 0.141), (2, 0.237), (10, 0.058), (15, 0.064), (30, 0.037), (40, 0.012), (47, 0.027), (61, 0.084), (73, 0.011), (77, 0.017), (79, 0.09), (85, 0.061), (94, 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.98659885 <a title="1501-lda-1" href="../high_scalability-2013/high_scalability-2013-05-10-Stuff_The_Internet_Says_On_Scalability_For_May_10%2C_2013.html">1455 high scalability-2013-05-10-Stuff The Internet Says On Scalability For May 10, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(In Thailand, they figured out how to solve the
-age-old queuing problem!) Nanoscale: Plants IM Using Nanoscale Sound Waves;100
-petabytes: CERN data storageQuotable Quotes:Geoff Arnold: Arguably all
-interesting advances in computer science and software engineering occur when a
-resource that was previously scarce or expensive becomes cheap and
-plentiful.@jamesurquhart: "Complexity is a characteristic of the system, not
-of the parts in it." -Dekker@louisnorthmore: Scaling down - now that's
-scalability!@peakscale: Where distributed systems people retire to forget the
-madness: http://en.wikipedia.org/wiki/Antipaxos @dozba: "The Linux Game
-Database" ... Well, at least they will never have scaling problems.Michael
-Widenius: There is no reason at all to use MySQL@steveloughran: Whenever
-someone says "unlimited scalability", ask if that exceeds theberkenstein
-bound@nationofminds: "I have infinite MIPS. Unlimited scalability. And zero
-effing patience." Endowing cel</p><p>2 0.97602439 <a title="1501-lda-2" href="../high_scalability-2012/high_scalability-2012-08-03-Stuff_The_Internet_Says_On_Scalability_For_August_3%2C_2012.html">1297 high scalability-2012-08-03-Stuff The Internet Says On Scalability For August 3, 2012</a></p>
-<p>Introduction: It's HighScalability Time:Quotable Quotes:Ross Tur: the tricks you learned to
-make things big are not the same tricks you can apply to make things infinite.
-@gclaramunt: Son, I'm getting old, but let me tell you a secret: programming
-is hard, and high scalability and concurrent programming... frigging
-hard!@Carnage4Life: At Apple the iOS team didn't see iPhone hardware or
-hardware team see OS until it shipped@adrianco:  #ebspio caps iops but latency
-variance is much lower than EBS@bernardgolden: RT @peakscale: A culture of
-automation is 10x more important than deployment/test/monkey thing you'd like
-to discuss < devops calling@JayCollier: 50 years ago, school standardization
-was needed for scale. Now, scalability and flexibility (variability) can
-coexist. #FOL2012@adrianco: Compared to vanilla EBS many times better for
-random reads. Bandwidth limits both for sequential and
-writes.#ebspio@SQLPerfTips: More hardware won't solve response time problems.
-Proper indexing does.@adrianco: I di</p><p>3 0.97463 <a title="1501-lda-3" href="../high_scalability-2010/high_scalability-2010-10-21-Machine_VM_%2B_Cloud_API_-_Rewriting_the_Cloud_from_Scratch.html">923 high scalability-2010-10-21-Machine VM + Cloud API - Rewriting the Cloud from Scratch</a></p>
-<p>Introduction: Write a little "Hello World" program these days and it runs inside a
-bewildering Russian Doll of nested environments, each layer adding its own
-special performance and complexity tax. First, a language executes in its own
-environment of data structure libraries, memory management, and so on. That,
-more often than not, will run inside a language VM like the JVM, CLR, or V8.
-The language VM will in-turn run inside a process that runs inside an OS. An
-application will run in one or more threads inside a process. And the whole
-thing will run inside a machine sharing VM layer like Xen. And across all of
-that are frameworks for monitoring, elasticity, storage, and so on. That's a
-lot of overhead for a such a little program.What if we could remove all these
-taxes and run directly on the new bare metal, which some consider to be a
-combination of Machine VM + Cloud API? That's exactly what a system
-calledMirage, described in the paperTurning down the LAMP: Software
-Specialisation for the Cloud,</p><p>4 0.97350657 <a title="1501-lda-4" href="../high_scalability-2009/high_scalability-2009-08-16-ThePort__Network__Architecture.html">682 high scalability-2009-08-16-ThePort  Network  Architecture</a></p>
-<p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to
-share some of the architectural details for their white label social media
-system. It currently runs about 50 social networks varying in size from less
-than 1000 members to more than 300,000 members, all on a Microsoft stack. In
-addition to their social networking platform, they offer Javascript APIs and
-web service APIs (both REST and SOAP) which account for a significant
-percentage of overall system usage.ThePort is an excellent example of a real
-world in-the-trenches product offering real value to customers. One of the
-most interesting problems they have to solve is multi-tenancy. How do you
-provide good performance, complete customization, support, develop new
-features, and provide individual search indexes for each customer? It's not an
-easy problem to solve.How did they solve their problems and build a successful
-system? Site: http://theport.comPlatformMicrosoft.NET 3.5C# / VB.NETSQL Server
-2005Visual S</p><p>same-blog 5 0.97230333 <a title="1501-lda-5" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
-<p>Introduction: With Lavabitshutting down undermurky circumstances, it seems fitting torepost
-an old(2009), yet still very good post byLadar Levisonon Lavabit's
-architecture. I don't know how much of this information is still current, but
-it should give you a general idea what Lavabit was all about.Getting to Know
-YouWhat is the name of your system and where can we find out more about
-it?Note: these links are no longer valid...Lavabithttp://lavabit.comhttp://lav
-abit.com/network.htmlhttp://lavabit.com/about.htmlWhat is your system
-for?Lavabit is a mid-sized email service provider. We currently have about
-140,000 registered users with more than 260,000 email addresses. While most of
-our accounts belong to individual users, we also provide corporate email
-services to approximately 70 companies.Why did you decide to build this
-system?We built the system to compete against the other large free email
-providers, with an emphasis on serving the privacy conscious and technically
-savvy user. Lavabit was one of</p><p>6 0.97024995 <a title="1501-lda-6" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    ( In Thailand, they figured out how to solve the age-old queuing problem! )  
+ 
+  
+  Nanoscale : Plants IM Using Nanoscale Sound Waves;  100 petabytes : CERN data storage 
+ Quotable Quotes:                                                      
+ 
+  Geoff Arnold : Arguably all interesting advances in computer science and software engineering occur when a resource that was previously scarce or expensive becomes cheap and plentiful. 
+  @jamesurquhart : "Complexity is a characteristic of the system, not of the parts in it." -Dekker 
+  @louisnorthmore : Scaling down - now that's scalability! 
+  @peakscale : Where distributed systems people retire to forget the madness: http://en.wikipedia.org/wiki/Antipaxos  
+  @dozba : "The Linux Game Database" ... Well, at least they will never have scaling problems. 
+  Michael Widenius : There is no reason at all to use MySQL 
+  @steveloughran : Whenever someone says "unlimited scalability", ask if that exceeds the  ber</p><p>2 0.97602439 <a title="1501-lda-2" href="../high_scalability-2012/high_scalability-2012-08-03-Stuff_The_Internet_Says_On_Scalability_For_August_3%2C_2012.html">1297 high scalability-2012-08-03-Stuff The Internet Says On Scalability For August 3, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+ Quotable Quotes:                       
+ 
+  Ross Tur : the tricks you learned to make things big are not the same tricks you can apply to make things infinite.  
+  @gclaramunt : Son, I'm getting old, but let me tell you a secret: programming is hard, and high scalability and concurrent programming... frigging hard! 
+ 
+ 
+  @Carnage4Life : At Apple the iOS team didn't see iPhone hardware or hardware team see OS until it shipped 
+  @adrianco :  #ebspio caps iops but latency variance is much lower than EBS 
+  @bernardgolden : RT @peakscale: A culture of automation is 10x more important than deployment/test/monkey thing you'd like to discuss < devops calling 
+  @JayCollier : 50 years ago, school standardization was needed for scale. Now, scalability and flexibility (variability) can coexist. #FOL2012 
+  @adrianco : Compared to vanilla EBS many times better for random reads. Bandwidth limits both for sequential and writes.  #ebspio  
+  @SQLPerfTips : More hardw</p><p>3 0.97463 <a title="1501-lda-3" href="../high_scalability-2010/high_scalability-2010-10-21-Machine_VM_%2B_Cloud_API_-_Rewriting_the_Cloud_from_Scratch.html">923 high scalability-2010-10-21-Machine VM + Cloud API - Rewriting the Cloud from Scratch</a></p>
+<p>Introduction: Write a little "Hello World" program these days and it runs inside a bewildering Russian Doll of nested environments, each layer adding its own special performance and complexity tax. First, a language executes in its own environment of data structure libraries, memory management, and so on. That, more often than not, will run inside a language VM like the JVM, CLR, or V8. The language VM will in-turn run inside a process that runs inside an OS. An application will run in one or more threads inside a process. And the whole thing will run inside a machine sharing VM layer like Xen. And across all of that are frameworks for monitoring, elasticity, storage, and so on. That's a lot of overhead for a such a little program.
+ 
+What if we could remove all these taxes and run directly on the new bare metal, which some consider to be a combination of M achine VM + Cloud API ? That's exactly what a system called  Mirage , described in the paper  Turning down the LAMP: Software Specialisation for</p><p>4 0.97350657 <a title="1501-lda-4" href="../high_scalability-2009/high_scalability-2009-08-16-ThePort__Network__Architecture.html">682 high scalability-2009-08-16-ThePort  Network  Architecture</a></p>
+<p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to share some of the architectural details for their white label social media system. It currently runs about 50 social networks varying in size from less than 1000 members to more than 300,000 members, all on a Microsoft stack. In addition to their social networking platform, they offer Javascript APIs and web service APIs (both REST and SOAP) which account for a significant percentage of overall system usage.  ThePort is an excellent example of a real world in-the-trenches product offering real value to customers.  One of the most interesting problems they have to solve is multi-tenancy. How do you provide good performance, complete customization, support, develop new features, and provide individual search indexes for each customer? It's not an easy problem to solve.  How did they solve their problems and build a successful system? 
+ 
+Site: http://theport.com
+  Platform    Microsoft.NET 3.5    C# / VB.NET</p><p>same-blog 5 0.97230333 <a title="1501-lda-5" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: With Lavabit  shutting down  under  murky circumstances , it seems fitting to  repost an old  (2009), yet still very good post by  Ladar Levison  on Lavabit's architecture. I don't know how much of this information is still current, but it should give you a general idea what Lavabit was all about.
+  
+ Getting to Know You 
+ What is the name of your system and where can we find out more about it? 
+
+ Note: these links are no longer valid... 
+
+
+Lavabit   http://lavabit.com      http://lavabit.com/network.html    http://lavabit.com/about.html 
+
+ What is your system for? 
+
+Lavabit is a mid-sized email service provider. We currently have about 140,000 registered users with more than 260,000 email addresses. While most of our accounts belong to individual users, we also provide corporate email services to approximately 70 companies.
+
+ Why did you decide to build this system? 
+
+We built the system to compete against the other large free email providers, with an emphasis on serving the privacy c</p><p>6 0.97024995 <a title="1501-lda-6" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
 <p>7 0.96904331 <a title="1501-lda-7" href="../high_scalability-2011/high_scalability-2011-03-03-Stack_Overflow_Architecture_Update_-_Now_at_95_Million_Page_Views_a_Month.html">998 high scalability-2011-03-03-Stack Overflow Architecture Update - Now at 95 Million Page Views a Month</a></p>
 <p>8 0.96861053 <a title="1501-lda-8" href="../high_scalability-2014/high_scalability-2014-01-28-How_Next_Big_Sound_Tracks_Over_a_Trillion_Song_Plays%2C_Likes%2C_and_More_Using_a_Version_Control_System_for_Hadoop_Data.html">1586 high scalability-2014-01-28-How Next Big Sound Tracks Over a Trillion Song Plays, Likes, and More Using a Version Control System for Hadoop Data</a></p>
 <p>9 0.96770847 <a title="1501-lda-9" href="../high_scalability-2014/high_scalability-2014-04-25-Stuff_The_Internet_Says_On_Scalability_For_April_25th%2C_2014.html">1637 high scalability-2014-04-25-Stuff The Internet Says On Scalability For April 25th, 2014</a></p>

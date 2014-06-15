@@ -16,32 +16,29 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1536-html" href="http://highscalability.com//blog/2013/10/23/strategy-use-linux-taskset-to-pin-processes-or-let-the-os-sc.html">html</a></p><p>Introduction: This question comes from Ulysses on aninteresting threadfrom the Mechanical
-Sympathy news group, especially given how multiple processors are now the
-norm:Ulysses:On an 8xCPU Linux instance,  is it at all advantageous to use the
-Linux taskset command to pin an 8xJVM process set (co-ordinated as a
-www.infinispan.org distributed cache/data grid) to a specific CPU affinity set
-(i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to
-CPU 7) vs. just letting the Linux OS use its default mechanism for
-provisioning the 8xJVM process set to the available CPUs?In effrort to seek an
-optimal point (in the full event space), what are the conceptual trade-offs in
-considering "searching" each permutation of provisioning an 8xJVM process set
-to an 8xCPU set via taskset?Giventaskset is they key to the question, it would
-help to have a definition:Used to set or retrieve the CPU affinity of a
-running process given its PID or to launch a new COMMAND with a given CPU
-affinity.  CPU affi</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 org distributed cache/data grid) to a specific CPU affinity set (i. [sent-3, score-0.623]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1536-html" href="http://highscalability.com//blog/2013/10/23/strategy-use-linux-taskset-to-pin-processes-or-let-the-os-sc.html">html</a></p><p>Introduction: This question comes from Ulysses on an  interesting thread  from the Mechanical Sympathy news group, especially given how multiple processors are now the norm:
+ 
+Ulysses:
+   
+ On an 8xCPU Linux instance,  is it at all advantageous to use the Linux taskset command to pin an 8xJVM process set (co-ordinated as a www.infinispan.org distributed cache/data grid) to a specific CPU affinity set  (i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to CPU 7) vs. just letting the Linux OS use its default mechanism for provisioning the 8xJVM process set to the available CPUs? 
+ In effrort to seek an optimal point (in the full event space), what are the conceptual trade-offs in considering "searching" each permutation of provisioning an 8xJVM process set to an 8xCPU set via taskset? 
+   
+Given  taskset  is they key to the question, it would help to have a definition:
+  
+
+Used to set or retrieve the CPU affinity of a running process given its PID or to launch a new COMMAND with</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 org distributed cache/data grid) to a specific CPU affinity set  (i. [sent-3, score-0.623]
 </p><p>2 pin JVM0 process to CPU 0, JVM1 process to CPU1, . [sent-5, score-0.386]
 </p><p>3 just letting the Linux OS use its default mechanism for provisioning the 8xJVM process set to the available CPUs? [sent-10, score-0.5]
 </p><p>4 In effrort to seek an optimal point (in the full event space), what are the conceptual trade-offs in considering "searching" each permutation of provisioning an 8xJVM process set to an 8xCPU set via taskset? [sent-11, score-0.526]
-</p><p>5 Giventaskset is they key to the question, it would help to have a definition:Used to set or retrieve the CPU affinity of a running process given its PID or to launch a new COMMAND with a given CPU affinity. [sent-12, score-0.965]
-</p><p>6 CPU affinity is a scheduler property that "bonds" a process to a given set of CPUs on the system. [sent-13, score-0.943]
-</p><p>7 The Linux scheduler  will  honor  the given CPU affinity  and  the process will not run on any other CPUs. [sent-14, score-0.873]
-</p><p>8 On the thread there's a suggestion to useJava-Thread-Affinity instead of taskset. [sent-15, score-0.151]
+</p><p>5 Given  taskset  is they key to the question, it would help to have a definition:     Used to set or retrieve the CPU affinity of a running process given its PID or to launch a new COMMAND with a given CPU  affinity. [sent-12, score-1.366]
+</p><p>6 CPU affinity is a scheduler property that "bonds" a process to a given set of CPUs on the system. [sent-13, score-0.838]
+</p><p>7 The Linux scheduler  will  honor  the given CPU affinity  and  the process will not run on any other CPUs. [sent-14, score-0.71]
+</p><p>8 On the thread there's a suggestion to use  Java-Thread-Affinity  instead of taskset. [sent-15, score-0.151]
 </p><p>9 The most common of which is just let the OS do the scheduling for you. [sent-17, score-0.07]
 </p><p>10 This is probably due to misc housekeeping threads competing with the applicative threads. [sent-20, score-0.27]
 </p><p>11 CPU-pinning on a per-thread basis(*) makes sense when low-latency/high responsiveness is involved, in which case CPU isolation should also be used to avoid pollution by other processes. [sent-21, score-0.058]
-</p><p>12 Russell Sullivan inRuss' 10 Ingredient Recipe For Making 1 Million TPS On $5K Hardware talked about a related concept, using IRQ affinity in the NIC to avoid ALL soft interrupts (generated by tcp packets) bottlenecking on a single core. [sent-24, score-0.563]
-</p><p>13 InThe Secret To 10 Million Concurrent Connections -The Kernel Is The Problem, Not The Solution, Robert Graham suggests telling the OS to use the first two cores, then set where your threads run on which cores, so you own these CPUs and Linux doesn't. [sent-25, score-0.184]
+</p><p>12 Russell Sullivan in  Russ’ 10 Ingredient Recipe For Making 1 Million TPS On $5K Hardware  talked about a related concept, using IRQ affinity in the NIC to avoid ALL soft interrupts (generated by tcp packets) bottlenecking on a single core. [sent-24, score-0.563]
+</p><p>13 In  The Secret To 10 Million Concurrent Connections -The Kernel Is The Problem, Not The Solution , Robert Graham suggests telling the OS to use the first two cores, then set where your threads run on which cores, so you own these CPUs and Linux doesn’t. [sent-25, score-0.184]
 </p><p>14 We use irqbalance and the IRQBALANCE_BANNED_CPUS option, others advocate disabling irqbalance to configuring the affinity via the /proc filesystem. [sent-27, score-0.903]
 </p><p>15 Also you can use taskset in the init process to move all of the system daemons to a different set of cores too. [sent-28, score-0.872]
 </p><p>16 Taskset is a fairly blunt tool, thread affinity will give you finer grained control and will probably be more useful if you are trying to exploit memory locality. [sent-29, score-0.777]
@@ -53,74 +50,29 @@ affinity.  CPU affi</p><br/><h2>Summary: the most important sentenses genereted 
 <p>[('affinity', 0.495), ('taskset', 0.401), ('os', 0.174), ('cpu', 0.167), ('pinning', 0.16), ('ulysses', 0.16), ('thread', 0.151), ('irqbalance', 0.145), ('cores', 0.138), ('process', 0.132), ('cpus', 0.129), ('set', 0.128), ('pin', 0.122), ('jitter', 0.115), ('linux', 0.111), ('given', 0.105), ('letting', 0.089), ('scheduler', 0.083), ('provisioning', 0.08), ('applicative', 0.073), ('lmax', 0.073), ('advantageous', 0.073), ('barker', 0.073), ('housekeeping', 0.073), ('init', 0.073), ('default', 0.071), ('scheduling', 0.07), ('command', 0.068), ('misc', 0.068), ('blunt', 0.068), ('bonds', 0.068), ('preclude', 0.068), ('bottlenecking', 0.068), ('pid', 0.068), ('gave', 0.063), ('finer', 0.063), ('disabling', 0.063), ('sympathy', 0.063), ('sullivan', 0.061), ('norm', 0.061), ('irq', 0.061), ('ingredient', 0.059), ('honor', 0.058), ('aninteresting', 0.058), ('graham', 0.058), ('conceptual', 0.058), ('pollution', 0.058), ('threads', 0.056), ('empirical', 0.056), ('advocate', 0.055)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9999997 <a title="1536-tfidf-1" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
-<p>Introduction: This question comes from Ulysses on aninteresting threadfrom the Mechanical
-Sympathy news group, especially given how multiple processors are now the
-norm:Ulysses:On an 8xCPU Linux instance,  is it at all advantageous to use the
-Linux taskset command to pin an 8xJVM process set (co-ordinated as a
-www.infinispan.org distributed cache/data grid) to a specific CPU affinity set
-(i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to
-CPU 7) vs. just letting the Linux OS use its default mechanism for
-provisioning the 8xJVM process set to the available CPUs?In effrort to seek an
-optimal point (in the full event space), what are the conceptual trade-offs in
-considering "searching" each permutation of provisioning an 8xJVM process set
-to an 8xCPU set via taskset?Giventaskset is they key to the question, it would
-help to have a definition:Used to set or retrieve the CPU affinity of a
-running process given its PID or to launch a new COMMAND with a given CPU
-affinity.  CPU affi</p><p>2 0.24552773 <a title="1536-tfidf-2" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
-<p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible
-NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent
-the last several years trying to find a way to sanely house multiple
-datastore-genres under one roof while (almost paradoxically) pushing
-performance to its limits.I recently joined the NoSQL
-companyAerospike(formerly Citrusleaf) with the goal of incrementally grafting
-AlchemyDB's flexible data-modeling capabilities onto Aerospike's high-velocity
-horizontally-scalable key-value data-fabric. We recently completed a peak-
-performanceTPS optimization project: starting at 200K TPS, pushing to the
-recent community edition launch at 500K TPS, and finally arriving at our 2012
-goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
-database-requests per-second on a single machine costing $5K is a balance
-between trimming overhead on many axes and using a shared nothing architecture
-toisolatethe paths taken by unique req</p><p>3 0.21984844 <a title="1536-tfidf-3" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
-<p>Introduction: Martin Thompson wrote a really interestingarticleon the beneficial performance
-impact of taking advantage of Processor Affinity:The interesting thing I've
-observed is that the unpinned test will follow a step function of
-unpredictable performance.  Across many runs I've seen different patterns but
-all similar in this step function nature.  For the pinned tests I get
-consistent throughput with no step pattern and always the greatest
-throughput.The idea is by assigning a thread to a particular CPU that when a
-thread is rescheduled to run on the same CPU, it can take advantage of the
-"accumulated  state in the processor, including instructions and data in the
-cache."  With multi-core chips the norm now, you may want to decide for
-yourself how to assign work to cores and not let the OS do it for you. The
-results are surprisingly strong.</p><p>4 0.16730869 <a title="1536-tfidf-4" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
-<p>Introduction: Now that we have theC10K concurrent connection problemlicked, how do we level
-up and support 10 million concurrent connections? Impossible you say. Nope,
-systems right now are delivering 10 million concurrent connections using
-techniques that are as radical as they may be unfamiliar.To learn how it's
-done we turn toRobert Graham, CEO of Errata Security, and his absolutely
-fantastic talk atShmoocon 2013calledC10M Defending The Internet At
-Scale.Robert has a brilliant way of framing the problem that I've never heard
-of before. He starts with a little bit of history, relating how Unix wasn't
-originally designed to be a general server OS, it was designed to be a control
-system for a telephone network. It was the telephone network that actually
-transported the data so there was a clean separation between the control plane
-and the data plane. Theproblem is we now use Unix servers as part of the data
-plane, which we shouldn't do at all. If we were designing a kernel for
-handling one applicati</p><p>5 0.13838528 <a title="1536-tfidf-5" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
-<p>Introduction: InfoQueue has thisexcellent talk by Brian Goetzon the new features being added
-to Java SE 7 that will allow programmers to fully exploit our massively multi-
-processor future. While the talk is about Java it's really more general than
-that and there's a lot to learn here for everyone.Brian starts with a short,
-coherent, and compelling explanation of why programmers can't expect to be
-saved by ever faster CPUs and why we must learn to exploit the strengths of
-multiple core computers to make our software go faster.Some techniques for
-exploiting multiple cores are given in an equally short, coherent, and
-compelling explanation of why divide and conquer as the secret to multi-core
-bliss, fork-join, how the Java approach differs from map-reduce, and lots of
-other juicy topics.The multi-core "problem" is only going to get worse. Tilera
-founder Anant Agarwalestimates by 2017embedded processors could have 4,096
-cores, server CPUs might have 512 cores and desktop chips could use 128 cores.
-Some</p><p>6 0.12524098 <a title="1536-tfidf-6" href="../high_scalability-2013/high_scalability-2013-07-05-Stuff_The_Internet_Says_On_Scalability_For_July_5%2C_2013.html">1487 high scalability-2013-07-05-Stuff The Internet Says On Scalability For July 5, 2013</a></p>
+<p>Introduction: This question comes from Ulysses on an  interesting thread  from the Mechanical Sympathy news group, especially given how multiple processors are now the norm:
+ 
+Ulysses:
+   
+ On an 8xCPU Linux instance,  is it at all advantageous to use the Linux taskset command to pin an 8xJVM process set (co-ordinated as a www.infinispan.org distributed cache/data grid) to a specific CPU affinity set  (i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to CPU 7) vs. just letting the Linux OS use its default mechanism for provisioning the 8xJVM process set to the available CPUs? 
+ In effrort to seek an optimal point (in the full event space), what are the conceptual trade-offs in considering "searching" each permutation of provisioning an 8xJVM process set to an 8xCPU set via taskset? 
+   
+Given  taskset  is they key to the question, it would help to have a definition:
+  
+
+Used to set or retrieve the CPU affinity of a running process given its PID or to launch a new COMMAND with</p><p>2 0.24552773 <a title="1536-tfidf-2" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
+<p>Introduction: My name is  Russell Sullivan , I am the author of AlchemyDB: a highly flexible NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent the last several years trying to find a way to sanely house multiple datastore-genres under one roof while (almost paradoxically) pushing performance to its limits.    I recently joined the NoSQL company    Aerospike    (formerly Citrusleaf) with the goal of incrementally grafting AlchemyDB’s flexible data-modeling capabilities onto Aerospike’s high-velocity horizontally-scalable key-value data-fabric. We recently completed a peak-performance    TPS optimization project   : starting at 200K TPS, pushing to the recent community edition launch at 500K TPS, and finally arriving at our 2012 goal:    1M TPS on $5K hardware   .    Getting to one million over-the-wire client-server database-requests per-second on a single machine costing $5K is a balance between trimming overhead on many axes and using a shared nothing architecture to   i</p><p>3 0.21984844 <a title="1536-tfidf-3" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
+<p>Introduction: Martin Thompson wrote a really interesting  article  on the beneficial performance impact of taking advantage of  Processor Affinity :
+  
+
+The interesting thing I've observed is that the unpinned test will follow a step function of unpredictable performance.  Across many runs I've seen different patterns but all similar in this step function nature.  For the pinned tests I get consistent throughput with no step pattern and always the greatest throughput.
+
+  
+The idea is by assigning a thread to a particular CPU that when a thread is rescheduled to run on the same CPU, it can take advantage of the "accumulated  state in the processor, including instructions and data in the cache."  With multi-core chips the norm now, you may want to decide for yourself how to assign work to cores and not let the OS do it for you. The results are surprisingly strong.</p><p>4 0.16730869 <a title="1536-tfidf-4" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: Now that we have the    C10K concurrent connection problem    licked, how do we level up and support 10 million concurrent connections? Impossible you say. Nope, systems right now are delivering 10 million concurrent connections using techniques that are as radical as they may be unfamiliar. 
+   To learn how it’s done we turn to    Robert Graham   , CEO of Errata Security, and his absolutely fantastic talk at    Shmoocon 2013    called    C10M Defending The Internet At Scale   . 
+  Robert has a brilliant way of framing the problem that I’ve never heard of before. He starts with a little bit of history, relating how Unix wasn’t originally designed to be a general server OS, it was designed to be a control system for a telephone network. It was the telephone network that actually transported the data so there was a clean separation between the control plane and the data plane. The  problem is we now use Unix servers as part of the data plane , which we shouldn’t do at all. If we were des</p><p>5 0.13838528 <a title="1536-tfidf-5" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
+<p>Introduction: InfoQueue has this  excellent talk by Brian Goetz  on the new features being added to Java SE 7 that will allow programmers to fully exploit our massively multi-processor future. While the talk is about Java it's really more general than that and there's a lot to learn here for everyone.  Brian starts with a short, coherent, and compelling explanation of why programmers can't expect to be saved by ever faster CPUs and why we must learn to exploit the strengths of multiple core computers to make our software go faster.   Some techniques for exploiting multiple cores are given in an equally  short, coherent, and compelling explanation of why divide and conquer as the secret to multi-core bliss, fork-join, how the Java approach differs from map-reduce, and lots of other juicy topics.   The multi-core "problem" is only going to get worse. Tilera founder Anant Agarwal  estimates by 2017  embedded processors could have 4,096 cores, server CPUs might have 512 cores and desktop chips could use</p><p>6 0.12524098 <a title="1536-tfidf-6" href="../high_scalability-2013/high_scalability-2013-07-05-Stuff_The_Internet_Says_On_Scalability_For_July_5%2C_2013.html">1487 high scalability-2013-07-05-Stuff The Internet Says On Scalability For July 5, 2013</a></p>
 <p>7 0.11847808 <a title="1536-tfidf-7" href="../high_scalability-2014/high_scalability-2014-03-21-Stuff_The_Internet_Says_On_Scalability_For_March_21st%2C_2014.html">1617 high scalability-2014-03-21-Stuff The Internet Says On Scalability For March 21st, 2014</a></p>
 <p>8 0.11799838 <a title="1536-tfidf-8" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
 <p>9 0.11443761 <a title="1536-tfidf-9" href="../high_scalability-2012/high_scalability-2012-05-02-12_Ways_to_Increase_Throughput_by_32X_and_Reduce_Latency_by__20X.html">1237 high scalability-2012-05-02-12 Ways to Increase Throughput by 32X and Reduce Latency by  20X</a></p>
@@ -140,74 +92,27 @@ Some</p><p>6 0.12524098 <a title="1536-tfidf-6" href="../high_scalability-2013/h
 <p>[(0, 0.116), (1, 0.072), (2, -0.017), (3, 0.008), (4, -0.033), (5, 0.015), (6, 0.06), (7, 0.068), (8, -0.089), (9, -0.025), (10, -0.002), (11, -0.005), (12, 0.059), (13, -0.008), (14, -0.053), (15, -0.052), (16, 0.026), (17, -0.007), (18, -0.042), (19, 0.039), (20, 0.011), (21, -0.047), (22, -0.038), (23, 0.007), (24, 0.047), (25, -0.01), (26, 0.03), (27, -0.022), (28, 0.043), (29, 0.023), (30, 0.025), (31, 0.034), (32, 0.025), (33, -0.023), (34, 0.047), (35, 0.009), (36, 0.005), (37, 0.024), (38, -0.013), (39, 0.073), (40, -0.014), (41, 0.035), (42, 0.022), (43, -0.05), (44, 0.02), (45, 0.024), (46, -0.007), (47, -0.028), (48, 0.019), (49, 0.037)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97125959 <a title="1536-lsi-1" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
-<p>Introduction: This question comes from Ulysses on aninteresting threadfrom the Mechanical
-Sympathy news group, especially given how multiple processors are now the
-norm:Ulysses:On an 8xCPU Linux instance,  is it at all advantageous to use the
-Linux taskset command to pin an 8xJVM process set (co-ordinated as a
-www.infinispan.org distributed cache/data grid) to a specific CPU affinity set
-(i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to
-CPU 7) vs. just letting the Linux OS use its default mechanism for
-provisioning the 8xJVM process set to the available CPUs?In effrort to seek an
-optimal point (in the full event space), what are the conceptual trade-offs in
-considering "searching" each permutation of provisioning an 8xJVM process set
-to an 8xCPU set via taskset?Giventaskset is they key to the question, it would
-help to have a definition:Used to set or retrieve the CPU affinity of a
-running process given its PID or to launch a new COMMAND with a given CPU
-affinity.  CPU affi</p><p>2 0.88545549 <a title="1536-lsi-2" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
-<p>Introduction: Martin Thompson wrote a really interestingarticleon the beneficial performance
-impact of taking advantage of Processor Affinity:The interesting thing I've
-observed is that the unpinned test will follow a step function of
-unpredictable performance.  Across many runs I've seen different patterns but
-all similar in this step function nature.  For the pinned tests I get
-consistent throughput with no step pattern and always the greatest
-throughput.The idea is by assigning a thread to a particular CPU that when a
-thread is rescheduled to run on the same CPU, it can take advantage of the
-"accumulated  state in the processor, including instructions and data in the
-cache."  With multi-core chips the norm now, you may want to decide for
-yourself how to assign work to cores and not let the OS do it for you. The
-results are surprisingly strong.</p><p>3 0.87453848 <a title="1536-lsi-3" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
-<p>Introduction: My name isRussell Sullivan, I am the author of AlchemyDB: a highly flexible
-NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent
-the last several years trying to find a way to sanely house multiple
-datastore-genres under one roof while (almost paradoxically) pushing
-performance to its limits.I recently joined the NoSQL
-companyAerospike(formerly Citrusleaf) with the goal of incrementally grafting
-AlchemyDB's flexible data-modeling capabilities onto Aerospike's high-velocity
-horizontally-scalable key-value data-fabric. We recently completed a peak-
-performanceTPS optimization project: starting at 200K TPS, pushing to the
-recent community edition launch at 500K TPS, and finally arriving at our 2012
-goal:1M TPS on $5K hardware.Getting to one million over-the-wire client-server
-database-requests per-second on a single machine costing $5K is a balance
-between trimming overhead on many axes and using a shared nothing architecture
-toisolatethe paths taken by unique req</p><p>4 0.77931273 <a title="1536-lsi-4" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
-<p>Introduction: InfoQueue has thisexcellent talk by Brian Goetzon the new features being added
-to Java SE 7 that will allow programmers to fully exploit our massively multi-
-processor future. While the talk is about Java it's really more general than
-that and there's a lot to learn here for everyone.Brian starts with a short,
-coherent, and compelling explanation of why programmers can't expect to be
-saved by ever faster CPUs and why we must learn to exploit the strengths of
-multiple core computers to make our software go faster.Some techniques for
-exploiting multiple cores are given in an equally short, coherent, and
-compelling explanation of why divide and conquer as the secret to multi-core
-bliss, fork-join, how the Java approach differs from map-reduce, and lots of
-other juicy topics.The multi-core "problem" is only going to get worse. Tilera
-founder Anant Agarwalestimates by 2017embedded processors could have 4,096
-cores, server CPUs might have 512 cores and desktop chips could use 128 cores.
-Some</p><p>5 0.77679694 <a title="1536-lsi-5" href="../high_scalability-2009/high_scalability-2009-02-01-More_Chips_Means_Less_Salsa.html">505 high scalability-2009-02-01-More Chips Means Less Salsa</a></p>
-<p>Introduction: Yes, I just got through watching the Superbowl so chips and salsa are on my
-mind and in my stomach. In recreational eating more chips requires downing
-more salsa. With mulitcore chips it turns out as cores go up salsa goes down,
-salsa obviously being a metaphor for speed.Sandia National Laboratories found
-in their simulations:a significant increase in speed going from two to four
-multicores, but an insignificant increase from four to eight multicores.
-Exceeding eight multicores causes a decrease in speed. Sixteen multicores
-perform barely as well as two, and after that, a steep decline is registered
-as more cores are added. The problem is the lack of memory bandwidth as well
-as contention between processors over the memory bus available to each
-processor.The implication for those following a diagonal scaling strategy is
-to work like heck to make your system fit within eight multicores. After that
-you'll need to consider some sort of partitioning strategy. What's interesting
-is the rese</p><p>6 0.76875448 <a title="1536-lsi-6" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: This question comes from Ulysses on an  interesting thread  from the Mechanical Sympathy news group, especially given how multiple processors are now the norm:
+ 
+Ulysses:
+   
+ On an 8xCPU Linux instance,  is it at all advantageous to use the Linux taskset command to pin an 8xJVM process set (co-ordinated as a www.infinispan.org distributed cache/data grid) to a specific CPU affinity set  (i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to CPU 7) vs. just letting the Linux OS use its default mechanism for provisioning the 8xJVM process set to the available CPUs? 
+ In effrort to seek an optimal point (in the full event space), what are the conceptual trade-offs in considering "searching" each permutation of provisioning an 8xJVM process set to an 8xCPU set via taskset? 
+   
+Given  taskset  is they key to the question, it would help to have a definition:
+  
+
+Used to set or retrieve the CPU affinity of a running process given its PID or to launch a new COMMAND with</p><p>2 0.88545549 <a title="1536-lsi-2" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
+<p>Introduction: Martin Thompson wrote a really interesting  article  on the beneficial performance impact of taking advantage of  Processor Affinity :
+  
+
+The interesting thing I've observed is that the unpinned test will follow a step function of unpredictable performance.  Across many runs I've seen different patterns but all similar in this step function nature.  For the pinned tests I get consistent throughput with no step pattern and always the greatest throughput.
+
+  
+The idea is by assigning a thread to a particular CPU that when a thread is rescheduled to run on the same CPU, it can take advantage of the "accumulated  state in the processor, including instructions and data in the cache."  With multi-core chips the norm now, you may want to decide for yourself how to assign work to cores and not let the OS do it for you. The results are surprisingly strong.</p><p>3 0.87453848 <a title="1536-lsi-3" href="../high_scalability-2012/high_scalability-2012-09-10-Russ%E2%80%99_10_Ingredient_Recipe_for_Making_1_Million_TPS_on_%245K_Hardware.html">1319 high scalability-2012-09-10-Russ’ 10 Ingredient Recipe for Making 1 Million TPS on $5K Hardware</a></p>
+<p>Introduction: My name is  Russell Sullivan , I am the author of AlchemyDB: a highly flexible NoSQL/SQL/DocumentStore/GraphDB-datastore built on top of redis. I have spent the last several years trying to find a way to sanely house multiple datastore-genres under one roof while (almost paradoxically) pushing performance to its limits.    I recently joined the NoSQL company    Aerospike    (formerly Citrusleaf) with the goal of incrementally grafting AlchemyDB’s flexible data-modeling capabilities onto Aerospike’s high-velocity horizontally-scalable key-value data-fabric. We recently completed a peak-performance    TPS optimization project   : starting at 200K TPS, pushing to the recent community edition launch at 500K TPS, and finally arriving at our 2012 goal:    1M TPS on $5K hardware   .    Getting to one million over-the-wire client-server database-requests per-second on a single machine costing $5K is a balance between trimming overhead on many axes and using a shared nothing architecture to   i</p><p>4 0.77931273 <a title="1536-lsi-4" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
+<p>Introduction: InfoQueue has this  excellent talk by Brian Goetz  on the new features being added to Java SE 7 that will allow programmers to fully exploit our massively multi-processor future. While the talk is about Java it's really more general than that and there's a lot to learn here for everyone.  Brian starts with a short, coherent, and compelling explanation of why programmers can't expect to be saved by ever faster CPUs and why we must learn to exploit the strengths of multiple core computers to make our software go faster.   Some techniques for exploiting multiple cores are given in an equally  short, coherent, and compelling explanation of why divide and conquer as the secret to multi-core bliss, fork-join, how the Java approach differs from map-reduce, and lots of other juicy topics.   The multi-core "problem" is only going to get worse. Tilera founder Anant Agarwal  estimates by 2017  embedded processors could have 4,096 cores, server CPUs might have 512 cores and desktop chips could use</p><p>5 0.77679694 <a title="1536-lsi-5" href="../high_scalability-2009/high_scalability-2009-02-01-More_Chips_Means_Less_Salsa.html">505 high scalability-2009-02-01-More Chips Means Less Salsa</a></p>
+<p>Introduction: Yes, I just got through watching the Superbowl so chips and salsa are on my mind and in my stomach. In recreational eating more chips requires downing more salsa. With mulitcore chips it turns out as cores go up salsa goes down, salsa obviously being a metaphor for speed.     Sandia National Laboratories found in their simulations:   a significant increase in speed going from two to four multicores, but an insignificant increase from four to eight multicores. Exceeding eight multicores causes a decrease in speed. Sixteen multicores perform barely as well as two, and after that, a steep decline is registered as more cores are added. The problem is the lack of memory bandwidth as well as contention between processors over the memory bus available to each processor.      The implication for those following a diagonal scaling strategy is to work like heck to make your system fit within eight multicores. After that you'll need to consider some sort of partitioning strategy. What's interesti</p><p>6 0.76875448 <a title="1536-lsi-6" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
 <p>7 0.75146455 <a title="1536-lsi-7" href="../high_scalability-2012/high_scalability-2012-05-02-12_Ways_to_Increase_Throughput_by_32X_and_Reduce_Latency_by__20X.html">1237 high scalability-2012-05-02-12 Ways to Increase Throughput by 32X and Reduce Latency by  20X</a></p>
 <p>8 0.72842401 <a title="1536-lsi-8" href="../high_scalability-2014/high_scalability-2014-05-21-9_Principles_of_High_Performance_Programs.html">1652 high scalability-2014-05-21-9 Principles of High Performance Programs</a></p>
 <p>9 0.72659445 <a title="1536-lsi-9" href="../high_scalability-2013/high_scalability-2013-06-06-Paper%3A_Memory_Barriers%3A_a_Hardware_View_for_Software_Hackers.html">1471 high scalability-2013-06-06-Paper: Memory Barriers: a Hardware View for Software Hackers</a></p>
@@ -227,74 +132,47 @@ is the rese</p><p>6 0.76875448 <a title="1536-lsi-6" href="../high_scalability-2
 <p>[(1, 0.094), (2, 0.197), (10, 0.027), (30, 0.04), (40, 0.041), (47, 0.011), (59, 0.246), (61, 0.069), (73, 0.013), (77, 0.011), (79, 0.1), (85, 0.012), (94, 0.036)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.89602047 <a title="1536-lda-1" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
-<p>Introduction: This question comes from Ulysses on aninteresting threadfrom the Mechanical
-Sympathy news group, especially given how multiple processors are now the
-norm:Ulysses:On an 8xCPU Linux instance,  is it at all advantageous to use the
-Linux taskset command to pin an 8xJVM process set (co-ordinated as a
-www.infinispan.org distributed cache/data grid) to a specific CPU affinity set
-(i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to
-CPU 7) vs. just letting the Linux OS use its default mechanism for
-provisioning the 8xJVM process set to the available CPUs?In effrort to seek an
-optimal point (in the full event space), what are the conceptual trade-offs in
-considering "searching" each permutation of provisioning an 8xJVM process set
-to an 8xCPU set via taskset?Giventaskset is they key to the question, it would
-help to have a definition:Used to set or retrieve the CPU affinity of a
-running process given its PID or to launch a new COMMAND with a given CPU
-affinity.  CPU affi</p><p>2 0.89247328 <a title="1536-lda-2" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
-<p>Introduction: Stardog makes a commercial graph database that is a great example of what can
-be accomplished with a scale-up strategy on BigIron. In a recent article
-StarDog described how they made their new 2.1 release insanely scalable,
-improving query scalability by about 3 orders of magnitude and it can now
-handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It
-can also load 20B datasets at 300,000 triples per second. What did they do
-that you can also do?Avoid locks by using non-blocking algorithms and data
-structures. For example, moving from BitSet to ConcurrentLinkedQueue.Use
-ThreadLocal aggressively to reduce thread contention and avoid
-synchronization.Batch LRU evictions in a single thread. Triggered by several
-LRU caches becoming problematic when evictions were being swamped by
-additions. Downside is batching increases memory pressure and GC times.Move to
-SHA1 for hashing URIs, bnodes, and literal values. Making hash collisions
-nearly impossible enable significant s</p><p>3 0.88823116 <a title="1536-lda-3" href="../high_scalability-2012/high_scalability-2012-09-15-4_Reasons_Facebook_Dumped_HTML5_and_Went_Native.html">1323 high scalability-2012-09-15-4 Reasons Facebook Dumped HTML5 and Went Native</a></p>
-<p>Introduction: Facebook made quite a splash when they released theirnative iOS app, not
-because of their app per se, but because of their conclusion that theirbiggest
-mistake was betting on HTML5, so they had to go native.As you might imagine
-this was a bit like telling a Great White Shark that its bark is worse than
-its bite.  Acommon refrainwas Facebook simply had made a bad HTML5 site, not
-that HTML5 itself is bad, as plenty of other vendors have made slick well
-performing mobile sites.An interesting and relevant conversation given the
-rising butt kickery of mobile. But we were lacking details. Now we aren't. If
-you were wondering just why Facebook ditched HTML5, Tobie Langel inPerf
-Feedback - What's slowing down Mobile Facebook, lists out the reasons:Tooling
-/ Developer APIs. Most importantly, the lack of tooling to track down memory
-problems. Scrolling performance.Scrolling must be fast and smooth and full
-featured. It's not.GPU.A clunky API and black box approach make it an
-unreliable accelerat</p><p>4 0.88325763 <a title="1536-lda-4" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
-<p>Introduction: Debugging complex problems is 90% persistence and 50% cool tools. Brendan
-Gregg in10 Performance Wins tells a fascinating story of how a team at Joyent
-solved some weird and challenging performance issues deep in the OS. It took
-lots of effort,DTrace, Flame Graphs,USE Method, and writing custom tools when
-necessary. Here's a quick summary of the solved cases:Monitoring. 1000x
-improvement. An application blocked while paging anonymous memory back in. It
-was also blocked during file system fsync() calls. The application was
-misconfigured and sometimes briefly exceeded available memory, getting page
-out.Riak. 2x improvement. The Erlang VM used half the CPU count it was
-supposed to, so CPUs remained unused.  Fix was a configuration change.MySQL.
-380x improvement. Reads were slow. Cause was correlated writes. Fix was to
-tune the cache flush interval on the storage controller.Various. 2800x
-improvement. Large systems calls to getvmusage() could take a few seconds.
-Cause was a priority invers</p><p>5 0.87992859 <a title="1536-lda-5" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
-<p>Introduction: Martin Thompson wrote a really interestingarticleon the beneficial performance
-impact of taking advantage of Processor Affinity:The interesting thing I've
-observed is that the unpinned test will follow a step function of
-unpredictable performance.  Across many runs I've seen different patterns but
-all similar in this step function nature.  For the pinned tests I get
-consistent throughput with no step pattern and always the greatest
-throughput.The idea is by assigning a thread to a particular CPU that when a
-thread is rescheduled to run on the same CPU, it can take advantage of the
-"accumulated  state in the processor, including instructions and data in the
-cache."  With multi-core chips the norm now, you may want to decide for
-yourself how to assign work to cores and not let the OS do it for you. The
-results are surprisingly strong.</p><p>6 0.87643832 <a title="1536-lda-6" href="../high_scalability-2009/high_scalability-2009-03-11-13_Screencasts_on_How_to_Scale_Rails.html">530 high scalability-2009-03-11-13 Screencasts on How to Scale Rails</a></p>
+<p>Introduction: This question comes from Ulysses on an  interesting thread  from the Mechanical Sympathy news group, especially given how multiple processors are now the norm:
+ 
+Ulysses:
+   
+ On an 8xCPU Linux instance,  is it at all advantageous to use the Linux taskset command to pin an 8xJVM process set (co-ordinated as a www.infinispan.org distributed cache/data grid) to a specific CPU affinity set  (i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to CPU 7) vs. just letting the Linux OS use its default mechanism for provisioning the 8xJVM process set to the available CPUs? 
+ In effrort to seek an optimal point (in the full event space), what are the conceptual trade-offs in considering "searching" each permutation of provisioning an 8xJVM process set to an 8xCPU set via taskset? 
+   
+Given  taskset  is they key to the question, it would help to have a definition:
+  
+
+Used to set or retrieve the CPU affinity of a running process given its PID or to launch a new COMMAND with</p><p>2 0.89247328 <a title="1536-lda-2" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
+<p>Introduction: Stardog  makes a commercial graph database that is a great example of what can be accomplished with a scale-up strategy on BigIron. In a  recent article  StarDog described how they made their new 2.1 release insanely scalable, improving query scalability by about 3 orders of magnitude and it can now handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It can also load 20B datasets at 300,000 triples per second. 
+ 
+What did they do that you can also do?
+  
+  Avoid locks by using non-blocking algorithms and data structures . For example, moving from BitSet to ConcurrentLinkedQueue. 
+  Use ThreadLocal aggressively to reduce thread contention and avoid synchronization . 
+  Batch LRU evictions in a single thread . Triggered by several LRU caches becoming problematic when evictions were being swamped by additions. Downside is batching increases memory pressure and GC times. 
+  Move to SHA1 for hashing URIs, bnodes, and literal values . Making hash collisions nearly imp</p><p>3 0.88823116 <a title="1536-lda-3" href="../high_scalability-2012/high_scalability-2012-09-15-4_Reasons_Facebook_Dumped_HTML5_and_Went_Native.html">1323 high scalability-2012-09-15-4 Reasons Facebook Dumped HTML5 and Went Native</a></p>
+<p>Introduction: Facebook made quite a splash when they released their  native iOS app , not because of their app per se, but because of their conclusion that their  biggest mistake was betting on HTML5 , so they had to go native.
+ 
+As you might imagine this was a bit like telling a Great White Shark that its bark is worse than its bite.  A  common refrain  was Facebook simply had made a bad HTML5 site, not that HTML5 itself is bad, as plenty of other vendors have made slick well performing mobile sites.
+ 
+An interesting and relevant conversation given the rising butt kickery of mobile. But we were lacking details. Now we aren't. If you were wondering just why Facebook ditched HTML5, Tobie Langel in  Perf Feedback - What's slowing down Mobile Facebook , lists out the reasons:
+  
+  Tooling / Developer APIs . Most importantly, the lack of tooling to track down memory problems.  
+  Scrolling performance.  Scrolling must be fast and smooth and full featured. It's not. 
+  GPU.  A clunky API and black box ap</p><p>4 0.88325763 <a title="1536-lda-4" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
+<p>Introduction: Debugging complex problems is 90% persistence and 50% cool tools. Brendan Gregg in  10 Performance Wins  tells a fascinating story of how a team at Joyent solved some weird and challenging performance issues deep in the OS. It took lots of effort,  DTrace ,  Flame Graphs ,  USE Method , and writing custom tools when necessary. Here's a quick summary of the solved cases:
+  
+  Monitoring. 1000x improvement . An application blocked while paging anonymous memory back in. It was also blocked during file system fsync() calls. The application was misconfigured and sometimes briefly exceeded available memory, getting page out. 
+  Riak. 2x improvement . The Erlang VM used half the CPU count it was supposed to, so CPUs remained unused.  Fix was a configuration change. 
+  MySQL. 380x improvement . Reads were slow. Cause was correlated writes. Fix was to tune the cache flush interval on the storage controller. 
+  Various. 2800x improvement . Large systems calls to getvmusage() could take a few sec</p><p>5 0.87992859 <a title="1536-lda-5" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
+<p>Introduction: Martin Thompson wrote a really interesting  article  on the beneficial performance impact of taking advantage of  Processor Affinity :
+  
+
+The interesting thing I've observed is that the unpinned test will follow a step function of unpredictable performance.  Across many runs I've seen different patterns but all similar in this step function nature.  For the pinned tests I get consistent throughput with no step pattern and always the greatest throughput.
+
+  
+The idea is by assigning a thread to a particular CPU that when a thread is rescheduled to run on the same CPU, it can take advantage of the "accumulated  state in the processor, including instructions and data in the cache."  With multi-core chips the norm now, you may want to decide for yourself how to assign work to cores and not let the OS do it for you. The results are surprisingly strong.</p><p>6 0.87643832 <a title="1536-lda-6" href="../high_scalability-2009/high_scalability-2009-03-11-13_Screencasts_on_How_to_Scale_Rails.html">530 high scalability-2009-03-11-13 Screencasts on How to Scale Rails</a></p>
 <p>7 0.8745594 <a title="1536-lda-7" href="../high_scalability-2009/high_scalability-2009-07-16-Scalable_Web_Architectures_and_Application_State.html">656 high scalability-2009-07-16-Scalable Web Architectures and Application State</a></p>
 <p>8 0.83803344 <a title="1536-lda-8" href="../high_scalability-2010/high_scalability-2010-06-30-Paper%3A_GraphLab%3A_A_New_Framework_For_Parallel_Machine_Learning.html">850 high scalability-2010-06-30-Paper: GraphLab: A New Framework For Parallel Machine Learning</a></p>
 <p>9 0.8152777 <a title="1536-lda-9" href="../high_scalability-2012/high_scalability-2012-07-11-FictionPress%3A_Publishing_6_Million_Works_of_Fiction_on_the_Web.html">1281 high scalability-2012-07-11-FictionPress: Publishing 6 Million Works of Fiction on the Web</a></p>

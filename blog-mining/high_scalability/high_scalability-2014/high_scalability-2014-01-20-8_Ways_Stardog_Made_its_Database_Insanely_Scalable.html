@@ -16,114 +16,73 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1582-html" href="http://highscalability.com//blog/2014/1/20/8-ways-stardog-made-its-database-insanely-scalable.html">html</a></p><p>Introduction: Stardog makes a commercial graph database that is a great example of what can
-be accomplished with a scale-up strategy on BigIron. In a recent article
-StarDog described how they made their new 2.1 release insanely scalable,
-improving query scalability by about 3 orders of magnitude and it can now
-handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It
-can also load 20B datasets at 300,000 triples per second. What did they do
-that you can also do?Avoid locks by using non-blocking algorithms and data
-structures. For example, moving from BitSet to ConcurrentLinkedQueue.Use
-ThreadLocal aggressively to reduce thread contention and avoid
-synchronization.Batch LRU evictions in a single thread. Triggered by several
-LRU caches becoming problematic when evictions were being swamped by
-additions. Downside is batching increases memory pressure and GC times.Move to
-SHA1 for hashing URIs, bnodes, and literal values. Making hash collisions
-nearly impossible enable significant s</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Stardog makes a commercial graph database that is a great example of what can be accomplished with a scale-up strategy on BigIron. [sent-1, score-0.222]
-</p><p>2 In a recent article StarDog described how they made their new 2. [sent-2, score-0.182]
-</p><p>3 1 release insanely scalable, improving query scalability by about 3 orders of magnitude and it can now handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. [sent-3, score-0.475]
-</p><p>4 It can also load 20B datasets at 300,000 triples per second. [sent-4, score-0.246]
-</p><p>5 Use ThreadLocal aggressively to reduce thread contention and avoid synchronization. [sent-8, score-0.239]
-</p><p>6 Triggered by several LRU caches becoming problematic when evictions were being swamped by additions. [sent-10, score-0.425]
-</p><p>7 Downside is batching increases memory pressure and GC times. [sent-11, score-0.337]
-</p><p>8 Move to SHA1 for hashing URIs, bnodes, and literal values. [sent-12, score-0.191]
-</p><p>9 Making hash collisions nearly impossible enable significant speedups and simplifies code. [sent-13, score-0.505]
-</p><p>10 The actual mechanism of the speedup was not described, but probably reduced random disk accesses due to collisions using the previous hash algorithm. [sent-14, score-0.537]
-</p><p>11 Move from mmap on the JVM (which is very bad) to an off-heap memory allocation scheme. [sent-15, score-0.367]
-</p><p>12 Benefit is a fine-grained control over disk flushes, more efficient available system memory usage, and is (roughly) as fast as memory mapping. [sent-16, score-0.447]
-</p><p>13 Reduce GC pauses by engineering the code to create fewer objects. [sent-17, score-0.271]
-</p><p>14 For example, use a StringBuilder object in a RDF parser rather than create a new one each time. [sent-18, score-0.09]
-</p><p>15 Reduce GC pauses by reducing the amount of cache use on the heap to relieve memory pressure. [sent-19, score-0.871]
-</p><p>16 Result is GC pauses are now taking 1% or less of the overall bulk loading time. [sent-20, score-0.401]
-</p><p>17 Need a large heap and a large heap kills you with garbage collection, so the solution is to manage memory by hand. [sent-22, score-0.873]
-</p><p>18 Also, the new memory manager performs some static analysis of the query using database statistics to guide its behavior. [sent-23, score-0.326]
-</p><p>19 A well written article with extended explanations that arewell worth reading. [sent-24, score-0.226]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1582-html" href="http://highscalability.com//blog/2014/1/20/8-ways-stardog-made-its-database-insanely-scalable.html">html</a></p><p>Introduction: Stardog  makes a commercial graph database that is a great example of what can be accomplished with a scale-up strategy on BigIron. In a  recent article  StarDog described how they made their new 2.1 release insanely scalable, improving query scalability by about 3 orders of magnitude and it can now handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It can also load 20B datasets at 300,000 triples per second. 
+ 
+What did they do that you can also do?
+  
+  Avoid locks by using non-blocking algorithms and data structures . For example, moving from BitSet to ConcurrentLinkedQueue. 
+  Use ThreadLocal aggressively to reduce thread contention and avoid synchronization . 
+  Batch LRU evictions in a single thread . Triggered by several LRU caches becoming problematic when evictions were being swamped by additions. Downside is batching increases memory pressure and GC times. 
+  Move to SHA1 for hashing URIs, bnodes, and literal values . Making hash collisions nearly imp</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Stardog  makes a commercial graph database that is a great example of what can be accomplished with a scale-up strategy on BigIron. [sent-1, score-0.222]
+</p><p>2 In a  recent article  StarDog described how they made their new 2. [sent-2, score-0.182]
+</p><p>3 1 release insanely scalable, improving query scalability by about 3 orders of magnitude and it can now handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. [sent-3, score-0.475]
+</p><p>4 It can also load 20B datasets at 300,000 triples per second. [sent-4, score-0.246]
+</p><p>5 Avoid locks by using non-blocking algorithms and data structures . [sent-6, score-0.06]
+</p><p>6 Use ThreadLocal aggressively to reduce thread contention and avoid synchronization . [sent-8, score-0.239]
+</p><p>7 Triggered by several LRU caches becoming problematic when evictions were being swamped by additions. [sent-10, score-0.425]
+</p><p>8 Downside is batching increases memory pressure and GC times. [sent-11, score-0.337]
+</p><p>9 Move to SHA1 for hashing URIs, bnodes, and literal values . [sent-12, score-0.191]
+</p><p>10 Making hash collisions nearly impossible enable significant speedups and simplifies code. [sent-13, score-0.505]
+</p><p>11 The actual mechanism of the speedup was not described, but probably reduced random disk accesses due to collisions using the previous hash algorithm. [sent-14, score-0.537]
+</p><p>12 Move from mmap on the JVM (which is very bad) to an off-heap memory allocation scheme . [sent-15, score-0.367]
+</p><p>13 Benefit is a fine-grained control over disk flushes, more efficient available system memory usage, and is (roughly) as fast as memory mapping. [sent-16, score-0.447]
+</p><p>14 Reduce GC pauses by engineering the code to create fewer objects . [sent-17, score-0.271]
+</p><p>15 For example, use a StringBuilder object in a RDF parser rather than create a new one each time. [sent-18, score-0.09]
+</p><p>16 Reduce GC pauses by reducing the amount of cache use on the heap to relieve memory pressure . [sent-19, score-0.934]
+</p><p>17 Result is GC pauses are now taking 1% or less of the overall bulk loading time. [sent-20, score-0.401]
+</p><p>18 Need a large heap and a large heap kills you with garbage collection, so the solution is to manage memory by hand. [sent-22, score-0.873]
+</p><p>19 Also, the new memory manager performs some static analysis of the query using database statistics to guide its behavior. [sent-23, score-0.326]
+</p><p>20 A well written article with extended explanations that are  well worth reading . [sent-24, score-0.226]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('heap', 0.302), ('gc', 0.299), ('stardog', 0.272), ('pauses', 0.271), ('triples', 0.246), ('evictions', 0.232), ('collisions', 0.206), ('memory', 0.192), ('lru', 0.175), ('literal', 0.123), ('threadlocal', 0.116), ('rdf', 0.116), ('described', 0.114), ('hash', 0.112), ('flushes', 0.106), ('uris', 0.106), ('mmap', 0.106), ('relieve', 0.106), ('swamped', 0.103), ('insanely', 0.098), ('speedups', 0.098), ('parser', 0.09), ('problematic', 0.09), ('simplifies', 0.089), ('avoid', 0.086), ('triggered', 0.085), ('explanations', 0.085), ('batching', 0.082), ('speedup', 0.081), ('accomplished', 0.079), ('aggressively', 0.078), ('example', 0.078), ('kills', 0.077), ('reduce', 0.075), ('accesses', 0.075), ('extended', 0.073), ('query', 0.071), ('downside', 0.07), ('allocation', 0.069), ('hashing', 0.068), ('article', 0.068), ('loading', 0.067), ('commercial', 0.065), ('pressure', 0.063), ('disk', 0.063), ('performs', 0.063), ('bulk', 0.063), ('roughly', 0.061), ('locks', 0.06), ('improving', 0.06)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="1582-tfidf-1" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
-<p>Introduction: Stardog makes a commercial graph database that is a great example of what can
-be accomplished with a scale-up strategy on BigIron. In a recent article
-StarDog described how they made their new 2.1 release insanely scalable,
-improving query scalability by about 3 orders of magnitude and it can now
-handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It
-can also load 20B datasets at 300,000 triples per second. What did they do
-that you can also do?Avoid locks by using non-blocking algorithms and data
-structures. For example, moving from BitSet to ConcurrentLinkedQueue.Use
-ThreadLocal aggressively to reduce thread contention and avoid
-synchronization.Batch LRU evictions in a single thread. Triggered by several
-LRU caches becoming problematic when evictions were being swamped by
-additions. Downside is batching increases memory pressure and GC times.Move to
-SHA1 for hashing URIs, bnodes, and literal values. Making hash collisions
-nearly impossible enable significant s</p><p>2 0.23947179 <a title="1582-tfidf-2" href="../high_scalability-2011/high_scalability-2011-09-19-Big_Iron_Returns_with_BigMemory.html">1118 high scalability-2011-09-19-Big Iron Returns with BigMemory</a></p>
-<p>Introduction: This is a guest post by Greg Luck Founder and CTO,EhcacheTerracotta Inc.Note:
-this article contains a bit too much of a product pitch, but the points are
-still generally valid and useful.The legendary Moore's Law, which states that
-the number of transistors that can be placed inexpensively on an integrated
-circuit doubles approximately every two years, has held true since 1965. It
-follows that integrated circuits will continue to get smaller, with chip
-fabrication currently at a minuscule 22nm process (1). Users of big iron
-hardware, or servers that are dense in terms of CPU power and memory capacity,
-benefit from this trend as their hardware becomes cheaper and more powerful
-over time. At some point soon, however, density limits imposed by quantum
-mechanics will preclude further density increases.At the same time, low-cost
-commodity hardware influences enterprise architects to scale their
-applications horizontally, where processing is spread across clusters of low-
-cost commodity serv</p><p>3 0.20672441 <a title="1582-tfidf-3" href="../high_scalability-2013/high_scalability-2013-11-20-How_Twitter_Improved_JVM_Performance_by_Reducing_GC_and_Faster_Memory_Allocation.html">1551 high scalability-2013-11-20-How Twitter Improved JVM Performance by Reducing GC and Faster Memory Allocation</a></p>
-<p>Introduction: Nettyis a high-performance NIO(New IO) client server framework for Java that
-Twitter uses internally as a protocol agonostic RPC system. Twitterfound some
-problemswith Netty 3's memory management for buffer allocations beacause it
-generated a lot of garbage during operation. When you send as many messages as
-Twitter it creates a lot of GC pressure and the simple act of zero filling
-newly allocated buffers consumed 50% of memory bandwidth. Netty 4 fixes this
-situation with:Short-lived event objects, methods on long-lived channel
-objects are used to handle I/O events.Secialized buffer allocator that uses
-pool which implementsbuddy memory allocationandslab allocation.The result:5
-times less frequent GC pauses: 45.5 vs. 9.2 times/min5 times less garbage
-production: 207.11 vs 41.81 MiB/sThe buffer pool is much faster than JVM as
-the size of the buffer increases. Some problems with smaller buffers.Given how
-many services use the JVM in their messaging infrastructure and how many
-services hav</p><p>4 0.17192572 <a title="1582-tfidf-4" href="../high_scalability-2012/high_scalability-2012-04-03-Hazelcast_2.0%3A_Big_Data_In-Memory.html">1221 high scalability-2012-04-03-Hazelcast 2.0: Big Data In-Memory</a></p>
-<p>Introduction: As it is said in the recent article"Google: Taming the Long Latency Tail -
-When More Machines Equals Worse Results" , latency variability has greater
-impact in larger scale clusters where a typical request is composed of
-multiple distributed/parallel requests. The overall response time dramatically
-decreases if latency of each request is not consistent and low. In dynamically
-scalable partitioned storage systems, whether it is a NoSQL database,
-filesystem or in-memory data grid, changes in the cluster (adding or removing
-a node) can lead to big data moves in the network to re-balance the cluster.
-Re-balancing will be needed for both primary and backup data on those nodes.
-If a node crashes for example, dead node's data has to be re-owned (become
-primary) by other node(s) and also its backup has to be taken immediately to
-be fail-safe again. Shuffling MBs of data around has a negative effect in the
-cluster as it consumes your valuable resources such as network, CPU and RAM.
-It might als</p><p>5 0.11458705 <a title="1582-tfidf-5" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
-<p>Introduction: We are on the edge of two potent technological changes: Clouds and Memory
-Based Architectures. This evolution will rip open a chasm where new players
-can enter and prosper. Google is the master of disk. You can't beat them at a
-game they perfected. Disk based databases like SimpleDB and BigTable are
-complicated beasts, typical last gasp products of any aging technology before
-a change. The next era is the age of Memory and Cloud which will allow for new
-players to succeed. The tipping point will be soon.Let's take a short trip
-down web architecture lane:It's 1993: Yahoo runs on FreeBSD, Apache, Perl
-scripts and a SQL databaseIt's 1995: Scale-up the database.It's 1998: LAMPIt's
-1999: Stateless + Load Balanced + Database + SANIt's 2001: In-memory data-
-grid.It's 2003: Add a caching layer.It's 2004: Add scale-out and
-partitioning.It's 2005: Add asynchronous job scheduling and maybe a
-distributed file system.It's 2007: Move it all into the cloud.It's 2008: Cloud
-+ web scalable database.It'</p><p>6 0.10965931 <a title="1582-tfidf-6" href="../high_scalability-2012/high_scalability-2012-01-12-Peregrine_-_A_Map_Reduce_Framework_for_Iterative_and_Pipelined_Jobs.html">1173 high scalability-2012-01-12-Peregrine - A Map Reduce Framework for Iterative and Pipelined Jobs</a></p>
+<p>Introduction: Stardog  makes a commercial graph database that is a great example of what can be accomplished with a scale-up strategy on BigIron. In a  recent article  StarDog described how they made their new 2.1 release insanely scalable, improving query scalability by about 3 orders of magnitude and it can now handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It can also load 20B datasets at 300,000 triples per second. 
+ 
+What did they do that you can also do?
+  
+  Avoid locks by using non-blocking algorithms and data structures . For example, moving from BitSet to ConcurrentLinkedQueue. 
+  Use ThreadLocal aggressively to reduce thread contention and avoid synchronization . 
+  Batch LRU evictions in a single thread . Triggered by several LRU caches becoming problematic when evictions were being swamped by additions. Downside is batching increases memory pressure and GC times. 
+  Move to SHA1 for hashing URIs, bnodes, and literal values . Making hash collisions nearly imp</p><p>2 0.23947179 <a title="1582-tfidf-2" href="../high_scalability-2011/high_scalability-2011-09-19-Big_Iron_Returns_with_BigMemory.html">1118 high scalability-2011-09-19-Big Iron Returns with BigMemory</a></p>
+<p>Introduction: This is a guest post by Greg Luck Founder and CTO,  Ehcache  Terracotta Inc.  Note: this article contains a bit too much of a product pitch, but the points are still generally valid and useful.
+ 
+The legendary Moore’s Law, which  states that the number of transistors that can be placed inexpensively  on an integrated circuit doubles approximately every two years, has  held true since 1965. It follows that integrated circuits will continue  to get smaller, with chip fabrication currently at a minuscule 22nm  process (1). Users of big iron hardware, or servers that  are dense in terms of CPU power and memory capacity, benefit from this  trend as their hardware becomes cheaper and more powerful over time.  At some point soon, however, density limits imposed by quantum mechanics  will preclude further density increases.
+ 
+At the same time, low-cost commodity  hardware influences enterprise architects to scale their applications  horizontally, where processing is spread across clusters of l</p><p>3 0.20672441 <a title="1582-tfidf-3" href="../high_scalability-2013/high_scalability-2013-11-20-How_Twitter_Improved_JVM_Performance_by_Reducing_GC_and_Faster_Memory_Allocation.html">1551 high scalability-2013-11-20-How Twitter Improved JVM Performance by Reducing GC and Faster Memory Allocation</a></p>
+<p>Introduction: Netty  is a high-performance  NIO  (New IO) client server framework for Java that Twitter uses internally as a protocol agonostic RPC system. Twitter  found some problems  with Netty 3's memory management for buffer allocations beacause it generated a lot of garbage during operation. When you send as many messages as Twitter it creates a lot of GC pressure and the simple act of zero filling newly allocated buffers consumed 50% of memory bandwidth. 
+ 
+Netty 4 fixes this situation with:
+  
+ Short-lived event objects, methods on long-lived channel objects are used to handle I/O events. 
+ Secialized buffer allocator that uses pool which implements  buddy memory allocation  and  slab allocation . 
+  
+The result:
+  
+ 
+ 5 times less frequent GC pauses: 45.5 vs. 9.2 times/min 
+ 5 times less garbage production: 207.11 vs 41.81 MiB/s 
+ The buffer pool is much faster than JVM as the size of the buffer increases. Some problems with smaller buffers. 
+ 
+  
+Given how many services use the JVM in thei</p><p>4 0.17192572 <a title="1582-tfidf-4" href="../high_scalability-2012/high_scalability-2012-04-03-Hazelcast_2.0%3A_Big_Data_In-Memory.html">1221 high scalability-2012-04-03-Hazelcast 2.0: Big Data In-Memory</a></p>
+<p>Introduction: As it is said in the recent article  "Google: Taming the Long Latency Tail - When More Machines Equals Worse Results"  , latency variability has greater impact in larger scale clusters where a typical request is composed of multiple distributed/parallel requests. The overall response time dramatically decreases if latency of each request is not consistent and low. 
+ 
+In dynamically scalable partitioned storage systems, whether it is a NoSQL database, filesystem or in-memory data grid, changes in the cluster (adding or removing a node) can lead to big data moves in the network to re-balance the cluster. Re-balancing will be needed for both primary and backup data on those nodes. If a node crashes for example, dead node’s data has to be re-owned (become primary) by other node(s) and also its backup has to be taken immediately to be fail-safe again. Shuffling MBs of data around has a negative effect in the cluster as it consumes your valuable resources such as network, CPU and RAM. It mig</p><p>5 0.11458705 <a title="1582-tfidf-5" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
+<p>Introduction: We are on the edge of two potent technological changes: Clouds and Memory Based Architectures. This evolution will rip open a chasm where new players can enter and prosper. Google is the master of disk. You can't beat them at a game they perfected. Disk based databases like SimpleDB and BigTable are complicated beasts, typical last gasp products of any aging technology before a change. The next era is the age of Memory and Cloud which will allow for new players to succeed. The tipping point will be soon.   Let's take a short trip down web architecture lane:
+  It's 1993: Yahoo runs on FreeBSD, Apache, Perl scripts and a SQL database   It's 1995: Scale-up the database.   It's 1998: LAMP   It's 1999: Stateless + Load Balanced + Database + SAN   It's 2001: In-memory data-grid.   It's 2003: Add a caching layer.   It's 2004: Add scale-out and partitioning.   It's 2005: Add asynchronous job scheduling and maybe a distributed file system.   It's 2007: Move it all into the cloud.   It's 2008: C</p><p>6 0.10965931 <a title="1582-tfidf-6" href="../high_scalability-2012/high_scalability-2012-01-12-Peregrine_-_A_Map_Reduce_Framework_for_Iterative_and_Pipelined_Jobs.html">1173 high scalability-2012-01-12-Peregrine - A Map Reduce Framework for Iterative and Pipelined Jobs</a></p>
 <p>7 0.10829823 <a title="1582-tfidf-7" href="../high_scalability-2014/high_scalability-2014-03-20-Paper%3A_Log-structured_Memory_for_DRAM-based_Storage_-_High_Memory_Utilization_Plus_High_Performance.html">1616 high scalability-2014-03-20-Paper: Log-structured Memory for DRAM-based Storage - High Memory Utilization Plus High Performance</a></p>
 <p>8 0.10394989 <a title="1582-tfidf-8" href="../high_scalability-2011/high_scalability-2011-05-11-Troubleshooting_response_time_problems_%E2%80%93_why_you_cannot_trust_your_system_metrics.html">1038 high scalability-2011-05-11-Troubleshooting response time problems – why you cannot trust your system metrics</a></p>
 <p>9 0.10171972 <a title="1582-tfidf-9" href="../high_scalability-2014/high_scalability-2014-05-21-9_Principles_of_High_Performance_Programs.html">1652 high scalability-2014-05-21-9 Principles of High Performance Programs</a></p>
@@ -143,76 +102,62 @@ distributed file system.It's 2007: Move it all into the cloud.It's 2008: Cloud
 <p>[(0, 0.115), (1, 0.092), (2, -0.016), (3, -0.016), (4, -0.017), (5, 0.079), (6, 0.068), (7, 0.046), (8, -0.085), (9, 0.022), (10, 0.007), (11, -0.07), (12, 0.044), (13, 0.012), (14, -0.1), (15, -0.044), (16, 0.001), (17, 0.01), (18, 0.018), (19, 0.006), (20, -0.059), (21, -0.018), (22, 0.028), (23, 0.062), (24, -0.016), (25, 0.001), (26, 0.002), (27, -0.082), (28, 0.009), (29, 0.011), (30, 0.016), (31, -0.01), (32, 0.024), (33, -0.05), (34, -0.049), (35, 0.04), (36, -0.012), (37, 0.04), (38, -0.023), (39, 0.003), (40, 0.036), (41, 0.032), (42, 0.059), (43, 0.056), (44, -0.027), (45, 0.016), (46, 0.073), (47, 0.006), (48, 0.06), (49, 0.015)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96482277 <a title="1582-lsi-1" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
-<p>Introduction: Stardog makes a commercial graph database that is a great example of what can
-be accomplished with a scale-up strategy on BigIron. In a recent article
-StarDog described how they made their new 2.1 release insanely scalable,
-improving query scalability by about 3 orders of magnitude and it can now
-handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It
-can also load 20B datasets at 300,000 triples per second. What did they do
-that you can also do?Avoid locks by using non-blocking algorithms and data
-structures. For example, moving from BitSet to ConcurrentLinkedQueue.Use
-ThreadLocal aggressively to reduce thread contention and avoid
-synchronization.Batch LRU evictions in a single thread. Triggered by several
-LRU caches becoming problematic when evictions were being swamped by
-additions. Downside is batching increases memory pressure and GC times.Move to
-SHA1 for hashing URIs, bnodes, and literal values. Making hash collisions
-nearly impossible enable significant s</p><p>2 0.83473474 <a title="1582-lsi-2" href="../high_scalability-2014/high_scalability-2014-03-20-Paper%3A_Log-structured_Memory_for_DRAM-based_Storage_-_High_Memory_Utilization_Plus_High_Performance.html">1616 high scalability-2014-03-20-Paper: Log-structured Memory for DRAM-based Storage - High Memory Utilization Plus High Performance</a></p>
-<p>Introduction: Most every programmer who gets sucked into deep performance analysis for long
-running processes eventually realizes memory allocation is the heart of evil
-at the center of many of their problems. So you replace malloc with something
-less worse. Or you tune your garbage collector like a fine ukulele. But
-there's a smarter approach brought to you from the folks atRAMCloud, a
-Stanford University production, which is a large scale, distributed, in-memory
-key-value database.What they've found is that typical memory management
-approaches don't work and using a log structured approach yields massive
-benefits:Performance measurements of log-structured memory in RAMCloud show
-that it enables high client through- put at 80-90% memory utilization, even
-with artificially stressful workloads. In the most stressful workload, a
-single RAMCloud server can support 270,000-410,000 durable 100-byte writes per
-second at 90% memory utilization. The two-level approach to cleaning improves
-performance by up</p><p>3 0.83436042 <a title="1582-lsi-3" href="../high_scalability-2013/high_scalability-2013-06-06-Paper%3A_Memory_Barriers%3A_a_Hardware_View_for_Software_Hackers.html">1471 high scalability-2013-06-06-Paper: Memory Barriers: a Hardware View for Software Hackers</a></p>
-<p>Introduction: It's not often you get so enthusiastic a recommendation for a paper as Sergio
-Bossa gives Memory Barriers: a Hardware View for Software Hackers: If you only
-want to read one piece about CPUs architecture, cache coherency and memory
-barriers, make it this one.It is a clear and well written article. It even has
-a quiz. What's it about?So what possessed CPU designers to cause them to
-inﬂict memory barriers on poor unsuspecting SMP software designers?In short,
-because reordering memory references allows much better performance, and so
-memory barriers are needed to force ordering in things like synchronization
-primitives whose correct operation depends on ordered memory
-references.Getting a more detailed answer to this question requires a good
-understanding of how CPU caches work, and especially what is required to make
-caches really work well. The following sections:present the structure of a
-cache,describe how cache-coherency protocols ensure that CPUs agree on the
-value of each location</p><p>4 0.83361357 <a title="1582-lsi-4" href="../high_scalability-2013/high_scalability-2013-11-20-How_Twitter_Improved_JVM_Performance_by_Reducing_GC_and_Faster_Memory_Allocation.html">1551 high scalability-2013-11-20-How Twitter Improved JVM Performance by Reducing GC and Faster Memory Allocation</a></p>
-<p>Introduction: Nettyis a high-performance NIO(New IO) client server framework for Java that
-Twitter uses internally as a protocol agonostic RPC system. Twitterfound some
-problemswith Netty 3's memory management for buffer allocations beacause it
-generated a lot of garbage during operation. When you send as many messages as
-Twitter it creates a lot of GC pressure and the simple act of zero filling
-newly allocated buffers consumed 50% of memory bandwidth. Netty 4 fixes this
-situation with:Short-lived event objects, methods on long-lived channel
-objects are used to handle I/O events.Secialized buffer allocator that uses
-pool which implementsbuddy memory allocationandslab allocation.The result:5
-times less frequent GC pauses: 45.5 vs. 9.2 times/min5 times less garbage
-production: 207.11 vs 41.81 MiB/sThe buffer pool is much faster than JVM as
-the size of the buffer increases. Some problems with smaller buffers.Given how
-many services use the JVM in their messaging infrastructure and how many
-services hav</p><p>5 0.80506206 <a title="1582-lsi-5" href="../high_scalability-2014/high_scalability-2014-05-21-9_Principles_of_High_Performance_Programs.html">1652 high scalability-2014-05-21-9 Principles of High Performance Programs</a></p>
-<p>Introduction: Arvid Norbergon thelibtorrent bloghas put together an excellent list
-ofprinciples of high performance programs, obviously derived from hard won
-experience programming on bittorrent:Two fundamental causes of performance
-problems:Memory Latency. A big performance problem on modern computers is the
-latency of SDRAM. The CPU waits idle for a read from memory to come
-back.Context Switching. When a CPU switches context "the memory it will access
-is most likely unrelated to the memory the previous context was accessing.
-This often results in significant eviction of the previous cache, and requires
-the switched-to context to load much of its data from RAM, which is
-slow."Rules to help balance the forces of evil:Batch work. Avoid context
-switching by batching work. For example, there are vector versions of system
-calls like writev() and readv() that operate on more than one item per call.
-An implication is that you want to merge as many writes as possible.Avoid
-Magic Numbers. They don't scale.</p><p>6 0.79164451 <a title="1582-lsi-6" href="../high_scalability-2011/high_scalability-2011-09-19-Big_Iron_Returns_with_BigMemory.html">1118 high scalability-2011-09-19-Big Iron Returns with BigMemory</a></p>
+<p>Introduction: Stardog  makes a commercial graph database that is a great example of what can be accomplished with a scale-up strategy on BigIron. In a  recent article  StarDog described how they made their new 2.1 release insanely scalable, improving query scalability by about 3 orders of magnitude and it can now handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It can also load 20B datasets at 300,000 triples per second. 
+ 
+What did they do that you can also do?
+  
+  Avoid locks by using non-blocking algorithms and data structures . For example, moving from BitSet to ConcurrentLinkedQueue. 
+  Use ThreadLocal aggressively to reduce thread contention and avoid synchronization . 
+  Batch LRU evictions in a single thread . Triggered by several LRU caches becoming problematic when evictions were being swamped by additions. Downside is batching increases memory pressure and GC times. 
+  Move to SHA1 for hashing URIs, bnodes, and literal values . Making hash collisions nearly imp</p><p>2 0.83473474 <a title="1582-lsi-2" href="../high_scalability-2014/high_scalability-2014-03-20-Paper%3A_Log-structured_Memory_for_DRAM-based_Storage_-_High_Memory_Utilization_Plus_High_Performance.html">1616 high scalability-2014-03-20-Paper: Log-structured Memory for DRAM-based Storage - High Memory Utilization Plus High Performance</a></p>
+<p>Introduction: Most every programmer who gets sucked into deep performance analysis for long running processes eventually realizes memory allocation is the heart of evil at the center of many of their problems. So you replace malloc with something less worse. Or you tune your garbage collector like a fineÂ ukulele. But there's a smarter approach brought to you from the folks at  RAMCloud , a Stanford University production, which is a large scale, distributed, in-memory key-value database.
+ 
+What they've found is that typical memory management approaches don't work and using a log structured approach yields massive benefits:
+  
+
+Performance measurements of log-structured memory in RAMCloud show that it enables high client through- put at 80-90% memory utilization, even with artificially stressful workloads. In the most stressful workload, a single RAMCloud server can support 270,000-410,000 durable 100-byte writes per second at 90% memory utilization. The two-level approach to cleaning improves perform</p><p>3 0.83436042 <a title="1582-lsi-3" href="../high_scalability-2013/high_scalability-2013-06-06-Paper%3A_Memory_Barriers%3A_a_Hardware_View_for_Software_Hackers.html">1471 high scalability-2013-06-06-Paper: Memory Barriers: a Hardware View for Software Hackers</a></p>
+<p>Introduction: It's not often you get so enthusiastic a recommendation for a paper as  Sergio Bossa  gives  Memory Barriers: a Hardware View for Software Hackers : If you only want to read one piece about CPUs architecture, cache coherency and memory barriers, make it this one.
+ 
+It is a clear and well written article. It even has a quiz. What's it about?
+  
+
+So what possessed CPU designers to cause them to inﬂict memory barriers on poor unsuspecting SMP software designers?
+
+
+In short, because reordering memory references allows much better performance, and so memory barriers are needed to force ordering in things like synchronization primitives whose correct operation depends on ordered memory references.
+
+
+Getting a more detailed answer to this question requires a good understanding of how CPU caches work, and especially what is required to make caches really work well. The following sections:
+
+ 
+ present the structure of a cache, 
+ describe how cache-coherency protocols ensure that CPUs agree on t</p><p>4 0.83361357 <a title="1582-lsi-4" href="../high_scalability-2013/high_scalability-2013-11-20-How_Twitter_Improved_JVM_Performance_by_Reducing_GC_and_Faster_Memory_Allocation.html">1551 high scalability-2013-11-20-How Twitter Improved JVM Performance by Reducing GC and Faster Memory Allocation</a></p>
+<p>Introduction: Netty  is a high-performance  NIO  (New IO) client server framework for Java that Twitter uses internally as a protocol agonostic RPC system. Twitter  found some problems  with Netty 3's memory management for buffer allocations beacause it generated a lot of garbage during operation. When you send as many messages as Twitter it creates a lot of GC pressure and the simple act of zero filling newly allocated buffers consumed 50% of memory bandwidth. 
+ 
+Netty 4 fixes this situation with:
+  
+ Short-lived event objects, methods on long-lived channel objects are used to handle I/O events. 
+ Secialized buffer allocator that uses pool which implements  buddy memory allocation  and  slab allocation . 
+  
+The result:
+  
+ 
+ 5 times less frequent GC pauses: 45.5 vs. 9.2 times/min 
+ 5 times less garbage production: 207.11 vs 41.81 MiB/s 
+ The buffer pool is much faster than JVM as the size of the buffer increases. Some problems with smaller buffers. 
+ 
+  
+Given how many services use the JVM in thei</p><p>5 0.80506206 <a title="1582-lsi-5" href="../high_scalability-2014/high_scalability-2014-05-21-9_Principles_of_High_Performance_Programs.html">1652 high scalability-2014-05-21-9 Principles of High Performance Programs</a></p>
+<p>Introduction: Arvid Norberg  on the  libtorrent blog  has put together an excellent list of  principles of high performance programs , obviously derived from hard won experience programming on bittorrent:
+ 
+Two fundamental causes of performance problems:
+  
+  Memory Latency . A big performance problem on modern computers is the latency of SDRAM. The CPU waits idle for a read from memory to come back. 
+  Context Switching . When a CPU switches context "the memory it will access is most likely unrelated to the memory the previous context was accessing. This often results in significant eviction of the previous cache, and  requires the switched-to context to load much of its data from RAM,  which is slow." 
+  
+Rules to help balance the forces of evil:
+  
+  Batch work . Avoid context switching by batching work. For example, there are vector versions of system calls like writev() and readv() that operate on more than one item per call. An implication is that you want to merge as many writes as possible.</p><p>6 0.79164451 <a title="1582-lsi-6" href="../high_scalability-2011/high_scalability-2011-09-19-Big_Iron_Returns_with_BigMemory.html">1118 high scalability-2011-09-19-Big Iron Returns with BigMemory</a></p>
 <p>7 0.77151281 <a title="1582-lsi-7" href="../high_scalability-2007/high_scalability-2007-09-15-The_Role_of_Memory_within_Web_2.0_Architectures_and_Deployments.html">92 high scalability-2007-09-15-The Role of Memory within Web 2.0 Architectures and Deployments</a></p>
 <p>8 0.73702049 <a title="1582-lsi-8" href="../high_scalability-2011/high_scalability-2011-03-14-6_Lessons_from_Dropbox_-_One_Million_Files_Saved_Every_15_minutes.html">1003 high scalability-2011-03-14-6 Lessons from Dropbox - One Million Files Saved Every 15 minutes</a></p>
 <p>9 0.72684461 <a title="1582-lsi-9" href="../high_scalability-2012/high_scalability-2012-05-16-Big_List_of_20_Common_Bottlenecks.html">1246 high scalability-2012-05-16-Big List of 20 Common Bottlenecks</a></p>
@@ -232,58 +177,36 @@ Magic Numbers. They don't scale.</p><p>6 0.79164451 <a title="1582-lsi-6" href="
 <p>[(1, 0.082), (2, 0.193), (10, 0.022), (30, 0.032), (40, 0.015), (43, 0.013), (47, 0.019), (59, 0.321), (61, 0.021), (79, 0.077), (94, 0.116)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.84368271 <a title="1582-lda-1" href="../high_scalability-2009/high_scalability-2009-03-11-13_Screencasts_on_How_to_Scale_Rails.html">530 high scalability-2009-03-11-13 Screencasts on How to Scale Rails</a></p>
-<p>Introduction: Gregg Pollack has made 13 screen casts on how to scale rails:Episode #1 - Page
-ResponsivenessEpisode #2 - Page CachingEpisode #3 - Cache ExpirationEpisode #4
-- New Relic RPMEpisode #5 - Advanced Page CachingEpisode #6 - Action
-CachingEpisode #7 - Fragment CachingEpisode #8 - MemcachedEpisode #9 - Taylor
-Weibley & DatabasesEpisode #10 - Client-side CachingEpisode #11 - Advanced
-HTTP CachingEpisode #12 - Jesse Newland & DeploymentEpisode #13 - Jim Gochee &
-Advanced RPMFor a good InfoQ interview with Greg take a look atGregg Pollack
-and the How-To of Scaling Rails.</p><p>2 0.84012604 <a title="1582-lda-2" href="../high_scalability-2009/high_scalability-2009-07-16-Scalable_Web_Architectures_and_Application_State.html">656 high scalability-2009-07-16-Scalable Web Architectures and Application State</a></p>
-<p>Introduction: In this article we follow a hypothetical programmer, Damian, on his quest to
-make his web application scalable.Read the full article on Bytepawn</p><p>same-blog 3 0.83673269 <a title="1582-lda-3" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
-<p>Introduction: Stardog makes a commercial graph database that is a great example of what can
-be accomplished with a scale-up strategy on BigIron. In a recent article
-StarDog described how they made their new 2.1 release insanely scalable,
-improving query scalability by about 3 orders of magnitude and it can now
-handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It
-can also load 20B datasets at 300,000 triples per second. What did they do
-that you can also do?Avoid locks by using non-blocking algorithms and data
-structures. For example, moving from BitSet to ConcurrentLinkedQueue.Use
-ThreadLocal aggressively to reduce thread contention and avoid
-synchronization.Batch LRU evictions in a single thread. Triggered by several
-LRU caches becoming problematic when evictions were being swamped by
-additions. Downside is batching increases memory pressure and GC times.Move to
-SHA1 for hashing URIs, bnodes, and literal values. Making hash collisions
-nearly impossible enable significant s</p><p>4 0.81635559 <a title="1582-lda-4" href="../high_scalability-2012/high_scalability-2012-09-15-4_Reasons_Facebook_Dumped_HTML5_and_Went_Native.html">1323 high scalability-2012-09-15-4 Reasons Facebook Dumped HTML5 and Went Native</a></p>
-<p>Introduction: Facebook made quite a splash when they released theirnative iOS app, not
-because of their app per se, but because of their conclusion that theirbiggest
-mistake was betting on HTML5, so they had to go native.As you might imagine
-this was a bit like telling a Great White Shark that its bark is worse than
-its bite.  Acommon refrainwas Facebook simply had made a bad HTML5 site, not
-that HTML5 itself is bad, as plenty of other vendors have made slick well
-performing mobile sites.An interesting and relevant conversation given the
-rising butt kickery of mobile. But we were lacking details. Now we aren't. If
-you were wondering just why Facebook ditched HTML5, Tobie Langel inPerf
-Feedback - What's slowing down Mobile Facebook, lists out the reasons:Tooling
-/ Developer APIs. Most importantly, the lack of tooling to track down memory
-problems. Scrolling performance.Scrolling must be fast and smooth and full
-featured. It's not.GPU.A clunky API and black box approach make it an
-unreliable accelerat</p><p>5 0.78254968 <a title="1582-lda-5" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
-<p>Introduction: This question comes from Ulysses on aninteresting threadfrom the Mechanical
-Sympathy news group, especially given how multiple processors are now the
-norm:Ulysses:On an 8xCPU Linux instance,  is it at all advantageous to use the
-Linux taskset command to pin an 8xJVM process set (co-ordinated as a
-www.infinispan.org distributed cache/data grid) to a specific CPU affinity set
-(i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to
-CPU 7) vs. just letting the Linux OS use its default mechanism for
-provisioning the 8xJVM process set to the available CPUs?In effrort to seek an
-optimal point (in the full event space), what are the conceptual trade-offs in
-considering "searching" each permutation of provisioning an 8xJVM process set
-to an 8xCPU set via taskset?Giventaskset is they key to the question, it would
-help to have a definition:Used to set or retrieve the CPU affinity of a
-running process given its PID or to launch a new COMMAND with a given CPU
-affinity.  CPU affi</p><p>6 0.7821483 <a title="1582-lda-6" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
+<p>Introduction: Gregg Pollack has made 13 screen casts on how to scale rails:    Episode #1 - Page Responsiveness  Episode #2 - Page Caching    Episode #3 - Cache Expiration    Episode #4 - New Relic RPM   Episode #5 - Advanced Page Caching   Episode #6 - Action Caching    Episode #7 - Fragment Caching   Episode #8 - Memcached    Episode #9 - Taylor Weibley & Databases    Episode #10 - Client-side Caching    Episode #11 - Advanced HTTP Caching    Episode #12 - Jesse Newland & Deployment   Episode #13 - Jim Gochee & Advanced RPM  For a good InfoQ interview with Greg take a look at  Gregg Pollack and the How-To of Scaling Rails .</p><p>2 0.84012604 <a title="1582-lda-2" href="../high_scalability-2009/high_scalability-2009-07-16-Scalable_Web_Architectures_and_Application_State.html">656 high scalability-2009-07-16-Scalable Web Architectures and Application State</a></p>
+<p>Introduction: In this article we follow a hypothetical programmer, Damian, on his quest to make his web application scalable.    Read the full article on Bytepawn</p><p>same-blog 3 0.83673269 <a title="1582-lda-3" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
+<p>Introduction: Stardog  makes a commercial graph database that is a great example of what can be accomplished with a scale-up strategy on BigIron. In a  recent article  StarDog described how they made their new 2.1 release insanely scalable, improving query scalability by about 3 orders of magnitude and it can now handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It can also load 20B datasets at 300,000 triples per second. 
+ 
+What did they do that you can also do?
+  
+  Avoid locks by using non-blocking algorithms and data structures . For example, moving from BitSet to ConcurrentLinkedQueue. 
+  Use ThreadLocal aggressively to reduce thread contention and avoid synchronization . 
+  Batch LRU evictions in a single thread . Triggered by several LRU caches becoming problematic when evictions were being swamped by additions. Downside is batching increases memory pressure and GC times. 
+  Move to SHA1 for hashing URIs, bnodes, and literal values . Making hash collisions nearly imp</p><p>4 0.81635559 <a title="1582-lda-4" href="../high_scalability-2012/high_scalability-2012-09-15-4_Reasons_Facebook_Dumped_HTML5_and_Went_Native.html">1323 high scalability-2012-09-15-4 Reasons Facebook Dumped HTML5 and Went Native</a></p>
+<p>Introduction: Facebook made quite a splash when they released their  native iOS app , not because of their app per se, but because of their conclusion that their  biggest mistake was betting on HTML5 , so they had to go native.
+ 
+As you might imagine this was a bit like telling a Great White Shark that its bark is worse than its bite.  A  common refrain  was Facebook simply had made a bad HTML5 site, not that HTML5 itself is bad, as plenty of other vendors have made slick well performing mobile sites.
+ 
+An interesting and relevant conversation given the rising butt kickery of mobile. But we were lacking details. Now we aren't. If you were wondering just why Facebook ditched HTML5, Tobie Langel in  Perf Feedback - What's slowing down Mobile Facebook , lists out the reasons:
+  
+  Tooling / Developer APIs . Most importantly, the lack of tooling to track down memory problems.  
+  Scrolling performance.  Scrolling must be fast and smooth and full featured. It's not. 
+  GPU.  A clunky API and black box ap</p><p>5 0.78254968 <a title="1582-lda-5" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
+<p>Introduction: This question comes from Ulysses on an  interesting thread  from the Mechanical Sympathy news group, especially given how multiple processors are now the norm:
+ 
+Ulysses:
+   
+ On an 8xCPU Linux instance,  is it at all advantageous to use the Linux taskset command to pin an 8xJVM process set (co-ordinated as a www.infinispan.org distributed cache/data grid) to a specific CPU affinity set  (i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to CPU 7) vs. just letting the Linux OS use its default mechanism for provisioning the 8xJVM process set to the available CPUs? 
+ In effrort to seek an optimal point (in the full event space), what are the conceptual trade-offs in considering "searching" each permutation of provisioning an 8xJVM process set to an 8xCPU set via taskset? 
+   
+Given  taskset  is they key to the question, it would help to have a definition:
+  
+
+Used to set or retrieve the CPU affinity of a running process given its PID or to launch a new COMMAND with</p><p>6 0.7821483 <a title="1582-lda-6" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
 <p>7 0.75835872 <a title="1582-lda-7" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
 <p>8 0.70366055 <a title="1582-lda-8" href="../high_scalability-2010/high_scalability-2010-06-30-Paper%3A_GraphLab%3A_A_New_Framework_For_Parallel_Machine_Learning.html">850 high scalability-2010-06-30-Paper: GraphLab: A New Framework For Parallel Machine Learning</a></p>
 <p>9 0.68852764 <a title="1582-lda-9" href="../high_scalability-2012/high_scalability-2012-07-11-FictionPress%3A_Publishing_6_Million_Works_of_Fiction_on_the_Web.html">1281 high scalability-2012-07-11-FictionPress: Publishing 6 Million Works of Fiction on the Web</a></p>

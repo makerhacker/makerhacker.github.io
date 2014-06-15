@@ -16,21 +16,17 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1650 high scalability-2014-05-19-A Short On How the Wayback Machine Stores More Pages than Stars in the Milky Way</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1650-html" href="http://highscalability.com//blog/2014/5/19/a-short-on-how-the-wayback-machine-stores-more-pages-than-st.html">html</a></p><p>Introduction: How does the Wayback Machinework? Now with over 400 billion webpages indexed,
-allowing the Internet to be browsed all the way back to 1996, it's an even
-more compelling question. I've looked several times but I've never found a
-really good answer.Here's some information from a thread on Hacker News. It
-starts with mmagin, a former Archive employee:I can't speak to their current
-infrastructure (though more of it is open source now - http://archive-
-access.sourceforge.net/projects/wayback/ ), but as far as the wayback machine,
-there was no SQL database anywhere in it.For the purposes of making the
-wayback machine go:Archived data was in ARC file format (predecessor to
-http://en.wikipedia.org/wiki/Web_ARChive) which is essentially a concatenation
-of separately gzipped records. That is, you can seek to a particular offset
-and start decompressing a record. Thus you could get at any archived web page
-with a triple (server, filename, file-offset) Thus it was spread across a lot
-of commodity g</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 net/projects/wayback/ ), but as far as the wayback machine, there was no SQL database anywhere in it. [sent-7, score-0.471]
-</p><p>2 For the purposes of making the wayback machine go:Archived data was in ARC file format (predecessor to http://en. [sent-8, score-0.632]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1650-html" href="http://highscalability.com//blog/2014/5/19/a-short-on-how-the-wayback-machine-stores-more-pages-than-st.html">html</a></p><p>Introduction: How does the  Wayback Machine  work? Now with over  400 billion webpages indexed , allowing the Internet to be browsed all the way back to 1996, it's an even more compelling question. I've looked several times but I've never found a really good answer.
+ 
+Here's some information from a thread on Hacker News. It starts with  mmagin , a former Archive employee:
+  
+ I can't speak to their current infrastructure (though more of it is open source now - http://archive-access.sourceforge.net/projects/wayback/ ), but as far as the wayback machine, there was no SQL database anywhere in it. 
+  
+ For the purposes of making the wayback machine go: 
+ 
+ 
+ Archived data was in ARC file format (predecessor to http://en.wikipedia.org/wiki/Web_ARChive) which is essentially a concatenation of separately gzipped records. That is, you can seek to a particular offset and start decompressing a record. Thus you could get at any archived web page with a triple (server, filename, file-offset) Thus it was spread</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 net/projects/wayback/ ), but as far as the wayback machine, there was no SQL database anywhere in it. [sent-7, score-0.471]
+</p><p>2 For the purposes of making the wayback machine go:       Archived data was in ARC file format (predecessor to http://en. [sent-8, score-0.632]
 </p><p>3 org/wiki/Web_ARChive) which is essentially a concatenation of separately gzipped records. [sent-10, score-0.158]
 </p><p>4 An sorted index of all the content was built that would let you lookup (url) and give you a list of times or (url, time) to (filename, file-offset). [sent-13, score-0.544]
 </p><p>5 It was implemented by building a sorted text file (first sorted on the url, second on the time) and sharded across many machines by simply splitting it into N roughly equal sizes. [sent-14, score-0.544]
@@ -43,9 +39,9 @@ of commodity g</p><br/><h2>Summary: the most important sentenses genereted by tf
 </p><p>12 The second level of this index is a 20TB compressed sorted list of (url, date, pointer) tuples called CDX records[2]. [sent-33, score-0.486]
 </p><p>13 The first level fits in core, and is a 13GB sorted list of every 3000th entry in the CDX index, with a pointer to larger CDX block. [sent-34, score-0.411]
 </p><p>14 Index lookup works by binary searching the first level list stored in core, then HTTP range-request loading the appropriate second-level blocks from the CDX index. [sent-35, score-0.413]
-</p><p>15 org/2013/07/04/metadata-api/sytelusasked: Why not use a hashtable instead of binary search? [sent-46, score-0.121]
+</p><p>15 org/2013/07/04/metadata-api/          sytelus  asked : Why not use a hashtable instead of binary search? [sent-46, score-0.121]
 </p><p>16 Some Wayback Machine queries require sorted key traversal: listing all dates for which captures of an URL are available, the discovery of the nearest-date for an URL, and listing all available URLs beginning with a certain URL-prefix. [sent-49, score-0.583]
-</p><p>17 Maintaining the canonically-ordered master index of (URL, date, pointer) - that 20TB second-level index rajbot mentions - allows both kinds of queries to be satisfied. [sent-50, score-0.38]
+</p><p>17 Maintaining the canonically-ordered master index of (URL, date, pointer) – that 20TB second-level index rajbot mentions – allows both kinds of queries to be satisfied. [sent-50, score-0.38]
 </p><p>18 Then loading nearest-date captures for the page's inline resources starts hitting similar ranges, as do followup clicks on outlinks or nearby dates. [sent-54, score-0.205]
 </p><p>19 So even though the master index is still on spinning disk (unless there was a recent big SSD upgrade that escaped my notice), the ranges-being-browsed wind up in main-memory caches quite often. [sent-55, score-0.242]
 </p><p>20 However, the new TV news and search capability requires substantially more space than even the archive IIRC, or certainly is heading that way. [sent-62, score-0.258]
@@ -55,71 +51,35 @@ of commodity g</p><br/><h2>Summary: the most important sentenses genereted by tf
 <p>[('wayback', 0.471), ('cdx', 0.307), ('sorted', 0.231), ('url', 0.23), ('filename', 0.223), ('index', 0.19), ('warc', 0.184), ('archive', 0.156), ('arc', 0.123), ('binary', 0.121), ('https', 0.117), ('pointer', 0.115), ('captures', 0.093), ('archived', 0.088), ('listing', 0.087), ('dates', 0.085), ('playback', 0.085), ('file', 0.082), ('employee', 0.082), ('machine', 0.079), ('ranges', 0.077), ('former', 0.068), ('frontend', 0.065), ('list', 0.065), ('filesystem', 0.064), ('http', 0.063), ('loading', 0.06), ('date', 0.06), ('lookup', 0.058), ('essentially', 0.056), ('fyi', 0.056), ('browsed', 0.056), ('iirc', 0.056), ('brewster', 0.056), ('fathom', 0.056), ('raj', 0.056), ('searching', 0.056), ('appropriate', 0.053), ('followup', 0.052), ('gzipped', 0.052), ('escaped', 0.052), ('predecessor', 0.052), ('milky', 0.052), ('certainly', 0.052), ('thanks', 0.052), ('space', 0.05), ('crawlers', 0.05), ('amenable', 0.05), ('concatenation', 0.05), ('artifact', 0.05)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999976 <a title="1650-tfidf-1" href="../high_scalability-2014/high_scalability-2014-05-19-A_Short_On_How_the_Wayback_Machine_Stores_More_Pages_than_Stars_in_the_Milky_Way.html">1650 high scalability-2014-05-19-A Short On How the Wayback Machine Stores More Pages than Stars in the Milky Way</a></p>
-<p>Introduction: How does the Wayback Machinework? Now with over 400 billion webpages indexed,
-allowing the Internet to be browsed all the way back to 1996, it's an even
-more compelling question. I've looked several times but I've never found a
-really good answer.Here's some information from a thread on Hacker News. It
-starts with mmagin, a former Archive employee:I can't speak to their current
-infrastructure (though more of it is open source now - http://archive-
-access.sourceforge.net/projects/wayback/ ), but as far as the wayback machine,
-there was no SQL database anywhere in it.For the purposes of making the
-wayback machine go:Archived data was in ARC file format (predecessor to
-http://en.wikipedia.org/wiki/Web_ARChive) which is essentially a concatenation
-of separately gzipped records. That is, you can seek to a particular offset
-and start decompressing a record. Thus you could get at any archived web page
-with a triple (server, filename, file-offset) Thus it was spread across a lot
-of commodity g</p><p>2 0.10487325 <a title="1650-tfidf-2" href="../high_scalability-2007/high_scalability-2007-08-10-How_do_we_make_a_large_real-time_search_engine%3F.html">64 high scalability-2007-08-10-How do we make a large real-time search engine?</a></p>
-<p>Introduction: We're implementing a website which should be oriented to content and with
-massive access by public and we would need a search engine to index and
-execute queries on the indexes of contents (stored in a database, most likely
-MySQL InnoDB or Oracle).The solution we found is to implement a separate
-service to make index constantly the contents of the database at regular
-intervals. Anyway, this is a complex and not optimal solution, since we would
-like it to index in real time and make it searchable.Could you point me to
-some examples or articles I could review to design asolution for such this
-context?</p><p>3 0.10124835 <a title="1650-tfidf-3" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
-<p>Introduction: Facebook did it again. They've built another system capable of doing something
-useful with ginormous streams of realtime data. Last time we saw Facebook
-release their New Real-Time Messaging System: HBase To Store 135+ Billion
-Messages A Month. This time it's a realtime analytics system handlingover 20
-billion events per day (200,000 events per second) with a lag of less than 30
-seconds. Alex Himel, Engineering Manager at Facebook, explains what they've
-built (video) and the scale required:Social plugins have become an important
-and growing source of traffic for millions of websites over the past year. We
-released a new version of Insights for Websites last week to give site owners
-better analytics on how people interact with their content and to help them
-optimize their websites in real time. To accomplish this, we had to engineer a
-system that could process over 20 billion events per day (200,000 events per
-second) with a lag of less than 30 seconds. Alex does an excellent job with
-t</p><p>4 0.096812405 <a title="1650-tfidf-4" href="../high_scalability-2014/high_scalability-2014-02-17-How_the_AOL.com_Architecture_Evolved_to_99.999%25_Availability%2C_8_Million_Visitors_Per_Day%2C_and_200%2C000_Requests_Per_Second.html">1597 high scalability-2014-02-17-How the AOL.com Architecture Evolved to 99.999% Availability, 8 Million Visitors Per Day, and 200,000 Requests Per Second</a></p>
-<p>Introduction: This is a guest post byDave HaglerSystems Architect at AOL.The AOL homepages
-receive more than8 million visitors per day.  That's more daily viewers than
-Good Morning America or the Today Show on television.  Over a billion page
-views are served each month.  AOL.com has been a major internet destination
-since 1996, and still has a strong following of loyal users.The architecture
-for AOL.com is in it's 5th generation.  It has essentially been rebuilt from
-scratch 5 times over two decades.  The current architecture was designed 6
-years ago.  Pieces have been upgraded and new components have been added along
-the way, but the overall design remains largely intact.  The code, tools,
-development and deployment processes are highly tuned over 6 years of
-continual improvement, making the AOL.com architecture battle tested and very
-stable.The engineering team is made up of developers, testers, and operations
-andtotals around 25 people.  The majority are in Dulles, Virginia with a
-smaller team i</p><p>5 0.095810488 <a title="1650-tfidf-5" href="../high_scalability-2012/high_scalability-2012-05-28-The_Anatomy_of_Search_Technology%3A_Crawling_using_Combinators.html">1253 high scalability-2012-05-28-The Anatomy of Search Technology: Crawling using Combinators</a></p>
-<p>Introduction: This is the second guest post (part 1,part 3) of a series by Greg Lindahl, CTO
-of blekko, the spam free search engine. Previously, Greg was Founder and
-Distinguished Engineer at PathScale, at which he was the architect of the
-InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled
-supercomputing clusters.What's so hard about crawling the web?Web crawlers
-have been around as long as the Web has -- and before the web, there were
-crawlers for gopher and ftp. You would think that 25 years of experience would
-render crawling a solved problem, but the vast growth of the web and new
-inventions in the technology of webspam and other unsavory content results in
-a constant supply of new challenges. The general difficulty of tightly-coupled
-parallel programming also rears its head, as the web has scaled from millions
-to 100s of billions of pages.Existing Open-Source Crawlers and CrawlsThis
-article is mainly going to discuss blekko's crawler and its use of
-combinators, but if you'd li</p><p>6 0.095504574 <a title="1650-tfidf-6" href="../high_scalability-2010/high_scalability-2010-08-30-Pomegranate_-_Storing_Billions_and_Billions_of_Tiny_Little_Files.html">889 high scalability-2010-08-30-Pomegranate - Storing Billions and Billions of Tiny Little Files</a></p>
+<p>Introduction: How does the  Wayback Machine  work? Now with over  400 billion webpages indexed , allowing the Internet to be browsed all the way back to 1996, it's an even more compelling question. I've looked several times but I've never found a really good answer.
+ 
+Here's some information from a thread on Hacker News. It starts with  mmagin , a former Archive employee:
+  
+ I can't speak to their current infrastructure (though more of it is open source now - http://archive-access.sourceforge.net/projects/wayback/ ), but as far as the wayback machine, there was no SQL database anywhere in it. 
+  
+ For the purposes of making the wayback machine go: 
+ 
+ 
+ Archived data was in ARC file format (predecessor to http://en.wikipedia.org/wiki/Web_ARChive) which is essentially a concatenation of separately gzipped records. That is, you can seek to a particular offset and start decompressing a record. Thus you could get at any archived web page with a triple (server, filename, file-offset) Thus it was spread</p><p>2 0.10487325 <a title="1650-tfidf-2" href="../high_scalability-2007/high_scalability-2007-08-10-How_do_we_make_a_large_real-time_search_engine%3F.html">64 high scalability-2007-08-10-How do we make a large real-time search engine?</a></p>
+<p>Introduction: We're implementing a website which should be oriented to content and with massive access by public and we would need a search engine to index and execute queries on the indexes of contents (stored in a database, most likely MySQL InnoDB or Oracle).      The solution we found is to implement a separate service to make index constantly the contents of the database at regular intervals. Anyway, this is a complex and not optimal solution, since we would like it to index in real time and make it searchable.     Could you point me to some examples or articles I could review to design a   solution for such this context?</p><p>3 0.10124835 <a title="1650-tfidf-3" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
+<p>Introduction: Facebook did it again. They've built another system capable of doing something useful with ginormous streams of realtime data. Last time we saw Facebook release their  New Real-Time Messaging System: HBase To Store 135+ Billion Messages A Month . This time it's a realtime analytics system handling  over 20 billion events per day (200,000 events per second) with a lag of less than 30 seconds . 
+ 
+Alex Himel, Engineering Manager at Facebook,  explains what they've built  ( video ) and the scale required:
+  
+
+Social plugins have become an important and growing source of traffic for millions of websites over the past year. We released a new version of Insights for Websites last week to give site owners better analytics on how people interact with their content and to help them optimize their websites in real time. To accomplish this, we had to engineer a system that could process over 20 billion events per day (200,000 events per second) with a lag of less than 30 seconds. 
+
+  
+Alex does a</p><p>4 0.096812405 <a title="1650-tfidf-4" href="../high_scalability-2014/high_scalability-2014-02-17-How_the_AOL.com_Architecture_Evolved_to_99.999%25_Availability%2C_8_Million_Visitors_Per_Day%2C_and_200%2C000_Requests_Per_Second.html">1597 high scalability-2014-02-17-How the AOL.com Architecture Evolved to 99.999% Availability, 8 Million Visitors Per Day, and 200,000 Requests Per Second</a></p>
+<p>Introduction: This is a guest post by  Dave Hagler  Systems Architect at AOL. 
+  The AOL homepages receive more than  8 million visitors per day .  That’s more daily viewers than Good Morning America or the Today Show on television.  Over a billion page views are served each month.  AOL.com has been a major internet destination since 1996, and still has a strong following of loyal users.
+   The architecture for AOL.com is in it’s 5th generation .  It has essentially been rebuilt from scratch 5 times over two decades.  The current architecture was designed 6 years ago.  Pieces have been upgraded and new components have been added along the way, but the overall design remains largely intact.  The code, tools, development and deployment processes are highly tuned over 6 years of continual improvement, making the AOL.com architecture battle tested and very stable.
+  The engineering team is made up of developers, testers, and operations and  totals around 25 people .  The majority are in Dulles, Virginia</p><p>5 0.095810488 <a title="1650-tfidf-5" href="../high_scalability-2012/high_scalability-2012-05-28-The_Anatomy_of_Search_Technology%3A_Crawling_using_Combinators.html">1253 high scalability-2012-05-28-The Anatomy of Search Technology: Crawling using Combinators</a></p>
+<p>Introduction: This is the second guest post ( part 1 ,  part 3 ) of a series by Greg Lindahl, CTO of blekko, the spam free search engine.  Previously, Greg was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters.  
+  What's so hard about crawling the web?  
+Web crawlers have been around as long as the Web has -- and before the web, there were crawlers for gopher and ftp. You would think that 25 years of experience would render crawling a solved problem, but the vast growth of the web and new inventions in the technology of webspam and other unsavory content results in a constant supply of new challenges. The general difficulty of tightly-coupled parallel programming also rears its head, as the web has scaled from millions to 100s of billions of pages.
+  Existing Open-Source Crawlers and Crawls  
+This article is mainly going to discuss blekko's crawler and its use of combinat</p><p>6 0.095504574 <a title="1650-tfidf-6" href="../high_scalability-2010/high_scalability-2010-08-30-Pomegranate_-_Storing_Billions_and_Billions_of_Tiny_Little_Files.html">889 high scalability-2010-08-30-Pomegranate - Storing Billions and Billions of Tiny Little Files</a></p>
 <p>7 0.094955072 <a title="1650-tfidf-7" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
 <p>8 0.09418904 <a title="1650-tfidf-8" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
 <p>9 0.094026379 <a title="1650-tfidf-9" href="../high_scalability-2014/high_scalability-2014-05-16-Stuff_The_Internet_Says_On_Scalability_For_May_16th%2C_2014.html">1649 high scalability-2014-05-16-Stuff The Internet Says On Scalability For May 16th, 2014</a></p>
@@ -139,72 +99,27 @@ combinators, but if you'd li</p><p>6 0.095504574 <a title="1650-tfidf-6" href=".
 <p>[(0, 0.152), (1, 0.084), (2, -0.03), (3, -0.047), (4, 0.026), (5, 0.027), (6, 0.022), (7, 0.005), (8, 0.013), (9, 0.022), (10, 0.005), (11, -0.028), (12, -0.031), (13, -0.019), (14, 0.033), (15, 0.024), (16, -0.071), (17, 0.011), (18, 0.006), (19, -0.047), (20, -0.005), (21, -0.05), (22, -0.022), (23, 0.064), (24, -0.009), (25, 0.005), (26, -0.008), (27, -0.017), (28, -0.029), (29, 0.028), (30, -0.037), (31, -0.008), (32, -0.052), (33, 0.03), (34, 0.013), (35, 0.027), (36, 0.032), (37, 0.019), (38, -0.013), (39, -0.04), (40, -0.007), (41, -0.03), (42, -0.011), (43, -0.008), (44, 0.0), (45, 0.04), (46, -0.01), (47, 0.001), (48, -0.008), (49, 0.054)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95927566 <a title="1650-lsi-1" href="../high_scalability-2014/high_scalability-2014-05-19-A_Short_On_How_the_Wayback_Machine_Stores_More_Pages_than_Stars_in_the_Milky_Way.html">1650 high scalability-2014-05-19-A Short On How the Wayback Machine Stores More Pages than Stars in the Milky Way</a></p>
-<p>Introduction: How does the Wayback Machinework? Now with over 400 billion webpages indexed,
-allowing the Internet to be browsed all the way back to 1996, it's an even
-more compelling question. I've looked several times but I've never found a
-really good answer.Here's some information from a thread on Hacker News. It
-starts with mmagin, a former Archive employee:I can't speak to their current
-infrastructure (though more of it is open source now - http://archive-
-access.sourceforge.net/projects/wayback/ ), but as far as the wayback machine,
-there was no SQL database anywhere in it.For the purposes of making the
-wayback machine go:Archived data was in ARC file format (predecessor to
-http://en.wikipedia.org/wiki/Web_ARChive) which is essentially a concatenation
-of separately gzipped records. That is, you can seek to a particular offset
-and start decompressing a record. Thus you could get at any archived web page
-with a triple (server, filename, file-offset) Thus it was spread across a lot
-of commodity g</p><p>2 0.78332084 <a title="1650-lsi-2" href="../high_scalability-2010/high_scalability-2010-05-10-Sify.com_Architecture_-_A_Portal_at_3900_Requests_Per_Second.html">825 high scalability-2010-05-10-Sify.com Architecture - A Portal at 3900 Requests Per Second</a></p>
-<p>Introduction: Sify.com is one of the leading portals in India. Samachar.com is owned by the
-same company and is one of the top content aggregation sites in India,
-primarily targeting Non-resident Indians from around the world. Ramki
-Subramanian, an Architect at Sify, has been generous enough to describe the
-common back-end for both these sites. One of the most notable aspects of their
-architecture is that Sify does not use a traditional database. They query Solr
-and then retrieve records from a distributed file system. Over the years many
-people have argued for file systems over databases. Filesystems can work for
-key-value lookups, but they don't work for queries, using Solr is a good way
-around that problem. Another interesting aspect of their system is the use of
-Drools for intelligent cache invalidation. As we have more and more data
-duplicated in multiple specialized services, the problem of how to keep
-themsynchronized is a difficult one. A rules engine is a clever
-approach.Platform / ToolsLin</p><p>3 0.76584363 <a title="1650-lsi-3" href="../high_scalability-2012/high_scalability-2012-06-20-Ask_HighScalability%3A_How_do_I_organize_millions_of_images%3F.html">1268 high scalability-2012-06-20-Ask HighScalability: How do I organize millions of images?</a></p>
-<p>Introduction: Does anyone have any advice or suggestions on how to store millions of images?
-Currently images are stored in a MS SQL database which performance wise isn't
-ideal. We'd like to migrate the images over to a file system structure but I'd
-assume we don't just want to dump millions of images into a single directory.
-Besides having to contend with naming collisions, the windows filesystem might
-not perform optimally with that many files.I'm assuming one approach may be to
-assign each user a unique CSLID, create a folder based on the CSLID and then
-place one users files in that particular folder. Even so, this could result in
-hundreds of thousands of folders. Whats the best organizational
-scheme/heirachy for doing this?</p><p>4 0.75694084 <a title="1650-lsi-4" href="../high_scalability-2007/high_scalability-2007-07-31-BerkeleyDB_%26_other_distributed_high_performance_key-value_databases.html">50 high scalability-2007-07-31-BerkeleyDB & other distributed high performance key-value databases</a></p>
-<p>Introduction: I currently use BerkeleyDB as an embedded
-databasehttp://www.oracle.com/database/berkeley-db/a decision which was
-initially brought on by learning that Google used BerkeleyDB for their
-universal sign-on feature.Lustre looks impressive, but their white paper shows
-speeds of 800 files created per second, as a good number. However, BerkeleyDB
-on my mac mini does 200,000 row creations per second, and can be used as a
-distributed file system.I'm having I/O scalability issues with BerkeleyDB on
-one machine, and about to implement their distributed replication feature (and
-go multi-machine), which in effect makes it work like a distributed file
-system, but with local access speeds. That's why I was looking at Lustre.The
-key feature difference between BerkeleyDB and Lustre is that BerkeleyDB has a
-complete copy of all the data on each computer, making it not a viable
-solution for massive sized database applications. However, if you have < 1TB
-(ie, one disk) of total possible data, it seems to</p><p>5 0.74341065 <a title="1650-lsi-5" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
-<p>Introduction: This is a guest post (part 2,part 3) by Greg Lindahl, CTO of blekko, the spam
-free search engine that had over 3.5 million unique visitors in March. Greg
-Lindahl was Founder and Distinguished Engineer at PathScale, at which he was
-the architect of the InfiniPath low-latency InfiniBand HCA, used to build
-tightly-coupled supercomputing clusters.Imagine that you're crazy enough to
-think about building a search engine.  It's a huge task: the minimum index
-size needed to answer most queries is a few billion webpages. Crawling and
-indexing a few billion webpages requires a cluster with several petabytes of
-usable disk -- that's several thousand 1 terabyte disks -- and produces an
-index that's about 100 terabytes in size.Serving query results quickly
-involves having most of the index in RAM or on solid state (flash) disk. If
-you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000
-servers at a capital cost of $3 million, plus about $1 million per year of
-server co-locatio</p><p>6 0.73316079 <a title="1650-lsi-6" href="../high_scalability-2013/high_scalability-2013-01-28-DuckDuckGo_Architecture_-_1_Million_Deep_Searches_a_Day_and_Growing.html">1395 high scalability-2013-01-28-DuckDuckGo Architecture - 1 Million Deep Searches a Day and Growing</a></p>
+<p>Introduction: How does the  Wayback Machine  work? Now with over  400 billion webpages indexed , allowing the Internet to be browsed all the way back to 1996, it's an even more compelling question. I've looked several times but I've never found a really good answer.
+ 
+Here's some information from a thread on Hacker News. It starts with  mmagin , a former Archive employee:
+  
+ I can't speak to their current infrastructure (though more of it is open source now - http://archive-access.sourceforge.net/projects/wayback/ ), but as far as the wayback machine, there was no SQL database anywhere in it. 
+  
+ For the purposes of making the wayback machine go: 
+ 
+ 
+ Archived data was in ARC file format (predecessor to http://en.wikipedia.org/wiki/Web_ARChive) which is essentially a concatenation of separately gzipped records. That is, you can seek to a particular offset and start decompressing a record. Thus you could get at any archived web page with a triple (server, filename, file-offset) Thus it was spread</p><p>2 0.78332084 <a title="1650-lsi-2" href="../high_scalability-2010/high_scalability-2010-05-10-Sify.com_Architecture_-_A_Portal_at_3900_Requests_Per_Second.html">825 high scalability-2010-05-10-Sify.com Architecture - A Portal at 3900 Requests Per Second</a></p>
+<p>Introduction: Sify.com is one of the leading portals in India. Samachar.com is owned by the same company and is one of the top content aggregation sites in India, primarily targeting Non-resident Indians from around the world. Ramki Subramanian, an Architect at Sify, has been generous enough to describe the common back-end for both these sites. One of the most notable aspects of their architecture is that Sify does not use a traditional database. They query Solr and then retrieve records from a distributed file system. Over the years many people have argued for file systems over databases. Filesystems can work for key-value lookups, but they don't work for queries, using Solr is a good way around that problem. Another interesting aspect of their system is the use of Drools for intelligent cache invalidation. As we have more and more data duplicated in multiple specialized services, the problem of how to keep them  synchronized  is a difficult one. A rules engine is a clever approach.
+         Platfo</p><p>3 0.76584363 <a title="1650-lsi-3" href="../high_scalability-2012/high_scalability-2012-06-20-Ask_HighScalability%3A_How_do_I_organize_millions_of_images%3F.html">1268 high scalability-2012-06-20-Ask HighScalability: How do I organize millions of images?</a></p>
+<p>Introduction: Does anyone have any advice or suggestions on how to store millions of images? Currently images are stored in a MS SQL database which performance wise isn't ideal. We'd like to migrate the images over to a file system structure but I'd assume we don't just want to dump millions of images into a single directory. Besides having to contend with naming collisions, the windows filesystem might not perform optimally with that many files.
+ 
+I'm assuming one approach may be to assign each user a unique CSLID, create a folder based on the CSLID and then place one users files in that particular folder. Even so, this could result in hundreds of thousands of folders. Whats the best organizational scheme/heirachy for doing this?</p><p>4 0.75694084 <a title="1650-lsi-4" href="../high_scalability-2007/high_scalability-2007-07-31-BerkeleyDB_%26_other_distributed_high_performance_key-value_databases.html">50 high scalability-2007-07-31-BerkeleyDB & other distributed high performance key-value databases</a></p>
+<p>Introduction: I currently use BerkeleyDB as an embedded database   http://www.oracle.com/database/berkeley-db/   a decision which was initially brought on by learning that Google used BerkeleyDB for their universal sign-on feature.     Lustre looks impressive, but their white paper shows speeds of 800 files created per second, as a good number.  However, BerkeleyDB on my mac mini does 200,000 row creations per second, and can be used as a distributed file system.     I'm having I/O scalability issues with BerkeleyDB on one machine, and about to implement their distributed replication feature (and go multi-machine), which in effect makes it work like a distributed file system, but with local access speeds.  That's why I was looking at Lustre.     The key feature difference between BerkeleyDB and Lustre is that BerkeleyDB has a complete copy of all the data on each computer, making it not a viable solution for massive sized database applications.  However, if you have < 1TB (ie, one disk) of total pos</p><p>5 0.74341065 <a title="1650-lsi-5" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
+<p>Introduction: This is a guest post ( part 2 ,  part 3 ) by Greg Lindahl, CTO of blekko, the spam free search engine that had over 3.5 million unique visitors in March. Greg Lindahl was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters. 
+ 
+Imagine that you're crazy enough to think about building a search engine.  It's a huge task: the minimum index size needed to answer most queries is a few billion webpages. Crawling and indexing a few billion webpages requires a cluster with several petabytes of usable disk -- that's several thousand 1 terabyte disks -- and produces an index that's about 100 terabytes in size.
+ 
+Serving query results quickly involves having most of the index in RAM or on solid state (flash) disk. If you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000 servers at a capital cost of $3 million, plus about $1 million per year of serve</p><p>6 0.73316079 <a title="1650-lsi-6" href="../high_scalability-2013/high_scalability-2013-01-28-DuckDuckGo_Architecture_-_1_Million_Deep_Searches_a_Day_and_Growing.html">1395 high scalability-2013-01-28-DuckDuckGo Architecture - 1 Million Deep Searches a Day and Growing</a></p>
 <p>7 0.73210049 <a title="1650-lsi-7" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
 <p>8 0.72598869 <a title="1650-lsi-8" href="../high_scalability-2009/high_scalability-2009-05-01-FastBit%3A_An_Efficient_Compressed_Bitmap_Index_Technology.html">587 high scalability-2009-05-01-FastBit: An Efficient Compressed Bitmap Index Technology</a></p>
 <p>9 0.71943158 <a title="1650-lsi-9" href="../high_scalability-2012/high_scalability-2012-05-28-The_Anatomy_of_Search_Technology%3A_Crawling_using_Combinators.html">1253 high scalability-2012-05-28-The Anatomy of Search Technology: Crawling using Combinators</a></p>
@@ -224,59 +139,17 @@ server co-locatio</p><p>6 0.73316079 <a title="1650-lsi-6" href="../high_scalabi
 <p>[(1, 0.146), (2, 0.149), (10, 0.061), (26, 0.229), (40, 0.029), (61, 0.084), (76, 0.015), (77, 0.01), (79, 0.099), (85, 0.043), (91, 0.011), (94, 0.036)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.96792752 <a title="1650-lda-1" href="../high_scalability-2009/high_scalability-2009-02-25-Enterprise_Architecture_Conference_by_-_John_Zachman._Johannesburg_%2825th_March%29_%2C_Cape_Town_%2827Th_March%29__Dubai_%2823rd_March%29.html">521 high scalability-2009-02-25-Enterprise Architecture Conference by - John Zachman. Johannesburg (25th March) , Cape Town (27Th March)  Dubai (23rd March)</a></p>
-<p>Introduction: Why You Need To Attend THIS CONFERENCE• Understand the multi-dimensional view
-of business-technology alignment• A sense of urgency for aggressively pursuing
-Enterprise Architecture• A "language" (ie., a Framework) for improving
-enterprise communications about architecture issues• An understanding of the
-cultural changes implied by process evolution. How to effectively use the
-framework to anchor processes and procedures for delivering service and
-support for applications• An understanding of basic Enterprise physics•
-Recommendations for the Sr. Managers to understand the political realities and
-organizational resistance in realizing EA vision and some excellent advices
-for overcoming these barriers• Number of practical examples of how to work
-with people who affect decisions on EA implementation• How to create value for
-your organization by systematically recording assets, processes, connectivity,
-people, timing and motivation, through a simple frameworkFor registrations,
-group discoun</p><p>2 0.93478578 <a title="1650-lda-2" href="../high_scalability-2007/high_scalability-2007-08-23-Postgresql_on_high_availability_websites%3F.html">73 high scalability-2007-08-23-Postgresql on high availability websites?</a></p>
-<p>Introduction: I was looking at the pingdom infrastructure matrix
-(http://royal.pingdom.com/royalfiles/0702_infrastructure_matrix.pdf) and I saw
-that no sites are using Postgresql, and then I searched through
-highscalability.com and saw very few mentions of postgresql. Are there any
-examples of high-traffic sites that use postgresql? Does anyone have any
-experience with it? I'm having trouble finding good, recent studies of
-postgres (and postgres compared w/ mysql) online.</p><p>3 0.92005086 <a title="1650-lda-3" href="../high_scalability-2009/high_scalability-2009-09-09-GridwiseTech_revolutionizes_data_management.html">697 high scalability-2009-09-09-GridwiseTech revolutionizes data management</a></p>
-<p>Introduction: GridwiseTech hasdeveloped AdHoc, an advanced framework for sharing
-geographically distributed data and compute resources. It simplifies the
-resource management and makes cooperation secure and effective.The premise of
-AdHoc is to enable each member of the associated institution to control access
-to his or her resources without an IT administrator's help, and with high
-security level of any exposed data or applications assured.It takes 3 easy
-steps to establish cooperation within AdHoc: create a virtual organization,
-add resources and share them. The application can be implemented within any
-organization to exchange data and resources or between institutions to join
-forces for more efficient results.AdHoc was initially created for a consortium
-of hospitals and institutions to share medical data sets. As a technical
-partner in that project, GridwiseTech implemented the Security Framework to
-provide access to that data and designed a graphical tool to facilitate the
-administration of the</p><p>4 0.91764849 <a title="1650-lda-4" href="../high_scalability-2009/high_scalability-2009-12-16-The_most_common_flaw_in_software_performance_testing.html">751 high scalability-2009-12-16-The most common flaw in software performance testing</a></p>
-<p>Introduction: How many times have we all run across a situation where the performance tests
-on a piece of software pass with flying colors on the test systems only to see
-the software exhibit poor performance characteristics when the software is
-deployed in production?Read More Here...</p><p>5 0.91621679 <a title="1650-lda-5" href="../high_scalability-2013/high_scalability-2013-02-20-Smart_Companies_Fail_Because_they_Do_Everything_Right_-_Staying_Alive_to_Scale.html">1410 high scalability-2013-02-20-Smart Companies Fail Because they Do Everything Right - Staying Alive to Scale</a></p>
-<p>Introduction: Wired has awonderful interview with Clayton Christensen, author of the tech
-ninja's bible, Innovator's Dilemma. Innovation is the name of the game in
-Silicon Valley and if you want to understand the rules of the game this
-article is a quick and clear way of learning. Everything is simply explained
-with compelling examples by the man himself.Just as every empire has fallen,
-every organization is open to disruption. It's the human condition to become
-comfortable and discount potential dangers. It takes a great deal of
-mindfulness to outwit and outlast the human condition. If you want to be the
-disruptor and avoid being the disruptee, this is good stuff.He also talks
-about his new book,The Capitalist's Dilemma, which addresses this puzzle: if
-corporations are doing so well why are individuals doing so bad?If someone can
-help you see a deep meaningful pattern in life then they haven't brought you a
-fish, they've taught you how to fish. That's what Christensen does. Here's a
-gloss of his wo</p><p>6 0.90966958 <a title="1650-lda-6" href="../high_scalability-2009/high_scalability-2009-10-06-10_Ways_to_Take_your_Site_from_One_to_One_Million_Users_by_Kevin_Rose__.html">715 high scalability-2009-10-06-10 Ways to Take your Site from One to One Million Users by Kevin Rose  </a></p>
+<p>Introduction: Why You Need To Attend THIS CONFERENCE   •	Understand the multi-dimensional view of business-technology alignment    •	A sense of urgency for aggressively pursuing Enterprise Architecture    •	A "language" (ie., a Framework) for improving enterprise communications about architecture issues    •	An understanding of the cultural changes implied by process evolution. How to effectively use the framework to anchor processes and procedures for delivering service and support for applications    •	An understanding of basic Enterprise physics    •	Recommendations for the Sr. Managers to understand the political realities and organizational resistance in realizing EA vision and some excellent advices for overcoming these barriers    •	Number of practical examples of how to work with people who affect decisions on EA implementation   •	How to create value for your organization by systematically recording assets, processes, connectivity, people, timing and motivation, through a simple framework</p><p>2 0.93478578 <a title="1650-lda-2" href="../high_scalability-2007/high_scalability-2007-08-23-Postgresql_on_high_availability_websites%3F.html">73 high scalability-2007-08-23-Postgresql on high availability websites?</a></p>
+<p>Introduction: I was looking at the pingdom infrastructure matrix (http://royal.pingdom.com/royalfiles/0702_infrastructure_matrix.pdf) and I saw that no sites are using Postgresql, and then I searched through highscalability.com and saw very few mentions of postgresql. Are there any examples of high-traffic sites that use postgresql? Does anyone have any experience with it? I'm having trouble finding good, recent studies of postgres (and postgres compared w/ mysql) online.</p><p>3 0.92005086 <a title="1650-lda-3" href="../high_scalability-2009/high_scalability-2009-09-09-GridwiseTech_revolutionizes_data_management.html">697 high scalability-2009-09-09-GridwiseTech revolutionizes data management</a></p>
+<p>Introduction: GridwiseTech has  developed AdHoc , an advanced framework for sharing geographically distributed data and compute resources. It simplifies the resource management and makes cooperation secure and effective. The premise of AdHoc is to enable each member of the associated institution to control access to his or her resources without an IT administrator’s help, and with high security level of any exposed data or applications assured. It takes 3 easy steps to establish cooperation within AdHoc: create a virtual organization, add resources and share them. The application can be implemented within any organization to exchange data and resources or between institutions to join forces for more efficient results.  AdHoc was initially created for a consortium of hospitals and institutions to share medical data sets. As a technical partner in that project, GridwiseTech implemented the Security Framework to provide access to that data and designed a graphical tool to facilitate the administration</p><p>4 0.91764849 <a title="1650-lda-4" href="../high_scalability-2009/high_scalability-2009-12-16-The_most_common_flaw_in_software_performance_testing.html">751 high scalability-2009-12-16-The most common flaw in software performance testing</a></p>
+<p>Introduction: How many times have we all run across a situation where the performance tests on a piece of software pass with flying colors on the test systems only to see the software exhibit poor performance characteristics when the software is deployed in production?  Read More Here...</p><p>5 0.91621679 <a title="1650-lda-5" href="../high_scalability-2013/high_scalability-2013-02-20-Smart_Companies_Fail_Because_they_Do_Everything_Right_-_Staying_Alive_to_Scale.html">1410 high scalability-2013-02-20-Smart Companies Fail Because they Do Everything Right - Staying Alive to Scale</a></p>
+<p>Introduction: Wired has a  wonderful interview  with  Clayton Christensen , author of the tech ninja's bible,  Innovator's Dilemma . Innovation is the name of the game in Silicon Valley and if you want to understand the rules of the game this article is a quick and clear way of learning. Everything is simply explained with compelling examples by the man himself.
+ 
+Just as every empire has fallen, every organization is open to disruption. It's the human condition to become comfortable and discount potential dangers. It takes a great deal of mindfulness to outwit and outlast the human condition. If you want to be the disruptor and avoid being the disruptee, this is good stuff.
+ 
+He also talks about his new book,  The Capitalist's Dilemma , which addresses this puzzle: if corporations are doing so well why are individuals doing so bad?
+ 
+If someone can help you see a deep meaningful pattern in life then they haven't brought you a fish, they've taught you how to fish. That's what Christensen does. Here'</p><p>6 0.90966958 <a title="1650-lda-6" href="../high_scalability-2009/high_scalability-2009-10-06-10_Ways_to_Take_your_Site_from_One_to_One_Million_Users_by_Kevin_Rose__.html">715 high scalability-2009-10-06-10 Ways to Take your Site from One to One Million Users by Kevin Rose  </a></p>
 <p>7 0.9000681 <a title="1650-lda-7" href="../high_scalability-2012/high_scalability-2012-11-07-Gone_Fishin%27%3A_10_Ways_to_Take_your_Site_from_One_to_One_Million_Users_by_Kevin_Rose__.html">1356 high scalability-2012-11-07-Gone Fishin': 10 Ways to Take your Site from One to One Million Users by Kevin Rose  </a></p>
 <p>same-blog 8 0.86516398 <a title="1650-lda-8" href="../high_scalability-2014/high_scalability-2014-05-19-A_Short_On_How_the_Wayback_Machine_Stores_More_Pages_than_Stars_in_the_Milky_Way.html">1650 high scalability-2014-05-19-A Short On How the Wayback Machine Stores More Pages than Stars in the Milky Way</a></p>
 <p>9 0.86352837 <a title="1650-lda-9" href="../high_scalability-2014/high_scalability-2014-01-01-Paper%3A_Nanocubes%3A_Nanocubes_for_Real-Time_Exploration_of_Spatiotemporal_Datasets.html">1570 high scalability-2014-01-01-Paper: Nanocubes: Nanocubes for Real-Time Exploration of Spatiotemporal Datasets</a></p>

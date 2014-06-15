@@ -16,101 +16,51 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1573-html" href="http://highscalability.com//blog/2014/1/6/how-hipchat-stores-and-indexes-billions-of-messages-using-el.html">html</a></p><p>Introduction: This article is from an interview withZuhaib Siddique, a production engineer
-atHipChat, makers ofgroup chat and IM for teams.HipChat started in an unusual
-space, one you might not think would have much promise, enterprise group
-messaging, but as we are learning there is gold in them thereenterprise hills.
-Which is why Atlassian, makers of well thought of tools like JIRA and
-Confluence,acquired HipChat in 2012.And in a tale not often heard, the
-resources and connections of a larger parent have actually helped HipChat
-enter anexponential growth cycle. Having reached the 1.2 billion message
-storage mark they are now doubling the number of messages sent, stored, and
-indexed every few months.That kind of growth puts a lot of pressure on a once
-adequate infrastructure. HipChat exhibited a common scaling pattern. Start
-simple, experience traffic spikes, and then think what do we do now? Using
-bigger computers is usually the first and best answer. And they did that. That
-gave them some breathi</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. [sent-6, score-0.319]
-</p><p>2 While HipChat isn't Google scale, there is good stuff to learn from HipChat about how they index and search billions of messages in a timely manner, which is the key difference between something like IRC and HipChat. [sent-18, score-0.246]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1573-html" href="http://highscalability.com//blog/2014/1/6/how-hipchat-stores-and-indexes-billions-of-messages-using-el.html">html</a></p><p>Introduction: This article is from an interview with    Zuhaib Siddique   , a production engineer at    HipChat   , makers of     group chat and IM for teams.  
+   HipChat started in an unusual space, one you might not think would have much promise, enterprise group messaging, but as we are learning there is gold in them there    enterprise hills   . Which is why Atlassian, makers of well thought of tools like JIRA and Confluence,    acquired HipChat in 2012   . 
+   And in a tale not often heard, the resources and connections of a larger parent have actually helped HipChat enter an    exponential growth cycle   . Having reached the 1.2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. 
+   That kind of growth puts a lot of pressure on a once adequate infrastructure. HipChat exhibited a common scaling pattern. Start simple, experience traffic spikes, and then think what do we do now? Using bigger computers is usually the first and bes</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. [sent-6, score-0.319]
+</p><p>2 While HipChat isn’t Google scale, there is good stuff to learn from HipChat about how they index and search billions of messages in a timely manner, which is the key difference between something like IRC and HipChat. [sent-18, score-0.246]
 </p><p>3 Indexing and storing messages under load while not losing messages is the challenge. [sent-19, score-0.437]
-</p><p>4 Chat messages don't actually make up the majority of traffic ; it's presence information (away, idle, available), people connecting/disconnecting, etc. [sent-32, score-0.267]
-</p><p>5 So 60 messages per second may seem low, but it is just an average. [sent-33, score-0.196]
-</p><p>6 It will also route messages to multiple devices owned by the same user, as well as temporary message caching/retry if your device is unreachable when a message is sent. [sent-40, score-0.298]
-</p><p>7 Storage and searching of messages is the major scalability bottleneck in their system. [sent-43, score-0.196]
-</p><p>8 Information like which users are in which rooms, presence information, who is online, etc, so it doesn't matter which XMPP server you connect to, the XMPP server itself is not a limit. [sent-82, score-0.208]
-</p><p>9 This is a real problem as not losing messages is a high priority. [sent-88, score-0.241]
-</p><p>10 Customers indicate that not dropping messages is more important than low latency. [sent-89, score-0.196]
-</p><p>11 Users would rather get messages late than not at all. [sent-90, score-0.241]
-</p><p>12 The number of frontend servers is driven by the number of active listening clients and not the number of messages sent. [sent-96, score-0.236]
-</p><p>13 Storage ArchitectureAt 1 billion messages sent on HipChat while experiencing growth, they pushed the limits of their CouchDB and Lucene solution for storing and searching messages. [sent-100, score-0.268]
-</p><p>14 At about half a billion messages on Amazon was a tipping point. [sent-110, score-0.268]
-</p><p>15 Makes rebalancing much easier because the masters can handle all the rebalancing with excellent performance. [sent-181, score-0.229]
-</p><p>16 Redis history caches the last 75 messages to prevent constantly hitting the database when loading conversation for the first time. [sent-191, score-0.196]
+</p><p>4 Let’s see…     Stats         60 messages per second. [sent-21, score-0.196]
+</p><p>5 Chat messages don't actually make up the majority of traffic ; it's presence information (away, idle, available), people connecting/disconnecting, etc. [sent-32, score-0.267]
+</p><p>6 So 60 messages per second may seem low, but it is just an average. [sent-33, score-0.196]
+</p><p>7 It will also route messages to multiple devices owned by the same user, as well as temporary message caching/retry if your device is unreachable when a message is sent. [sent-40, score-0.298]
+</p><p>8 Storage and searching of messages is the major scalability bottleneck in their system. [sent-43, score-0.196]
+</p><p>9 Information like which users are in which rooms, presence information, who is online, etc, so it doesn’t matter which XMPP server you connect to, the XMPP server itself is not a limit. [sent-82, score-0.208]
+</p><p>10 This is a real problem as not losing messages is a high priority. [sent-88, score-0.241]
+</p><p>11 Customers indicate that not dropping messages is more important than low latency. [sent-89, score-0.196]
+</p><p>12 Users would rather get messages late than not at all. [sent-90, score-0.241]
+</p><p>13 The number of frontend servers is driven by the number of active listening clients and not the number of messages sent. [sent-96, score-0.236]
+</p><p>14 Storage Architecture         At 1 billion messages sent on HipChat while experiencing growth, they pushed the limits of their CouchDB and Lucene solution for storing and searching messages. [sent-100, score-0.268]
+</p><p>15 At about half a billion messages on Amazon was a tipping point. [sent-110, score-0.268]
+</p><p>16 Makes rebalancing much easier because the masters can handle all the rebalancing with excellent performance. [sent-181, score-0.229]
 </p><p>17 Forgot to monitor a ElasticSearch node for heap space and then hit OOM problems without any notifications. [sent-212, score-0.226]
-</p><p>18 The Future Will hit two billion messages in a few months and it's estimated ElasticSearch can handle about two billion messages. [sent-226, score-0.453]
+</p><p>18 The Future          Will hit two billion messages in a few months and it’s estimated ElasticSearch can handle about two billion messages. [sent-226, score-0.453]
 </p><p>19 HipChat made never losing user chat history a priority, so their architecture reflects this priority to the point of saving chat to disk and then later reloading when the downed systems recover. [sent-251, score-0.241]
-</p><p>20 How HipChat scales to 1 Billion MessagesReddit onHow HipChat scales to 1 billion messages - Zuhaib Siddique, engineer at HipChat, explains how it uses CouchDB, ElasticSearch, and Redis to handle the site's load. [sent-294, score-0.326]
+</p><p>20 How HipChat scales to 1 Billion Messages        Reddit on    How HipChat scales to 1 billion messages - Zuhaib Siddique, engineer at HipChat, explains how it uses CouchDB, ElasticSearch, and Redis to handle the site’s load   . [sent-294, score-0.326]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('hipchat', 0.625), ('elasticsearch', 0.279), ('xmpp', 0.212), ('messages', 0.196), ('es', 0.161), ('couch', 0.117), ('redis', 0.115), ('chat', 0.098), ('node', 0.089), ('bitbucket', 0.088), ('native', 0.082), ('heap', 0.082), ('growth', 0.079), ('enterprise', 0.075), ('billion', 0.072), ('twisted', 0.072), ('compaction', 0.071), ('presence', 0.071), ('breathing', 0.069), ('atlassian', 0.069), ('election', 0.062), ('tools', 0.062), ('rebalancing', 0.061), ('addons', 0.059), ('siddique', 0.059), ('commit', 0.058), ('handle', 0.058), ('aws', 0.058), ('customers', 0.056), ('hit', 0.055), ('ebs', 0.052), ('message', 0.051), ('weakest', 0.05), ('confluence', 0.05), ('search', 0.05), ('masters', 0.049), ('inflection', 0.048), ('confident', 0.048), ('connections', 0.047), ('server', 0.046), ('losing', 0.045), ('users', 0.045), ('would', 0.045), ('bots', 0.045), ('horsepower', 0.045), ('slots', 0.043), ('transitioning', 0.043), ('ios', 0.043), ('currently', 0.042), ('clients', 0.04)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999911 <a title="1573-tfidf-1" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
-<p>Introduction: This article is from an interview withZuhaib Siddique, a production engineer
-atHipChat, makers ofgroup chat and IM for teams.HipChat started in an unusual
-space, one you might not think would have much promise, enterprise group
-messaging, but as we are learning there is gold in them thereenterprise hills.
-Which is why Atlassian, makers of well thought of tools like JIRA and
-Confluence,acquired HipChat in 2012.And in a tale not often heard, the
-resources and connections of a larger parent have actually helped HipChat
-enter anexponential growth cycle. Having reached the 1.2 billion message
-storage mark they are now doubling the number of messages sent, stored, and
-indexed every few months.That kind of growth puts a lot of pressure on a once
-adequate infrastructure. HipChat exhibited a common scaling pattern. Start
-simple, experience traffic spikes, and then think what do we do now? Using
-bigger computers is usually the first and best answer. And they did that. That
-gave them some breathi</p><p>2 0.37578109 <a title="1573-tfidf-2" href="../high_scalability-2014/high_scalability-2014-01-08-Under_Snowden%27s_Light_Software_Architecture_Choices_Become_Murky.html">1575 high scalability-2014-01-08-Under Snowden's Light Software Architecture Choices Become Murky</a></p>
-<p>Introduction: Adrian Cockcroft on the future ofCloud, Open Source, SaaS and the End of
-Enterprise Computing:Most big enterprise companies are actively working on
-their AWS rollout now. Most of them are also trying to get an in-house cloud
-to work, with varying amounts of success, but even the best private clouds are
-still years behind the feature set of public clouds, which is has a big impact
-on the agility and speed of product developmentWhile theSnowden
-revelationshave tattered the thin veil of trust secreting Big Brother from We
-the People, they may also be driving a fascinating new tension in architecture
-choices between Cloud Native (scale-out, IaaS), Amazon Native (rich service
-dependencies), and Enterprise Native (raw hardware, scale-up).This tension
-became evident in a recentHipChat interviewwhere HipChat, makers of an AWS
-based SaaS chat product, were busy creating an on-premises version of their
-product that could operate behind the firewall in enterprise datacenters. This
-is consistent w</p><p>3 0.17208488 <a title="1573-tfidf-3" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
-<p>Introduction: What's cool about starting a new project is you finally have a chance to do it
-right. You of course eventually mess everything up in your own way, but for
-that one moment the world has a perfect order, a rightness that feels
-satisfying and good. Arne Claassen, the CTO of notify.me, a brand new real
-time notification delivery service, is in this honeymoon period now.Arne has
-been gracious enough to share with us his philosophy of how to build a
-notification service. I think you'll find it fascinating because Arne goes
-into a lot of useful detail about how his system works.His main design
-philosophy is to minimize the bottlenecks that form around synchronous access,
-that is whensome resource is requested and the requestor ties up more
-resources, waiting for a response. If the requested resource can't be
-delivered in a timely manner, more and more requests pile up until the server
-can't accept any new ones. Nobody gets what they want and you have an outage.
-Breaking synchronous operations</p><p>4 0.17089576 <a title="1573-tfidf-4" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
-<p>Introduction: Update: Erlang at Facebook by Eugene Letuchy. How Facebook uses Erlang to
-implement Chat, AIM Presence, and Chat Jabber support. I've done
-someXMPPdevelopment so when I readFacebook was making a Jabber chat clientI
-was really curious how they would make it work. While core XMPP is
-straightforward, a number of protocol extensions like discovery, forms, chat
-states, pubsub, multi user chat, and privacy lists really up the
-implementation complexity. Some real engineering challenges were involved to
-make this puppy scale and perform. It's not clear what extensions they've
-implemented, but a blog entry by Facebook's Eugene Letuchy hits some of the
-architectural challenges they faced and how they overcame them.A web based
-Jabber client poses a few problems because XMPP, like most IM protocols, is an
-asynchronous event driven system that pretty much assumes you have a full time
-open connection. After logging in the server sends a client roster information
-and presence information. Your client</p><p>5 0.16189858 <a title="1573-tfidf-5" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>Introduction: This article is from an interview with    Zuhaib Siddique   , a production engineer at    HipChat   , makers of     group chat and IM for teams.  
+   HipChat started in an unusual space, one you might not think would have much promise, enterprise group messaging, but as we are learning there is gold in them there    enterprise hills   . Which is why Atlassian, makers of well thought of tools like JIRA and Confluence,    acquired HipChat in 2012   . 
+   And in a tale not often heard, the resources and connections of a larger parent have actually helped HipChat enter an    exponential growth cycle   . Having reached the 1.2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. 
+   That kind of growth puts a lot of pressure on a once adequate infrastructure. HipChat exhibited a common scaling pattern. Start simple, experience traffic spikes, and then think what do we do now? Using bigger computers is usually the first and bes</p><p>2 0.37578109 <a title="1573-tfidf-2" href="../high_scalability-2014/high_scalability-2014-01-08-Under_Snowden%27s_Light_Software_Architecture_Choices_Become_Murky.html">1575 high scalability-2014-01-08-Under Snowden's Light Software Architecture Choices Become Murky</a></p>
+<p>Introduction: Adrian Cockcroft on the future of    Cloud, Open Source, SaaS and the End of Enterprise Computing   :  
+  
+   Most big enterprise companies are actively working on their AWS rollout now. Most of them are also trying to get an in-house cloud to work, with varying amounts of success, but even the best private clouds are still years behind the feature set of public clouds, which is has a big impact on the agility and speed of product development  
+
+    While the    Snowden revelations    have tattered the thin veil of trust secreting Big Brother from We the People, they may also be driving a fascinating new tension in architecture choices between Cloud Native (scale-out, IaaS), Amazon Native (rich service dependencies), and Enterprise Native (raw hardware, scale-up). 
+   This tension became evident in a recent    HipChat interview    where HipChat, makers of an AWS based SaaS chat product, were busy creating an on-premises version of their product that could operate behind the firewall in</p><p>3 0.17208488 <a title="1573-tfidf-3" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
+<p>Introduction: What's cool about starting a new project is you finally have a chance to do it right. You of course eventually mess everything up in your own way, but for that one moment the world has a perfect order, a rightness that feels satisfying and good. Arne Claassen, the CTO of notify.me, a brand new real time notification delivery service, is in this honeymoon period now.  Arne has been gracious enough to share with us his philosophy of how to build a notification service. I think you'll find it fascinating because Arne goes into a lot of useful detail about how his system works.    His main design philosophy is to minimize the bottlenecks that form around synchronous access, that is when  some resource is requested and the requestor ties up more resources, waiting for a response. If the requested resource can’t be delivered in a timely manner, more and more requests pile up until the server can’t accept any new ones. Nobody gets what they want and you have an outage. Breaking synchronous op</p><p>4 0.17089576 <a title="1573-tfidf-4" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
+<p>Introduction: Update :  Erlang at Facebook  by Eugene Letuchy. How Facebook uses Erlang to implement Chat, AIM Presence, and Chat Jabber support.  
+ 
+I've done some  XMPP  development so when I read  Facebook was making a Jabber chat client  I was really curious how they would make it work. While core XMPP is straightforward, a number of protocol extensions like discovery, forms, chat states, pubsub, multi user chat, and privacy lists really up the implementation complexity. Some real engineering challenges were involved to make this puppy scale and perform.  It's not clear what extensions they've  implemented, but a blog entry by Facebook's Eugene Letuchy hits some of the architectural challenges they faced and how they overcame them.
+ 
+A web based Jabber client poses a few problems because XMPP, like most IM protocols, is an asynchronous event driven system that pretty much assumes you have a full time open connection. After logging in the server sends a client roster information and presence info</p><p>5 0.16189858 <a title="1573-tfidf-5" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>Introduction: Pinterest has been riding an exponential growth curve, doubling every month
 and half. They've gone from 0 to 10s of billions of page views a month in two
 years, from 2 founders and one engineer to over 40 engineers, from one little
@@ -144,34 +94,23 @@ talk:Arc</p><p>6 0.15318757 <a title="1573-tfidf-6" href="../high_scalability-20
 <p>[(0, 0.263), (1, 0.108), (2, -0.018), (3, -0.034), (4, 0.016), (5, -0.056), (6, 0.028), (7, -0.02), (8, 0.027), (9, -0.063), (10, -0.01), (11, 0.055), (12, 0.039), (13, -0.036), (14, -0.03), (15, 0.05), (16, -0.005), (17, -0.008), (18, -0.028), (19, -0.009), (20, -0.006), (21, -0.041), (22, -0.009), (23, -0.003), (24, -0.011), (25, 0.007), (26, 0.036), (27, 0.014), (28, 0.006), (29, 0.01), (30, -0.007), (31, -0.026), (32, -0.056), (33, -0.09), (34, 0.07), (35, 0.023), (36, 0.011), (37, 0.007), (38, -0.019), (39, -0.003), (40, 0.034), (41, -0.024), (42, 0.027), (43, 0.021), (44, -0.039), (45, -0.02), (46, 0.014), (47, 0.062), (48, -0.05), (49, 0.001)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95936722 <a title="1573-lsi-1" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
-<p>Introduction: This article is from an interview withZuhaib Siddique, a production engineer
-atHipChat, makers ofgroup chat and IM for teams.HipChat started in an unusual
-space, one you might not think would have much promise, enterprise group
-messaging, but as we are learning there is gold in them thereenterprise hills.
-Which is why Atlassian, makers of well thought of tools like JIRA and
-Confluence,acquired HipChat in 2012.And in a tale not often heard, the
-resources and connections of a larger parent have actually helped HipChat
-enter anexponential growth cycle. Having reached the 1.2 billion message
-storage mark they are now doubling the number of messages sent, stored, and
-indexed every few months.That kind of growth puts a lot of pressure on a once
-adequate infrastructure. HipChat exhibited a common scaling pattern. Start
-simple, experience traffic spikes, and then think what do we do now? Using
-bigger computers is usually the first and best answer. And they did that. That
-gave them some breathi</p><p>2 0.85880196 <a title="1573-lsi-2" href="../high_scalability-2014/high_scalability-2014-01-13-NYTimes_Architecture%3A_No_Head%2C_No_Master%2C_No_Single_Point_of_Failure.html">1577 high scalability-2014-01-13-NYTimes Architecture: No Head, No Master, No Single Point of Failure</a></p>
-<p>Introduction: Michael Laing, a Systems Architect at NYTimes, gave thisgreat decriptionof
-their use ofRabbitMQ and their overall architecture on the RabbitMQ mailing
-list. The closing sentiment marks this as definitely an architecture to learn
-from:Although it may seem complex,Fabrik has simple components and is mostly
-principles and plumbing. The key point to grasp is that there is no head, no
-master, no single point of failure. As I write this I can see components
-failing (not RabbitMQ), and we are fixing them so they are more reliable. But
-the system doesn't fail, users can connect, and messages are delivered,
-regardless - all within design parameters.Since it's short, to the point, and
-I couldn't say it better, I'll just reproduce several original sources
-here:Just a quick note and thank you to the RabbitMQ team for a great
-product.Our premier online offering www.nytimes.com has a new look and new
-underpinnings, now including a messaging architecture implemented using
-RabbitMQ.This architecture -</p><p>3 0.79476792 <a title="1573-lsi-3" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>
+<p>Introduction: This article is from an interview with    Zuhaib Siddique   , a production engineer at    HipChat   , makers of     group chat and IM for teams.  
+   HipChat started in an unusual space, one you might not think would have much promise, enterprise group messaging, but as we are learning there is gold in them there    enterprise hills   . Which is why Atlassian, makers of well thought of tools like JIRA and Confluence,    acquired HipChat in 2012   . 
+   And in a tale not often heard, the resources and connections of a larger parent have actually helped HipChat enter an    exponential growth cycle   . Having reached the 1.2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. 
+   That kind of growth puts a lot of pressure on a once adequate infrastructure. HipChat exhibited a common scaling pattern. Start simple, experience traffic spikes, and then think what do we do now? Using bigger computers is usually the first and bes</p><p>2 0.85880196 <a title="1573-lsi-2" href="../high_scalability-2014/high_scalability-2014-01-13-NYTimes_Architecture%3A_No_Head%2C_No_Master%2C_No_Single_Point_of_Failure.html">1577 high scalability-2014-01-13-NYTimes Architecture: No Head, No Master, No Single Point of Failure</a></p>
+<p>Introduction: Michael Laing, a Systems Architect at NYTimes, gave this  great decription  of their use of  RabbitMQ  and their overall architecture on the RabbitMQ mailing list. The closing sentiment marks this as definitely an architecture to learn from:
+  
+
+Although it may seem complex,  Fabrik  has simple components and is mostly principles and plumbing. The key point to grasp is that there is no head, no master, no single point of failure. As I write this I can see components failing (not RabbitMQ), and we are fixing them so they are more reliable. But the system doesn't fail, users can connect, and messages are delivered, regardless - all within design parameters.
+
+  
+Since it's short, to the point, and I couldn't say it better, I'll just reproduce several original sources here:
+  
+
+Just a quick note and thank you to the RabbitMQ team for a great product.
+
+
+Our premier online offering www.nytimes.com has a new look and new underpinnings, now including a messaging architecture implemented using</p><p>3 0.79476792 <a title="1573-lsi-3" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>
 <p>Introduction: Rick Reedin an upcoming talk in March titledThat's 'Billion' with a 'B':
 Scaling to the next level at WhatsAppreveals some eye
 poppingWhatsAppstats:What has hundreds of nodes, thousands of cores, hundreds
@@ -186,34 +125,20 @@ Simultaneous Connections.Having built a high performance messaging bus in C++
 while at Yahoo, Rick Reed is not new to the world of high scalability
 architectures. The founders are also ex-Yahoo guys with not a little
 experience scaling systems. So WhatsApp comes by thei</p><p>4 0.79382032 <a title="1573-lsi-4" href="../high_scalability-2014/high_scalability-2014-03-31-How_WhatsApp_Grew_to_Nearly_500_Million_Users%2C_11%2C000_cores%2C_and_70_Million_Messages_a_Second.html">1622 high scalability-2014-03-31-How WhatsApp Grew to Nearly 500 Million Users, 11,000 cores, and 70 Million Messages a Second</a></p>
-<p>Introduction: When we lastvisited WhatsAppthey'd just been acquired by Facebook for $19
-billion. We learned about their early architecture, which centered around a
-maniacal focus on optimizing Erlang into handling 2 million connections a
-server, working on All The Phones, and making users happy through
-simplicity.Two years later traffic has grown 10x. How did WhatsApp make that
-jump to the next level of scalability?Rick Reedtells us in a talk he gave at
-the Erlang Factory:That's 'Billion' with a 'B': Scaling to the next level at
-WhatsApp(slides), which revealed some eye popping WhatsApp stats:What has
-hundreds of nodes, thousands of cores, hundreds of terabytes of RAM, and hopes
-to serve the billions of smartphones that will soon be a reality around the
-globe? The Erlang/FreeBSD-based server infrastructure at WhatsApp. We've faced
-many challenges in meeting the ever-growing demand for our messaging services,
-but as we continue to push the envelope on size (>8000 cores) and speed (>70M
-Erlang message</p><p>5 0.78685004 <a title="1573-lsi-5" href="../high_scalability-2013/high_scalability-2013-04-10-Check_Yourself_Before_You_Wreck_Yourself_-_Avocado%27s_5_Early_Stages_of_Architecture_Evolution.html">1438 high scalability-2013-04-10-Check Yourself Before You Wreck Yourself - Avocado's 5 Early Stages of Architecture Evolution</a></p>
-<p>Introduction: In Don't panic! Here's how to quickly scale your mobile apps Mike
-Maelzerpaints a wonderful picture of howAvocado, a mobile app for connecting
-couples, evolved to handle 30x traffic within a few weeks. If you are just
-getting started then this is a great example to learn from.What I liked: it's
-well written, packing a lot of useful information in a little space; it's
-failure driven, showing the process of incremental change driven by purposeful
-testing and production experience; it shows awareness of what's important, in
-their case, user signup; a replica setup was used for testing, a nice cloud
-benefit. Their Biggest lesson learned is a good one:It would have been great
-to start the scaling process much earlier. Due to time pressure we had to make
-compromises -like dropping four of our media resizer boxes. While throwing
-more hardware at some scaling problems does work, it's less than ideal.Here's
-my gloss on the article:Evolution One - Make it WorkWhen just starting you
-just want to</p><p>6 0.78482473 <a title="1573-lsi-6" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
+<p>Introduction: When we last  visited WhatsApp  they’d just been acquired by Facebook for $19 billion. We learned about their early architecture, which centered around a maniacal focus on optimizing Erlang into handling 2 million connections a server, working on All The Phones, and making users happy through simplicity.
+   Two years later traffic has grown 10x. How did WhatsApp make that jump to the next level of scalability? 
+    Rick Reed    tells us in a talk he gave at the Erlang Factory:    That's 'Billion' with a 'B': Scaling to the next level at WhatsApp    (   slides   ), which revealed some eye popping WhatsApp stats: 
+  
+  What has hundreds of nodes, thousands of cores, hundreds of terabytes of RAM, and hopes to serve the billions of smartphones that will soon be a reality around the globe? The Erlang/FreeBSD-based server infrastructure at WhatsApp. We've faced many challenges in meeting the ever-growing demand for our messaging services, but as we continue to push the envelope on size (>800</p><p>5 0.78685004 <a title="1573-lsi-5" href="../high_scalability-2013/high_scalability-2013-04-10-Check_Yourself_Before_You_Wreck_Yourself_-_Avocado%27s_5_Early_Stages_of_Architecture_Evolution.html">1438 high scalability-2013-04-10-Check Yourself Before You Wreck Yourself - Avocado's 5 Early Stages of Architecture Evolution</a></p>
+<p>Introduction: In  Don’t panic! Here’s how to quickly scale your mobile apps   Mike Maelzer  paints a wonderful picture of how  Avocado , a mobile app for connecting couples, evolved to handle 30x traffic within a few weeks. If you are just getting started then this is a great example to learn from.
+ 
+What I liked: it's well written, packing a lot of useful information in a little space; it's failure driven, showing the process of incremental change driven by purposeful testing and production experience; it shows awareness of what's important, in their case, user signup; a replica setup was used for testing, a nice cloud benefit. 
+ 
+Their Biggest lesson learned is a good one:
+  It would have been great to start the scaling process much earlier. Due to time pressure we had to make compromises –like dropping four of our media resizer boxes. While throwing more hardware at some scaling problems does work, it’s less than ideal.  
+Here's my gloss on the article:
+  Evolution One - Make it Work  
+When just</p><p>6 0.78482473 <a title="1573-lsi-6" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
 <p>7 0.78452396 <a title="1573-lsi-7" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
 <p>8 0.77076602 <a title="1573-lsi-8" href="../high_scalability-2014/high_scalability-2014-05-16-Stuff_The_Internet_Says_On_Scalability_For_May_16th%2C_2014.html">1649 high scalability-2014-05-16-Stuff The Internet Says On Scalability For May 16th, 2014</a></p>
 <p>9 0.76977372 <a title="1573-lsi-9" href="../high_scalability-2011/high_scalability-2011-02-08-Mollom_Architecture_-_Killing_Over_373_Million_Spams_at_100_Requests_Per_Second.html">985 high scalability-2011-02-08-Mollom Architecture - Killing Over 373 Million Spams at 100 Requests Per Second</a></p>
@@ -233,69 +158,29 @@ just want to</p><p>6 0.78482473 <a title="1573-lsi-6" href="../high_scalability-
 <p>[(1, 0.109), (2, 0.227), (10, 0.059), (40, 0.028), (47, 0.013), (52, 0.123), (61, 0.137), (77, 0.018), (79, 0.08), (85, 0.034), (94, 0.053)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.95460153 <a title="1573-lda-1" href="../high_scalability-2010/high_scalability-2010-08-05-Pairing_NoSQL_and_Relational_Data_Storage%3A_MySQL_with_MongoDB.html">872 high scalability-2010-08-05-Pairing NoSQL and Relational Data Storage: MySQL with MongoDB</a></p>
-<p>Introduction: I've largely steered clear of publicly commenting on the "NoSQL vs.
-Relational" conflict. Keeping in mind that this argument is more about
-currently available solutions and the features their developers have chosen to
-build in, I'd like to dig into this and provide a decidedly neutral viewpoint.
-In fact, by erring on the side of caution, I've inadvertently given myself
-plenty of time to consider the pros and cons of both data storage approaches,
-and although my mind was initially swaying toward the NoSQL camp, I can say
-with a fair amount of certainty, that I've found a good compromise. You can
-read the full storehere.</p><p>same-blog 2 0.95065182 <a title="1573-lda-2" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
-<p>Introduction: This article is from an interview withZuhaib Siddique, a production engineer
-atHipChat, makers ofgroup chat and IM for teams.HipChat started in an unusual
-space, one you might not think would have much promise, enterprise group
-messaging, but as we are learning there is gold in them thereenterprise hills.
-Which is why Atlassian, makers of well thought of tools like JIRA and
-Confluence,acquired HipChat in 2012.And in a tale not often heard, the
-resources and connections of a larger parent have actually helped HipChat
-enter anexponential growth cycle. Having reached the 1.2 billion message
-storage mark they are now doubling the number of messages sent, stored, and
-indexed every few months.That kind of growth puts a lot of pressure on a once
-adequate infrastructure. HipChat exhibited a common scaling pattern. Start
-simple, experience traffic spikes, and then think what do we do now? Using
-bigger computers is usually the first and best answer. And they did that. That
-gave them some breathi</p><p>3 0.94866616 <a title="1573-lda-3" href="../high_scalability-2007/high_scalability-2007-11-16-Mogulus_Doesn%27t_Own_a_Single_Server_and_has_%241.2_million_in_funding%2C_15%2C000_People_Creating_Channels.html">156 high scalability-2007-11-16-Mogulus Doesn't Own a Single Server and has $1.2 million in funding, 15,000 People Creating Channels</a></p>
-<p>Introduction: Scoblethe Ubiquitous has a fascinating post on how Mogulus, a live video
-channel startup, uses S3/EC2 and doesn't own a single server. The trends that
-have been happening for a while now are going mainstream. To do great things
-you no longer need to start by creating a huge war chest. You can forage off
-the land, like any good mobile, light weight fighting unit.For a strategy hit
-he mentions the same needed change in perspective as Beau Lebens talked about
-when makingFeedBlendr:One tip he gave us is that when using Amazon’s services
-you have to design your systems with the assumption that they will never be up
-and running. What he means by that is services are “volatile” and can go up
-and down without notice. So, he’s designed his systems to survive that. He
-told me that it meant his engineering teams had to be quite disciplined in
-designing their architecture.</p><p>4 0.94025499 <a title="1573-lda-4" href="../high_scalability-2011/high_scalability-2011-09-16-Stuff_The_Internet_Says_On_Scalability_For_September_16%2C_2011.html">1117 high scalability-2011-09-16-Stuff The Internet Says On Scalability For September 16, 2011</a></p>
-<p>Introduction: Between love and madness lies HighScalability:Google now 10x better: MapReduce
-sorts 1 petabyte of data using 8000 computers in 33 minutes; 1 Billion on
-Social Networks;Tumblr at 10 Billion Posts;Twitter at 100 Million
-Users;Testing at Google Scale: 1800 builds, 120 million test suites, 60
-million tests run daily.From theDash Memoon Google's Plan:Go is a very
-promising systems-programming language in the vein of C++. We fully hope and
-expect that Go becomes the standard back-end language at Google over the next
-few years.On GAE Go can load from a cold start in 100ms and the typical
-instance size is 4MB. Is it any wonder Go is a go? Should we expect to see
-Java and Python deprecated because Go is so much cheaper to run at
-scale?Potent Quotables:@caciufo: 30x more scalability w/ many-core. So perf
-doesn't have to level out or vex programmers. #IDF2011@joerglew: Evaluating
-divide&conquer; vs. master-slave architecture for workflows scalability in
-#vCO. I wonder what fits better to cust. ne</p><p>5 0.93978548 <a title="1573-lda-5" href="../high_scalability-2013/high_scalability-2013-01-07-Analyzing_billions_of_credit_card_transactions_and_serving_low-latency_insights_in_the_cloud.html">1382 high scalability-2013-01-07-Analyzing billions of credit card transactions and serving low-latency insights in the cloud</a></p>
-<p>Introduction: This is a guest post byIvan de PradoandPere Ferrera, founders ofDatasalt, the
-company behindPangoolandSplout SQLBig Data open-source projects.The amount of
-payments performed using credit cards is huge. It is clear that there is
-inherent value in the data that can be derived from analyzing all the
-transactions. Client fidelity, demographics, heat maps of activity, shop
-recommendations, and many other statistics are useful to both clients and
-shops for improving their relationship with the market. AtDatasaltwe have
-developed a system in collaboration with theBBVA bankthat is able to analyze
-years of data and serve insights and statistics to different low-latency web
-and mobile applications.The main challenge we faced besides processing Big
-Data input is thatthe output was also Big Data, and even bigger than the
-input. And this output needed to be served quickly, under high load.The
-solution we developed has an infrastructure cost of just a few thousands of
-dollars per month thanks to th</p><p>6 0.93868279 <a title="1573-lda-6" href="../high_scalability-2013/high_scalability-2013-04-01-Khan_Academy_Checkbook_Scaling_to_6_Million_Users_a_Month_on_GAE.html">1432 high scalability-2013-04-01-Khan Academy Checkbook Scaling to 6 Million Users a Month on GAE</a></p>
+<p>Introduction: I’ve largely steered clear of publicly commenting on the “NoSQL vs. Relational” conflict. Keeping in mind that this argument is more about currently available solutions and the features their developers have chosen to build in, I’d like to dig into this and provide a decidedly neutral viewpoint. In fact, by erring on the side of caution, I’ve inadvertently given myself plenty of time to consider the pros and cons of both data storage approaches, and although my mind was initially swaying toward the NoSQL camp, I can say with a fair amount of certainty, that I’ve found a good compromise. 
+ 
+You can read the full store  here .</p><p>same-blog 2 0.95065182 <a title="1573-lda-2" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
+<p>Introduction: This article is from an interview with    Zuhaib Siddique   , a production engineer at    HipChat   , makers of     group chat and IM for teams.  
+   HipChat started in an unusual space, one you might not think would have much promise, enterprise group messaging, but as we are learning there is gold in them there    enterprise hills   . Which is why Atlassian, makers of well thought of tools like JIRA and Confluence,    acquired HipChat in 2012   . 
+   And in a tale not often heard, the resources and connections of a larger parent have actually helped HipChat enter an    exponential growth cycle   . Having reached the 1.2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. 
+   That kind of growth puts a lot of pressure on a once adequate infrastructure. HipChat exhibited a common scaling pattern. Start simple, experience traffic spikes, and then think what do we do now? Using bigger computers is usually the first and bes</p><p>3 0.94866616 <a title="1573-lda-3" href="../high_scalability-2007/high_scalability-2007-11-16-Mogulus_Doesn%27t_Own_a_Single_Server_and_has_%241.2_million_in_funding%2C_15%2C000_People_Creating_Channels.html">156 high scalability-2007-11-16-Mogulus Doesn't Own a Single Server and has $1.2 million in funding, 15,000 People Creating Channels</a></p>
+<p>Introduction: Scoble   the Ubiquitous has a fascinating post on how Mogulus, a live video channel startup, uses S3/EC2 and doesn't own a single server. The trends that have been happening for a while now are going mainstream. To do great things you no longer need to start by creating a huge war chest. You can forage off the land, like any good mobile, light weight fighting unit.     For a strategy hit he mentions the same needed change in perspective as Beau Lebens talked about when making   FeedBlendr  :     One tip he gave us is that when using Amazon’s services you have to design your systems with the assumption that they will never be up and running. What he means by that is services are “volatile” and can go up and down without notice. So, he’s designed his systems to survive that. He told me that it meant his engineering teams had to be quite disciplined in designing their architecture.</p><p>4 0.94025499 <a title="1573-lda-4" href="../high_scalability-2011/high_scalability-2011-09-16-Stuff_The_Internet_Says_On_Scalability_For_September_16%2C_2011.html">1117 high scalability-2011-09-16-Stuff The Internet Says On Scalability For September 16, 2011</a></p>
+<p>Introduction: Between love and madness lies  HighScalability : 
+  
+  Google now 10x better : MapReduce sorts 1 petabyte of data using 8000 computers in 33 minutes;  1 Billion on Social Networks ;  Tumblr at 10 Billion Posts ;  Twitter at 100 Million Users ;  Testing at Google Scale : 1800 builds, 120 million test suites, 60 million tests run daily. 
+ From the  Dash Memo  on Google's Plan:  Go is a very promising systems-programming language in the vein of C++. We fully hope and expect that Go becomes the standard back-end language at Google over the next few years.  On GAE  Go can load from  a cold start in 100ms and the typical instance size is 4MB. Is it any wonder Go is a go? Should we expect to see Java and Python deprecated because Go is so much cheaper to run at scale? 
+ Potent Quotables:               
+ 
+  @caciufo  : 30x more scalability w/ many-core. So perf doesn't have to level out or vex programmers. #IDF2011 
+  @joerglew  : Evaluating divide&conquer; vs. master-slave architecture for wor</p><p>5 0.93978548 <a title="1573-lda-5" href="../high_scalability-2013/high_scalability-2013-01-07-Analyzing_billions_of_credit_card_transactions_and_serving_low-latency_insights_in_the_cloud.html">1382 high scalability-2013-01-07-Analyzing billions of credit card transactions and serving low-latency insights in the cloud</a></p>
+<p>Introduction: This is a guest post by  Ivan de Prado  and  Pere Ferrera , founders of  Datasalt , the company behind  Pangool  and  Splout SQL  Big Data open-source projects.  
+ 
+The amount of payments performed using credit cards is huge. It is clear that there is inherent value in the data that can be derived from analyzing all the transactions. Client fidelity, demographics, heat maps of activity, shop recommendations, and many other statistics are useful to both clients and shops for improving their relationship with the market. At  Datasalt  we have developed a system in collaboration with the  BBVA bank  that is able to analyze years of data and serve insights and statistics to different low-latency web and mobile applications.
+ 
+The main challenge we faced besides processing Big Data input is that  the output was also Big Data, and even bigger than the input . And this output needed to be served quickly, under high load.
+ 
+The solution we developed has an infrastructure cost of just a few tho</p><p>6 0.93868279 <a title="1573-lda-6" href="../high_scalability-2013/high_scalability-2013-04-01-Khan_Academy_Checkbook_Scaling_to_6_Million_Users_a_Month_on_GAE.html">1432 high scalability-2013-04-01-Khan Academy Checkbook Scaling to 6 Million Users a Month on GAE</a></p>
 <p>7 0.93587136 <a title="1573-lda-7" href="../high_scalability-2007/high_scalability-2007-07-30-Product%3A_Yslow_to_speed_up_your_web_pages.html">47 high scalability-2007-07-30-Product: Yslow to speed up your web pages</a></p>
 <p>8 0.93371451 <a title="1573-lda-8" href="../high_scalability-2013/high_scalability-2013-05-03-Stuff_The_Internet_Says_On_Scalability_For_May_3%2C_2013.html">1451 high scalability-2013-05-03-Stuff The Internet Says On Scalability For May 3, 2013</a></p>
 <p>9 0.9230625 <a title="1573-lda-9" href="../high_scalability-2013/high_scalability-2013-02-14-When_all_the_Program%27s_a_Graph_-_Prismatic%27s_Plumbing_Library.html">1406 high scalability-2013-02-14-When all the Program's a Graph - Prismatic's Plumbing Library</a></p>

@@ -16,37 +16,34 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1638-html" href="http://highscalability.com//blog/2014/4/28/how-disqus-went-realtime-with-165k-messages-per-second-and-l.html">html</a></p><p>Introduction: Here's anUpdate On Disqus: It's Still About Realtime, But Go Demolishes
-Python.How do you add realtime functionality to a web scale application?
-That's whatAdam Hitchcock, a Software Engineer at Disqus talks about in an
-excellent talk: Making DISQUS Realtime (slides).Disqus had to take their
-commenting system and add realtime capabilities to it. Not something that's
-easy to do when at the time of the talk (2013) they had had just hit a billion
-unique visitors a month.What Disqus developed is a realtime commenting system
-called "realertime" that was tested to handle 1.5 million concurrently
-connected users, 45,000 new connections per second, 165,000 messages/second,
-with less than .2 seconds latency end-to-end.The nature of a commenting system
-is that it is IO bound and has a high fanout, that is a comment comes in and
-must be sent out to a lot of readers. It's a problem very similar to
-whatTwitter must solve. Disqus' solution was quite interesting as was the path
-to their solution. The</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 How do you add realtime functionality to a web scale application? [sent-2, score-0.297]
-</p><p>2 Disqus had to take their commenting system and add realtime capabilities to it. [sent-4, score-0.447]
-</p><p>3 What Disqus developed is a realtime commenting system called "realertime" that was tested to handle 1. [sent-6, score-0.447]
-</p><p>4 So let's see how Disqus evolved their realtime commenting architecture and created something both old and new in the process. [sent-19, score-0.542]
-</p><p>5 NginxPush Stream Module- A pure stream http push technology for your Nginx setup. [sent-24, score-0.242]
-</p><p>6 More people comment after realtime than they did before. [sent-32, score-0.346]
-</p><p>7 Old realtime system:The Disqus app, written in Django, would post to memcache on many keys: forum:id, thread:id, user:id, post:id. [sent-35, score-0.297]
-</p><p>8 So  the new flow: New Posts -> Disqus -> redis queue -> "python glue" Gevent formatting server (2 servers for redundancy) -> redis pub/sub (6 servers) -> Flask FE (front end) Cluster (14 big servers) <\- HA Proxy (5 servers) <\- clientsThis worked well. [sent-48, score-0.643]
-</p><p>9 Third and winning approach:Uses apipelined architecturewhere messages pass from queue to queue while being acted upon by filters. [sent-51, score-0.254]
-</p><p>10 This replaced redis pub/sub, flask servers and the HAProxy cluster. [sent-53, score-0.405]
-</p><p>11 5 push stream servers were required because of network memory limitations in the kernel. [sent-55, score-0.295]
-</p><p>12 The Disqus part of the flow is a Django web app that uses post_save and post_delete hooks to put stuff onto a thoonk queue. [sent-58, score-0.317]
-</p><p>13 These hooks are very useful for generating notifications for realtime data. [sent-59, score-0.353]
-</p><p>14 They already had thoonk so used it instead of spinning up a HA cluster of RabbitMQ machines. [sent-61, score-0.249]
-</p><p>15 Originally did formatting in the flask cluster, but that took too much CPU. [sent-71, score-0.408]
-</p><p>16 The python glue program is structured as a data pipeline, there are stages the data must go through: parsing, computation, publish it to another place. [sent-78, score-0.285]
-</p><p>17 A message would come off of thoonk and run through a pipeline: JSONAnnonHTTPPipeline, JSONSecureHTTPPipeline, JSONAnnonFilePipeline. [sent-82, score-0.26]
-</p><p>18 Great when bringing up a new feature you can make a new pipeline stage, make a new pipeline, and have the old pipeline run side by side with the new pipeline. [sent-84, score-0.542]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2014-1638-html" href="http://highscalability.com//blog/2014/4/28/how-disqus-went-realtime-with-165k-messages-per-second-and-l.html">html</a></p><p>Introduction: Here's an  Update On Disqus: It's Still About Realtime, But Go Demolishes Python . 
+ 
+How do you add realtime functionality to a web scale application? That's what  Adam Hitchcock , a Software Engineer at Disqus talks about in an excellent talk:  Making DISQUS Realtime  ( slides ).
+ 
+Disqus had to take their commenting system and add realtime capabilities to it. Not something that's easy to do when at the time of the talk (2013) they had had just hit a billion unique visitors a month.
+ 
+What Disqus developed is a realtime commenting system called “realertime” that was tested to handle 1.5 million concurrently connected users, 45,000 new connections per second, 165,000 messages/second, with less than .2 seconds latency end-to-end.
+ 
+The nature of a commenting system is that it is IO bound and has a high fanout, that is a comment comes in and must be sent out to a lot of readers. It's a problem very similar to what  Twitter must solve . 
+ 
+Disqus' solution was quite interesting as was th</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 How do you add realtime functionality to a web scale application? [sent-2, score-0.297]
+</p><p>2 What Disqus developed is a realtime commenting system called “realertime” that was tested to handle 1. [sent-6, score-0.447]
+</p><p>3 So let's see how Disqus evolved their realtime commenting architecture and created something both old and new in the process. [sent-19, score-0.542]
+</p><p>4 Nginx    Push Stream Module    - A pure stream http push technology for your Nginx setup. [sent-24, score-0.242]
+</p><p>5 More people comment after realtime than they did before. [sent-32, score-0.346]
+</p><p>6 Old realtime system:         The Disqus app, written in Django, would post to memcache on many keys: forum:id, thread:id, user:id, post:id. [sent-35, score-0.297]
+</p><p>7 So  the new flow: New Posts -> Disqus -> redis queue -> “python glue” Gevent formatting server (2 servers for redundancy) -> redis pub/sub (6 servers) -> Flask FE (front end) Cluster (14 big servers) <- HA Proxy (5 servers) <- clients         This worked well. [sent-48, score-0.643]
+</p><p>8 Third and winning approach:         Uses a    pipelined architecture    where messages pass from queue to queue while being acted upon by filters. [sent-51, score-0.31]
+</p><p>9 This replaced redis pub/sub, flask servers and the HAProxy cluster. [sent-53, score-0.405]
+</p><p>10 5 push stream servers were required because of network memory limitations in the kernel. [sent-55, score-0.295]
+</p><p>11 The Disqus part of the flow is a Django web app that uses post_save and post_delete hooks to put stuff onto a thoonk queue. [sent-58, score-0.317]
+</p><p>12 These hooks are very useful for generating notifications for realtime data. [sent-59, score-0.353]
+</p><p>13 They already had thoonk so used it instead of spinning up a HA cluster of RabbitMQ machines. [sent-61, score-0.249]
+</p><p>14 Originally did formatting in the flask cluster, but that took too much CPU. [sent-71, score-0.408]
+</p><p>15 The python glue program is structured as a data pipeline, there are stages the data must go through: parsing, computation, publish it to another place. [sent-78, score-0.285]
+</p><p>16 A message would come off of thoonk and run through a pipeline: JSONAnnonHTTPPipeline, JSONSecureHTTPPipeline, JSONAnnonFilePipeline. [sent-82, score-0.26]
+</p><p>17 Great when bringing up a new feature you can make a new pipeline stage, make a new pipeline, and have the old pipeline run side by side with the new pipeline. [sent-84, score-0.542]
+</p><p>18 Configuration is a publish endpoint and a subscribe endpoint and how to map data between them. [sent-98, score-0.231]
 </p><p>19 Good monitoring built-in and accessible over a push stream status endpoint. [sent-99, score-0.242]
 </p><p>20 They were able to make a great realtime map of traffic without any prior planning because messages were published over all channels. [sent-133, score-0.365]
 </p>
@@ -55,76 +52,58 @@ to their solution. The</p><br/><h2>Summary: the most important sentenses generet
 <p>[('disqus', 0.557), ('realtime', 0.297), ('flask', 0.222), ('thoonk', 0.204), ('formatting', 0.186), ('commenting', 0.15), ('pipeline', 0.147), ('nginx', 0.139), ('stream', 0.134), ('redis', 0.13), ('python', 0.115), ('django', 0.111), ('push', 0.108), ('module', 0.106), ('glue', 0.101), ('queue', 0.093), ('slides', 0.082), ('greenlet', 0.082), ('hitchcock', 0.082), ('robenolt', 0.082), ('endpoint', 0.081), ('eventsource', 0.074), ('publish', 0.069), ('messages', 0.068), ('acks', 0.066), ('gevent', 0.066), ('haproxy', 0.064), ('stage', 0.062), ('browser', 0.061), ('claimed', 0.059), ('flow', 0.057), ('concurrent', 0.057), ('hooks', 0.056), ('pipelined', 0.056), ('fanout', 0.056), ('message', 0.056), ('servers', 0.053), ('new', 0.051), ('couple', 0.05), ('comment', 0.049), ('subscribers', 0.049), ('posts', 0.048), ('sockets', 0.047), ('march', 0.046), ('library', 0.046), ('comments', 0.045), ('cluster', 0.045), ('ha', 0.045), ('old', 0.044), ('socket', 0.043)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1638-tfidf-1" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
-<p>Introduction: Here's anUpdate On Disqus: It's Still About Realtime, But Go Demolishes
-Python.How do you add realtime functionality to a web scale application?
-That's whatAdam Hitchcock, a Software Engineer at Disqus talks about in an
-excellent talk: Making DISQUS Realtime (slides).Disqus had to take their
-commenting system and add realtime capabilities to it. Not something that's
-easy to do when at the time of the talk (2013) they had had just hit a billion
-unique visitors a month.What Disqus developed is a realtime commenting system
-called "realertime" that was tested to handle 1.5 million concurrently
-connected users, 45,000 new connections per second, 165,000 messages/second,
-with less than .2 seconds latency end-to-end.The nature of a commenting system
-is that it is IO bound and has a high fanout, that is a comment comes in and
-must be sent out to a lot of readers. It's a problem very similar to
-whatTwitter must solve. Disqus' solution was quite interesting as was the path
-to their solution. The</p><p>2 0.49882594 <a title="1638-tfidf-2" href="../high_scalability-2014/high_scalability-2014-05-07-Update_on_Disqus%3A_It%27s_Still_About_Realtime%2C_But_Go_Demolishes_Python.html">1644 high scalability-2014-05-07-Update on Disqus: It's Still About Realtime, But Go Demolishes Python</a></p>
-<p>Introduction: Our last article on Disqus: How Disqus Went Realtime With 165K Messages Per
-Second And Less Than .2 Seconds Latency, was a little out of date, but the
-folks at Disqus have been busy implementing, not talking, so we don't know a
-lot about what they are doing now, but we do have a short update in C1MM and
-NGINXby John Watson and an article Trying out this Go thing.So Disqus has
-grown a bit:1.3 billion unique visitors10 billion page views500 million users
-engaged in discussions3 million communities25 million commentsThey are still
-all about realtime, but Go replaced Python in their Realtime system:Original
-Realtime backend was written in a pretty lightweight Python + gevent.The
-realtime service is a hybrid of CPU intensive tasks + lots of network IO.
-Gevent was handling the network IO without an issue, but at higher contention,
-the CPU was choking everything. Switching over to Go removed that contention,
-which was the primary issue that was being seen.Still runs on 5 machines Nginx
-machin</p><p>3 0.27178523 <a title="1638-tfidf-3" href="../high_scalability-2010/high_scalability-2010-10-26-Scaling_DISQUS_to_75_Million_Comments_and_17%2C000_RPS.html">928 high scalability-2010-10-26-Scaling DISQUS to 75 Million Comments and 17,000 RPS</a></p>
-<p>Introduction: Thispresentation andvideoby Jason Yan and David Cramer discusses how they
-scaled DISQUS, a comments as a service service for easily adding comments to
-your site and connecting communities. The presentation is very good, so here
-are just a few highlights: Traffic: 17,000 requests/second peak; 450,000
-websites; 15 million profiles; 75 million comments; 250 million visitors; 40
-million monthly users / developer.Forces: unpredictable traffic patterns
-because of celebrity gossip and events like disasters; discussion never expire
-which means they can't fit in memory; must always be up.Machines: 100 servers;
-30% web servers (Appache + mod_wsgi); 10% databases (PostgreSQL); 25% cache
-servers (memcached); 20% load balancing / high availability (HAProxy +
-heartbeat); 15% Utility servers (Python scripts).Architecture: Requests are
-load balanced across an Apache cluster. Apache talks to memcached,
-HAProxy/pgbouncer to handle connection pooling to the database, and a central
-queue service. Strategi</p><p>4 0.14237885 <a title="1638-tfidf-4" href="../high_scalability-2010/high_scalability-2010-04-12-Poppen.de_Architecture.html">808 high scalability-2010-04-12-Poppen.de Architecture</a></p>
-<p>Introduction: This is a guest a post by Alvaro Videla describing their architecture
-forPoppen.de, a popular German dating site. This site is very much NSFW, so be
-careful before clicking on the link. What I found most interesting is how they
-manage to sucessfully blend a little of the old with a little of the new,
-using technologies like Nginx, MySQL, CouchDB, and Erlang, Memcached,
-RabbitMQ, PHP, Graphite, Red5, and Tsung.What is Poppen.de?Poppen.de (NSFW) is
-the top dating website in Germany, and while it may be a small site compared
-to giants like Flickr or Facebook, we believe it's a nice architecture to
-learn from if you are starting to get some scaling problems.The Stats2.000.000
-users20.000 concurrent users300.000 private messages per day250.000 logins per
-dayWe have a team of eleven developers, two designers and two sysadmins for
-this project.Business ModelThe site works with a freemium model, where users
-can do for free things like: Search for other users.Write private messages to
-each othe</p><p>5 0.13695964 <a title="1638-tfidf-5" href="../high_scalability-2010/high_scalability-2010-09-17-Hot_Scalability_Links_For_Sep_17%2C_2010.html">903 high scalability-2010-09-17-Hot Scalability Links For Sep 17, 2010</a></p>
-<p>Introduction: Disqus - Scaling the Worlds Largest Django App. Interesting overview of a
-commenting system with 75 million comments and 250 million visitors. Lots of
-good details on how they partition their database, testing, continuous
-integration, feature switches, caching, delayed signals, and more.Things I
-learnt tracking a billion events in 24 hours: Know your host, Scaling isn't
-just servers, My servers need to talk to me more, Kill switches for users,
-What you don't know is the problem, Don't mix server roles, Know your most
-important users outside of your site.Tweets of Gold:georgebarnett: I read High
-Scalability for useful articles about large scaling. Sadly though, nothing
-useful ever shows up. #NoLongerBotheringnorthscale: wow that is fast! :) RT
-@cgoldberg: was just running > 100k ops/sec against my 2-node #Membase
-cluster... zazooom #nosqlturbofunctor: The root of many (horizontal)
-scalability problems is an application level access to a writable filesystem.
-(Thus, #appengine.)gwenshap:</p><p>6 0.13333929 <a title="1638-tfidf-6" href="../high_scalability-2008/high_scalability-2008-05-03-Product%3A_nginx.html">314 high scalability-2008-05-03-Product: nginx</a></p>
+<p>Introduction: Here's an  Update On Disqus: It's Still About Realtime, But Go Demolishes Python . 
+ 
+How do you add realtime functionality to a web scale application? That's what  Adam Hitchcock , a Software Engineer at Disqus talks about in an excellent talk:  Making DISQUS Realtime  ( slides ).
+ 
+Disqus had to take their commenting system and add realtime capabilities to it. Not something that's easy to do when at the time of the talk (2013) they had had just hit a billion unique visitors a month.
+ 
+What Disqus developed is a realtime commenting system called “realertime” that was tested to handle 1.5 million concurrently connected users, 45,000 new connections per second, 165,000 messages/second, with less than .2 seconds latency end-to-end.
+ 
+The nature of a commenting system is that it is IO bound and has a high fanout, that is a comment comes in and must be sent out to a lot of readers. It's a problem very similar to what  Twitter must solve . 
+ 
+Disqus' solution was quite interesting as was th</p><p>2 0.49882594 <a title="1638-tfidf-2" href="../high_scalability-2014/high_scalability-2014-05-07-Update_on_Disqus%3A_It%27s_Still_About_Realtime%2C_But_Go_Demolishes_Python.html">1644 high scalability-2014-05-07-Update on Disqus: It's Still About Realtime, But Go Demolishes Python</a></p>
+<p>Introduction: Our last article on Disqus:  How Disqus Went Realtime With 165K Messages Per Second And Less Than .2 Seconds Latency , was a little out of date, but the folks at Disqus have been busy implementing, not talking, so we don't know a lot about what they are doing now, but we do have a short update in  C1MM and NGINX  by John Watson and an article  Trying out this Go thing .
+ 
+So Disqus has grown a bit:
+  
+ 1.3 billion unique visitors 
+ 10 billion page views 
+ 500 million users engaged in discussions 
+ 3 million communities 
+ 25 million comments 
+  
+They are still all about realtime, but Go replaced Python in their Realtime system:
+  
+ Original Realtime backend was written in a pretty lightweight Python + gevent. 
+ The realtime service is a hybrid of CPU intensive tasks + lots of network IO. Gevent was handling the network IO without an issue, but at higher contention, the CPU was choking everything. Switching over to Go removed that contention, which was the primary issue that was being se</p><p>3 0.27178523 <a title="1638-tfidf-3" href="../high_scalability-2010/high_scalability-2010-10-26-Scaling_DISQUS_to_75_Million_Comments_and_17%2C000_RPS.html">928 high scalability-2010-10-26-Scaling DISQUS to 75 Million Comments and 17,000 RPS</a></p>
+<p>Introduction: This  presentation  and  video  by Jason Yan and David Cramer discusses how they scaled DISQUS, a comments as a service service for easily adding comments to your site and connecting communities. The presentation is very good, so here are just a few highlights: 
+  
+  Traffic : 17,000 requests/second peak; 450,000 websites; 15 million profiles; 75 million comments; 250 million visitors; 40 million monthly users / developer. 
+  Forces : unpredictable traffic patterns because of celebrity gossip and events like disasters; discussion never expire which means they can't fit in memory; must always be up. 
+  Machines : 100 servers; 30% web servers (Appache + mod_wsgi); 10% databases (PostgreSQL); 25% cache servers (memcached); 20% load balancing / high availability (HAProxy + heartbeat); 15% Utility servers (Python scripts). 
+  Architecture : Requests are load balanced across an Apache cluster. Apache talks to memcached, HAProxy/pgbouncer to handle connection pooling to the database, and a ce</p><p>4 0.14237885 <a title="1638-tfidf-4" href="../high_scalability-2010/high_scalability-2010-04-12-Poppen.de_Architecture.html">808 high scalability-2010-04-12-Poppen.de Architecture</a></p>
+<p>Introduction: This is a guest a post by Alvaro Videla describing their architecture for  Poppen.de , a popular German dating site. This site is very much NSFW, so be careful before clicking on the link. What I found most interesting is how they manage to sucessfully blend a little of the old with a little of the new, using technologies like Nginx, MySQL, CouchDB, and Erlang, Memcached, RabbitMQ, PHP, Graphite, Red5, and Tsung.
+  What is Poppen.de?  
+Poppen.de (NSFW) is the top dating website in  Germany, and while it may be a small site compared to giants like Flickr  or Facebook, we believe it's a nice architecture to learn from if you  are starting to get some scaling problems.
+  The  Stats   
+ 2.000.000 users 
+ 20.000  concurrent users 
+ 300.000 private messages per day 
+ 250.000  logins per day 
+ We have a team  of  eleven developers, two designers and two sysadmins for this project. 
+   Business Model  
+The site works with a  freemium model, where users can do for free things like: 
+  
+ Search</p><p>5 0.13695964 <a title="1638-tfidf-5" href="../high_scalability-2010/high_scalability-2010-09-17-Hot_Scalability_Links_For_Sep_17%2C_2010.html">903 high scalability-2010-09-17-Hot Scalability Links For Sep 17, 2010</a></p>
+<p>Introduction: Disqus - Scaling the Worlds Largest Django App.  Interesting overview of a commenting system with 75 million comments and 250 million visitors. Lots of good details on how they partition their database, testing, continuous integration, feature switches, caching, delayed signals, and more. 
+ 
+  Things I learnt tracking a billion events in 24 hours : Know your host, Scaling isn't just servers, My servers need to talk to me more, Kill switches for users, What you don't know is the problem, Don't mix server roles, Know your most important users outside of your site. 
+  Tweets of Gold:                
+ 
+  georgebarnett : I read High Scalability for useful articles about large scaling. Sadly though, nothing useful ever shows up. #NoLongerBothering 
+  northscale : wow that is fast! :) RT @cgoldberg: was just running > 100k ops/sec against my 2-node #Membase cluster... zazooom #nosql 
+  turbofunctor : The root of many (horizontal) scalability problems is an application level access to a writab</p><p>6 0.13333929 <a title="1638-tfidf-6" href="../high_scalability-2008/high_scalability-2008-05-03-Product%3A_nginx.html">314 high scalability-2008-05-03-Product: nginx</a></p>
 <p>7 0.12860429 <a title="1638-tfidf-7" href="../high_scalability-2009/high_scalability-2009-05-17-Scaling_Django_Web_Apps_by_Mike_Malone.html">602 high scalability-2009-05-17-Scaling Django Web Apps by Mike Malone</a></p>
 <p>8 0.12734561 <a title="1638-tfidf-8" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
 <p>9 0.12565982 <a title="1638-tfidf-9" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
@@ -144,76 +123,50 @@ scalability problems is an application level access to a writable filesystem.
 <p>[(0, 0.202), (1, 0.097), (2, -0.035), (3, -0.08), (4, 0.026), (5, -0.034), (6, 0.026), (7, 0.069), (8, -0.001), (9, 0.005), (10, 0.007), (11, 0.056), (12, 0.077), (13, -0.053), (14, -0.075), (15, 0.023), (16, 0.0), (17, -0.012), (18, -0.025), (19, -0.029), (20, -0.016), (21, -0.06), (22, -0.048), (23, -0.019), (24, 0.054), (25, -0.003), (26, 0.025), (27, 0.075), (28, -0.017), (29, 0.001), (30, 0.018), (31, -0.034), (32, -0.027), (33, 0.003), (34, 0.058), (35, -0.036), (36, -0.021), (37, 0.036), (38, 0.003), (39, 0.076), (40, 0.019), (41, 0.045), (42, -0.006), (43, -0.021), (44, 0.055), (45, -0.016), (46, -0.039), (47, -0.028), (48, -0.047), (49, 0.019)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.93021834 <a title="1638-lsi-1" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
-<p>Introduction: Here's anUpdate On Disqus: It's Still About Realtime, But Go Demolishes
-Python.How do you add realtime functionality to a web scale application?
-That's whatAdam Hitchcock, a Software Engineer at Disqus talks about in an
-excellent talk: Making DISQUS Realtime (slides).Disqus had to take their
-commenting system and add realtime capabilities to it. Not something that's
-easy to do when at the time of the talk (2013) they had had just hit a billion
-unique visitors a month.What Disqus developed is a realtime commenting system
-called "realertime" that was tested to handle 1.5 million concurrently
-connected users, 45,000 new connections per second, 165,000 messages/second,
-with less than .2 seconds latency end-to-end.The nature of a commenting system
-is that it is IO bound and has a high fanout, that is a comment comes in and
-must be sent out to a lot of readers. It's a problem very similar to
-whatTwitter must solve. Disqus' solution was quite interesting as was the path
-to their solution. The</p><p>2 0.84916717 <a title="1638-lsi-2" href="../high_scalability-2014/high_scalability-2014-05-07-Update_on_Disqus%3A_It%27s_Still_About_Realtime%2C_But_Go_Demolishes_Python.html">1644 high scalability-2014-05-07-Update on Disqus: It's Still About Realtime, But Go Demolishes Python</a></p>
-<p>Introduction: Our last article on Disqus: How Disqus Went Realtime With 165K Messages Per
-Second And Less Than .2 Seconds Latency, was a little out of date, but the
-folks at Disqus have been busy implementing, not talking, so we don't know a
-lot about what they are doing now, but we do have a short update in C1MM and
-NGINXby John Watson and an article Trying out this Go thing.So Disqus has
-grown a bit:1.3 billion unique visitors10 billion page views500 million users
-engaged in discussions3 million communities25 million commentsThey are still
-all about realtime, but Go replaced Python in their Realtime system:Original
-Realtime backend was written in a pretty lightweight Python + gevent.The
-realtime service is a hybrid of CPU intensive tasks + lots of network IO.
-Gevent was handling the network IO without an issue, but at higher contention,
-the CPU was choking everything. Switching over to Go removed that contention,
-which was the primary issue that was being seen.Still runs on 5 machines Nginx
-machin</p><p>3 0.75127393 <a title="1638-lsi-3" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
-<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow
-@tschellenbach on Twitter and GithubFashiolistastarted out as a hobby project
-which we built on the side. We had absolutely no idea it would grow into one
-of the largest online fashion communities. The entire first version took about
-two weeks to develop and our feed implementation was dead simple. We've come a
-long way since then and I'd like to share our experience with scaling feed
-systems.Feeds are a core component of many large startups such as Pinterest,
-Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers
-theflat feed,aggregated feedand thenotification system. This article will
-explain the troubles we ran into when scaling our feeds and the design
-decisions involved with building your own solution. Understanding the basics
-of how these feed systems work is essential as more and more applications rely
-on them.Furthermore we've open sourcedFeedly, the Python module powering our
-feeds. Wh</p><p>4 0.74971247 <a title="1638-lsi-4" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
-<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
-'antirez' Sanfilippo shows how to solve some common problems in Redis by
-taking advantage of its unique data structure handling capabilities. Common
-Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
-programmers need to get done, but that can be hard or slow in more traditional
-stores. A very useful and practical article. How would you accomplish these
-tasks in your framework?Show latest items listings in your home page. This is
-a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
-the head of the list stored at a key.LTRIMis used to limit the number of items
-in the list to 5000. If the user needs to page beyond this cache only then are
-they sent to the database.Deletion and filtering. If a cached article is
-deleted it can be removed from the cache using LREM.Leaderboards and related
-problems. A leader board is a set sorted by score. TheZADDcommands implements
-th</p><p>5 0.73767483 <a title="1638-lsi-5" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
-<p>Introduction: This is a guest post by Ben Lowry, CEO ofPlaytomic. Playtomic is a game
-analytics service implemented in about 8000 mobile, web and downloadable games
-played by approximately 20 million people daily.Here's a good summary quote by
-Ben Lowry on Hacker News:Just over 20,000,000 people hit my API yesterday
-700,749,252 times, playing the ~8,000 games my analytics platform is
-integrated in for a bit under 600 years in total play time. That's just
-yesterday. There are lots of different bottlenecks waiting for people
-operating at scale. Heroku and NodeJS, for my use case, eventually alleviated
-a whole bunch of them very cheaply.Playtomic began with an almost exclusively
-Microsoft.NET and Windows architecture which held up for 3 years before being
-replaced with a complete rewrite using NodeJS.  During its lifetime the entire
-platform grew from shared space on a single server to a full dedicated, then
-spread to second dedicated, then the API server was offloaded to a VPS
-provider and 4 - 6 fairl</p><p>6 0.71230513 <a title="1638-lsi-6" href="../high_scalability-2010/high_scalability-2010-10-26-Scaling_DISQUS_to_75_Million_Comments_and_17%2C000_RPS.html">928 high scalability-2010-10-26-Scaling DISQUS to 75 Million Comments and 17,000 RPS</a></p>
+<p>Introduction: Here's an  Update On Disqus: It's Still About Realtime, But Go Demolishes Python . 
+ 
+How do you add realtime functionality to a web scale application? That's what  Adam Hitchcock , a Software Engineer at Disqus talks about in an excellent talk:  Making DISQUS Realtime  ( slides ).
+ 
+Disqus had to take their commenting system and add realtime capabilities to it. Not something that's easy to do when at the time of the talk (2013) they had had just hit a billion unique visitors a month.
+ 
+What Disqus developed is a realtime commenting system called “realertime” that was tested to handle 1.5 million concurrently connected users, 45,000 new connections per second, 165,000 messages/second, with less than .2 seconds latency end-to-end.
+ 
+The nature of a commenting system is that it is IO bound and has a high fanout, that is a comment comes in and must be sent out to a lot of readers. It's a problem very similar to what  Twitter must solve . 
+ 
+Disqus' solution was quite interesting as was th</p><p>2 0.84916717 <a title="1638-lsi-2" href="../high_scalability-2014/high_scalability-2014-05-07-Update_on_Disqus%3A_It%27s_Still_About_Realtime%2C_But_Go_Demolishes_Python.html">1644 high scalability-2014-05-07-Update on Disqus: It's Still About Realtime, But Go Demolishes Python</a></p>
+<p>Introduction: Our last article on Disqus:  How Disqus Went Realtime With 165K Messages Per Second And Less Than .2 Seconds Latency , was a little out of date, but the folks at Disqus have been busy implementing, not talking, so we don't know a lot about what they are doing now, but we do have a short update in  C1MM and NGINX  by John Watson and an article  Trying out this Go thing .
+ 
+So Disqus has grown a bit:
+  
+ 1.3 billion unique visitors 
+ 10 billion page views 
+ 500 million users engaged in discussions 
+ 3 million communities 
+ 25 million comments 
+  
+They are still all about realtime, but Go replaced Python in their Realtime system:
+  
+ Original Realtime backend was written in a pretty lightweight Python + gevent. 
+ The realtime service is a hybrid of CPU intensive tasks + lots of network IO. Gevent was handling the network IO without an issue, but at higher contention, the CPU was choking everything. Switching over to Go removed that contention, which was the primary issue that was being se</p><p>3 0.75127393 <a title="1638-lsi-3" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
+<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow @tschellenbach on Twitter and Github 
+ 
+ Fashiolista  started out as a hobby project which we built on the side. We had absolutely no idea it would grow into one of the largest online fashion communities. The entire first version took about two weeks to develop and our feed implementation was dead simple. We’ve come a long way since then and I’d like to share our experience with scaling feed systems.
+ 
+Feeds are a core component of many large startups such as Pinterest, Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers the  flat feed ,  aggregated feed  and the  notification  system. This article will explain the troubles we ran into when scaling our feeds and the design decisions involved with building your own solution. Understanding the basics of how these feed systems work is essential as more and more applications rely on them.
+  
+ Furthermore we’ve open sourced  Feedly , the Python m</p><p>4 0.74971247 <a title="1638-lsi-4" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
+<p>Introduction: In  How to take advantage of Redis just adding it to your stack  Salvatore 'antirez' Sanfilippo shows how to solve some common problems in Redis by taking advantage of its unique data structure handling capabilities. Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. A very useful and practical article. How would you accomplish these tasks in your framework?
+  
+  Show latest items listings in your home page . This is a live in-memory cache and is very fast.  LPUSH  is used to insert a content ID at the head of the list stored at a key.  LTRIM  is used to limit the number of items in the list to 5000. If the user needs to page beyond this cache only then are they sent to the database. 
+  Deletion and filtering . If a cached article is deleted it can be removed from the cache using  LREM . 
+  Leaderboards and related problems . A leader board is a set sorted by score.</p><p>5 0.73767483 <a title="1638-lsi-5" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
+<p>Introduction: This is a guest post by Ben Lowry, CEO of  Playtomic . Playtomic is a game analytics service implemented in about 8000 mobile, web and downloadable games played by approximately 20 million people daily. 
+ 
+ Here's a good summary quote by  Ben Lowry on Hacker News : 
+  
+ Just over 20,000,000 people hit my API yesterday 700,749,252 times, playing the ~8,000 games my analytics platform is integrated in for a bit under 600 years in total play time. That's just yesterday. There are lots of different bottlenecks waiting for people operating at scale. Heroku and NodeJS, for my use case, eventually alleviated a whole bunch of them very cheaply. 
+  
+Playtomic began with an almost exclusively Microsoft.NET and Windows architecture which held up for 3 years before being replaced with a complete rewrite using NodeJS.  During its lifetime the entire platform grew from shared space on a single server to a full dedicated, then spread to second dedicated, then the API server was offloaded to a VPS pro</p><p>6 0.71230513 <a title="1638-lsi-6" href="../high_scalability-2010/high_scalability-2010-10-26-Scaling_DISQUS_to_75_Million_Comments_and_17%2C000_RPS.html">928 high scalability-2010-10-26-Scaling DISQUS to 75 Million Comments and 17,000 RPS</a></p>
 <p>7 0.70507616 <a title="1638-lsi-7" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
 <p>8 0.70398307 <a title="1638-lsi-8" href="../high_scalability-2012/high_scalability-2012-12-17-11_Uses_For_the_Humble_Presents_Queue%2C_er%2C_Message_Queue.html">1373 high scalability-2012-12-17-11 Uses For the Humble Presents Queue, er, Message Queue</a></p>
 <p>9 0.70218807 <a title="1638-lsi-9" href="../high_scalability-2007/high_scalability-2007-11-08-ID_generator.html">145 high scalability-2007-11-08-ID generator</a></p>
@@ -233,76 +186,44 @@ provider and 4 - 6 fairl</p><p>6 0.71230513 <a title="1638-lsi-6" href="../high_
 <p>[(1, 0.124), (2, 0.223), (10, 0.054), (30, 0.032), (39, 0.103), (40, 0.011), (51, 0.087), (61, 0.082), (79, 0.093), (85, 0.034), (94, 0.059)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.95143569 <a title="1638-lda-1" href="../high_scalability-2013/high_scalability-2013-08-07-RAFT_-_In_Search_of_an_Understandable_Consensus_Algorithm.html">1498 high scalability-2013-08-07-RAFT - In Search of an Understandable Consensus Algorithm</a></p>
-<p>Introduction: If like many humans you've found evenPaxos Made Simplea bit difficult to
-understand, you might enjoy RAFT as described inIn Search of an Understandable
-Consensus Algorithm by Stanford'sDiego Ongaroand John Ousterhout. The video
-presentation of the paper is given byJohn Ousterhout. Both the paper and the
-video are delightfully accessible.mcherm has a good summary of the paper:A
-consensus algorithm is: a cluster of servers should record a series of records
-("log entries") in response to requests from clients of the cluster. (It may
-also take action based on those entries.) It does so in a way that guarantees
-that the responses seen by clients of the cluster will be consistent EVEN in
-the face of servers crashing in unpredictable ways (but not loosing data that
-was synched to disk), and networks introducing unpredictable delays or
-communication blockages.Here's what Raft does. First, it elects a leader, then
-the leader records the master version of the log, telling other cluster
-servers w</p><p>same-blog 2 0.94200003 <a title="1638-lda-2" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
-<p>Introduction: Here's anUpdate On Disqus: It's Still About Realtime, But Go Demolishes
-Python.How do you add realtime functionality to a web scale application?
-That's whatAdam Hitchcock, a Software Engineer at Disqus talks about in an
-excellent talk: Making DISQUS Realtime (slides).Disqus had to take their
-commenting system and add realtime capabilities to it. Not something that's
-easy to do when at the time of the talk (2013) they had had just hit a billion
-unique visitors a month.What Disqus developed is a realtime commenting system
-called "realertime" that was tested to handle 1.5 million concurrently
-connected users, 45,000 new connections per second, 165,000 messages/second,
-with less than .2 seconds latency end-to-end.The nature of a commenting system
-is that it is IO bound and has a high fanout, that is a comment comes in and
-must be sent out to a lot of readers. It's a problem very similar to
-whatTwitter must solve. Disqus' solution was quite interesting as was the path
-to their solution. The</p><p>3 0.93729711 <a title="1638-lda-3" href="../high_scalability-2012/high_scalability-2012-06-25-StubHub_Architecture%3A_The_Surprising_Complexity_Behind_the_World%E2%80%99s_Largest_Ticket_Marketplace.html">1271 high scalability-2012-06-25-StubHub Architecture: The Surprising Complexity Behind the World’s Largest Ticket Marketplace</a></p>
-<p>Introduction: StubHub is an interesting architecture to take a look at because, as market
-makers for tickets, they are in a different business than we normally get to
-consider.StubHub is surprisingly large, growing at 20% a year, serving 800K
-complex pages per hour, selling 5 million tickets per year, and handling 2
-million API calls per hour. And the ticket space is surprisingly rich in
-complexity. StubHub's traffic is tricky. It's bursty, centering around
-unpredictable game outcomes, events, schedules, and seasons. There's a lot of
-money involved. There are a lot of different actors involved. There are a lot
-of complex business processes involved. And StubHub has several complementary
-but very different parts of their business: they have an ad server component
-serving ads to sites like ESPN, a rich interactive UI, and a real-time ticket
-market component.Most interesting to me is how StubHub is bringing into the
-digital realm the once quintessentially high-touch physical world of tickets,
-point-of-</p><p>4 0.93702716 <a title="1638-lda-4" href="../high_scalability-2011/high_scalability-2011-10-28-Stuff_The_Internet_Says_On_Scalability_For_October_28%2C_2011.html">1134 high scalability-2011-10-28-Stuff The Internet Says On Scalability For October 28, 2011</a></p>
-<p>Introduction: You deserve a HighScalability today:S3: 566 Billion Objects, 370K
-requests/sec;Titan: 38,400-processor, 20-petaflop1,000,000 daily users and no
-cache. Wooga flash game with 50K DB updates/second, Ruby backend. They hit an
-IO wall with MySQL at 1000 DB updates/sec. They needed more so they went with
-Redis. Not quite honest to say no cache was used as everything is RAM, but
-maybe that's the point. Use a lot of automation. Inactive users are archived.
-Moved away from EBS. Making dynamic sitesscale like static sites by Wim
-Godden. Use Varnish, Nginx, and memcached. The Lifecycle of a Web Page on
-StumbleUpon infographic. 2.2 mllion web pages are added to StumbleUpon each
-month. Nice discussion ofbounce rate. James Hamilton with an excellent
-overview of the Storage Infrastructure Behind Facebook Messages. That's 6B+
-messages a day.Scaling Twilio. Twilio has scaled traffic by more 100x over the
-past year, and expanded their server infrastructure from a few servers to
-100â&euro;˛s running in the clou</p><p>5 0.93645763 <a title="1638-lda-5" href="../high_scalability-2010/high_scalability-2010-09-16-How_Can_the_Large_Hadron_Collider_Withstand_One_Petabyte_of_Data_a_Second%3F.html">901 high scalability-2010-09-16-How Can the Large Hadron Collider Withstand One Petabyte of Data a Second?</a></p>
-<p>Introduction: Why is there something rather than nothing? That's the kind of question
-theLarge Hadron Colliderin CERN is hopefully poised to answer. And what is the
-output of this beautiful 17-mile long,6 billion dollar wabi-sabishproton
-smashing machine? Data. Great heaping torrents of Grand Canyon sized data. 15
-million gigabytes every year. That's 1000 times the information printed in
-books every year. It's so much data 10,000 scientists will use agridof80,000+
-computers, in 300 computer centers , in 50 different countries just to help
-make sense of it all.How will all this data be collected, transported, stored,
-and analyzed? It turns out, using what amounts to sort of Internet of
-Particles instead of an Internet of Things.Two good articles have recently
-shed some electro-magnetic energy in the human visible spectrum on the IT
-aspects of the collider:LHC computing grid pushes petabytes of data, beats
-expectations by John Timmer on Ars Technica and an overview of theBrookhaven's
-RHIC/ATLAS Comput</p><p>6 0.93503439 <a title="1638-lda-6" href="../high_scalability-2010/high_scalability-2010-06-16-Hot_Scalability_Links_for_June_16%2C_2010.html">842 high scalability-2010-06-16-Hot Scalability Links for June 16, 2010</a></p>
+<p>Introduction: If like many humans you've found even  Paxos Made Simple  a bit difficult to understand, you might enjoy RAFT as described in  In Search of an Understandable Consensus Algorithm  by Stanford's  Diego Ongaro  and John Ousterhout. The video presentation of the paper is given by  John Ousterhout . Both the paper and the video are delightfully accessible.
+ 
+ mcherm  has a good summary of the paper:
+  
+ A consensus algorithm is: a cluster of servers should record a series of records ("log entries") in response to requests from clients of the cluster. (It may also take action based on those entries.) It does so in a way that guarantees that the responses seen by clients of the cluster will be consistent EVEN in the face of servers crashing in unpredictable ways (but not loosing data that was synched to disk), and networks introducing unpredictable delays or communication blockages. 
+  
+ Here's what Raft does. First, it elects a leader, then the leader records the master version of the log, t</p><p>same-blog 2 0.94200003 <a title="1638-lda-2" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
+<p>Introduction: Here's an  Update On Disqus: It's Still About Realtime, But Go Demolishes Python . 
+ 
+How do you add realtime functionality to a web scale application? That's what  Adam Hitchcock , a Software Engineer at Disqus talks about in an excellent talk:  Making DISQUS Realtime  ( slides ).
+ 
+Disqus had to take their commenting system and add realtime capabilities to it. Not something that's easy to do when at the time of the talk (2013) they had had just hit a billion unique visitors a month.
+ 
+What Disqus developed is a realtime commenting system called “realertime” that was tested to handle 1.5 million concurrently connected users, 45,000 new connections per second, 165,000 messages/second, with less than .2 seconds latency end-to-end.
+ 
+The nature of a commenting system is that it is IO bound and has a high fanout, that is a comment comes in and must be sent out to a lot of readers. It's a problem very similar to what  Twitter must solve . 
+ 
+Disqus' solution was quite interesting as was th</p><p>3 0.93729711 <a title="1638-lda-3" href="../high_scalability-2012/high_scalability-2012-06-25-StubHub_Architecture%3A_The_Surprising_Complexity_Behind_the_World%E2%80%99s_Largest_Ticket_Marketplace.html">1271 high scalability-2012-06-25-StubHub Architecture: The Surprising Complexity Behind the World’s Largest Ticket Marketplace</a></p>
+<p>Introduction: StubHub is an interesting architecture to take a look at because, as market makers for tickets, they are in a different business than we normally get to consider.
+ 
+StubHub is surprisingly large, growing at 20% a year, serving 800K complex pages per hour, selling 5 million tickets per year, and handling 2 million API calls per hour. 
+ 
+And the ticket space is surprisingly rich in complexity. StubHub's traffic is tricky. It's bursty, centering around unpredictable game outcomes, events, schedules, and seasons. There’s a lot of money involved. There are a lot of different actors involved. There are a lot of complex business processes involved. And StubHub has several complementary but very different parts of their business: they have an ad server component serving ads to sites like ESPN, a rich interactive UI, and a real-time ticket market component.
+ 
+Most interesting to me is how StubHub is bringing into the digital realm the once quintessentially high-touch physical world of tickets,</p><p>4 0.93702716 <a title="1638-lda-4" href="../high_scalability-2011/high_scalability-2011-10-28-Stuff_The_Internet_Says_On_Scalability_For_October_28%2C_2011.html">1134 high scalability-2011-10-28-Stuff The Internet Says On Scalability For October 28, 2011</a></p>
+<p>Introduction: You deserve a  HighScalability today :
+  
+  S3: 566 Billion Objects, 370K requests/sec ;  Titan: 38,400-processor, 20-petaflop  
+  1,000,000 daily users and no cache . Wooga flash game with 50K DB updates/second, Ruby backend. They hit an IO wall with MySQL at 1000 DB updates/sec. They needed more so they went with Redis. Not quite honest to say no cache was used as everything is RAM, but maybe that's the point. Use a lot of automation. Inactive users are archived. Moved away from EBS.  
+  Making dynamic sitesscale like static sites  by Wim Godden. Use Varnish, Nginx, and memcached.  
+  The Lifecycle of a Web Page on StumbleUpon  infographic. 2.2 mllion web pages are added to StumbleUpon each month. Nice discussion of  bounce rate .  
+ James Hamilton with an excellent overview of the  Storage Infrastructure Behind Facebook Messages . That's 6B+ messages a day. 
+  Scaling Twilio . Twilio has scaled traffic by more 100x over the past year, and expanded their server infrastructure from a</p><p>5 0.93645763 <a title="1638-lda-5" href="../high_scalability-2010/high_scalability-2010-09-16-How_Can_the_Large_Hadron_Collider_Withstand_One_Petabyte_of_Data_a_Second%3F.html">901 high scalability-2010-09-16-How Can the Large Hadron Collider Withstand One Petabyte of Data a Second?</a></p>
+<p>Introduction: Why is there something rather than nothing? That's the kind of question the  Large Hadron Collider  in CERN is hopefully poised to answer. And what is the output of this beautiful 17-mile long,  6 billion  dollar  wabi-sabish  proton smashing machine? Data. Great heaping torrents of Grand Canyon sized data. 15 million gigabytes every year. That's 1000 times the information printed in books every year. It's so much data 10,000 scientists will use a  grid  of  80,000+ computers , in 300 computer centers , in 50 different countries just to help make sense of it all.
+ 
+How will all this data be collected, transported, stored, and analyzed? It turns out, using what amounts to sort of Internet of Particles instead of an Internet of Things.
+ 
+Two good articles have recently shed some electro-magnetic energy in the human visible spectrum on the IT aspects of the collider:  LHC computing grid pushes petabytes of data, beats expectations  by John Timmer on Ars Technica and an overview of the  Br</p><p>6 0.93503439 <a title="1638-lda-6" href="../high_scalability-2010/high_scalability-2010-06-16-Hot_Scalability_Links_for_June_16%2C_2010.html">842 high scalability-2010-06-16-Hot Scalability Links for June 16, 2010</a></p>
 <p>7 0.93241906 <a title="1638-lda-7" href="../high_scalability-2007/high_scalability-2007-10-30-Feedblendr_Architecture_-_Using_EC2_to_Scale.html">138 high scalability-2007-10-30-Feedblendr Architecture - Using EC2 to Scale</a></p>
 <p>8 0.92691231 <a title="1638-lda-8" href="../high_scalability-2009/high_scalability-2009-11-16-Building_Scalable_Systems_Using_Data_as_a_Composite_Material.html">741 high scalability-2009-11-16-Building Scalable Systems Using Data as a Composite Material</a></p>
 <p>9 0.92597091 <a title="1638-lda-9" href="../high_scalability-2011/high_scalability-2011-11-18-Stuff_The_Internet_Says_On_Scalability_For_November_18%2C_2011.html">1145 high scalability-2011-11-18-Stuff The Internet Says On Scalability For November 18, 2011</a></p>

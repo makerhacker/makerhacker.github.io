@@ -16,22 +16,28 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1529 high scalability-2013-10-08-F1 and Spanner Holistically Compared</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1529-html" href="http://highscalability.com//blog/2013/10/8/f1-and-spanner-holistically-compared.html">html</a></p><p>Introduction: This aricle,F1: A Distributed SQL Database That Scales bySrihari Srinivasan,
-is republished with permission from a blog you really should follow:Systems We
-Make- Curating Complex Distributed Systems.With both the F1 andSpannerpapers
-out its now possible to understand their interplay a bit holistically. So lets
-start by revisiting the key goals of both systems.Key Goals of F1′s
-designSystem must be able to scale up by adding resourcesAbility to re-shard
-and rebalance data without application changesACID consistency for
-transactionsFull SQL support, support for indexesSpanner's objectivesMain
-focus is on managing cross data center replicated dataAbility to re-shard and
-rebalance dataAutomatically migrates data across machinesF1 - An overviewF1 is
-built on top of Spanner. Spanner offers support for for features such as -
-strong consistency through distributed transactions (2PC), global ordering
-based on timestamps, synchronous replication via Paxos, fault tolerance,
-automatic rebalancing</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Spanner offers support for for features such as - strong consistency through distributed transactions (2PC), global ordering based on timestamps, synchronous replication via Paxos, fault tolerance, automatic rebalancing of data etc. [sent-5, score-0.195]
-</p><p>2 The span-servers in turn get their data from the Colossus File System (successor to GFS)Each span-server works with a storage abstraction called Tablet. [sent-9, score-0.263]
-</p><p>3 The tablet's data is stored on a set of B-Tree like files and a write ahead log. [sent-11, score-0.187]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1529-html" href="http://highscalability.com//blog/2013/10/8/f1-and-spanner-holistically-compared.html">html</a></p><p>Introduction: This aricle,  F1: A Distributed SQL Database That Scales  by  Srihari Srinivasan , is republished with permission from a blog you really should follow:  Systems We Make  - Curating Complex Distributed Systems. 
+ 
+With both the F1 and  Spanner  papers out its now possible to understand their interplay a bit holistically. So lets start by revisiting the key goals of both systems.
+   Key Goals of F1′s design    
+ 
+ System must be able to scale up by adding resources 
+ Ability to re-shard and rebalance data without application changes 
+ ACID consistency for transactions 
+ Full SQL support, support for indexes 
+ 
+       Spanner’s objectives    
+ 
+ Main focus is on managing cross data center replicated data 
+ Ability to re-shard and rebalance data 
+ Automatically migrates data across machines 
+ 
+  F1 – An overview  
+ 
+ 
+ F1 is built on top of Spanner. Spanner offers support for for features such as – strong consistency through distributed transactions (2PC), global ordering based on timestam</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Spanner offers support for for features such as – strong consistency through distributed transactions (2PC), global ordering based on timestamps, synchronous replication via Paxos, fault tolerance, automatic rebalancing of data etc. [sent-5, score-0.195]
+</p><p>2 The span-servers in turn get their data from the Colossus File System (successor to GFS)       Each span-server works with a storage abstraction called Tablet. [sent-9, score-0.263]
+</p><p>3 The tablet’s data is stored on a set of B-Tree like files and a write ahead log. [sent-11, score-0.187]
 </p><p>4 They hold no data and hence and be added or removed easily without requiring any data movement. [sent-15, score-0.24]
 </p><p>5 The F1 processes are organized in a master slave fashion. [sent-16, score-0.168]
 </p><p>6 Spanner partitions data rows into a bucketing abstraction called a directory, (which is a set of contiguous keys that share a common preﬁx). [sent-21, score-0.473]
@@ -41,10 +47,10 @@ automatic rebalancing</p><br/><h2>Summary: the most important sentenses generete
 </p><p>10 Each row in a directory table with key K, together with all of the rows in descendant tables that start with K in lexicographic order, forms a directory. [sent-33, score-0.567]
 </p><p>11 Physically, each child table is clustered with and interleaved within the rows from its parent table. [sent-34, score-0.352]
 </p><p>12 The paper goes on to highlight some of the benefits of having a hierarchical schema for both reads and writes. [sent-35, score-0.267]
-</p><p>13 Indexes are stored as separate tables in Spanner, keyed by a concatenation of the index key and the indexed table's primary key. [sent-39, score-0.252]
-</p><p>14 Lifecycle of a queryEach query has a query coordinator node. [sent-41, score-0.519]
+</p><p>13 Indexes are stored as separate tables in Spanner, keyed by a concatenation of the index key and the indexed table’s primary key. [sent-39, score-0.252]
+</p><p>14 Lifecycle of a query        Each query has a query coordinator node. [sent-41, score-0.715]
 </p><p>15 Its the node that receives the SQL query request. [sent-42, score-0.288]
-</p><p>16 Based on the data required to be processed and scope for parallelism the planner/optimizer may even choose to repartition the qualifying dataDealing with network latenciesF1′s main data store is Spanner, which is a remote data source. [sent-44, score-0.596]
+</p><p>16 Based on the data required to be processed and scope for parallelism the planner/optimizer may even choose to repartition the qualifying data      Dealing with network latencies    F1′s main data store is Spanner, which is a remote data source. [sent-44, score-0.716]
 </p><p>17 F1 SQL can also access other remote data sources whose accesses involve highly variable network latency. [sent-45, score-0.216]
 </p><p>18 The issues associated with remote data access (which are issues due to network latency) are mitigated through the use of batching and pipelining across various stages of the query life cycle. [sent-46, score-0.503]
 </p><p>19 Also the query operators are designed to stream as much data as possible to the subsequent stages of the processing pipeline. [sent-47, score-0.485]
@@ -55,76 +61,45 @@ automatic rebalancing</p><br/><h2>Summary: the most important sentenses generete
 <p>[('spanner', 0.354), ('query', 0.196), ('sql', 0.175), ('adwords', 0.152), ('rows', 0.142), ('paxos', 0.141), ('schema', 0.138), ('hierarchical', 0.129), ('coordinator', 0.127), ('rebalance', 0.124), ('data', 0.12), ('tables', 0.117), ('row', 0.114), ('child', 0.105), ('table', 0.105), ('root', 0.102), ('remote', 0.096), ('masters', 0.093), ('receives', 0.092), ('organized', 0.091), ('stages', 0.091), ('directory', 0.089), ('goals', 0.079), ('replicas', 0.078), ('processing', 0.078), ('slave', 0.077), ('curating', 0.076), ('ancestry', 0.076), ('interplay', 0.076), ('revisiting', 0.076), ('nines', 0.076), ('srinivasan', 0.076), ('interleave', 0.076), ('consistency', 0.075), ('surprising', 0.074), ('parallelism', 0.074), ('abstraction', 0.072), ('hierarchies', 0.072), ('predecessor', 0.072), ('impala', 0.072), ('called', 0.071), ('observable', 0.068), ('successor', 0.068), ('contiguous', 0.068), ('concatenation', 0.068), ('stored', 0.067), ('biased', 0.066), ('planner', 0.066), ('qualifying', 0.066), ('mandatory', 0.066)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999976 <a title="1529-tfidf-1" href="../high_scalability-2013/high_scalability-2013-10-08-F1_and_Spanner_Holistically_Compared.html">1529 high scalability-2013-10-08-F1 and Spanner Holistically Compared</a></p>
-<p>Introduction: This aricle,F1: A Distributed SQL Database That Scales bySrihari Srinivasan,
-is republished with permission from a blog you really should follow:Systems We
-Make- Curating Complex Distributed Systems.With both the F1 andSpannerpapers
-out its now possible to understand their interplay a bit holistically. So lets
-start by revisiting the key goals of both systems.Key Goals of F1′s
-designSystem must be able to scale up by adding resourcesAbility to re-shard
-and rebalance data without application changesACID consistency for
-transactionsFull SQL support, support for indexesSpanner's objectivesMain
-focus is on managing cross data center replicated dataAbility to re-shard and
-rebalance dataAutomatically migrates data across machinesF1 - An overviewF1 is
-built on top of Spanner. Spanner offers support for for features such as -
-strong consistency through distributed transactions (2PC), global ordering
-based on timestamps, synchronous replication via Paxos, fault tolerance,
-automatic rebalancing</p><p>2 0.32104287 <a title="1529-tfidf-2" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
-<p>Introduction: A lot of people seem to passionately dislike the termNewSQL, or pretty much
-any newly coined term for that matter, but after watching Alex Lloyd, Senior
-Staff Software Engineer Google, give a great talkon Building Spanner, that's
-the term that fits Spanner best.Spanner wraps the SQL + transaction model of
-OldSQL around the reworked bones of a globally distributed NoSQL system. That
-seems NewSQL to me.As Spanner is a not so distant cousin of BigTable, the
-NoSQL component should be no surprise. Spanner is charged with spanning
-millions of machines inside any number of geographically distributed
-datacenters. What is surprising is how OldSQL has been embraced. In anearlier
-2011 talkgiven by Alex at the HotStorage conference, the reason for embracing
-OldSQL was the desire to make it easier and faster for programmers to build
-applications. The main ideas will seem quite familiar:There's a false
-dichotomy between little complicated databases and huge, scalable, simple
-ones. We can have featur</p><p>3 0.30397403 <a title="1529-tfidf-3" href="../high_scalability-2012/high_scalability-2012-09-24-Google_Spanner%27s_Most_Surprising_Revelation%3A_NoSQL_is_Out_and_NewSQL_is_In.html">1328 high scalability-2012-09-24-Google Spanner's Most Surprising Revelation: NoSQL is Out and NewSQL is In</a></p>
-<p>Introduction: Google recently released apaper on Spanner, their planet enveloping tool for
-organizing the world's monetizable information. Reading the Spanner paper I
-felt it had that chiseled in stone feel that all of Google's best papers have.
-An instant classic. Jeff Dean foreshadowed Spanner's humungousness as early
-as2009.  Now Spanner seems fully online, just waiting to handle "millions of
-machines across hundreds of datacenters and trillions of database rows."
-Wow.The Wise have yet to weigh in on Spanner en masse. I look forward to more
-insightful commentary. There's a lot to make sense of. What struck me most in
-the paper was a deeply buried section essentially describing Google's
-motivation for shifting away from NoSQL and toNewSQL. The money quote:We
-believe it is better to have application programmers deal with performance
-problems due to overuse of transactions as bottlenecks arise, rather than
-always coding around the lack of transactions.This reads as ironic given
-Bigtable helped kicks</p><p>4 0.17305411 <a title="1529-tfidf-4" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
-<p>Introduction: Some of us are not aware of the tremendous job databases perform, particularly
-their efforts to maintain the Isolation aspect of ACID. For example, some
-people believe that transactions are only related to data manipulation and not
-to queries, which is an incorrect assumption. Transaction Isolation is all
-about queries, and the consistency and completeness of the data retrieved by
-queries. This is how it works:Isolation gives the querying user the feeling
-that he owns the database. It does not matter that hundreds or thousands of
-concurrent users work with the same database and the same schema (or even the
-same data). These other uses can generate new data, modify existing data or
-perform any other action. The querying user must be able to get a complete,
-consistent picture of the data, unaffected by other users' actions.Let's take
-the following scenario, which is based on an Orders table that has 1,000,000
-rows, with a disk size of 20 GB:8:00: UserA started a query "SELECT * FROM
-orde</p><p>5 0.1673878 <a title="1529-tfidf-5" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
-<p>Introduction: Update 2:Sorting 1 PB with MapReduce. PB is not peanut-butter-and-jelly
-misspelled. It's 1 petabyte or 1000 terabytes or 1,000,000 gigabytes.It took
-six hours and two minutes to sort 1PB (10 trillion 100-byte records) on 4,000
-computersand the results were replicated thrice on 48,000 disks.Update:Greg
-Lindenpoints to a new Google articleMapReduce: simplified data processing on
-large clusters. Some interesting stats: 100k MapReduce jobs are executed each
-day; more than 20 petabytes of data are processed per day; more than 10k
-MapReduce programs have been implemented; machines are dual processor with
-gigabit ethernet and 4-8 GB of memory.Google is the King of scalability.
-Everyone knows Google for their large, sophisticated, and fast searching, but
-they don't just shine in search. Their platform approach to building scalable
-applications allows them to roll out internet scale applications at an
-alarmingly high competition crushing rate. Their goal is always to build a
-higher performing h</p><p>6 0.1552494 <a title="1529-tfidf-6" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
+<p>Introduction: This aricle,  F1: A Distributed SQL Database That Scales  by  Srihari Srinivasan , is republished with permission from a blog you really should follow:  Systems We Make  - Curating Complex Distributed Systems. 
+ 
+With both the F1 and  Spanner  papers out its now possible to understand their interplay a bit holistically. So lets start by revisiting the key goals of both systems.
+   Key Goals of F1′s design    
+ 
+ System must be able to scale up by adding resources 
+ Ability to re-shard and rebalance data without application changes 
+ ACID consistency for transactions 
+ Full SQL support, support for indexes 
+ 
+       Spanner’s objectives    
+ 
+ Main focus is on managing cross data center replicated data 
+ Ability to re-shard and rebalance data 
+ Automatically migrates data across machines 
+ 
+  F1 – An overview  
+ 
+ 
+ F1 is built on top of Spanner. Spanner offers support for for features such as – strong consistency through distributed transactions (2PC), global ordering based on timestam</p><p>2 0.32104287 <a title="1529-tfidf-2" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
+<p>Introduction: A lot of people seem to passionately dislike the term   NewSQL   , or pretty much any newly coined term for that matter, but after watching Alex Lloyd, Senior Staff Software Engineer Google, give a great talk    on Building Spanner   , that’s the term that fits Spanner best.  
+ 
+ Spanner wraps the SQL + transaction model of OldSQL around the reworked bones of a globally distributed NoSQL system. That seems NewSQL to me.    As Spanner is a not so distant cousin of BigTable, the NoSQL component should be no surprise. Spanner is charged with spanning millions of machines inside any number of geographically distributed datacenters. What is surprising is how OldSQL has been embraced. In an    earlier 2011 talk    given by Alex at the HotStorage conference, the reason for embracing OldSQL was the desire to make it easier and faster for programmers to build applications. The main ideas will seem quite familiar: 
+  
+  There’s a false dichotomy between little complicated databases and huge, sca</p><p>3 0.30397403 <a title="1529-tfidf-3" href="../high_scalability-2012/high_scalability-2012-09-24-Google_Spanner%27s_Most_Surprising_Revelation%3A_NoSQL_is_Out_and_NewSQL_is_In.html">1328 high scalability-2012-09-24-Google Spanner's Most Surprising Revelation: NoSQL is Out and NewSQL is In</a></p>
+<p>Introduction: Google recently released a   paper on Spanner   , their planet enveloping tool for organizing the world’s monetizable information. Reading the Spanner paper I felt it had that chiseled in stone feel that all of Google’s best papers have. An instant classic. Jeff Dean foreshadowed Spanner’s humungousness as early as    2009   .  Now Spanner seems fully online, just waiting to handle “millions of machines across hundreds of datacenters and trillions of database rows.” Wow.    The Wise have yet to weigh in on Spanner en masse. I look forward to more insightful commentary. There’s a lot to make sense of. What struck me most in the paper was a deeply buried section essentially describing Google’s motivation for shifting away from NoSQL and to    NewSQL   . The money quote: 
+  
+   We believe it is better to have application programmers deal with performance problems due to overuse of transactions as bottlenecks arise, rather than always coding around the lack of transactions.  
+
+  
+ This rea</p><p>4 0.17305411 <a title="1529-tfidf-4" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
+<p>Introduction: Some of us are not aware of the tremendous job databases perform, particularly their efforts to maintain the Isolation aspect of ACID. For example, some people believe that transactions are only related to data manipulation and not to queries, which is an incorrect assumption. Transaction Isolation is all about queries, and the consistency and completeness of the data retrieved by queries. This is how it works:
+ 
+Isolation gives the querying user the feeling that he owns the database. It does not matter that hundreds or thousands of concurrent users work with the same database and the same schema (or even the same data). These other uses can generate new data, modify existing data or perform any other action. The querying user must be able to get a complete, consistent picture of the data, unaffected by other users’ actions.
+ 
+Let’s take the following scenario, which is based on an Orders table that has 1,000,000 rows, with a disk size of 20 GB:
+  
+ 8:00: UserA started a query “SELECT</p><p>5 0.1673878 <a title="1529-tfidf-5" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
+<p>Introduction: Update 2:   Sorting 1 PB with MapReduce . PB is not peanut-butter-and-jelly misspelled. It's 1 petabyte or 1000 terabytes or 1,000,000 gigabytes.  It took six hours and two minutes to sort 1PB (10 trillion 100-byte records) on 4,000 computers  and the results were replicated thrice on 48,000 disks.  Update:   Greg Linden  points to a new Google article  MapReduce: simplified data processing on large clusters . Some interesting stats: 100k MapReduce jobs are executed each day; more than 20 petabytes of data are processed per day; more than 10k MapReduce programs have been implemented; machines are dual processor with gigabit ethernet and 4-8 GB of memory.  Google is the King of scalability.  Everyone knows Google for their large,  sophisticated, and fast searching, but they don't just shine in search. Their platform approach to building scalable applications allows them to roll out internet scale applications at an alarmingly high competition crushing rate. Their goal is always to build</p><p>6 0.1552494 <a title="1529-tfidf-6" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
 <p>7 0.15186086 <a title="1529-tfidf-7" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
 <p>8 0.15063772 <a title="1529-tfidf-8" href="../high_scalability-2010/high_scalability-2010-12-21-SQL_%2B_NoSQL_%3D_Yes_%21.html">961 high scalability-2010-12-21-SQL + NoSQL = Yes !</a></p>
 <p>9 0.13519703 <a title="1529-tfidf-9" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
@@ -144,76 +119,41 @@ higher performing h</p><p>6 0.1552494 <a title="1529-tfidf-6" href="../high_scal
 <p>[(0, 0.217), (1, 0.131), (2, -0.019), (3, 0.01), (4, 0.015), (5, 0.202), (6, 0.051), (7, -0.061), (8, -0.02), (9, -0.03), (10, 0.038), (11, 0.021), (12, -0.102), (13, -0.045), (14, 0.084), (15, 0.069), (16, -0.059), (17, -0.017), (18, 0.02), (19, -0.047), (20, 0.101), (21, 0.019), (22, 0.001), (23, -0.017), (24, 0.038), (25, 0.015), (26, -0.074), (27, -0.019), (28, 0.006), (29, -0.053), (30, 0.012), (31, -0.011), (32, -0.097), (33, 0.038), (34, -0.003), (35, 0.002), (36, 0.047), (37, -0.048), (38, -0.026), (39, 0.048), (40, -0.057), (41, -0.034), (42, -0.009), (43, -0.053), (44, 0.002), (45, -0.033), (46, -0.025), (47, -0.045), (48, 0.025), (49, 0.046)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.94044238 <a title="1529-lsi-1" href="../high_scalability-2013/high_scalability-2013-10-08-F1_and_Spanner_Holistically_Compared.html">1529 high scalability-2013-10-08-F1 and Spanner Holistically Compared</a></p>
-<p>Introduction: This aricle,F1: A Distributed SQL Database That Scales bySrihari Srinivasan,
-is republished with permission from a blog you really should follow:Systems We
-Make- Curating Complex Distributed Systems.With both the F1 andSpannerpapers
-out its now possible to understand their interplay a bit holistically. So lets
-start by revisiting the key goals of both systems.Key Goals of F1′s
-designSystem must be able to scale up by adding resourcesAbility to re-shard
-and rebalance data without application changesACID consistency for
-transactionsFull SQL support, support for indexesSpanner's objectivesMain
-focus is on managing cross data center replicated dataAbility to re-shard and
-rebalance dataAutomatically migrates data across machinesF1 - An overviewF1 is
-built on top of Spanner. Spanner offers support for for features such as -
-strong consistency through distributed transactions (2PC), global ordering
-based on timestamps, synchronous replication via Paxos, fault tolerance,
-automatic rebalancing</p><p>2 0.81437075 <a title="1529-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
-<p>Introduction: Some of us are not aware of the tremendous job databases perform, particularly
-their efforts to maintain the Isolation aspect of ACID. For example, some
-people believe that transactions are only related to data manipulation and not
-to queries, which is an incorrect assumption. Transaction Isolation is all
-about queries, and the consistency and completeness of the data retrieved by
-queries. This is how it works:Isolation gives the querying user the feeling
-that he owns the database. It does not matter that hundreds or thousands of
-concurrent users work with the same database and the same schema (or even the
-same data). These other uses can generate new data, modify existing data or
-perform any other action. The querying user must be able to get a complete,
-consistent picture of the data, unaffected by other users' actions.Let's take
-the following scenario, which is based on an Orders table that has 1,000,000
-rows, with a disk size of 20 GB:8:00: UserA started a query "SELECT * FROM
-orde</p><p>3 0.7998237 <a title="1529-lsi-3" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
-<p>Introduction: A lot of people seem to passionately dislike the termNewSQL, or pretty much
-any newly coined term for that matter, but after watching Alex Lloyd, Senior
-Staff Software Engineer Google, give a great talkon Building Spanner, that's
-the term that fits Spanner best.Spanner wraps the SQL + transaction model of
-OldSQL around the reworked bones of a globally distributed NoSQL system. That
-seems NewSQL to me.As Spanner is a not so distant cousin of BigTable, the
-NoSQL component should be no surprise. Spanner is charged with spanning
-millions of machines inside any number of geographically distributed
-datacenters. What is surprising is how OldSQL has been embraced. In anearlier
-2011 talkgiven by Alex at the HotStorage conference, the reason for embracing
-OldSQL was the desire to make it easier and faster for programmers to build
-applications. The main ideas will seem quite familiar:There's a false
-dichotomy between little complicated databases and huge, scalable, simple
-ones. We can have featur</p><p>4 0.78627926 <a title="1529-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
-<p>Introduction: This is an interview withMemSQLcofounder'sEric FrenkielandNikita Shamgunov, in
-which they try to answer critics by going into more depth about their
-technology.MemSQL ruffled a few feathers with their claim of being the fastest
-database in the world. According to their benchmarks MemSQL can execute 200K
-TPS on an EC2QuadrupleExtra Largeand on a 64 core machine they can push 1.2
-million transactions a second.Benchmarks are always a dark mirror, so make of
-them what you will, but the target market for MemSQL is clear: projects
-looking for something both fast and familiar. Fast as in a novel design using
-a combination of technologies likeMVCC, code generation,lock-free data
-structures,skip lists, andin-memory execution. Familiar as in SQL and nothing
-but SQL. The only interface to MemSQL is SQL.It's right to point out MemSQL
-gets a boost by being a first release. Only a limited subset of SQL is
-supported, neither replication or sharding are implemented yet, and writes
-queue in memory befo</p><p>5 0.75885081 <a title="1529-lsi-5" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
-<p>Introduction: So far every massively scalable database is a bundle of compromises. For some
-the weak guarantees of Amazon'seventual consistencymodel are too cold. For
-many the strong guarantees of standard RDBMSdistributed transactionsare too
-hot. Google App Engine tries to get it just right withentity groups. Yahoo! is
-also trying to get is just right by offering per-record timeline consistency,
-which hopes to serve up a heaping bowl ofrich database functionality and low
-latency at massive scale:We describe PNUTS [Platform for Nimble Universal
-Table Storage], a massively parallel and geographically distributed database
-system for Yahoo!'s web applications. PNUTS provides data storage organized as
-hashed or ordered tables, low latency for large numbers of con-current
-requests including updates and queries, and novel per-record consistency
-guarantees. It is a hosted, centrally managed, and geographically distributed
-service, and utilizes automated load-balancing and failover to reduce
-operational com</p><p>6 0.75522959 <a title="1529-lsi-6" href="../high_scalability-2008/high_scalability-2008-09-05-Product%3A_Tungsten_Replicator.html">380 high scalability-2008-09-05-Product: Tungsten Replicator</a></p>
+<p>Introduction: This aricle,  F1: A Distributed SQL Database That Scales  by  Srihari Srinivasan , is republished with permission from a blog you really should follow:  Systems We Make  - Curating Complex Distributed Systems. 
+ 
+With both the F1 and  Spanner  papers out its now possible to understand their interplay a bit holistically. So lets start by revisiting the key goals of both systems.
+   Key Goals of F1′s design    
+ 
+ System must be able to scale up by adding resources 
+ Ability to re-shard and rebalance data without application changes 
+ ACID consistency for transactions 
+ Full SQL support, support for indexes 
+ 
+       Spanner’s objectives    
+ 
+ Main focus is on managing cross data center replicated data 
+ Ability to re-shard and rebalance data 
+ Automatically migrates data across machines 
+ 
+  F1 – An overview  
+ 
+ 
+ F1 is built on top of Spanner. Spanner offers support for for features such as – strong consistency through distributed transactions (2PC), global ordering based on timestam</p><p>2 0.81437075 <a title="1529-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
+<p>Introduction: Some of us are not aware of the tremendous job databases perform, particularly their efforts to maintain the Isolation aspect of ACID. For example, some people believe that transactions are only related to data manipulation and not to queries, which is an incorrect assumption. Transaction Isolation is all about queries, and the consistency and completeness of the data retrieved by queries. This is how it works:
+ 
+Isolation gives the querying user the feeling that he owns the database. It does not matter that hundreds or thousands of concurrent users work with the same database and the same schema (or even the same data). These other uses can generate new data, modify existing data or perform any other action. The querying user must be able to get a complete, consistent picture of the data, unaffected by other users’ actions.
+ 
+Let’s take the following scenario, which is based on an Orders table that has 1,000,000 rows, with a disk size of 20 GB:
+  
+ 8:00: UserA started a query “SELECT</p><p>3 0.7998237 <a title="1529-lsi-3" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
+<p>Introduction: A lot of people seem to passionately dislike the term   NewSQL   , or pretty much any newly coined term for that matter, but after watching Alex Lloyd, Senior Staff Software Engineer Google, give a great talk    on Building Spanner   , that’s the term that fits Spanner best.  
+ 
+ Spanner wraps the SQL + transaction model of OldSQL around the reworked bones of a globally distributed NoSQL system. That seems NewSQL to me.    As Spanner is a not so distant cousin of BigTable, the NoSQL component should be no surprise. Spanner is charged with spanning millions of machines inside any number of geographically distributed datacenters. What is surprising is how OldSQL has been embraced. In an    earlier 2011 talk    given by Alex at the HotStorage conference, the reason for embracing OldSQL was the desire to make it easier and faster for programmers to build applications. The main ideas will seem quite familiar: 
+  
+  There’s a false dichotomy between little complicated databases and huge, sca</p><p>4 0.78627926 <a title="1529-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
+<p>Introduction: This is an interview with   MemSQL    cofounder’s    Eric Frenkiel    and    Nikita Shamgunov   , in which they try to answer critics by going into more depth about their technology.     MemSQL ruffled a few feathers with their claim of being the fastest database in the world. According to their benchmarks MemSQL can execute 200K TPS on an EC2   Quadruple   Extra Large   and on a 64 core machine they can push 1.2 million transactions a second.     Benchmarks are always a dark mirror, so make of them what you will, but the target market for MemSQL is clear: projects looking for something both fast and familiar. Fast as in a novel design using a combination of technologies like    MVCC   , code generation,    lock-free data structures   ,    skip lists   , and    in-memory execution   . Familiar as in SQL and nothing but SQL. The only interface to MemSQL is SQL.    It’s right to point out MemSQL gets a boost by being a first release. Only a limited subset of SQL is supported, neither rep</p><p>5 0.75885081 <a title="1529-lsi-5" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
+<p>Introduction: So far every massively scalable database is a bundle of compromises. For some the weak guarantees of Amazon's  eventual consistency  model are too cold. For many the strong guarantees of standard RDBMS  distributed transactions  are too hot. Google App Engine tries to get it just right with  entity groups . Yahoo! is also trying to get is just right by offering per-record timeline consistency, which hopes to serve up a heaping bowl of  rich database functionality and low latency at massive scale :
+   We describe PNUTS [Platform for Nimble Universal Table Storage], a massively parallel and geographically distributed database system for Yahoo!â&euro;&trade;s web applications. PNUTS provides data storage organized as hashed or ordered tables, low latency for large numbers of con-current requests including updates and queries, and novel per-record consistency guarantees. It is a hosted, centrally managed, and geographically distributed service, and utilizes automated load-balancing and failover to redu</p><p>6 0.75522959 <a title="1529-lsi-6" href="../high_scalability-2008/high_scalability-2008-09-05-Product%3A_Tungsten_Replicator.html">380 high scalability-2008-09-05-Product: Tungsten Replicator</a></p>
 <p>7 0.73900753 <a title="1529-lsi-7" href="../high_scalability-2013/high_scalability-2013-05-23-Paper%3A_Calvin%3A_Fast_Distributed_Transactions_for_Partitioned_Database_Systems.html">1463 high scalability-2013-05-23-Paper: Calvin: Fast Distributed Transactions for Partitioned Database Systems</a></p>
 <p>8 0.7381109 <a title="1529-lsi-8" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
 <p>9 0.73412329 <a title="1529-lsi-9" href="../high_scalability-2010/high_scalability-2010-09-01-Paper%3A_The_Case_for_Determinism_in_Database_Systems__.html">890 high scalability-2010-09-01-Paper: The Case for Determinism in Database Systems  </a></p>
@@ -233,53 +173,30 @@ operational com</p><p>6 0.75522959 <a title="1529-lsi-6" href="../high_scalabili
 <p>[(1, 0.144), (2, 0.179), (10, 0.043), (23, 0.219), (30, 0.035), (47, 0.03), (61, 0.052), (73, 0.011), (79, 0.161), (85, 0.049), (94, 0.015)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.97003216 <a title="1529-lda-1" href="../high_scalability-2008/high_scalability-2008-10-27-Three_steps_for_turning_a_tier-based-Spring-application_into_dynamically_scalable_services_%28video%29.html">432 high scalability-2008-10-27-Three steps for turning a tier-based-Spring-application into dynamically scalable services (video)</a></p>
-<p>Introduction: SummaryIn this presentation, a three steps approach for turning your existing
-stateful tier-based/Spring-application into a dynamically scalable services
-application using OpenSpaces is demonstrated. The existing programming model
-is kept the same while focusing on abstracting and replacing the underlying
-implementations of the middleware stack in a way that will fit the scale-out
-model.BioNati Shalom is the CTO and Founder ofGigaSpacesand responsible for
-the technology roadmap. He has 10 years of experience with distributed
-technology and architecture namely CORBA, Jini, J2EE, Grid and SOA. Nati is
-the Head of the Israeli Grid consortium and an evangelist of Space Based
-Architecture and Data Grid patterns. Blog:Gigaspaces BlogRead the rest of the
-articlehere on InfoQ.</p><p>2 0.95888931 <a title="1529-lda-2" href="../high_scalability-2009/high_scalability-2009-08-03-Building_a_Data_Intensive_Web_Application_with_Cloudera%2C_Hadoop%2C_Hive%2C_Pig%2C_and_EC2.html">669 high scalability-2009-08-03-Building a Data Intensive Web Application with Cloudera, Hadoop, Hive, Pig, and EC2</a></p>
-<p>Introduction: This tutorial will show you how to use Amazon EC2 and Cloudera's Distribution
-for Hadoop to run batch jobs for a data intensive web application.During the
-tutorial, we will perform the following data processing steps....read more on
-Cloudera website</p><p>3 0.91906583 <a title="1529-lda-3" href="../high_scalability-2007/high_scalability-2007-08-23-Product%3A_Varnish.html">74 high scalability-2007-08-23-Product: Varnish</a></p>
-<p>Introduction: Varnishis a state-of-the-art, high-performance HTTP accelerator. Varnish is
-targeted primarily at the FreeBSD 6 and Linux 2.6 platforms, and will take
-full advantage of the virtual memory system and advanced I/O features offered
-by these operating systems.Varnish was written from the ground up to be a high
-performance caching reverse proxy. Squid is a forward proxy that can be
-configured as a reverse proxy. Besides - Squid is rather old and designed like
-computer programs where supposed to be designed in 1980.Varnish is reported to
-be 10x-20x faster than Squid on the same hardware.</p><p>same-blog 4 0.8984738 <a title="1529-lda-4" href="../high_scalability-2013/high_scalability-2013-10-08-F1_and_Spanner_Holistically_Compared.html">1529 high scalability-2013-10-08-F1 and Spanner Holistically Compared</a></p>
-<p>Introduction: This aricle,F1: A Distributed SQL Database That Scales bySrihari Srinivasan,
-is republished with permission from a blog you really should follow:Systems We
-Make- Curating Complex Distributed Systems.With both the F1 andSpannerpapers
-out its now possible to understand their interplay a bit holistically. So lets
-start by revisiting the key goals of both systems.Key Goals of F1′s
-designSystem must be able to scale up by adding resourcesAbility to re-shard
-and rebalance data without application changesACID consistency for
-transactionsFull SQL support, support for indexesSpanner's objectivesMain
-focus is on managing cross data center replicated dataAbility to re-shard and
-rebalance dataAutomatically migrates data across machinesF1 - An overviewF1 is
-built on top of Spanner. Spanner offers support for for features such as -
-strong consistency through distributed transactions (2PC), global ordering
-based on timestamps, synchronous replication via Paxos, fault tolerance,
-automatic rebalancing</p><p>5 0.89733964 <a title="1529-lda-5" href="../high_scalability-2009/high_scalability-2009-07-09-No_to_SQL%3F_Anti-database_movement_gains_steam_%E2%80%93_My_Take.html">654 high scalability-2009-07-09-No to SQL? Anti-database movement gains steam – My Take</a></p>
-<p>Introduction: Inthis posti wrote my view on the anti SQL database movement and where the
-alternative approach fits in:- SQL databases are not going away anytime soon.-
-The current "one size fit it all" databases thinking was and is wrong.- There
-is definitely a place for a more a more specialized data management solutions
-alongside traditional SQL databases.In addition to the options that was
-mentioned on the original article i pointed out the the in-memory alternative
-approach and how that fits into the puzzle. I used a real life scenario:
-scalable Social network based eCommerce site where i outlined how in-memory
-approach was the only option they could scale and meet their application
-performance and response time requirements.</p><p>6 0.88572425 <a title="1529-lda-6" href="../high_scalability-2011/high_scalability-2011-01-27-Comet_-_An_Example_of_the_New_Key-Code_Databases.html">979 high scalability-2011-01-27-Comet - An Example of the New Key-Code Databases</a></p>
+<p>Introduction: Summary    In this presentation, a three steps approach for turning your existing stateful tier-based/Spring-application into a dynamically scalable services application using OpenSpaces is demonstrated. The existing programming model is kept the same while focusing on abstracting and replacing the underlying implementations of the middleware stack in a way that will fit the scale-out model.          Bio    Nati Shalom is the CTO and Founder of   GigaSpaces   and responsible for the technology roadmap. He has 10 years of experience with distributed technology and architecture namely CORBA, Jini, J2EE, Grid and SOA. Nati is the Head of the Israeli Grid consortium and an evangelist of Space Based Architecture and Data Grid patterns. Blog:   Gigaspaces Blog             Read the rest of the article  here on InfoQ .</p><p>2 0.95888931 <a title="1529-lda-2" href="../high_scalability-2009/high_scalability-2009-08-03-Building_a_Data_Intensive_Web_Application_with_Cloudera%2C_Hadoop%2C_Hive%2C_Pig%2C_and_EC2.html">669 high scalability-2009-08-03-Building a Data Intensive Web Application with Cloudera, Hadoop, Hive, Pig, and EC2</a></p>
+<p>Introduction: This tutorial will show you how to use Amazon EC2 and Cloudera's Distribution for Hadoop to run batch jobs for a data intensive web application.  During the tutorial, we will perform the following data processing steps....   read more on Cloudera website</p><p>3 0.91906583 <a title="1529-lda-3" href="../high_scalability-2007/high_scalability-2007-08-23-Product%3A_Varnish.html">74 high scalability-2007-08-23-Product: Varnish</a></p>
+<p>Introduction: Varnish  is a state-of-the-art, high-performance HTTP accelerator. Varnish is targeted primarily at the FreeBSD 6 and Linux 2.6 platforms, and will take full advantage of the virtual memory system and advanced I/O features offered by these operating systems.  Varnish was written from the ground up to be a high performance caching reverse proxy. Squid is a forward proxy that can be configured as a reverse proxy. Besides - Squid is rather old and designed like computer programs where supposed to be designed in 1980.  Varnish is reported to be 10x-20x faster than Squid on the same hardware.</p><p>same-blog 4 0.8984738 <a title="1529-lda-4" href="../high_scalability-2013/high_scalability-2013-10-08-F1_and_Spanner_Holistically_Compared.html">1529 high scalability-2013-10-08-F1 and Spanner Holistically Compared</a></p>
+<p>Introduction: This aricle,  F1: A Distributed SQL Database That Scales  by  Srihari Srinivasan , is republished with permission from a blog you really should follow:  Systems We Make  - Curating Complex Distributed Systems. 
+ 
+With both the F1 and  Spanner  papers out its now possible to understand their interplay a bit holistically. So lets start by revisiting the key goals of both systems.
+   Key Goals of F1′s design    
+ 
+ System must be able to scale up by adding resources 
+ Ability to re-shard and rebalance data without application changes 
+ ACID consistency for transactions 
+ Full SQL support, support for indexes 
+ 
+       Spanner’s objectives    
+ 
+ Main focus is on managing cross data center replicated data 
+ Ability to re-shard and rebalance data 
+ Automatically migrates data across machines 
+ 
+  F1 – An overview  
+ 
+ 
+ F1 is built on top of Spanner. Spanner offers support for for features such as – strong consistency through distributed transactions (2PC), global ordering based on timestam</p><p>5 0.89733964 <a title="1529-lda-5" href="../high_scalability-2009/high_scalability-2009-07-09-No_to_SQL%3F_Anti-database_movement_gains_steam_%E2%80%93_My_Take.html">654 high scalability-2009-07-09-No to SQL? Anti-database movement gains steam – My Take</a></p>
+<p>Introduction: In  this post  i wrote my view on the anti SQL database movement and where the alternative approach fits in:  - SQL databases are not going away anytime soon.  - The current "one size fit it all" databases thinking was and is wrong.  - There is definitely a place for a more a more specialized data management solutions alongside traditional SQL databases.  In addition to the options that was mentioned on the original article i pointed out the the in-memory alternative approach and how that fits into the puzzle. I used a real life scenario:   scalable Social network based eCommerce site where i outlined how in-memory approach was the only option they could scale and meet their application performance and response time requirements.</p><p>6 0.88572425 <a title="1529-lda-6" href="../high_scalability-2011/high_scalability-2011-01-27-Comet_-_An_Example_of_the_New_Key-Code_Databases.html">979 high scalability-2011-01-27-Comet - An Example of the New Key-Code Databases</a></p>
 <p>7 0.86546046 <a title="1529-lda-7" href="../high_scalability-2007/high_scalability-2007-07-12-FeedBurner_Architecture.html">7 high scalability-2007-07-12-FeedBurner Architecture</a></p>
 <p>8 0.85313606 <a title="1529-lda-8" href="../high_scalability-2011/high_scalability-2011-08-25-The_Cloud_and_The_Consumer%3A_The_Impact_on_Bandwidth_and_Broadband.html">1105 high scalability-2011-08-25-The Cloud and The Consumer: The Impact on Bandwidth and Broadband</a></p>
 <p>9 0.83279991 <a title="1529-lda-9" href="../high_scalability-2011/high_scalability-2011-09-02-Stuff_The_Internet_Says_On_Scalability_For_September_2%2C_2011.html">1109 high scalability-2011-09-02-Stuff The Internet Says On Scalability For September 2, 2011</a></p>

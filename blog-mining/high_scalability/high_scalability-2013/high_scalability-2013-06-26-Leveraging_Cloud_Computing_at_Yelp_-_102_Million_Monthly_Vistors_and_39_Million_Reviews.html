@@ -16,114 +16,70 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1482 high scalability-2013-06-26-Leveraging Cloud Computing at Yelp - 102 Million Monthly Vistors and 39 Million Reviews</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1482-html" href="http://highscalability.com//blog/2013/6/26/leveraging-cloud-computing-at-yelp-102-million-monthly-visto.html">html</a></p><p>Introduction: This is a guest post byYelp's JimBlomo. Jim manages a growing data mining team
-that usesHadoop,mrjob, andoddjobto processTBsof data. Before Yelp, he built
-infrastructure for startups and Amazon. Check out his upcoming talk
-atOSCON2013 on Building a Cloud Culture at Yelp.In Q1 2013, Yelp had102
-million unique visitors(source: Google Analytics) including approximately 10
-million unique mobile devices using the Yelp app on a monthly average
-basis.Yelpershavewritten more than39 million rich, local reviews, making Yelp
-the leading local guide on everything from boutiques and mechanics to
-restaurants and dentists. With respect to data, one of the most unique things
-about Yelp is the variety of data: reviews, user profiles, business
-descriptions, menus, check-ins, food photos... the list goes on.  We have many
-ways to deal data, but today I'll focus on how we handle offline data
-processing and analytics.In late 2009, Yelp investigated using Amazon's
-ElasticMapReduce(EMR) as an alternativeto a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Job Flow PoolingOne of EMR's biggest advantages is instant scalability: every job flow can be configured with as many instances as needed for the task. [sent-16, score-0.523]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1482-html" href="http://highscalability.com//blog/2013/6/26/leveraging-cloud-computing-at-yelp-102-million-monthly-visto.html">html</a></p><p>Introduction: This is a guest post by  Yelp's     Jim  Blomo    . Jim manages a growing data mining team that uses  Hadoop ,  mrjob , and  oddjob  to process  TBs  of data. Before Yelp, he built infrastructure for startups and Amazon.    Check out his upcoming talk at    OSCON  2013 on Building a Cloud Culture at Yelp  . 
+ 
+In Q1 2013, Yelp had  102 million unique visitors   (source: Google Analytics) including approximately 10 million unique mobile devices using the Yelp app on a monthly average basis.  Yelpers  ha ve  written more than   39 million rich, local reviews , making Yelp the leading local guide on everything from boutiques and mechanics to restaurants and dentists. With respect to data, one of the most unique things about Yelp is the variety of data: reviews, user profiles, business descriptions, menus, check-ins, food photos... the list goes on.  We have many ways to deal data, but today I’ll focus on how we handle offline data processing and analytics.
+ 
+ In late 2009, Yelp investigat</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Job Flow Pooling   One of EMR’s biggest advantages is instant scalability: every job flow can be configured with as many instances as needed for the task. [sent-16, score-0.523]
 </p><p>2 This means if your job finishes in 2 hours 10 minutes, you are charged for the full three hours. [sent-19, score-0.334]
 </p><p>3 This may not seem like a big deal, until you start running hundreds of jobs and the wasted time at the end of a job flow starts adding up. [sent-20, score-0.676]
-</p><p>4 " Instead of shutting down a job flow at the end of a job,mrjobkeeps the flow alivein case another job wants to use it. [sent-22, score-0.85]
-</p><p>5 If another job comes along that has similar cluster requirements,mrjobwillreuse the job flow. [sent-23, score-0.684]
-</p><p>6 There are a few subtleties in implementing this: 1) what does it mean to have "similar cluster requirements", 2) how to avoid race conditions between multiple jobs, and 3) when is the cluster finally shut down? [sent-24, score-0.394]
-</p><p>7 Similar job flows are defined meeting the criteria:Same Amazon Machine Image (AMI) versionSameHadoopversionSamemrjobversionSame bootstrap steps (bootstrap steps can setHadoopor cluster options)Same or greater RAM and Compute Units for each node type (eg. [sent-25, score-0.747]
-</p><p>8 Hadoopmastervsworkers)Accepts new jobs (job flows handle a max of 256 steps)Race conditions are avoided by using locking. [sent-26, score-0.403]
+</p><p>4 ”  Instead of shutting down a job flow at the end of a job,  mrjob  keeps the flow ali ve  in case another job wants to use it. [sent-22, score-0.85]
+</p><p>5 If another job comes along that has similar cluster requirements,  mrjob  wi ll  reuse the job flow. [sent-23, score-0.684]
+</p><p>6 There are a few subtleties in implementing this: 1) what does it mean to have “similar cluster requirements”, 2) how to avoid race conditions between multiple jobs, and 3) when is the cluster finally shut down? [sent-24, score-0.394]
+</p><p>7 Similar job flows are defined meeting the criteria:     Same Amazon Machine Image (AMI) version     Same  Hadoop  version      Same  mrjob  version      Same bootstrap steps (bootstrap steps can set  Hadoop  or cluster options)      Same or greater RAM and Compute Units for each node type ( eg . [sent-25, score-0.747]
+</p><p>8 Hadoop  master  vs  workers)     Accepts new jobs (job flows handle a max of 256 steps)      Race conditions are avoided by using locking. [sent-26, score-0.403]
 </p><p>9 Jobs write to a specific S3 key with information about the job name and cluster type. [sent-28, score-0.358]
 </p><p>10 Locks may timeout in the case of failures, which allow other jobs or the job terminator to reclaim the job flow. [sent-29, score-0.716]
-</p><p>11 Job flow termination is handled by acronjob which runs every 5 minutes, checks for idle job flows that are about tohit their hourly charge, and terminates them. [sent-30, score-0.596]
-</p><p>12 To further improveutilization of job flows, jobs can wait a predetermined amount of time to find a job flow it can re-use. [sent-32, score-0.844]
-</p><p>13 For example, for development jobs,mrjobswilltry to find free job flows for 30 seconds before starting a new one. [sent-33, score-0.417]
-</p><p>14 We estimate around a10% cost savings from using job flow pooling. [sent-35, score-0.48]
-</p><p>15 In fact, we saw a side benefit: iterativedevelopment of jobs was sped up significantly since subsequent runs of a modifiedMapReducejob could reuse a cluster and the cluster startup time was eliminated. [sent-37, score-0.397]
-</p><p>16 It analyzes usage ofEMRand recommends how many reserved instances to buy, as wellas generates some pretty graphs. [sent-54, score-0.481]
-</p><p>17 It's important to note that reserved instance pricing is a billing construct. [sent-55, score-0.325]
-</p><p>18 At the end of the month, Amazon simply looks at how many instance hours you've used and applies the reserved instance rates to any instances that were running, up to the number of instances purchased. [sent-57, score-0.717]
-</p><p>19 EvaluatingROI: with some optimizations, cost evaluation is straightforward: how much would we have saved if we both reserved instances 2 months ago? [sent-82, score-0.434]
-</p><p>20 If not I'd love to check out this profiler you're using :)Future DirectionsAs Yelp grows its service oriented architecture, we are running into similar bottlenecks encountered for offline batch processing: coordination of resources, testing ideas, forecasting usage before launching new features. [sent-86, score-0.503]
+</p><p>11 Job flow termination is handled by a  cron  job which runs every 5 minutes, checks for idle job flows that are about to   hit their hourly charge, and terminates them . [sent-30, score-0.842]
+</p><p>12 To further impro ve  utilization of job flows, jobs can wait a predetermined amount of time to find a job flow it can re-use. [sent-32, score-0.844]
+</p><p>13 For example, for development jobs,  mrjobs  wi ll  try to find free job flows for 30 seconds before starting a new one. [sent-33, score-0.417]
+</p><p>14 We estimate around a  10% cost savings from using job flow pooling  . [sent-35, score-0.48]
+</p><p>15 In fact, we saw a side benefit: iterati ve  development of jobs was sped up significantly since subsequent runs of a modified  MapReduce  job could reuse a cluster and the cluster startup time was eliminated. [sent-37, score-0.643]
+</p><p>16 It analyzes usage of  EMR  and recommends how many reserved instances to buy, as we ll  as generates some pretty graphs. [sent-54, score-0.481]
+</p><p>17 At the end of the month, Amazon simply looks at how many instance hours you’ve used and applies the reserved instance rates to any instances that were running, up to the number of instances purchased. [sent-57, score-0.717]
+</p><p>18 Running a job on a local machine  vs  an  EMR  cluster is a matter of changing two command line arguments. [sent-72, score-0.424]
+</p><p>19 Establish policies and integration plans  : Spinning up a single instance is easy, but when do you spin down a machine? [sent-73, score-0.34]
+</p><p>20 Evaluating  ROI   : with some optimizations, cost evaluation is straightforward: how much would we have saved if we both reserved instances 2 months ago? [sent-82, score-0.434]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('yelp', 0.533), ('job', 0.246), ('reserved', 0.217), ('flow', 0.179), ('jobs', 0.173), ('flows', 0.171), ('coordination', 0.116), ('cluster', 0.112), ('instance', 0.108), ('purchasing', 0.105), ('havea', 0.103), ('instances', 0.098), ('usage', 0.097), ('hours', 0.088), ('offline', 0.085), ('similar', 0.08), ('emr', 0.08), ('options', 0.078), ('wasted', 0.078), ('steps', 0.074), ('investigate', 0.071), ('bootstrap', 0.07), ('forecasting', 0.07), ('recommends', 0.069), ('benefit', 0.068), ('spin', 0.066), ('processing', 0.066), ('local', 0.066), ('costs', 0.065), ('abstractions', 0.065), ('spinning', 0.065), ('months', 0.064), ('integration', 0.061), ('reviews', 0.061), ('race', 0.06), ('conditions', 0.059), ('cloud', 0.059), ('straightforward', 0.059), ('wins', 0.059), ('worst', 0.057), ('future', 0.056), ('cost', 0.055), ('bottlenecks', 0.055), ('policies', 0.054), ('subtleties', 0.051), ('allthe', 0.051), ('buzzword', 0.051), ('terminator', 0.051), ('deadlines', 0.051), ('plans', 0.051)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9999994 <a title="1482-tfidf-1" href="../high_scalability-2013/high_scalability-2013-06-26-Leveraging_Cloud_Computing_at_Yelp_-_102_Million_Monthly_Vistors_and_39_Million_Reviews.html">1482 high scalability-2013-06-26-Leveraging Cloud Computing at Yelp - 102 Million Monthly Vistors and 39 Million Reviews</a></p>
-<p>Introduction: This is a guest post byYelp's JimBlomo. Jim manages a growing data mining team
-that usesHadoop,mrjob, andoddjobto processTBsof data. Before Yelp, he built
-infrastructure for startups and Amazon. Check out his upcoming talk
-atOSCON2013 on Building a Cloud Culture at Yelp.In Q1 2013, Yelp had102
-million unique visitors(source: Google Analytics) including approximately 10
-million unique mobile devices using the Yelp app on a monthly average
-basis.Yelpershavewritten more than39 million rich, local reviews, making Yelp
-the leading local guide on everything from boutiques and mechanics to
-restaurants and dentists. With respect to data, one of the most unique things
-about Yelp is the variety of data: reviews, user profiles, business
-descriptions, menus, check-ins, food photos... the list goes on.  We have many
-ways to deal data, but today I'll focus on how we handle offline data
-processing and analytics.In late 2009, Yelp investigated using Amazon's
-ElasticMapReduce(EMR) as an alternativeto a</p><p>2 0.18363355 <a title="1482-tfidf-2" href="../high_scalability-2012/high_scalability-2012-11-01-Cost_Analysis%3A_TripAdvisor_and_Pinterest_costs_on_the_AWS_cloud.html">1353 high scalability-2012-11-01-Cost Analysis: TripAdvisor and Pinterest costs on the AWS cloud</a></p>
-<p>Introduction: This is a guest post by Ali Khajeh-Hosseini, Technical Lead at
-PlanForCloud.com.  I read a recent blog post about TripAdvisor's experiment
-with AWS where they attempted to process 700K HTTP requests per minute on a
-replica of their live site. There was also an interesting blog post on
-Pinterest's massive growth on AWS. These blogs highlighted exactly the types
-of questions we're interested in, mainly:How much would it cost to deploy
-System X on Cloud Y? e.g. how much would it cost to host TripAdvisor on the
-AWS US-East cloud?Would it be cheaper to use deployment option X or Y? e.g.
-would it be cheaper to use reserved instances, different types of instances,
-different cloud providers...What happens to costs when the system grows? e.g.
-Pinterest has around 410TB of data on S3, what if that keeps growing at a rate
-of 25% every month, like it has been in the last 10 months?I created a couple
-of deployments in PlanForCloud to explore these questions and the results are
-very interesting - th</p><p>3 0.16298112 <a title="1482-tfidf-3" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
-<p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><p>4 0.15991029 <a title="1482-tfidf-4" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
-<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as
-a child: but when I became a man, I put away childish things. --
-CorinthiansWith this new pricing, developments will be driven by the costs.I
-like to optimize my apps to make them better or faster, but to optimize them
-just to make them cheaper is a waste of time.-- Sylvain onGoogle GroupsThe
-dream is dead. Google App Engine's boldpay for what you usedream dies as it
-leaves childish things behind and becomes areal product.Pricing will change.
-Architectures will change. Customers will change. Hearts and minds will
-change. But Google App Engine will survive. Google isshutting downmany of
-itsprojects. GAE is not among them. Do we have GAE's pricing change to thank
-for it surving the more wood behindmore deadly arrows push? Without a radical
-and quick shift towards profitably GAE would no doubt be a historical footnote
-in the long scroll of good ideas. The urgency involved is clearly reflected in
-GAE's offering a</p><p>5 0.15274525 <a title="1482-tfidf-5" href="../high_scalability-2012/high_scalability-2012-05-07-Startups_are_Creating_a_New_System_of_the_World_for_IT.html">1240 high scalability-2012-05-07-Startups are Creating a New System of the World for IT</a></p>
-<p>Introduction: It remains that, from the same principles, I now demonstrate the frame of the
-System of the World.-- Isaac NewtonThe practice of IT reminds me a lot of the
-practice of science before Isaac Newton. Aristotelianism was dead, but there
-was nothing to replace it. Then Newton came along, created a scientific
-revolution with hisSystem of the World. And everything changed. That was New
-System of the World number one.New System of the World number two was written
-about by the incomparable Neal Stephenson in his incredible Baroque Cycle
-series. It explores the singular creation of a new way of organizing society
-grounded in new modes of thought in business, religion, politics, and science.
-Our modern world emerged Enlightened as it could from this roiling cauldron of
-forces.In IT we may have had a Leonardo da Vinci or even a Galileo, but we've
-never had our Newton. Maybe we don't need a towering genius to make everything
-clear? For years startups, like the frenetically inventive age of the 17th</p><p>6 0.13722317 <a title="1482-tfidf-6" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
+<p>Introduction: This is a guest post by  Yelp's     Jim  Blomo    . Jim manages a growing data mining team that uses  Hadoop ,  mrjob , and  oddjob  to process  TBs  of data. Before Yelp, he built infrastructure for startups and Amazon.    Check out his upcoming talk at    OSCON  2013 on Building a Cloud Culture at Yelp  . 
+ 
+In Q1 2013, Yelp had  102 million unique visitors   (source: Google Analytics) including approximately 10 million unique mobile devices using the Yelp app on a monthly average basis.  Yelpers  ha ve  written more than   39 million rich, local reviews , making Yelp the leading local guide on everything from boutiques and mechanics to restaurants and dentists. With respect to data, one of the most unique things about Yelp is the variety of data: reviews, user profiles, business descriptions, menus, check-ins, food photos... the list goes on.  We have many ways to deal data, but today I’ll focus on how we handle offline data processing and analytics.
+ 
+ In late 2009, Yelp investigat</p><p>2 0.18363355 <a title="1482-tfidf-2" href="../high_scalability-2012/high_scalability-2012-11-01-Cost_Analysis%3A_TripAdvisor_and_Pinterest_costs_on_the_AWS_cloud.html">1353 high scalability-2012-11-01-Cost Analysis: TripAdvisor and Pinterest costs on the AWS cloud</a></p>
+<p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at PlanForCloud.com.   
+ 
+ I read a recent blog post about   TripAdvisor's experiment with AWS   where they attempted to process 700K HTTP requests per minute on a replica of their live site. There was also an interesting blog post on   Pinterest's massive growth on AWS  . These blogs highlighted exactly the types of questions we're interested in, mainly: 
+    
+  How much would it cost to deploy System X on Cloud Y?   e.g. how much would it cost to host TripAdvisor on the AWS US-East cloud?  
+  Would it be cheaper to use deployment option X or Y?   e.g. would it be cheaper to use reserved instances, different types of instances, different cloud providers...  
+  What happens to costs when the system grows?   e.g. Pinterest has around 410TB of data on S3, what if that keeps growing at a rate of 25% every month, like it has been in the last 10 months?  
+      I created a couple of deployments in PlanForCloud to explore these qu</p><p>3 0.16298112 <a title="1482-tfidf-3" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
+<p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><p>4 0.15991029 <a title="1482-tfidf-4" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
+<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as a child: but when I became a man, I put away childish things . -- Corinthians
+ 
+ With this new pricing, developments will be driven by the costs .  I like to optimize my apps to make them better or faster, but to optimize them just to make them cheaper is a waste of time.  -- Sylvain on  Google Groups 
+ 
+The dream is dead. Google App Engine's bold  pay for what you use  dream dies as it leaves childish things behind and becomes a  real product .  Pricing will change . Architectures will change. Customers will change. Hearts and minds will change. But Google App Engine  will survive.   
+ 
+Google is  shutting down  many of its  projects . GAE is not among them. Do we have GAE's pricing change to thank for it surving the  more wood behind  more deadly arrows push? Without a radical and quick shift towards profitably GAE would no doubt be a historical footnote in the long scroll of good ideas. The urgency involve</p><p>5 0.15274525 <a title="1482-tfidf-5" href="../high_scalability-2012/high_scalability-2012-05-07-Startups_are_Creating_a_New_System_of_the_World_for_IT.html">1240 high scalability-2012-05-07-Startups are Creating a New System of the World for IT</a></p>
+<p>Introduction: It remains that, from the same principles, I now demonstrate the frame of the System of the World.  -- Isaac Newton
+ 
+The practice of IT reminds me a lot of the practice of science before Isaac Newton. Aristotelianism was dead, but there was nothing to replace it. Then Newton came along, created a scientific revolution with his  System of the World . And everything changed. That was New System of the World number one.
+ 
+New System of the World number two was written about by the incomparable Neal Stephenson in his incredible  Baroque Cycle  series. It explores the singular creation of a new way of organizing society grounded in new modes of thought in business, religion, politics, and science. Our modern world emerged Enlightened as it could from this roiling cauldron of forces.
+ 
+In IT we may have had a Leonardo da Vinci or even a Galileo, but we’ve never had our Newton. Maybe we don't need a towering genius to make everything clear? For years startups, like the frenetically inventive</p><p>6 0.13722317 <a title="1482-tfidf-6" href="../high_scalability-2013/high_scalability-2013-01-14-MongoDB_and_GridFS_for_Inter_and_Intra_Datacenter_Data_Replication_.html">1386 high scalability-2013-01-14-MongoDB and GridFS for Inter and Intra Datacenter Data Replication </a></p>
 <p>7 0.13086386 <a title="1482-tfidf-7" href="../high_scalability-2012/high_scalability-2012-11-05-Gone_Fishin%27%3A_Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_In_The_Ambient_Cloud.html">1355 high scalability-2012-11-05-Gone Fishin': Building Super Scalable Systems: Blade Runner Meets Autonomic Computing In The Ambient Cloud</a></p>
 <p>8 0.13064331 <a title="1482-tfidf-8" href="../high_scalability-2009/high_scalability-2009-12-16-Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_in_the_Ambient_Cloud.html">750 high scalability-2009-12-16-Building Super Scalable Systems: Blade Runner Meets Autonomic Computing in the Ambient Cloud</a></p>
 <p>9 0.12796348 <a title="1482-tfidf-9" href="../high_scalability-2010/high_scalability-2010-07-20-Strategy%3A_Consider_When_a_Service_Starts_Billing_in_Your_Algorithm_Cost.html">862 high scalability-2010-07-20-Strategy: Consider When a Service Starts Billing in Your Algorithm Cost</a></p>
@@ -143,76 +99,42 @@ clear? For years startups, like the frenetically inventive age of the 17th</p><p
 <p>[(0, 0.233), (1, 0.065), (2, 0.022), (3, 0.032), (4, -0.063), (5, -0.07), (6, 0.069), (7, -0.022), (8, 0.061), (9, -0.081), (10, 0.024), (11, -0.027), (12, 0.056), (13, -0.068), (14, -0.006), (15, -0.003), (16, -0.025), (17, -0.007), (18, -0.008), (19, 0.075), (20, -0.001), (21, -0.014), (22, 0.021), (23, -0.014), (24, -0.034), (25, -0.009), (26, -0.027), (27, -0.006), (28, -0.019), (29, -0.007), (30, 0.043), (31, 0.088), (32, -0.012), (33, 0.075), (34, -0.049), (35, -0.019), (36, -0.052), (37, -0.067), (38, 0.022), (39, -0.026), (40, 0.018), (41, 0.039), (42, 0.003), (43, 0.019), (44, -0.029), (45, -0.005), (46, -0.042), (47, -0.032), (48, -0.018), (49, -0.046)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97240007 <a title="1482-lsi-1" href="../high_scalability-2013/high_scalability-2013-06-26-Leveraging_Cloud_Computing_at_Yelp_-_102_Million_Monthly_Vistors_and_39_Million_Reviews.html">1482 high scalability-2013-06-26-Leveraging Cloud Computing at Yelp - 102 Million Monthly Vistors and 39 Million Reviews</a></p>
-<p>Introduction: This is a guest post byYelp's JimBlomo. Jim manages a growing data mining team
-that usesHadoop,mrjob, andoddjobto processTBsof data. Before Yelp, he built
-infrastructure for startups and Amazon. Check out his upcoming talk
-atOSCON2013 on Building a Cloud Culture at Yelp.In Q1 2013, Yelp had102
-million unique visitors(source: Google Analytics) including approximately 10
-million unique mobile devices using the Yelp app on a monthly average
-basis.Yelpershavewritten more than39 million rich, local reviews, making Yelp
-the leading local guide on everything from boutiques and mechanics to
-restaurants and dentists. With respect to data, one of the most unique things
-about Yelp is the variety of data: reviews, user profiles, business
-descriptions, menus, check-ins, food photos... the list goes on.  We have many
-ways to deal data, but today I'll focus on how we handle offline data
-processing and analytics.In late 2009, Yelp investigated using Amazon's
-ElasticMapReduce(EMR) as an alternativeto a</p><p>2 0.84127975 <a title="1482-lsi-2" href="../high_scalability-2012/high_scalability-2012-11-01-Cost_Analysis%3A_TripAdvisor_and_Pinterest_costs_on_the_AWS_cloud.html">1353 high scalability-2012-11-01-Cost Analysis: TripAdvisor and Pinterest costs on the AWS cloud</a></p>
-<p>Introduction: This is a guest post by Ali Khajeh-Hosseini, Technical Lead at
-PlanForCloud.com.  I read a recent blog post about TripAdvisor's experiment
-with AWS where they attempted to process 700K HTTP requests per minute on a
-replica of their live site. There was also an interesting blog post on
-Pinterest's massive growth on AWS. These blogs highlighted exactly the types
-of questions we're interested in, mainly:How much would it cost to deploy
-System X on Cloud Y? e.g. how much would it cost to host TripAdvisor on the
-AWS US-East cloud?Would it be cheaper to use deployment option X or Y? e.g.
-would it be cheaper to use reserved instances, different types of instances,
-different cloud providers...What happens to costs when the system grows? e.g.
-Pinterest has around 410TB of data on S3, what if that keeps growing at a rate
-of 25% every month, like it has been in the last 10 months?I created a couple
-of deployments in PlanForCloud to explore these questions and the results are
-very interesting - th</p><p>3 0.8397249 <a title="1482-lsi-3" href="../high_scalability-2011/high_scalability-2011-12-28-Strategy%3A_Guaranteed_Availability_Requires_Reserving_Instances_in_Specific_Zones.html">1165 high scalability-2011-12-28-Strategy: Guaranteed Availability Requires Reserving Instances in Specific Zones</a></p>
-<p>Introduction: When EC2 first started the mental model was of a magic Pez dispenser supplying
-an infinite stream of instances in any desired flavor. If you needed an
-instance, because of a either a failure or traffic spike, it would be there.
-As amazing as EC2 is, this model turned out to be optimistic.  From athread on
-the Amazon discussion forum we learn any dispenser has limits:As Availability
-Zones grow over time, our ability to continue to expand them can become
-constrained. In these scenarios, we will prevent customers from launching in
-the constrained zone if they do not yet have existing resources in that zone.
-We also might remove the constrained zone entirely from the list of options
-for new customers. This means that occasionally, different customers will see
-a different number of Availability Zones in a particular Region. Both
-approaches aim to help customers avoid accidentally starting to build up their
-infrastructure in an Availability Zone where they might have less ability to
-expand.T</p><p>4 0.81831825 <a title="1482-lsi-4" href="../high_scalability-2013/high_scalability-2013-01-02-Why_Pinterest_Uses_the_Cloud_Instead_of_Going_Solo_-_To_Be_Or_Not_To_Be.html">1380 high scalability-2013-01-02-Why Pinterest Uses the Cloud Instead of Going Solo - To Be Or Not To Be</a></p>
-<p>Introduction: I love it when a somewhat older article like Pinterest Cut Costs From $54 To
-$20 Per Hour By Automatically Shutting Down Systems hits Hacker News and
-generates agood conversation. One of the common sentiments about the cloud was
-raised: why doesn't Pinterest save a lot of money by running their own
-hardware instead of using the cloud?Ryan Park, Operations Engineer at
-Pinterest, responds in what I think is the perfectmodern responseto that
-ultimate existential design dilemma:Our #1 requirement has been to keep up
-with the growth in traffic on the site. We've been growing so fast that
-there's literally no way we could have ordered and racked equipment fast
-enough. We were also a very small team -- a year ago there were only about a
-dozen people in the whole company. At this point we're much larger, which
-gives us room to consider more options like colo or multiple cloud
-providers.AWS certainly feels pretty costly when you compare colo prices to
-the list price for on-demand instances. But</p><p>5 0.81596112 <a title="1482-lsi-5" href="../high_scalability-2012/high_scalability-2012-12-12-Pinterest_Cut_Costs_from_%2454_to_%2420_Per_Hour_by_Automatically_Shutting_Down_Systems.html">1371 high scalability-2012-12-12-Pinterest Cut Costs from $54 to $20 Per Hour by Automatically Shutting Down Systems</a></p>
-<p>Introduction: We've long known one of the virtues of the cloud is, through the magic of
-services and automation, that systems can be shut or tuned down when not in
-use. What may be surprising is how much money can be saved. This aspect of
-cloudiness got a lot of pub atAWS re:Invent and is being rebranded under the
-term Cost-Aware Architecture. Aninteresting examplewas given by Ryan Park,
-Pinterest's technical operations lead:20% of their systems are shutdown after
-hours in response to traffic loadsReserved instances are used for standard
-traffic On-demand and spot instances are used to handle the elastic load
-throughout the day. When more servers are needed for an auto-scaled service,
-spot requests are opened and on-demand instances are started at the same time.
-Most services are targeted to run at about 50% on-demand and 50% spot.Watchdog
-processes continually check what's running. More instances are launched when
-needed and terminated when not needed. If spot prices spike and spot instances
-are sh</p><p>6 0.81313831 <a title="1482-lsi-6" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
+<p>Introduction: This is a guest post by  Yelp's     Jim  Blomo    . Jim manages a growing data mining team that uses  Hadoop ,  mrjob , and  oddjob  to process  TBs  of data. Before Yelp, he built infrastructure for startups and Amazon.    Check out his upcoming talk at    OSCON  2013 on Building a Cloud Culture at Yelp  . 
+ 
+In Q1 2013, Yelp had  102 million unique visitors   (source: Google Analytics) including approximately 10 million unique mobile devices using the Yelp app on a monthly average basis.  Yelpers  ha ve  written more than   39 million rich, local reviews , making Yelp the leading local guide on everything from boutiques and mechanics to restaurants and dentists. With respect to data, one of the most unique things about Yelp is the variety of data: reviews, user profiles, business descriptions, menus, check-ins, food photos... the list goes on.  We have many ways to deal data, but today I’ll focus on how we handle offline data processing and analytics.
+ 
+ In late 2009, Yelp investigat</p><p>2 0.84127975 <a title="1482-lsi-2" href="../high_scalability-2012/high_scalability-2012-11-01-Cost_Analysis%3A_TripAdvisor_and_Pinterest_costs_on_the_AWS_cloud.html">1353 high scalability-2012-11-01-Cost Analysis: TripAdvisor and Pinterest costs on the AWS cloud</a></p>
+<p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at PlanForCloud.com.   
+ 
+ I read a recent blog post about   TripAdvisor's experiment with AWS   where they attempted to process 700K HTTP requests per minute on a replica of their live site. There was also an interesting blog post on   Pinterest's massive growth on AWS  . These blogs highlighted exactly the types of questions we're interested in, mainly: 
+    
+  How much would it cost to deploy System X on Cloud Y?   e.g. how much would it cost to host TripAdvisor on the AWS US-East cloud?  
+  Would it be cheaper to use deployment option X or Y?   e.g. would it be cheaper to use reserved instances, different types of instances, different cloud providers...  
+  What happens to costs when the system grows?   e.g. Pinterest has around 410TB of data on S3, what if that keeps growing at a rate of 25% every month, like it has been in the last 10 months?  
+      I created a couple of deployments in PlanForCloud to explore these qu</p><p>3 0.8397249 <a title="1482-lsi-3" href="../high_scalability-2011/high_scalability-2011-12-28-Strategy%3A_Guaranteed_Availability_Requires_Reserving_Instances_in_Specific_Zones.html">1165 high scalability-2011-12-28-Strategy: Guaranteed Availability Requires Reserving Instances in Specific Zones</a></p>
+<p>Introduction: When EC2 first started the mental model was of a magic Pez dispenser supplying an infinite stream of instances in any desired flavor. If you needed an instance, because of a either a failure or traffic spike, it would be there. As amazing as EC2 is, this model turned out to be optimistic.  
+ 
+From a  thread on the Amazon discussion forum  we learn any dispenser has limits:
+  
+
+As Availability Zones grow over time, our ability to continue to expand them can become constrained. In these scenarios, we will prevent customers from launching in the constrained zone if they do not yet have existing resources in that zone. We also might remove the constrained zone entirely from the list of options for new customers. This means that occasionally, different customers will see a different number of Availability Zones in a particular Region. Both approaches aim to help customers avoid accidentally starting to build up their infrastructure in an Availability Zone where they might have less ability</p><p>4 0.81831825 <a title="1482-lsi-4" href="../high_scalability-2013/high_scalability-2013-01-02-Why_Pinterest_Uses_the_Cloud_Instead_of_Going_Solo_-_To_Be_Or_Not_To_Be.html">1380 high scalability-2013-01-02-Why Pinterest Uses the Cloud Instead of Going Solo - To Be Or Not To Be</a></p>
+<p>Introduction: I love it when a somewhat older article like  Pinterest Cut Costs From $54 To $20 Per Hour By Automatically Shutting Down Systems  hits Hacker News and generates a  good conversation . One of the common sentiments about the cloud was raised: why doesn't Pinterest save a lot of money by running their own hardware instead of using the cloud?
+ 
+ Ryan Park , Operations Engineer at Pinterest, responds in what I think is the perfect  modern response  to that ultimate existential design dilemma:
+  
+
+Our #1 requirement has been to keep up with the growth in traffic on the site. We've been growing so fast that there's literally no way we could have ordered and racked equipment fast enough. We were also a very small team -- a year ago there were only about a dozen people in the whole company. At this point we're much larger, which gives us room to consider more options like colo or multiple cloud providers.
+
+
+ AWS certainly feels pretty costly when you compare colo prices to the list price for o</p><p>5 0.81596112 <a title="1482-lsi-5" href="../high_scalability-2012/high_scalability-2012-12-12-Pinterest_Cut_Costs_from_%2454_to_%2420_Per_Hour_by_Automatically_Shutting_Down_Systems.html">1371 high scalability-2012-12-12-Pinterest Cut Costs from $54 to $20 Per Hour by Automatically Shutting Down Systems</a></p>
+<p>Introduction: We've long known one of the virtues of the cloud is, through the magic of services and automation, that systems can be shut or tuned down when not in use. What may be surprising is how much money can be saved. 
+ 
+This aspect of cloudiness got a lot of pub at  AWS re:Invent  and is being rebranded under the term  Cost-Aware Architecture . An  interesting example  was given by Ryan Park, Pinterest’s technical operations lead:
+  
+ 20% of their systems are shutdown after hours in response to traffic loads 
+ Reserved instances are used for standard traffic  
+ On-demand and spot instances are used to handle the elastic load throughout the day. When more servers are needed for an auto-scaled service,  spot requests are opened and on-demand instances are started at the same time. Most services are targeted to run at about 50% on-demand and 50% spot. 
+ Watchdog processes continually check what's running. More instances are launched when needed and terminated when not needed. If spot prices spik</p><p>6 0.81313831 <a title="1482-lsi-6" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
 <p>7 0.80644155 <a title="1482-lsi-7" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
 <p>8 0.7957378 <a title="1482-lsi-8" href="../high_scalability-2013/high_scalability-2013-06-24-Update_on_How_29_Cloud_Price_Drops_Changed_the_Bottom_Line_of_TripAdvisor_and_Pinterest_-_Results_Mixed.html">1480 high scalability-2013-06-24-Update on How 29 Cloud Price Drops Changed the Bottom Line of TripAdvisor and Pinterest - Results Mixed</a></p>
 <p>9 0.79557598 <a title="1482-lsi-9" href="../high_scalability-2012/high_scalability-2012-09-20-How_Vimeo_Saves_50%25_on_EC2_by_Playing_a_Smarter_Game.html">1326 high scalability-2012-09-20-How Vimeo Saves 50% on EC2 by Playing a Smarter Game</a></p>
@@ -232,76 +154,73 @@ are sh</p><p>6 0.81313831 <a title="1482-lsi-6" href="../high_scalability-2010/h
 <p>[(1, 0.19), (2, 0.177), (10, 0.12), (30, 0.035), (40, 0.029), (47, 0.017), (49, 0.144), (61, 0.073), (79, 0.078), (85, 0.03), (94, 0.039)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9347502 <a title="1482-lda-1" href="../high_scalability-2013/high_scalability-2013-06-26-Leveraging_Cloud_Computing_at_Yelp_-_102_Million_Monthly_Vistors_and_39_Million_Reviews.html">1482 high scalability-2013-06-26-Leveraging Cloud Computing at Yelp - 102 Million Monthly Vistors and 39 Million Reviews</a></p>
-<p>Introduction: This is a guest post byYelp's JimBlomo. Jim manages a growing data mining team
-that usesHadoop,mrjob, andoddjobto processTBsof data. Before Yelp, he built
-infrastructure for startups and Amazon. Check out his upcoming talk
-atOSCON2013 on Building a Cloud Culture at Yelp.In Q1 2013, Yelp had102
-million unique visitors(source: Google Analytics) including approximately 10
-million unique mobile devices using the Yelp app on a monthly average
-basis.Yelpershavewritten more than39 million rich, local reviews, making Yelp
-the leading local guide on everything from boutiques and mechanics to
-restaurants and dentists. With respect to data, one of the most unique things
-about Yelp is the variety of data: reviews, user profiles, business
-descriptions, menus, check-ins, food photos... the list goes on.  We have many
-ways to deal data, but today I'll focus on how we handle offline data
-processing and analytics.In late 2009, Yelp investigated using Amazon's
-ElasticMapReduce(EMR) as an alternativeto a</p><p>2 0.93283784 <a title="1482-lda-2" href="../high_scalability-2009/high_scalability-2009-11-05-A_Yes_for_a_NoSQL_Taxonomy.html">737 high scalability-2009-11-05-A Yes for a NoSQL Taxonomy</a></p>
-<p>Introduction: NorthScale's Steven Yen in his highly entertaining NoSQL is a Horseless
-Carriage presentation has come up with a NoSQL taxonomy that thankfully
-focuses a little more on what NoSQL is, thanwhat it
-isn't:key‐value‐cachememcached, repcached, coherence, infinispan, eXtreme
-scale, jboss cache, velocity, terracoqa key‐value‐storekeyspace, flare,
-schema‐free, RAMCloudeventually‐consistent key‐value‐storedynamo, voldemort,
-Dynomite, SubRecord, Mo8onDb, Dovetaildbordered‐key‐value‐storetokyo tyrant,
-lightcloud, NMDB, luxio, memcachedb, actorddata‐structures server
-redistuple‐storegigaspaces, coord, apache riverobject databaseZopeDB, db4o,
-Shoaldocument store CouchDB, Mongo, Jackrabbit, XML Databases, ThruDB,
-CloudKit, Perservere, Riak Basho, Scalariswide columnar storeBigTable, Hbase,
-Cassandra, Hypertable, KAI, OpenNeptune, Qbase, KDI"Who will win?" Steven
-asks. He answers:  the most approachable API with enough power will win.
-Steven touts the contender with the most devastating knock out pun</p><p>3 0.92842674 <a title="1482-lda-3" href="../high_scalability-2008/high_scalability-2008-10-01-The_Pattern_Bible_for_Distributed_Computing.html">400 high scalability-2008-10-01-The Pattern Bible for Distributed Computing</a></p>
-<p>Introduction: Software design patterns are an emerging tool for guiding and documenting
-system design. Patterns usually describe software abstractions used by
-advanced designers and programmers in their software. Patterns can provide
-guidance for designing highly scalable distributed systems. Let's see
-how!Patterns are in essence solutions to problems. Most of them are expressed
-in a format calledAlexandrian form which draws on constructs used by
-Christopher Alexander. There are variants but most look like this:The pattern
-nameThe problem the pattern is trying to solveContextSolutionExamplesDesign
-rationale: This tells where the pattern came from, why it works, and why
-experts use itPatterns rarely stand alone. Each pattern works on a context,
-and transforms the system in that context to produce a new system in a new
-context. New problems arise in the new system and context, and the next
-‘‘layer’’ of patterns can be applied. A pattern language is a structured
-collection of such patterns that build o</p><p>4 0.92154211 <a title="1482-lda-4" href="../high_scalability-2008/high_scalability-2008-05-17-WebSphere_Commerce_High_Availability_and_Performance_Configurations.html">321 high scalability-2008-05-17-WebSphere Commerce High Availability and Performance Configurations</a></p>
-<p>Introduction: Nobody came up with an example of a website powered by a Websphere product
-(which has a community edition) and backed up by a DB2 database.I guess you
-all know about usopen.org so here's the story:breakWhile the re-emergence of
-35-year-old Andre Agassi and the continued dominance of wunderkind Maria
-Sharapova have highlighted the on-court headlines at this year's U.S. Open
-Tennis Championships in Flushing Meadows, N.Y., IBM is hoping its new Power5
-chip-based IT support for USOpen.org can make news among those more interested
-in .NET than tennis nets.Big Blue has partnered with the U.S. Tennis
-Association and the U.S. Open -- the most prestigious tennis tournament in the
-U.S. -- since 1992. Together, they launched USOpen.org in 1995 so racket heads
-could follow the matches online.The iSeries' role this year is in powering a
-Web-based end-user application called "Point Tracker," a graphics tool using
-autonomic technology that recreates the trajectory of every shot. On-court
-cameras capt</p><p>5 0.91467798 <a title="1482-lda-5" href="../high_scalability-2012/high_scalability-2012-08-24-Stuff_The_Internet_Says_On_Scalability_For_August_24%2C_2012.html">1311 high scalability-2012-08-24-Stuff The Internet Says On Scalability For August 24, 2012</a></p>
-<p>Introduction: It's HighScalability Time:500 TB/day:Facebook data Quotable Quotes:Tumblr
-mobocracy: This is what migrating a billion cache objects into a new cache
-pool looks like#hotiit is possible to build all to all wdm networks where
-there is a wavelength per core.A Generation Lost in the Bazaar. The problem is
-Cathedrals are multi-generation projects, built by master craftsman, using an
-empirical process, not engineering principles. There is no complete
-specification, it's iterative and adaptive.  How Bazaar. Here's a unique look
-at how the new Digg 4structured their architecture and development processes
-to scale down to 14 engineers from a high of 40 engineers for the old Digg. As
-the team shrunk very few new unit tests were written and the system tests were
-dumped. Using Thrift between components helped coordinate the team. A dark
-rollout mechanism allowed them to rollout and test features on a subset of
-users.  Development team used four horizontal teams (frontend, API, platform
-and infrastr</p><p>6 0.90139657 <a title="1482-lda-6" href="../high_scalability-2013/high_scalability-2013-09-23-Salesforce_Architecture_-_How_they_Handle_1.3_Billion_Transactions_a_Day.html">1521 high scalability-2013-09-23-Salesforce Architecture - How they Handle 1.3 Billion Transactions a Day</a></p>
+<p>Introduction: This is a guest post by  Yelp's     Jim  Blomo    . Jim manages a growing data mining team that uses  Hadoop ,  mrjob , and  oddjob  to process  TBs  of data. Before Yelp, he built infrastructure for startups and Amazon.    Check out his upcoming talk at    OSCON  2013 on Building a Cloud Culture at Yelp  . 
+ 
+In Q1 2013, Yelp had  102 million unique visitors   (source: Google Analytics) including approximately 10 million unique mobile devices using the Yelp app on a monthly average basis.  Yelpers  ha ve  written more than   39 million rich, local reviews , making Yelp the leading local guide on everything from boutiques and mechanics to restaurants and dentists. With respect to data, one of the most unique things about Yelp is the variety of data: reviews, user profiles, business descriptions, menus, check-ins, food photos... the list goes on.  We have many ways to deal data, but today I’ll focus on how we handle offline data processing and analytics.
+ 
+ In late 2009, Yelp investigat</p><p>2 0.93283784 <a title="1482-lda-2" href="../high_scalability-2009/high_scalability-2009-11-05-A_Yes_for_a_NoSQL_Taxonomy.html">737 high scalability-2009-11-05-A Yes for a NoSQL Taxonomy</a></p>
+<p>Introduction: NorthScale's Steven Yen in his highly entertaining  NoSQL is a Horseless Carriage  presentation has come up with a NoSQL taxonomy that thankfully focuses a little more on what NoSQL is, than  what it isn't :
+  
+ key‐value‐cache    
+ 
+ memcached, repcached, coherence, infinispan, eXtreme scale, jboss cache, velocity, terracoqa 
+ 
+ 
+  key‐value‐store    
+ 
+ keyspace, flare, schema‐free, RAMCloud 
+ 
+ 
+ eventually‐consistent key‐value‐store    
+ 
+ dynamo, voldemort, Dynomite, SubRecord, Mo8onDb, Dovetaildb 
+ 
+ 
+ ordered‐key‐value‐store    
+ 
+ tokyo tyrant, lightcloud, NMDB, luxio, memcachedb, actord 
+ 
+ 
+ data‐structures server    
+ 
+  redis 
+ 
+ 
+ tuple‐store    
+ 
+ gigaspaces, coord, apache river 
+ 
+ 
+ object database    
+ 
+ ZopeDB, db4o, Shoal 
+ 
+ 
+ document store    
+ 
+  CouchDB, Mongo, Jackrabbit, XML Databases, ThruDB, CloudKit, Perservere, Riak Basho, Scalaris 
+ 
+ 
+ wide columnar store    
+ 
+ BigTable, Hbase, Cassandra, Hypertable, KAI, OpenNeptune, Qbase, KDI 
+ 
+ 
+  
+"Who will win?"</p><p>3 0.92842674 <a title="1482-lda-3" href="../high_scalability-2008/high_scalability-2008-10-01-The_Pattern_Bible_for_Distributed_Computing.html">400 high scalability-2008-10-01-The Pattern Bible for Distributed Computing</a></p>
+<p>Introduction: Software design patterns are an emerging tool for guiding and documenting system design. Patterns usually describe software abstractions used by advanced designers and programmers in their software. Patterns can provide guidance for designing highly scalable distributed systems. Let's see how!     Patterns are in essence solutions to problems. Most of them are expressed in a format called   Alexandrian form which draws on constructs used by Christopher Alexander. There are variants but most look like this:     The pattern name   The problem the pattern is trying to solve     Context   Solution   Examples   Design rationale: This tells where the pattern came from, why it works, and why experts use it       Patterns rarely stand alone. Each pattern works on a context, and transforms the system in that context to produce a new system in a new context. New problems arise in the new system and context, and the next ‘‘layer’’ of patterns can be applied. A pattern language is a structured col</p><p>4 0.92154211 <a title="1482-lda-4" href="../high_scalability-2008/high_scalability-2008-05-17-WebSphere_Commerce_High_Availability_and_Performance_Configurations.html">321 high scalability-2008-05-17-WebSphere Commerce High Availability and Performance Configurations</a></p>
+<p>Introduction: Nobody came up with an example of a website powered by a Websphere product (which has a community edition) and backed up by a DB2 database.     I guess you all know about usopen.org so here's the story:       While the re-emergence of 35-year-old Andre Agassi and the continued dominance of wunderkind Maria Sharapova have highlighted the on-court headlines at this year's U.S. Open Tennis Championships in Flushing Meadows, N.Y., IBM is hoping its new Power5 chip-based IT support for USOpen.org can make news among those more interested in .NET than tennis nets.     Big Blue has partnered with the U.S. Tennis Association and the U.S. Open -- the most prestigious tennis tournament in the U.S. -- since 1992. Together, they launched USOpen.org in 1995 so racket heads could follow the matches online.     The iSeries' role this year is in powering a Web-based end-user application called "Point Tracker," a graphics tool using autonomic technology that recreates the trajectory of every shot. On-c</p><p>5 0.91467798 <a title="1482-lda-5" href="../high_scalability-2012/high_scalability-2012-08-24-Stuff_The_Internet_Says_On_Scalability_For_August_24%2C_2012.html">1311 high scalability-2012-08-24-Stuff The Internet Says On Scalability For August 24, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+ 500 TB/day:  Facebook data   
+ Quotable Quotes:                      
+ 
+  Tumblr mobocracy : This is what migrating a billion cache objects into a new cache pool looks like 
+  #hoti  it is possible to build all to all wdm networks where there is a wavelength per core. 
+ 
+ 
+  A Generation Lost in the Bazaar . The problem is Cathedrals are multi-generation projects, built by master craftsman, using an empirical process, not engineering principles. There is no complete specification, it's iterative and adaptive.  How Bazaar.  
+ Here's a unique look at how the new Digg 4  structured their architecture and development processes  to scale down to 14 engineers from a high of 40 engineers for the old Digg. As the team shrunk very few new unit tests were written and the system tests were dumped. Using Thrift between components helped coordinate the team. A dark rollout mechanism allowed them to rollout and test features on a subset of users.  Development team used</p><p>6 0.90139657 <a title="1482-lda-6" href="../high_scalability-2013/high_scalability-2013-09-23-Salesforce_Architecture_-_How_they_Handle_1.3_Billion_Transactions_a_Day.html">1521 high scalability-2013-09-23-Salesforce Architecture - How they Handle 1.3 Billion Transactions a Day</a></p>
 <p>7 0.89754152 <a title="1482-lda-7" href="../high_scalability-2011/high_scalability-2011-07-25-Is_NoSQL_a_Premature_Optimization_that%27s_Worse_than_Death%3F_Or_the_Lady_Gaga_of_the_Database_World%3F.html">1085 high scalability-2011-07-25-Is NoSQL a Premature Optimization that's Worse than Death? Or the Lady Gaga of the Database World?</a></p>
 <p>8 0.89662242 <a title="1482-lda-8" href="../high_scalability-2011/high_scalability-2011-06-27-TripAdvisor_Architecture_-_40M_Visitors%2C_200M_Dynamic_Page_Views%2C_30TB_Data.html">1068 high scalability-2011-06-27-TripAdvisor Architecture - 40M Visitors, 200M Dynamic Page Views, 30TB Data</a></p>
 <p>9 0.88971901 <a title="1482-lda-9" href="../high_scalability-2008/high_scalability-2008-10-01-Joyent_-_Cloud_Computing_Built_on_Accelerators.html">399 high scalability-2008-10-01-Joyent - Cloud Computing Built on Accelerators</a></p>

@@ -16,20 +16,17 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1565 high scalability-2013-12-16-22 Recommendations for Building Effective High Traffic Web Software</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1565-html" href="http://highscalability.com//blog/2013/12/16/22-recommendations-for-building-effective-high-traffic-web-s.html">html</a></p><p>Introduction: This is a guest post by Ashwanth Fernando, Software Engineer from the trenches
-at large scale internet companies.Inspired by the book "Effective Java" by
-Joshua Bloch, I wanted to share my holistic recommendations on building high
-traffic web software (i.e. web applications/services that serve high traffic
-loads). Some of these items may not be just about software design but also
-around surrounding areas such as the engineering organization, culture etc.Two
-disclaimers up front:1) This is my opinion.2) There will be real world
-situations where the below principles will be wrong as in all things
-"software". Please use common sense all the time.Consider using more than one
-datacenterThere have been numerous horror stories about businesses, ahem going
-out of business because they just had a single datacenter. Its really
-important to have more than one data center if you want to protect yourself
-from natural disasters or electrical supply failures. Run all your datacenters
-in active-active</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Consider a sparse datacenter deploymentMake sure that your operations team or your PaaS (if you are running a private cloud) really deploys your software cluster across racks that span multiple electrical power supply phases within a data center. [sent-13, score-0.298]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2013-1565-html" href="http://highscalability.com//blog/2013/12/16/22-recommendations-for-building-effective-high-traffic-web-s.html">html</a></p><p>Introduction: This is a guest post by Ashwanth Fernando, Software Engineer from the trenches at large scale internet companies. 
+ 
+Inspired by the book "Effective Java" by Joshua Bloch, I wanted to share my holistic recommendations on building high traffic web software (i.e. web applications/services that serve high traffic loads). Some of these items may not be just about software design but also around surrounding areas such as the engineering organization, culture etc.
+ 
+Two disclaimers up front:
+ 
+1) This is my opinion. 2) There will be real world situations where the below principles will be wrong as in all things "software". Please use common sense all the time.
+ 
+  Consider using more than one datacenter  
+ 
+There have been numerous horror stories about businesses, ahem going out of business because they just had a single datacenter. Its really important to have more than one data center if you want to protect yourself from natural disasters or electrical supply failures. Run all your datacen</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Consider a sparse datacenter deployment       Make sure that your operations team or your PaaS (if you are running a private cloud) really deploys your software cluster across racks that span multiple electrical power supply phases within a data center. [sent-13, score-0.298]
 </p><p>2 The switch to a rack may fail or failures may occur that may cause an entire rack to go offline, you do not want to find out at that time that all instances of your software was deployed on the same rack in a datacenter. [sent-14, score-0.286]
 </p><p>3 For searching records based on fields other than the primary key, index the table or tables into a search indexer such as Lucene and expose a search service that allows searching of records by other fields which will then return the primary key of the record. [sent-34, score-0.32]
 </p><p>4 Data Guard allows a near instant read replica which is passive (no clients connect to it) and Golden Gate allows a near instant active read-write replica. [sent-44, score-0.502]
@@ -41,13 +38,13 @@ in active-active</p><br/><h2>Summary: the most important sentenses genereted by 
 </p><p>10 Your client should be able to call ANY application server and have its query answered. [sent-78, score-0.357]
 </p><p>11 The id that maintains state is passed to and from the client for every request and the data that represents a client's session is stored in the database or the distributed cache across multiple requests. [sent-80, score-0.287]
 </p><p>12 Not using session stickiness also allows a rolling restart of your application server cluster thus allowing achieving a 100% uptime. [sent-83, score-0.638]
-</p><p>13 54Embrace all things "reactor"The reactor based pattern has proven itself time and again, a force to reckon for high traffic software systems. [sent-113, score-0.352]
+</p><p>13 54    Embrace all things "reactor"    The reactor based pattern has proven itself time and again, a force to reckon for high traffic software systems. [sent-113, score-0.352]
 </p><p>14 A flurry of frameworks have been created that implement the reactor pattern. [sent-114, score-0.266]
-</p><p>15 The places where the reactor can be used are:As a reverse proxy: nGinxAs a application server: node. [sent-115, score-0.401]
-</p><p>16 Implement Call CancelInspired from one of Siddharth Anand's conferences, in a call graph of service calls, first implement timeouts in decreasing number from the top to the bottom. [sent-118, score-0.368]
-</p><p>17 Next for every invocation of a call graph of services, create a UUID and set a flag for the UUID in a distributed cache:UUID: trueIf any service in the call graph times out, set the flag for the UUID to false. [sent-119, score-0.849]
+</p><p>15 The places where the reactor can be used are:    As a reverse proxy: nGinx     As a application server: node. [sent-115, score-0.401]
+</p><p>16 Implement Call Cancel    Inspired from one of Siddharth Anand's conferences, in a call graph of service calls, first implement timeouts in decreasing number from the top to the bottom. [sent-118, score-0.368]
+</p><p>17 Next for every invocation of a call graph of services, create a UUID and set a flag for the UUID in a distributed cache:   UUID: true   If any service in the call graph times out, set the flag for the UUID to false. [sent-119, score-0.849]
 </p><p>18 Now implement a servlet filter for all services that checks this flag all the time and continues processing only if the flag is true. [sent-120, score-0.473]
-</p><p>19 This allows unnecessary calls from lighting up the call graph during times of high trafficImplement the GC scout protocolAgain, inspired by the same guy - Make all services also expose a TCP port through Netty that returns a empty string. [sent-122, score-0.603]
+</p><p>19 This allows unnecessary calls from lighting up the call graph during times of high traffic    Implement the GC scout protocol    Again, inspired by the same guy - Make all services also expose a TCP port through Netty that returns a empty string. [sent-122, score-0.675]
 </p><p>20 If the call succeeds, then call the actual service on the instance. [sent-126, score-0.387]
 </p>
 <br/>
@@ -55,75 +52,49 @@ in active-active</p><br/><h2>Summary: the most important sentenses genereted by 
 <p>[('oracle', 0.221), ('reactor', 0.198), ('uuid', 0.186), ('call', 0.161), ('flag', 0.157), ('cname', 0.145), ('stickiness', 0.139), ('tcp', 0.129), ('allows', 0.129), ('netty', 0.128), ('gate', 0.123), ('session', 0.122), ('golden', 0.116), ('recommended', 0.107), ('reverse', 0.105), ('jboss', 0.102), ('hence', 0.1), ('rac', 0.1), ('client', 0.098), ('application', 0.098), ('passive', 0.094), ('multiplexer', 0.093), ('racs', 0.093), ('warmup', 0.093), ('services', 0.091), ('connections', 0.088), ('scout', 0.084), ('software', 0.082), ('cluster', 0.081), ('gc', 0.077), ('gslb', 0.075), ('multiplex', 0.075), ('near', 0.075), ('graph', 0.074), ('lookups', 0.073), ('traffic', 0.072), ('shard', 0.072), ('private', 0.071), ('guard', 0.07), ('thus', 0.069), ('referential', 0.068), ('implement', 0.068), ('rack', 0.068), ('cache', 0.067), ('upstream', 0.065), ('service', 0.065), ('lesser', 0.064), ('datacenter', 0.064), ('calls', 0.064), ('primary', 0.063)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000004 <a title="1565-tfidf-1" href="../high_scalability-2013/high_scalability-2013-12-16-22_Recommendations_for_Building_Effective_High_Traffic_Web_Software.html">1565 high scalability-2013-12-16-22 Recommendations for Building Effective High Traffic Web Software</a></p>
-<p>Introduction: This is a guest post by Ashwanth Fernando, Software Engineer from the trenches
-at large scale internet companies.Inspired by the book "Effective Java" by
-Joshua Bloch, I wanted to share my holistic recommendations on building high
-traffic web software (i.e. web applications/services that serve high traffic
-loads). Some of these items may not be just about software design but also
-around surrounding areas such as the engineering organization, culture etc.Two
-disclaimers up front:1) This is my opinion.2) There will be real world
-situations where the below principles will be wrong as in all things
-"software". Please use common sense all the time.Consider using more than one
-datacenterThere have been numerous horror stories about businesses, ahem going
-out of business because they just had a single datacenter. Its really
-important to have more than one data center if you want to protect yourself
-from natural disasters or electrical supply failures. Run all your datacenters
-in active-active</p><p>2 0.19915831 <a title="1565-tfidf-2" href="../high_scalability-2012/high_scalability-2012-05-07-Startups_are_Creating_a_New_System_of_the_World_for_IT.html">1240 high scalability-2012-05-07-Startups are Creating a New System of the World for IT</a></p>
-<p>Introduction: It remains that, from the same principles, I now demonstrate the frame of the
-System of the World.-- Isaac NewtonThe practice of IT reminds me a lot of the
-practice of science before Isaac Newton. Aristotelianism was dead, but there
-was nothing to replace it. Then Newton came along, created a scientific
-revolution with hisSystem of the World. And everything changed. That was New
-System of the World number one.New System of the World number two was written
-about by the incomparable Neal Stephenson in his incredible Baroque Cycle
-series. It explores the singular creation of a new way of organizing society
-grounded in new modes of thought in business, religion, politics, and science.
-Our modern world emerged Enlightened as it could from this roiling cauldron of
-forces.In IT we may have had a Leonardo da Vinci or even a Galileo, but we've
-never had our Newton. Maybe we don't need a towering genius to make everything
-clear? For years startups, like the frenetically inventive age of the 17th</p><p>3 0.16272874 <a title="1565-tfidf-3" href="../high_scalability-2007/high_scalability-2007-09-18-Amazon_Architecture.html">96 high scalability-2007-09-18-Amazon Architecture</a></p>
-<p>Introduction: This is a wonderfully informative Amazon update based on Joachim Rohde's
-discovery of an interview with Amazon's CTO. You'll learn about how Amazon
-organizes their teams around services, the CAP theorem of building scalable
-systems, how they deploy software, and a lot more. Many new additions from the
-ACM Queue article have also been included.Amazon grew from a tiny online
-bookstore to one of the largest stores on earth. They did it while pioneering
-new and interesting ways to rate, review, and recommend products. Greg Linden
-shared is version of Amazon's birth pangs in a series of blog articlesSite:
-http://amazon.comInformation SourcesEarly Amazon by Greg LindenHow Linux saved
-Amazon millionsInterview Werner Vogels- Amazon's CTOAsynchronous Architectures
-- a nicesummaryof Werner Vogels' talk by Chris LoosleyLearning from the Amazon
-technology platform- A Conversation with Werner VogelsWerner Vogels' Weblog-
-building scalable and robust distributed
-systemsPlatformLinuxOracleC++PerlMaso</p><p>4 0.16154712 <a title="1565-tfidf-4" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
-<p>Introduction: With Lavabitshutting down undermurky circumstances, it seems fitting torepost
-an old(2009), yet still very good post byLadar Levisonon Lavabit's
-architecture. I don't know how much of this information is still current, but
-it should give you a general idea what Lavabit was all about.Getting to Know
-YouWhat is the name of your system and where can we find out more about
-it?Note: these links are no longer valid...Lavabithttp://lavabit.comhttp://lav
-abit.com/network.htmlhttp://lavabit.com/about.htmlWhat is your system
-for?Lavabit is a mid-sized email service provider. We currently have about
-140,000 registered users with more than 260,000 email addresses. While most of
-our accounts belong to individual users, we also provide corporate email
-services to approximately 70 companies.Why did you decide to build this
-system?We built the system to compete against the other large free email
-providers, with an emphasis on serving the privacy conscious and technically
-savvy user. Lavabit was one of</p><p>5 0.15881382 <a title="1565-tfidf-5" href="../high_scalability-2014/high_scalability-2014-02-17-How_the_AOL.com_Architecture_Evolved_to_99.999%25_Availability%2C_8_Million_Visitors_Per_Day%2C_and_200%2C000_Requests_Per_Second.html">1597 high scalability-2014-02-17-How the AOL.com Architecture Evolved to 99.999% Availability, 8 Million Visitors Per Day, and 200,000 Requests Per Second</a></p>
-<p>Introduction: This is a guest post byDave HaglerSystems Architect at AOL.The AOL homepages
-receive more than8 million visitors per day.  That's more daily viewers than
-Good Morning America or the Today Show on television.  Over a billion page
-views are served each month.  AOL.com has been a major internet destination
-since 1996, and still has a strong following of loyal users.The architecture
-for AOL.com is in it's 5th generation.  It has essentially been rebuilt from
-scratch 5 times over two decades.  The current architecture was designed 6
-years ago.  Pieces have been upgraded and new components have been added along
-the way, but the overall design remains largely intact.  The code, tools,
-development and deployment processes are highly tuned over 6 years of
-continual improvement, making the AOL.com architecture battle tested and very
-stable.The engineering team is made up of developers, testers, and operations
-andtotals around 25 people.  The majority are in Dulles, Virginia with a
-smaller team i</p><p>6 0.1565157 <a title="1565-tfidf-6" href="../high_scalability-2011/high_scalability-2011-06-27-TripAdvisor_Architecture_-_40M_Visitors%2C_200M_Dynamic_Page_Views%2C_30TB_Data.html">1068 high scalability-2011-06-27-TripAdvisor Architecture - 40M Visitors, 200M Dynamic Page Views, 30TB Data</a></p>
+<p>Introduction: This is a guest post by Ashwanth Fernando, Software Engineer from the trenches at large scale internet companies. 
+ 
+Inspired by the book "Effective Java" by Joshua Bloch, I wanted to share my holistic recommendations on building high traffic web software (i.e. web applications/services that serve high traffic loads). Some of these items may not be just about software design but also around surrounding areas such as the engineering organization, culture etc.
+ 
+Two disclaimers up front:
+ 
+1) This is my opinion. 2) There will be real world situations where the below principles will be wrong as in all things "software". Please use common sense all the time.
+ 
+  Consider using more than one datacenter  
+ 
+There have been numerous horror stories about businesses, ahem going out of business because they just had a single datacenter. Its really important to have more than one data center if you want to protect yourself from natural disasters or electrical supply failures. Run all your datacen</p><p>2 0.19915831 <a title="1565-tfidf-2" href="../high_scalability-2012/high_scalability-2012-05-07-Startups_are_Creating_a_New_System_of_the_World_for_IT.html">1240 high scalability-2012-05-07-Startups are Creating a New System of the World for IT</a></p>
+<p>Introduction: It remains that, from the same principles, I now demonstrate the frame of the System of the World.  -- Isaac Newton
+ 
+The practice of IT reminds me a lot of the practice of science before Isaac Newton. Aristotelianism was dead, but there was nothing to replace it. Then Newton came along, created a scientific revolution with his  System of the World . And everything changed. That was New System of the World number one.
+ 
+New System of the World number two was written about by the incomparable Neal Stephenson in his incredible  Baroque Cycle  series. It explores the singular creation of a new way of organizing society grounded in new modes of thought in business, religion, politics, and science. Our modern world emerged Enlightened as it could from this roiling cauldron of forces.
+ 
+In IT we may have had a Leonardo da Vinci or even a Galileo, but we’ve never had our Newton. Maybe we don't need a towering genius to make everything clear? For years startups, like the frenetically inventive</p><p>3 0.16272874 <a title="1565-tfidf-3" href="../high_scalability-2007/high_scalability-2007-09-18-Amazon_Architecture.html">96 high scalability-2007-09-18-Amazon Architecture</a></p>
+<p>Introduction: This is a wonderfully informative Amazon update based on Joachim Rohde's discovery of an interview with Amazon's CTO. You'll learn about how Amazon organizes their teams around services, the CAP theorem of building scalable systems, how they deploy software, and a lot more. Many new additions from the ACM Queue article have also been included.   Amazon grew from a tiny online bookstore to one of the largest stores on earth. They did it while pioneering new and interesting ways to rate, review, and recommend products. Greg Linden shared is version of Amazon's birth pangs in a series of blog articles
+ 
+Site: http://amazon.com
+  Information Sources      Early Amazon by Greg Linden      How Linux saved Amazon millions      Interview Werner Vogels  - Amazon's CTO    Asynchronous Architectures - a nice  summary   of Werner Vogels' talk by Chris Loosley     Learning from the Amazon technology platform  - A Conversation with Werner Vogels    Werner Vogels' Weblog  - building scalable and robus</p><p>4 0.16154712 <a title="1565-tfidf-4" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: With Lavabit  shutting down  under  murky circumstances , it seems fitting to  repost an old  (2009), yet still very good post by  Ladar Levison  on Lavabit's architecture. I don't know how much of this information is still current, but it should give you a general idea what Lavabit was all about.
+  
+ Getting to Know You 
+ What is the name of your system and where can we find out more about it? 
+
+ Note: these links are no longer valid... 
+
+
+Lavabit   http://lavabit.com      http://lavabit.com/network.html    http://lavabit.com/about.html 
+
+ What is your system for? 
+
+Lavabit is a mid-sized email service provider. We currently have about 140,000 registered users with more than 260,000 email addresses. While most of our accounts belong to individual users, we also provide corporate email services to approximately 70 companies.
+
+ Why did you decide to build this system? 
+
+We built the system to compete against the other large free email providers, with an emphasis on serving the privacy c</p><p>5 0.15881382 <a title="1565-tfidf-5" href="../high_scalability-2014/high_scalability-2014-02-17-How_the_AOL.com_Architecture_Evolved_to_99.999%25_Availability%2C_8_Million_Visitors_Per_Day%2C_and_200%2C000_Requests_Per_Second.html">1597 high scalability-2014-02-17-How the AOL.com Architecture Evolved to 99.999% Availability, 8 Million Visitors Per Day, and 200,000 Requests Per Second</a></p>
+<p>Introduction: This is a guest post by  Dave Hagler  Systems Architect at AOL. 
+  The AOL homepages receive more than  8 million visitors per day .  That’s more daily viewers than Good Morning America or the Today Show on television.  Over a billion page views are served each month.  AOL.com has been a major internet destination since 1996, and still has a strong following of loyal users.
+   The architecture for AOL.com is in it’s 5th generation .  It has essentially been rebuilt from scratch 5 times over two decades.  The current architecture was designed 6 years ago.  Pieces have been upgraded and new components have been added along the way, but the overall design remains largely intact.  The code, tools, development and deployment processes are highly tuned over 6 years of continual improvement, making the AOL.com architecture battle tested and very stable.
+  The engineering team is made up of developers, testers, and operations and  totals around 25 people .  The majority are in Dulles, Virginia</p><p>6 0.1565157 <a title="1565-tfidf-6" href="../high_scalability-2011/high_scalability-2011-06-27-TripAdvisor_Architecture_-_40M_Visitors%2C_200M_Dynamic_Page_Views%2C_30TB_Data.html">1068 high scalability-2011-06-27-TripAdvisor Architecture - 40M Visitors, 200M Dynamic Page Views, 30TB Data</a></p>
 <p>7 0.15324295 <a title="1565-tfidf-7" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
 <p>8 0.15100257 <a title="1565-tfidf-8" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
 <p>9 0.15020874 <a title="1565-tfidf-9" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
@@ -143,76 +114,32 @@ smaller team i</p><p>6 0.1565157 <a title="1565-tfidf-6" href="../high_scalabili
 <p>[(0, 0.308), (1, 0.116), (2, -0.039), (3, -0.061), (4, -0.018), (5, 0.017), (6, 0.076), (7, -0.088), (8, -0.09), (9, -0.011), (10, 0.004), (11, 0.075), (12, -0.057), (13, -0.064), (14, -0.036), (15, 0.013), (16, 0.022), (17, 0.033), (18, 0.059), (19, -0.041), (20, -0.025), (21, 0.027), (22, 0.006), (23, -0.058), (24, -0.046), (25, 0.068), (26, -0.029), (27, -0.032), (28, 0.027), (29, 0.07), (30, -0.03), (31, -0.002), (32, -0.032), (33, -0.036), (34, 0.021), (35, 0.024), (36, 0.002), (37, 0.023), (38, -0.027), (39, -0.003), (40, 0.028), (41, 0.073), (42, 0.014), (43, 0.031), (44, -0.033), (45, 0.029), (46, 0.049), (47, 0.041), (48, -0.034), (49, 0.001)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96965116 <a title="1565-lsi-1" href="../high_scalability-2013/high_scalability-2013-12-16-22_Recommendations_for_Building_Effective_High_Traffic_Web_Software.html">1565 high scalability-2013-12-16-22 Recommendations for Building Effective High Traffic Web Software</a></p>
-<p>Introduction: This is a guest post by Ashwanth Fernando, Software Engineer from the trenches
-at large scale internet companies.Inspired by the book "Effective Java" by
-Joshua Bloch, I wanted to share my holistic recommendations on building high
-traffic web software (i.e. web applications/services that serve high traffic
-loads). Some of these items may not be just about software design but also
-around surrounding areas such as the engineering organization, culture etc.Two
-disclaimers up front:1) This is my opinion.2) There will be real world
-situations where the below principles will be wrong as in all things
-"software". Please use common sense all the time.Consider using more than one
-datacenterThere have been numerous horror stories about businesses, ahem going
-out of business because they just had a single datacenter. Its really
-important to have more than one data center if you want to protect yourself
-from natural disasters or electrical supply failures. Run all your datacenters
-in active-active</p><p>2 0.7736448 <a title="1565-lsi-2" href="../high_scalability-2014/high_scalability-2014-02-17-How_the_AOL.com_Architecture_Evolved_to_99.999%25_Availability%2C_8_Million_Visitors_Per_Day%2C_and_200%2C000_Requests_Per_Second.html">1597 high scalability-2014-02-17-How the AOL.com Architecture Evolved to 99.999% Availability, 8 Million Visitors Per Day, and 200,000 Requests Per Second</a></p>
-<p>Introduction: This is a guest post byDave HaglerSystems Architect at AOL.The AOL homepages
-receive more than8 million visitors per day.  That's more daily viewers than
-Good Morning America or the Today Show on television.  Over a billion page
-views are served each month.  AOL.com has been a major internet destination
-since 1996, and still has a strong following of loyal users.The architecture
-for AOL.com is in it's 5th generation.  It has essentially been rebuilt from
-scratch 5 times over two decades.  The current architecture was designed 6
-years ago.  Pieces have been upgraded and new components have been added along
-the way, but the overall design remains largely intact.  The code, tools,
-development and deployment processes are highly tuned over 6 years of
-continual improvement, making the AOL.com architecture battle tested and very
-stable.The engineering team is made up of developers, testers, and operations
-andtotals around 25 people.  The majority are in Dulles, Virginia with a
-smaller team i</p><p>3 0.76468164 <a title="1565-lsi-3" href="../high_scalability-2011/high_scalability-2011-02-08-Mollom_Architecture_-_Killing_Over_373_Million_Spams_at_100_Requests_Per_Second.html">985 high scalability-2011-02-08-Mollom Architecture - Killing Over 373 Million Spams at 100 Requests Per Second</a></p>
-<p>Introduction: Mollomis one of those cool SaaS companies every developer dreams of creating
-when they wrack their brains looking for a viable software-as-a-service
-startup. Mollom profitably runs a useful service--spam filtering--with a small
-group of geographically distributed developers. Mollom helps protect nearly
-40,000 websites from spam, includingone of mine, which is where I first
-learned about Mollom. In a desperate attempt to stop spam on a Drupal site,
-where every other form of CAPTCHA had failed miserably, I installed Mollom in
-about 10 minutes and it immediately started working. That's the out of the box
-experience I was looking for.From the time Mollom opened its digital
-inspection system they've rejected over 373 million spams and in the process
-they've learned that a stunning 90% of all messages are spam. This spam
-torrent is handled by only two geographically distributed machines that handle
-100 requests/ second, each running a Java application server and Cassandra. So
-few resources a</p><p>4 0.75707465 <a title="1565-lsi-4" href="../high_scalability-2012/high_scalability-2012-10-08-How_UltraDNS_Handles_Hundreds_of_Thousands_of_Zones_and_Tens_of_Millions_of_Records.html">1335 high scalability-2012-10-08-How UltraDNS Handles Hundreds of Thousands of Zones and Tens of Millions of Records</a></p>
-<p>Introduction: This is a guest post byJeffrey Damick, Principal Software Engineer forNeustar.
-Jeffrey has overseen the software architecture forUltraDNSfor last two and
-half years as it went through substantial revitalization.UltraDNS is one the
-top the DNS providers, serving manytop-level domains (TLDs)as well assecond-
-level domains (SLDs). This requires handling of several hundreds of thousands
-of zones with many containing millions of records each. Even with all of its
-success UltraDNS had fallen into a rut several years ago, its release schedule
-had become haphazard at best and the team was struggling to keep up with
-feature requests in a waterfall development style.DevelopmentRealizing that
-something had to be done the team came together and identified the most
-important areas to attack first. We began with the code base, stabilizing our
-flagship proprietary C++ DNS server, instituting common best practices and
-automation. Testing was very manual and not easily reproducible, so we brought
-our Q</p><p>5 0.75655788 <a title="1565-lsi-5" href="../high_scalability-2011/high_scalability-2011-06-27-TripAdvisor_Architecture_-_40M_Visitors%2C_200M_Dynamic_Page_Views%2C_30TB_Data.html">1068 high scalability-2011-06-27-TripAdvisor Architecture - 40M Visitors, 200M Dynamic Page Views, 30TB Data</a></p>
-<p>Introduction: This is a guest post byAndy Gelfond, VP of Engineering for TripAdvisor. Andy
-has been with TripAdvisor for six and a half years, wrote a lot of code in the
-earlier days, and has been building and running a first class engineering and
-operations team that is responsible for the worlds largest travel site.
-There's an update for this article atAn Epic TripAdvisor Update: Why Not Run
-On The Cloud? The Grand Experiment. For TripAdvisor, scalability is woven into
-our organization on many levels - data center, software architecture,
-development/deployment/operations, and, most importantly, within the culture
-and organization. It is not enough to have a scalable data center, or a
-scalable software architecture. The process of designing, coding, testing, and
-deploying code also needs to be scalable. All of this starts with hiring and a
-culture and an organization that values and supports a distributed, fast, and
-effective development and operation of a complex and highly scalable consumer
-web s</p><p>6 0.75245667 <a title="1565-lsi-6" href="../high_scalability-2010/high_scalability-2010-11-01-Hot_Trend%3A__Move_Behavior_to_Data_for_a_New_Interactive_Application_Architecture.html">933 high scalability-2010-11-01-Hot Trend:  Move Behavior to Data for a New Interactive Application Architecture</a></p>
+<p>Introduction: This is a guest post by Ashwanth Fernando, Software Engineer from the trenches at large scale internet companies. 
+ 
+Inspired by the book "Effective Java" by Joshua Bloch, I wanted to share my holistic recommendations on building high traffic web software (i.e. web applications/services that serve high traffic loads). Some of these items may not be just about software design but also around surrounding areas such as the engineering organization, culture etc.
+ 
+Two disclaimers up front:
+ 
+1) This is my opinion. 2) There will be real world situations where the below principles will be wrong as in all things "software". Please use common sense all the time.
+ 
+  Consider using more than one datacenter  
+ 
+There have been numerous horror stories about businesses, ahem going out of business because they just had a single datacenter. Its really important to have more than one data center if you want to protect yourself from natural disasters or electrical supply failures. Run all your datacen</p><p>2 0.7736448 <a title="1565-lsi-2" href="../high_scalability-2014/high_scalability-2014-02-17-How_the_AOL.com_Architecture_Evolved_to_99.999%25_Availability%2C_8_Million_Visitors_Per_Day%2C_and_200%2C000_Requests_Per_Second.html">1597 high scalability-2014-02-17-How the AOL.com Architecture Evolved to 99.999% Availability, 8 Million Visitors Per Day, and 200,000 Requests Per Second</a></p>
+<p>Introduction: This is a guest post by  Dave Hagler  Systems Architect at AOL. 
+  The AOL homepages receive more than  8 million visitors per day .  That’s more daily viewers than Good Morning America or the Today Show on television.  Over a billion page views are served each month.  AOL.com has been a major internet destination since 1996, and still has a strong following of loyal users.
+   The architecture for AOL.com is in it’s 5th generation .  It has essentially been rebuilt from scratch 5 times over two decades.  The current architecture was designed 6 years ago.  Pieces have been upgraded and new components have been added along the way, but the overall design remains largely intact.  The code, tools, development and deployment processes are highly tuned over 6 years of continual improvement, making the AOL.com architecture battle tested and very stable.
+  The engineering team is made up of developers, testers, and operations and  totals around 25 people .  The majority are in Dulles, Virginia</p><p>3 0.76468164 <a title="1565-lsi-3" href="../high_scalability-2011/high_scalability-2011-02-08-Mollom_Architecture_-_Killing_Over_373_Million_Spams_at_100_Requests_Per_Second.html">985 high scalability-2011-02-08-Mollom Architecture - Killing Over 373 Million Spams at 100 Requests Per Second</a></p>
+<p>Introduction: Mollom  is one of those cool SaaS companies every developer dreams of creating when they wrack their brains looking for a viable software-as-a-service startup. Mollom profitably runs a useful service— spam filtering —with a small group of geographically distributed developers. Mollom helps protect nearly 40,000 websites from spam, including  one of mine , which is where I first learned about Mollom. In a desperate attempt to stop spam on a Drupal site, where every other form of CAPTCHA had failed miserably, I installed Mollom in about 10 minutes and it immediately started working. That's the out of the box experience I was looking for.
+ 
+From the time Mollom opened its digital inspection system they've rejected over 373 million spams and in the process they've learned that a stunning 90% of all messages are spam. This spam torrent is handled by only two geographically distributed machines that handle 100 requests/ second, each running a Java application server and Cassandra. So few res</p><p>4 0.75707465 <a title="1565-lsi-4" href="../high_scalability-2012/high_scalability-2012-10-08-How_UltraDNS_Handles_Hundreds_of_Thousands_of_Zones_and_Tens_of_Millions_of_Records.html">1335 high scalability-2012-10-08-How UltraDNS Handles Hundreds of Thousands of Zones and Tens of Millions of Records</a></p>
+<p>Introduction: This is a guest post by  Jeffrey Damick , Principal Software Engineer for  Neustar .   Jeffrey has overseen the software architecture for  UltraDNS  for last two and half years as it went through substantial revitalization.  
+ 
+UltraDNS is one the top the DNS providers, serving many  top-level domains (TLDs)  as well as  second-level domains (SLDs) .  This requires handling of several hundreds of thousands of zones with many containing millions of records each.  Even with all of its success UltraDNS had fallen into a rut several years ago, its release schedule had become haphazard at best and the team was struggling to keep up with feature requests in a waterfall development style.
+  Development  
+Realizing that something had to be done the team came together and identified the most important areas to attack first.  We began with the code base, stabilizing our flagship proprietary C++ DNS server, instituting common best practices and automation.   Testing was very manual and not easily</p><p>5 0.75655788 <a title="1565-lsi-5" href="../high_scalability-2011/high_scalability-2011-06-27-TripAdvisor_Architecture_-_40M_Visitors%2C_200M_Dynamic_Page_Views%2C_30TB_Data.html">1068 high scalability-2011-06-27-TripAdvisor Architecture - 40M Visitors, 200M Dynamic Page Views, 30TB Data</a></p>
+<p>Introduction: This is a guest post by  Andy Gelfond , VP of Engineering for TripAdvisor. Andy has been with TripAdvisor for six and a half years, wrote a lot of code in the earlier days, and has been building and running a first class engineering and operations team that is responsible for the worlds largest travel site. There's an update for this article at  An Epic TripAdvisor Update: Why Not Run On The Cloud? The Grand Experiment .  
+ 
+For  TripAdvisor , scalability is woven into our organization on many levels - data center, software architecture, development/deployment/operations, and, most importantly, within the culture and organization. It is not enough to have a scalable data center, or a scalable software architecture. The process of designing, coding, testing, and deploying code also needs to be scalable. All of this starts with hiring and a culture and an organization that values and supports a distributed, fast, and effective development and operation of a complex and highly scalable co</p><p>6 0.75245667 <a title="1565-lsi-6" href="../high_scalability-2010/high_scalability-2010-11-01-Hot_Trend%3A__Move_Behavior_to_Data_for_a_New_Interactive_Application_Architecture.html">933 high scalability-2010-11-01-Hot Trend:  Move Behavior to Data for a New Interactive Application Architecture</a></p>
 <p>7 0.75207609 <a title="1565-lsi-7" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
 <p>8 0.74916691 <a title="1565-lsi-8" href="../high_scalability-2012/high_scalability-2012-08-27-Zoosk_-_The_Engineering_behind_Real_Time_Communications.html">1312 high scalability-2012-08-27-Zoosk - The Engineering behind Real Time Communications</a></p>
 <p>9 0.74830598 <a title="1565-lsi-9" href="../high_scalability-2014/high_scalability-2014-03-03-The_%E2%80%9CFour_Hamiltons%E2%80%9D_Framework_for_Mitigating_Faults_in_the_Cloud%3A_Avoid_it%2C_Mask_it%2C_Bound_it%2C_Fix_it_Fast.html">1604 high scalability-2014-03-03-The “Four Hamiltons” Framework for Mitigating Faults in the Cloud: Avoid it, Mask it, Bound it, Fix it Fast</a></p>
@@ -232,73 +159,41 @@ web s</p><p>6 0.75245667 <a title="1565-lsi-6" href="../high_scalability-2010/hi
 <p>[(1, 0.147), (2, 0.227), (10, 0.052), (30, 0.028), (40, 0.018), (47, 0.026), (56, 0.148), (61, 0.092), (76, 0.012), (77, 0.015), (79, 0.09), (85, 0.037), (94, 0.04)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.97658515 <a title="1565-lda-1" href="../high_scalability-2010/high_scalability-2010-02-16-Seven_Signs_You_May_Need_a_NoSQL_Database.html">779 high scalability-2010-02-16-Seven Signs You May Need a NoSQL Database</a></p>
-<p>Introduction: While exploring deep into some dusty old library stacks, I dug up Nostradamus'
-long lostNoSQLcodex. What are the chances? Strangely, it also gave the plot to
-the next Dan Brown novel, but I left that out for reasons of sanity. About
-NoSQL, here is what Nosty (his friends call him Nosty) predicted are the signs
-you may need a NoSQL database...You noticed a lot of your database fields are
-really serialized complex objects in disguise. Why bother with a RDBMS at all
-then? Storing serialized objects in a relational database is like being on the
-pill while trying to get pregnant, a bit counter productive. Just use a
-schemaless database from the start.Using a standard query language has become
-too confining. You just want to be free. SQL is so easy, so convenient, and so
-standard, it's reallynot a challengeanymore. You need to be different. Then
-NoSQL is for you. Each has their own completely differentquery mechanism.Your
-toolbox only contains a hammer. Hammers while wonderfully versatile, c</p><p>2 0.97606343 <a title="1565-lda-2" href="../high_scalability-2010/high_scalability-2010-11-15-How_Google%27s_Instant_Previews_Reduces_HTTP_Requests.html">941 high scalability-2010-11-15-How Google's Instant Previews Reduces HTTP Requests</a></p>
-<p>Introduction: In a strange case of synchronicity, Google just publishedInstant Previews:
-Under the hood, a very well written blog post by Matias Pelenur of the Instant
-Previews team, giving some fascinating inside details on how Google
-implementedInstant Previews. It's syncronicty because I had just posted
-Strategy: Biggest Performance Impact Is To Reduce The Number Of HTTP Requests
-and one of the major ideas behind the design Instant Previews is to reduce the
-number of HTTP requests through a few well chosen tricks. Cosmic!Some of what
-Google does to reduce HTTP requests:Data URIs, which are are base64 encodings
-of image data, are used instead of static images that are served from the
-server. This means the whole preview can be pieced together from image slices
-in one request as both the data and the image are returned in the same
-request. Google found thateven though base64 encoding adds about 33% to the
-size of the image, tests showed that gzip-compressed data URIs are comparable
-in size to the o</p><p>3 0.96870494 <a title="1565-lda-3" href="../high_scalability-2009/high_scalability-2009-07-20-A_Scalability_Lament.html">659 high scalability-2009-07-20-A Scalability Lament</a></p>
-<p>Introduction: In Scalabilityissues for dummiesAlex Barrera talks movingly about the
-challenges he faces trying to scale his startupinkzeeas the lone developer.
-Inkzee is anonline news reader that automatically groups similar topics. This
-is a cool problem and is one you know right away is going to have some killer
-scalability problems as the number of feeds and the number of users increase.
-And these problems lead to the point of the post, toexplain here what are
-scalability problems and how deep the repercussions are for a small company,
-which Alex does admirably.Some takeaways:Sites are composed of a frontend and
-backend. The backend isn't visible to users, but it does all the work and this
-is where the scalability problems show up.As more and more users use a site it
-becomes slow because more users reveal bottlenecks in the system that weren't
-visible before.There can be many many reasons for these bottlenecks. They are
-often very hard to find because the backend systems are very complex and have</p><p>4 0.96535045 <a title="1565-lda-4" href="../high_scalability-2010/high_scalability-2010-07-09-Hot_Scalability_Links_for_July_9%2C_2010.html">854 high scalability-2010-07-09-Hot Scalability Links for July 9, 2010</a></p>
-<p>Introduction: Facebook serves 3 billion Like buttons a day says VentureBeat.CloudScaling
-reports:Rumor Mill: Google EC2 Competitor Coming in 2010? It looks like GAE
-for PaaS and an EC2 clone for IaaS.Tweets of gold:alandipert:scalability is a
-drugseldo: Scalability lesson #23: if any part of your system involves a list
-that gets bigger over time, eventually that list will become too
-big.obfuscurity: Her: "Go look at the pictures on the database." Me: "You mean
-our fileserver?" Her: "Whatever." luiscab: Ouch, I just read on an Info Mgmt
-rag that Hadoop could easily be an acronym for "Heck, Another Darn Obscure
-Open-source Project."sanity: Depressed about how much time I've had to spend
-searching for the right database solution for a new project. Each has it's
-flawsioshints: You cannot take a car, grow it 10 times and expect to get a
-mining truck. A contentious thread on Hacker News: MongoDB Performance &
-Durability. Will MongoDB lose your data? Is CouchDB is slow?ďťżAndy Gross -
-"Distributed Erlang Sys</p><p>5 0.96510369 <a title="1565-lda-5" href="../high_scalability-2012/high_scalability-2012-09-14-Stuff_The_Internet_Says_On_Scalability_For_September_14%2C_2012.html">1322 high scalability-2012-09-14-Stuff The Internet Says On Scalability For September 14, 2012</a></p>
-<p>Introduction: It's HighScalability Time:Serves 4 billion hours of video each month, has 425M
-gmail users, and has 100PB of active data:Google;  340,000+ cores across 300
-data centers to >10k scientists, archiving 15PB / yr:Open Science GridQuotable
-Quotes:Chris Travers: MySQL is what you get when application developers build
-an RDBMS. PostgreSQL is what you get when database developers build an
-application development platform.Hasen: Node.JS is a terrible platform. It's
-terribleness stems from a very simple aspect of it, and this aspect happens to
-be central to how it works: callback-based I/O@cgul: @github nooooooooo say it
-aint so. But I read all your articles on high scalability!@fhd: It may sound
-perverse, but I'm really happy to be confronted with scalability issues at
-Eyeo. I guess I just love tricky stuff :D@brianfcoope: Can't we all just get
-along? MT @otrajman "Biggest problem with NoSQL guys is none of them know
-anything about databases..." - Stonebraker@salsabeela: Sigh. I finally decide</p><p>6 0.96271437 <a title="1565-lda-6" href="../high_scalability-2008/high_scalability-2008-11-18-Scalability_Perspectives_%232%3A_Van_Jacobson_%E2%80%93_Content-Centric_Networking.html">446 high scalability-2008-11-18-Scalability Perspectives #2: Van Jacobson – Content-Centric Networking</a></p>
+<p>Introduction: While exploring deep into some dusty old library stacks, I dug up Nostradamus' long lost  NoSQL  codex. What are the chances? Strangely, it also gave the plot to the next Dan Brown novel, but I left that out for reasons of sanity. About NoSQL, here is what Nosty (his friends call him Nosty) predicted are the signs you may need a NoSQL database...
+  
+  You noticed a lot of your database fields are really serialized complex objects in disguise . Why bother with a RDBMS at all then? Storing serialized objects in a relational database is like being on the pill while trying to get pregnant, a bit counter productive. Just use a schemaless database from the start. 
+  Using a standard query language has become too confining . You just want to be free. SQL is so easy, so convenient, and so standard, it's really  not a challenge  anymore. You need to be different. Then NoSQL is for you. Each has their own completely different  query mechanism . 
+  Your toolbox only contains a hammer . Hammers wh</p><p>2 0.97606343 <a title="1565-lda-2" href="../high_scalability-2010/high_scalability-2010-11-15-How_Google%27s_Instant_Previews_Reduces_HTTP_Requests.html">941 high scalability-2010-11-15-How Google's Instant Previews Reduces HTTP Requests</a></p>
+<p>Introduction: In a strange case of synchronicity, Google just published  Instant Previews: Under the hood , a very well written blog post by Matías Pelenur of the Instant Previews team, giving some fascinating inside details on how Google implemented  Instant Previews . It's syncronicty because I had just posted  Strategy: Biggest Performance Impact Is To Reduce The Number Of HTTP Requests  and one of the major ideas behind the design Instant Previews is to reduce the number of HTTP requests through a few well chosen tricks. Cosmic!
+ 
+Some of what Google does to reduce HTTP requests:
+  
+  Data URIs , which are are base64 encodings of image data, are used instead of static images that are served from the server. This means the whole preview can be pieced together from image slices in one request as both the data and the image are returned in the same request. Google found that  even though base64 encoding adds about 33% to the size of the image, tests showed that gzip-compressed data URIs are compara</p><p>3 0.96870494 <a title="1565-lda-3" href="../high_scalability-2009/high_scalability-2009-07-20-A_Scalability_Lament.html">659 high scalability-2009-07-20-A Scalability Lament</a></p>
+<p>Introduction: In Scalability   issues for dummies  Alex Barrera talks movingly about the challenges he faces trying to scale his startup  inkzee  as the lone developer.  Inkzee is an  online news reader that automatically groups similar topics . This is a cool problem and is one you know right away is going to have some killer scalability problems as the number of feeds and the number of users increase. And these problems lead to the point of the post, to  explain here what are scalability problems and how deep the repercussions are for a small company , which Alex does admirably.   Some takeaways:
+   Sites are composed of a frontend and backend. The backend isn't visible to users, but it does all the work and this is where the scalability problems show up.    As more and more users use a site it becomes slow because more users reveal bottlenecks in the system that weren't visible before.    There can be many many reasons for these bottlenecks. They are often very hard to find because the backend sy</p><p>4 0.96535045 <a title="1565-lda-4" href="../high_scalability-2010/high_scalability-2010-07-09-Hot_Scalability_Links_for_July_9%2C_2010.html">854 high scalability-2010-07-09-Hot Scalability Links for July 9, 2010</a></p>
+<p>Introduction: Facebook serves 3 billion Like buttons a day  says VentureBeat. 
+ CloudScaling reports:  Rumor Mill: Google EC2 Competitor Coming in 2010?  It looks like GAE for PaaS and an EC2 clone for IaaS. 
+ Tweets of gold:              
+ 
+    alandipert :  scalability is a drug    
+    seldo  : Scalability lesson #23: if any part of your system involves a list that gets bigger over time, eventually that list will become too big.    
+     obfuscurity :  Her: "Go look at the pictures on the database."   Me: "You mean our fileserver?"  Her: "Whatever."      
+       luiscab  : Ouch, I just read on an Info Mgmt rag that Hadoop could easily be an acronym for "Heck, Another Darn Obscure Open-source Project."     
+       sanity  : Depressed about how much time I've had to spend searching for the right database solution for a new project. Each has it's flaws     
+     ioshints  : You cannot take a car, grow it 10 times and expect to get a mining truck.      
+ 
+ 
+ A contentious thread on Hacker News:  Mong</p><p>5 0.96510369 <a title="1565-lda-5" href="../high_scalability-2012/high_scalability-2012-09-14-Stuff_The_Internet_Says_On_Scalability_For_September_14%2C_2012.html">1322 high scalability-2012-09-14-Stuff The Internet Says On Scalability For September 14, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+ Serves 4 billion hours of video each month, has 425M gmail users, and has 100PB of active data:  Google ;  340,000+ cores across 300 data centers to >10k scientists, archiving 15PB / yr:  Open Science Grid  
+ Quotable Quotes:            
+ 
+  Chris Travers : MySQL is what you get when application developers build an RDBMS. PostgreSQL is what you get when database developers build an application development platform. 
+  Hasen : Node.JS is a terrible platform. It’s terribleness stems from a very simple aspect of it, and this aspect happens to be central to how it works: callback-based I/O 
+  @cgul : @github nooooooooo say it aint so. But I read all your articles on high scalability! 
+  @fhd : It may sound perverse, but I'm really happy to be confronted with scalability issues at Eyeo. I guess I just love tricky stuff :D 
+  @brianfcoope : Can't we all just get along? MT @otrajman "Biggest problem with NoSQL guys is none of them know anything about databases..</p><p>6 0.96271437 <a title="1565-lda-6" href="../high_scalability-2008/high_scalability-2008-11-18-Scalability_Perspectives_%232%3A_Van_Jacobson_%E2%80%93_Content-Centric_Networking.html">446 high scalability-2008-11-18-Scalability Perspectives #2: Van Jacobson – Content-Centric Networking</a></p>
 <p>7 0.9569605 <a title="1565-lda-7" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
 <p>8 0.95628399 <a title="1565-lda-8" href="../high_scalability-2009/high_scalability-2009-10-29-Digg_-_Looking_to_the_Future_with_Cassandra.html">732 high scalability-2009-10-29-Digg - Looking to the Future with Cassandra</a></p>
 <p>same-blog 9 0.93827206 <a title="1565-lda-9" href="../high_scalability-2013/high_scalability-2013-12-16-22_Recommendations_for_Building_Effective_High_Traffic_Web_Software.html">1565 high scalability-2013-12-16-22 Recommendations for Building Effective High Traffic Web Software</a></p>
