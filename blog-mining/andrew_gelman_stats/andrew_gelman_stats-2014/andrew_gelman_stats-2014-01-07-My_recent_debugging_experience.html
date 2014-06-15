@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>2161 andrew gelman stats-2014-01-07-My recent debugging experience</title>
+</head>
+
+<body>
+<p><a title="andrew_gelman_stats" href="../andrew_gelman_stats_home.html">andrew_gelman_stats</a> <a title="andrew_gelman_stats-2014" href="../home/andrew_gelman_stats-2014_home.html">andrew_gelman_stats-2014</a> <a title="andrew_gelman_stats-2014-2161" href="#">andrew_gelman_stats-2014-2161</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>2161 andrew gelman stats-2014-01-07-My recent debugging experience</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="andrew_gelman_stats-2014-2161-html" href="http://andrewgelman.com/2014/01/07/recent-debugging-experience/">html</a></p><p>Introduction: OK, so this sort of thing happens sometimes.  I was working on a new idea (still working on it; if it ultimately works out—or if it doesn’t—I’ll let you know) and as part of it I was fitting little models in Stan, in a loop.  I thought it would make sense to start with linear regression with normal priors and known data variance, because then the exact solution is Gaussian and I can also work with the problem analytically.  So I programmed up the algorithm and, no surprise, it didn’t work.  I went through my R code, put in print statements here and there, and cleared out bug after bug until at least it stopped crashing.  But the algorithm still wasn’t doing what it was supposed to do.
+ 
+So I decided to do something simpler, and just check that the Stan linear regression gave the same answer as the analytic posterior distribution:  I ran Stan for tons of iterations, then computed the sample mean and variance of the simulations.  It was an example with two coefficients—I’d originally cho</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I was working on a new idea (still working on it; if it ultimately works out—or if it doesn’t—I’ll let you know) and as part of it I was fitting little models in Stan, in a loop. [sent-2, score-0.066]
+</p><p>2 I thought it would make sense to start with linear regression with normal priors and known data variance, because then the exact solution is Gaussian and I can also work with the problem analytically. [sent-3, score-0.522]
+</p><p>3 So I programmed up the algorithm and, no surprise, it didn’t work. [sent-4, score-0.15]
+</p><p>4 I went through my R code, put in print statements here and there, and cleared out bug after bug until at least it stopped crashing. [sent-5, score-0.681]
+</p><p>5 But the algorithm still wasn’t doing what it was supposed to do. [sent-6, score-0.161]
+</p><p>6 So I decided to do something simpler, and just check that the Stan linear regression gave the same answer as the analytic posterior distribution:  I ran Stan for tons of iterations, then computed the sample mean and variance of the simulations. [sent-7, score-0.646]
+</p><p>7 The means looked fine but the covariance matrix from the Stan simulations was off. [sent-9, score-0.297]
+</p><p>8 The correlations were wrong—not by a lot, but by a nonzero amount, I think the value from the formula was 0. [sent-10, score-0.222]
+</p><p>9 Which I did, actually, but fixing the formula didn’t solve the problem. [sent-15, score-0.224]
+</p><p>10 I also tried direct simulation, and that gave the right answer too. [sent-16, score-0.248]
+</p><p>11 So I just fed Stan the posterior distribution directly. [sent-18, score-0.13]
+</p><p>12 I simplified further, forget regression entirely, just give independent normal priors:     parameters {   real b1;   real b2;  }  model {   b1 ~ normal (0, 1);   b2 ~ normal (0, 1);  }     You can’t get much more stripped down than that. [sent-20, score-1.014]
+</p><p>13 Still had the problem:     > library ("rstan")  > gaussian2 <- stan (file="gaussian2. [sent-21, score-0.425]
+</p><p>14 stan", iter=20000, chains=4)  > sims <- extract(gaussian2)$b1  > print (mean (sims))  [1] -0. [sent-22, score-0.677]
+</p><p>15 I then tried to go even simpler, to one dimension:     parameters {   real b1;  }  model {   b1 ~ normal (0, 1);  }     This time it gave the right answer:     > gaussian1 <- stan (file="gaussian1. [sent-27, score-0.919]
+</p><p>16 stan", iter=20000, chains=4)  > sims <- extract(gaussian1)$b1  > print (mean (sims))  [1] 0. [sent-28, score-0.677]
+</p><p>17 I have two adjacent examples, one where Stan works and one where it doesn’t. [sent-31, score-0.147]
+</p><p>18 Just to be clear:  the above is not meant to represent exemplary practice. [sent-35, score-0.073]
+</p><p>19 It seems to be a general rule of programming, and of research, that no matter how simple we start, we should start even simpler, to get that solid rock of computational certainty on which we can stand while building our complex structures. [sent-37, score-0.081]
+</p><p>20 The indents just don’t show up when I use the “code” tag in html. [sent-42, score-0.15]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('stan', 0.425), ('sims', 0.413), ('print', 0.264), ('normal', 0.189), ('bug', 0.17), ('formula', 0.16), ('simpler', 0.147), ('iter', 0.147), ('var', 0.134), ('extract', 0.116), ('covariance', 0.108), ('chains', 0.107), ('regression', 0.104), ('gave', 0.101), ('file', 0.098), ('matrix', 0.096), ('simulations', 0.093), ('mean', 0.093), ('algorithm', 0.086), ('adjacent', 0.081), ('indent', 0.081), ('indents', 0.081), ('prospectively', 0.081), ('start', 0.081), ('answer', 0.077), ('cleared', 0.077), ('priors', 0.076), ('still', 0.075), ('variance', 0.073), ('exemplary', 0.073), ('linear', 0.072), ('code', 0.071), ('progression', 0.071), ('stripped', 0.071), ('ep', 0.071), ('tried', 0.07), ('real', 0.069), ('simplified', 0.069), ('tag', 0.069), ('html', 0.067), ('posterior', 0.067), ('works', 0.066), ('parameters', 0.065), ('programmed', 0.064), ('fixing', 0.064), ('fed', 0.063), ('nonzero', 0.062), ('rstan', 0.062), ('forthcoming', 0.059), ('analytic', 0.059)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999982 <a title="2161-tfidf-1" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-07-My_recent_debugging_experience.html">2161 andrew gelman stats-2014-01-07-My recent debugging experience</a></p>
+<p>Introduction: OK, so this sort of thing happens sometimes.  I was working on a new idea (still working on it; if it ultimately works out—or if it doesn’t—I’ll let you know) and as part of it I was fitting little models in Stan, in a loop.  I thought it would make sense to start with linear regression with normal priors and known data variance, because then the exact solution is Gaussian and I can also work with the problem analytically.  So I programmed up the algorithm and, no surprise, it didn’t work.  I went through my R code, put in print statements here and there, and cleared out bug after bug until at least it stopped crashing.  But the algorithm still wasn’t doing what it was supposed to do.
+ 
+So I decided to do something simpler, and just check that the Stan linear regression gave the same answer as the analytic posterior distribution:  I ran Stan for tons of iterations, then computed the sample mean and variance of the simulations.  It was an example with two coefficients—I’d originally cho</p><p>2 0.27720076 <a title="2161-tfidf-2" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-30-A_Stan_is_Born.html">1475 andrew gelman stats-2012-08-30-A Stan is Born</a></p>
+<p>Introduction: Stan 1.0.0 and RStan 1.0.0 
+ 
+It’s official.  The Stan Development Team is happy to announce the first stable versions of Stan and RStan.  
+ 
+ What is (R)Stan? 
+ 
+Stan is an open-source package for obtaining Bayesian inference using the No-U-Turn sampler, a variant of Hamiltonian Monte Carlo.  It’s sort of like BUGS, but with a different language for expressing models and a different sampler for sampling from their posteriors. 
+ 
+RStan is the R interface to Stan.  
+ 
+ Stan Home Page 
+ 
+Stan’s home page is:     http://mc-stan.org/    
+ 
+It links everything you need to get started running Stan from the command line, from R, or from C++, including full step-by-step install instructions, a detailed user’s guide and reference manual for the modeling language, and tested ports of most of the BUGS examples.
+ 
+ Peruse the Manual 
+ 
+If you’d like to learn more, the   Stan User’s Guide and Reference Manual   is the place to start.</p><p>3 0.27111608 <a title="2161-tfidf-3" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-27-%28R-Py-Cmd%29Stan_2.1.0.html">2150 andrew gelman stats-2013-12-27-(R-Py-Cmd)Stan 2.1.0</a></p>
+<p>Introduction: We’re happy to announce the release of Stan C++, CmdStan, 
+RStan, and PyStan 2.1.0.  This is a minor feature release, 
+but it is also an important bug fix release.  As always, the 
+place to start is the (all new) Stan web pages:
+ 
+ http://mc-stan.org 
+ 
+ 
+ 
+ Major Bug in 2.0.0, 2.0.1 
+ 
+Stan 2.0.0 and Stan 2.0.1 introduced a bug in the implementation 
+of the NUTS criterion that led to poor tail exploration and 
+thus biased the posterior uncertainty downward.  There was no 
+bug in NUTS in Stan 1.3 or earlier, and 2.1 has been extensively tested 
+and tests put in place so this problem will not recur.
+ 
+If you are using Stan 2.0.0 or 2.0.1, you should switch to 2.1.0 as 
+soon as possible and rerun any models you care about.
+ 
+ 
+ 
+ New Target Acceptance Rate Default for Stan 2.1.0 
+  Another big change aimed at reducing posterior estimation bias 
+was an increase in the target acceptance rate during adaptation 
+from 0.65 to 0.80.  The bad news is that iterations will take 
+around 50% longer</p><p>4 0.23895 <a title="2161-tfidf-4" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-04-14-Transitioning_to_Stan.html">2291 andrew gelman stats-2014-04-14-Transitioning to Stan</a></p>
+<p>Introduction: Kevin Cartier writes:
+  
+I’ve been happily using R for a number of years now and recently came across Stan. Looks big and powerful, so I’d like to pick an appropriate project and try it out. I wondered if you could point me to a link or document that goes into the motivation for this tool (aside from the Stan user doc)?  What I’d like to understand is, at what point might you look at an emergent R project and advise, “You know, that thing you’re trying to do would be a whole lot easier/simpler/more straightforward to implement with Stan.” (or words to that effect).
+  
+My reply:  For my collaborators in political science, Stan has been most useful for models where the data set is not huge (e.g., we might have 10,000 data points or 50,000 data points but not 10 million) but where the model is somewhat complex (for example, a model with latent time series structure).  The point is that the model has enough parameters and uncertainty that you’ll want to do full Bayes (rather than some sort</p><p>5 0.23537582 <a title="2161-tfidf-5" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-04-PyStan%21.html">1748 andrew gelman stats-2013-03-04-PyStan!</a></p>
+<p>Introduction: Stan  is written in C++ and can be run from the command line and from R.  We’d like for  Python  users to be able to run Stan as well.  If anyone is interested in doing this, please let us know and we’d be happy to work with you on it.
+ 
+Stan, like Python, is completely free and open-source.
+ 
+P.S.  Because Stan is open-source, it of course would also be possible for people to translate Stan into Python, or to take whatever features they like from Stan and incorporate them into a Python package.  That’s fine too.  But we think it would make sense in addition for users to be able to run Stan directly from Python, in the same way that it can be run from R.</p><p>6 0.22291826 <a title="2161-tfidf-6" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-12-17-Stan_and_RStan_1.1.0.html">1627 andrew gelman stats-2012-12-17-Stan and RStan 1.1.0</a></p>
+<p>7 0.21798989 <a title="2161-tfidf-7" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-02-13-CmdStan%2C_RStan%2C_PyStan_v2.2.0.html">2209 andrew gelman stats-2014-02-13-CmdStan, RStan, PyStan v2.2.0</a></p>
+<p>8 0.21699868 <a title="2161-tfidf-8" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-11-16-Stantastic%21.html">1580 andrew gelman stats-2012-11-16-Stantastic!</a></p>
+<p>9 0.20728654 <a title="2161-tfidf-9" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-06-Stan_1.2.0_and_RStan_1.2.0.html">1753 andrew gelman stats-2013-03-06-Stan 1.2.0 and RStan 1.2.0</a></p>
+<p>10 0.20088065 <a title="2161-tfidf-10" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-10-11-More_reason_to_like_Sims_besides_just_his_name.html">952 andrew gelman stats-2011-10-11-More reason to like Sims besides just his name</a></p>
+<p>11 0.19937719 <a title="2161-tfidf-11" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-07-22-My_talks_that_were_scheduled_for_Tues_at_the_Data_Skeptics_meetup_and_Wed_at_the_Open_Statistical_Programming_meetup.html">1950 andrew gelman stats-2013-07-22-My talks that were scheduled for Tues at the Data Skeptics meetup and Wed at the Open Statistical Programming meetup</a></p>
+<p>12 0.19068216 <a title="2161-tfidf-12" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-11-10-Schiminovich_is_on_The_Simpsons.html">2096 andrew gelman stats-2013-11-10-Schiminovich is on The Simpsons</a></p>
+<p>13 0.18040852 <a title="2161-tfidf-13" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-12-%E2%80%9CThe_results_%28not_shown%29_._._.%E2%80%9D.html">2332 andrew gelman stats-2014-05-12-“The results (not shown) . . .”</a></p>
+<p>14 0.17807598 <a title="2161-tfidf-14" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-02-06-The_new_Stan_1.1.1%2C_featuring_Gaussian_processes%21.html">1710 andrew gelman stats-2013-02-06-The new Stan 1.1.1, featuring Gaussian processes!</a></p>
+<p>15 0.17724152 <a title="2161-tfidf-15" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-07-Robust_logistic_regression.html">1886 andrew gelman stats-2013-06-07-Robust logistic regression</a></p>
+<p>16 0.16712348 <a title="2161-tfidf-16" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-07-16-Priors.html">1941 andrew gelman stats-2013-07-16-Priors</a></p>
+<p>17 0.15731955 <a title="2161-tfidf-17" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-05-Stan_%28quietly%29_passes_512_people_on_the_users_list.html">2124 andrew gelman stats-2013-12-05-Stan (quietly) passes 512 people on the users list</a></p>
+<p>18 0.15353374 <a title="2161-tfidf-18" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-21-BDA3_table_of_contents_%28also_a_new_paper_on_visualization%29.html">1991 andrew gelman stats-2013-08-21-BDA3 table of contents (also a new paper on visualization)</a></p>
+<p>19 0.14578873 <a title="2161-tfidf-19" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-05-13-Stan%21.html">1855 andrew gelman stats-2013-05-13-Stan!</a></p>
+<p>20 0.14331783 <a title="2161-tfidf-20" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-10-10-My_talk_at_MIT_on_Thurs_11_Oct.html">1528 andrew gelman stats-2012-10-10-My talk at MIT on Thurs 11 Oct</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/andrew_gelman_stats_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.187), (1, 0.117), (2, -0.023), (3, 0.105), (4, 0.141), (5, 0.062), (6, 0.083), (7, -0.274), (8, -0.116), (9, -0.118), (10, -0.142), (11, -0.001), (12, -0.1), (13, -0.059), (14, 0.071), (15, -0.064), (16, -0.036), (17, 0.073), (18, -0.0), (19, -0.004), (20, -0.018), (21, -0.044), (22, -0.048), (23, 0.008), (24, 0.033), (25, 0.009), (26, 0.018), (27, -0.056), (28, -0.089), (29, -0.01), (30, 0.043), (31, 0.036), (32, -0.001), (33, 0.01), (34, 0.011), (35, 0.014), (36, -0.007), (37, 0.058), (38, -0.026), (39, -0.038), (40, 0.011), (41, 0.014), (42, 0.003), (43, -0.023), (44, 0.018), (45, 0.001), (46, 0.015), (47, 0.004), (48, 0.034), (49, -0.001)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97438568 <a title="2161-lsi-1" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-07-My_recent_debugging_experience.html">2161 andrew gelman stats-2014-01-07-My recent debugging experience</a></p>
+<p>Introduction: OK, so this sort of thing happens sometimes.  I was working on a new idea (still working on it; if it ultimately works out—or if it doesn’t—I’ll let you know) and as part of it I was fitting little models in Stan, in a loop.  I thought it would make sense to start with linear regression with normal priors and known data variance, because then the exact solution is Gaussian and I can also work with the problem analytically.  So I programmed up the algorithm and, no surprise, it didn’t work.  I went through my R code, put in print statements here and there, and cleared out bug after bug until at least it stopped crashing.  But the algorithm still wasn’t doing what it was supposed to do.
+ 
+So I decided to do something simpler, and just check that the Stan linear regression gave the same answer as the analytic posterior distribution:  I ran Stan for tons of iterations, then computed the sample mean and variance of the simulations.  It was an example with two coefficients—I’d originally cho</p><p>2 0.9242689 <a title="2161-lsi-2" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-27-%28R-Py-Cmd%29Stan_2.1.0.html">2150 andrew gelman stats-2013-12-27-(R-Py-Cmd)Stan 2.1.0</a></p>
+<p>Introduction: We’re happy to announce the release of Stan C++, CmdStan, 
+RStan, and PyStan 2.1.0.  This is a minor feature release, 
+but it is also an important bug fix release.  As always, the 
+place to start is the (all new) Stan web pages:
+ 
+ http://mc-stan.org 
+ 
+ 
+ 
+ Major Bug in 2.0.0, 2.0.1 
+ 
+Stan 2.0.0 and Stan 2.0.1 introduced a bug in the implementation 
+of the NUTS criterion that led to poor tail exploration and 
+thus biased the posterior uncertainty downward.  There was no 
+bug in NUTS in Stan 1.3 or earlier, and 2.1 has been extensively tested 
+and tests put in place so this problem will not recur.
+ 
+If you are using Stan 2.0.0 or 2.0.1, you should switch to 2.1.0 as 
+soon as possible and rerun any models you care about.
+ 
+ 
+ 
+ New Target Acceptance Rate Default for Stan 2.1.0 
+  Another big change aimed at reducing posterior estimation bias 
+was an increase in the target acceptance rate during adaptation 
+from 0.65 to 0.80.  The bad news is that iterations will take 
+around 50% longer</p><p>3 0.88354063 <a title="2161-lsi-3" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-12-17-Stan_and_RStan_1.1.0.html">1627 andrew gelman stats-2012-12-17-Stan and RStan 1.1.0</a></p>
+<p>Introduction: We’re happy to announce the availability of Stan and RStan versions 1.1.0, which are general tools for performing model-based Bayesian inference using the no-U-turn sampler, an adaptive form of Hamiltonian Monte Carlo.   Information on downloading and installing and using them is available as always from
+ 
+ Stan Home Page:   http://mc-stan.org/ 
+ 
+Let us know if you have any problems on the mailing lists or at the e-mails linked on the home page (please don’t use this web page).  The full release notes follow.
+  
+(R)Stan Version 1.1.0 Release Notes
+===================================
+-- Backward Compatibility Issue
+   * Categorical distribution recoded to match documentation;  it
+     now has support {1,...,K} rather than {0,...,K-1}.  
+   * (RStan) change default value of permuted flag from FALSE to TRUE for
+     Stan fit S4 extract() method
+-- New Features
+   * Conditional (if-then-else) statements
+   * While statements
+-- New Functions
+   * generalized multiply_lower_tri</p><p>4 0.88328844 <a title="2161-lsi-4" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-30-A_Stan_is_Born.html">1475 andrew gelman stats-2012-08-30-A Stan is Born</a></p>
+<p>Introduction: Stan 1.0.0 and RStan 1.0.0 
+ 
+It’s official.  The Stan Development Team is happy to announce the first stable versions of Stan and RStan.  
+ 
+ What is (R)Stan? 
+ 
+Stan is an open-source package for obtaining Bayesian inference using the No-U-Turn sampler, a variant of Hamiltonian Monte Carlo.  It’s sort of like BUGS, but with a different language for expressing models and a different sampler for sampling from their posteriors. 
+ 
+RStan is the R interface to Stan.  
+ 
+ Stan Home Page 
+ 
+Stan’s home page is:     http://mc-stan.org/    
+ 
+It links everything you need to get started running Stan from the command line, from R, or from C++, including full step-by-step install instructions, a detailed user’s guide and reference manual for the modeling language, and tested ports of most of the BUGS examples.
+ 
+ Peruse the Manual 
+ 
+If you’d like to learn more, the   Stan User’s Guide and Reference Manual   is the place to start.</p><p>5 0.88193733 <a title="2161-lsi-5" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-11-16-Stantastic%21.html">1580 andrew gelman stats-2012-11-16-Stantastic!</a></p>
+<p>Introduction: Richard McElreath writes:
+  
+I’ve been translating a few ongoing data analysis projects into  Stan  code, mostly with success. The most important for me right now has been a hierarchical zero-inflated gamma problem. This a “hurdle” model, in which a bernoulli GLM produces zeros/nonzeros, and then a gamma GLM produces the nonzero values, using varying effects correlated with those in the bernoulli process.
+
+
+The data are 20 years of human foraging returns from a subsistence hunting population in Paraguay (the Ache), comprising about 15k hunts in total (Hill & Kintigh. 2009. Current Anthropology 50:369-377). Observed values are kilograms of meat returned to camp. The more complex models contain a 147-by-9 matrix of varying effects (147 unique hunters), as well as imputation of missing values.
+
+
+Originally, I had written the sampler myself in raw R code. It was very slow, but I knew what it was doing at least. Just before Stan version 1.0 was released, I had managed to get JAGS to do it a</p><p>6 0.88192451 <a title="2161-lsi-6" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-04-PyStan%21.html">1748 andrew gelman stats-2013-03-04-PyStan!</a></p>
+<p>7 0.86235988 <a title="2161-lsi-7" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-02-13-CmdStan%2C_RStan%2C_PyStan_v2.2.0.html">2209 andrew gelman stats-2014-02-13-CmdStan, RStan, PyStan v2.2.0</a></p>
+<p>8 0.85796207 <a title="2161-lsi-8" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-14-The_joys_of_working_in_the_public_domain.html">712 andrew gelman stats-2011-05-14-The joys of working in the public domain</a></p>
+<p>9 0.83652389 <a title="2161-lsi-9" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-30-Stan_uses_Nuts%21.html">1036 andrew gelman stats-2011-11-30-Stan uses Nuts!</a></p>
+<p>10 0.82518947 <a title="2161-lsi-10" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-05-Stan_%28quietly%29_passes_512_people_on_the_users_list.html">2124 andrew gelman stats-2013-12-05-Stan (quietly) passes 512 people on the users list</a></p>
+<p>11 0.82323897 <a title="2161-lsi-11" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-04-14-Transitioning_to_Stan.html">2291 andrew gelman stats-2014-04-14-Transitioning to Stan</a></p>
+<p>12 0.81920964 <a title="2161-lsi-12" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-30-Stan_Project%3A__Continuous_Relaxations_for_Discrete_MRFs.html">2003 andrew gelman stats-2013-08-30-Stan Project:  Continuous Relaxations for Discrete MRFs</a></p>
+<p>13 0.81707519 <a title="2161-lsi-13" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-28-Migrating_from_dot_to_underscore.html">1472 andrew gelman stats-2012-08-28-Migrating from dot to underscore</a></p>
+<p>14 0.8141396 <a title="2161-lsi-14" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-06-Stan_1.2.0_and_RStan_1.2.0.html">1753 andrew gelman stats-2013-03-06-Stan 1.2.0 and RStan 1.2.0</a></p>
+<p>15 0.80877191 <a title="2161-lsi-15" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-03-10-Stan_Model_of_the_Week%3A__PK_Calculation_of_IV_and_Oral_Dosing.html">2242 andrew gelman stats-2014-03-10-Stan Model of the Week:  PK Calculation of IV and Oral Dosing</a></p>
+<p>16 0.80815017 <a title="2161-lsi-16" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-05-13-Stan%21.html">1855 andrew gelman stats-2013-05-13-Stan!</a></p>
+<p>17 0.79200774 <a title="2161-lsi-17" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-04-Stan_%28%26_JAGS%29_Tutorial_on_Linear_Mixed_Models.html">2318 andrew gelman stats-2014-05-04-Stan (& JAGS) Tutorial on Linear Mixed Models</a></p>
+<p>18 0.78299844 <a title="2161-lsi-18" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-11-10-Schiminovich_is_on_The_Simpsons.html">2096 andrew gelman stats-2013-11-10-Schiminovich is on The Simpsons</a></p>
+<p>19 0.78273189 <a title="2161-lsi-19" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-12-Stan_1.3.0_and_RStan_1.3.0_Ready_for_Action.html">1799 andrew gelman stats-2013-04-12-Stan 1.3.0 and RStan 1.3.0 Ready for Action</a></p>
+<p>20 0.78059751 <a title="2161-lsi-20" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-02-06-The_new_Stan_1.1.1%2C_featuring_Gaussian_processes%21.html">1710 andrew gelman stats-2013-02-06-The new Stan 1.1.1, featuring Gaussian processes!</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/andrew_gelman_stats_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(6, 0.031), (13, 0.02), (16, 0.088), (24, 0.185), (36, 0.048), (42, 0.018), (44, 0.028), (49, 0.039), (55, 0.043), (57, 0.018), (65, 0.064), (86, 0.054), (89, 0.025), (99, 0.221)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.95467579 <a title="2161-lda-1" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-07-My_recent_debugging_experience.html">2161 andrew gelman stats-2014-01-07-My recent debugging experience</a></p>
+<p>Introduction: OK, so this sort of thing happens sometimes.  I was working on a new idea (still working on it; if it ultimately works out—or if it doesn’t—I’ll let you know) and as part of it I was fitting little models in Stan, in a loop.  I thought it would make sense to start with linear regression with normal priors and known data variance, because then the exact solution is Gaussian and I can also work with the problem analytically.  So I programmed up the algorithm and, no surprise, it didn’t work.  I went through my R code, put in print statements here and there, and cleared out bug after bug until at least it stopped crashing.  But the algorithm still wasn’t doing what it was supposed to do.
+ 
+So I decided to do something simpler, and just check that the Stan linear regression gave the same answer as the analytic posterior distribution:  I ran Stan for tons of iterations, then computed the sample mean and variance of the simulations.  It was an example with two coefficients—I’d originally cho</p><p>2 0.93538618 <a title="2161-lda-2" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-06-05-Question_26_of_my_final_exam_for_Design_and_Analysis_of_Sample_Surveys.html">1367 andrew gelman stats-2012-06-05-Question 26 of my final exam for Design and Analysis of Sample Surveys</a></p>
+<p>Introduction: 26. You have just graded an an exam with 28 questions and 15 students. You fit a logistic item- response model estimating ability, difficulty, and discrimination parameters. Which of the following statements are basically true? (Indicate all that apply.)
+ 
+(a) If a question is answered correctly by students with very low and very high ability, but is missed by students in the middle, it will have a high value for its discrimination parameter.
+ 
+(b) It is not possible to fit an item-response model when you have more questions than students. In order to fit the model, you either need to reduce the number of questions (for example, by discarding some questions or by putting together some questions into a combined score) or increase the number of students in the dataset.
+ 
+(c) To keep the model identified, you can set one of the difficulty parameters or one of the ability parameters to zero and set one of the discrimination parameters to 1.
+ 
+(d) If two students answer the same number of q</p><p>3 0.93097937 <a title="2161-lda-3" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-10-08-A_Bayesian_approach_for_peer-review_panels%3F__and_a_speculation_about_Bruno_Frey.html">2055 andrew gelman stats-2013-10-08-A Bayesian approach for peer-review panels?  and a speculation about Bruno Frey</a></p>
+<p>Introduction: Daniel Sgroi and Andrew Oswald  write :
+  
+Many governments wish to assess the quality of their universities. A prominent example is the UK’s new Research Excellence Framework (REF) 2014. In the REF, peer-review panels will be provided with information on publications and citations. This paper suggests a way in which panels could choose the weights to attach to these two indicators. The analysis draws in an intuitive way on the concept of Bayesian updating (where citations gradually reveal information about the initially imperfectly-observed importance of the research). Our study should not be interpreted as the argument that only mechanistic measures ought to be used in a REF.
+  
+I agree that, if you’re going to choose a weighted average, it makes sense to think about where the weights are coming from.  Some aspects of Sgroi and Oswald’s proposal remind me of the old idea of evaluating journal articles by expected number of total citations.  The idea is that you’d use four pieces of i</p><p>4 0.93095803 <a title="2161-lda-4" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-03-10-95%25_intervals_that_I_don%E2%80%99t_believe%2C_because_they%E2%80%99re_from_a_flat_prior_I_don%E2%80%99t_believe.html">1206 andrew gelman stats-2012-03-10-95% intervals that I don’t believe, because they’re from a flat prior I don’t believe</a></p>
+<p>Introduction: Arnaud Trolle (no  relation ) writes:
+  
+I have a question about the interpretation of (non-)overlapping of 95% credibility intervals. In a Bayesian ANOVA (a within-subjects one), I computed 95% credibility intervals about the main effects of a factor. I’d like to compare two by two the main effects across the different conditions of the factor. Can I directly interpret the (non-)overlapping of these credibility intervals and make the following statements: “As the 95% credibility intervals do not overlap, both conditions have significantly different main effects” or conversely “As the 95% credibility intervals overlap, the main effects of both conditions are not significantly different, i.e. equivalent”? 
+I heard that, in the case of classical confidence intervals, the second statement is false, but what happens when working within a Bayesian framework?
+  
+My reply:
+ 
+I think it makes more sense to directly look at inference for the difference.  Also, your statements about equivalence</p><p>5 0.92972916 <a title="2161-lda-5" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-06-04-Question_25_of_my_final_exam_for_Design_and_Analysis_of_Sample_Surveys.html">1365 andrew gelman stats-2012-06-04-Question 25 of my final exam for Design and Analysis of Sample Surveys</a></p>
+<p>Introduction: 25. You are using multilevel regression and poststratification (MRP) to a survey of 1500 people to estimate support for the space program, by state. The model is fit using, as a state- level predictor, the Republican presidential vote in the state, which turns out to have a low correlation with support for the space program. Which of the following statements are basically true? (Indicate all that apply.)
+ 
+(a) For small states, the MRP estimates will be determined almost entirely by the demo- graphic characteristics of the respondents in the sample from that state.
+ 
+(b) For small states, the MRP estimates will be determined almost entirely by the demographic characteristics of the population in that state.
+ 
+(c) Adding a predictor specifically for this model (for example, a measure of per-capita space-program spending in the state) could dramatically improve the estimates of state-level opinion.
+ 
+(d) It would not be appropriate to add a predictor such as per-capita space-program spen</p><p>6 0.92952955 <a title="2161-lda-6" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-12-Stan_1.3.0_and_RStan_1.3.0_Ready_for_Action.html">1799 andrew gelman stats-2013-04-12-Stan 1.3.0 and RStan 1.3.0 Ready for Action</a></p>
+<p>7 0.92951989 <a title="2161-lda-7" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-11-Weakly_informative_priors_for_Bayesian_nonparametric_models%3F.html">1454 andrew gelman stats-2012-08-11-Weakly informative priors for Bayesian nonparametric models?</a></p>
+<p>8 0.92691725 <a title="2161-lda-8" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-08-09-Default_priors_update%3F.html">846 andrew gelman stats-2011-08-09-Default priors update?</a></p>
+<p>9 0.92498016 <a title="2161-lda-9" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-03-04-%E2%80%9CAll_Models_are_Right%2C_Most_are_Useless%E2%80%9D.html">1197 andrew gelman stats-2012-03-04-“All Models are Right, Most are Useless”</a></p>
+<p>10 0.92443848 <a title="2161-lda-10" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-29-More_on_scaled-inverse_Wishart_and_prior_independence.html">1474 andrew gelman stats-2012-08-29-More on scaled-inverse Wishart and prior independence</a></p>
+<p>11 0.92250574 <a title="2161-lda-11" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-03-Boot.html">1881 andrew gelman stats-2013-06-03-Boot</a></p>
+<p>12 0.9217754 <a title="2161-lda-12" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-11-Hey%2C_good_news%21__Your_p-value_just_passed_the_0.05_threshold%21.html">758 andrew gelman stats-2011-06-11-Hey, good news!  Your p-value just passed the 0.05 threshold!</a></p>
+<p>13 0.92142212 <a title="2161-lda-13" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-04-20-One_more_time-use_graph.html">671 andrew gelman stats-2011-04-20-One more time-use graph</a></p>
+<p>14 0.9212659 <a title="2161-lda-14" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-30-A_Stan_is_Born.html">1475 andrew gelman stats-2012-08-30-A Stan is Born</a></p>
+<p>15 0.92080534 <a title="2161-lda-15" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-06-Stan_1.2.0_and_RStan_1.2.0.html">1753 andrew gelman stats-2013-03-06-Stan 1.2.0 and RStan 1.2.0</a></p>
+<p>16 0.92073572 <a title="2161-lda-16" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-05-11-Actually%2C_I_have_no_problem_with_this_graph.html">1851 andrew gelman stats-2013-05-11-Actually, I have no problem with this graph</a></p>
+<p>17 0.92055839 <a title="2161-lda-17" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-04-02-Blogads_update.html">1240 andrew gelman stats-2012-04-02-Blogads update</a></p>
+<p>18 0.92054951 <a title="2161-lda-18" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-04-Don%E2%80%99t_any_statisticians_work_for_the_IRS%3F.html">693 andrew gelman stats-2011-05-04-Don’t any statisticians work for the IRS?</a></p>
+<p>19 0.92038465 <a title="2161-lda-19" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-10-23-Can%E2%80%99t_Stop_Won%E2%80%99t_Stop_Mister_P_Beatdown.html">2074 andrew gelman stats-2013-10-23-Can’t Stop Won’t Stop Mister P Beatdown</a></p>
+<p>20 0.91890919 <a title="2161-lda-20" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-11-10-I_don%E2%80%99t_like_this_cartoon.html">1572 andrew gelman stats-2012-11-10-I don’t like this cartoon</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

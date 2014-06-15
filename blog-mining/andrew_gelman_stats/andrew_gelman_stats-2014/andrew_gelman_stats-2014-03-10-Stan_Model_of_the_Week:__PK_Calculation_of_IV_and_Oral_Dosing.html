@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>2242 andrew gelman stats-2014-03-10-Stan Model of the Week:  PK Calculation of IV and Oral Dosing</title>
+</head>
+
+<body>
+<p><a title="andrew_gelman_stats" href="../andrew_gelman_stats_home.html">andrew_gelman_stats</a> <a title="andrew_gelman_stats-2014" href="../home/andrew_gelman_stats-2014_home.html">andrew_gelman_stats-2014</a> <a title="andrew_gelman_stats-2014-2242" href="#">andrew_gelman_stats-2014-2242</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>2242 andrew gelman stats-2014-03-10-Stan Model of the Week:  PK Calculation of IV and Oral Dosing</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="andrew_gelman_stats-2014-2242-html" href="http://andrewgelman.com/2014/03/10/stan-model-pk-iv-oral-dosing/">html</a></p><p>Introduction: [Update: Revised given comments from Wingfeet, Andrew and germo.  Thanks!  I'd mistakenly translated the dlnorm priors in the first version --- amazing what a difference the priors make.  I also escaped the less-than and greater-than signs in the constraints in the model so they're visible.  I also updated to match the thin=2 output of JAGS.]
+ 
+We’re going to be starting a Stan “model of the P” (for some time period P) column, so I thought I’d kick things off with one of my own.  I’ve been following the  Wingvoet blog , the author of which is identified only by the Blogger handle  Wingfeet ;  a couple of days ago this lovely post came out:
+  
+  PK calculation of IV and oral dosing in JAGS 
+   
+Wingfeet’s post implemented an answer to question 6 from chapter 6 of problem from Rowland and Tozer’s 2010 book,   Clinical Pharmacokinetics and Pharmacodynamics  , Fourth edition, Lippincott, Williams & Wilkins.   
+ 
+So in the grand tradition of using this blog to procrastinate, I thought I’d t</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I'd mistakenly translated the dlnorm priors in the first version --- amazing what a difference the priors make. [sent-3, score-0.144]
+</p><p>2 I also escaped the less-than and greater-than signs in the constraints in the model so they're visible. [sent-4, score-0.055]
+</p><p>3 I also updated to match the thin=2 output of JAGS. [sent-5, score-0.034]
+</p><p>4 So in the grand tradition of using this blog to procrastinate, I thought I’d take a break from C++ coding and paper writing and translate Wingfeet’s model to Stan. [sent-8, score-0.055]
+</p><p>5 First, let me repeat Wingfeet’s model in JAGS, exactly as posted:      tau <- 1/pow(sigma,2)   sigma ~ dunif(0,100) # IV part   kIV ~dnorm(. [sent-9, score-0.118]
+</p><p>6 01)   AUCIV <- doseIV/CL+cIV/kIV # oral part   for (i in 1:nO) {     predO[i] <- c0star*(exp(-k*timeO[i])-exp(-ka*timeO[i]))     concO[i] ~ dnorm(predO[i],tau)   }   c0star <- doseO*(ka/(ka-k))*F/V   AUCO <- c0star/k   F ~ dunif(0,1)   ka ~dnorm(. [sent-13, score-0.208]
+</p><p>7 Here's what I came up with as a translation to Stan. [sent-15, score-0.03]
+</p><p>8 4, 1);   cIV ~ lognormal(1,10);   V ~ lognormal(2,10);   CL ~ lognormal(1,10);   concIV ~ normal(predIV, sigma);    // oral component   ka ~ normal(0. [sent-17, score-0.208]
+</p><p>9 The Stan model is a direct translation of Wingfeet's JAGS model, with exactly the same priors (Stan uses a sd parameterization of the normal, whereas JAGS follows bugs in using inverse variance). [sent-19, score-0.141]
+</p><p>10 I moved all the deterministic nodes in the JAGS model to the transformed parameters block in the Stan model so we could inspect them in the output. [sent-20, score-0.171]
+</p><p>11 It was critical to put the lower-bounds on all the concentration and volume parameters in Stan, as well as upper and lower bounds on the noise term (which had a broad uniform distribution in the JAGS model). [sent-22, score-0.032]
+</p><p>12 3)    Here's the code to run it in RStan, with number of warmup iterations and sampling iterations matching Wingfeet's call to the R2Jags package. [sent-50, score-0.231]
+</p><p>13 stan',              data=c("nIV","nOral","doseIV","doseOral",                     "timeIV","concIV","timeOral","concOral"),             chains=4, warmup=5000, iter=14000);    It took about 10s to compile the model and 8s to run 56K iterations in the release version of RStan 2. [sent-53, score-0.142]
+</p><p>14 1, 10) on the positive-constrained scale   The model converged almost instantly and mixes very well, so this number of iterations is rather an overkill for Stan. [sent-58, score-0.142]
+</p><p>15 Note that I set Stan to thin every other draw, to match the JAGS configuration used by Wingfeet. [sent-59, score-0.094]
+</p><p>16 4 chains, each with iter=14000; warmup=5000; thin=2;  post-warmup draws per chain=4500, total post-warmup draws=18000. [sent-61, score-0.035]
+</p><p>17 Here's the fit that Wingfeet got from JAGS:    Inference for Bugs model at "C:/. [sent-369, score-0.055]
+</p><p>18 txt", fit using jags,  4 chains, each with 14000 iterations (first 5000 discarded), n. [sent-373, score-0.087]
+</p><p>19 003  1200    Stan mixed better, but I should add that with thin=1, the number effective samples increased dramatically --- Stan's making nearly independent draws each iteration. [sent-676, score-0.035]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('prediv', 0.638), ('predoral', 0.308), ('predo', 0.286), ('wingfeet', 0.22), ('jags', 0.174), ('civ', 0.154), ('cl', 0.154), ('ka', 0.154), ('timeiv', 0.154), ('auciv', 0.132), ('niv', 0.132), ('stan', 0.122), ('exp', 0.118), ('conciv', 0.11), ('kiv', 0.11), ('noral', 0.11), ('timeoral', 0.11), ('aucoral', 0.088), ('concoral', 0.088), ('dlnorm', 0.088), ('doseiv', 0.088), ('iterations', 0.087), ('vector', 0.083), ('dnorm', 0.068), ('doseoral', 0.066), ('sigma', 0.063), ('thin', 0.06), ('warmup', 0.057), ('model', 0.055), ('oral', 0.054), ('lognormal', 0.051), ('log', 0.047), ('normal', 0.046), ('rstan', 0.046), ('iv', 0.044), ('auco', 0.044), ('dunif', 0.044), ('timeo', 0.044), ('rhat', 0.04), ('real', 0.04), ('chains', 0.039), ('iter', 0.036), ('draws', 0.035), ('match', 0.034), ('parameters', 0.032), ('translation', 0.03), ('transformed', 0.029), ('priors', 0.028), ('sd', 0.028), ('component', 0.026)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0 <a title="2242-tfidf-1" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-03-10-Stan_Model_of_the_Week%3A__PK_Calculation_of_IV_and_Oral_Dosing.html">2242 andrew gelman stats-2014-03-10-Stan Model of the Week:  PK Calculation of IV and Oral Dosing</a></p>
+<p>Introduction: [Update: Revised given comments from Wingfeet, Andrew and germo.  Thanks!  I'd mistakenly translated the dlnorm priors in the first version --- amazing what a difference the priors make.  I also escaped the less-than and greater-than signs in the constraints in the model so they're visible.  I also updated to match the thin=2 output of JAGS.]
+ 
+We’re going to be starting a Stan “model of the P” (for some time period P) column, so I thought I’d kick things off with one of my own.  I’ve been following the  Wingvoet blog , the author of which is identified only by the Blogger handle  Wingfeet ;  a couple of days ago this lovely post came out:
+  
+  PK calculation of IV and oral dosing in JAGS 
+   
+Wingfeet’s post implemented an answer to question 6 from chapter 6 of problem from Rowland and Tozer’s 2010 book,   Clinical Pharmacokinetics and Pharmacodynamics  , Fourth edition, Lippincott, Williams & Wilkins.   
+ 
+So in the grand tradition of using this blog to procrastinate, I thought I’d t</p><p>2 0.118321 <a title="2242-tfidf-2" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-12-07-Martyn_Plummer%E2%80%99s_Secret_JAGS_Blog.html">1045 andrew gelman stats-2011-12-07-Martyn Plummer’s Secret JAGS Blog</a></p>
+<p>Introduction: Martyn Plummer , the creator of the open-source, C++, graphical-model compiler  JAGS  (aka “Just Another Gibbs Sampler”), runs a forum on the JAGS site that has a very similar feel to the mail-bag posts on this blog.  Martyn answers general statistical computing questions (e.g., why slice sampling rather than Metropolis-Hastings?) and general modeling (e.g., why won’t my model converge with this prior?).
+ 
+Here’s the link to the top-level JAGS site, and to the forum:
+  
+   JAGS Forum 
+    JAGS Home Page 
+   
+The forum’s pretty active, with the stats page showing hundreds of views per day and very regular posts and answers.  Martyn’s last post was today.
+ 
+Martyn also has a blog devoted to JAGS and other stats news:
+  
+  JAGS News Blog</p><p>3 0.10814154 <a title="2242-tfidf-3" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-27-In_Linux%2C_use_jags%28%29_to_call_Jags_instead_of_using_bugs%28%29_to_call_OpenBugs.html">55 andrew gelman stats-2010-05-27-In Linux, use jags() to call Jags instead of using bugs() to call OpenBugs</a></p>
+<p>Introduction: Douglas Anderton informed us that, in a Linux system, you can’t call OpenBugs from R using bugs() from the R2Winbugs package.  Instead, you should call Jags using jags() from the R2jags package.
+ 
+P.S.  Not the Rotter’s Club guy.</p><p>4 0.1015339 <a title="2242-tfidf-4" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-11-16-Stantastic%21.html">1580 andrew gelman stats-2012-11-16-Stantastic!</a></p>
+<p>Introduction: Richard McElreath writes:
+  
+I’ve been translating a few ongoing data analysis projects into  Stan  code, mostly with success. The most important for me right now has been a hierarchical zero-inflated gamma problem. This a “hurdle” model, in which a bernoulli GLM produces zeros/nonzeros, and then a gamma GLM produces the nonzero values, using varying effects correlated with those in the bernoulli process.
+
+
+The data are 20 years of human foraging returns from a subsistence hunting population in Paraguay (the Ache), comprising about 15k hunts in total (Hill & Kintigh. 2009. Current Anthropology 50:369-377). Observed values are kilograms of meat returned to camp. The more complex models contain a 147-by-9 matrix of varying effects (147 unique hunters), as well as imputation of missing values.
+
+
+Originally, I had written the sampler myself in raw R code. It was very slow, but I knew what it was doing at least. Just before Stan version 1.0 was released, I had managed to get JAGS to do it a</p><p>5 0.10051402 <a title="2242-tfidf-5" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-07-My_recent_debugging_experience.html">2161 andrew gelman stats-2014-01-07-My recent debugging experience</a></p>
+<p>Introduction: OK, so this sort of thing happens sometimes.  I was working on a new idea (still working on it; if it ultimately works out—or if it doesn’t—I’ll let you know) and as part of it I was fitting little models in Stan, in a loop.  I thought it would make sense to start with linear regression with normal priors and known data variance, because then the exact solution is Gaussian and I can also work with the problem analytically.  So I programmed up the algorithm and, no surprise, it didn’t work.  I went through my R code, put in print statements here and there, and cleared out bug after bug until at least it stopped crashing.  But the algorithm still wasn’t doing what it was supposed to do.
+ 
+So I decided to do something simpler, and just check that the Stan linear regression gave the same answer as the analytic posterior distribution:  I ran Stan for tons of iterations, then computed the sample mean and variance of the simulations.  It was an example with two coefficients—I’d originally cho</p><p>6 0.089277692 <a title="2242-tfidf-6" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-30-A_Stan_is_Born.html">1475 andrew gelman stats-2012-08-30-A Stan is Born</a></p>
+<p>7 0.088909037 <a title="2242-tfidf-7" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-30-Stan_is_fast.html">1476 andrew gelman stats-2012-08-30-Stan is fast</a></p>
+<p>8 0.073843494 <a title="2242-tfidf-8" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-04-Stan_%28%26_JAGS%29_Tutorial_on_Linear_Mixed_Models.html">2318 andrew gelman stats-2014-05-04-Stan (& JAGS) Tutorial on Linear Mixed Models</a></p>
+<p>9 0.073732361 <a title="2242-tfidf-9" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-27-%28R-Py-Cmd%29Stan_2.1.0.html">2150 andrew gelman stats-2013-12-27-(R-Py-Cmd)Stan 2.1.0</a></p>
+<p>10 0.073085934 <a title="2242-tfidf-10" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-04-14-Transitioning_to_Stan.html">2291 andrew gelman stats-2014-04-14-Transitioning to Stan</a></p>
+<p>11 0.071765497 <a title="2242-tfidf-11" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-04-PyStan%21.html">1748 andrew gelman stats-2013-03-04-PyStan!</a></p>
+<p>12 0.068263613 <a title="2242-tfidf-12" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-02-13-CmdStan%2C_RStan%2C_PyStan_v2.2.0.html">2209 andrew gelman stats-2014-02-13-CmdStan, RStan, PyStan v2.2.0</a></p>
+<p>13 0.064878695 <a title="2242-tfidf-13" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-12-17-Stan_and_RStan_1.1.0.html">1627 andrew gelman stats-2012-12-17-Stan and RStan 1.1.0</a></p>
+<p>14 0.062085945 <a title="2242-tfidf-14" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-06-Stan_1.2.0_and_RStan_1.2.0.html">1753 andrew gelman stats-2013-03-06-Stan 1.2.0 and RStan 1.2.0</a></p>
+<p>15 0.061518438 <a title="2242-tfidf-15" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-07-22-My_talks_that_were_scheduled_for_Tues_at_the_Data_Skeptics_meetup_and_Wed_at_the_Open_Statistical_Programming_meetup.html">1950 andrew gelman stats-2013-07-22-My talks that were scheduled for Tues at the Data Skeptics meetup and Wed at the Open Statistical Programming meetup</a></p>
+<p>16 0.057979956 <a title="2242-tfidf-16" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-03-Uncertainty_in_parameter_estimates_using_multilevel_models.html">1966 andrew gelman stats-2013-08-03-Uncertainty in parameter estimates using multilevel models</a></p>
+<p>17 0.056622803 <a title="2242-tfidf-17" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-07-Robust_logistic_regression.html">1886 andrew gelman stats-2013-06-07-Robust logistic regression</a></p>
+<p>18 0.052999601 <a title="2242-tfidf-18" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-04-21-Stan_Model_of_the_Week%3A_Hierarchical_Modeling_of_Supernovas.html">2299 andrew gelman stats-2014-04-21-Stan Model of the Week: Hierarchical Modeling of Supernovas</a></p>
+<p>19 0.05237776 <a title="2242-tfidf-19" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-30-Stan_uses_Nuts%21.html">1036 andrew gelman stats-2011-11-30-Stan uses Nuts!</a></p>
+<p>20 0.050499167 <a title="2242-tfidf-20" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-11-10-Schiminovich_is_on_The_Simpsons.html">2096 andrew gelman stats-2013-11-10-Schiminovich is on The Simpsons</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/andrew_gelman_stats_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.057), (1, 0.057), (2, -0.001), (3, 0.037), (4, 0.041), (5, 0.026), (6, 0.026), (7, -0.092), (8, -0.026), (9, -0.042), (10, -0.045), (11, 0.009), (12, -0.037), (13, -0.019), (14, 0.015), (15, -0.009), (16, -0.014), (17, 0.036), (18, -0.011), (19, -0.003), (20, -0.004), (21, -0.017), (22, -0.026), (23, -0.017), (24, 0.0), (25, 0.012), (26, -0.007), (27, -0.009), (28, -0.027), (29, -0.003), (30, -0.01), (31, -0.003), (32, -0.003), (33, 0.008), (34, -0.011), (35, 0.026), (36, 0.004), (37, -0.004), (38, 0.007), (39, 0.009), (40, -0.0), (41, -0.028), (42, 0.002), (43, 0.007), (44, -0.003), (45, -0.016), (46, -0.001), (47, -0.002), (48, -0.008), (49, 0.01)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.94131869 <a title="2242-lsi-1" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-03-10-Stan_Model_of_the_Week%3A__PK_Calculation_of_IV_and_Oral_Dosing.html">2242 andrew gelman stats-2014-03-10-Stan Model of the Week:  PK Calculation of IV and Oral Dosing</a></p>
+<p>Introduction: [Update: Revised given comments from Wingfeet, Andrew and germo.  Thanks!  I'd mistakenly translated the dlnorm priors in the first version --- amazing what a difference the priors make.  I also escaped the less-than and greater-than signs in the constraints in the model so they're visible.  I also updated to match the thin=2 output of JAGS.]
+ 
+We’re going to be starting a Stan “model of the P” (for some time period P) column, so I thought I’d kick things off with one of my own.  I’ve been following the  Wingvoet blog , the author of which is identified only by the Blogger handle  Wingfeet ;  a couple of days ago this lovely post came out:
+  
+  PK calculation of IV and oral dosing in JAGS 
+   
+Wingfeet’s post implemented an answer to question 6 from chapter 6 of problem from Rowland and Tozer’s 2010 book,   Clinical Pharmacokinetics and Pharmacodynamics  , Fourth edition, Lippincott, Williams & Wilkins.   
+ 
+So in the grand tradition of using this blog to procrastinate, I thought I’d t</p><p>2 0.89014387 <a title="2242-lsi-2" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-11-16-Stantastic%21.html">1580 andrew gelman stats-2012-11-16-Stantastic!</a></p>
+<p>Introduction: Richard McElreath writes:
+  
+I’ve been translating a few ongoing data analysis projects into  Stan  code, mostly with success. The most important for me right now has been a hierarchical zero-inflated gamma problem. This a “hurdle” model, in which a bernoulli GLM produces zeros/nonzeros, and then a gamma GLM produces the nonzero values, using varying effects correlated with those in the bernoulli process.
+
+
+The data are 20 years of human foraging returns from a subsistence hunting population in Paraguay (the Ache), comprising about 15k hunts in total (Hill & Kintigh. 2009. Current Anthropology 50:369-377). Observed values are kilograms of meat returned to camp. The more complex models contain a 147-by-9 matrix of varying effects (147 unique hunters), as well as imputation of missing values.
+
+
+Originally, I had written the sampler myself in raw R code. It was very slow, but I knew what it was doing at least. Just before Stan version 1.0 was released, I had managed to get JAGS to do it a</p><p>3 0.88745767 <a title="2242-lsi-3" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-27-%28R-Py-Cmd%29Stan_2.1.0.html">2150 andrew gelman stats-2013-12-27-(R-Py-Cmd)Stan 2.1.0</a></p>
+<p>Introduction: We’re happy to announce the release of Stan C++, CmdStan, 
+RStan, and PyStan 2.1.0.  This is a minor feature release, 
+but it is also an important bug fix release.  As always, the 
+place to start is the (all new) Stan web pages:
+ 
+ http://mc-stan.org 
+ 
+ 
+ 
+ Major Bug in 2.0.0, 2.0.1 
+ 
+Stan 2.0.0 and Stan 2.0.1 introduced a bug in the implementation 
+of the NUTS criterion that led to poor tail exploration and 
+thus biased the posterior uncertainty downward.  There was no 
+bug in NUTS in Stan 1.3 or earlier, and 2.1 has been extensively tested 
+and tests put in place so this problem will not recur.
+ 
+If you are using Stan 2.0.0 or 2.0.1, you should switch to 2.1.0 as 
+soon as possible and rerun any models you care about.
+ 
+ 
+ 
+ New Target Acceptance Rate Default for Stan 2.1.0 
+  Another big change aimed at reducing posterior estimation bias 
+was an increase in the target acceptance rate during adaptation 
+from 0.65 to 0.80.  The bad news is that iterations will take 
+around 50% longer</p><p>4 0.86733794 <a title="2242-lsi-4" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-02-13-CmdStan%2C_RStan%2C_PyStan_v2.2.0.html">2209 andrew gelman stats-2014-02-13-CmdStan, RStan, PyStan v2.2.0</a></p>
+<p>Introduction: The Stan Development Team is happy to announce CmdStan, RStan, and PyStan v2.2.0.  As usual, more info is available on the
+ 
+  Stan Home Page . 
+ 
+
+This is a minor release with a mix of bug fixes and features. For a full list of changes, please see the  v2.2.0 milestone  on stan-dev/stan’s issue tracker. Some of the bug fixes and issues are listed below.
+
+
+ Bug Fixes 
+
+ 
+ increment_log_prob is now vectorized and compiles with vector arguments 
+ multinomial random number generator used the wrong size for the return value 
+ fixed memory leaks in auto-diff implementation 
+ variables can start with the prefix ‘inf’ 
+ fixed parameter output order for arrays when using optimization 
+ RStan compatibility issue with latest Rcpp 0.11.0
+  
+
+ Features 
+
+ 
+ suppress command line output with refresh <= 0 
+ added 1 to treedepth to match usual definition of treedepth 
+ added distance, squared_distance, diag_pre_multiply, diag_pre_multiply to Stan modeling lnaguage 
+ added a ‘fixed_param’ sampler for</p><p>5 0.86653763 <a title="2242-lsi-5" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-30-A_Stan_is_Born.html">1475 andrew gelman stats-2012-08-30-A Stan is Born</a></p>
+<p>Introduction: Stan 1.0.0 and RStan 1.0.0 
+ 
+It’s official.  The Stan Development Team is happy to announce the first stable versions of Stan and RStan.  
+ 
+ What is (R)Stan? 
+ 
+Stan is an open-source package for obtaining Bayesian inference using the No-U-Turn sampler, a variant of Hamiltonian Monte Carlo.  It’s sort of like BUGS, but with a different language for expressing models and a different sampler for sampling from their posteriors. 
+ 
+RStan is the R interface to Stan.  
+ 
+ Stan Home Page 
+ 
+Stan’s home page is:     http://mc-stan.org/    
+ 
+It links everything you need to get started running Stan from the command line, from R, or from C++, including full step-by-step install instructions, a detailed user’s guide and reference manual for the modeling language, and tested ports of most of the BUGS examples.
+ 
+ Peruse the Manual 
+ 
+If you’d like to learn more, the   Stan User’s Guide and Reference Manual   is the place to start.</p><p>6 0.85447407 <a title="2242-lsi-6" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-07-My_recent_debugging_experience.html">2161 andrew gelman stats-2014-01-07-My recent debugging experience</a></p>
+<p>7 0.85308164 <a title="2242-lsi-7" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-12-17-Stan_and_RStan_1.1.0.html">1627 andrew gelman stats-2012-12-17-Stan and RStan 1.1.0</a></p>
+<p>8 0.84173328 <a title="2242-lsi-8" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-04-14-Transitioning_to_Stan.html">2291 andrew gelman stats-2014-04-14-Transitioning to Stan</a></p>
+<p>9 0.83359987 <a title="2242-lsi-9" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-30-Stan_Project%3A__Continuous_Relaxations_for_Discrete_MRFs.html">2003 andrew gelman stats-2013-08-30-Stan Project:  Continuous Relaxations for Discrete MRFs</a></p>
+<p>10 0.83091599 <a title="2242-lsi-10" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-14-The_joys_of_working_in_the_public_domain.html">712 andrew gelman stats-2011-05-14-The joys of working in the public domain</a></p>
+<p>11 0.82881445 <a title="2242-lsi-11" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-04-PyStan%21.html">1748 andrew gelman stats-2013-03-04-PyStan!</a></p>
+<p>12 0.81966221 <a title="2242-lsi-12" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-04-Stan_%28%26_JAGS%29_Tutorial_on_Linear_Mixed_Models.html">2318 andrew gelman stats-2014-05-04-Stan (& JAGS) Tutorial on Linear Mixed Models</a></p>
+<p>13 0.80501175 <a title="2242-lsi-13" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-06-Stan_1.2.0_and_RStan_1.2.0.html">1753 andrew gelman stats-2013-03-06-Stan 1.2.0 and RStan 1.2.0</a></p>
+<p>14 0.79290324 <a title="2242-lsi-14" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-02-06-The_new_Stan_1.1.1%2C_featuring_Gaussian_processes%21.html">1710 andrew gelman stats-2013-02-06-The new Stan 1.1.1, featuring Gaussian processes!</a></p>
+<p>15 0.78428876 <a title="2242-lsi-15" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-30-Stan_uses_Nuts%21.html">1036 andrew gelman stats-2011-11-30-Stan uses Nuts!</a></p>
+<p>16 0.78111643 <a title="2242-lsi-16" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-11-13-Stan_at_NIPS_2012_Workshop_on_Probabilistic_Programming.html">1576 andrew gelman stats-2012-11-13-Stan at NIPS 2012 Workshop on Probabilistic Programming</a></p>
+<p>17 0.77320588 <a title="2242-lsi-17" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-05-Stan_%28quietly%29_passes_512_people_on_the_users_list.html">2124 andrew gelman stats-2013-12-05-Stan (quietly) passes 512 people on the users list</a></p>
+<p>18 0.77127224 <a title="2242-lsi-18" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-09-23-Scalable_Stan.html">2035 andrew gelman stats-2013-09-23-Scalable Stan</a></p>
+<p>19 0.76931274 <a title="2242-lsi-19" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-12-Stan_1.3.0_and_RStan_1.3.0_Ready_for_Action.html">1799 andrew gelman stats-2013-04-12-Stan 1.3.0 and RStan 1.3.0 Ready for Action</a></p>
+<p>20 0.76377523 <a title="2242-lsi-20" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-04-21-Stan_Model_of_the_Week%3A_Hierarchical_Modeling_of_Supernovas.html">2299 andrew gelman stats-2014-04-21-Stan Model of the Week: Hierarchical Modeling of Supernovas</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/andrew_gelman_stats_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(13, 0.021), (16, 0.024), (24, 0.099), (36, 0.485), (42, 0.017), (44, 0.012), (54, 0.015), (57, 0.013), (60, 0.012), (65, 0.024), (86, 0.028), (89, 0.015), (99, 0.09)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.92294925 <a title="2242-lda-1" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-03-10-Stan_Model_of_the_Week%3A__PK_Calculation_of_IV_and_Oral_Dosing.html">2242 andrew gelman stats-2014-03-10-Stan Model of the Week:  PK Calculation of IV and Oral Dosing</a></p>
+<p>Introduction: [Update: Revised given comments from Wingfeet, Andrew and germo.  Thanks!  I'd mistakenly translated the dlnorm priors in the first version --- amazing what a difference the priors make.  I also escaped the less-than and greater-than signs in the constraints in the model so they're visible.  I also updated to match the thin=2 output of JAGS.]
+ 
+We’re going to be starting a Stan “model of the P” (for some time period P) column, so I thought I’d kick things off with one of my own.  I’ve been following the  Wingvoet blog , the author of which is identified only by the Blogger handle  Wingfeet ;  a couple of days ago this lovely post came out:
+  
+  PK calculation of IV and oral dosing in JAGS 
+   
+Wingfeet’s post implemented an answer to question 6 from chapter 6 of problem from Rowland and Tozer’s 2010 book,   Clinical Pharmacokinetics and Pharmacodynamics  , Fourth edition, Lippincott, Williams & Wilkins.   
+ 
+So in the grand tradition of using this blog to procrastinate, I thought I’d t</p><p>2 0.71553677 <a title="2242-lda-2" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-08-02-Information_is_good.html">176 andrew gelman stats-2010-08-02-Information is good</a></p>
+<p>Introduction: Washington Post and Slate reporter Anne Applebaum wrote a  dismissive  column about Wikileaks, saying that they “offer nothing more than raw data.”
+ 
+Applebaum argues that “The notion that the Internet can replace traditional news-gathering has just been revealed to be a myth. . . . without more journalism, more investigation, more work, these documents just don’t matter that much.”
+ 
+Fine.  But don’t undervalue the role of mere data!  The usual story is that we  don’t  get to see the raw data underlying newspaper stories.  Wikileaks and other crowdsourced data can be extremely useful, whether or not they replace “traditional news-gathering.”</p><p>3 0.69653034 <a title="2242-lda-3" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-10-%E2%80%9CProposition_and_experiment%E2%80%9D.html">1797 andrew gelman stats-2013-04-10-“Proposition and experiment”</a></p>
+<p>Introduction: Anna Lena Phillips  writes :
+  
+I. Many people will not, of their own accord, look at a poem.
+
+
+II. Millions of people will, of their own accord, spend lots and lots of time looking at photographs of cats.
+
+
+III. Therefore, earlier this year, I concluded that the best strategy for increasing the number of viewers for poems would be to print them on top of photographs of cats.
+
+
+IV. I happen to like looking at both poems and cats.
+
+
+V. So this is, for me, a win-win situation.
+
+
+VI. Fortunately, my own cat is a patient model, and (if I am to be believed) quite photogenic.
+
+
+VII. The aforementioned cat is Tisko Tansi, small hero.
+
+
+VII. Thus I present to you (albeit in digital rather than physical form) an Endearments broadside, featuring a poem that originally appeared in BlazeVOX spring 2011.
+
+
+VIII. If you want to share a copy of this image, please ask first. If you want a real copy, you can ask about that too.
+  
+She follows up with an image of a cat, on which is superimposed a short</p><p>4 0.68480229 <a title="2242-lda-4" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-30-Stan_is_fast.html">1476 andrew gelman stats-2012-08-30-Stan is fast</a></p>
+<p>Introduction: 10,000 iterations for 4 chains on the (precompiled) efficiently-parameterized 8-schools model: 
+   
+ > date () 
+[1] "Thu Aug 30 22:12:53 2012" 
+> fit3 <- stan (fit=fit2, data = schools_dat, iter = 1e4, n_chains = 4) 
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1). 
+Iteration: 10000 / 10000 [100%]  (Sampling) 
+ 
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2). 
+Iteration: 10000 / 10000 [100%]  (Sampling)
+ 
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3). 
+Iteration: 10000 / 10000 [100%]  (Sampling)
+ 
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4). 
+Iteration: 10000 / 10000 [100%]  (Sampling)
+ 
+> date () 
+[1] "Thu Aug 30 22:12:55 2012" 
+> print (fit3) 
+Inference for Stan model: anon_model. 
+4 chains: each with iter=10000; warmup=5000; thin=1; 10000 iterations saved.
+ 
+         mean se_mean  sd  2.5%  25%  50%  75% 97.5% n_eff Rhat 
+mu        8.0     0.1 5.1  -2.0  4.7  8.0 11.3  18.4  4032    1 
+tau       6.7     0.1 5.6   0.3  2.5  5.4  9.3  21.2  2958    1 
+eta[1]    0.4     0.0 0.9  -1.5 -0</p><p>5 0.64217299 <a title="2242-lda-5" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-31-Watercolor_regression.html">1478 andrew gelman stats-2012-08-31-Watercolor regression</a></p>
+<p>Introduction: Solomon Hsiang writes:
+  
+Two small follow-ups based on the  discussion  (the second/bigger one is to address your comment about the 95% CI edges).
+
+
+1. I realized that if we plot the confidence intervals as a solid color that fades (eg. using the “fixed ink” scheme from before) we can make sure the regression line also has heightened visual weight where confidence is high by plotting the line white. This makes the contrast (and thus visual weight) between the regression line and the CI highest when the CI is narrow and dark. As the CI fade near the edges, so does the contrast with the regression line. This is a small adjustment, but I like it because it is so simple and it makes the graph much nicer. (see “visually_weighted_fill_reverse” attached). My posted code has been updated to do this automatically.
+
+
+2. You and your readers didn’t like that the edges of the filled CI were so sharp and arbitrary. But I didn’t like that the contrast between the spaghetti lines and the background</p><p>6 0.568726 <a title="2242-lda-6" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-02-02-Obama_and_Reagan%2C_sitting_in_a_tree%2C_etc..html">551 andrew gelman stats-2011-02-02-Obama and Reagan, sitting in a tree, etc.</a></p>
+<p>7 0.50067371 <a title="2242-lda-7" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-27-In_Linux%2C_use_jags%28%29_to_call_Jags_instead_of_using_bugs%28%29_to_call_OpenBugs.html">55 andrew gelman stats-2010-05-27-In Linux, use jags() to call Jags instead of using bugs() to call OpenBugs</a></p>
+<p>8 0.49730188 <a title="2242-lda-8" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-25-Who_gets_wedding_announcements_in_the_Times%3F.html">370 andrew gelman stats-2010-10-25-Who gets wedding announcements in the Times?</a></p>
+<p>9 0.49061489 <a title="2242-lda-9" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-09-01-Arrow%E2%80%99s_theorem_update.html">883 andrew gelman stats-2011-09-01-Arrow’s theorem update</a></p>
+<p>10 0.49005181 <a title="2242-lda-10" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-26-Graphs_showing_regression_uncertainty%3A__the_code%21.html">1470 andrew gelman stats-2012-08-26-Graphs showing regression uncertainty:  the code!</a></p>
+<p>11 0.46722212 <a title="2242-lda-11" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-05-08-Of_parsing_and_chess.html">1847 andrew gelman stats-2013-05-08-Of parsing and chess</a></p>
+<p>12 0.46713349 <a title="2242-lda-12" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-06-20-%E2%80%9CPeople_with_an_itch_to_scratch%E2%80%9D.html">101 andrew gelman stats-2010-06-20-“People with an itch to scratch”</a></p>
+<p>13 0.46651667 <a title="2242-lda-13" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-11-18-What%E2%80%99s_my_Kasparov_number%3F.html">2105 andrew gelman stats-2013-11-18-What’s my Kasparov number?</a></p>
+<p>14 0.46491039 <a title="2242-lda-14" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-03-17-NSF_program_%E2%80%9Cto_support_analytic_and_methodological_research_in_support_of_its_surveys%E2%80%9D.html">1217 andrew gelman stats-2012-03-17-NSF program “to support analytic and methodological research in support of its surveys”</a></p>
+<p>15 0.43302137 <a title="2242-lda-15" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-14-Progress%21__%28on_the_understanding_of_the_role_of_randomization_in_Bayesian_inference%29.html">1898 andrew gelman stats-2013-06-14-Progress!  (on the understanding of the role of randomization in Bayesian inference)</a></p>
+<p>16 0.42454487 <a title="2242-lda-16" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-05-11-Actually%2C_I_have_no_problem_with_this_graph.html">1851 andrew gelman stats-2013-05-11-Actually, I have no problem with this graph</a></p>
+<p>17 0.42207906 <a title="2242-lda-17" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-11-15-The_two_faces_of_Erving_Goffman%3A__Subtle_observer_of_human_interactions%2C_and_Smug_organzation_man.html">415 andrew gelman stats-2010-11-15-The two faces of Erving Goffman:  Subtle observer of human interactions, and Smug organzation man</a></p>
+<p>18 0.39872295 <a title="2242-lda-18" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-11-10-Schiminovich_is_on_The_Simpsons.html">2096 andrew gelman stats-2013-11-10-Schiminovich is on The Simpsons</a></p>
+<p>19 0.38160685 <a title="2242-lda-19" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-07-23-Parallel_JAGS_RNGs.html">818 andrew gelman stats-2011-07-23-Parallel JAGS RNGs</a></p>
+<p>20 0.38149101 <a title="2242-lda-20" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-01-10-They%E2%80%99d_rather_be_rigorous_than_right.html">1666 andrew gelman stats-2013-01-10-They’d rather be rigorous than right</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
