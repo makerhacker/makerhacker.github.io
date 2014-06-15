@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>772 andrew gelman stats-2011-06-17-Graphical tools for understanding multilevel models</title>
+</head>
+
+<body>
+<p><a title="andrew_gelman_stats" href="../andrew_gelman_stats_home.html">andrew_gelman_stats</a> <a title="andrew_gelman_stats-2011" href="../home/andrew_gelman_stats-2011_home.html">andrew_gelman_stats-2011</a> <a title="andrew_gelman_stats-2011-772" href="#">andrew_gelman_stats-2011-772</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>772 andrew gelman stats-2011-06-17-Graphical tools for understanding multilevel models</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="andrew_gelman_stats-2011-772-html" href="http://andrewgelman.com/2011/06/17/graphical_tools/">html</a></p><p>Introduction: There are a few things I want to do:
+ 
+1.  Understand a fitted model using tools such as  average predictive comparisons ,  R-squared, and partial pooling factors .  In defining these concepts, Iain and I came up with some clever tricks, including (but not limited to):
+ 
+- Separating the inputs and averaging over all possible values of the input not being altered (for average predictive comparisons);
+ 
+- Defining partial pooling  without  referring to a raw-data or maximum-likelihood or no-pooling estimate (these don’t necessarily exist when you’re fitting logistic regression with sparse data);
+ 
+- Defining an R-squared for each level of a multilevel model.
+ 
+The methods get pretty complicated, though, and they have some loose ends–in particular, for average predictive comparisons with continuous input variables.
+ 
+So now we want to implement these in R and put them into arm along with bglmer etc.
+ 
+2.  Setting up coefplot so it works more generally (that is, so the graphics look nice</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Understand a fitted model using tools such as  average predictive comparisons ,  R-squared, and partial pooling factors . [sent-2, score-1.385]
+</p><p>2 The methods get pretty complicated, though, and they have some loose ends–in particular, for average predictive comparisons with continuous input variables. [sent-4, score-0.787]
+</p><p>3 So now we want to implement these in R and put them into arm along with bglmer etc. [sent-5, score-0.161]
+</p><p>4 Setting up coefplot so it works more generally (that is, so the graphics look nice for models with one predictor, two predictors, or twenty predictors). [sent-7, score-0.345]
+</p><p>5 Also a bunch of expansions to coefplot:   - Defining coefplot for multilevel models   - Also displaying average predictive comparisons for nonlinear models   - Setting it up to automatically display several regressions in a large “table”   3. [sent-8, score-1.492]
+</p><p>6 Automatic plots showing data and fitted regression lines/curves. [sent-9, score-0.39]
+</p><p>7 With multiple inputs, you hold all the inputs but one to fixed values–it’s sort of like an average predictive comparison, but graphical. [sent-10, score-0.624]
+</p><p>8 We also have to handle interactions and multilevel models. [sent-11, score-0.256]
+</p><p>9 Generalizing R-squared and partial pooling factors for multivariate (varying-intercept, varying-slope) models. [sent-13, score-0.471]
+</p><p>10 Graphs showing what happens as you add a multilevel component to a model. [sent-15, score-0.417]
+</p><p>11 This is something I’ve been thinking about for awhile, ever since doing the  police stop and frisk  model with Jeff Fagan and Alex Kiss. [sent-16, score-0.169]
+</p><p>12 I wanted a graph that showed how the key estimates were changing when we went multilevel, and what in the data was making the change. [sent-17, score-0.071]
+</p><p>13 We’re always giving these data-and-model stories of why when we control for variable X, our estimate changes on variable Y. [sent-22, score-0.232]
+</p><p>14 Or why our multilevel estimates are a compromise between something and something else. [sent-23, score-0.404]
+</p><p>15 What I’d like to do is to formalize and automate these explanations. [sent-24, score-0.268]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('coefplot', 0.268), ('defining', 0.264), ('multilevel', 0.256), ('predictive', 0.234), ('fitted', 0.23), ('inputs', 0.215), ('pooling', 0.2), ('automate', 0.185), ('partial', 0.178), ('average', 0.175), ('comparisons', 0.174), ('automated', 0.162), ('formulated', 0.159), ('input', 0.126), ('iain', 0.103), ('model', 0.101), ('predictors', 0.097), ('bglmer', 0.097), ('expansions', 0.097), ('fagan', 0.097), ('showing', 0.094), ('factors', 0.093), ('setting', 0.09), ('separating', 0.087), ('altered', 0.087), ('values', 0.085), ('variable', 0.084), ('formalize', 0.083), ('loose', 0.078), ('formulate', 0.078), ('generalizing', 0.078), ('models', 0.077), ('compromise', 0.077), ('understanding', 0.074), ('tricks', 0.073), ('sparse', 0.071), ('estimates', 0.071), ('automatic', 0.07), ('police', 0.068), ('displaying', 0.067), ('component', 0.067), ('nonlinear', 0.067), ('alternatives', 0.066), ('regression', 0.066), ('alex', 0.066), ('estimate', 0.064), ('averaging', 0.064), ('concepts', 0.064), ('implement', 0.064), ('clever', 0.063)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999994 <a title="772-tfidf-1" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-17-Graphical_tools_for_understanding_multilevel_models.html">772 andrew gelman stats-2011-06-17-Graphical tools for understanding multilevel models</a></p>
+<p>Introduction: There are a few things I want to do:
+ 
+1.  Understand a fitted model using tools such as  average predictive comparisons ,  R-squared, and partial pooling factors .  In defining these concepts, Iain and I came up with some clever tricks, including (but not limited to):
+ 
+- Separating the inputs and averaging over all possible values of the input not being altered (for average predictive comparisons);
+ 
+- Defining partial pooling  without  referring to a raw-data or maximum-likelihood or no-pooling estimate (these don’t necessarily exist when you’re fitting logistic regression with sparse data);
+ 
+- Defining an R-squared for each level of a multilevel model.
+ 
+The methods get pretty complicated, though, and they have some loose ends–in particular, for average predictive comparisons with continuous input variables.
+ 
+So now we want to implement these in R and put them into arm along with bglmer etc.
+ 
+2.  Setting up coefplot so it works more generally (that is, so the graphics look nice</p><p>2 0.18147771 <a title="772-tfidf-2" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-07-Contest_for_developing_an_R_package_recommendation_system.html">324 andrew gelman stats-2010-10-07-Contest for developing an R package recommendation system</a></p>
+<p>Introduction: After I spoke tonight at the NYC R meetup, John Myles White and Drew Conway told me about  this competition  they’re administering for developing a recommendation system for R packages.  They seem to have already done some work laying out the network of R packages–which packages refer to which others, and so forth.
+ 
+I just hope they set up their system so that my own packages (“R2WinBUGS”, “r2jags”, “arm”, and “mi”) get recommended automatically.  I really hate to think that there are people out there running regressions in R and not using display() and coefplot() to look at the output.
+ 
+P.S.  Ajay Shah asks what I mean by that last sentence.  My quick answer is that it’s good to be able to visualize the coefficients and the uncertainty about them. The default options of print(), summary(), and plot() in R don’t do that:
+ 
+- print() doesn’t give enough information 
+- summary() gives everything to a zillion decimal places and gives useless things like p-values 
+- plot() gives a bunch</p><p>3 0.17875426 <a title="772-tfidf-3" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-11-29-The_gradual_transition_to_replicable_science.html">2117 andrew gelman stats-2013-11-29-The gradual transition to replicable science</a></p>
+<p>Introduction: Somebody emailed me:
+  
+I am a researcher at ** University and I have recently read your article on average predictive comparisons for statistical models published 2007 in the journal “Sociological Methodology”.
+
+
+Gelman, Andrew/Iain Pardoe. 2007. “Average Predictive Comparisons for Models with Nonlinearity, Interactions, and Variance Components”. Sociological Methodology 37: 23-51.
+
+
+Currently I am working with multilevel models and find your approach very interesting and useful.
+
+
+May I ask you whether replication materials (e.g. R Code) for this article are available?
+  
+I had to reply:
+  
+Hi—I’m embarrassed to say that our R files are a mess!  I had ideas of programming the approach more generally as an R package but this has not yet happened yet.</p><p>4 0.16817093 <a title="772-tfidf-4" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-04-How_does_multilevel_modeling_affect_the_estimate_of_the_grand_mean%3F.html">255 andrew gelman stats-2010-09-04-How does multilevel modeling affect the estimate of the grand mean?</a></p>
+<p>Introduction: Subhadeep Mukhopadhyay writes:
+  
+I am convinced of the power of hierarchical modeling and individual parameter pooling concept. I was wondering how could multi-level modeling could influence the estimate of grad mean (NOT individual label).
+  
+My reply:  Multilevel modeling will affect the estimate of the grand mean in two ways:
+ 
+1.  If the group-level mean is correlated with group size, then the partial pooling will change the estimate of the grand mean (and, indeed, you might want to include group size or some similar variable as a group-level predictor.
+ 
+2.  In any case, the extra error term(s) in a multilevel model will typically affect the standard error of everything, including the estimate of the grand mean.</p><p>5 0.15568332 <a title="772-tfidf-5" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-04-06-17_groups%2C_6_group-level_predictors%3A__What_to_do%3F.html">1248 andrew gelman stats-2012-04-06-17 groups, 6 group-level predictors:  What to do?</a></p>
+<p>Introduction: Yi-Chun Ou writes: 
+  
+  
+I am using a multilevel model with three levels. I read that you wrote a book about multilevel models, and wonder if you can solve the following question.  
+
+
+The data structure is like this: 
+
+
+Level one: customer (8444 customers) 
+Level two: companys (90 companies) 
+Level three: industry (17 industries) 
+
+
+I use 6 level-three variables (i.e. industry characteristics) to explain the variance of the level-one effect across industries. The question here is whether there is an over-fitting problem since there are only 17 industries. I understand that this must be a problem for non-multilevel models, but is it also a problem for multilevel models?
+  
+My reply:  Yes, this could be a problem.  I’d suggest combining some of your variables into a common score, or using only some of the variables, or using strong priors to control the inferences.  This is an interesting and important area of statistics research, to do this sort of thing systematically.  There’s lots o</p><p>6 0.15105774 <a title="772-tfidf-6" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-04-08-Multilevel_regression_with_shrinkage_for_%E2%80%9Cfixed%E2%80%9D_effects.html">653 andrew gelman stats-2011-04-08-Multilevel regression with shrinkage for “fixed” effects</a></p>
+<p>7 0.15033802 <a title="772-tfidf-7" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-05-27-Average_predictive_comparisons_when_changing_a_pair_of_variables.html">1346 andrew gelman stats-2012-05-27-Average predictive comparisons when changing a pair of variables</a></p>
+<p>8 0.14942257 <a title="772-tfidf-8" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-09-21-Building_a_regression_model_._._._with_only_27_data_points.html">1506 andrew gelman stats-2012-09-21-Building a regression model . . . with only 27 data points</a></p>
+<p>9 0.14831406 <a title="772-tfidf-9" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-04-17-If_you_get_to_the_point_of_asking%2C_just_do_it.__But_some_difficulties_do_arise_._._..html">2294 andrew gelman stats-2014-04-17-If you get to the point of asking, just do it.  But some difficulties do arise . . .</a></p>
+<p>10 0.14230445 <a title="772-tfidf-10" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-07-11-Yes%2C_worry_about_generalizing_from_data_to_population.__But_multilevel_modeling_is_the_solution%2C_not_the_problem.html">1934 andrew gelman stats-2013-07-11-Yes, worry about generalizing from data to population.  But multilevel modeling is the solution, not the problem</a></p>
+<p>11 0.13878308 <a title="772-tfidf-11" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-02-25-Correlation_of_1_._._._too_good_to_be_true%3F.html">1737 andrew gelman stats-2013-02-25-Correlation of 1 . . . too good to be true?</a></p>
+<p>12 0.13857521 <a title="772-tfidf-12" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-20-Correcting_for_multiple_comparisons_in_a_Bayesian_regression_model.html">1989 andrew gelman stats-2013-08-20-Correcting for multiple comparisons in a Bayesian regression model</a></p>
+<p>13 0.13813356 <a title="772-tfidf-13" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-25-Clusters_with_very_small_numbers_of_observations.html">295 andrew gelman stats-2010-09-25-Clusters with very small numbers of observations</a></p>
+<p>14 0.1380938 <a title="772-tfidf-14" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-06-03-Question_about_predictive_checks.html">1363 andrew gelman stats-2012-06-03-Question about predictive checks</a></p>
+<p>15 0.13679206 <a title="772-tfidf-15" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-31-Analyzing_the_entire_population_rather_than_a_sample.html">383 andrew gelman stats-2010-10-31-Analyzing the entire population rather than a sample</a></p>
+<p>16 0.1334568 <a title="772-tfidf-16" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-01-19-Data_exploration_and_multiple_comparisons.html">524 andrew gelman stats-2011-01-19-Data exploration and multiple comparisons</a></p>
+<p>17 0.13313554 <a title="772-tfidf-17" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-01-05-Understanding_regression_models_and_regression_coefficients.html">1656 andrew gelman stats-2013-01-05-Understanding regression models and regression coefficients</a></p>
+<p>18 0.13291049 <a title="772-tfidf-18" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-15-Exploratory_multilevel_analysis_when_group-level_variables_are_of_importance.html">1900 andrew gelman stats-2013-06-15-Exploratory multilevel analysis when group-level variables are of importance</a></p>
+<p>19 0.1318993 <a title="772-tfidf-19" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-03-17-Modeling_group-level_predictors_in_a_multilevel_regression.html">1216 andrew gelman stats-2012-03-17-Modeling group-level predictors in a multilevel regression</a></p>
+<p>20 0.13165145 <a title="772-tfidf-20" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-03-14-Everyone%E2%80%99s_trading_bias_for_variance_at_some_point%2C_it%E2%80%99s_just_done_at_different_places_in_the_analyses.html">1763 andrew gelman stats-2013-03-14-Everyone’s trading bias for variance at some point, it’s just done at different places in the analyses</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/andrew_gelman_stats_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.19), (1, 0.147), (2, 0.058), (3, 0.023), (4, 0.146), (5, -0.022), (6, -0.061), (7, -0.048), (8, 0.096), (9, 0.116), (10, 0.037), (11, 0.038), (12, -0.04), (13, 0.013), (14, 0.022), (15, 0.0), (16, -0.016), (17, -0.04), (18, -0.006), (19, 0.009), (20, 0.0), (21, 0.008), (22, 0.011), (23, -0.014), (24, -0.029), (25, -0.086), (26, -0.034), (27, -0.022), (28, -0.035), (29, -0.016), (30, 0.006), (31, 0.027), (32, 0.033), (33, -0.019), (34, 0.03), (35, 0.001), (36, 0.051), (37, 0.012), (38, 0.017), (39, -0.029), (40, 0.007), (41, 0.041), (42, -0.012), (43, -0.05), (44, -0.012), (45, -0.018), (46, -0.028), (47, 0.066), (48, -0.028), (49, -0.064)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97430193 <a title="772-lsi-1" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-17-Graphical_tools_for_understanding_multilevel_models.html">772 andrew gelman stats-2011-06-17-Graphical tools for understanding multilevel models</a></p>
+<p>Introduction: There are a few things I want to do:
+ 
+1.  Understand a fitted model using tools such as  average predictive comparisons ,  R-squared, and partial pooling factors .  In defining these concepts, Iain and I came up with some clever tricks, including (but not limited to):
+ 
+- Separating the inputs and averaging over all possible values of the input not being altered (for average predictive comparisons);
+ 
+- Defining partial pooling  without  referring to a raw-data or maximum-likelihood or no-pooling estimate (these don’t necessarily exist when you’re fitting logistic regression with sparse data);
+ 
+- Defining an R-squared for each level of a multilevel model.
+ 
+The methods get pretty complicated, though, and they have some loose ends–in particular, for average predictive comparisons with continuous input variables.
+ 
+So now we want to implement these in R and put them into arm along with bglmer etc.
+ 
+2.  Setting up coefplot so it works more generally (that is, so the graphics look nice</p><p>2 0.81199354 <a title="772-lsi-2" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-04-06-17_groups%2C_6_group-level_predictors%3A__What_to_do%3F.html">1248 andrew gelman stats-2012-04-06-17 groups, 6 group-level predictors:  What to do?</a></p>
+<p>Introduction: Yi-Chun Ou writes: 
+  
+  
+I am using a multilevel model with three levels. I read that you wrote a book about multilevel models, and wonder if you can solve the following question.  
+
+
+The data structure is like this: 
+
+
+Level one: customer (8444 customers) 
+Level two: companys (90 companies) 
+Level three: industry (17 industries) 
+
+
+I use 6 level-three variables (i.e. industry characteristics) to explain the variance of the level-one effect across industries. The question here is whether there is an over-fitting problem since there are only 17 industries. I understand that this must be a problem for non-multilevel models, but is it also a problem for multilevel models?
+  
+My reply:  Yes, this could be a problem.  I’d suggest combining some of your variables into a common score, or using only some of the variables, or using strong priors to control the inferences.  This is an interesting and important area of statistics research, to do this sort of thing systematically.  There’s lots o</p><p>3 0.81007236 <a title="772-lsi-3" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-10-Multiple_imputation_and_multilevel_analysis.html">704 andrew gelman stats-2011-05-10-Multiple imputation and multilevel analysis</a></p>
+<p>Introduction: Robert Birkelbach:
+  
+I am writing my Bachelor Thesis in which I want to assess the reading competencies of German elementary school children using the PIRLS2006 data. My levels are classrooms and the individuals. However, my dependent variable is a multiple imputed (m=5) reading test. The problem I have is, that I do not know, whether I can just calculate 5 linear multilevel models and then average all the results (the coefficients, standard deviation, bic, intra class correlation, R2, t-statistics, p-values etc) or if I need different formulas for integrating the results of the five models into one because it is a multilevel analysis? Do you think there’s a better way in solving my problem? I would greatly appreciate if you could help me with a problem regarding my analysis — I am quite a newbie to multilevel modeling and especially to multiple imputation. Also: Is it okay to use frequentist models when the multiple imputation was done bayesian? Would the different philosophies of sc</p><p>4 0.80403829 <a title="772-lsi-4" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-10-10-Combining_data_from_many_sources.html">948 andrew gelman stats-2011-10-10-Combining data from many sources</a></p>
+<p>Introduction: Mark Grote writes: 
+  
+  
+I’d like to request general feedback and references for a problem of combining disparate data sources in a regression model. We’d like to model log crop yield as a function of environmental predictors, but the observations come from many data sources and are peculiarly structured. Among the issues are:
+
+
+1. Measurement precision in predictors and outcome varies widely with data sources. Some observations are in very coarse units of measurement, due to rounding or even observer guesswork. 
+
+
+2. There are obvious clusters of observations arising from studies in which crop yields were monitored over successive years in spatially proximate communities. Thus some variables may be constant within clusters–this is true even for log yield, probably due to rounding of similar yields. 
+
+
+3. Cluster size and intra-cluster association structure (temporal, spatial or both) vary widely across the dataset. 
+
+
+My [Grote's] intuition is that we can learn about central tendency</p><p>5 0.79347533 <a title="772-lsi-5" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-24-Multilevel_modeling_and_instrumental_variables.html">1468 andrew gelman stats-2012-08-24-Multilevel modeling and instrumental variables</a></p>
+<p>Introduction: Terence Teo writes:
+  
+I was wondering if multilevel models can be used as an alternative to 2SLS or IV models to deal with (i) endogeneity and (ii) selection problems.
+
+
+More concretely, I am trying to assess the impact of investment treaties on foreign investment. Aside from the fact that foreign investment is correlated over time, it may be the case that countries that already receive sufficient amounts of foreign investment need not sign treaties, and countries that sign treaties are those that need foreign investment in the first place. Countries thus “select” into treatment; treaty signing is non-random. As such, I argue that to properly estimate the impact of treaties on investment, we must model the determinants of treaty signing.
+
+
+I [Teo] am currently modeling this as two separate models: (1) regress predictors on likelihood of treaty signing, (2) regress treaty (with interactions, etc) on investment (I’ve thought of using propensity score matching for this part of the model)</p><p>6 0.77925813 <a title="772-lsi-6" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-02-25-Correlation_of_1_._._._too_good_to_be_true%3F.html">1737 andrew gelman stats-2013-02-25-Correlation of 1 . . . too good to be true?</a></p>
+<p>7 0.77341348 <a title="772-lsi-7" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-11-06-Multilevel_quantile_regression.html">397 andrew gelman stats-2010-11-06-Multilevel quantile regression</a></p>
+<p>8 0.76399201 <a title="772-lsi-8" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-06-27-Cross-validation_%28What_is_it_good_for%3F%29.html">1395 andrew gelman stats-2012-06-27-Cross-validation (What is it good for?)</a></p>
+<p>9 0.74544352 <a title="772-lsi-9" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-07-11-Yes%2C_worry_about_generalizing_from_data_to_population.__But_multilevel_modeling_is_the_solution%2C_not_the_problem.html">1934 andrew gelman stats-2013-07-11-Yes, worry about generalizing from data to population.  But multilevel modeling is the solution, not the problem</a></p>
+<p>10 0.73844934 <a title="772-lsi-10" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-04-17-If_you_get_to_the_point_of_asking%2C_just_do_it.__But_some_difficulties_do_arise_._._..html">2294 andrew gelman stats-2014-04-17-If you get to the point of asking, just do it.  But some difficulties do arise . . .</a></p>
+<p>11 0.73797494 <a title="772-lsi-11" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-25-Clusters_with_very_small_numbers_of_observations.html">295 andrew gelman stats-2010-09-25-Clusters with very small numbers of observations</a></p>
+<p>12 0.73374164 <a title="772-lsi-12" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-12-31-Using_factor_analysis_or_principal_components_analysis_or_measurement-error_models_for_biological_measurements_in_archaeology%3F.html">1094 andrew gelman stats-2011-12-31-Using factor analysis or principal components analysis or measurement-error models for biological measurements in archaeology?</a></p>
+<p>13 0.72761297 <a title="772-lsi-13" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-20-A_mess_with_which_I_am_comfortable.html">1814 andrew gelman stats-2013-04-20-A mess with which I am comfortable</a></p>
+<p>14 0.72459739 <a title="772-lsi-14" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-09-23-More_on_Bayesian_methods_and_multilevel_modeling.html">2033 andrew gelman stats-2013-09-23-More on Bayesian methods and multilevel modeling</a></p>
+<p>15 0.72230148 <a title="772-lsi-15" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-22-Handling_multiple_versions_of_an_outcome_variable.html">726 andrew gelman stats-2011-05-22-Handling multiple versions of an outcome variable</a></p>
+<p>16 0.71981484 <a title="772-lsi-16" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-04-08-Multilevel_regression_with_shrinkage_for_%E2%80%9Cfixed%E2%80%9D_effects.html">653 andrew gelman stats-2011-04-08-Multilevel regression with shrinkage for “fixed” effects</a></p>
+<p>17 0.71533966 <a title="772-lsi-17" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-16-Mandelbrot_and_Akaike%3A__from_taxonomy_to_smooth_runways_%28pioneering_work_in_fractals_and_self-similarity%29.html">346 andrew gelman stats-2010-10-16-Mandelbrot and Akaike:  from taxonomy to smooth runways (pioneering work in fractals and self-similarity)</a></p>
+<p>18 0.71502346 <a title="772-lsi-18" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-11-17-Clutering_and_variance_components.html">417 andrew gelman stats-2010-11-17-Clutering and variance components</a></p>
+<p>19 0.7137844 <a title="772-lsi-19" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-14-The_robust_beauty_of_improper_linear_models_in_decision_making.html">1981 andrew gelman stats-2013-08-14-The robust beauty of improper linear models in decision making</a></p>
+<p>20 0.71215767 <a title="772-lsi-20" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-08-12-year_%2B_%281%7Cyear%29.html">851 andrew gelman stats-2011-08-12-year + (1|year)</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/andrew_gelman_stats_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(16, 0.03), (21, 0.013), (24, 0.056), (84, 0.014), (86, 0.025), (99, 0.73)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99958992 <a title="772-lda-1" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-17-Graphical_tools_for_understanding_multilevel_models.html">772 andrew gelman stats-2011-06-17-Graphical tools for understanding multilevel models</a></p>
+<p>Introduction: There are a few things I want to do:
+ 
+1.  Understand a fitted model using tools such as  average predictive comparisons ,  R-squared, and partial pooling factors .  In defining these concepts, Iain and I came up with some clever tricks, including (but not limited to):
+ 
+- Separating the inputs and averaging over all possible values of the input not being altered (for average predictive comparisons);
+ 
+- Defining partial pooling  without  referring to a raw-data or maximum-likelihood or no-pooling estimate (these don’t necessarily exist when you’re fitting logistic regression with sparse data);
+ 
+- Defining an R-squared for each level of a multilevel model.
+ 
+The methods get pretty complicated, though, and they have some loose ends–in particular, for average predictive comparisons with continuous input variables.
+ 
+So now we want to implement these in R and put them into arm along with bglmer etc.
+ 
+2.  Setting up coefplot so it works more generally (that is, so the graphics look nice</p><p>2 0.99920326 <a title="772-lda-2" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-07-29-FindTheData.org.html">1434 andrew gelman stats-2012-07-29-FindTheData.org</a></p>
+<p>Introduction: I received the following (unsolicited) email: 
+  
+  
+Hi Andrew,
+
+ 
+ 
+I work on the business development team of FindTheData.org, an unbiased comparison engine founded by Kevin O’Connor (founder and former CEO of DoubleClick) and backed by Kleiner Perkins with ~10M unique visitors per month. 
+ We are working with large online publishers including Golf Digest, Huffington Post, Under30CEO, and offer a variety of options to integrate our highly engaging content with your site.  I believe our un-biased and reliable data resources would be of interest to you and your readers. 
+ I’d like to set up a quick call to discuss similar partnership ideas with you and would greatly appreciate 10 minutes of your time. 
+ Please suggest a couple times that work best for you or let me know if you would like me to send some more information before you make time for a call. 
+ Looking forward to hearing from you, 
+ Jonny 
+ 
+
+–
+
+ 
+ JONNY KINTZELE
+
+   Business Development,   FindThe Data 
+
+ mobile: 619-307-097</p><p>3 0.99873108 <a title="772-lda-3" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-01-17-%E2%80%9Cthe_Tea_Party%E2%80%99s_ire%2C_directed_at_Democrats_and_Republicans_alike%E2%80%9D.html">521 andrew gelman stats-2011-01-17-“the Tea Party’s ire, directed at Democrats and Republicans alike”</a></p>
+<p>Introduction: Mark Lilla recalls some recent Barack Obama quotes and then  writes :
+  
+If this is the way the president and his party think about human psychology, it’s little wonder they’ve taken such a beating.
+  
+In the spirit of that old line, “That and $4.95 will get you a tall latte,” let me agree with Lilla and attribute the Democrats’ losses in 2010 to the following three factors:
+ 
+1.  A poor understanding of human psychology;
+ 
+2.  The Democrats holding unified control of the presidency and congress with a large majority in both houses (factors that are historically associated with big midterm losses); and
+ 
+3.  A terrible economy.
+ 
+I will let you, the readers, make your best guesses as to the relative importance of factors 1, 2, and 3 above.
+ 
+Don’t get me wrong:  I think psychology is important, as is the history of ideas (the main subject of Lilla’s article), and I’d hope that Obama (and also his colleagues in both parties in congress) can become better acquainted with psychology, moti</p><p>4 0.99866766 <a title="772-lda-4" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-05-12-Question_2_of_my_final_exam_for_Design_and_Analysis_of_Sample_Surveys.html">1315 andrew gelman stats-2012-05-12-Question 2 of my final exam for Design and Analysis of Sample Surveys</a></p>
+<p>Introduction: 2. Which of the following are useful goals in a pilot study? (Indicate all that apply.)
+ 
+(a) You can search for statistical significance, then from that decide what to look for in a confirmatory analysis of your full dataset.
+ 
+(b) You can see if you find statistical significance in a pre-chosen comparison of interest.
+ 
+(c) You can examine the direction (positive or negative, even if not statistically significant) of comparisons of interest.
+ 
+(d) With a small sample size, you cannot hope to learn anything conclusive, but you can get a crude estimate of effect size and standard deviation which will be useful in a power analysis to help you decide how large your full study needs to be.
+ 
+(e) You can talk with survey respondents and get a sense of how they perceived your questions.
+ 
+(f) You get a chance to learn about practical difficulties with sampling, nonresponse, and question wording.
+ 
+(g) You can check if your sample is approximately representative of your population.
+ 
+ Soluti</p><p>5 0.99862963 <a title="772-lda-5" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-19-Grad_students%3A__Participate_in_an_online_survey_on_statistics_education.html">1813 andrew gelman stats-2013-04-19-Grad students:  Participate in an online survey on statistics education</a></p>
+<p>Introduction: Joan Garfield, a leading researcher in statistics education, is conducting a survey of graduate students who teach or assist with the teaching of statistics.  She writes: 
+  
+  
+We want to invite them to take a short survey that will enable us to collect some baseline data that we may use in a grant proposal we are developing.  The project would provide summer workshops and ongoing support for graduate students who will be teaching or assisting with teaching introductory statistics classes. If the grant is funded, we would invite up to 40 students from around the country who are entering graduate programs in statistics to participate in a three-year training and support program.  The goal of this program is to help these students become expert and flexible teachers of statistics, and to support them as they move through their teaching experiences as graduate students.
+  
+Here’s the  the online survey .  Garfield writes, “Your responses are completely voluntary and anonymous.  Results w</p><p>6 0.99805802 <a title="772-lda-6" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-02-24-On_summarizing_a_noisy_scatterplot_with_a_single_comparison_of_two_points.html">589 andrew gelman stats-2011-02-24-On summarizing a noisy scatterplot with a single comparison of two points</a></p>
+<p>7 0.99790537 <a title="772-lda-7" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-09-04-%E2%80%9CBestselling_Author_Caught_Posting_Positive_Reviews_of_His_Own_Work_on_Amazon%E2%80%9D.html">1483 andrew gelman stats-2012-09-04-“Bestselling Author Caught Posting Positive Reviews of His Own Work on Amazon”</a></p>
+<p>8 0.99774241 <a title="772-lda-8" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-08-01-Literature_and_life.html">174 andrew gelman stats-2010-08-01-Literature and life</a></p>
+<p>9 0.99772722 <a title="772-lda-9" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-04-29-Clueless_Americans_think_they%E2%80%99ll_never_get_sick.html">1288 andrew gelman stats-2012-04-29-Clueless Americans think they’ll never get sick</a></p>
+<p>10 0.99761003 <a title="772-lda-10" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-10-Christakis-Fowler_update.html">756 andrew gelman stats-2011-06-10-Christakis-Fowler update</a></p>
+<p>11 0.99760514 <a title="772-lda-11" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-22-Handling_multiple_versions_of_an_outcome_variable.html">726 andrew gelman stats-2011-05-22-Handling multiple versions of an outcome variable</a></p>
+<p>12 0.99759388 <a title="772-lda-12" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-08-03-Climate_Change_News.html">180 andrew gelman stats-2010-08-03-Climate Change News</a></p>
+<p>13 0.99755526 <a title="772-lda-13" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-07-27-Overfitting.html">1431 andrew gelman stats-2012-07-27-Overfitting</a></p>
+<p>14 0.99700034 <a title="772-lda-14" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-09-Popper%E2%80%99s_great%2C_but_don%E2%80%99t_bother_with_his_theory_of_probability.html">23 andrew gelman stats-2010-05-09-Popper’s great, but don’t bother with his theory of probability</a></p>
+<p>15 0.99687499 <a title="772-lda-15" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-07-23-Examples_of_the_use_of_hierarchical_modeling_to_generalize_to_new_settings.html">1425 andrew gelman stats-2012-07-23-Examples of the use of hierarchical modeling to generalize to new settings</a></p>
+<p>16 0.99660897 <a title="772-lda-16" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-01-The_%E2%80%9Ccushy_life%E2%80%9D_of_a_University_of_Illinois_sociology_professor.html">740 andrew gelman stats-2011-06-01-The “cushy life” of a University of Illinois sociology professor</a></p>
+<p>17 0.99646664 <a title="772-lda-17" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-07-19-%E2%80%9COne_of_the_easiest_ways_to_differentiate_an_economist_from_almost_anyone_else_in_society%E2%80%9D.html">809 andrew gelman stats-2011-07-19-“One of the easiest ways to differentiate an economist from almost anyone else in society”</a></p>
+<p>18 0.99616301 <a title="772-lda-18" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-07-23-Christakis_response_to_my_comment_on_his_comments_on_social_science_%28or_just_skip_to_the_P.P.P.S._at_the_end%29.html">1952 andrew gelman stats-2013-07-23-Christakis response to my comment on his comments on social science (or just skip to the P.P.P.S. at the end)</a></p>
+<p>19 0.99610806 <a title="772-lda-19" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-03-30-More_on_the_correlation_between_statistical_and_political_ideology.html">638 andrew gelman stats-2011-03-30-More on the correlation between statistical and political ideology</a></p>
+<p>20 0.99596423 <a title="772-lda-20" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-08-18-Trolls%21.html">860 andrew gelman stats-2011-08-18-Trolls!</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

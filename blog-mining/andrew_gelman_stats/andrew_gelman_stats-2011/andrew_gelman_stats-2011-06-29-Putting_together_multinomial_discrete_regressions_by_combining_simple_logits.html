@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>782 andrew gelman stats-2011-06-29-Putting together multinomial discrete regressions by combining simple logits</title>
+</head>
+
+<body>
+<p><a title="andrew_gelman_stats" href="../andrew_gelman_stats_home.html">andrew_gelman_stats</a> <a title="andrew_gelman_stats-2011" href="../home/andrew_gelman_stats-2011_home.html">andrew_gelman_stats-2011</a> <a title="andrew_gelman_stats-2011-782" href="#">andrew_gelman_stats-2011-782</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>782 andrew gelman stats-2011-06-29-Putting together multinomial discrete regressions by combining simple logits</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="andrew_gelman_stats-2011-782-html" href="http://andrewgelman.com/2011/06/29/putting_togethe/">html</a></p><p>Introduction: When predicting 0/1 data we can use logit (or probit or robit or some other robust model such as invlogit (0.01 + 0.98*X*beta)).  Logit is simple enough and we can use  bayesglm  to regularize and avoid the problem of separation.
+ 
+What if there are more than 2 categories?  If they’re ordered (1, 2, 3, etc), we can do ordered logit (and use bayespolr() to avoid separation).  If the categories are unordered (vanilla, chocolate, strawberry), there are unordered multinomial logit and probit models out there.
+ 
+But it’s not so easy to fit these multinomial model in a multilevel setting (with coefficients that vary by group), especially if the computation is embedded in an iterative routine such as mi where you have real time constraints at each step.
+ 
+So this got me wondering whether we could kluge it with logits.  Here’s the basic idea (in the ordered and unordered forms):
+ 
+- If you have a variable that goes 1, 2, 3, etc., set up a series of logits:  1 vs. 2,3,…; 2 vs. 3,…; and so forth</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 When predicting 0/1 data we can use logit (or probit or robit or some other robust model such as invlogit (0. [sent-1, score-0.964]
+</p><p>2 Logit is simple enough and we can use  bayesglm  to regularize and avoid the problem of separation. [sent-4, score-0.536]
+</p><p>3 If they’re ordered (1, 2, 3, etc), we can do ordered logit (and use bayespolr() to avoid separation). [sent-6, score-1.253]
+</p><p>4 If the categories are unordered (vanilla, chocolate, strawberry), there are unordered multinomial logit and probit models out there. [sent-7, score-1.526]
+</p><p>5 But it’s not so easy to fit these multinomial model in a multilevel setting (with coefficients that vary by group), especially if the computation is embedded in an iterative routine such as mi where you have real time constraints at each step. [sent-8, score-1.115]
+</p><p>6 So this got me wondering whether we could kluge it with logits. [sent-9, score-0.171]
+</p><p>7 Here’s the basic idea (in the ordered and unordered forms):   - If you have a variable that goes 1, 2, 3, etc. [sent-10, score-0.798]
+</p><p>8 The usual ordered logit is a special case of this model in which the coefficients (except for the constant term) are the same for each model. [sent-15, score-1.017]
+</p><p>9 intermediate versions could link the models with soft constraints, some prior distribution on the coefficients. [sent-18, score-0.276]
+</p><p>10 (This would need some hyperparameters but these could be estimated too if the whole model is being fit in some iterative context. [sent-19, score-0.537]
+</p><p>11 )   - If you have a vanilla-chocolate-strawberry variable, do the same thing; just order the categories first, either in some reasonable way based on substantive information or else using some automatic rule such as putting the categories in decreasing order of frequency in the data. [sent-20, score-0.944]
+</p><p>12 In any case, you’d first predict the probability of being in category 1, then the probability of being in 2 (given that you’re not in 1), then the probability of 3 (given not 1 or 2), and so forth. [sent-21, score-0.306]
+</p><p>13 Depending on your control over the problem, you could choose how to model the variables. [sent-22, score-0.19]
+</p><p>14 For example, in a political survey with some missing ethnicity responses, you might model that variable as ordered:  white/other/hispanic/black. [sent-23, score-0.325]
+</p><p>15 I recognized that my patchwork of logits is a bit of a hack, but I like its flexibility, as well as the computational simplicity of building it out of simple logits. [sent-25, score-0.548]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('ordered', 0.376), ('logit', 0.34), ('unordered', 0.291), ('categories', 0.247), ('logits', 0.203), ('multinomial', 0.187), ('bayesglm', 0.177), ('probit', 0.17), ('iterative', 0.152), ('variable', 0.131), ('constraints', 0.129), ('model', 0.127), ('coefficients', 0.109), ('kluge', 0.108), ('fit', 0.104), ('probability', 0.102), ('invlogit', 0.102), ('robit', 0.102), ('chocolate', 0.102), ('patchwork', 0.102), ('simple', 0.101), ('avoid', 0.099), ('regularize', 0.097), ('hyperparameters', 0.091), ('embedded', 0.089), ('mi', 0.087), ('order', 0.083), ('decreasing', 0.082), ('hack', 0.08), ('flexibility', 0.079), ('contexts', 0.079), ('separation', 0.077), ('simplicity', 0.077), ('soft', 0.075), ('automatic', 0.073), ('beta', 0.073), ('intermediate', 0.071), ('routine', 0.07), ('depending', 0.068), ('frequency', 0.068), ('ethnicity', 0.067), ('versions', 0.067), ('constant', 0.065), ('recognized', 0.065), ('could', 0.063), ('use', 0.062), ('forms', 0.062), ('robust', 0.061), ('computation', 0.061), ('substantive', 0.061)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999964 <a title="782-tfidf-1" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-29-Putting_together_multinomial_discrete_regressions_by_combining_simple_logits.html">782 andrew gelman stats-2011-06-29-Putting together multinomial discrete regressions by combining simple logits</a></p>
+<p>Introduction: When predicting 0/1 data we can use logit (or probit or robit or some other robust model such as invlogit (0.01 + 0.98*X*beta)).  Logit is simple enough and we can use  bayesglm  to regularize and avoid the problem of separation.
+ 
+What if there are more than 2 categories?  If they’re ordered (1, 2, 3, etc), we can do ordered logit (and use bayespolr() to avoid separation).  If the categories are unordered (vanilla, chocolate, strawberry), there are unordered multinomial logit and probit models out there.
+ 
+But it’s not so easy to fit these multinomial model in a multilevel setting (with coefficients that vary by group), especially if the computation is embedded in an iterative routine such as mi where you have real time constraints at each step.
+ 
+So this got me wondering whether we could kluge it with logits.  Here’s the basic idea (in the ordered and unordered forms):
+ 
+- If you have a variable that goes 1, 2, 3, etc., set up a series of logits:  1 vs. 2,3,…; 2 vs. 3,…; and so forth</p><p>2 0.46639845 <a title="782-tfidf-2" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-04-28-Hierarchical_ordered_logit_or_probit.html">684 andrew gelman stats-2011-04-28-Hierarchical ordered logit or probit</a></p>
+<p>Introduction: Jeff writes:
+  
+How far off is bglmer and can it handle ordered logit or multinom logit?
+  
+My reply:
+ 
+bglmer is very close.  No ordered logit but I was just talking about it with Sophia today.  My guess is that the easiest way to fit a hierarchical ordered logit or multinom logit will be to use stan.  For right now I’d recommend using glmer/bglmer to fit the ordered logits in order (e.g., 1 vs. 2,3,4, then 2 vs. 3,4, then 3 vs. 4).  Or maybe there’s already a hierarchical multinomial logit in mcmcpack or somewhere?</p><p>3 0.30946189 <a title="782-tfidf-3" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-08-How_to_display_multinominal_logit_results_graphically%3F.html">2163 andrew gelman stats-2014-01-08-How to display multinominal logit results graphically?</a></p>
+<p>Introduction: Adriana Lins de Albuquerque writes:
+  
+Do you have any suggestions for the best way to represent multinominal logit results graphically? I am using stata.
+  
+My reply:  I donâ&euro;&trade;t know from Stata, but here are my suggestions:
+ 
+1.  If the categories are unordered, break them up into a series of binary choices in a tree structure (for example, non-voter or voter, then voting for left or right, then voting for left party A or B, then voting for right party C or D).  Each of these is a binary split and so can be displayed using the usual techniques for logit (as in chapters 3 and 4 of ARM).
+ 
+2.  If the categories are ordered, see Figure 6.4 of ARM for an example (from our analysis of storable votes).</p><p>4 0.20010771 <a title="782-tfidf-4" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-09-03-A_psychology_researcher_asks%3A__Is_Anova_dead%3F.html">888 andrew gelman stats-2011-09-03-A psychology researcher asks:  Is Anova dead?</a></p>
+<p>Introduction: A research psychologist writes in with a question that’s so long that I’ll put my answer first, then put the question itself below the fold.
+ 
+Here’s my reply:
+ 
+As I wrote in my Anova paper and in my book with Jennifer Hill, I do think that multilevel models can completely replace Anova.  At the same time, I think the central idea of Anova should persist in our understanding of these models.  To me the central idea of Anova is not F-tests or p-values or sums of squares, but rather the idea of predicting an outcome based on factors with discrete levels, and understanding these factors using variance components.
+ 
+The continuous or categorical response thing doesn’t really matter so much to me.  I have no problem using a normal linear model for continuous outcomes (perhaps suitably transformed) and a logistic model for binary outcomes.
+ 
+I don’t want to throw away interactions just because they’re not statistically significant.  I’d rather partially pool them toward zero using an inform</p><p>5 0.17001744 <a title="782-tfidf-5" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-08-Displaying_a_fitted_multilevel_model.html">328 andrew gelman stats-2010-10-08-Displaying a fitted multilevel model</a></p>
+<p>Introduction: Elissa Brown writes:
+  
+I’m working on some data using a multinomial model (3 categories for the response &  2 predictors-1 continuous and 1 binary), and I’ve been looking and looking for some sort of nice graphical way to show my model at work. Something like a predicted probabilities plot. I know you can do this for the levels of Y with just one covariate, but is this still a valid way to describe the multinomial model (just doing a pred plot for each covariate)? What’s the deal, is there really no way to graphically represent a successful multinomial model? Also, is it unreasonable to break down your model into a binary response just to get some ROC curves? This seems like cheating. From what I’ve found so far, it seems that people just avoid graphical support when discussing their fitted multinomial models.
+  
+My reply:
+ 
+It’s hard for me to think about this sort of thing in the abstract with no context.  We do have one example in chapter 6 of ARM where we display data and fitted m</p><p>6 0.16366842 <a title="782-tfidf-6" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-07-Robust_logistic_regression.html">1886 andrew gelman stats-2013-06-07-Robust logistic regression</a></p>
+<p>7 0.16260427 <a title="782-tfidf-7" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-07-18-Predictive_checks_for_hierarchical_models.html">154 andrew gelman stats-2010-07-18-Predictive checks for hierarchical models</a></p>
+<p>8 0.14827694 <a title="782-tfidf-8" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-18-The_1.6_rule.html">39 andrew gelman stats-2010-05-18-The 1.6 rule</a></p>
+<p>9 0.1451304 <a title="782-tfidf-9" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-04-05-More_philosophy_of_Bayes.html">1247 andrew gelman stats-2012-04-05-More philosophy of Bayes</a></p>
+<p>10 0.14293373 <a title="782-tfidf-10" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-11-17-Clutering_and_variance_components.html">417 andrew gelman stats-2010-11-17-Clutering and variance components</a></p>
+<p>11 0.13628624 <a title="782-tfidf-11" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-02-05-Prior_distribution_for_a_predicted_probability.html">2200 andrew gelman stats-2014-02-05-Prior distribution for a predicted probability</a></p>
+<p>12 0.12198761 <a title="782-tfidf-12" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-04-Whassup_with_glm%28%29%3F.html">696 andrew gelman stats-2011-05-04-Whassup with glm()?</a></p>
+<p>13 0.12107798 <a title="782-tfidf-13" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-11-06-Multilevel_quantile_regression.html">397 andrew gelman stats-2010-11-06-Multilevel quantile regression</a></p>
+<p>14 0.1130449 <a title="782-tfidf-14" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-09-30-Computational_problems_with_glm_etc..html">1516 andrew gelman stats-2012-09-30-Computational problems with glm etc.</a></p>
+<p>15 0.11054035 <a title="782-tfidf-15" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-18-Should_we_always_be_using_the_t_and_robit_instead_of_the_normal_and_logit%3F.html">773 andrew gelman stats-2011-06-18-Should we always be using the t and robit instead of the normal and logit?</a></p>
+<p>16 0.10876469 <a title="782-tfidf-16" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-21-Models_with_constraints.html">2342 andrew gelman stats-2014-05-21-Models with constraints</a></p>
+<p>17 0.10713611 <a title="782-tfidf-17" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-02-25-Basketball_Stats%3A__Don%E2%80%99t_model_the_probability_of_win%2C_model_the_expected_score_differential..html">2224 andrew gelman stats-2014-02-25-Basketball Stats:  Don’t model the probability of win, model the expected score differential.</a></p>
+<p>18 0.10508959 <a title="782-tfidf-18" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-01-31-Using_sample_size_in_the_prior_distribution.html">547 andrew gelman stats-2011-01-31-Using sample size in the prior distribution</a></p>
+<p>19 0.10257782 <a title="782-tfidf-19" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-07-When_you%E2%80%99re_planning_on_fitting_a_model%2C_build_up_to_it_by_fitting_simpler_models_first.__Then%2C_once_you_have_a_model_you_like%2C_check_the_hell_out_of_it.html">1972 andrew gelman stats-2013-08-07-When you’re planning on fitting a model, build up to it by fitting simpler models first.  Then, once you have a model you like, check the hell out of it</a></p>
+<p>20 0.10097396 <a title="782-tfidf-20" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-06-26-Occam.html">1392 andrew gelman stats-2012-06-26-Occam</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/andrew_gelman_stats_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.159), (1, 0.128), (2, 0.058), (3, 0.042), (4, 0.069), (5, 0.003), (6, 0.043), (7, -0.053), (8, 0.073), (9, 0.046), (10, 0.041), (11, 0.041), (12, -0.029), (13, -0.031), (14, -0.057), (15, 0.011), (16, 0.027), (17, -0.038), (18, -0.021), (19, -0.042), (20, 0.016), (21, -0.013), (22, -0.018), (23, -0.053), (24, -0.043), (25, -0.025), (26, 0.019), (27, -0.039), (28, -0.019), (29, -0.035), (30, -0.037), (31, 0.043), (32, 0.009), (33, 0.044), (34, -0.054), (35, -0.068), (36, -0.017), (37, 0.031), (38, -0.036), (39, 0.044), (40, 0.019), (41, -0.032), (42, 0.026), (43, -0.052), (44, 0.02), (45, 0.04), (46, -0.018), (47, 0.025), (48, 0.005), (49, 0.109)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.9643321 <a title="782-lsi-1" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-29-Putting_together_multinomial_discrete_regressions_by_combining_simple_logits.html">782 andrew gelman stats-2011-06-29-Putting together multinomial discrete regressions by combining simple logits</a></p>
+<p>Introduction: When predicting 0/1 data we can use logit (or probit or robit or some other robust model such as invlogit (0.01 + 0.98*X*beta)).  Logit is simple enough and we can use  bayesglm  to regularize and avoid the problem of separation.
+ 
+What if there are more than 2 categories?  If they’re ordered (1, 2, 3, etc), we can do ordered logit (and use bayespolr() to avoid separation).  If the categories are unordered (vanilla, chocolate, strawberry), there are unordered multinomial logit and probit models out there.
+ 
+But it’s not so easy to fit these multinomial model in a multilevel setting (with coefficients that vary by group), especially if the computation is embedded in an iterative routine such as mi where you have real time constraints at each step.
+ 
+So this got me wondering whether we could kluge it with logits.  Here’s the basic idea (in the ordered and unordered forms):
+ 
+- If you have a variable that goes 1, 2, 3, etc., set up a series of logits:  1 vs. 2,3,…; 2 vs. 3,…; and so forth</p><p>2 0.88442159 <a title="782-lsi-2" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-04-28-Hierarchical_ordered_logit_or_probit.html">684 andrew gelman stats-2011-04-28-Hierarchical ordered logit or probit</a></p>
+<p>Introduction: Jeff writes:
+  
+How far off is bglmer and can it handle ordered logit or multinom logit?
+  
+My reply:
+ 
+bglmer is very close.  No ordered logit but I was just talking about it with Sophia today.  My guess is that the easiest way to fit a hierarchical ordered logit or multinom logit will be to use stan.  For right now I’d recommend using glmer/bglmer to fit the ordered logits in order (e.g., 1 vs. 2,3,4, then 2 vs. 3,4, then 3 vs. 4).  Or maybe there’s already a hierarchical multinomial logit in mcmcpack or somewhere?</p><p>3 0.79687113 <a title="782-lsi-3" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-05-28-Simplify_until_your_fake-data_check_works%2C_then_add_complications_until_you_can_figure_out_where_the_problem_is_coming_from.html">1875 andrew gelman stats-2013-05-28-Simplify until your fake-data check works, then add complications until you can figure out where the problem is coming from</a></p>
+<p>Introduction: I received the following email: 
+  
+  
+I am trying to develop a Bayesian model to represent the process through which individual consumers make online product rating decisions. In my model each individual faces total J product options and for each product option (j) each individual (i) needs to make three sequential decisions: 
+
+
+- First he decides whether to consume a specific product option (j) or not (choice decision)
+
+
+- If he decides to consume a product option j, then after consumption he decides whether to rate it or not (incidence decision) 
+
+
+- If he decides to rate product j then what finally he decides what rating (k) to assign to it (evaluation decision)
+
+
+We  model this decision sequence in terms of three equations. A binary response variable in the first equation represents the choice decision. Another binary response variable in the second equation represents the incidence decision that is observable only when first selection decision is 1. Finally, an ordered response v</p><p>4 0.78322679 <a title="782-lsi-4" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-18-The_1.6_rule.html">39 andrew gelman stats-2010-05-18-The 1.6 rule</a></p>
+<p>Introduction: In ARM we discuss how you can go back and forth between logit and probit models by dividing by 1.6.  Or, to put it another way, logistic regression corresponds to a latent-variable model with errors that are approximately normally distributed with mean 0 and standard deviation 1.6.  (This is well known, itâ&euro;&trade;s nothing original with our book.)  Anyway, John Cook discusses the approximation  here .</p><p>5 0.78117317 <a title="782-lsi-5" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-08-Displaying_a_fitted_multilevel_model.html">328 andrew gelman stats-2010-10-08-Displaying a fitted multilevel model</a></p>
+<p>Introduction: Elissa Brown writes:
+  
+I’m working on some data using a multinomial model (3 categories for the response &  2 predictors-1 continuous and 1 binary), and I’ve been looking and looking for some sort of nice graphical way to show my model at work. Something like a predicted probabilities plot. I know you can do this for the levels of Y with just one covariate, but is this still a valid way to describe the multinomial model (just doing a pred plot for each covariate)? What’s the deal, is there really no way to graphically represent a successful multinomial model? Also, is it unreasonable to break down your model into a binary response just to get some ROC curves? This seems like cheating. From what I’ve found so far, it seems that people just avoid graphical support when discussing their fitted multinomial models.
+  
+My reply:
+ 
+It’s hard for me to think about this sort of thing in the abstract with no context.  We do have one example in chapter 6 of ARM where we display data and fitted m</p><p>6 0.75854379 <a title="782-lsi-6" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-08-13-Checking_your_model_using_fake_data.html">852 andrew gelman stats-2011-08-13-Checking your model using fake data</a></p>
+<p>7 0.74385691 <a title="782-lsi-7" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-27-Bayesian_model_averaging_or_fitting_a_larger_model.html">1999 andrew gelman stats-2013-08-27-Bayesian model averaging or fitting a larger model</a></p>
+<p>8 0.74374944 <a title="782-lsi-8" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-11-22-A_Bayesian_model_for_an_increasing_function%2C_in_Stan%21.html">2110 andrew gelman stats-2013-11-22-A Bayesian model for an increasing function, in Stan!</a></p>
+<p>9 0.74250942 <a title="782-lsi-9" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-07-Robust_logistic_regression.html">1886 andrew gelman stats-2013-06-07-Robust logistic regression</a></p>
+<p>10 0.72843409 <a title="782-lsi-10" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-18-Standardizing_regression_inputs.html">1462 andrew gelman stats-2012-08-18-Standardizing regression inputs</a></p>
+<p>11 0.72830695 <a title="782-lsi-11" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-21-Models_with_constraints.html">2342 andrew gelman stats-2014-05-21-Models with constraints</a></p>
+<p>12 0.72503155 <a title="782-lsi-12" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-02-Interactions_of_predictors_in_a_causal_model.html">251 andrew gelman stats-2010-09-02-Interactions of predictors in a causal model</a></p>
+<p>13 0.72091657 <a title="782-lsi-13" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-09-30-Computational_problems_with_glm_etc..html">1516 andrew gelman stats-2012-09-30-Computational problems with glm etc.</a></p>
+<p>14 0.71397948 <a title="782-lsi-14" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-07-26-Including_interactions_or_not.html">823 andrew gelman stats-2011-07-26-Including interactions or not</a></p>
+<p>15 0.71278477 <a title="782-lsi-15" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-28-Matching_for_preprocessing_data_for_causal_inference.html">375 andrew gelman stats-2010-10-28-Matching for preprocessing data for causal inference</a></p>
+<p>16 0.71012688 <a title="782-lsi-16" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-24-Multilevel_modeling_and_instrumental_variables.html">1468 andrew gelman stats-2012-08-24-Multilevel modeling and instrumental variables</a></p>
+<p>17 0.70627493 <a title="782-lsi-17" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-07-16-Wanted%3A__Probability_distributions_for_rank_orderings.html">151 andrew gelman stats-2010-07-16-Wanted:  Probability distributions for rank orderings</a></p>
+<p>18 0.70415986 <a title="782-lsi-18" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-21-Interpreting_interactions_in_discrete-data_regression.html">1908 andrew gelman stats-2013-06-21-Interpreting interactions in discrete-data regression</a></p>
+<p>19 0.70350736 <a title="782-lsi-19" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-03-19-Whassup_with_deviance_having_a_high_posterior_correlation_with_a_parameter_in_the_model%3F.html">1221 andrew gelman stats-2012-03-19-Whassup with deviance having a high posterior correlation with a parameter in the model?</a></p>
+<p>20 0.70290279 <a title="782-lsi-20" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-21-More_on_Bayesian_model_selection_in_high-dimensional_settings.html">1817 andrew gelman stats-2013-04-21-More on Bayesian model selection in high-dimensional settings</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/andrew_gelman_stats_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(3, 0.017), (8, 0.011), (16, 0.061), (21, 0.029), (24, 0.143), (50, 0.021), (54, 0.019), (59, 0.01), (63, 0.312), (86, 0.021), (94, 0.01), (99, 0.207)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.9437983 <a title="782-lda-1" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-04-28-Hierarchical_ordered_logit_or_probit.html">684 andrew gelman stats-2011-04-28-Hierarchical ordered logit or probit</a></p>
+<p>Introduction: Jeff writes:
+  
+How far off is bglmer and can it handle ordered logit or multinom logit?
+  
+My reply:
+ 
+bglmer is very close.  No ordered logit but I was just talking about it with Sophia today.  My guess is that the easiest way to fit a hierarchical ordered logit or multinom logit will be to use stan.  For right now I’d recommend using glmer/bglmer to fit the ordered logits in order (e.g., 1 vs. 2,3,4, then 2 vs. 3,4, then 3 vs. 4).  Or maybe there’s already a hierarchical multinomial logit in mcmcpack or somewhere?</p><p>2 0.93031973 <a title="782-lda-2" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-02-11-Calibration_in_chess.html">568 andrew gelman stats-2011-02-11-Calibration in chess</a></p>
+<p>Introduction: Has anybody done  this study  yet?  I’m curious about the results.  Perhaps there’s some chess-playing cognitive psychologist who’d like to collaborate on this?</p><p>3 0.92015231 <a title="782-lda-3" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-31-When_Did_Girls_Start_Wearing_Pink%3F.html">739 andrew gelman stats-2011-05-31-When Did Girls Start Wearing Pink?</a></p>
+<p>Introduction: That cute picture is of toddler FDR in a dress, from 1884.  Jeanne Maglaty  writes :
+  
+A Ladies’ Home Journal article [or maybe from a different source, according to a commenter] in June 1918 said, “The generally accepted rule is pink for the boys, and blue for the girls. The reason is that pink, being a more decided and stronger color, is more suitable for the boy, while blue, which is more delicate and dainty, is prettier for the girl.” Other sources said blue was flattering for blonds, pink for brunettes; or blue was for blue-eyed babies, pink for brown-eyed babies, according to Paoletti.
+
+
+In 1927, Time magazine printed a chart showing sex-appropriate colors for girls and boys according to leading U.S. stores. In Boston, Filene’s told parents to dress boys in pink. So did Best & Co. in New York City, Halle’s in Cleveland and Marshall Field in Chicago.
+
+
+Today’s color dictate wasn’t established until the 1940s . . .
+
+
+When the women’s liberation movement arrived in the mid-1960s, w</p><p>4 0.9159525 <a title="782-lda-4" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-03-A_question_for_psychometricians.html">313 andrew gelman stats-2010-10-03-A question for psychometricians</a></p>
+<p>Introduction: Don Coffin writes:
+  
+A colleague of mine and I are doing a presentation for new faculty on a number of topics related to teaching.  Our charge is to identify interesting issues and to find research-based information for them about how to approach things.  So, what I wondered is, do you know of any published research dealing with the sort of issues about structuring a course and final exam in the ways you talk about in  this blog post ?  Some poking around in the usual places hasn’t turned anything up yet.
+  
+I don’t really know the psychometrics literature but I imagine that some good stuff has been written on principles of test design. There are probably some good papers from back in the 1920s.  Can anyone supply some references?</p><p>5 0.90894532 <a title="782-lda-5" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-03-25-100-year_floods.html">628 andrew gelman stats-2011-03-25-100-year floods</a></p>
+<p>Introduction: According to the  National Weather Service :
+  
+What is a 100 year flood?  A 100 year flood is an event that statistically has a 1% chance of occurring in any given year. A 500 year flood has a .2% chance of occurring and a 1000 year flood has a .1% chance of occurring.
+  
+The accompanying map shows a part of Tennessee that in May 2010 had 1000-year levels of flooding.
+ 
+ 
+ 
+At first, it seems hard to believe that a 1000-year flood would have just happened to occur last year.  But then, this is just a 1000-year flood for that particular place.  I donâ&euro;&trade;t really have a sense of the statistics of these events.  How many 100-year, 500-year, and 1000-year flood events have been recorded by the Weather Service, and when have they occurred?</p><p>same-blog 6 0.89768887 <a title="782-lda-6" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-29-Putting_together_multinomial_discrete_regressions_by_combining_simple_logits.html">782 andrew gelman stats-2011-06-29-Putting together multinomial discrete regressions by combining simple logits</a></p>
+<p>7 0.88867927 <a title="782-lda-7" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-12-22-Tables_as_graphs%3A_The_Ramanujan_principle.html">1078 andrew gelman stats-2011-12-22-Tables as graphs: The Ramanujan principle</a></p>
+<p>8 0.88237953 <a title="782-lda-8" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-04-High-level_intellectual_discussions_in_the_Columbia_statistics_department.html">745 andrew gelman stats-2011-06-04-High-level intellectual discussions in the Columbia statistics department</a></p>
+<p>9 0.86478204 <a title="782-lda-9" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-14-Felix_Salmon_wins_the_American_Statistical_Association%E2%80%99s_Excellence_in_Statistical_Reporting_Award.html">33 andrew gelman stats-2010-05-14-Felix Salmon wins the American Statistical Association’s Excellence in Statistical Reporting Award</a></p>
+<p>10 0.85954154 <a title="782-lda-10" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-12-13-Puzzles_of_criminal_justice.html">1621 andrew gelman stats-2012-12-13-Puzzles of criminal justice</a></p>
+<p>11 0.85944307 <a title="782-lda-11" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-05-12-black_and_Black%2C_white_and_White.html">1316 andrew gelman stats-2012-05-12-black and Black, white and White</a></p>
+<p>12 0.85539651 <a title="782-lda-12" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-06-21-Why_modern_art_is_all_in_the_mind.html">102 andrew gelman stats-2010-06-21-Why modern art is all in the mind</a></p>
+<p>13 0.82991654 <a title="782-lda-13" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-23-Lowess_is_great.html">293 andrew gelman stats-2010-09-23-Lowess is great</a></p>
+<p>14 0.82929307 <a title="782-lda-14" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-09-05-Two_exciting_movie_ideas%3A__%E2%80%9CSecond_Chance_U%E2%80%9D_and_%E2%80%9CThe_New_Dirty_Dozen%E2%80%9D.html">1484 andrew gelman stats-2012-09-05-Two exciting movie ideas:  “Second Chance U” and “The New Dirty Dozen”</a></p>
+<p>15 0.82460862 <a title="782-lda-15" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-07-03-Graphical_presentation_of_risk_ratios.html">126 andrew gelman stats-2010-07-03-Graphical presentation of risk ratios</a></p>
+<p>16 0.81906509 <a title="782-lda-16" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-09-02-%E2%80%9CIf_our_product_is_harmful_._._._we%E2%80%99ll_stop_making_it.%E2%80%9D.html">1480 andrew gelman stats-2012-09-02-“If our product is harmful . . . we’ll stop making it.”</a></p>
+<p>17 0.78408074 <a title="782-lda-17" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-03-15-Recently_in_the_sister_blog.html">2249 andrew gelman stats-2014-03-15-Recently in the sister blog</a></p>
+<p>18 0.77079558 <a title="782-lda-18" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-11-Robert_H._Frank_and_P._J._O%E2%80%99Rourke_present_._._..html">1005 andrew gelman stats-2011-11-11-Robert H. Frank and P. J. O’Rourke present . . .</a></p>
+<p>19 0.75855494 <a title="782-lda-19" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-20-Are_the_Democrats_avoiding_a_national_campaign%3F.html">286 andrew gelman stats-2010-09-20-Are the Democrats avoiding a national campaign?</a></p>
+<p>20 0.75764012 <a title="782-lda-20" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-11-16-Objects_of_the_class_%E2%80%9CObjects_of_the_class%E2%80%9D.html">2103 andrew gelman stats-2013-11-16-Objects of the class “Objects of the class”</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

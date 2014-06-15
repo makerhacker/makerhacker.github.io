@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>818 andrew gelman stats-2011-07-23-Parallel JAGS RNGs</title>
+</head>
+
+<body>
+<p><a title="andrew_gelman_stats" href="../andrew_gelman_stats_home.html">andrew_gelman_stats</a> <a title="andrew_gelman_stats-2011" href="../home/andrew_gelman_stats-2011_home.html">andrew_gelman_stats-2011</a> <a title="andrew_gelman_stats-2011-818" href="#">andrew_gelman_stats-2011-818</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>818 andrew gelman stats-2011-07-23-Parallel JAGS RNGs</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="andrew_gelman_stats-2011-818-html" href="http://andrewgelman.com/2011/07/23/parallel-jags-rngs/">html</a></p><p>Introduction: As a matter of convention, we usually run 3 or 4 chains in JAGS. By default, this gives rise to chains that draw samples from 3 or 4 distinct pseudorandom number generators. I didn’t go and check whether it does things 111,222,333 or 123,123,123, but in any event the “parallel chains” in JAGS are samples drawn from distinct RNGs computed on a single processor core.
+  But we all have multiple cores now, or we’re computing on a cluster or the cloud! So the behavior we’d like from  rjags  is to use the  foreach  package with each JAGS chain using a parallel-safe RNG. The default behavior with  n.chain=1  will be that each parallel instance will use  .RNG.name[1] , the Wichmann-Hill RNG. 
+  JAGS 2.2.0 includes a new  lecuyer  module (along with the  glm  module, which everyone should probably always use, and doesn’t have many undocumented tricks that I know of).  But lecuyer is completely undocumented!  I tried  .RNG.name="lecuyer::Lecuyer" ,  .RNG.name="lecuyer::lecuyer" , and  .RNG.name=</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 As a matter of convention, we usually run 3 or 4 chains in JAGS. [sent-1, score-0.156]
+</p><p>2 By default, this gives rise to chains that draw samples from 3 or 4 distinct pseudorandom number generators. [sent-2, score-0.368]
+</p><p>3 I didn’t go and check whether it does things 111,222,333 or 123,123,123, but in any event the “parallel chains” in JAGS are samples drawn from distinct RNGs computed on a single processor core. [sent-3, score-0.304]
+</p><p>4 But we all have multiple cores now, or we’re computing on a cluster or the cloud! [sent-4, score-0.072]
+</p><p>5 So the behavior we’d like from  rjags  is to use the  foreach  package with each JAGS chain using a parallel-safe RNG. [sent-5, score-0.413]
+</p><p>6 chain=1  will be that each parallel instance will use  . [sent-7, score-0.156]
+</p><p>7 0 includes a new  lecuyer  module (along with the  glm  module, which everyone should probably always use, and doesn’t have many undocumented tricks that I know of). [sent-12, score-1.255]
+</p><p>8 I looked around in the source to find where it checks its name from the inits, to discover that in fact it is   . [sent-26, score-0.102]
+</p><p>9 name="lecuyer::RngStream"      So here’s how I set up 4 chains now:        library(doMC); registerDoMC() library(rjags); load. [sent-28, score-0.156]
+</p><p>10 module("lecuyer") library( random ) jinits <- function() {    ### all the other params ###   . [sent-30, score-0.131]
+</p><p>11 seed=randomNumbers(n = 1, min = 1, max = 1e+06,col=1) } jags. [sent-34, score-0.092]
+</p><p>12 jags,params,1000)   return(result) }    I would just as soon initialize them to the same state and use sequential substreams, but I think there is no way to do this. [sent-41, score-0.178]
+</p><p>13 Four long separately-seeded streams should be more than fine; a quick look suggests that if you did  n. [sent-42, score-0.059]
+</p><p>14 This works, almost 4 times (yeah yeah overhead blah blah) faster than the usual  n. [sent-47, score-0.25]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('lecuyer', 0.849), ('chains', 0.156), ('foreach', 0.131), ('inits', 0.131), ('jinits', 0.131), ('rngstream', 0.131), ('jags', 0.129), ('rjags', 0.119), ('undocumented', 0.112), ('library', 0.112), ('sequential', 0.1), ('module', 0.096), ('blah', 0.094), ('glm', 0.089), ('distinct', 0.083), ('parallel', 0.077), ('yeah', 0.065), ('default', 0.062), ('samples', 0.062), ('streams', 0.059), ('overhead', 0.054), ('cloud', 0.054), ('processor', 0.054), ('behavior', 0.051), ('min', 0.049), ('use', 0.046), ('convention', 0.044), ('max', 0.043), ('tricks', 0.042), ('result', 0.042), ('cluster', 0.04), ('ought', 0.04), ('computed', 0.039), ('probably', 0.038), ('checks', 0.037), ('rise', 0.037), ('discover', 0.037), ('faster', 0.037), ('core', 0.036), ('chain', 0.035), ('drawn', 0.034), ('instance', 0.033), ('event', 0.032), ('soon', 0.032), ('computing', 0.032), ('package', 0.031), ('return', 0.03), ('draw', 0.03), ('includes', 0.029), ('source', 0.028)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0 <a title="818-tfidf-1" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-07-23-Parallel_JAGS_RNGs.html">818 andrew gelman stats-2011-07-23-Parallel JAGS RNGs</a></p>
+<p>Introduction: As a matter of convention, we usually run 3 or 4 chains in JAGS. By default, this gives rise to chains that draw samples from 3 or 4 distinct pseudorandom number generators. I didn’t go and check whether it does things 111,222,333 or 123,123,123, but in any event the “parallel chains” in JAGS are samples drawn from distinct RNGs computed on a single processor core.
+  But we all have multiple cores now, or we’re computing on a cluster or the cloud! So the behavior we’d like from  rjags  is to use the  foreach  package with each JAGS chain using a parallel-safe RNG. The default behavior with  n.chain=1  will be that each parallel instance will use  .RNG.name[1] , the Wichmann-Hill RNG. 
+  JAGS 2.2.0 includes a new  lecuyer  module (along with the  glm  module, which everyone should probably always use, and doesn’t have many undocumented tricks that I know of).  But lecuyer is completely undocumented!  I tried  .RNG.name="lecuyer::Lecuyer" ,  .RNG.name="lecuyer::lecuyer" , and  .RNG.name=</p><p>2 0.086803541 <a title="818-tfidf-2" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-12-07-Martyn_Plummer%E2%80%99s_Secret_JAGS_Blog.html">1045 andrew gelman stats-2011-12-07-Martyn Plummer’s Secret JAGS Blog</a></p>
+<p>Introduction: Martyn Plummer , the creator of the open-source, C++, graphical-model compiler  JAGS  (aka “Just Another Gibbs Sampler”), runs a forum on the JAGS site that has a very similar feel to the mail-bag posts on this blog.  Martyn answers general statistical computing questions (e.g., why slice sampling rather than Metropolis-Hastings?) and general modeling (e.g., why won’t my model converge with this prior?).
+ 
+Here’s the link to the top-level JAGS site, and to the forum:
+  
+   JAGS Forum 
+    JAGS Home Page 
+   
+The forum’s pretty active, with the stats page showing hundreds of views per day and very regular posts and answers.  Martyn’s last post was today.
+ 
+Martyn also has a blog devoted to JAGS and other stats news:
+  
+  JAGS News Blog</p><p>3 0.072652034 <a title="818-tfidf-3" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-27-In_Linux%2C_use_jags%28%29_to_call_Jags_instead_of_using_bugs%28%29_to_call_OpenBugs.html">55 andrew gelman stats-2010-05-27-In Linux, use jags() to call Jags instead of using bugs() to call OpenBugs</a></p>
+<p>Introduction: Douglas Anderton informed us that, in a Linux system, you can’t call OpenBugs from R using bugs() from the R2Winbugs package.  Instead, you should call Jags using jags() from the R2jags package.
+ 
+P.S.  Not the Rotter’s Club guy.</p><p>4 0.056102976 <a title="818-tfidf-4" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-09-The_future_of_R.html">266 andrew gelman stats-2010-09-09-The future of R</a></p>
+<p>Introduction: Some thoughts from Christian , including this bit:
+  
+We need to consider separately
+
+
+1. R’s brilliant library
+
+
+2. R’s not-so-brilliant language and/or interpreter.
+  
+I don’t know that R’s library is so brilliant as all that–if necessary, I don’t think it would be hard to reprogram the important packages in a new language.
+ 
+I would say, though, that the problems with R are not just in the technical details of the language.  I think the culture of R has some problems too.  As I’ve written before, R functions used to be lean and mean, and now they’re full of exception-handling and calls to other packages.  R functions are spaghetti-like messes of connections in which I keep expecting to run into syntax like “GOTO 120.”
+ 
+I learned about these problems a couple years ago when writing bayesglm(), which is a simple adaptation of glm().  But glm(), and its workhorse, glm.fit(), are a mess:  They’re about 10 lines of functioning code, plus about 20 lines of necessary front-end, plus a cou</p><p>5 0.047166836 <a title="818-tfidf-5" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-03-Uncertainty_in_parameter_estimates_using_multilevel_models.html">1966 andrew gelman stats-2013-08-03-Uncertainty in parameter estimates using multilevel models</a></p>
+<p>Introduction: David Hsu writes: 
+   
+ I have a (perhaps) simple question about uncertainty in parameter estimates using multilevel models — what is an appropriate threshold for measure parameter uncertainty in a multilevel model? 
+ 
+The reason why I ask is that I set out to do a crossed two-way model with two varying intercepts, similar to your flight simulator example in your 2007 book.  The difference is that I have a lot of predictors specific to each cell (I think equivalent to airport and pilot in your example), and I find after modeling this in JAGS, I happily find that the predictors are much less important than the variability by cell (airport and pilot effects).  Happily because this is what I am writing a paper about.
+ 
+However, I then went to check subsets of predictors using lm() and lmer().  I understand that they all use different estimation methods, but what I can’t figure out is why the errors on all of the coefficient estimates are *so* different.  
+ 
+For example, using JAGS, and th</p><p>6 0.04706686 <a title="818-tfidf-6" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-11-16-Stantastic%21.html">1580 andrew gelman stats-2012-11-16-Stantastic!</a></p>
+<p>7 0.045225777 <a title="818-tfidf-7" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-24-New_ideas_on_DIC_from_Martyn_Plummer_and_Sumio_Watanabe.html">778 andrew gelman stats-2011-06-24-New ideas on DIC from Martyn Plummer and Sumio Watanabe</a></p>
+<p>8 0.045224488 <a title="818-tfidf-8" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-05-09-The_first_version_of_my_%E2%80%9Cinference_from_iterative_simulation_using_parallel_sequences%E2%80%9D_paper%21.html">1309 andrew gelman stats-2012-05-09-The first version of my “inference from iterative simulation using parallel sequences” paper!</a></p>
+<p>9 0.039610118 <a title="818-tfidf-9" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-04-Whassup_with_glm%28%29%3F.html">696 andrew gelman stats-2011-05-04-Whassup with glm()?</a></p>
+<p>10 0.039282288 <a title="818-tfidf-10" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-30-Stan_is_fast.html">1476 andrew gelman stats-2012-08-30-Stan is fast</a></p>
+<p>11 0.037199885 <a title="818-tfidf-11" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-03-The_statistical_properties_of_smart_chains_%28and_referral_chains_more_generally%29.html">1882 andrew gelman stats-2013-06-03-The statistical properties of smart chains (and referral chains more generally)</a></p>
+<p>12 0.036450908 <a title="818-tfidf-12" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-03-10-Stan_Model_of_the_Week%3A__PK_Calculation_of_IV_and_Oral_Dosing.html">2242 andrew gelman stats-2014-03-10-Stan Model of the Week:  PK Calculation of IV and Oral Dosing</a></p>
+<p>13 0.03613038 <a title="818-tfidf-13" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-30-Stan_uses_Nuts%21.html">1036 andrew gelman stats-2011-11-30-Stan uses Nuts!</a></p>
+<p>14 0.035526197 <a title="818-tfidf-14" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-04-10-Amtrak_sucks.html">1255 andrew gelman stats-2012-04-10-Amtrak sucks</a></p>
+<p>15 0.034065742 <a title="818-tfidf-15" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-07-My_recent_debugging_experience.html">2161 andrew gelman stats-2014-01-07-My recent debugging experience</a></p>
+<p>16 0.033252332 <a title="818-tfidf-16" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-20-The_pervasive_twoishness_of_statistics%3B_in_particular%2C_the_%E2%80%9Csampling_distribution%E2%80%9D_and_the_%E2%80%9Clikelihood%E2%80%9D_are_two_different_models%2C_and_that%E2%80%99s_a_good_thing.html">774 andrew gelman stats-2011-06-20-The pervasive twoishness of statistics; in particular, the “sampling distribution” and the “likelihood” are two different models, and that’s a good thing</a></p>
+<p>17 0.033233941 <a title="818-tfidf-17" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-27-%28R-Py-Cmd%29Stan_2.1.0.html">2150 andrew gelman stats-2013-12-27-(R-Py-Cmd)Stan 2.1.0</a></p>
+<p>18 0.033072695 <a title="818-tfidf-18" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-11-21-Readings_for_a_two-week_segment_on_Bayesian_modeling%3F.html">1586 andrew gelman stats-2012-11-21-Readings for a two-week segment on Bayesian modeling?</a></p>
+<p>19 0.032983795 <a title="818-tfidf-19" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-19-Transformations_for_non-normal_data.html">2176 andrew gelman stats-2014-01-19-Transformations for non-normal data</a></p>
+<p>20 0.032394949 <a title="818-tfidf-20" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-04-Stan_%28%26_JAGS%29_Tutorial_on_Linear_Mixed_Models.html">2318 andrew gelman stats-2014-05-04-Stan (& JAGS) Tutorial on Linear Mixed Models</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/andrew_gelman_stats_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.051), (1, 0.011), (2, 0.005), (3, 0.012), (4, 0.024), (5, 0.005), (6, 0.014), (7, -0.021), (8, 0.005), (9, -0.006), (10, -0.007), (11, -0.01), (12, -0.002), (13, -0.02), (14, -0.0), (15, 0.003), (16, -0.004), (17, 0.002), (18, -0.008), (19, -0.007), (20, 0.0), (21, 0.005), (22, 0.006), (23, 0.004), (24, -0.01), (25, 0.007), (26, -0.005), (27, 0.012), (28, 0.012), (29, 0.007), (30, 0.01), (31, 0.003), (32, 0.026), (33, 0.004), (34, 0.009), (35, -0.009), (36, -0.008), (37, 0.017), (38, -0.008), (39, 0.013), (40, 0.007), (41, -0.016), (42, 0.004), (43, 0.005), (44, -0.005), (45, -0.019), (46, -0.005), (47, 0.004), (48, 0.009), (49, 0.007)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.94025564 <a title="818-lsi-1" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-07-23-Parallel_JAGS_RNGs.html">818 andrew gelman stats-2011-07-23-Parallel JAGS RNGs</a></p>
+<p>Introduction: As a matter of convention, we usually run 3 or 4 chains in JAGS. By default, this gives rise to chains that draw samples from 3 or 4 distinct pseudorandom number generators. I didn’t go and check whether it does things 111,222,333 or 123,123,123, but in any event the “parallel chains” in JAGS are samples drawn from distinct RNGs computed on a single processor core.
+  But we all have multiple cores now, or we’re computing on a cluster or the cloud! So the behavior we’d like from  rjags  is to use the  foreach  package with each JAGS chain using a parallel-safe RNG. The default behavior with  n.chain=1  will be that each parallel instance will use  .RNG.name[1] , the Wichmann-Hill RNG. 
+  JAGS 2.2.0 includes a new  lecuyer  module (along with the  glm  module, which everyone should probably always use, and doesn’t have many undocumented tricks that I know of).  But lecuyer is completely undocumented!  I tried  .RNG.name="lecuyer::Lecuyer" ,  .RNG.name="lecuyer::lecuyer" , and  .RNG.name=</p><p>2 0.79457289 <a title="818-lsi-2" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-01-24-Bleg%3A_Automatic_Differentiation_for_Log_Prob_Gradients%3F.html">535 andrew gelman stats-2011-01-24-Bleg: Automatic Differentiation for Log Prob Gradients?</a></p>
+<p>Introduction: We need help picking out an automatic differentiation package for Hamiltonian Monte Carlo sampling from the posterior of a  generalized linear model with deep interactions.  Specifically, we need to compute gradients for log probability functions with thousands of parameters that involve matrix (determinants, eigenvalues, inverses), stats (distributions), and math (log gamma) functions.  Any suggestions?
+    
+ The Application: Hybrid Monte Carlo for Posteriors 
+ 
+We’re getting serious about implementing posterior sampling using Hamiltonian Monte Carlo.  HMC speeds up mixing by including gradient information to help guide the Metropolis proposals toward areas  high probability.  In practice, the algorithm requires a handful or  of gradient calculations per sample, but there are many dimensions and the functions are hairy enough we don’t want to compute derivaties by hand.
+ 
+
+ Auto Diff: Perhaps not What you Think 
+ 
+It may not have been clear to readers of this blog that automatic diffe</p><p>3 0.73870695 <a title="818-lsi-3" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-27-In_Linux%2C_use_jags%28%29_to_call_Jags_instead_of_using_bugs%28%29_to_call_OpenBugs.html">55 andrew gelman stats-2010-05-27-In Linux, use jags() to call Jags instead of using bugs() to call OpenBugs</a></p>
+<p>Introduction: Douglas Anderton informed us that, in a Linux system, you can’t call OpenBugs from R using bugs() from the R2Winbugs package.  Instead, you should call Jags using jags() from the R2jags package.
+ 
+P.S.  Not the Rotter’s Club guy.</p><p>4 0.72000796 <a title="818-lsi-4" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-13-Ross_Ihaka_to_R%3A__Drop_Dead.html">272 andrew gelman stats-2010-09-13-Ross Ihaka to R:  Drop Dead</a></p>
+<p>Introduction: Christian Robert posts  these thoughts :
+  
+I [Ross Ihaka] have been worried for some time that R isn’t going to provide the base that we’re going to need for statistical computation in the future. (It may well be that the future is already upon us.)  There are certainly efficiency problems (speed and memory use), but there are more fundamental issues too. Some of these were inherited from S and some are peculiar to R.
+
+ One of the worst problems is scoping. Consider the following little gem.
+
+ 
+  f =function() { 
+if (runif(1) > .5) 
+x = 10 
+x 
+} 
+
+ 
+
+The x being returned by this function is randomly local or global. There are other examples where variables alternate between local and non-local throughout the body of a function. No sensible language would allow this.  It’s ugly and it makes optimisation really difficult.  This isn’t the only problem, even weirder things happen  because of interactions between scoping and lazy evaluation.
+
+
+In light of this, I [Ihaka] have come to the c</p><p>5 0.69695044 <a title="818-lsi-5" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-29-Stupid_R_Tricks%3A__Random_Scope.html">2190 andrew gelman stats-2014-01-29-Stupid R Tricks:  Random Scope</a></p>
+<p>Introduction: Andrew and I have been discussing how we’re going to define functions in Stan for defining systems of differential equations;  see our evolving  ode design doc ;  comments welcome, of course.
+ 
+ About Scope 
+ 
+I mentioned to Andrew I would prefer pure lexical, static scoping, as found in languages like C++ and Java.  If you’re not familiar with the alternatives, there’s a nice overview in the  Wikipedia article on scope .  Let me call out a few passages that will help set the context.
+  
+
+A fundamental distinction in scoping is what “context” means – whether name resolution depends on the location in the source code (lexical scope, static scope, which depends on the lexical context) or depends on the program state when the name is encountered (dynamic scope, which depends on the execution context or calling context). Lexical resolution can be determined at compile time, and is also known as early binding, while dynamic resolution can in general only be determined at run time, and thus</p><p>6 0.69143772 <a title="818-lsi-6" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-11-04-Shlemiel_the_Software_Developer_and_Unknown_Unknowns.html">2089 andrew gelman stats-2013-11-04-Shlemiel the Software Developer and Unknown Unknowns</a></p>
+<p>7 0.68495888 <a title="818-lsi-7" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-17-Data_problems%2C_coding_errors%E2%80%A6what_can_be_done%3F.html">1807 andrew gelman stats-2013-04-17-Data problems, coding errors…what can be done?</a></p>
+<p>8 0.6818732 <a title="818-lsi-8" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-03-02-RStudio_%E2%80%93_new_cross-platform_IDE_for_R.html">597 andrew gelman stats-2011-03-02-RStudio – new cross-platform IDE for R</a></p>
+<p>9 0.68108279 <a title="818-lsi-9" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-01-David_MacKay_sez_._._._12%3F%3F.html">984 andrew gelman stats-2011-11-01-David MacKay sez . . . 12??</a></p>
+<p>10 0.67477548 <a title="818-lsi-10" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-04-05-Monitor_the_efficiency_of_your_Markov_chain_sampler_using_expected_squared_jumped_distance%21.html">650 andrew gelman stats-2011-04-05-Monitor the efficiency of your Markov chain sampler using expected squared jumped distance!</a></p>
+<p>11 0.66823286 <a title="818-lsi-11" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-06-29-Going_negative.html">1918 andrew gelman stats-2013-06-29-Going negative</a></p>
+<p>12 0.66734439 <a title="818-lsi-12" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-09-The_future_of_R.html">266 andrew gelman stats-2010-09-09-The future of R</a></p>
+<p>13 0.6653657 <a title="818-lsi-13" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-10-R_vs._Stata%2C_or%2C_Different_ways_to_estimate_multilevel_models.html">269 andrew gelman stats-2010-09-10-R vs. Stata, or, Different ways to estimate multilevel models</a></p>
+<p>14 0.66322285 <a title="818-lsi-14" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-12-%E2%80%9CThe_results_%28not_shown%29_._._.%E2%80%9D.html">2332 andrew gelman stats-2014-05-12-“The results (not shown) . . .”</a></p>
+<p>15 0.65963298 <a title="818-lsi-15" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-12-Stan_1.3.0_and_RStan_1.3.0_Ready_for_Action.html">1799 andrew gelman stats-2013-04-12-Stan 1.3.0 and RStan 1.3.0 Ready for Action</a></p>
+<p>16 0.65891045 <a title="818-lsi-16" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-09-24-What_is_the_normal_range_of_values_in_a_medical_test%3F.html">923 andrew gelman stats-2011-09-24-What is the normal range of values in a medical test?</a></p>
+<p>17 0.65849209 <a title="818-lsi-17" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-11-%E2%80%9C2_level_logit_with_2_REs_%26_large_sample._computational_nightmare_%E2%80%93_please_help%E2%80%9D.html">759 andrew gelman stats-2011-06-11-“2 level logit with 2 REs & large sample. computational nightmare – please help”</a></p>
+<p>18 0.65577978 <a title="818-lsi-18" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-11-17-ff.html">418 andrew gelman stats-2010-11-17-ff</a></p>
+<p>19 0.65559977 <a title="818-lsi-19" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-01-21-Lessons_learned_from_a_recent_R_package_submission.html">1134 andrew gelman stats-2012-01-21-Lessons learned from a recent R package submission</a></p>
+<p>20 0.65378332 <a title="818-lsi-20" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-11-08-Silly_old_chi-square%21.html">401 andrew gelman stats-2010-11-08-Silly old chi-square!</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/andrew_gelman_stats_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(9, 0.018), (16, 0.028), (21, 0.022), (24, 0.072), (28, 0.013), (36, 0.069), (50, 0.286), (54, 0.017), (57, 0.035), (59, 0.011), (65, 0.033), (68, 0.025), (86, 0.04), (99, 0.166)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.86515713 <a title="818-lda-1" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-07-23-Parallel_JAGS_RNGs.html">818 andrew gelman stats-2011-07-23-Parallel JAGS RNGs</a></p>
+<p>Introduction: As a matter of convention, we usually run 3 or 4 chains in JAGS. By default, this gives rise to chains that draw samples from 3 or 4 distinct pseudorandom number generators. I didn’t go and check whether it does things 111,222,333 or 123,123,123, but in any event the “parallel chains” in JAGS are samples drawn from distinct RNGs computed on a single processor core.
+  But we all have multiple cores now, or we’re computing on a cluster or the cloud! So the behavior we’d like from  rjags  is to use the  foreach  package with each JAGS chain using a parallel-safe RNG. The default behavior with  n.chain=1  will be that each parallel instance will use  .RNG.name[1] , the Wichmann-Hill RNG. 
+  JAGS 2.2.0 includes a new  lecuyer  module (along with the  glm  module, which everyone should probably always use, and doesn’t have many undocumented tricks that I know of).  But lecuyer is completely undocumented!  I tried  .RNG.name="lecuyer::Lecuyer" ,  .RNG.name="lecuyer::lecuyer" , and  .RNG.name=</p><p>2 0.80477148 <a title="818-lda-2" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-01-11-A_blog_full_of_examples_for_your_statistics_class.html">1112 andrew gelman stats-2012-01-11-A blog full of examples for your statistics class</a></p>
+<p>Introduction: From  Allen Downey .</p><p>3 0.76605415 <a title="818-lda-3" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-27-No_matter_how_famous_you_are%2C_billions_of_people_have_never_heard_of_you..html">374 andrew gelman stats-2010-10-27-No matter how famous you are, billions of people have never heard of you.</a></p>
+<p>Introduction: I was recently speaking with a member of the U.S. House of Representatives, a Californian in a tight race this year. I mentioned the fivethirtyeight.com prediction for him, and he said “fivethirtyeight.com?  What’s that?”</p><p>4 0.6965698 <a title="818-lda-4" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-24-Deviance_as_a_difference.html">729 andrew gelman stats-2011-05-24-Deviance as a difference</a></p>
+<p>Introduction: Peng Yu writes:
+  
+On page 180 of BDA2, deviance is defined as  D(y,\theta)=-2log p(y|\theta).  However, according to GLM 2/e by McCullagh and Nelder, deviance is the different of the log-likelihood of the full model and the base model (times 2) (see the equation on the wiki webpage). The english word ‘deviance’ implies the difference from a standard (in this case, 
+the base model).  I’m wondering what the rationale for your definition of deviance, which consists of only 1 term rather than 2 terms.
+  
+My reply:
+ 
+Deviance is typically computed as a relative quantity; that is, people look at the difference in deviance.  So the two definitions are equivalent.</p><p>5 0.66520953 <a title="818-lda-5" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-16-Memo_to_Reinhart_and_Rogoff%3A__I_think_it%E2%80%99s_best_to_admit_your_errors_and_go_on_from_there.html">1805 andrew gelman stats-2013-04-16-Memo to Reinhart and Rogoff:  I think it’s best to admit your errors and go on from there</a></p>
+<p>Introduction: Jeff Ratto points me to  this  news article by Dean Baker reporting the work of three economists, Thomas Herndon, Michael Ash, and Robert Pollin, who  found  errors in a much-cited  article  by Carmen Reinhart and Kenneth Rogoff analyzing historical statistics of economic growth and public debt.  Mike Konczal  provides  a clear summary; that’s where I got the above image.
+ 
+ Errors in data processing and data analysis 
+ 
+It turns out that Reinhart and Rogoff flubbed it.  Herndon et al. write of “spreadsheet errors, omission of available data, weighting, and transcription.”  The spreadsheet errors are the most embarrassing, but the other choices in data analysis seem pretty bad too.  It can be tough to work with small datasets, so I have sympathy for Reinhart and Rogoff, but it does look like they were jumping to conclusions in their paper.  Perhaps the urgency of the topic moved them to publish as fast as possible rather than carefully considering the impact of their data-analytic choi</p><p>6 0.65924698 <a title="818-lda-6" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-04-08-The_Supreme_Court_meets_the_fallacy_of_the_one-sided_bet.html">1793 andrew gelman stats-2013-04-08-The Supreme Court meets the fallacy of the one-sided bet</a></p>
+<p>7 0.65083188 <a title="818-lda-7" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-05-12-Human_nature_can%E2%80%99t_be_changed_%28except_when_it_can%29.html">707 andrew gelman stats-2011-05-12-Human nature can’t be changed (except when it can)</a></p>
+<p>8 0.64025933 <a title="818-lda-8" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-08-25-Dodging_the_diplomats.html">232 andrew gelman stats-2010-08-25-Dodging the diplomats</a></p>
+<p>9 0.62261957 <a title="818-lda-9" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-12-23-Peter_Bartlett_on_model_complexity_and_sample_size.html">1636 andrew gelman stats-2012-12-23-Peter Bartlett on model complexity and sample size</a></p>
+<p>10 0.62206906 <a title="818-lda-10" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-01-27-Educational_monoculture.html">1140 andrew gelman stats-2012-01-27-Educational monoculture</a></p>
+<p>11 0.61864114 <a title="818-lda-11" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-08-09-Data_Visualization.html">194 andrew gelman stats-2010-08-09-Data Visualization</a></p>
+<p>12 0.60118121 <a title="818-lda-12" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-14-The_robust_beauty_of_improper_linear_models_in_decision_making.html">1981 andrew gelman stats-2013-08-14-The robust beauty of improper linear models in decision making</a></p>
+<p>13 0.59778506 <a title="818-lda-13" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-10-08-Displaying_a_fitted_multilevel_model.html">328 andrew gelman stats-2010-10-08-Displaying a fitted multilevel model</a></p>
+<p>14 0.5863018 <a title="818-lda-14" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-01-27-Why_can%E2%80%99t_I_be_more_like_Bill_James%2C_or%2C_The_use_of_default_and_default-like_models.html">541 andrew gelman stats-2011-01-27-Why can’t I be more like Bill James, or, The use of default and default-like models</a></p>
+<p>15 0.5847578 <a title="818-lda-15" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-08-16-What_I_learned_from_those_tough_538_commenters.html">210 andrew gelman stats-2010-08-16-What I learned from those tough 538 commenters</a></p>
+<p>16 0.57361227 <a title="818-lda-16" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-12-Comparison_of_forecasts_for_the_2010_congressional_elections.html">270 andrew gelman stats-2010-09-12-Comparison of forecasts for the 2010 congressional elections</a></p>
+<p>17 0.56419218 <a title="818-lda-17" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-22-Big_Data_needs_Big_Model.html">2343 andrew gelman stats-2014-05-22-Big Data needs Big Model</a></p>
+<p>18 0.56283742 <a title="818-lda-18" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-31-A_data_visualization_manifesto.html">61 andrew gelman stats-2010-05-31-A data visualization manifesto</a></p>
+<p>19 0.55850136 <a title="818-lda-19" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-05-08-Of_parsing_and_chess.html">1847 andrew gelman stats-2013-05-08-Of parsing and chess</a></p>
+<p>20 0.55837405 <a title="818-lda-20" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-02-02-Obama_and_Reagan%2C_sitting_in_a_tree%2C_etc..html">551 andrew gelman stats-2011-02-02-Obama and Reagan, sitting in a tree, etc.</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
