@@ -16,20 +16,11 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1173 high scalability-2012-01-12-Peregrine - A Map Reduce Framework for Iterative and Pipelined Jobs</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1173-html" href="http://highscalability.com//blog/2012/1/12/peregrine-a-map-reduce-framework-for-iterative-and-pipelined.html">html</a></p><p>Introduction: The Peregrine falcon is a bird of prey, famous for itshigh speed
-divingattacks, feeding primarily on much slower Hadoops. Wait, sorry, it is
-Kevin Burton of Spinn3r's newPeregrine project--anew FAST modern map reduce
-framework optimized for iterative and pipelined map reduce jobs--that feeds on
-Hadoops.If you don't know Kevin, he does a lot of excellent technical work
-that he's kind enough to share it onhis blog. Only he hasn't been blogging
-much lately, he's been heads down working on Peregrine. Now that Peregrine has
-been released, here's a short email interview with Kevin on why you might want
-to take upfalconry, the ancient sport of MapReduce.What does Spinn3r do that
-Peregrine is important to you?Ideally it was designed to execute pagerank but
-many iterative applications that we deploy and WANT to deploy (k-means) would
-be horribly inefficient under Hadoop as it doesn't have any support for
-merging and joining IO between tasks.  It also doesn't support pipeline jobs
-from one MR ta</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Wait, sorry, it is Kevin Burton of Spinn3r's newPeregrine project--anew FAST modern map reduce framework optimized for iterative and pipelined map reduce jobs--that feeds on Hadoops. [sent-2, score-0.723]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1173-html" href="http://highscalability.com//blog/2012/1/12/peregrine-a-map-reduce-framework-for-iterative-and-pipelined.html">html</a></p><p>Introduction: The Peregrine falcon is a bird of prey, famous for its  high speed diving   attacks , feeding primarily on much slower Hadoops. Wait, sorry, it is Kevin Burton of Spinn3r's new  Peregrine project -- a  new FAST modern map reduce framework optimized for iterative and pipelined map reduce jobs -- that feeds on Hadoops.
+ 
+If you don't know Kevin, he does a lot of excellent technical work that he's kind enough to share it on  his blog . Only he hasn't been blogging much lately, he's been heads down working on Peregrine. Now that Peregrine has been released, here's a short email interview with Kevin on why you might want to take up  falconry , the ancient sport of MapReduce.
+  What does Spinn3r do that Peregrine is important to you?  
+Ideally it was designed to execute pagerank but many iterative applications that we deploy and WANT to deploy (k-means) would be horribly inefficient under Hadoop as it doesn't have any support for merging and joining IO between tasks.  It also doesn't support</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Wait, sorry, it is Kevin Burton of Spinn3r's new  Peregrine project -- a  new FAST modern map reduce framework optimized for iterative and pipelined map reduce jobs -- that feeds on Hadoops. [sent-2, score-0.808]
 </p><p>2 Ideally it was designed to execute pagerank but many iterative applications that we deploy and WANT to deploy (k-means) would be horribly inefficient under Hadoop as it doesn't have any support for merging and joining IO between tasks. [sent-7, score-0.32]
 </p><p>3 It also doesn't support pipeline jobs from one MR task to another without first writing intermediate data to the filesystem. [sent-8, score-0.223]
 </p><p>4 This allows us to do some zero copy IO and also fadvise away pages from the VFS page cache to prevent Linux from becoming confused and swapping. [sent-12, score-0.185]
@@ -37,8 +28,8 @@ from one MR ta</p><br/><h2>Summary: the most important sentenses genereted by tf
 </p><p>6 We also avoid using the JVM heap at all and allocate memory directly from the OS. [sent-16, score-0.191]
 </p><p>7 there is just a core 64-128MB of memory used for smaller data structures in the JVM (and classes, etc) but the bulk of the memory used for caches and data structures, us used directly in the OS via anonymous mmap and mmap. [sent-19, score-0.32]
 </p><p>8 This means if you have two algorithms, one that uses mmap and another that uses the heap, you have to ditch the efficient mmap version and move all your data into the heap (which is not going to improve performance). [sent-22, score-0.582]
-</p><p>9 around 20k lines of codeThat directly shuffling IO to the reducer nodes is a better design than Hadoop's intermediate shuffling. [sent-30, score-0.338]
-</p><p>10 This also mandates using fully async IO to get past the C10k problemThat support for merge() along side map and reduce (ALA MapReduceMerge) was important and that we wanted it integrated. [sent-31, score-0.368]
+</p><p>9 around 20k lines of code   That directly shuffling IO to the reducer nodes is a better design than Hadoop's intermediate shuffling. [sent-30, score-0.338]
+</p><p>10 This also mandates using fully async IO to get past the C10k problem   That support for merge() along side map and reduce (ALA MapReduceMerge) was important and that we wanted it integrated. [sent-31, score-0.368]
 </p><p>11 so I have to be amazingly inefficient to even break EVEN with the current indirect shuffling that Hadoop does. [sent-43, score-0.411]
 </p><p>12 Essentially Hadoop takes all output from a map job, then writes it to the local filesystem. [sent-44, score-0.229]
 </p><p>13 What does "running iterative jobs across partitions of data" mean? [sent-46, score-0.254]
@@ -48,83 +39,24 @@ from one MR ta</p><br/><h2>Summary: the most important sentenses genereted by tf
 </p><p>17 This also means that you can take some invariant/static data, and keep it in Peregrine and constantly join against it across hundreds of jobs without having to copy the IO every time. [sent-54, score-0.167]
 </p><p>18 This isn't to say at all that Hadoop isn't an amazingly useful and powerful tool. [sent-62, score-0.185]
 </p><p>19 But if you're doing an iterative computation with discrete data structures and you need to join against iterations and performance is a must then you should investigate using Peregrine. [sent-64, score-0.411]
-</p><p>20 Related ArticlesA new map reduce framework for iterative and pipelined jobs. [sent-65, score-0.489]
+</p><p>20 Related Articles        A new map reduce framework for iterative and pipelined jobs. [sent-65, score-0.489]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('peregrine', 0.563), ('mr', 0.237), ('mmap', 0.196), ('io', 0.174), ('iterative', 0.169), ('shuffling', 0.16), ('hadoop', 0.152), ('map', 0.147), ('heap', 0.139), ('fadvise', 0.125), ('fallocate', 0.125), ('flumejava', 0.113), ('amazingly', 0.112), ('pr', 0.107), ('jvm', 0.106), ('ala', 0.102), ('kevin', 0.1), ('runtime', 0.094), ('merge', 0.091), ('iterations', 0.088), ('reduce', 0.087), ('pipelined', 0.086), ('netty', 0.086), ('jobs', 0.085), ('pregel', 0.083), ('output', 0.082), ('join', 0.082), ('inefficient', 0.082), ('extent', 0.077), ('say', 0.073), ('structures', 0.072), ('support', 0.069), ('intermediate', 0.069), ('async', 0.065), ('optimizations', 0.063), ('initially', 0.062), ('pages', 0.06), ('etc', 0.06), ('os', 0.058), ('disk', 0.058), ('indirect', 0.057), ('reducer', 0.057), ('files', 0.055), ('compute', 0.055), ('sport', 0.053), ('articlesa', 0.053), ('onhis', 0.053), ('falcon', 0.053), ('directly', 0.052), ('improve', 0.051)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1173-tfidf-1" href="../high_scalability-2012/high_scalability-2012-01-12-Peregrine_-_A_Map_Reduce_Framework_for_Iterative_and_Pipelined_Jobs.html">1173 high scalability-2012-01-12-Peregrine - A Map Reduce Framework for Iterative and Pipelined Jobs</a></p>
-<p>Introduction: The Peregrine falcon is a bird of prey, famous for itshigh speed
-divingattacks, feeding primarily on much slower Hadoops. Wait, sorry, it is
-Kevin Burton of Spinn3r's newPeregrine project--anew FAST modern map reduce
-framework optimized for iterative and pipelined map reduce jobs--that feeds on
-Hadoops.If you don't know Kevin, he does a lot of excellent technical work
-that he's kind enough to share it onhis blog. Only he hasn't been blogging
-much lately, he's been heads down working on Peregrine. Now that Peregrine has
-been released, here's a short email interview with Kevin on why you might want
-to take upfalconry, the ancient sport of MapReduce.What does Spinn3r do that
-Peregrine is important to you?Ideally it was designed to execute pagerank but
-many iterative applications that we deploy and WANT to deploy (k-means) would
-be horribly inefficient under Hadoop as it doesn't have any support for
-merging and joining IO between tasks.  It also doesn't support pipeline jobs
-from one MR ta</p><p>2 0.14815325 <a title="1173-tfidf-2" href="../high_scalability-2009/high_scalability-2009-07-30-Learn_How_to_Think_at_Scale.html">666 high scalability-2009-07-30-Learn How to Think at Scale</a></p>
-<p>Introduction: Aaron Kimball of Cloudera gives a wonderful 23 minute presentation
-titledCloudera Hadoop Training: Thinking at Scale Clouderawhich talks about
-"common challenges and general best practices for scaling with your data." As
-a company Cloudera offers "enterprise-level support to users of Apache
-Hadoop." Part of that offering is a really useful series oftutorial videos on
-the Hadoop ecosystem.Like TV lawyer Perry Mason (or is it Harmon Rabb?), Aaron
-gradually builds his case. He opens with the problem of storing lots of data.
-Then a blistering cross examination of the problem of building distributed
-systems to analyze that data sets up a powerful closing argument. With so much
-testimony behind him, on closing Aaron really brings it home with why shared
-nothing systems like map-reduce are the right solution on how to query lots of
-data. They jury loved it.Here's the videoThinking at Scale. And here's a
-summary of some of the lessons learned from the talk:Lessons LearnedWe can
-process data mu</p><p>3 0.14065428 <a title="1173-tfidf-3" href="../high_scalability-2008/high_scalability-2008-09-28-Product%3A_Happy_%3D_Hadoop_%2B_Python.html">397 high scalability-2008-09-28-Product: Happy = Hadoop + Python</a></p>
-<p>Introduction: Has a Java only Hadoop been getting you down? Now you can beHappy. Happy is
-aframework for writing map-reduce programs for Hadoop using Jython. It files
-off the sharp edges on Hadoop and makes writing map-reduce programs a breeze.
-There's really no history yet on Happy, but I'm delighted at the idea of being
-able to map-reduce inother languages. The more ways the better.From the
-website:Happy is a framework that allows Hadoop jobs to be written and run in
-Python 2.2 using Jython. It is aneasy way to write map-reduce programs for
-Hadoop, and includes some new useful features as well.The current release
-supports Hadoop 0.17.2.Map-reduce jobs in Happy are defined by sub-classing
-happy.HappyJob and implementing amap(records, task) and reduce(key, values,
-task) function. Then you create an instance of theclass, set the job
-parameters (such as inputs and outputs) and call run().When you call run(),
-Happy serializes your job instance and copies it and all accompanyinglibraries
-out to the Hado</p><p>4 0.13942969 <a title="1173-tfidf-4" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
-<p>Introduction: Update 2:Sorting 1 PB with MapReduce. PB is not peanut-butter-and-jelly
-misspelled. It's 1 petabyte or 1000 terabytes or 1,000,000 gigabytes.It took
-six hours and two minutes to sort 1PB (10 trillion 100-byte records) on 4,000
-computersand the results were replicated thrice on 48,000 disks.Update:Greg
-Lindenpoints to a new Google articleMapReduce: simplified data processing on
-large clusters. Some interesting stats: 100k MapReduce jobs are executed each
-day; more than 20 petabytes of data are processed per day; more than 10k
-MapReduce programs have been implemented; machines are dual processor with
-gigabit ethernet and 4-8 GB of memory.Google is the King of scalability.
-Everyone knows Google for their large, sophisticated, and fast searching, but
-they don't just shine in search. Their platform approach to building scalable
-applications allows them to roll out internet scale applications at an
-alarmingly high competition crushing rate. Their goal is always to build a
-higher performing h</p><p>5 0.13501582 <a title="1173-tfidf-5" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
-<p>Introduction: Update 5:Hadoop Sorts a Petabyte in 16.25 Hours and a Terabyte in 62
-Secondsand has itsgreen cred questionedbecause it took 40 times the number of
-machines Greenplum used to do the same work.Update 4:Introduction to Pig. Pig
-allows you to skip programming Hadoop at the low map-reduce level. You don't
-have to know Java. Using the Pig Latin language, which is a scripting data
-flow language, you can think about your problem as a data flow program. 10
-lines of Pig Latin = 200 lines of Java.Update 3: Scaling Hadoop to4000 nodes
-at Yahoo!. 30,000 cores with nearly 16PB of raw disk; sorted 6TB of data
-completed in 37 minutes; 14,000 map tasks writes (reads) 360 MB (about 3
-blocks) of data into a single file with a total of 5.04 TB for the whole
-job.Update 2: HadoopSummit and Data-Intensive Computing Symposium Videos and
-Slides. Topics include: Pig, JAQL, Hbase, Hive, Data-Intensive Scalable
-Computing, Clouds and ManyCore: The Revolution, Simplicity and Complexity in
-Data Systems at Scale, Han</p><p>6 0.10965931 <a title="1173-tfidf-6" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
+<p>Introduction: The Peregrine falcon is a bird of prey, famous for its  high speed diving   attacks , feeding primarily on much slower Hadoops. Wait, sorry, it is Kevin Burton of Spinn3r's new  Peregrine project -- a  new FAST modern map reduce framework optimized for iterative and pipelined map reduce jobs -- that feeds on Hadoops.
+ 
+If you don't know Kevin, he does a lot of excellent technical work that he's kind enough to share it on  his blog . Only he hasn't been blogging much lately, he's been heads down working on Peregrine. Now that Peregrine has been released, here's a short email interview with Kevin on why you might want to take up  falconry , the ancient sport of MapReduce.
+  What does Spinn3r do that Peregrine is important to you?  
+Ideally it was designed to execute pagerank but many iterative applications that we deploy and WANT to deploy (k-means) would be horribly inefficient under Hadoop as it doesn't have any support for merging and joining IO between tasks.  It also doesn't support</p><p>2 0.14815325 <a title="1173-tfidf-2" href="../high_scalability-2009/high_scalability-2009-07-30-Learn_How_to_Think_at_Scale.html">666 high scalability-2009-07-30-Learn How to Think at Scale</a></p>
+<p>Introduction: Aaron Kimball of Cloudera gives a wonderful 23 minute presentation titled  Cloudera Hadoop Training: Thinking at Scale Cloudera  which talks about "common challenges and general best practices for scaling with your data." As a company Cloudera offers "enterprise-level support to users of Apache Hadoop." Part of that offering is a really useful series of  tutorial videos on the Hadoop ecosystem .   Like TV lawyer Perry Mason (or is it Harmon Rabb?), Aaron gradually builds his case. He opens with the problem of storing lots of data. Then a blistering cross examination of the problem of building distributed systems to analyze that data sets up a powerful closing argument. With so much testimony behind him, on closing Aaron really brings it home with why shared nothing systems like map-reduce are the right solution on how to query lots of data. They jury loved it.   Here's the video  Thinking at Scale . And here's a summary of some of the lessons learned from the talk:
+  Lessons Learned</p><p>3 0.14065428 <a title="1173-tfidf-3" href="../high_scalability-2008/high_scalability-2008-09-28-Product%3A_Happy_%3D_Hadoop_%2B_Python.html">397 high scalability-2008-09-28-Product: Happy = Hadoop + Python</a></p>
+<p>Introduction: Has a Java only Hadoop been getting you down? Now you can be  Happy . Happy is a  framework for writing map-reduce programs for Hadoop using Jython. It files off the sharp edges on Hadoop and makes writing map-reduce programs a breeze . There's really no history yet on Happy, but I'm delighted at the idea of being able to map-reduce in  other languages . The more ways the better.  From the website:
+   Happy is a framework that allows Hadoop jobs to be written and run in Python 2.2 using Jython. It is an  easy way to write map-reduce programs for Hadoop, and includes some new useful features as well.  The current release supports Hadoop 0.17.2.  Map-reduce jobs in Happy are defined by sub-classing happy.HappyJob and implementing a  map(records, task) and reduce(key, values, task) function. Then you create an instance of the  class, set the job parameters (such as inputs and outputs) and call run().  When you call run(), Happy serializes your job instance and copies it and all accompanyi</p><p>4 0.13942969 <a title="1173-tfidf-4" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
+<p>Introduction: Update 2:   Sorting 1 PB with MapReduce . PB is not peanut-butter-and-jelly misspelled. It's 1 petabyte or 1000 terabytes or 1,000,000 gigabytes.  It took six hours and two minutes to sort 1PB (10 trillion 100-byte records) on 4,000 computers  and the results were replicated thrice on 48,000 disks.  Update:   Greg Linden  points to a new Google article  MapReduce: simplified data processing on large clusters . Some interesting stats: 100k MapReduce jobs are executed each day; more than 20 petabytes of data are processed per day; more than 10k MapReduce programs have been implemented; machines are dual processor with gigabit ethernet and 4-8 GB of memory.  Google is the King of scalability.  Everyone knows Google for their large,  sophisticated, and fast searching, but they don't just shine in search. Their platform approach to building scalable applications allows them to roll out internet scale applications at an alarmingly high competition crushing rate. Their goal is always to build</p><p>5 0.13501582 <a title="1173-tfidf-5" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
+<p>Introduction: Update 5:   Hadoop Sorts a Petabyte in 16.25 Hours and a Terabyte in 62 Seconds  and has its  green cred questioned  because it took 40 times the number of machines Greenplum used to do the same work.   Update 4:   Introduction to Pig . Pig allows you to skip programming Hadoop at the low map-reduce level. You don't have to know Java. Using the Pig Latin language, which is a scripting data flow language, you can think about your problem as a data flow program. 10 lines of Pig Latin = 200 lines of Java.   Update 3 : Scaling Hadoop to  4000 nodes at Yahoo! .  30,000 cores with nearly 16PB of raw disk; sorted 6TB of data completed in 37 minutes; 14,000 map tasks writes (reads) 360 MB (about 3 blocks) of data into a single file with a total of 5.04 TB for the whole job.  Update 2 : Hadoop  Summit and Data-Intensive Computing Symposium Videos and Slides . Topics include: Pig, JAQL, Hbase, Hive, Data-Intensive Scalable Computing, Clouds and ManyCore: The Revolution, Simplicity and Complexity</p><p>6 0.10965931 <a title="1173-tfidf-6" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
 <p>7 0.10791834 <a title="1173-tfidf-7" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
 <p>8 0.10021712 <a title="1173-tfidf-8" href="../high_scalability-2011/high_scalability-2011-01-04-Map-Reduce_With_Ruby_Using_Hadoop.html">968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</a></p>
 <p>9 0.1002029 <a title="1173-tfidf-9" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
@@ -144,72 +76,29 @@ Data Systems at Scale, Han</p><p>6 0.10965931 <a title="1173-tfidf-6" href="../h
 <p>[(0, 0.153), (1, 0.069), (2, -0.002), (3, 0.012), (4, 0.01), (5, 0.064), (6, 0.074), (7, 0.047), (8, 0.024), (9, 0.033), (10, 0.055), (11, -0.038), (12, 0.073), (13, -0.055), (14, 0.037), (15, -0.038), (16, -0.045), (17, -0.015), (18, -0.033), (19, 0.041), (20, -0.024), (21, 0.025), (22, 0.055), (23, 0.067), (24, -0.01), (25, 0.017), (26, 0.029), (27, -0.043), (28, -0.027), (29, 0.032), (30, 0.039), (31, 0.055), (32, -0.011), (33, -0.012), (34, 0.011), (35, 0.013), (36, -0.043), (37, 0.018), (38, -0.029), (39, -0.027), (40, -0.001), (41, 0.048), (42, -0.02), (43, 0.007), (44, 0.012), (45, -0.011), (46, 0.022), (47, -0.028), (48, -0.018), (49, -0.01)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95549071 <a title="1173-lsi-1" href="../high_scalability-2012/high_scalability-2012-01-12-Peregrine_-_A_Map_Reduce_Framework_for_Iterative_and_Pipelined_Jobs.html">1173 high scalability-2012-01-12-Peregrine - A Map Reduce Framework for Iterative and Pipelined Jobs</a></p>
-<p>Introduction: The Peregrine falcon is a bird of prey, famous for itshigh speed
-divingattacks, feeding primarily on much slower Hadoops. Wait, sorry, it is
-Kevin Burton of Spinn3r's newPeregrine project--anew FAST modern map reduce
-framework optimized for iterative and pipelined map reduce jobs--that feeds on
-Hadoops.If you don't know Kevin, he does a lot of excellent technical work
-that he's kind enough to share it onhis blog. Only he hasn't been blogging
-much lately, he's been heads down working on Peregrine. Now that Peregrine has
-been released, here's a short email interview with Kevin on why you might want
-to take upfalconry, the ancient sport of MapReduce.What does Spinn3r do that
-Peregrine is important to you?Ideally it was designed to execute pagerank but
-many iterative applications that we deploy and WANT to deploy (k-means) would
-be horribly inefficient under Hadoop as it doesn't have any support for
-merging and joining IO between tasks.  It also doesn't support pipeline jobs
-from one MR ta</p><p>2 0.83411479 <a title="1173-lsi-2" href="../high_scalability-2008/high_scalability-2008-09-28-Product%3A_Happy_%3D_Hadoop_%2B_Python.html">397 high scalability-2008-09-28-Product: Happy = Hadoop + Python</a></p>
-<p>Introduction: Has a Java only Hadoop been getting you down? Now you can beHappy. Happy is
-aframework for writing map-reduce programs for Hadoop using Jython. It files
-off the sharp edges on Hadoop and makes writing map-reduce programs a breeze.
-There's really no history yet on Happy, but I'm delighted at the idea of being
-able to map-reduce inother languages. The more ways the better.From the
-website:Happy is a framework that allows Hadoop jobs to be written and run in
-Python 2.2 using Jython. It is aneasy way to write map-reduce programs for
-Hadoop, and includes some new useful features as well.The current release
-supports Hadoop 0.17.2.Map-reduce jobs in Happy are defined by sub-classing
-happy.HappyJob and implementing amap(records, task) and reduce(key, values,
-task) function. Then you create an instance of theclass, set the job
-parameters (such as inputs and outputs) and call run().When you call run(),
-Happy serializes your job instance and copies it and all accompanyinglibraries
-out to the Hado</p><p>3 0.83295178 <a title="1173-lsi-3" href="../high_scalability-2013/high_scalability-2013-04-24-Strategy%3A_Using_Lots_of_RAM_Often_Cheaper_than_Using_a_Hadoop_Cluster.html">1445 high scalability-2013-04-24-Strategy: Using Lots of RAM Often Cheaper than Using a Hadoop Cluster</a></p>
-<p>Introduction: Solving problems while saving money is always a problem. In Nobody ever got
-ďŹ red for using Hadoop on a cluster they give some counter-intuitive advice by
-showing a big-memory server may  provide better performance per dollar than a
-cluster:For jobs where the input data is multi-terabyte or larger a Hadoop
-cluster is the right solution.For smaller problems memory has reached a GB/$
-ratio where it is technically and financially feasible to use a single server
-with 100s of GB of DRAM rather than a cluster. Given the majority of analytics
-jobs do not process huge data sets, a cluster doesn't need to be your first
-option. Scaling up RAM saves on programmer time, reduces programmer effort,
-improved accuracy, and reduces hardware costs.</p><p>4 0.82577348 <a title="1173-lsi-4" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
-<p>Introduction: Update 5:Hadoop Sorts a Petabyte in 16.25 Hours and a Terabyte in 62
-Secondsand has itsgreen cred questionedbecause it took 40 times the number of
-machines Greenplum used to do the same work.Update 4:Introduction to Pig. Pig
-allows you to skip programming Hadoop at the low map-reduce level. You don't
-have to know Java. Using the Pig Latin language, which is a scripting data
-flow language, you can think about your problem as a data flow program. 10
-lines of Pig Latin = 200 lines of Java.Update 3: Scaling Hadoop to4000 nodes
-at Yahoo!. 30,000 cores with nearly 16PB of raw disk; sorted 6TB of data
-completed in 37 minutes; 14,000 map tasks writes (reads) 360 MB (about 3
-blocks) of data into a single file with a total of 5.04 TB for the whole
-job.Update 2: HadoopSummit and Data-Intensive Computing Symposium Videos and
-Slides. Topics include: Pig, JAQL, Hbase, Hive, Data-Intensive Scalable
-Computing, Clouds and ManyCore: The Revolution, Simplicity and Complexity in
-Data Systems at Scale, Han</p><p>5 0.82563752 <a title="1173-lsi-5" href="../high_scalability-2011/high_scalability-2011-01-04-Map-Reduce_With_Ruby_Using_Hadoop.html">968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</a></p>
-<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop
-cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-
-System), write map-reduce scripts in Ruby and use them to run a map-reduce job
-on your Hadoop cluster. You willnotneed to ssh into the cluster, as all tasks
-are run from your local machine. Below I am using my MacBook Pro as my local
-machine, but the steps I have provided should be reproducible on other
-platforms running bash and Java.Fire-Up Your Hadoop ClusterI choose
-theCloudera distribution of Hadoopwhich is still 100% Apache licensed, but has
-some additional benefits. One of these benefits is that it is released byDoug
-Cutting, who started Hadoop and drove it’s development at Yahoo! He also
-startedLucene, which is another of my favourite Apache Projects, so I have
-good faith that he knows what he is doing. Another benefit, as you will see,
-is that it is simple to fire-up a Hadoop cluster.I am going to use
-Cloudera’sWhirr script, which</p><p>6 0.81107187 <a title="1173-lsi-6" href="../high_scalability-2012/high_scalability-2012-08-28-Making_Hadoop_Run_Faster.html">1313 high scalability-2012-08-28-Making Hadoop Run Faster</a></p>
+<p>Introduction: The Peregrine falcon is a bird of prey, famous for its  high speed diving   attacks , feeding primarily on much slower Hadoops. Wait, sorry, it is Kevin Burton of Spinn3r's new  Peregrine project -- a  new FAST modern map reduce framework optimized for iterative and pipelined map reduce jobs -- that feeds on Hadoops.
+ 
+If you don't know Kevin, he does a lot of excellent technical work that he's kind enough to share it on  his blog . Only he hasn't been blogging much lately, he's been heads down working on Peregrine. Now that Peregrine has been released, here's a short email interview with Kevin on why you might want to take up  falconry , the ancient sport of MapReduce.
+  What does Spinn3r do that Peregrine is important to you?  
+Ideally it was designed to execute pagerank but many iterative applications that we deploy and WANT to deploy (k-means) would be horribly inefficient under Hadoop as it doesn't have any support for merging and joining IO between tasks.  It also doesn't support</p><p>2 0.83411479 <a title="1173-lsi-2" href="../high_scalability-2008/high_scalability-2008-09-28-Product%3A_Happy_%3D_Hadoop_%2B_Python.html">397 high scalability-2008-09-28-Product: Happy = Hadoop + Python</a></p>
+<p>Introduction: Has a Java only Hadoop been getting you down? Now you can be  Happy . Happy is a  framework for writing map-reduce programs for Hadoop using Jython. It files off the sharp edges on Hadoop and makes writing map-reduce programs a breeze . There's really no history yet on Happy, but I'm delighted at the idea of being able to map-reduce in  other languages . The more ways the better.  From the website:
+   Happy is a framework that allows Hadoop jobs to be written and run in Python 2.2 using Jython. It is an  easy way to write map-reduce programs for Hadoop, and includes some new useful features as well.  The current release supports Hadoop 0.17.2.  Map-reduce jobs in Happy are defined by sub-classing happy.HappyJob and implementing a  map(records, task) and reduce(key, values, task) function. Then you create an instance of the  class, set the job parameters (such as inputs and outputs) and call run().  When you call run(), Happy serializes your job instance and copies it and all accompanyi</p><p>3 0.83295178 <a title="1173-lsi-3" href="../high_scalability-2013/high_scalability-2013-04-24-Strategy%3A_Using_Lots_of_RAM_Often_Cheaper_than_Using_a_Hadoop_Cluster.html">1445 high scalability-2013-04-24-Strategy: Using Lots of RAM Often Cheaper than Using a Hadoop Cluster</a></p>
+<p>Introduction: Solving problems while saving money is always a problem. In  Nobody ever got ﬁred for using Hadoop on a cluster  they give some counter-intuitive advice by showing a big-memory server may  provide better performance per dollar than a cluster:
+  
+  For jobs where the input data is multi-terabyte or larger a Hadoop cluster is the right solution.  
+ For smaller problems memory has reached a GB/$ ratio where it is technically and financially feasible to use a single server with 100s of GB of DRAM rather than a cluster. Given the majority of analytics jobs do not process huge data sets, a cluster doesn't need to be your first option. Scaling up RAM saves on programmer time, reduces programmer effort, improved accuracy, and reduces hardware costs.</p><p>4 0.82577348 <a title="1173-lsi-4" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
+<p>Introduction: Update 5:   Hadoop Sorts a Petabyte in 16.25 Hours and a Terabyte in 62 Seconds  and has its  green cred questioned  because it took 40 times the number of machines Greenplum used to do the same work.   Update 4:   Introduction to Pig . Pig allows you to skip programming Hadoop at the low map-reduce level. You don't have to know Java. Using the Pig Latin language, which is a scripting data flow language, you can think about your problem as a data flow program. 10 lines of Pig Latin = 200 lines of Java.   Update 3 : Scaling Hadoop to  4000 nodes at Yahoo! .  30,000 cores with nearly 16PB of raw disk; sorted 6TB of data completed in 37 minutes; 14,000 map tasks writes (reads) 360 MB (about 3 blocks) of data into a single file with a total of 5.04 TB for the whole job.  Update 2 : Hadoop  Summit and Data-Intensive Computing Symposium Videos and Slides . Topics include: Pig, JAQL, Hbase, Hive, Data-Intensive Scalable Computing, Clouds and ManyCore: The Revolution, Simplicity and Complexity</p><p>5 0.82563752 <a title="1173-lsi-5" href="../high_scalability-2011/high_scalability-2011-01-04-Map-Reduce_With_Ruby_Using_Hadoop.html">968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</a></p>
+<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-System), write map-reduce scripts in Ruby and use them to run a map-reduce job on your Hadoop cluster. You will  not  need to ssh into the cluster, as all tasks are run from your local machine. Below I am using my MacBook Pro as my local machine, but the steps I have provided should be reproducible on other platforms running bash and Java.
+  
+
+  
+
+ Fire-Up Your Hadoop Cluster 
+
+I choose the  Cloudera distribution of Hadoop  which is still 100% Apache licensed, but has some additional benefits. One of these benefits is that it is released by  Doug Cutting , who started Hadoop and drove it’s development at Yahoo! He also started  Lucene , which is another of my favourite Apache Projects, so I have good faith that he knows what he is doing. Another benefit, as you will see, is that it is simple to fire-up a Hadoop cluster.
+
+
+I am going to use C</p><p>6 0.81107187 <a title="1173-lsi-6" href="../high_scalability-2012/high_scalability-2012-08-28-Making_Hadoop_Run_Faster.html">1313 high scalability-2012-08-28-Making Hadoop Run Faster</a></p>
 <p>7 0.80185026 <a title="1173-lsi-7" href="../high_scalability-2012/high_scalability-2012-06-15-Stuff_The_Internet_Says_On_Scalability_For_June_15%2C_2012.html">1265 high scalability-2012-06-15-Stuff The Internet Says On Scalability For June 15, 2012</a></p>
 <p>8 0.77469772 <a title="1173-lsi-8" href="../high_scalability-2013/high_scalability-2013-01-07-Analyzing_billions_of_credit_card_transactions_and_serving_low-latency_insights_in_the_cloud.html">1382 high scalability-2013-01-07-Analyzing billions of credit card transactions and serving low-latency insights in the cloud</a></p>
 <p>9 0.7546553 <a title="1173-lsi-9" href="../high_scalability-2009/high_scalability-2009-08-03-Building_a_Data_Intensive_Web_Application_with_Cloudera%2C_Hadoop%2C_Hive%2C_Pig%2C_and_EC2.html">669 high scalability-2009-08-03-Building a Data Intensive Web Application with Cloudera, Hadoop, Hive, Pig, and EC2</a></p>
@@ -229,75 +118,46 @@ Cloudera’sWhirr script, which</p><p>6 0.81107187 <a title="1173-lsi-6" href=".
 <p>[(1, 0.129), (2, 0.156), (10, 0.027), (30, 0.016), (40, 0.016), (47, 0.032), (61, 0.099), (75, 0.196), (79, 0.126), (85, 0.034), (94, 0.06)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.9757334 <a title="1173-lda-1" href="../high_scalability-2012/high_scalability-2012-09-11-How_big_is_a_Petabyte%2C_Exabyte%2C_Zettabyte%2C_or_a_Yottabyte%3F.html">1320 high scalability-2012-09-11-How big is a Petabyte, Exabyte, Zettabyte, or a Yottabyte?</a></p>
-<p>Introduction: This is an intuitive look at large data sizes By Julian Bunn inGlobally
-Interconnected Object Databases.Bytes(8 bits)0.1 bytes: A binary decision1
-byte: A single character10 bytes: A single word100 bytes: A telegram OR A
-punched cardKilobyte (1000 bytes)1 Kilobyte: A very short story2 Kilobytes: A
-Typewritten page10 Kilobytes: An encyclopaedic page OR A deck of punched
-cards50 Kilobytes: A compressed document image page100 Kilobytes: A low-
-resolution photograph200 Kilobytes: A box of punched cards500 Kilobytes: A
-very heavy box of punched cardsMegabyte (1 000 000 bytes)1 Megabyte: A small
-novel OR A 3.5 inch floppy disk2 Megabytes: A high resolution photograph5
-Megabytes: The complete works of Shakespeare OR 30 seconds of TV-quality
-video10 Megabytes: A minute of high-fidelity sound OR A digital chest X-ray20
-Megabytes: A box of floppy disks50 Megabytes: A digital mammogram100
-Megabytes: 1 meter of shelved books OR A two-volume encyclopaedic book200
-Megabytes: A reel of 9-track tape O</p><p>same-blog 2 0.88468391 <a title="1173-lda-2" href="../high_scalability-2012/high_scalability-2012-01-12-Peregrine_-_A_Map_Reduce_Framework_for_Iterative_and_Pipelined_Jobs.html">1173 high scalability-2012-01-12-Peregrine - A Map Reduce Framework for Iterative and Pipelined Jobs</a></p>
-<p>Introduction: The Peregrine falcon is a bird of prey, famous for itshigh speed
-divingattacks, feeding primarily on much slower Hadoops. Wait, sorry, it is
-Kevin Burton of Spinn3r's newPeregrine project--anew FAST modern map reduce
-framework optimized for iterative and pipelined map reduce jobs--that feeds on
-Hadoops.If you don't know Kevin, he does a lot of excellent technical work
-that he's kind enough to share it onhis blog. Only he hasn't been blogging
-much lately, he's been heads down working on Peregrine. Now that Peregrine has
-been released, here's a short email interview with Kevin on why you might want
-to take upfalconry, the ancient sport of MapReduce.What does Spinn3r do that
-Peregrine is important to you?Ideally it was designed to execute pagerank but
-many iterative applications that we deploy and WANT to deploy (k-means) would
-be horribly inefficient under Hadoop as it doesn't have any support for
-merging and joining IO between tasks.  It also doesn't support pipeline jobs
-from one MR ta</p><p>3 0.88166547 <a title="1173-lda-3" href="../high_scalability-2013/high_scalability-2013-11-07-Paper%3A_Tempest%3A_Scalable_Time-Critical_Web_Services_Platform.html">1544 high scalability-2013-11-07-Paper: Tempest: Scalable Time-Critical Web Services Platform</a></p>
-<p>Introduction: An interesting and different implementation approach: Tempest: Scalable Time-
-Critical Web Services Platform: Tempest is a new framework for developing
-time-critical web services. Tempest enables developers to build scalable,
-fault-tolerant services that can then be automatically replicated and deployed
-across clusters of computing nodes. The platform automatically adapts to load
-ďŹ&sbquo;uctuations, reacts when components fail, and ensures consistency between
-replicas by repairing when inconsistencies do occur. Tempest relies on a
-family of epidemic protocols and on Ricochet, a reliable time critical
-multicast protocol with probabilistic guarantees.Tempest is built around a
-novel storage abstraction called the TempestCollection in which application
-developers store the state of a service. Our platform handles the replication
-of this state across clones of the service, persistence, and failure handling.
-To minimize the need for specialized knowledge on the part of the application
-developer, th</p><p>4 0.8743068 <a title="1173-lda-4" href="../high_scalability-2010/high_scalability-2010-07-24-4_New_Podcasts_for_Scalable_Summertime_Reading.html">864 high scalability-2010-07-24-4 New Podcasts for Scalable Summertime Reading</a></p>
-<p>Introduction: It's trendy today to say "I don't read blogs anymore, I just let the random
-chance of my social network guide me to new and interesting content." #fail.
-While someone says this I imagine them flicking their hair back in a "I can't
-be bothered with true understanding" disdain. And where does random chance get
-its content? From people like these. So:support your local blog!If you would
-like to be a part of random chance, here are a few new podcasts/blogs/vidcasts
-that you may not know about and that I've found interesting:DevOps Cafe. With
-thisnew video series where John and Damon visit high performing companies and
-record an insider's tour of the tools and processes those companies are using
-to solve their DevOps problems, DevOps is a profession that finally seems to
-be realizing their own value. In the first episode John Paul Ramirez takes the
-crew on a tour of Shopzilla's application lifecycle metrics and dashboard. The
-second episode feature John Allspaw, VP of Technical Operations a</p><p>5 0.87043798 <a title="1173-lda-5" href="../high_scalability-2007/high_scalability-2007-07-15-Lustre_cluster_file_system.html">13 high scalability-2007-07-15-Lustre cluster file system</a></p>
-<p>Introduction: Lustre速is a scalable, secure, robust, highly-available cluster file system. It
-is designed, developed and maintained by Cluster File Systems, Inc.The central
-goal is the development of a next-generation cluster file system which can
-serve clusters with 10,000's of nodes, provide petabytes of storage, and move
-100's of GB/sec with state-of-the-art security and management
-infrastructure.Lustre runs on many of the largest Linux clusters in the world,
-and is included by CFS's partners as a core component of their cluster
-offering (examples include HP StorageWorks SFS, and the Cray XT3 and XD1
-supercomputers). Today's users have also demonstrated that Lustre scales down
-as well as it scales up, and runs in production on clusters as small as 4 and
-as large as 25,000 nodes.The latest version of Lustre is always available from
-Cluster File Systems, Inc. Public Open Source releases of Lustre are available
-under the GNU General Public License. These releases are found here, and are
-used in produ</p><p>6 0.8637926 <a title="1173-lda-6" href="../high_scalability-2013/high_scalability-2013-11-22-Stuff_The_Internet_Says_On_Scalability_For_November_22th%2C_2013.html">1552 high scalability-2013-11-22-Stuff The Internet Says On Scalability For November 22th, 2013</a></p>
+<p>Introduction: This is an intuitive look at large data sizes By Julian Bunn in  Globally Interconnected Object Databases .
+  Bytes(8 bits)   
+ 0.1 bytes:  A binary decision  
+ 1 byte:  A single character  
+ 10 bytes:  A single word  
+ 100 bytes:  A telegram  OR  A punched card  
+   Kilobyte (1000 bytes)   
+ 1 Kilobyte:  A very short story  
+ 2 Kilobytes: A Typewritten page 
+ 10 Kilobytes:  An encyclopaedic page  OR  A deck of punched cards  
+ 50 Kilobytes: A compressed document image page 
+ 100 Kilobytes:  A low-resolution photograph  
+ 200 Kilobytes: A box of punched cards 
+ 500 Kilobytes: A very heavy box of punched cards 
+   Megabyte (1 000 000 bytes)   
+ 1 Megabyte:  A small novel  OR  A 3.5 inch floppy disk  
+ 2 Megabytes: A high resolution photograph 
+ 5 Megabytes:  The complete works of Shakespeare  OR 30 seconds of TV-quality video 
+ 10 Megabytes: A minute of high-fidelity sound OR A digital chest X-ray 
+ 20 Megabytes:  A box of floppy disks  
+ 50 Megabytes: A digital mammogram 
+ 100 Megabyte</p><p>same-blog 2 0.88468391 <a title="1173-lda-2" href="../high_scalability-2012/high_scalability-2012-01-12-Peregrine_-_A_Map_Reduce_Framework_for_Iterative_and_Pipelined_Jobs.html">1173 high scalability-2012-01-12-Peregrine - A Map Reduce Framework for Iterative and Pipelined Jobs</a></p>
+<p>Introduction: The Peregrine falcon is a bird of prey, famous for its  high speed diving   attacks , feeding primarily on much slower Hadoops. Wait, sorry, it is Kevin Burton of Spinn3r's new  Peregrine project -- a  new FAST modern map reduce framework optimized for iterative and pipelined map reduce jobs -- that feeds on Hadoops.
+ 
+If you don't know Kevin, he does a lot of excellent technical work that he's kind enough to share it on  his blog . Only he hasn't been blogging much lately, he's been heads down working on Peregrine. Now that Peregrine has been released, here's a short email interview with Kevin on why you might want to take up  falconry , the ancient sport of MapReduce.
+  What does Spinn3r do that Peregrine is important to you?  
+Ideally it was designed to execute pagerank but many iterative applications that we deploy and WANT to deploy (k-means) would be horribly inefficient under Hadoop as it doesn't have any support for merging and joining IO between tasks.  It also doesn't support</p><p>3 0.88166547 <a title="1173-lda-3" href="../high_scalability-2013/high_scalability-2013-11-07-Paper%3A_Tempest%3A_Scalable_Time-Critical_Web_Services_Platform.html">1544 high scalability-2013-11-07-Paper: Tempest: Scalable Time-Critical Web Services Platform</a></p>
+<p>Introduction: An interesting and different implementation approach:  Tempest: Scalable Time-Critical Web Services Platform : 
+  
+
+Tempest is a new framework for developing time-critical web services. Tempest enables developers to build scalable, fault-tolerant services that can then be automatically replicated and deployed across clusters of computing nodes. The platform automatically adapts to load ﬂuctuations, reacts when components fail, and ensures consistency between replicas by repairing when inconsistencies do occur. Tempest relies on a family of epidemic protocols and on Ricochet, a reliable time critical multicast protocol with probabilistic guarantees.
+
+
+Tempest is built around a novel storage abstraction called the TempestCollection in which application developers store the state of a service. Our platform handles the replication of this state across clones of the service, persistence, and failure handling. To minimize the need for specialized knowledge on the part of the application deve</p><p>4 0.8743068 <a title="1173-lda-4" href="../high_scalability-2010/high_scalability-2010-07-24-4_New_Podcasts_for_Scalable_Summertime_Reading.html">864 high scalability-2010-07-24-4 New Podcasts for Scalable Summertime Reading</a></p>
+<p>Introduction: It's trendy today to say "I don't read blogs anymore, I just  let the  random chance of my social network guide me to new and interesting  content." #fail. While someone says this I imagine them flicking their  hair back in a "I can't be bothered with true understanding" disdain. And  where does random chance get its content? From people like these. So:  support your local blog! 
+ 
+If you would like to be a part of random chance, here are a few new podcasts/blogs/vidcasts that you may not know about and that I've found interesting:
+  
+  DevOps Cafe . With this  new video series where John and Damon visit high  performing companies and record an insider's tour of the tools and  processes those companies are using to solve their DevOps problems , DevOps is a profession that finally seems to be realizing their own value. In the first episode John Paul Ramirez takes the crew on a tour of Shopzilla's application lifecycle metrics and dashboard. The second episode feature John Allspaw, VP of</p><p>5 0.87043798 <a title="1173-lda-5" href="../high_scalability-2007/high_scalability-2007-07-15-Lustre_cluster_file_system.html">13 high scalability-2007-07-15-Lustre cluster file system</a></p>
+<p>Introduction: Lustre速  is a scalable, secure, robust, highly-available cluster file system. It is designed, developed and maintained by Cluster File Systems, Inc.  The central goal is the development of a next-generation cluster file system which can serve clusters with 10,000's of nodes, provide petabytes of storage, and move 100's of GB/sec with state-of-the-art security and management infrastructure.  Lustre runs on many of the largest Linux clusters in the world, and is included by CFS's partners as a core component of their cluster offering (examples include HP StorageWorks SFS, and the Cray XT3 and XD1 supercomputers). Today's users have also demonstrated that Lustre scales down as well as it scales up, and runs in production on clusters as small as 4 and as large as 25,000 nodes.  The latest version of Lustre is always available from Cluster File Systems, Inc. Public Open Source releases of Lustre are available under the GNU General Public License. These releases are found here, and are used</p><p>6 0.8637926 <a title="1173-lda-6" href="../high_scalability-2013/high_scalability-2013-11-22-Stuff_The_Internet_Says_On_Scalability_For_November_22th%2C_2013.html">1552 high scalability-2013-11-22-Stuff The Internet Says On Scalability For November 22th, 2013</a></p>
 <p>7 0.82913071 <a title="1173-lda-7" href="../high_scalability-2014/high_scalability-2014-05-16-Stuff_The_Internet_Says_On_Scalability_For_May_16th%2C_2014.html">1649 high scalability-2014-05-16-Stuff The Internet Says On Scalability For May 16th, 2014</a></p>
 <p>8 0.81720531 <a title="1173-lda-8" href="../high_scalability-2009/high_scalability-2009-04-26-Scale-up_vs._Scale-out%3A_A_Case_Study_by_IBM_using_Nutch-Lucene.html">583 high scalability-2009-04-26-Scale-up vs. Scale-out: A Case Study by IBM using Nutch-Lucene</a></p>
 <p>9 0.81212538 <a title="1173-lda-9" href="../high_scalability-2012/high_scalability-2012-08-22-Cloud_Deployment%3A_It%E2%80%99s_All_About_Cloud_Automation.html">1309 high scalability-2012-08-22-Cloud Deployment: It’s All About Cloud Automation</a></p>

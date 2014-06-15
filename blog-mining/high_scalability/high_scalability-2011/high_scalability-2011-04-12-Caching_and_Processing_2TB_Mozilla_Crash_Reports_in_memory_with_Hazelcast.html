@@ -16,28 +16,21 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1020 high scalability-2011-04-12-Caching and Processing 2TB Mozilla Crash Reports in memory with Hazelcast</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1020-html" href="http://highscalability.com//blog/2011/4/12/caching-and-processing-2tb-mozilla-crash-reports-in-memory-w.html">html</a></p><p>Introduction: Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop,
-Python and Thrift protocol. The project is calledSocorro, a system for
-collecting, processing, and displaying crash reports from clients. Today the
-Socorro application stores about 2.6 million crash reports per day. During
-peak traffic, it receives about 2.5K crashes per minute. In this article we
-are going to demonstrate a proof of concept showing how Mozilla could
-integrate Hazelcast into Socorro and achieve caching and processing 2TB of
-crash reports with 50 node Hazelcast cluster. The video for the demo is
-availablehere. Currently, Socorro has pythonic collectors, processors, and
-middleware that communicate with HBase via the Thrift protocol. One of the
-biggest limitations of the current architecture is that it is very sensitive
-to latency or outages on the HBase side. If the collectors cannot store an
-item in HBase then they will store it on local disk and it will not be
-accessible to the processors or midd</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop, Python and Thrift protocol. [sent-1, score-0.578]
-</p><p>2 The project is calledSocorro, a system for collecting, processing, and displaying crash reports from clients. [sent-2, score-0.578]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1020-html" href="http://highscalability.com//blog/2011/4/12/caching-and-processing-2tb-mozilla-crash-reports-in-memory-w.html">html</a></p><p>Introduction: Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop, Python and Thrift protocol. The project is called  Socorro , a system for collecting, processing, and displaying crash reports from clients. Today the Socorro application stores about 2.6 million crash reports per day. During peak traffic, it receives about 2.5K crashes per minute. 
+ 
+In this article we are going to demonstrate a proof of concept showing how Mozilla could integrate Hazelcast into Socorro and achieve caching and processing 2TB of crash reports with 50 node Hazelcast cluster. The video for the demo is available  here .
+ 
+      
+ 
+Currently, Socorro has pythonic collectors, processors, and middleware that communicate with HBase via the Thrift protocol. One of the biggest limitations of the current architecture is that it is very sensitive to latency or outages on the HBase side. If the collectors cannot store an item in HBase then they will store it on local disk and it will not be accessible to th</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop, Python and Thrift protocol. [sent-1, score-0.578]
+</p><p>2 The project is called  Socorro , a system for collecting, processing, and displaying crash reports from clients. [sent-2, score-0.578]
 </p><p>3 In this article we are going to demonstrate a proof of concept showing how Mozilla could integrate Hazelcast into Socorro and achieve caching and processing 2TB of crash reports with 50 node Hazelcast cluster. [sent-7, score-0.749]
 </p><p>4 If the collectors cannot store an item in HBase then they will store it on local disk and it will not be accessible to the processors or middleware layer until it has been picked up by a cronjob and successfully stored in HBase. [sent-11, score-0.469]
 </p><p>5 In the current implementation a collector stores the crash report into HBase and puts the id of the report to a queue stored in another Hbase table. [sent-13, score-0.932]
 </p><p>6 The idea is to replace the Thrift layer with Hazelcast client and store the crash reports into Hazelcast. [sent-16, score-0.665]
 </p><p>7 In this particular case the crash reports are stored in a distributed map called "crashReports" with the report id as the key. [sent-35, score-1.014]
 </p><p>8 We would like to process a particular crash report on the node that owns it. [sent-36, score-0.829]
-</p><p>9 CollectorsA Collector puts the crash report into "crashReports" map and report id with the insert date as the value into another map called "process" for the reports that need to be processed. [sent-37, score-1.338]
+</p><p>9 Collectors     A Collector puts the crash report into "crashReports" map and report id with the insert date as the value into another map called "process" for the reports that need to be processed. [sent-37, score-1.338]
 </p><p>10 Good news, the information regarding a particular crash report that needs to be processed is still in the map "process". [sent-49, score-0.654]
 </p><p>11 The Collectors will simulate the generation of crash reports and will submit them into Data Grid. [sent-63, score-0.578]
 </p><p>12 The Processors will receive the newly submitted crash reports, process them and store back to distributed Map. [sent-64, score-0.514]
@@ -55,71 +48,32 @@ accessible to the processors or midd</p><br/><h2>Summary: the most important sen
 <p>[('hazelcast', 0.485), ('crash', 0.327), ('socorro', 0.292), ('reports', 0.251), ('hbase', 0.186), ('report', 0.184), ('node', 0.171), ('poc', 0.146), ('map', 0.143), ('mozilla', 0.143), ('entries', 0.137), ('nodes', 0.119), ('crashreports', 0.109), ('demo', 0.107), ('processors', 0.102), ('process', 0.1), ('cluster', 0.096), ('collectors', 0.092), ('store', 0.087), ('minute', 0.086), ('es', 0.086), ('collector', 0.083), ('kb', 0.081), ('processor', 0.074), ('entry', 0.071), ('elastic', 0.071), ('size', 0.067), ('id', 0.061), ('persisting', 0.057), ('script', 0.057), ('local', 0.053), ('throughput', 0.051), ('partitions', 0.051), ('owning', 0.051), ('notified', 0.051), ('observe', 0.051), ('per', 0.051), ('thrift', 0.051), ('sake', 0.05), ('backlog', 0.05), ('persistence', 0.05), ('stored', 0.048), ('data', 0.047), ('owns', 0.047), ('multicast', 0.047), ('topic', 0.046), ('median', 0.046), ('puts', 0.045), ('recorded', 0.045), ('persist', 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="1020-tfidf-1" href="../high_scalability-2011/high_scalability-2011-04-12-Caching_and_Processing_2TB_Mozilla_Crash_Reports_in_memory_with_Hazelcast.html">1020 high scalability-2011-04-12-Caching and Processing 2TB Mozilla Crash Reports in memory with Hazelcast</a></p>
-<p>Introduction: Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop,
-Python and Thrift protocol. The project is calledSocorro, a system for
-collecting, processing, and displaying crash reports from clients. Today the
-Socorro application stores about 2.6 million crash reports per day. During
-peak traffic, it receives about 2.5K crashes per minute. In this article we
-are going to demonstrate a proof of concept showing how Mozilla could
-integrate Hazelcast into Socorro and achieve caching and processing 2TB of
-crash reports with 50 node Hazelcast cluster. The video for the demo is
-availablehere. Currently, Socorro has pythonic collectors, processors, and
-middleware that communicate with HBase via the Thrift protocol. One of the
-biggest limitations of the current architecture is that it is very sensitive
-to latency or outages on the HBase side. If the collectors cannot store an
-item in HBase then they will store it on local disk and it will not be
-accessible to the processors or midd</p><p>2 0.40077946 <a title="1020-tfidf-2" href="../high_scalability-2012/high_scalability-2012-04-03-Hazelcast_2.0%3A_Big_Data_In-Memory.html">1221 high scalability-2012-04-03-Hazelcast 2.0: Big Data In-Memory</a></p>
-<p>Introduction: As it is said in the recent article"Google: Taming the Long Latency Tail -
-When More Machines Equals Worse Results" , latency variability has greater
-impact in larger scale clusters where a typical request is composed of
-multiple distributed/parallel requests. The overall response time dramatically
-decreases if latency of each request is not consistent and low. In dynamically
-scalable partitioned storage systems, whether it is a NoSQL database,
-filesystem or in-memory data grid, changes in the cluster (adding or removing
-a node) can lead to big data moves in the network to re-balance the cluster.
-Re-balancing will be needed for both primary and backup data on those nodes.
-If a node crashes for example, dead node's data has to be re-owned (become
-primary) by other node(s) and also its backup has to be taken immediately to
-be fail-safe again. Shuffling MBs of data around has a negative effect in the
-cluster as it consumes your valuable resources such as network, CPU and RAM.
-It might als</p><p>3 0.38197562 <a title="1020-tfidf-3" href="../high_scalability-2010/high_scalability-2010-05-03-100_Node_Hazelcast_cluster_on_Amazon_EC2.html">820 high scalability-2010-05-03-100 Node Hazelcast cluster on Amazon EC2</a></p>
-<p>Introduction: Deploying, running and monitoring application on a big cluster is a
-challenging task. RecentlyHazelcastteam deployed a demo application on Amazon
-EC2 platform to show how Hazelcast p2p cluster scales and screen recorded the
-entire process from deployment to monitoring.Hazelcast is open source (Apache
-License), transactional, distributed caching solution for Java. It is a little
-more than a cache though as it provides distributed implementation of map,
-multimap, queue, topic, lock and executor service. Details of running 100 node
-Hazelcast cluster on Amazon EC2 can befound here. Make sure towatch the
-screencast!</p><p>4 0.14219847 <a title="1020-tfidf-4" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
-<p>Introduction: You may have read somewhere that Facebook has introduced a newSocial Inbox
-integrating email, IM, SMS,  text messages, on-site Facebook messages. All-in-
-all they need to store over 135 billion messages a month. Where do they store
-all that stuff? Facebook's Kannan Muthukkaruppan gives the surprise answer
-inThe Underlying Technology of Messages:HBase. HBase beat out MySQL,
-Cassandra, and a few others.Why a surprise? Facebook created Cassandra and it
-was purpose built for an inbox type application, but they found Cassandra's
-eventual consistency model wasn't a good match for their new real-time
-Messages product. Facebook also has an extensiveMySQL infrastructure, but they
-found performance suffered as data set and indexes grew larger. And they could
-have built their own, but they chose HBase.HBase is ascaleout table store
-supporting very high rates of row-level updates over massive amounts of data.
-Exactly what is needed for a Messaging system. HBase is also a column based
-key-value sto</p><p>5 0.14138062 <a title="1020-tfidf-5" href="../high_scalability-2010/high_scalability-2010-03-16-1_Billion_Reasons_Why_Adobe_Chose_HBase_.html">795 high scalability-2010-03-16-1 Billion Reasons Why Adobe Chose HBase </a></p>
-<p>Introduction: Cosmin Lehene ďťżwrote two excellent articles on Adobe's experiences with
-HBase:Why we're using HBase: Part 1andWhy we're using HBase: Part 2. Adobe
-needed ageneric,real-time, structured data storage and processing system that
-could handle any data volume, with access times under 50ms, with no downtime
-andno data loss. The article goes into great detail about their experiences
-with HBase and their evaluation process, providing a "well reasoned impartial
-use case from a commercial user". It talks about failure handling,
-availability, write performance, read performance, random reads, sequential
-scans, and consistency. One of the knocks against HBase has been it's
-complexity, as it has many parts that need installation and configuration. All
-is not lost according to the Adobe team:HBase is more complex than other
-systems (you need Hadoop, Zookeeper, cluster machines have multiple roles). We
-believe that for HBase, this is not accidental complexity and that the
-argument that "HBase is not a</p><p>6 0.13243219 <a title="1020-tfidf-6" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
+<p>Introduction: Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop, Python and Thrift protocol. The project is called  Socorro , a system for collecting, processing, and displaying crash reports from clients. Today the Socorro application stores about 2.6 million crash reports per day. During peak traffic, it receives about 2.5K crashes per minute. 
+ 
+In this article we are going to demonstrate a proof of concept showing how Mozilla could integrate Hazelcast into Socorro and achieve caching and processing 2TB of crash reports with 50 node Hazelcast cluster. The video for the demo is available  here .
+ 
+      
+ 
+Currently, Socorro has pythonic collectors, processors, and middleware that communicate with HBase via the Thrift protocol. One of the biggest limitations of the current architecture is that it is very sensitive to latency or outages on the HBase side. If the collectors cannot store an item in HBase then they will store it on local disk and it will not be accessible to th</p><p>2 0.40077946 <a title="1020-tfidf-2" href="../high_scalability-2012/high_scalability-2012-04-03-Hazelcast_2.0%3A_Big_Data_In-Memory.html">1221 high scalability-2012-04-03-Hazelcast 2.0: Big Data In-Memory</a></p>
+<p>Introduction: As it is said in the recent article  "Google: Taming the Long Latency Tail - When More Machines Equals Worse Results"  , latency variability has greater impact in larger scale clusters where a typical request is composed of multiple distributed/parallel requests. The overall response time dramatically decreases if latency of each request is not consistent and low. 
+ 
+In dynamically scalable partitioned storage systems, whether it is a NoSQL database, filesystem or in-memory data grid, changes in the cluster (adding or removing a node) can lead to big data moves in the network to re-balance the cluster. Re-balancing will be needed for both primary and backup data on those nodes. If a node crashes for example, dead node’s data has to be re-owned (become primary) by other node(s) and also its backup has to be taken immediately to be fail-safe again. Shuffling MBs of data around has a negative effect in the cluster as it consumes your valuable resources such as network, CPU and RAM. It mig</p><p>3 0.38197562 <a title="1020-tfidf-3" href="../high_scalability-2010/high_scalability-2010-05-03-100_Node_Hazelcast_cluster_on_Amazon_EC2.html">820 high scalability-2010-05-03-100 Node Hazelcast cluster on Amazon EC2</a></p>
+<p>Introduction: Deploying, running and monitoring application on a big cluster is a challenging task. Recently  Hazelcast  team deployed a demo application on Amazon EC2 platform to show how Hazelcast p2p cluster scales and screen recorded the entire process from deployment to monitoring.
+ 
+Hazelcast is open source (Apache License), transactional, distributed caching solution for Java. It is a little more than a cache though as it provides distributed implementation of map, multimap, queue, topic, lock and executor service.Â 
+ 
+Details of running 100 node Hazelcast cluster on Amazon EC2 can be  found here . Make sure to  watch the screencast !</p><p>4 0.14219847 <a title="1020-tfidf-4" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
+<p>Introduction: You may have read somewhere that Facebook has introduced a new  Social Inbox  integrating email, IM, SMS,  text messages, on-site Facebook messages. All-in-all they need to store over 135 billion messages a month. Where do they store all that stuff? Facebook's Kannan Muthukkaruppan gives the surprise answer in  The Underlying Technology of Messages :  HBase . HBase beat out MySQL, Cassandra, and a few others.
+ 
+Why a surprise? Facebook created Cassandra and it was purpose built for an inbox type application, but they found Cassandra's eventual consistency model wasn't a good match for their new real-time Messages product. Facebook also has an extensive  MySQL infrastructure , but they found performance suffered as data set and indexes grew larger. And they could have built their own, but they chose HBase.
+ 
+HBase is a   scaleout table store supporting very high rates of row-level updates over massive amounts of data  . Exactly what is needed for a Messaging system. HBase is also a colu</p><p>5 0.14138062 <a title="1020-tfidf-5" href="../high_scalability-2010/high_scalability-2010-03-16-1_Billion_Reasons_Why_Adobe_Chose_HBase_.html">795 high scalability-2010-03-16-1 Billion Reasons Why Adobe Chose HBase </a></p>
+<p>Introduction: Cosmin Lehene ﻿wrote two excellent articles on Adobe's experiences with HBase:  Why we’re using HBase: Part 1   and  Why we’re using HBase: Part 2 . Adobe needed a  generic,   real-time, structured data storage and processing system that could handle any data volume, with access times under 50ms, with no downtime and   no data loss . The article goes into great detail about their experiences with HBase and their evaluation process, providing a "well reasoned impartial use case from a commercial user". It talks about failure handling, availability, write performance, read performance, random reads, sequential scans, and consistency. 
+ 
+One of the knocks against HBase has been it's complexity, as it has many parts that need installation and configuration. All is not lost according to the Adobe team:
+  
+
+HBase is more complex than other systems (you need Hadoop, Zookeeper, cluster machines have multiple roles). We believe that for HBase, this is not accidental complexity and that the argu</p><p>6 0.13243219 <a title="1020-tfidf-6" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
 <p>7 0.12791528 <a title="1020-tfidf-7" href="../high_scalability-2011/high_scalability-2011-11-14-Using_Gossip_Protocols_for_Failure_Detection%2C_Monitoring%2C_Messaging_and_Other_Good_Things.html">1142 high scalability-2011-11-14-Using Gossip Protocols for Failure Detection, Monitoring, Messaging and Other Good Things</a></p>
 <p>8 0.12568143 <a title="1020-tfidf-8" href="../high_scalability-2009/high_scalability-2009-07-30-Learn_How_to_Think_at_Scale.html">666 high scalability-2009-07-30-Learn How to Think at Scale</a></p>
 <p>9 0.12399381 <a title="1020-tfidf-9" href="../high_scalability-2008/high_scalability-2008-04-19-How_to_build_a_real-time_analytics_system%3F.html">304 high scalability-2008-04-19-How to build a real-time analytics system?</a></p>
@@ -139,71 +93,36 @@ argument that "HBase is not a</p><p>6 0.13243219 <a title="1020-tfidf-6" href=".
 <p>[(0, 0.167), (1, 0.104), (2, -0.019), (3, 0.006), (4, -0.011), (5, 0.071), (6, 0.114), (7, -0.02), (8, 0.031), (9, 0.021), (10, 0.055), (11, 0.012), (12, 0.069), (13, -0.063), (14, 0.01), (15, 0.052), (16, -0.037), (17, -0.069), (18, -0.045), (19, -0.01), (20, -0.024), (21, 0.018), (22, 0.014), (23, 0.041), (24, 0.021), (25, -0.057), (26, 0.028), (27, -0.023), (28, 0.013), (29, 0.022), (30, 0.041), (31, 0.015), (32, 0.02), (33, -0.039), (34, 0.049), (35, 0.04), (36, -0.011), (37, -0.068), (38, -0.031), (39, -0.029), (40, 0.032), (41, -0.005), (42, 0.059), (43, 0.098), (44, -0.002), (45, 0.105), (46, 0.065), (47, 0.033), (48, -0.03), (49, -0.025)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.94731694 <a title="1020-lsi-1" href="../high_scalability-2011/high_scalability-2011-04-12-Caching_and_Processing_2TB_Mozilla_Crash_Reports_in_memory_with_Hazelcast.html">1020 high scalability-2011-04-12-Caching and Processing 2TB Mozilla Crash Reports in memory with Hazelcast</a></p>
-<p>Introduction: Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop,
-Python and Thrift protocol. The project is calledSocorro, a system for
-collecting, processing, and displaying crash reports from clients. Today the
-Socorro application stores about 2.6 million crash reports per day. During
-peak traffic, it receives about 2.5K crashes per minute. In this article we
-are going to demonstrate a proof of concept showing how Mozilla could
-integrate Hazelcast into Socorro and achieve caching and processing 2TB of
-crash reports with 50 node Hazelcast cluster. The video for the demo is
-availablehere. Currently, Socorro has pythonic collectors, processors, and
-middleware that communicate with HBase via the Thrift protocol. One of the
-biggest limitations of the current architecture is that it is very sensitive
-to latency or outages on the HBase side. If the collectors cannot store an
-item in HBase then they will store it on local disk and it will not be
-accessible to the processors or midd</p><p>2 0.80581367 <a title="1020-lsi-2" href="../high_scalability-2012/high_scalability-2012-04-03-Hazelcast_2.0%3A_Big_Data_In-Memory.html">1221 high scalability-2012-04-03-Hazelcast 2.0: Big Data In-Memory</a></p>
-<p>Introduction: As it is said in the recent article"Google: Taming the Long Latency Tail -
-When More Machines Equals Worse Results" , latency variability has greater
-impact in larger scale clusters where a typical request is composed of
-multiple distributed/parallel requests. The overall response time dramatically
-decreases if latency of each request is not consistent and low. In dynamically
-scalable partitioned storage systems, whether it is a NoSQL database,
-filesystem or in-memory data grid, changes in the cluster (adding or removing
-a node) can lead to big data moves in the network to re-balance the cluster.
-Re-balancing will be needed for both primary and backup data on those nodes.
-If a node crashes for example, dead node's data has to be re-owned (become
-primary) by other node(s) and also its backup has to be taken immediately to
-be fail-safe again. Shuffling MBs of data around has a negative effect in the
-cluster as it consumes your valuable resources such as network, CPU and RAM.
-It might als</p><p>3 0.73351234 <a title="1020-lsi-3" href="../high_scalability-2010/high_scalability-2010-05-03-100_Node_Hazelcast_cluster_on_Amazon_EC2.html">820 high scalability-2010-05-03-100 Node Hazelcast cluster on Amazon EC2</a></p>
-<p>Introduction: Deploying, running and monitoring application on a big cluster is a
-challenging task. RecentlyHazelcastteam deployed a demo application on Amazon
-EC2 platform to show how Hazelcast p2p cluster scales and screen recorded the
-entire process from deployment to monitoring.Hazelcast is open source (Apache
-License), transactional, distributed caching solution for Java. It is a little
-more than a cache though as it provides distributed implementation of map,
-multimap, queue, topic, lock and executor service. Details of running 100 node
-Hazelcast cluster on Amazon EC2 can befound here. Make sure towatch the
-screencast!</p><p>4 0.69745642 <a title="1020-lsi-4" href="../high_scalability-2010/high_scalability-2010-03-16-1_Billion_Reasons_Why_Adobe_Chose_HBase_.html">795 high scalability-2010-03-16-1 Billion Reasons Why Adobe Chose HBase </a></p>
-<p>Introduction: Cosmin Lehene ďťżwrote two excellent articles on Adobe's experiences with
-HBase:Why we're using HBase: Part 1andWhy we're using HBase: Part 2. Adobe
-needed ageneric,real-time, structured data storage and processing system that
-could handle any data volume, with access times under 50ms, with no downtime
-andno data loss. The article goes into great detail about their experiences
-with HBase and their evaluation process, providing a "well reasoned impartial
-use case from a commercial user". It talks about failure handling,
-availability, write performance, read performance, random reads, sequential
-scans, and consistency. One of the knocks against HBase has been it's
-complexity, as it has many parts that need installation and configuration. All
-is not lost according to the Adobe team:HBase is more complex than other
-systems (you need Hadoop, Zookeeper, cluster machines have multiple roles). We
-believe that for HBase, this is not accidental complexity and that the
-argument that "HBase is not a</p><p>5 0.67754501 <a title="1020-lsi-5" href="../high_scalability-2011/high_scalability-2011-11-14-Using_Gossip_Protocols_for_Failure_Detection%2C_Monitoring%2C_Messaging_and_Other_Good_Things.html">1142 high scalability-2011-11-14-Using Gossip Protocols for Failure Detection, Monitoring, Messaging and Other Good Things</a></p>
-<p>Introduction: When building a system on top of a set of wildly uncooperative and unruly
-computers you have knowledge problems: knowing when other nodes are dead;
-knowing when nodes become alive; getting information about other nodes so you
-can make local decisions, like knowing which node should handle a request
-based on a scheme for assigning nodes to a certain range of users; learning
-about new configuration data; agreeing on data values; and so on.How do you
-solve these problems? A common centralized approach is to use a database and
-all nodes query it for information. Obvious availability and performance
-issues for large distributed clusters. Another approach is to use Paxos, a
-protocol for solving consensus in a network to maintain strict consistency
-requirements for small groups of unreliable processes. Not practical when
-larger number of nodes are involved.So what's the super cool decentralized way
-to bring order to large clusters?Gossip protocols, which maintain relaxed
-consistency requireme</p><p>6 0.67486948 <a title="1020-lsi-6" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
+<p>Introduction: Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop, Python and Thrift protocol. The project is called  Socorro , a system for collecting, processing, and displaying crash reports from clients. Today the Socorro application stores about 2.6 million crash reports per day. During peak traffic, it receives about 2.5K crashes per minute. 
+ 
+In this article we are going to demonstrate a proof of concept showing how Mozilla could integrate Hazelcast into Socorro and achieve caching and processing 2TB of crash reports with 50 node Hazelcast cluster. The video for the demo is available  here .
+ 
+      
+ 
+Currently, Socorro has pythonic collectors, processors, and middleware that communicate with HBase via the Thrift protocol. One of the biggest limitations of the current architecture is that it is very sensitive to latency or outages on the HBase side. If the collectors cannot store an item in HBase then they will store it on local disk and it will not be accessible to th</p><p>2 0.80581367 <a title="1020-lsi-2" href="../high_scalability-2012/high_scalability-2012-04-03-Hazelcast_2.0%3A_Big_Data_In-Memory.html">1221 high scalability-2012-04-03-Hazelcast 2.0: Big Data In-Memory</a></p>
+<p>Introduction: As it is said in the recent article  "Google: Taming the Long Latency Tail - When More Machines Equals Worse Results"  , latency variability has greater impact in larger scale clusters where a typical request is composed of multiple distributed/parallel requests. The overall response time dramatically decreases if latency of each request is not consistent and low. 
+ 
+In dynamically scalable partitioned storage systems, whether it is a NoSQL database, filesystem or in-memory data grid, changes in the cluster (adding or removing a node) can lead to big data moves in the network to re-balance the cluster. Re-balancing will be needed for both primary and backup data on those nodes. If a node crashes for example, dead node’s data has to be re-owned (become primary) by other node(s) and also its backup has to be taken immediately to be fail-safe again. Shuffling MBs of data around has a negative effect in the cluster as it consumes your valuable resources such as network, CPU and RAM. It mig</p><p>3 0.73351234 <a title="1020-lsi-3" href="../high_scalability-2010/high_scalability-2010-05-03-100_Node_Hazelcast_cluster_on_Amazon_EC2.html">820 high scalability-2010-05-03-100 Node Hazelcast cluster on Amazon EC2</a></p>
+<p>Introduction: Deploying, running and monitoring application on a big cluster is a challenging task. Recently  Hazelcast  team deployed a demo application on Amazon EC2 platform to show how Hazelcast p2p cluster scales and screen recorded the entire process from deployment to monitoring.
+ 
+Hazelcast is open source (Apache License), transactional, distributed caching solution for Java. It is a little more than a cache though as it provides distributed implementation of map, multimap, queue, topic, lock and executor service.Â 
+ 
+Details of running 100 node Hazelcast cluster on Amazon EC2 can be  found here . Make sure to  watch the screencast !</p><p>4 0.69745642 <a title="1020-lsi-4" href="../high_scalability-2010/high_scalability-2010-03-16-1_Billion_Reasons_Why_Adobe_Chose_HBase_.html">795 high scalability-2010-03-16-1 Billion Reasons Why Adobe Chose HBase </a></p>
+<p>Introduction: Cosmin Lehene ﻿wrote two excellent articles on Adobe's experiences with HBase:  Why we’re using HBase: Part 1   and  Why we’re using HBase: Part 2 . Adobe needed a  generic,   real-time, structured data storage and processing system that could handle any data volume, with access times under 50ms, with no downtime and   no data loss . The article goes into great detail about their experiences with HBase and their evaluation process, providing a "well reasoned impartial use case from a commercial user". It talks about failure handling, availability, write performance, read performance, random reads, sequential scans, and consistency. 
+ 
+One of the knocks against HBase has been it's complexity, as it has many parts that need installation and configuration. All is not lost according to the Adobe team:
+  
+
+HBase is more complex than other systems (you need Hadoop, Zookeeper, cluster machines have multiple roles). We believe that for HBase, this is not accidental complexity and that the argu</p><p>5 0.67754501 <a title="1020-lsi-5" href="../high_scalability-2011/high_scalability-2011-11-14-Using_Gossip_Protocols_for_Failure_Detection%2C_Monitoring%2C_Messaging_and_Other_Good_Things.html">1142 high scalability-2011-11-14-Using Gossip Protocols for Failure Detection, Monitoring, Messaging and Other Good Things</a></p>
+<p>Introduction: When building a system on top of a set of wildly uncooperative and unruly computers you have knowledge problems: knowing when other nodes are dead; knowing when nodes become alive; getting information about other nodes so you can make local decisions, like knowing which node should handle a request based on a scheme for assigning nodes to a certain range of users; learning about new configuration data; agreeing on data values; and so on.
+ 
+How do you solve these problems? 
+ 
+A common centralized approach is to use a database and all nodes query it for information. Obvious availability and performance issues for large distributed clusters. Another approach is to use  Paxos , a protocol for solving consensus in a network to maintain strict consistency requirements for small groups of unreliable processes. Not practical when larger number of nodes are involved.
+ 
+So what's the super cool decentralized way to bring order to large clusters?
+ 
+ Gossip protocols , which maintain relaxed consi</p><p>6 0.67486948 <a title="1020-lsi-6" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
 <p>7 0.65880197 <a title="1020-lsi-7" href="../high_scalability-2011/high_scalability-2011-08-25-Colmux_-_Finding_Memory_Leaks%2C_High_I-O_Wait_Times%2C_and_Hotness_on_3000_Node_Clusters.html">1104 high scalability-2011-08-25-Colmux - Finding Memory Leaks, High I-O Wait Times, and Hotness on 3000 Node Clusters</a></p>
 <p>8 0.65186888 <a title="1020-lsi-8" href="../high_scalability-2009/high_scalability-2009-07-02-Product%3A_Project_Voldemort_-_A_Distributed_Database.html">651 high scalability-2009-07-02-Product: Project Voldemort - A Distributed Database</a></p>
 <p>9 0.64391428 <a title="1020-lsi-9" href="../high_scalability-2011/high_scalability-2011-07-08-Stuff_The_Internet_Says_On_Scalability_For_July_8%2C_2011.html">1076 high scalability-2011-07-08-Stuff The Internet Says On Scalability For July 8, 2011</a></p>
@@ -223,77 +142,35 @@ consistency requireme</p><p>6 0.67486948 <a title="1020-lsi-6" href="../high_sca
 <p>[(1, 0.109), (2, 0.192), (10, 0.02), (30, 0.028), (33, 0.014), (40, 0.024), (52, 0.016), (61, 0.101), (69, 0.076), (73, 0.011), (77, 0.039), (79, 0.114), (85, 0.097), (94, 0.041), (96, 0.017)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95953208 <a title="1020-lda-1" href="../high_scalability-2011/high_scalability-2011-04-12-Caching_and_Processing_2TB_Mozilla_Crash_Reports_in_memory_with_Hazelcast.html">1020 high scalability-2011-04-12-Caching and Processing 2TB Mozilla Crash Reports in memory with Hazelcast</a></p>
-<p>Introduction: Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop,
-Python and Thrift protocol. The project is calledSocorro, a system for
-collecting, processing, and displaying crash reports from clients. Today the
-Socorro application stores about 2.6 million crash reports per day. During
-peak traffic, it receives about 2.5K crashes per minute. In this article we
-are going to demonstrate a proof of concept showing how Mozilla could
-integrate Hazelcast into Socorro and achieve caching and processing 2TB of
-crash reports with 50 node Hazelcast cluster. The video for the demo is
-availablehere. Currently, Socorro has pythonic collectors, processors, and
-middleware that communicate with HBase via the Thrift protocol. One of the
-biggest limitations of the current architecture is that it is very sensitive
-to latency or outages on the HBase side. If the collectors cannot store an
-item in HBase then they will store it on local disk and it will not be
-accessible to the processors or midd</p><p>2 0.94824231 <a title="1020-lda-2" href="../high_scalability-2013/high_scalability-2013-04-08-NuoDB%27s_First_Experience%3A_Google_Compute_Engine_-_1.8_Million_Transactions_Per_Second.html">1437 high scalability-2013-04-08-NuoDB's First Experience: Google Compute Engine - 1.8 Million Transactions Per Second</a></p>
-<p>Introduction: This is a repost of the blog entry written by NuoDB's Tommy Reilly.  We
-atNuoDBwere recently given the opportunity to kick the tires on the Google
-Compute Engine by our friends over at Google. You can watch the entire Google
-Developer Live Session by clickinghere.  In order to access the capabilities
-of GCE we decided to run the same YCSB based benchmark we ran at our General
-Availability Launch back in January. For those of you who missed it we
-demonstrated running the YCSB benchmark on a 24 machine cluster running on our
-private cloud in the NuoDB datacenter. The salient results were 1.7 million
-transactions per second with sub-millisecond latencies.Public cloud
-environments typically mean virtualization, inconsistent network performance
-and potentially slow or low bandwidth disk access. It just so happens that
-NuoDB was designed to work well in such harsh environments (we don't call it a
-cloud database for nothing). Still, the faster the CPU, network and disk the
-faster the database</p><p>3 0.94155049 <a title="1020-lda-3" href="../high_scalability-2007/high_scalability-2007-10-08-Lessons_from_Pownce_-_The_Early_Years.html">116 high scalability-2007-10-08-Lessons from Pownce - The Early Years</a></p>
-<p>Introduction: Pownce is a new social messaging application competing micromessage to
-micromessage with the likes of Twitter and Jaiku. Still in closed beta, Pownce
-has generously shared some of what they've learned so far. Like going to a
-barrel tasting of a young wine and then tasting the same wine after some
-aging, I think what will be really interesting is to follow Pownce and compare
-the Pownce of today with the Pownce of tomorrow, after a few years spent in
-the barrel. What lessons lie in wait for Pownce as they grow?Site:
-http://www.pownce.comInformation SourcesPownce Lessons Learned - FOWA
-2007Scoble on Twitter vs PownceFounder Leah Culver's BlogThe
-PlatformPythonDjango for the website frameworkAmazon's S3for file
-storage.Adobe AIR(Adobe Integrated Runtime) for desktop
-applicationMemcachedAvailable on FacebookTimeplotfor charts and graphs.The
-StatsDeveloped in 4 months and went to an invite-only launch in June.Began as
-Leah's hobby project and then it snowballed into a real horse with the
-add</p><p>4 0.93855685 <a title="1020-lda-4" href="../high_scalability-2012/high_scalability-2012-09-21-Stuff_The_Internet_Says_On_Scalability_For_September_21%2C_2012.html">1327 high scalability-2012-09-21-Stuff The Internet Says On Scalability For September 21, 2012</a></p>
-<p>Introduction: It's HighScalability Time:@5h15h: Walmart took 40years to get their data
-warehouse at 400 terabytes. Facebookprobably generatesthat every 4 days Should
-your database failover automatically or wait for the guiding hands of a
-helpful human? Jeremy Zawodny in Handling Database Failover at Craigslist says
-Craigslist and Yahoo! handle failovers manually. Knowing when a failure has
-happened is so error prone it's better to put in a human breaker in the loop.
-Others think this could be a SLA buster as write requests can't be processed
-while the decision is being made. Main issue is knowing anything is true in a
-distributed system is hard.Review of a paper about scalable things, MPI, and
-granularity. If you like to read informed critiques that begin with phrases
-like "this is simply not true" or "utter garbage" then you might find this
-post by Sebastien Boisvert to be entertaining.The Big Switch: How We Rebuilt
-Wanelo from Scratch and Lived to Tell About It. Complete rewrites can
-work...someti</p><p>5 0.93479598 <a title="1020-lda-5" href="../high_scalability-2012/high_scalability-2012-11-22-Gone_Fishin%27%3A_PlentyOfFish_Architecture.html">1361 high scalability-2012-11-22-Gone Fishin': PlentyOfFish Architecture</a></p>
-<p>Introduction: Other thanStackOverflow, PlentyOfFish is perhaps the most spectacular example
-of scale-up architectures working for what your average sane person would
-consider a large system. It doesn't hurt that it's also a sexy story.Update
-5:PlentyOfFish Update - 6 Billion Pageviews And 32 Billion Images A
-MonthUpdate 4:Jeff Atwoodcosts out Markus' scale up approach against a scale
-out approach and finds scale up wanting. The discussion in the comments is as
-interesting as the article. My guess is Markus doesn't want to rewrite his
-software to work across a scale out cluster so even if it's more expensive
-scale up works better for his needs.Update 3:POF now has 200 million imagesand
-serves 10,000 images served per second. They'll be moving to a 250,000 IOPS
-RamSan to handle the load. Also upgraded to a core database machine with 512
-GB of RAM, 32 CPU's, SQLServer 2008 and Windows 2008.Update 2: This seems to
-be aPOF Peer1 love fest infomercial. It's pretty content free, but the
-production values a</p><p>6 0.93477869 <a title="1020-lda-6" href="../high_scalability-2013/high_scalability-2013-01-18-Stuff_The_Internet_Says_On_Scalability_For_January_18%2C_2013.html">1389 high scalability-2013-01-18-Stuff The Internet Says On Scalability For January 18, 2013</a></p>
+<p>Introduction: Mozilla processes TB's of Firefox crash reports daily using HBase, Hadoop, Python and Thrift protocol. The project is called  Socorro , a system for collecting, processing, and displaying crash reports from clients. Today the Socorro application stores about 2.6 million crash reports per day. During peak traffic, it receives about 2.5K crashes per minute. 
+ 
+In this article we are going to demonstrate a proof of concept showing how Mozilla could integrate Hazelcast into Socorro and achieve caching and processing 2TB of crash reports with 50 node Hazelcast cluster. The video for the demo is available  here .
+ 
+      
+ 
+Currently, Socorro has pythonic collectors, processors, and middleware that communicate with HBase via the Thrift protocol. One of the biggest limitations of the current architecture is that it is very sensitive to latency or outages on the HBase side. If the collectors cannot store an item in HBase then they will store it on local disk and it will not be accessible to th</p><p>2 0.94824231 <a title="1020-lda-2" href="../high_scalability-2013/high_scalability-2013-04-08-NuoDB%27s_First_Experience%3A_Google_Compute_Engine_-_1.8_Million_Transactions_Per_Second.html">1437 high scalability-2013-04-08-NuoDB's First Experience: Google Compute Engine - 1.8 Million Transactions Per Second</a></p>
+<p>Introduction: This is a repost of the blog entry written by NuoDB's  Tommy Reilly  .  
+ 
+We at  NuoDB  were recently given the opportunity to kick the tires on the  Google Compute Engine  by our friends over at Google. You can watch the entire Google Developer Live Session by clicking  here .  In order to access the capabilities of GCE we decided to run the same  YCSB  based benchmark we ran at our  General Availability Launch  back in January. For those of you who missed it we demonstrated running the YCSB benchmark on a 24 machine cluster running on our private cloud in the NuoDB datacenter. The salient results were 1.7 million transactions per second with sub-millisecond latencies.
+ 
+Public cloud environments typically mean virtualization, inconsistent network performance and potentially slow or low bandwidth disk access. It just so happens that NuoDB was designed to work well in such harsh environments (we don’t call it a cloud database for nothing). Still, the faster the CPU, network and disk t</p><p>3 0.94155049 <a title="1020-lda-3" href="../high_scalability-2007/high_scalability-2007-10-08-Lessons_from_Pownce_-_The_Early_Years.html">116 high scalability-2007-10-08-Lessons from Pownce - The Early Years</a></p>
+<p>Introduction: Pownce is a new social messaging application competing micromessage to micromessage with the likes of Twitter and Jaiku. Still in closed beta, Pownce has generously shared some of what they've learned so far. Like going to a barrel tasting of a young wine and then tasting the same wine after some aging, I think what will be really interesting is to follow Pownce and compare the Pownce of today with the Pownce of tomorrow, after a few years spent in the barrel. What lessons lie in wait for Pownce as they grow? 
+ 
+Site: http://www.pownce.com
+  Information Sources     Pownce Lessons Learned - FOWA 2007      Scoble on Twitter vs Pownce      Founder Leah Culver's Blog  
+ The Platform 
+    Python    Django for the website framework     Amazon's S3  for file storage.     Adobe AIR  (Adobe Integrated Runtime) for desktop application    Memcached    Available on Facebook     Timeplot  for charts and graphs. 
+ The Stats 
+    Developed in 4 months and went to an invite-only launch in June.    Beg</p><p>4 0.93855685 <a title="1020-lda-4" href="../high_scalability-2012/high_scalability-2012-09-21-Stuff_The_Internet_Says_On_Scalability_For_September_21%2C_2012.html">1327 high scalability-2012-09-21-Stuff The Internet Says On Scalability For September 21, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+  @5h15h : Walmart took 40years to get their data warehouse at 400 terabytes. Facebook  probably generates  that every 4 days  
+ Should your database failover automatically or wait for the guiding hands of a helpful human? Jeremy Zawodny in  Handling Database Failover at Craigslist  says Craigslist and Yahoo! handle failovers manually. Knowing when a failure has happened is so error prone it's better to put in a human breaker in the loop. Others think this could be a SLA buster as write requests can't be processed while the decision is being made. Main issue is knowing anything is true in a distributed system is hard. 
+  Review of a paper about scalable things, MPI, and granularity . If you like to read informed critiques that begin with phrases like "this is simply not true" or "utter garbage" then you might find this post by Sébastien Boisvert to be entertaining. 
+  The Big Switch: How We Rebuilt Wanelo from Scratch and Lived to Tell About It . Complete</p><p>5 0.93479598 <a title="1020-lda-5" href="../high_scalability-2012/high_scalability-2012-11-22-Gone_Fishin%27%3A_PlentyOfFish_Architecture.html">1361 high scalability-2012-11-22-Gone Fishin': PlentyOfFish Architecture</a></p>
+<p>Introduction: Other than  StackOverflow , PlentyOfFish is perhaps the most spectacular example of scale-up architectures working for what your average sane person would consider a large system. It doesn't hurt that it's also a sexy story. 
+ 
+ Update 5 :  PlentyOfFish Update - 6 Billion Pageviews And 32 Billion Images A Month     Update 4 :  Jeff Atwood  costs out Markus' scale up approach against a scale out approach and finds scale up wanting. The discussion in the comments is as interesting as the article. My guess is Markus doesn't want to rewrite his software to work across a scale out cluster so even if it's more expensive scale up works better for his needs.   Update 3 :  POF now has 200 million images  and serves 10,000 images served per second. They'll be moving to a 250,000 IOPS RamSan to handle the load. Also upgraded to a core database machine with 512 GB of RAM, 32 CPU’s, SQLServer  2008 and Windows 2008.   Update 2 : This seems to be a  POF Peer1 love fest infomercial . It's pretty cont</p><p>6 0.93477869 <a title="1020-lda-6" href="../high_scalability-2013/high_scalability-2013-01-18-Stuff_The_Internet_Says_On_Scalability_For_January_18%2C_2013.html">1389 high scalability-2013-01-18-Stuff The Internet Says On Scalability For January 18, 2013</a></p>
 <p>7 0.93283063 <a title="1020-lda-7" href="../high_scalability-2009/high_scalability-2009-06-26-PlentyOfFish_Architecture.html">638 high scalability-2009-06-26-PlentyOfFish Architecture</a></p>
 <p>8 0.93246508 <a title="1020-lda-8" href="../high_scalability-2013/high_scalability-2013-01-07-Analyzing_billions_of_credit_card_transactions_and_serving_low-latency_insights_in_the_cloud.html">1382 high scalability-2013-01-07-Analyzing billions of credit card transactions and serving low-latency insights in the cloud</a></p>
 <p>9 0.93110687 <a title="1020-lda-9" href="../high_scalability-2011/high_scalability-2011-07-15-Stuff_The_Internet_Says_On_Scalability_For_July_15%2C_2011.html">1080 high scalability-2011-07-15-Stuff The Internet Says On Scalability For July 15, 2011</a></p>

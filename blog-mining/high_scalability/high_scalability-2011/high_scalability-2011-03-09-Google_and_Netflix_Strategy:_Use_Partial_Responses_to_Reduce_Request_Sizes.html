@@ -16,34 +16,29 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1001 high scalability-2011-03-09-Google and Netflix Strategy: Use Partial Responses to Reduce Request Sizes</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1001-html" href="http://highscalability.com//blog/2011/3/9/google-and-netflix-strategy-use-partial-responses-to-reduce.html">html</a></p><p>Introduction: This strategy targets reducing the amount of protocol data in packets by
-sending only the attributes that are needed. Google calls this Partial
-Response and Partial Update.Netflix posted about adopting this strategy in
-their recent Netflix API redesign. We've seen previously how Netflix improved
-performance by creatingless chatty protocols.As a consequence packet sizes
-rise as more data is being stuffed into each packet in order to reduce the
-number of round trips. But we don't like large packets either (memory usage
-and packet processing overhead), so we have to think of creative ways to
-shrink them back down.The change Netflx is making is to conceptualize their
-API as a database. What does this mean?Apartial responseis like a SQL select
-statement where you can specify only the fields you want back. Only the
-attributes of interest are requested.  Previously all fields for objects were
-returned, even if the client didn't need them. So the goal is reduce payload
-sizes by being more sele</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This strategy targets reducing the amount of protocol data in packets by sending only the attributes that are needed. [sent-1, score-0.522]
-</p><p>2 Netflix posted about adopting this strategy in their recent Netflix API redesign. [sent-3, score-0.229]
-</p><p>3 We've seen previously how Netflix improved performance by creatingless chatty protocols. [sent-4, score-0.181]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1001-html" href="http://highscalability.com//blog/2011/3/9/google-and-netflix-strategy-use-partial-responses-to-reduce.html">html</a></p><p>Introduction: This strategy targets reducing the amount of protocol data in packets by sending only the attributes that are needed. Google calls this  Partial Response and Partial Update .
+ 
+Netflix posted about adopting this strategy in their  recent Netflix API redesign . We've seen previously how Netflix improved performance by creating  less chatty protocols .
+ 
+As a consequence packet sizes rise as more data is being stuffed into each packet in order to reduce the number of round trips. But we don't like large packets either (memory usage and packet processing overhead), so we have to think of creative ways to shrink them back down.
+ 
+The change Netflx is making is to conceptualize their API as a database. What does this mean?
+ 
+A  partial response  is like a SQL select statement where you can specify only the fields you want back. Only the attributes of interest are requested.  Previously all fields for objects were returned, even if the client didn't need them. So the goal is reduce payload s</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This strategy targets reducing the amount of protocol data in packets by sending only the attributes that are needed. [sent-1, score-0.522]
+</p><p>2 Netflix posted about adopting this strategy in their  recent Netflix API redesign . [sent-3, score-0.229]
+</p><p>3 We've seen previously how Netflix improved performance by creating  less chatty protocols . [sent-4, score-0.181]
 </p><p>4 As a consequence packet sizes rise as more data is being stuffed into each packet in order to reduce the number of round trips. [sent-5, score-0.707]
 </p><p>5 But we don't like large packets either (memory usage and packet processing overhead), so we have to think of creative ways to shrink them back down. [sent-6, score-0.4]
 </p><p>6 The change Netflx is making is to conceptualize their API as a database. [sent-7, score-0.166]
-</p><p>7 Apartial responseis like a SQL select statement where you can specify only the fields you want back. [sent-9, score-0.287]
+</p><p>7 A  partial response  is like a SQL select statement where you can specify only the fields you want back. [sent-9, score-0.517]
 </p><p>8 Previously all fields for objects were returned, even if the client didn't need them. [sent-11, score-0.469]
 </p><p>9 So the goal is reduce payload sizes by being more selective about what data is returned. [sent-12, score-0.358]
-</p><p>10 fields=id,entry(author)Thefieldsparameter selects the attributes to return out of a much larger feeds resource. [sent-14, score-0.32]
-</p><p>11 Apartial updateworks similarly, you send only the fields you want to update. [sent-15, score-0.228]
+</p><p>10 fields=id,entry(author)     The  fields  parameter selects the attributes to return out of a much larger feeds resource. [sent-14, score-0.548]
+</p><p>11 A  partial update  works similarly, you send only the fields you want to update. [sent-15, score-0.458]
 </p><p>12 Clearly this will reduce the number of attributes in flight, but are there any problems with this strategy? [sent-17, score-0.342]
-</p><p>13 A major problem I've experienced when using partial data aresynchronization issues. [sent-18, score-0.23]
+</p><p>13 A major problem I've experienced when using partial data are  synchronization issues . [sent-18, score-0.23]
 </p><p>14 Thinking of an API as a database moves the problem to be in the general problem class of keeping two distributed models in sync when both sides are changing and the connection between them is unreliable. [sent-19, score-0.399]
-</p><p>15 Now each model is receiving only partial data,  if any data is lost or retransmitted between requests, then resources get out of sync, which can lead to integrity problems. [sent-20, score-0.471]
+</p><p>15 Now each model is receiving only partial data,  if any data is lost or retransmitted between requests, then resources get out of sync, which can lead to integrity problems. [sent-20, score-0.471]
 </p><p>16 Then the user could make a change to those preferences on the client and overwrite any updates that have happened since the last request. [sent-22, score-0.967]
 </p><p>17 With a state synchronization model where the entire resources is returned the window for these errors is much smaller as updated preferences are always being returned. [sent-24, score-0.721]
 </p><p>18 This brings up an entire rats nest of workarounds, like doing a complete resource sync before writes, but the system gets a lot more complicated. [sent-25, score-0.49]
@@ -55,69 +50,29 @@ sizes by being more sele</p><br/><h2>Summary: the most important sentenses gener
 <p>[('preferences', 0.431), ('sync', 0.327), ('attributes', 0.248), ('client', 0.241), ('partial', 0.23), ('fields', 0.228), ('packet', 0.151), ('netflix', 0.121), ('returned', 0.116), ('model', 0.116), ('responses', 0.11), ('packets', 0.106), ('overwrite', 0.103), ('apartial', 0.103), ('netflx', 0.103), ('sizes', 0.102), ('previously', 0.101), ('alarms', 0.097), ('conceptualize', 0.097), ('nest', 0.097), ('strategy', 0.095), ('reduce', 0.094), ('api', 0.086), ('workarounds', 0.084), ('payload', 0.082), ('stuffed', 0.082), ('flight', 0.08), ('selective', 0.08), ('chatty', 0.08), ('interval', 0.076), ('shrink', 0.074), ('targets', 0.073), ('selects', 0.072), ('sides', 0.072), ('adopting', 0.071), ('back', 0.069), ('consequence', 0.069), ('change', 0.069), ('gets', 0.066), ('could', 0.066), ('receiving', 0.065), ('side', 0.064), ('aggregated', 0.064), ('posted', 0.063), ('similarly', 0.063), ('integrity', 0.06), ('statement', 0.059), ('rise', 0.058), ('window', 0.058), ('user', 0.057)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1001-tfidf-1" href="../high_scalability-2011/high_scalability-2011-03-09-Google_and_Netflix_Strategy%3A_Use_Partial_Responses_to_Reduce_Request_Sizes.html">1001 high scalability-2011-03-09-Google and Netflix Strategy: Use Partial Responses to Reduce Request Sizes</a></p>
-<p>Introduction: This strategy targets reducing the amount of protocol data in packets by
-sending only the attributes that are needed. Google calls this Partial
-Response and Partial Update.Netflix posted about adopting this strategy in
-their recent Netflix API redesign. We've seen previously how Netflix improved
-performance by creatingless chatty protocols.As a consequence packet sizes
-rise as more data is being stuffed into each packet in order to reduce the
-number of round trips. But we don't like large packets either (memory usage
-and packet processing overhead), so we have to think of creative ways to
-shrink them back down.The change Netflx is making is to conceptualize their
-API as a database. What does this mean?Apartial responseis like a SQL select
-statement where you can specify only the fields you want back. Only the
-attributes of interest are requested.  Previously all fields for objects were
-returned, even if the client didn't need them. So the goal is reduce payload
-sizes by being more sele</p><p>2 0.2594755 <a title="1001-tfidf-2" href="../high_scalability-2010/high_scalability-2010-12-20-Netflix%3A_Use_Less_Chatty_Protocols_in_the_Cloud_-_Plus_26_Fixes.html">960 high scalability-2010-12-20-Netflix: Use Less Chatty Protocols in the Cloud - Plus 26 Fixes</a></p>
-<p>Introduction: In 5 Lessons We've Learned Using AWS, Netflix's John Ciancutti says one of the
-big lessons they've learned is to create lesschatty protocols:In the Netflix
-data centers, we have a high capacity, super fast, highly reliable network.
-This has afforded us the luxury of designing around chatty APIs to remote
-systems. AWS networking has more variable latency. We've had to be much more
-structured about "over the wire" interactions, even as we've transitioned to a
-more highly distributed architecture.There's not a lot of advice out there on
-how to create protocols. Combine that with a rush to the cloud and you have a
-perfect storm for chatty applications crushing application performance.
-Netflix is far from the first to be surprised by the less than stellar
-networks inside AWS. A chatty protocol is one where a client makes a series of
-requests to a server and the client must wait on each reply before sending the
-next request. On a LAN this can work great. LAN's are typically fast, wide,
-and d</p><p>3 0.16441765 <a title="1001-tfidf-3" href="../high_scalability-2008/high_scalability-2008-01-01-HOW_CDN_works.html">198 high scalability-2008-01-01-HOW CDN works</a></p>
-<p>Introduction: All,I'm just new to this and have a basic understanding how CDN works? My
-questions are:1. How does CDN sync data with web servers for video/images? If
-I have a user to upload a video to my site, will it get stored directly in CDN
-or it comes to my webserver first and then sync-ed with cache server?2. How to
-have only the dynamic video/image delivered through CDN while the rest is
-served by a webserver?3. How sync happens and who pays for the bandwidth for
-sync?I'd appreciate if someone could explain this.Regards,Janakan Rajendran</p><p>4 0.16419147 <a title="1001-tfidf-4" href="../high_scalability-2008/high_scalability-2008-01-10-Letting_Clients_Know_What%27s_Changed%3A_Push_Me_or_Pull_Me%3F.html">205 high scalability-2008-01-10-Letting Clients Know What's Changed: Push Me or Pull Me?</a></p>
-<p>Introduction: I had a false beliefI thought I came here to stayWe're all just visitingAll
-just breaking like wavesThe oceans made me, but who came up with me?Push me,
-pull me, push me, or pull me out .So true Perl Jam(Push me Pull me lyrics), so
-true. I too have wondered how web clients should be notified of model changes.
-Should servers push events to clients or should clients pull events from
-servers? A topic worthy of its own song if ever there was one.breakTo pull
-events the client simply starts a timer and makes a request to the server.
-This is polling. You can either pull a complete set of fresh data or get a
-list of changes. The server "knows" if anything you are interested in has
-changed and makes those changes available to you. Knowing what has changed can
-be relatively simple with a publish-subscribe type backend or you can get very
-complex with fine grained bit maps of attributes and keeping per client state
-on what I client still needs to see.Polling is heavy man. Imagine all your
-client</p><p>5 0.15388186 <a title="1001-tfidf-5" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
-<p>Introduction: Youmight haveconsistency problems if you have: multiple datastores in multiple
-datacenters, without distributed transactions, and with the ability to
-alternately execute out of each datacenter;  syncing protocols that can fail
-or sync stale data; distributed clients that cache data and then write old
-back to the central store; a NoSQL database that doesn't have transactions
-between updates of multiple related key-value records; application level
-integrity checks; client drivenoptimistic locking.Sounds a lot like many
-evolving, loosely coupled, autonomous, distributed systems these days. How do
-you solve these consistency problems? Siddharth "Sid" Anand of Netflix talks
-about how they solved theirs in his excellent presentation, NoSQL @ Netflix :
-Part 1, given to a packed crowd at aCloud Computing Meetup. You might be
-inclined to say how silly it is to have these problems in the first place, but
-just hold on. See if you might share some of their problems, before getting
-all judgy:Netfli</p><p>6 0.12395366 <a title="1001-tfidf-6" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
+<p>Introduction: This strategy targets reducing the amount of protocol data in packets by sending only the attributes that are needed. Google calls this  Partial Response and Partial Update .
+ 
+Netflix posted about adopting this strategy in their  recent Netflix API redesign . We've seen previously how Netflix improved performance by creating  less chatty protocols .
+ 
+As a consequence packet sizes rise as more data is being stuffed into each packet in order to reduce the number of round trips. But we don't like large packets either (memory usage and packet processing overhead), so we have to think of creative ways to shrink them back down.
+ 
+The change Netflx is making is to conceptualize their API as a database. What does this mean?
+ 
+A  partial response  is like a SQL select statement where you can specify only the fields you want back. Only the attributes of interest are requested.  Previously all fields for objects were returned, even if the client didn't need them. So the goal is reduce payload s</p><p>2 0.2594755 <a title="1001-tfidf-2" href="../high_scalability-2010/high_scalability-2010-12-20-Netflix%3A_Use_Less_Chatty_Protocols_in_the_Cloud_-_Plus_26_Fixes.html">960 high scalability-2010-12-20-Netflix: Use Less Chatty Protocols in the Cloud - Plus 26 Fixes</a></p>
+<p>Introduction: In  5 Lessons We’ve Learned Using AWS , Netflix's John Ciancutti says one of the big lessons they've learned is to create less  chatty protocols :
+  
+ In the Netflix data centers, we have a high capacity, super fast, highly reliable network. This has afforded us the luxury of designing around chatty APIs to remote systems. AWS networking has more variable latency. We’ve had to be much more structured about “over the wire” interactions, even as we’ve transitioned to a more highly distributed architecture. 
+  
+There's not a lot of advice out there on how to create protocols. Combine that with a rush to the cloud and you have a perfect storm for chatty applications crushing application performance. Netflix is far from the first to be surprised by the less than stellar networks inside AWS. 
+ 
+A chatty protocol is one where a client makes a series of requests to a server and the client must wait on each reply before sending the next request. On a LAN this can work great. LAN's are typically</p><p>3 0.16441765 <a title="1001-tfidf-3" href="../high_scalability-2008/high_scalability-2008-01-01-HOW_CDN_works.html">198 high scalability-2008-01-01-HOW CDN works</a></p>
+<p>Introduction: All,     I'm just new to this and have a basic understanding how CDN works? My questions are:     1. How does CDN sync data with web servers for video/images? If I have a user to upload a video to my site, will it get stored directly in CDN or it comes to my webserver first and then sync-ed with cache server?     2. How to have only the dynamic video/image delivered through CDN while the rest is served by a webserver?   3. How sync happens and who pays for the bandwidth for sync?       I'd appreciate if someone could explain this.   Regards,   Janakan Rajendran</p><p>4 0.16419147 <a title="1001-tfidf-4" href="../high_scalability-2008/high_scalability-2008-01-10-Letting_Clients_Know_What%27s_Changed%3A_Push_Me_or_Pull_Me%3F.html">205 high scalability-2008-01-10-Letting Clients Know What's Changed: Push Me or Pull Me?</a></p>
+<p>Introduction: I had a false belief I thought I came here to stay We're all just visiting All just breaking like waves The oceans made me, but who came up with me? Push me, pull me, push me, or pull me out .     So true Perl Jam   (Push me Pull me lyrics)  , so true. I too have wondered how web clients should be notified of model changes. Should servers push events to clients or should clients pull events from servers? A topic worthy of its own song if ever there was one.       To pull events the client simply starts a timer and makes a request to the server. This is polling. You can either pull a complete set of fresh data or get a list of changes. The server "knows" if anything you are interested in has changed and makes those changes available to you.  Knowing what has changed can be relatively simple with a publish-subscribe type backend or you can get very complex with fine grained bit maps of attributes and keeping per client state on what I client still needs to see.     Polling is heavy man.</p><p>5 0.15388186 <a title="1001-tfidf-5" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
+<p>Introduction: You  might have  consistency problems if you have: multiple datastores in multiple datacenters, without distributed transactions, and with the ability to alternately execute out of each datacenter;  syncing protocols that can fail or sync stale data; distributed clients that cache data and then write old back to the central store; a NoSQL database that doesn't have transactions between updates of multiple related key-value records; application level integrity checks; client driven  optimistic locking .
+ 
+Sounds a lot like many evolving, loosely coupled, autonomous, distributed systems these days. How do you solve these consistency problems? Siddharth "Sid" Anand of Netflix talks about how they solved theirs in his excellent presentation,  NoSQL @ Netflix : Part 1 , given to a packed crowd at a  Cloud Computing Meetup . 
+ 
+You might be inclined to say how silly it is to have these problems in the first place, but just hold on. See if you might share some of their problems, before gettin</p><p>6 0.12395366 <a title="1001-tfidf-6" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
 <p>7 0.12384494 <a title="1001-tfidf-7" href="../high_scalability-2008/high_scalability-2008-02-21-Tracking_usage_of_public_resources_-_throttling_accesses_per_hour.html">256 high scalability-2008-02-21-Tracking usage of public resources - throttling accesses per hour</a></p>
 <p>8 0.11686695 <a title="1001-tfidf-8" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
 <p>9 0.10842447 <a title="1001-tfidf-9" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
@@ -137,76 +92,45 @@ all judgy:Netfli</p><p>6 0.12395366 <a title="1001-tfidf-6" href="../high_scalab
 <p>[(0, 0.142), (1, 0.105), (2, -0.03), (3, -0.009), (4, -0.006), (5, 0.007), (6, 0.057), (7, 0.056), (8, -0.044), (9, -0.058), (10, 0.023), (11, 0.065), (12, -0.029), (13, -0.034), (14, 0.04), (15, -0.015), (16, 0.01), (17, 0.024), (18, 0.029), (19, -0.063), (20, 0.01), (21, -0.037), (22, 0.054), (23, -0.031), (24, 0.035), (25, 0.029), (26, 0.052), (27, 0.027), (28, 0.015), (29, -0.042), (30, 0.025), (31, -0.023), (32, 0.023), (33, 0.025), (34, 0.01), (35, 0.052), (36, 0.074), (37, 0.041), (38, -0.019), (39, -0.053), (40, 0.028), (41, 0.016), (42, 0.031), (43, 0.013), (44, -0.022), (45, -0.03), (46, -0.038), (47, 0.056), (48, -0.03), (49, 0.027)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95424539 <a title="1001-lsi-1" href="../high_scalability-2011/high_scalability-2011-03-09-Google_and_Netflix_Strategy%3A_Use_Partial_Responses_to_Reduce_Request_Sizes.html">1001 high scalability-2011-03-09-Google and Netflix Strategy: Use Partial Responses to Reduce Request Sizes</a></p>
-<p>Introduction: This strategy targets reducing the amount of protocol data in packets by
-sending only the attributes that are needed. Google calls this Partial
-Response and Partial Update.Netflix posted about adopting this strategy in
-their recent Netflix API redesign. We've seen previously how Netflix improved
-performance by creatingless chatty protocols.As a consequence packet sizes
-rise as more data is being stuffed into each packet in order to reduce the
-number of round trips. But we don't like large packets either (memory usage
-and packet processing overhead), so we have to think of creative ways to
-shrink them back down.The change Netflx is making is to conceptualize their
-API as a database. What does this mean?Apartial responseis like a SQL select
-statement where you can specify only the fields you want back. Only the
-attributes of interest are requested.  Previously all fields for objects were
-returned, even if the client didn't need them. So the goal is reduce payload
-sizes by being more sele</p><p>2 0.82633001 <a title="1001-lsi-2" href="../high_scalability-2010/high_scalability-2010-12-20-Netflix%3A_Use_Less_Chatty_Protocols_in_the_Cloud_-_Plus_26_Fixes.html">960 high scalability-2010-12-20-Netflix: Use Less Chatty Protocols in the Cloud - Plus 26 Fixes</a></p>
-<p>Introduction: In 5 Lessons We've Learned Using AWS, Netflix's John Ciancutti says one of the
-big lessons they've learned is to create lesschatty protocols:In the Netflix
-data centers, we have a high capacity, super fast, highly reliable network.
-This has afforded us the luxury of designing around chatty APIs to remote
-systems. AWS networking has more variable latency. We've had to be much more
-structured about "over the wire" interactions, even as we've transitioned to a
-more highly distributed architecture.There's not a lot of advice out there on
-how to create protocols. Combine that with a rush to the cloud and you have a
-perfect storm for chatty applications crushing application performance.
-Netflix is far from the first to be surprised by the less than stellar
-networks inside AWS. A chatty protocol is one where a client makes a series of
-requests to a server and the client must wait on each reply before sending the
-next request. On a LAN this can work great. LAN's are typically fast, wide,
-and d</p><p>3 0.78561145 <a title="1001-lsi-3" href="../high_scalability-2008/high_scalability-2008-01-10-Letting_Clients_Know_What%27s_Changed%3A_Push_Me_or_Pull_Me%3F.html">205 high scalability-2008-01-10-Letting Clients Know What's Changed: Push Me or Pull Me?</a></p>
-<p>Introduction: I had a false beliefI thought I came here to stayWe're all just visitingAll
-just breaking like wavesThe oceans made me, but who came up with me?Push me,
-pull me, push me, or pull me out .So true Perl Jam(Push me Pull me lyrics), so
-true. I too have wondered how web clients should be notified of model changes.
-Should servers push events to clients or should clients pull events from
-servers? A topic worthy of its own song if ever there was one.breakTo pull
-events the client simply starts a timer and makes a request to the server.
-This is polling. You can either pull a complete set of fresh data or get a
-list of changes. The server "knows" if anything you are interested in has
-changed and makes those changes available to you. Knowing what has changed can
-be relatively simple with a publish-subscribe type backend or you can get very
-complex with fine grained bit maps of attributes and keeping per client state
-on what I client still needs to see.Polling is heavy man. Imagine all your
-client</p><p>4 0.75356507 <a title="1001-lsi-4" href="../high_scalability-2013/high_scalability-2013-03-04-7_Life_Saving_Scalability_Defenses_Against_Load_Monster_Attacks.html">1415 high scalability-2013-03-04-7 Life Saving Scalability Defenses Against Load Monster Attacks</a></p>
-<p>Introduction: We talked about42 Monster Problems That Attack As Loads Increase. Here are a
-few ways you can defend yourself, secrets revealed by scaling masters across
-the ages. Note that these are low level programming level moves, not large
-architecture type strategies.Use Resources Proportional To a Fixed LimitThis
-is probably the most important rule for achieving scalability within an
-application. What it means:Find the resource that has a fixed limit that you
-know you can support. For example, a guarantee to handle a certain number of
-objects in memory. So if we always use resources proportional to the number of
-objects it is likely we can prevent resource exhaustion.Devise ways of tying
-what you need to do to the individual resources.Some examples:Keep a list of
-purchase orders with line items over $20 (or whatever). Do not keep a list of
-the line items because the number of items can be much larger than the number
-of purchase orders. You have kept the resource usage proportional to the
-number</p><p>5 0.75042468 <a title="1001-lsi-5" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
-<p>Introduction: We talked about 42 Monster Problems That Attack As Loads Increase. And inThe
-Aggregation Collection we talked about the value of prioritizing work and
-making smart queues as a way of absorbing and not reflecting traffic
-spikes.Now we move on to our next batch of strategies where the theme
-isconditioning, which is the idea of shaping and controlling flows of work
-within your application...Use Resources Proportional To a Fixed LimitThis is
-probably the most important rule for achieving scalability within an
-application. What it means:Find the resource that has a fixed limit that you
-know you can support. For example, a guarantee to handle a certain number of
-objects in memory. So if we always use resources proportional to the number of
-objects it is likely we can prevent resource exhaustion.Devise ways of tying
-what you need to do to the individual resources.Some examples:Keep a list of
-purchase orders with line items over $20 (or whatever). Do not keep a list of
-the line items because t</p><p>6 0.71198106 <a title="1001-lsi-6" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
+<p>Introduction: This strategy targets reducing the amount of protocol data in packets by sending only the attributes that are needed. Google calls this  Partial Response and Partial Update .
+ 
+Netflix posted about adopting this strategy in their  recent Netflix API redesign . We've seen previously how Netflix improved performance by creating  less chatty protocols .
+ 
+As a consequence packet sizes rise as more data is being stuffed into each packet in order to reduce the number of round trips. But we don't like large packets either (memory usage and packet processing overhead), so we have to think of creative ways to shrink them back down.
+ 
+The change Netflx is making is to conceptualize their API as a database. What does this mean?
+ 
+A  partial response  is like a SQL select statement where you can specify only the fields you want back. Only the attributes of interest are requested.  Previously all fields for objects were returned, even if the client didn't need them. So the goal is reduce payload s</p><p>2 0.82633001 <a title="1001-lsi-2" href="../high_scalability-2010/high_scalability-2010-12-20-Netflix%3A_Use_Less_Chatty_Protocols_in_the_Cloud_-_Plus_26_Fixes.html">960 high scalability-2010-12-20-Netflix: Use Less Chatty Protocols in the Cloud - Plus 26 Fixes</a></p>
+<p>Introduction: In  5 Lessons We’ve Learned Using AWS , Netflix's John Ciancutti says one of the big lessons they've learned is to create less  chatty protocols :
+  
+ In the Netflix data centers, we have a high capacity, super fast, highly reliable network. This has afforded us the luxury of designing around chatty APIs to remote systems. AWS networking has more variable latency. We’ve had to be much more structured about “over the wire” interactions, even as we’ve transitioned to a more highly distributed architecture. 
+  
+There's not a lot of advice out there on how to create protocols. Combine that with a rush to the cloud and you have a perfect storm for chatty applications crushing application performance. Netflix is far from the first to be surprised by the less than stellar networks inside AWS. 
+ 
+A chatty protocol is one where a client makes a series of requests to a server and the client must wait on each reply before sending the next request. On a LAN this can work great. LAN's are typically</p><p>3 0.78561145 <a title="1001-lsi-3" href="../high_scalability-2008/high_scalability-2008-01-10-Letting_Clients_Know_What%27s_Changed%3A_Push_Me_or_Pull_Me%3F.html">205 high scalability-2008-01-10-Letting Clients Know What's Changed: Push Me or Pull Me?</a></p>
+<p>Introduction: I had a false belief I thought I came here to stay We're all just visiting All just breaking like waves The oceans made me, but who came up with me? Push me, pull me, push me, or pull me out .     So true Perl Jam   (Push me Pull me lyrics)  , so true. I too have wondered how web clients should be notified of model changes. Should servers push events to clients or should clients pull events from servers? A topic worthy of its own song if ever there was one.       To pull events the client simply starts a timer and makes a request to the server. This is polling. You can either pull a complete set of fresh data or get a list of changes. The server "knows" if anything you are interested in has changed and makes those changes available to you.  Knowing what has changed can be relatively simple with a publish-subscribe type backend or you can get very complex with fine grained bit maps of attributes and keeping per client state on what I client still needs to see.     Polling is heavy man.</p><p>4 0.75356507 <a title="1001-lsi-4" href="../high_scalability-2013/high_scalability-2013-03-04-7_Life_Saving_Scalability_Defenses_Against_Load_Monster_Attacks.html">1415 high scalability-2013-03-04-7 Life Saving Scalability Defenses Against Load Monster Attacks</a></p>
+<p>Introduction: We talked about  42 Monster Problems That Attack As Loads Increase . Here are a few ways you can defend yourself, secrets revealed by scaling masters across the ages. Note that these are low level programming level moves, not large architecture type strategies.
+  Use Resources Proportional To a Fixed Limit  
+This is probably the most important rule for achieving scalability within an application. What it means:
+  
+ Find the resource that has a fixed limit that you know you can support. For example, a guarantee to handle a certain number of objects in memory. So if we always use resources proportional to the number of objects it is likely we can prevent resource exhaustion. 
+ Devise ways of tying what you need to do to the individual resources. 
+  
+Some examples:
+  
+ Keep a list of purchase orders with line items over $20 (or whatever). Do not keep a list of the line items because the number of items can be much larger than the number of purchase orders. You have kept the resource usage</p><p>5 0.75042468 <a title="1001-lsi-5" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
+<p>Introduction: We talked about  42 Monster Problems That Attack As Loads Increase . And in  The Aggregation Collection  we talked about the value of prioritizing work and making smart queues as a way of absorbing and not reflecting traffic spikes.
+ 
+Now we move on to our next batch of strategies where the theme is  conditioning , which is the idea of shaping and controlling flows of work within your application...
+  Use Resources Proportional To a Fixed Limit  
+This is probably the most important rule for achieving scalability within an application. What it means:
+  
+ Find the resource that has a fixed limit that you know you can support. For example, a guarantee to handle a certain number of objects in memory. So if we always use resources proportional to the number of objects it is likely we can prevent resource exhaustion. 
+ Devise ways of tying what you need to do to the individual resources. 
+  
+Some examples:
+  
+ Keep a list of purchase orders with line items over $20 (or whatever). Do not keep</p><p>6 0.71198106 <a title="1001-lsi-6" href="../high_scalability-2008/high_scalability-2008-10-08-Strategy%3A_Flickr_-_Do_the_Essential_Work_Up-front_and_Queue_the_Rest_.html">406 high scalability-2008-10-08-Strategy: Flickr - Do the Essential Work Up-front and Queue the Rest </a></p>
 <p>7 0.70426822 <a title="1001-lsi-7" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
 <p>8 0.70408428 <a title="1001-lsi-8" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
 <p>9 0.69873071 <a title="1001-lsi-9" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
@@ -226,76 +150,39 @@ the line items because t</p><p>6 0.71198106 <a title="1001-lsi-6" href="../high_
 <p>[(1, 0.08), (2, 0.3), (10, 0.073), (40, 0.024), (49, 0.011), (56, 0.022), (61, 0.073), (77, 0.024), (79, 0.078), (85, 0.086), (94, 0.044), (98, 0.1)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96423459 <a title="1001-lda-1" href="../high_scalability-2011/high_scalability-2011-03-09-Google_and_Netflix_Strategy%3A_Use_Partial_Responses_to_Reduce_Request_Sizes.html">1001 high scalability-2011-03-09-Google and Netflix Strategy: Use Partial Responses to Reduce Request Sizes</a></p>
-<p>Introduction: This strategy targets reducing the amount of protocol data in packets by
-sending only the attributes that are needed. Google calls this Partial
-Response and Partial Update.Netflix posted about adopting this strategy in
-their recent Netflix API redesign. We've seen previously how Netflix improved
-performance by creatingless chatty protocols.As a consequence packet sizes
-rise as more data is being stuffed into each packet in order to reduce the
-number of round trips. But we don't like large packets either (memory usage
-and packet processing overhead), so we have to think of creative ways to
-shrink them back down.The change Netflx is making is to conceptualize their
-API as a database. What does this mean?Apartial responseis like a SQL select
-statement where you can specify only the fields you want back. Only the
-attributes of interest are requested.  Previously all fields for objects were
-returned, even if the client didn't need them. So the goal is reduce payload
-sizes by being more sele</p><p>2 0.94799078 <a title="1001-lda-2" href="../high_scalability-2012/high_scalability-2012-05-11-Stuff_The_Internet_Says_On_Scalability_For_May_11%2C_2012.html">1244 high scalability-2012-05-11-Stuff The Internet Says On Scalability For May 11, 2012</a></p>
-<p>Introduction: It's HighScalability Time:2.5M: Erlang Concurrent Connections;20 Billion :
-Urban Airship Push Notifications. @agentdero: "You go to production with the
-code you have, not the code you wish you had" - Devops
-Rumsfeld@PatrickMcFadin: After talking to a lot of big #aws customers tonight,
-the big non-secret is we'll be seeing #ssd instances soon.Goodbye, CouchDB.
-Steven Hazel shares his experience report with CouchDB. Like many
-relationships it all started great, but reliability, performance, and
-maintenance problems drove him into the arms of Percona MySQL. They use MySQL
-in NoSQL mode and in return they get better performance and a love that never
-fails.MongoDB at Craigslist: One Year Later. Jeremy Zawodny and Chris Mooney
-of Craigslist recount their experiences using MongoDB for the Archive project
-that now supports 2.5 billion posts and 6 TB of data. Biggest problem has been
-data migration. Had to pre-split the data to bulk load. Ran into NUMA issues
-on large memory systems. Issues on</p><p>3 0.93598521 <a title="1001-lda-3" href="../high_scalability-2013/high_scalability-2013-06-13-Busting_4_Modern_Hardware_Myths_-_Are_Memory%2C_HDDs%2C_and_SSDs_Really_Random_Access%3F.html">1475 high scalability-2013-06-13-Busting 4 Modern Hardware Myths - Are Memory, HDDs, and SSDs Really Random Access?</a></p>
-<p>Introduction: "It's all a numbers game - the dirty little secret of scalable systems"Martin
-Thompsonis a High Performance Computing Specialist with a real mission to
-teach programmers how to understand the innards of modern computing systems.
-He has many talks and classes (listed below) on caches, buffers, memory
-controllers, processor architectures, cache lines, etc.His thought is
-programmers do not put a proper value on understanding how the underpinnings
-of our systems work. We gravitate to the shiny and trendy. His approach is not
-to teach people specific programming strategies, but to teach programmers to
-fish so they can feed themselves. Without a real understanding strategies are
-easy to apply wrongly.  It's strange how programmers will put a lot of effort
-into understanding complicated frameworks like Hibernate, but little effort
-into understanding the underlying hardware on which their programs run.A major
-tenant of Martin's approach is to "lead by experimental observation rather
-than what</p><p>4 0.93395811 <a title="1001-lda-4" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
-<p>Introduction: What good are problems without solutions? In 42 Monster Problems That Attack
-As Loads Increase we talked about problems. In this first post (OK, there was
-an earlier post, but I'm doing some reorganizing), we'll cover what I
-callaggregation strategies.Keep in mind these are low level architecture type
-suggestions of how to structure the components of your code and how they
-interact. We're not talking about massive scale-out clusters here, but of what
-your applications might like like internally, way below the service level
-interface level. There's a lot more to the world than evented
-architectures.Aggregation simply means we aren't using stupid queues. Our
-queues will be smart. We are deeply aware of queues as containers of work that
-eventually dictate how the entire system performs. As work containers we know
-intimately what requests and data sit in our queues and we can use that
-intelligence to our great advantage.Prioritize WorkThe key idea to it all is
-an almost mindful approach to</p><p>5 0.93377572 <a title="1001-lda-5" href="../high_scalability-2012/high_scalability-2012-03-06-Ask_For_Forgiveness_Programming_-_Or_How_We%27ll_Program_1000_Cores.html">1204 high scalability-2012-03-06-Ask For Forgiveness Programming - Or How We'll Program 1000 Cores</a></p>
-<p>Introduction: The argument for a massively multicore future is now familiar: while clock
-speeds have leveled off, device density is increasing, so the future is cheap
-chips with hundreds and thousands of cores. That's the inexorable logic behind
-our multicore future.The unsolved question that lurks deep in the dark part of
-a programmer's mind is: how on earth are we to program these things? For
-problems that aren'tembarrassingly parallel, we really have no idea. IBM
-Research'sDavid Ungarhas an idea. And it's radical in the extreme...Grace
-Hopperonce advised "It's easier to ask for forgiveness than it is to get
-permission." I wonder if she had any idea that her strategy for dealing with
-human bureaucracy would the same strategy David Ungar thinks will help us tame
-the technological bureaucracy of 1000+ core systems?You may recognize David as
-the co-creator of theSelf programminglanguage, inspiration for the HotSpot
-technology in the JVM and the prototype model used by Javascript. He's also
-the innova</p><p>6 0.93294883 <a title="1001-lda-6" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
+<p>Introduction: This strategy targets reducing the amount of protocol data in packets by sending only the attributes that are needed. Google calls this  Partial Response and Partial Update .
+ 
+Netflix posted about adopting this strategy in their  recent Netflix API redesign . We've seen previously how Netflix improved performance by creating  less chatty protocols .
+ 
+As a consequence packet sizes rise as more data is being stuffed into each packet in order to reduce the number of round trips. But we don't like large packets either (memory usage and packet processing overhead), so we have to think of creative ways to shrink them back down.
+ 
+The change Netflx is making is to conceptualize their API as a database. What does this mean?
+ 
+A  partial response  is like a SQL select statement where you can specify only the fields you want back. Only the attributes of interest are requested.  Previously all fields for objects were returned, even if the client didn't need them. So the goal is reduce payload s</p><p>2 0.94799078 <a title="1001-lda-2" href="../high_scalability-2012/high_scalability-2012-05-11-Stuff_The_Internet_Says_On_Scalability_For_May_11%2C_2012.html">1244 high scalability-2012-05-11-Stuff The Internet Says On Scalability For May 11, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+  2.5M  : Erlang Concurrent Connections;  20 Billion  : Urban Airship Push Notifications.  
+  @agentdero : "You go to production with the code you have, not the code you wish you had" - Devops Rumsfeld  
+  @PatrickMcFadin : After talking to a lot of big #aws customers tonight, the big non-secret is we'll be seeing #ssd instances soon. 
+  Goodbye, CouchDB . Steven Hazel shares his experience report with CouchDB. Like many relationships it all started great, but reliability, performance, and maintenance problems drove him into the arms of Percona MySQL. They use MySQL in NoSQL mode and in return they get better performance and a love that never fails. 
+  MongoDB at Craigslist: One Year Later . Jeremy Zawodny and Chris Mooney of Craigslist recount their experiences using MongoDB for the Archive project that now supports 2.5 billion posts and 6 TB of data. Biggest problem has been data migration. Had to pre-split the data to bulk load. Ran into NUMA issues on</p><p>3 0.93598521 <a title="1001-lda-3" href="../high_scalability-2013/high_scalability-2013-06-13-Busting_4_Modern_Hardware_Myths_-_Are_Memory%2C_HDDs%2C_and_SSDs_Really_Random_Access%3F.html">1475 high scalability-2013-06-13-Busting 4 Modern Hardware Myths - Are Memory, HDDs, and SSDs Really Random Access?</a></p>
+<p>Introduction: "It’s all a numbers game – the dirty little secret of scalable systems" 
+      
+ Martin Thompson  is a High Performance Computing Specialist with a real mission to teach programmers how to understand the innards of modern computing systems. He has many talks and classes (listed below) on caches, buffers, memory controllers, processor architectures, cache lines, etc.
+ 
+His thought is programmers do not put a proper value on understanding how the underpinnings of our systems work. We gravitate to the shiny and trendy. His approach is not to teach people specific programming strategies, but to teach programmers to fish so they can feed themselves. Without a real understanding strategies are easy to apply wrongly.  It's strange how programmers will put a lot of effort into understanding complicated frameworks like Hibernate, but little effort into understanding the underlying hardware on which their programs run.
+ 
+A major tenant of Martin's approach is to "lead by experimental observation</p><p>4 0.93395811 <a title="1001-lda-4" href="../high_scalability-2013/high_scalability-2013-03-06-Low_Level_Scalability_Solutions_-_The_Aggregation_Collection.html">1418 high scalability-2013-03-06-Low Level Scalability Solutions - The Aggregation Collection</a></p>
+<p>Introduction: What good are problems without solutions? In  42 Monster Problems That Attack As Loads Increase  we talked about problems. In this first post (OK, there was an earlier post, but I'm doing some reorganizing), we'll cover what I call  aggregation  strategies.
+ 
+Keep in mind these are low level architecture type suggestions of how to structure the components of your code and how they interact. We're not talking about massive scale-out clusters here, but of what your applications might like like internally, way below the service level interface level. There's a lot more to the world than evented architectures.
+ 
+Aggregation simply means we aren't using stupid queues. Our queues will be smart. We are deeply aware of queues as containers of work that eventually dictate how the entire system performs. As work containers we know intimately what requests and data sit in our queues and we can use that intelligence to our great advantage.
+  Prioritize Work  
+The key idea to it all is an almost mi</p><p>5 0.93377572 <a title="1001-lda-5" href="../high_scalability-2012/high_scalability-2012-03-06-Ask_For_Forgiveness_Programming_-_Or_How_We%27ll_Program_1000_Cores.html">1204 high scalability-2012-03-06-Ask For Forgiveness Programming - Or How We'll Program 1000 Cores</a></p>
+<p>Introduction: The argument for a massively multicore future is now familiar: while clock speeds have leveled off, device density is increasing, so the future is cheap chips with hundreds and thousands of cores. That’s the inexorable logic behind our multicore future.
+ 
+The unsolved question that lurks deep in the dark part of a programmer’s mind is: how on earth are we to program these things? For problems that aren’t   embarrassingly parallel   , we really have no idea. IBM Research’s    David Ungar    has an idea. And it’s radical in the extreme...     Grace Hopper    once advised “It's easier to ask for forgiveness than it is to get permission.” I wonder if she had any idea that her strategy for dealing with human bureaucracy would the same strategy David Ungar thinks will help us tame  the technological bureaucracy of 1000+ core systems?    You may recognize David as the co-creator of the    Self programming    language, inspiration for the HotSpot technology in the JVM and the prototype model u</p><p>6 0.93294883 <a title="1001-lda-6" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
 <p>7 0.93274236 <a title="1001-lda-7" href="../high_scalability-2008/high_scalability-2008-03-08-Product%3A_DRBD_-_Distributed_Replicated_Block_Device.html">271 high scalability-2008-03-08-Product: DRBD - Distributed Replicated Block Device</a></p>
 <p>8 0.93197173 <a title="1001-lda-8" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
 <p>9 0.92983037 <a title="1001-lda-9" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>

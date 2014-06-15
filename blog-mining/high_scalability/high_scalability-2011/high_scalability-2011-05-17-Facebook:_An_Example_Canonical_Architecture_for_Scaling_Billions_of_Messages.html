@@ -16,73 +16,49 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1042 high scalability-2011-05-17-Facebook: An Example Canonical Architecture for Scaling Billions of Messages</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1042-html" href="http://highscalability.com//blog/2011/5/17/facebook-an-example-canonical-architecture-for-scaling-billi.html">html</a></p><p>Introduction: What should the architecture of your scalable, real-time, highly available
-service look like? There are as many options as there are developers, but if
-you are looking for a general template, this architecture as described by
-Prashant Malik, Facebook's lead for theMessagesback end team, in Scaling the
-Messages Application Back End, is a very good example to consider. Although
-Messages is tasked with handling 135+ billion messages a month, from email,
-IM, SMS,  text messages, and Facebook messages, you may think this is an
-example of BigArchitecture and doesn't apply to smaller sites. Not so. It's a
-good, well thought out example of a non-cloud architecture exhibiting many
-qualities any mom would be proud of:Layered- components are independent and
-isolated. Service/API Driven- each layer is connected via well defined
-interface that is the sole entry point for accessing that service. This
-prevents nasty complicated interdependencies. Clients hide behind an
-application API. Applications u</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Although Messages is tasked with handling 135+ billion messages a month, from email, IM, SMS,  text messages, and Facebook messages, you may think this is an example of BigArchitecture and doesn't apply to smaller sites. [sent-3, score-0.477]
-</p><p>2 It's a good, well thought out example of a non-cloud architecture exhibiting many qualities any mom would be proud of:Layered- components are independent and isolated. [sent-5, score-0.619]
-</p><p>3 Distributed- layers are transparently distributed across clusters of machinesSeparate Application Logic- Application logic is encapsulated in application servers that provide an API endpoint. [sent-10, score-0.4]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1042-html" href="http://highscalability.com//blog/2011/5/17/facebook-an-example-canonical-architecture-for-scaling-billi.html">html</a></p><p>Introduction: What should the architecture of your scalable, real-time, highly available service look like? There are as many options as there are developers, but if you are looking for a general template, this architecture as described by Prashant Malik, Facebook's lead for the  Messages  back end team, in  Scaling the Messages Application Back End , is a very good example to consider. 
+ 
+Although Messages is tasked with handling 135+ billion messages a month, from email, IM, SMS,  text messages, and Facebook messages, you may think this is an example of BigArchitecture and doesn't apply to smaller sites. Not so. It's a good, well thought out example of a non-cloud architecture exhibiting many qualities any mom would be proud of:
+  
+  Layered  - components are independent and isolated.  
+  Service/API Driven  - each layer is connected via well defined interface that is the sole entry point for accessing that service. This prevents nasty complicated interdependencies. Clients hide behind an applicat</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Although Messages is tasked with handling 135+ billion messages a month, from email, IM, SMS,  text messages, and Facebook messages, you may think this is an example of BigArchitecture and doesn't apply to smaller sites. [sent-3, score-0.477]
+</p><p>2 It's a good, well thought out example of a non-cloud architecture exhibiting many qualities any mom would be proud of:      Layered  - components are independent and isolated. [sent-5, score-0.619]
+</p><p>3 Distributed  - layers are transparently distributed across clusters of machines     Separate Application Logic  - Application logic is encapsulated in application servers that provide an API endpoint. [sent-10, score-0.4]
 </p><p>4 The application server tier also hides a write-through cache as this is the only place user data is written or retrieved, it is the perfect spot for a cache. [sent-12, score-0.51]
-</p><p>5 Scalable Component Services- Other services that themselves are scalable and highly available are used to implement this service. [sent-14, score-0.239]
+</p><p>5 Celled  - Messages has as the basic building block of their system a cluster of machines and services called a  cell . [sent-17, score-0.636]
 </p><p>6 If you need more power captain, then cells are added in an incremental fashion. [sent-18, score-0.264]
-</p><p>7 A cell consists ofZooKeeper controllers, an application server cluster, and ametadata store. [sent-19, score-0.662]
+</p><p>7 A cell consists of  ZooKeeper controllers , an application server cluster, and a  metadata store . [sent-19, score-0.662]
 </p><p>8 Cells provide isolation as the storage and application horsepower to process requests is independent of other cells. [sent-20, score-0.353]
 </p><p>9 Qualities 1-7 are well known and fairly widely acknowledge and deployed in some form or another. [sent-22, score-0.439]
-</p><p>10 Thecellidea isn't as widely deployed as it ratchets up the abstraction level to11. [sent-23, score-0.295]
+</p><p>10 The  cell  idea isn't as widely deployed as it ratchets up the abstraction level to  11 . [sent-23, score-0.693]
 </p><p>11 For Salesforce each pod consists of 50 nodes, Oracle RAC servers, and Java application servers. [sent-25, score-0.419]
 </p><p>12 A shard would consist of a database cluster and storage that hides a master-slave or a master-master configuration into a highly available and scalable unit. [sent-28, score-0.591]
 </p><p>13 The really interesting bits of the article is how cluster management within a cell is handled and how the management of the cells as a unit is handled. [sent-30, score-0.884]
 </p><p>14 In a cluster of machines, nodes and thus the services on those nodes can twinkle in and out of existence at any time. [sent-32, score-0.4]
 </p><p>15 How do you keep all systems in the cell coordinated? [sent-34, score-0.398]
-</p><p>16 All essential features for a cluster of fallible machines. [sent-37, score-0.239]
-</p><p>17 Within a cell application servers form a consistent hash ring and users are shard across these servers. [sent-38, score-0.766]
-</p><p>18 Messages has aDiscovery Servicethat is a kind of User DNS, it sits above the cells and maintains a user to cell mappings. [sent-40, score-0.752]
+</p><p>16 Within a cell application servers form a consistent hash ring and users are shard across these servers. [sent-38, score-0.766]
+</p><p>17 What about cross cell operations, how are they handled? [sent-39, score-0.398]
+</p><p>18 Messages has a  Discovery Service  that is a kind of User DNS, it sits above the cells and maintains a user to cell mappings. [sent-40, score-0.752]
 </p><p>19 If you want to access user data you have to find the correct cell first using the service. [sent-41, score-0.488]
-</p><p>20 In the cell adistributed logic clientacts as the interface to the Discovery Service and processes ZooKeeper notifications. [sent-42, score-0.592]
+</p><p>20 In the cell a  distributed logic client  acts as the interface to the Discovery Service and processes ZooKeeper notifications. [sent-42, score-0.5]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('cell', 0.398), ('messages', 0.322), ('cells', 0.264), ('pod', 0.155), ('application', 0.148), ('hides', 0.143), ('cluster', 0.141), ('tier', 0.129), ('independent', 0.123), ('consists', 0.116), ('widely', 0.114), ('zookeeper', 0.11), ('facebook', 0.105), ('logic', 0.102), ('exhibiting', 0.098), ('prashant', 0.098), ('ratchets', 0.098), ('fallible', 0.098), ('services', 0.097), ('malik', 0.092), ('adistributed', 0.092), ('mom', 0.092), ('acknowledge', 0.092), ('user', 0.09), ('shard', 0.083), ('deployed', 0.083), ('well', 0.083), ('example', 0.082), ('consist', 0.082), ('horsepower', 0.082), ('nodes', 0.081), ('handled', 0.081), ('encapsulated', 0.08), ('rac', 0.078), ('captain', 0.078), ('stuffed', 0.078), ('sms', 0.074), ('sole', 0.074), ('qualities', 0.073), ('nasty', 0.073), ('tasked', 0.073), ('scalable', 0.071), ('articles', 0.071), ('highly', 0.071), ('across', 0.07), ('prevents', 0.068), ('bundle', 0.068), ('proud', 0.068), ('coordinated', 0.067), ('form', 0.067)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1042-tfidf-1" href="../high_scalability-2011/high_scalability-2011-05-17-Facebook%3A_An_Example_Canonical_Architecture_for_Scaling_Billions_of_Messages.html">1042 high scalability-2011-05-17-Facebook: An Example Canonical Architecture for Scaling Billions of Messages</a></p>
-<p>Introduction: What should the architecture of your scalable, real-time, highly available
-service look like? There are as many options as there are developers, but if
-you are looking for a general template, this architecture as described by
-Prashant Malik, Facebook's lead for theMessagesback end team, in Scaling the
-Messages Application Back End, is a very good example to consider. Although
-Messages is tasked with handling 135+ billion messages a month, from email,
-IM, SMS,  text messages, and Facebook messages, you may think this is an
-example of BigArchitecture and doesn't apply to smaller sites. Not so. It's a
-good, well thought out example of a non-cloud architecture exhibiting many
-qualities any mom would be proud of:Layered- components are independent and
-isolated. Service/API Driven- each layer is connected via well defined
-interface that is the sole entry point for accessing that service. This
-prevents nasty complicated interdependencies. Clients hide behind an
-application API. Applications u</p><p>2 0.52490813 <a title="1042-tfidf-2" href="../high_scalability-2012/high_scalability-2012-05-09-Cell_Architectures.html">1242 high scalability-2012-05-09-Cell Architectures</a></p>
-<p>Introduction: A consequence of Service Oriented Architectures is the burning need to provide
-services at scale. The architecture that has evolved to satisfy these
-requirements is a little known technique called the Cell Architecture.A Cell
-Architecture is based on the idea that massive scale requires parallelization
-and parallelization requires components be isolated from each other. These
-islands of isolation are called cells. A cell is a self-contained installation
-that can satisfy all the operations for a shard. A shard is a subset of a much
-larger dataset, typically a range of users, for example. Cell Architectures
-have several advantages:Cells provide a unit of parallelization that can be
-adjusted to any size as the user base grows.Cell are added in an incremental
-fashion as more capacity is required.Cells isolate failures. One cell failure
-does not impact other cells.Cells provide isolation as the storage and
-application horsepower to process requests is independent of other cells.Cells
-enable</p><p>3 0.29750705 <a title="1042-tfidf-3" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
+<p>Introduction: What should the architecture of your scalable, real-time, highly available service look like? There are as many options as there are developers, but if you are looking for a general template, this architecture as described by Prashant Malik, Facebook's lead for the  Messages  back end team, in  Scaling the Messages Application Back End , is a very good example to consider. 
+ 
+Although Messages is tasked with handling 135+ billion messages a month, from email, IM, SMS,  text messages, and Facebook messages, you may think this is an example of BigArchitecture and doesn't apply to smaller sites. Not so. It's a good, well thought out example of a non-cloud architecture exhibiting many qualities any mom would be proud of:
+  
+  Layered  - components are independent and isolated.  
+  Service/API Driven  - each layer is connected via well defined interface that is the sole entry point for accessing that service. This prevents nasty complicated interdependencies. Clients hide behind an applicat</p><p>2 0.52490813 <a title="1042-tfidf-2" href="../high_scalability-2012/high_scalability-2012-05-09-Cell_Architectures.html">1242 high scalability-2012-05-09-Cell Architectures</a></p>
+<p>Introduction: A consequence of Service Oriented Architectures is the burning need to provide services at scale. The architecture that has evolved to satisfy these requirements is a little known technique called the Cell Architecture.  A Cell Architecture is based on the idea that massive scale requires parallelization and parallelization requires components be isolated from each other. These islands of isolation are called cells. A cell is a self-contained installation that can satisfy all the operations for a  shard . A shard is a subset of a much larger dataset, typically a range of users, for example.   Cell Architectures have several advantages:
+  
+ Cells provide a unit of parallelization that can be adjusted to any size as the user base grows. 
+ Cell are added in an incremental fashion as more capacity is required. 
+ Cells isolate failures. One cell failure does not impact other cells. 
+ Cells provide isolation as the storage and application horsepower to process requests is independent of othe</p><p>3 0.29750705 <a title="1042-tfidf-3" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
 <p>Introduction: With over 15 billion page views a month Tumblr has become an insanely popular
 blogging platform. Users may like Tumblr for its simplicity, its beauty, its
 strong focus on user experience, or its friendly and engaged community, but
@@ -144,34 +120,18 @@ servers.One of the common patt</p><p>6 0.26577228 <a title="1042-tfidf-6" href="
 <p>[(0, 0.234), (1, 0.09), (2, -0.012), (3, -0.015), (4, 0.044), (5, -0.003), (6, 0.075), (7, -0.043), (8, -0.022), (9, 0.06), (10, 0.039), (11, 0.247), (12, 0.041), (13, -0.036), (14, -0.01), (15, 0.149), (16, -0.086), (17, -0.118), (18, -0.028), (19, -0.057), (20, -0.081), (21, 0.075), (22, -0.124), (23, -0.085), (24, -0.073), (25, -0.001), (26, 0.024), (27, -0.038), (28, 0.023), (29, 0.008), (30, -0.066), (31, 0.04), (32, 0.131), (33, -0.053), (34, 0.032), (35, 0.063), (36, 0.003), (37, -0.025), (38, 0.036), (39, 0.017), (40, 0.051), (41, 0.009), (42, -0.019), (43, -0.057), (44, -0.082), (45, 0.03), (46, 0.002), (47, 0.086), (48, 0.004), (49, -0.047)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.94318354 <a title="1042-lsi-1" href="../high_scalability-2011/high_scalability-2011-05-17-Facebook%3A_An_Example_Canonical_Architecture_for_Scaling_Billions_of_Messages.html">1042 high scalability-2011-05-17-Facebook: An Example Canonical Architecture for Scaling Billions of Messages</a></p>
-<p>Introduction: What should the architecture of your scalable, real-time, highly available
-service look like? There are as many options as there are developers, but if
-you are looking for a general template, this architecture as described by
-Prashant Malik, Facebook's lead for theMessagesback end team, in Scaling the
-Messages Application Back End, is a very good example to consider. Although
-Messages is tasked with handling 135+ billion messages a month, from email,
-IM, SMS,  text messages, and Facebook messages, you may think this is an
-example of BigArchitecture and doesn't apply to smaller sites. Not so. It's a
-good, well thought out example of a non-cloud architecture exhibiting many
-qualities any mom would be proud of:Layered- components are independent and
-isolated. Service/API Driven- each layer is connected via well defined
-interface that is the sole entry point for accessing that service. This
-prevents nasty complicated interdependencies. Clients hide behind an
-application API. Applications u</p><p>2 0.93834287 <a title="1042-lsi-2" href="../high_scalability-2012/high_scalability-2012-05-09-Cell_Architectures.html">1242 high scalability-2012-05-09-Cell Architectures</a></p>
-<p>Introduction: A consequence of Service Oriented Architectures is the burning need to provide
-services at scale. The architecture that has evolved to satisfy these
-requirements is a little known technique called the Cell Architecture.A Cell
-Architecture is based on the idea that massive scale requires parallelization
-and parallelization requires components be isolated from each other. These
-islands of isolation are called cells. A cell is a self-contained installation
-that can satisfy all the operations for a shard. A shard is a subset of a much
-larger dataset, typically a range of users, for example. Cell Architectures
-have several advantages:Cells provide a unit of parallelization that can be
-adjusted to any size as the user base grows.Cell are added in an incremental
-fashion as more capacity is required.Cells isolate failures. One cell failure
-does not impact other cells.Cells provide isolation as the storage and
-application horsepower to process requests is independent of other cells.Cells
-enable</p><p>3 0.81301457 <a title="1042-lsi-3" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
+<p>Introduction: What should the architecture of your scalable, real-time, highly available service look like? There are as many options as there are developers, but if you are looking for a general template, this architecture as described by Prashant Malik, Facebook's lead for the  Messages  back end team, in  Scaling the Messages Application Back End , is a very good example to consider. 
+ 
+Although Messages is tasked with handling 135+ billion messages a month, from email, IM, SMS,  text messages, and Facebook messages, you may think this is an example of BigArchitecture and doesn't apply to smaller sites. Not so. It's a good, well thought out example of a non-cloud architecture exhibiting many qualities any mom would be proud of:
+  
+  Layered  - components are independent and isolated.  
+  Service/API Driven  - each layer is connected via well defined interface that is the sole entry point for accessing that service. This prevents nasty complicated interdependencies. Clients hide behind an applicat</p><p>2 0.93834287 <a title="1042-lsi-2" href="../high_scalability-2012/high_scalability-2012-05-09-Cell_Architectures.html">1242 high scalability-2012-05-09-Cell Architectures</a></p>
+<p>Introduction: A consequence of Service Oriented Architectures is the burning need to provide services at scale. The architecture that has evolved to satisfy these requirements is a little known technique called the Cell Architecture.  A Cell Architecture is based on the idea that massive scale requires parallelization and parallelization requires components be isolated from each other. These islands of isolation are called cells. A cell is a self-contained installation that can satisfy all the operations for a  shard . A shard is a subset of a much larger dataset, typically a range of users, for example.   Cell Architectures have several advantages:
+  
+ Cells provide a unit of parallelization that can be adjusted to any size as the user base grows. 
+ Cell are added in an incremental fashion as more capacity is required. 
+ Cells isolate failures. One cell failure does not impact other cells. 
+ Cells provide isolation as the storage and application horsepower to process requests is independent of othe</p><p>3 0.81301457 <a title="1042-lsi-3" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
 <p>Introduction: With over 15 billion page views a month Tumblr has become an insanely popular
 blogging platform. Users may like Tumblr for its simplicity, its beauty, its
 strong focus on user experience, or its friendly and engaged community, but
@@ -233,76 +193,30 @@ servers.One of the common patt</p><p>6 0.6472286 <a title="1042-lsi-6" href="../
 <p>[(1, 0.127), (2, 0.265), (5, 0.027), (10, 0.043), (40, 0.029), (61, 0.151), (79, 0.111), (85, 0.036), (90, 0.101), (94, 0.034)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.96648842 <a title="1042-lda-1" href="../high_scalability-2008/high_scalability-2008-06-09-FaceStat%27s_Rousing_Tale_of_Scaling_Woe_and_Wisdom_Won.html">344 high scalability-2008-06-09-FaceStat's Rousing Tale of Scaling Woe and Wisdom Won</a></p>
-<p>Introduction: Lukas Biewald shares a fascinatingslam by slam recountof how
-hisFaceStat(upload your picture and be judged by the masses) site was battered
-by a link on Yahoo's main page that caused an almost instantaneous 650,000
-page view jump on their site. Yahoo spends considerable effort making sure its
-own properties can handle the truly massive flow from the main page. Turning
-theGreat Eyeof the Internet towards an unsuspecting newborn site must be quite
-the diaper ready experience. Theo Schlossnagle eerily prophesized about such
-events inThe Implications of Punctuated Scalabilium for Website Architecture:
-massive, unexpected and sudden traffic spikes will become more common as a
-fickle internet seeks ever for new entertainments (my summary). Exactly
-FaceStat's situation.This is also one of our first exposures to an application
-written on Merb, a popular Ruby on Rails competitor. For those who think Ruby
-is the problem, their architecture now serves 100 times the original load.How
-did our fine</p><p>2 0.96094477 <a title="1042-lda-2" href="../high_scalability-2013/high_scalability-2013-01-02-Why_Pinterest_Uses_the_Cloud_Instead_of_Going_Solo_-_To_Be_Or_Not_To_Be.html">1380 high scalability-2013-01-02-Why Pinterest Uses the Cloud Instead of Going Solo - To Be Or Not To Be</a></p>
-<p>Introduction: I love it when a somewhat older article like Pinterest Cut Costs From $54 To
-$20 Per Hour By Automatically Shutting Down Systems hits Hacker News and
-generates agood conversation. One of the common sentiments about the cloud was
-raised: why doesn't Pinterest save a lot of money by running their own
-hardware instead of using the cloud?Ryan Park, Operations Engineer at
-Pinterest, responds in what I think is the perfectmodern responseto that
-ultimate existential design dilemma:Our #1 requirement has been to keep up
-with the growth in traffic on the site. We've been growing so fast that
-there's literally no way we could have ordered and racked equipment fast
-enough. We were also a very small team -- a year ago there were only about a
-dozen people in the whole company. At this point we're much larger, which
-gives us room to consider more options like colo or multiple cloud
-providers.AWS certainly feels pretty costly when you compare colo prices to
-the list price for on-demand instances. But</p><p>same-blog 3 0.95567834 <a title="1042-lda-3" href="../high_scalability-2011/high_scalability-2011-05-17-Facebook%3A_An_Example_Canonical_Architecture_for_Scaling_Billions_of_Messages.html">1042 high scalability-2011-05-17-Facebook: An Example Canonical Architecture for Scaling Billions of Messages</a></p>
-<p>Introduction: What should the architecture of your scalable, real-time, highly available
-service look like? There are as many options as there are developers, but if
-you are looking for a general template, this architecture as described by
-Prashant Malik, Facebook's lead for theMessagesback end team, in Scaling the
-Messages Application Back End, is a very good example to consider. Although
-Messages is tasked with handling 135+ billion messages a month, from email,
-IM, SMS,  text messages, and Facebook messages, you may think this is an
-example of BigArchitecture and doesn't apply to smaller sites. Not so. It's a
-good, well thought out example of a non-cloud architecture exhibiting many
-qualities any mom would be proud of:Layered- components are independent and
-isolated. Service/API Driven- each layer is connected via well defined
-interface that is the sole entry point for accessing that service. This
-prevents nasty complicated interdependencies. Clients hide behind an
-application API. Applications u</p><p>4 0.94825506 <a title="1042-lda-4" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
-<p>Introduction: You may have read somewhere that Facebook has introduced a newSocial Inbox
-integrating email, IM, SMS,  text messages, on-site Facebook messages. All-in-
-all they need to store over 135 billion messages a month. Where do they store
-all that stuff? Facebook's Kannan Muthukkaruppan gives the surprise answer
-inThe Underlying Technology of Messages:HBase. HBase beat out MySQL,
-Cassandra, and a few others.Why a surprise? Facebook created Cassandra and it
-was purpose built for an inbox type application, but they found Cassandra's
-eventual consistency model wasn't a good match for their new real-time
-Messages product. Facebook also has an extensiveMySQL infrastructure, but they
-found performance suffered as data set and indexes grew larger. And they could
-have built their own, but they chose HBase.HBase is ascaleout table store
-supporting very high rates of row-level updates over massive amounts of data.
-Exactly what is needed for a Messaging system. HBase is also a column based
-key-value sto</p><p>5 0.94766194 <a title="1042-lda-5" href="../high_scalability-2010/high_scalability-2010-12-21-SQL_%2B_NoSQL_%3D_Yes_%21.html">961 high scalability-2010-12-21-SQL + NoSQL = Yes !</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.Data storage has always been one of the most difficult problems
-to address, especially as the quantity of stored data is constantly
-increasing. This is not simply due to the growing numbers of people regularly
-using the Internet, particularly with all the social networks, games and
-gizmos now available. Companies are also amassing more and more meticulous
-information relevant to their business, in order to optimize productivity and
-ROI (Return On Investment). I find the positioning of SQL and NoSQL (Not Only
-SQL) as opposites rather a shame: it's true that the marketing wave of NoSQL
-has enabled the renewed promotion of a system that's been around for quite a
-while, but which was only rarely considered in most cases, as after all,
-everything could be fitted into the « good old SQL model ». The reverse trend
-of wanting to make everything fit the NoSQL model is not very profitable
-either.So, what'</p><p>6 0.94704157 <a title="1042-lda-6" href="../high_scalability-2009/high_scalability-2009-06-13-Neo4j_-_a_Graph_Database_that_Kicks_Buttox.html">628 high scalability-2009-06-13-Neo4j - a Graph Database that Kicks Buttox</a></p>
+<p>Introduction: Lukas Biewald shares a fascinating  slam by slam recount  of how his  FaceStat  (upload your picture and be judged by the masses) site was battered by a link on Yahoo's main page that caused an almost instantaneous 650,000 page view jump on their site. Yahoo spends considerable effort making sure its own properties can handle the truly massive flow from the main page. Turning the  Great Eye  of the Internet towards an unsuspecting newborn site must be quite the diaper ready experience. Theo Schlossnagle eerily prophesized about such events in  The Implications of Punctuated Scalabilium for Website Architecture : massive, unexpected and sudden traffic spikes will become more common as a fickle internet seeks ever for new entertainments (my summary). Exactly FaceStat's situation.   This is also one of our first exposures to an application written on Merb, a popular Ruby on Rails competitor. For those who think Ruby is the problem, their architecture now serves 100 times the original load</p><p>2 0.96094477 <a title="1042-lda-2" href="../high_scalability-2013/high_scalability-2013-01-02-Why_Pinterest_Uses_the_Cloud_Instead_of_Going_Solo_-_To_Be_Or_Not_To_Be.html">1380 high scalability-2013-01-02-Why Pinterest Uses the Cloud Instead of Going Solo - To Be Or Not To Be</a></p>
+<p>Introduction: I love it when a somewhat older article like  Pinterest Cut Costs From $54 To $20 Per Hour By Automatically Shutting Down Systems  hits Hacker News and generates a  good conversation . One of the common sentiments about the cloud was raised: why doesn't Pinterest save a lot of money by running their own hardware instead of using the cloud?
+ 
+ Ryan Park , Operations Engineer at Pinterest, responds in what I think is the perfect  modern response  to that ultimate existential design dilemma:
+  
+
+Our #1 requirement has been to keep up with the growth in traffic on the site. We've been growing so fast that there's literally no way we could have ordered and racked equipment fast enough. We were also a very small team -- a year ago there were only about a dozen people in the whole company. At this point we're much larger, which gives us room to consider more options like colo or multiple cloud providers.
+
+
+ AWS certainly feels pretty costly when you compare colo prices to the list price for o</p><p>same-blog 3 0.95567834 <a title="1042-lda-3" href="../high_scalability-2011/high_scalability-2011-05-17-Facebook%3A_An_Example_Canonical_Architecture_for_Scaling_Billions_of_Messages.html">1042 high scalability-2011-05-17-Facebook: An Example Canonical Architecture for Scaling Billions of Messages</a></p>
+<p>Introduction: What should the architecture of your scalable, real-time, highly available service look like? There are as many options as there are developers, but if you are looking for a general template, this architecture as described by Prashant Malik, Facebook's lead for the  Messages  back end team, in  Scaling the Messages Application Back End , is a very good example to consider. 
+ 
+Although Messages is tasked with handling 135+ billion messages a month, from email, IM, SMS,  text messages, and Facebook messages, you may think this is an example of BigArchitecture and doesn't apply to smaller sites. Not so. It's a good, well thought out example of a non-cloud architecture exhibiting many qualities any mom would be proud of:
+  
+  Layered  - components are independent and isolated.  
+  Service/API Driven  - each layer is connected via well defined interface that is the sole entry point for accessing that service. This prevents nasty complicated interdependencies. Clients hide behind an applicat</p><p>4 0.94825506 <a title="1042-lda-4" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
+<p>Introduction: You may have read somewhere that Facebook has introduced a new  Social Inbox  integrating email, IM, SMS,  text messages, on-site Facebook messages. All-in-all they need to store over 135 billion messages a month. Where do they store all that stuff? Facebook's Kannan Muthukkaruppan gives the surprise answer in  The Underlying Technology of Messages :  HBase . HBase beat out MySQL, Cassandra, and a few others.
+ 
+Why a surprise? Facebook created Cassandra and it was purpose built for an inbox type application, but they found Cassandra's eventual consistency model wasn't a good match for their new real-time Messages product. Facebook also has an extensive  MySQL infrastructure , but they found performance suffered as data set and indexes grew larger. And they could have built their own, but they chose HBase.
+ 
+HBase is a   scaleout table store supporting very high rates of row-level updates over massive amounts of data  . Exactly what is needed for a Messaging system. HBase is also a colu</p><p>5 0.94766194 <a title="1042-lda-5" href="../high_scalability-2010/high_scalability-2010-12-21-SQL_%2B_NoSQL_%3D_Yes_%21.html">961 high scalability-2010-12-21-SQL + NoSQL = Yes !</a></p>
+<p>Introduction: This is a guest post by     Frédéric Faure      (architect at    Ysance   ), you can follow him on    twitter   .  
+ 
+Data storage has always been one of the most difficult problems to address, especially as the quantity of stored data is constantly increasing. This is not simply due to the growing numbers of people regularly using the Internet, particularly with all the social networks, games and gizmos now available. Companies are also amassing more and more meticulous information relevant to their business, in order to optimize productivity and ROI (Return On Investment). I find the positioning of SQL and NoSQL (Not Only SQL) as opposites rather a shame: it’s true that the marketing wave of NoSQL has enabled the renewed promotion of a system that’s been around for quite a while, but which was only rarely considered in most cases, as after all, everything could be fitted into the « good old SQL model ». The reverse trend of wanting to make everything fit the NoSQL model is not very p</p><p>6 0.94704157 <a title="1042-lda-6" href="../high_scalability-2009/high_scalability-2009-06-13-Neo4j_-_a_Graph_Database_that_Kicks_Buttox.html">628 high scalability-2009-06-13-Neo4j - a Graph Database that Kicks Buttox</a></p>
 <p>7 0.94634765 <a title="1042-lda-7" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
 <p>8 0.94611055 <a title="1042-lda-8" href="../high_scalability-2013/high_scalability-2013-02-11-At_Scale_Even_Little_Wins_Pay_Off_Big_-_Google_and_Facebook_Examples.html">1404 high scalability-2013-02-11-At Scale Even Little Wins Pay Off Big - Google and Facebook Examples</a></p>
 <p>9 0.94573176 <a title="1042-lda-9" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>

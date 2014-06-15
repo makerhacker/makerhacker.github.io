@@ -16,105 +16,52 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1312 high scalability-2012-08-27-Zoosk - The Engineering behind Real Time Communications</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1312-html" href="http://highscalability.com//blog/2012/8/27/zoosk-the-engineering-behind-real-time-communications.html">html</a></p><p>Introduction: This is a guest post byPeter Offringa, VP of engineering atZoosk. Zoosk is a
-50 million member romantic social network.Our members get the most rewarding
-experience from Zoosk when they can interact in real-time. After all, a future
-relationship is potentially at the other end of every connection a user makes.
-The excitement and richness of this situation can only be fully realized in
-real-time. The suite of Zoosk services facilitating these interactions are
-referred to by the general description of real-time communications (RTC).
-These communications are delivered using the XMPP protocol, which also powers
-other popular instant messaging products. Zoosk members experience real-time
-communications within three distinct interactions:Presence.  When a member is
-actively connected to the Zoosk RTC infrastructure, their public status
-appears as 'available'. If they are idle for a period of time, their state
-transitions to 'away'. Their presence automatically changes to 'offline' when
-they</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The Zoosk service utilizes these notification packets to tell the client applications to update the value of UI-related badges, such as the number of unread messages from another user. [sent-17, score-0.312]
-</p><p>2 If two users are online simultaneously, they can send messages to each other in a familiar 'instant messaging' chat format. [sent-19, score-0.293]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1312-html" href="http://highscalability.com//blog/2012/8/27/zoosk-the-engineering-behind-real-time-communications.html">html</a></p><p>Introduction: This is a guest post by   Peter Offringa, VP of engineering at    Zoosk  . Zoosk is a 50 million member romantic social network.  
+ 
+Our members get the most rewarding experience from Zoosk when they can interact in real-time. After all, a future relationship is potentially at the other end of every connection a user makes. The excitement and richness of this situation can only be fully realized in real-time. The suite of Zoosk services facilitating these interactions are referred to by the general description of real-time communications (RTC). These communications are delivered using the XMPP protocol, which also powers other popular instant messaging products. Zoosk members experience real-time communications within three distinct interactions:
+  
+  Presence .  When a member is actively connected to the Zoosk RTC infrastructure, their public status appears as ‘available’. If they are idle for a period of time, their state transitions to ‘away’. Their presence automatically changes to</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The Zoosk service utilizes these notification packets to tell the client applications to update the value of UI-related badges, such as the number of unread messages from another user. [sent-17, score-0.312]
+</p><p>2 If two users are online simultaneously, they can send messages to each other in a familiar ‘instant messaging’ chat format. [sent-19, score-0.293]
 </p><p>3 Message content is also persisted to a database for future message history retrieval if the user reconnects in the future using a different client application. [sent-21, score-0.305]
-</p><p>4 Full SizeA user's online state is tracked in real-time by the Tigase servers via persistent connections between Tigase and the client applications (web browser, mobile device, desktop application). [sent-36, score-0.521]
+</p><p>4 Full Size        A user’s online state is tracked in real-time by the Tigase servers via persistent connections between Tigase and the client applications (web browser, mobile device, desktop application). [sent-36, score-0.521]
 </p><p>5 Many core Zoosk product features, including search results, profile views and messaging, require ensuring that this state is reflected in near real-time on all client applications. [sent-37, score-0.386]
-</p><p>6 To keep this state consistent throughout the rest of the Zoosk infrastructure, the user's record in the user database is updated to reflect their current online state including a timestamp of their most recent online transition. [sent-38, score-0.772]
-</p><p>7 The user's online state is also stored in cache on our search infrastructure, so that search results can take online state into account. [sent-39, score-0.741]
-</p><p>8 This cache of online state is updated in real- time through a dedicated Tigase instance referred to as the Online State Manager (OSM). [sent-42, score-0.381]
-</p><p>9 The OSM receives custom XMPP packets indicating the user's online state from the primary Tigase chat servers and then makes a network call to update the ehcache instance on each of the SOLR servers. [sent-43, score-0.56]
+</p><p>6 To keep this state consistent throughout the rest of the Zoosk infrastructure, the user’s record in the user database is updated to reflect their current online state including a timestamp of their most recent online transition. [sent-38, score-0.772]
+</p><p>7 The user’s online state is also stored in cache on our search infrastructure, so that search results can take online state into account. [sent-39, score-0.741]
+</p><p>8 This cache of online state is updated in real-time through a dedicated Tigase instance referred to as the Online State Manager (OSM). [sent-42, score-0.381]
+</p><p>9 The OSM receives custom XMPP packets indicating the user’s online state from the primary Tigase chat servers and then makes a network call to update the ehcache instance on each of the SOLR servers. [sent-43, score-0.56]
 </p><p>10 There are roughly 8,000 of these online state transitions a minute during peak traffic. [sent-44, score-0.338]
-</p><p>11 Maintaining this cache outside of the SOLR index allows the user's presence state to be updated in real-time, separate from the periodic index replication snaps from master to slave. [sent-45, score-0.295]
-</p><p>12 The user's presence state is then combined with search results at query time to either filter or rank results based on whether the user is online currently. [sent-46, score-0.694]
+</p><p>11 Maintaining this cache outside of the SOLR index allows the user’s presence state to be updated in real-time, separate from the periodic index replication snaps from master to slave. [sent-45, score-0.295]
+</p><p>12 The user’s presence state is then combined with search results at query time to either filter or rank results based on whether the user is online currently. [sent-46, score-0.694]
 </p><p>13 User interactions with the Zoosk service outside of the core RTC features can also trigger business logic that generates a real-time notification to a connected user. [sent-48, score-0.275]
-</p><p>14 For example, if another user views our user's profile, or accepts our user's friend request, we want to notify our user of that action immediately. [sent-49, score-0.357]
+</p><p>14 For example, if another user views our user’s profile, or accepts our user’s friend request, we want to notify our user of that action immediately. [sent-49, score-0.357]
 </p><p>15 The PHP-based web application will trigger an asynchronous job that opens a network connection to a Tigase server and passes an XMPP data packet to the server, with a custom message payload providing the data for the notification. [sent-50, score-0.332]
 </p><p>16 This packet is processed by Tigase and routed to the client application from which user is currently connected. [sent-51, score-0.377]
-</p><p>17 The user's client application then processes this custom packet and displays the appropriate "toast" to the user or updates a "badge" reflecting the current value of a particular feature indicator (number of profile views, unread messages, etc. [sent-52, score-0.575]
+</p><p>17 The user’s client application then processes this custom packet and displays the appropriate “toast” to the user or updates a “badge” reflecting the current value of a particular feature indicator (number of profile views, unread messages, etc. [sent-52, score-0.575]
 </p><p>18 If the user is offline at the time, Tigase will store the packet until the user reconnects. [sent-54, score-0.401]
 </p><p>19 It logs into all primary chat servers and tests connections and presence transmission. [sent-60, score-0.375]
-</p><p>20 Business Intelligence Reports- Every hour, a script checks the number of active connections to each primary Tigase server and the number of messages it has passed in the prior hour. [sent-65, score-0.39]
+</p><p>20 Business Intelligence Reports  - Every hour, a script checks the number of active connections to each primary Tigase server and the number of messages it has passed in the prior hour. [sent-65, score-0.39]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('tigase', 0.55), ('zoosk', 0.48), ('rtc', 0.275), ('xmpp', 0.17), ('user', 0.157), ('online', 0.153), ('state', 0.13), ('members', 0.097), ('client', 0.094), ('connections', 0.087), ('packet', 0.087), ('interactions', 0.086), ('communications', 0.086), ('solr', 0.086), ('primary', 0.08), ('presence', 0.075), ('chat', 0.075), ('actively', 0.074), ('unread', 0.071), ('osm', 0.071), ('custom', 0.065), ('messages', 0.065), ('paired', 0.064), ('profile', 0.062), ('results', 0.061), ('connected', 0.061), ('member', 0.06), ('tests', 0.058), ('search', 0.057), ('desktop', 0.057), ('ehcache', 0.057), ('transitions', 0.055), ('message', 0.054), ('updated', 0.049), ('referred', 0.049), ('delivered', 0.047), ('browser', 0.044), ('trigger', 0.044), ('messaging', 0.044), ('connection', 0.043), ('notification', 0.043), ('views', 0.043), ('nagios', 0.041), ('socket', 0.041), ('outside', 0.041), ('script', 0.041), ('powered', 0.041), ('number', 0.039), ('application', 0.039), ('passed', 0.039)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1312-tfidf-1" href="../high_scalability-2012/high_scalability-2012-08-27-Zoosk_-_The_Engineering_behind_Real_Time_Communications.html">1312 high scalability-2012-08-27-Zoosk - The Engineering behind Real Time Communications</a></p>
-<p>Introduction: This is a guest post byPeter Offringa, VP of engineering atZoosk. Zoosk is a
-50 million member romantic social network.Our members get the most rewarding
-experience from Zoosk when they can interact in real-time. After all, a future
-relationship is potentially at the other end of every connection a user makes.
-The excitement and richness of this situation can only be fully realized in
-real-time. The suite of Zoosk services facilitating these interactions are
-referred to by the general description of real-time communications (RTC).
-These communications are delivered using the XMPP protocol, which also powers
-other popular instant messaging products. Zoosk members experience real-time
-communications within three distinct interactions:Presence.  When a member is
-actively connected to the Zoosk RTC infrastructure, their public status
-appears as 'available'. If they are idle for a period of time, their state
-transitions to 'away'. Their presence automatically changes to 'offline' when
-they</p><p>2 0.15582219 <a title="1312-tfidf-2" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
-<p>Introduction: Update: Erlang at Facebook by Eugene Letuchy. How Facebook uses Erlang to
-implement Chat, AIM Presence, and Chat Jabber support. I've done
-someXMPPdevelopment so when I readFacebook was making a Jabber chat clientI
-was really curious how they would make it work. While core XMPP is
-straightforward, a number of protocol extensions like discovery, forms, chat
-states, pubsub, multi user chat, and privacy lists really up the
-implementation complexity. Some real engineering challenges were involved to
-make this puppy scale and perform. It's not clear what extensions they've
-implemented, but a blog entry by Facebook's Eugene Letuchy hits some of the
-architectural challenges they faced and how they overcame them.A web based
-Jabber client poses a few problems because XMPP, like most IM protocols, is an
-asynchronous event driven system that pretty much assumes you have a full time
-open connection. After logging in the server sends a client roster information
-and presence information. Your client</p><p>3 0.15491921 <a title="1312-tfidf-3" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
-<p>Introduction: What's cool about starting a new project is you finally have a chance to do it
-right. You of course eventually mess everything up in your own way, but for
-that one moment the world has a perfect order, a rightness that feels
-satisfying and good. Arne Claassen, the CTO of notify.me, a brand new real
-time notification delivery service, is in this honeymoon period now.Arne has
-been gracious enough to share with us his philosophy of how to build a
-notification service. I think you'll find it fascinating because Arne goes
-into a lot of useful detail about how his system works.His main design
-philosophy is to minimize the bottlenecks that form around synchronous access,
-that is whensome resource is requested and the requestor ties up more
-resources, waiting for a response. If the requested resource can't be
-delivered in a timely manner, more and more requests pile up until the server
-can't accept any new ones. Nobody gets what they want and you have an outage.
-Breaking synchronous operations</p><p>4 0.11498168 <a title="1312-tfidf-4" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
-<p>Introduction: This article is from an interview withZuhaib Siddique, a production engineer
-atHipChat, makers ofgroup chat and IM for teams.HipChat started in an unusual
-space, one you might not think would have much promise, enterprise group
-messaging, but as we are learning there is gold in them thereenterprise hills.
-Which is why Atlassian, makers of well thought of tools like JIRA and
-Confluence,acquired HipChat in 2012.And in a tale not often heard, the
-resources and connections of a larger parent have actually helped HipChat
-enter anexponential growth cycle. Having reached the 1.2 billion message
-storage mark they are now doubling the number of messages sent, stored, and
-indexed every few months.That kind of growth puts a lot of pressure on a once
-adequate infrastructure. HipChat exhibited a common scaling pattern. Start
-simple, experience traffic spikes, and then think what do we do now? Using
-bigger computers is usually the first and best answer. And they did that. That
-gave them some breathi</p><p>5 0.11493814 <a title="1312-tfidf-5" href="../high_scalability-2008/high_scalability-2008-01-30-The_AOL_XMPP_scalability_challenge.html">234 high scalability-2008-01-30-The AOL XMPP scalability challenge</a></p>
-<p>Introduction: Large scale distributed instant messaging, presence based protocol are a real
-challenge. With big players adopting the standard, the XMPP (eXtensible
-Messaging and Presence Protocol) community is facing the need to validate
-protocol and implementations to even larger scale.</p><p>6 0.1120473 <a title="1312-tfidf-6" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: This is a guest post by   Peter Offringa, VP of engineering at    Zoosk  . Zoosk is a 50 million member romantic social network.  
+ 
+Our members get the most rewarding experience from Zoosk when they can interact in real-time. After all, a future relationship is potentially at the other end of every connection a user makes. The excitement and richness of this situation can only be fully realized in real-time. The suite of Zoosk services facilitating these interactions are referred to by the general description of real-time communications (RTC). These communications are delivered using the XMPP protocol, which also powers other popular instant messaging products. Zoosk members experience real-time communications within three distinct interactions:
+  
+  Presence .  When a member is actively connected to the Zoosk RTC infrastructure, their public status appears as ‘available’. If they are idle for a period of time, their state transitions to ‘away’. Their presence automatically changes to</p><p>2 0.15582219 <a title="1312-tfidf-2" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
+<p>Introduction: Update :  Erlang at Facebook  by Eugene Letuchy. How Facebook uses Erlang to implement Chat, AIM Presence, and Chat Jabber support.  
+ 
+I've done some  XMPP  development so when I read  Facebook was making a Jabber chat client  I was really curious how they would make it work. While core XMPP is straightforward, a number of protocol extensions like discovery, forms, chat states, pubsub, multi user chat, and privacy lists really up the implementation complexity. Some real engineering challenges were involved to make this puppy scale and perform.  It's not clear what extensions they've  implemented, but a blog entry by Facebook's Eugene Letuchy hits some of the architectural challenges they faced and how they overcame them.
+ 
+A web based Jabber client poses a few problems because XMPP, like most IM protocols, is an asynchronous event driven system that pretty much assumes you have a full time open connection. After logging in the server sends a client roster information and presence info</p><p>3 0.15491921 <a title="1312-tfidf-3" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
+<p>Introduction: What's cool about starting a new project is you finally have a chance to do it right. You of course eventually mess everything up in your own way, but for that one moment the world has a perfect order, a rightness that feels satisfying and good. Arne Claassen, the CTO of notify.me, a brand new real time notification delivery service, is in this honeymoon period now.  Arne has been gracious enough to share with us his philosophy of how to build a notification service. I think you'll find it fascinating because Arne goes into a lot of useful detail about how his system works.    His main design philosophy is to minimize the bottlenecks that form around synchronous access, that is when  some resource is requested and the requestor ties up more resources, waiting for a response. If the requested resource can’t be delivered in a timely manner, more and more requests pile up until the server can’t accept any new ones. Nobody gets what they want and you have an outage. Breaking synchronous op</p><p>4 0.11498168 <a title="1312-tfidf-4" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
+<p>Introduction: This article is from an interview with    Zuhaib Siddique   , a production engineer at    HipChat   , makers of     group chat and IM for teams.  
+   HipChat started in an unusual space, one you might not think would have much promise, enterprise group messaging, but as we are learning there is gold in them there    enterprise hills   . Which is why Atlassian, makers of well thought of tools like JIRA and Confluence,    acquired HipChat in 2012   . 
+   And in a tale not often heard, the resources and connections of a larger parent have actually helped HipChat enter an    exponential growth cycle   . Having reached the 1.2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. 
+   That kind of growth puts a lot of pressure on a once adequate infrastructure. HipChat exhibited a common scaling pattern. Start simple, experience traffic spikes, and then think what do we do now? Using bigger computers is usually the first and bes</p><p>5 0.11493814 <a title="1312-tfidf-5" href="../high_scalability-2008/high_scalability-2008-01-30-The_AOL_XMPP_scalability_challenge.html">234 high scalability-2008-01-30-The AOL XMPP scalability challenge</a></p>
+<p>Introduction: Large scale distributed instant messaging, presence based protocol are a real challenge. With big players adopting the standard, the XMPP (eXtensible Messaging and Presence Protocol) community is facing the need to validate protocol and implementations to even larger scale.</p><p>6 0.1120473 <a title="1312-tfidf-6" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
 <p>7 0.10812925 <a title="1312-tfidf-7" href="../high_scalability-2012/high_scalability-2012-11-27-Sponsored_Post%3A__Akiban%2C_Booking%2C_Teradata_Aster%2C_Hadapt%2C_Zoosk%2C_Aerospike%2C_Server_Stack%2C_Wiredrive%2C_NY_Times%2C_CouchConf%2C_FiftyThree%2C_Percona%2C_ScaleOut%2C_New_Relic%2C_NetDNA%2C_GigaSpaces%2C_AiCache%2C_Logic_Monitor%2C_AppDynamics.html">1363 high scalability-2012-11-27-Sponsored Post:  Akiban, Booking, Teradata Aster, Hadapt, Zoosk, Aerospike, Server Stack, Wiredrive, NY Times, CouchConf, FiftyThree, Percona, ScaleOut, New Relic, NetDNA, GigaSpaces, AiCache, Logic Monitor, AppDynamics</a></p>
 <p>8 0.10801271 <a title="1312-tfidf-8" href="../high_scalability-2013/high_scalability-2013-12-13-Stuff_The_Internet_Says_On_Scalability_For_December_13th%2C_2013.html">1564 high scalability-2013-12-13-Stuff The Internet Says On Scalability For December 13th, 2013</a></p>
 <p>9 0.10764591 <a title="1312-tfidf-9" href="../high_scalability-2010/high_scalability-2010-05-03-MocoSpace_Architecture_-_3_Billion_Mobile_Page_Views_a_Month.html">821 high scalability-2010-05-03-MocoSpace Architecture - 3 Billion Mobile Page Views a Month</a></p>
@@ -134,62 +81,18 @@ protocol and implementations to even larger scale.</p><p>6 0.1120473 <a title="1
 <p>[(0, 0.15), (1, 0.033), (2, -0.006), (3, -0.084), (4, -0.001), (5, -0.013), (6, 0.053), (7, 0.023), (8, -0.041), (9, -0.0), (10, 0.047), (11, 0.076), (12, -0.0), (13, -0.044), (14, -0.03), (15, 0.044), (16, 0.004), (17, 0.003), (18, 0.052), (19, -0.042), (20, 0.036), (21, -0.028), (22, 0.018), (23, -0.005), (24, 0.012), (25, 0.006), (26, -0.021), (27, 0.005), (28, -0.005), (29, -0.009), (30, -0.016), (31, -0.003), (32, -0.039), (33, -0.019), (34, 0.053), (35, -0.008), (36, 0.042), (37, -0.006), (38, 0.003), (39, -0.029), (40, 0.067), (41, -0.002), (42, 0.023), (43, 0.064), (44, -0.028), (45, -0.017), (46, -0.029), (47, 0.062), (48, -0.025), (49, -0.002)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96015841 <a title="1312-lsi-1" href="../high_scalability-2012/high_scalability-2012-08-27-Zoosk_-_The_Engineering_behind_Real_Time_Communications.html">1312 high scalability-2012-08-27-Zoosk - The Engineering behind Real Time Communications</a></p>
-<p>Introduction: This is a guest post byPeter Offringa, VP of engineering atZoosk. Zoosk is a
-50 million member romantic social network.Our members get the most rewarding
-experience from Zoosk when they can interact in real-time. After all, a future
-relationship is potentially at the other end of every connection a user makes.
-The excitement and richness of this situation can only be fully realized in
-real-time. The suite of Zoosk services facilitating these interactions are
-referred to by the general description of real-time communications (RTC).
-These communications are delivered using the XMPP protocol, which also powers
-other popular instant messaging products. Zoosk members experience real-time
-communications within three distinct interactions:Presence.  When a member is
-actively connected to the Zoosk RTC infrastructure, their public status
-appears as 'available'. If they are idle for a period of time, their state
-transitions to 'away'. Their presence automatically changes to 'offline' when
-they</p><p>2 0.78278279 <a title="1312-lsi-2" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
-<p>Introduction: What's cool about starting a new project is you finally have a chance to do it
-right. You of course eventually mess everything up in your own way, but for
-that one moment the world has a perfect order, a rightness that feels
-satisfying and good. Arne Claassen, the CTO of notify.me, a brand new real
-time notification delivery service, is in this honeymoon period now.Arne has
-been gracious enough to share with us his philosophy of how to build a
-notification service. I think you'll find it fascinating because Arne goes
-into a lot of useful detail about how his system works.His main design
-philosophy is to minimize the bottlenecks that form around synchronous access,
-that is whensome resource is requested and the requestor ties up more
-resources, waiting for a response. If the requested resource can't be
-delivered in a timely manner, more and more requests pile up until the server
-can't accept any new ones. Nobody gets what they want and you have an outage.
-Breaking synchronous operations</p><p>3 0.75944179 <a title="1312-lsi-3" href="../high_scalability-2008/high_scalability-2008-01-10-Letting_Clients_Know_What%27s_Changed%3A_Push_Me_or_Pull_Me%3F.html">205 high scalability-2008-01-10-Letting Clients Know What's Changed: Push Me or Pull Me?</a></p>
-<p>Introduction: I had a false beliefI thought I came here to stayWe're all just visitingAll
-just breaking like wavesThe oceans made me, but who came up with me?Push me,
-pull me, push me, or pull me out .So true Perl Jam(Push me Pull me lyrics), so
-true. I too have wondered how web clients should be notified of model changes.
-Should servers push events to clients or should clients pull events from
-servers? A topic worthy of its own song if ever there was one.breakTo pull
-events the client simply starts a timer and makes a request to the server.
-This is polling. You can either pull a complete set of fresh data or get a
-list of changes. The server "knows" if anything you are interested in has
-changed and makes those changes available to you. Knowing what has changed can
-be relatively simple with a publish-subscribe type backend or you can get very
-complex with fine grained bit maps of attributes and keeping per client state
-on what I client still needs to see.Polling is heavy man. Imagine all your
-client</p><p>4 0.69263029 <a title="1312-lsi-4" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
-<p>Introduction: Update: Erlang at Facebook by Eugene Letuchy. How Facebook uses Erlang to
-implement Chat, AIM Presence, and Chat Jabber support. I've done
-someXMPPdevelopment so when I readFacebook was making a Jabber chat clientI
-was really curious how they would make it work. While core XMPP is
-straightforward, a number of protocol extensions like discovery, forms, chat
-states, pubsub, multi user chat, and privacy lists really up the
-implementation complexity. Some real engineering challenges were involved to
-make this puppy scale and perform. It's not clear what extensions they've
-implemented, but a blog entry by Facebook's Eugene Letuchy hits some of the
-architectural challenges they faced and how they overcame them.A web based
-Jabber client poses a few problems because XMPP, like most IM protocols, is an
-asynchronous event driven system that pretty much assumes you have a full time
-open connection. After logging in the server sends a client roster information
-and presence information. Your client</p><p>5 0.68142021 <a title="1312-lsi-5" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>
+<p>Introduction: This is a guest post by   Peter Offringa, VP of engineering at    Zoosk  . Zoosk is a 50 million member romantic social network.  
+ 
+Our members get the most rewarding experience from Zoosk when they can interact in real-time. After all, a future relationship is potentially at the other end of every connection a user makes. The excitement and richness of this situation can only be fully realized in real-time. The suite of Zoosk services facilitating these interactions are referred to by the general description of real-time communications (RTC). These communications are delivered using the XMPP protocol, which also powers other popular instant messaging products. Zoosk members experience real-time communications within three distinct interactions:
+  
+  Presence .  When a member is actively connected to the Zoosk RTC infrastructure, their public status appears as ‘available’. If they are idle for a period of time, their state transitions to ‘away’. Their presence automatically changes to</p><p>2 0.78278279 <a title="1312-lsi-2" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
+<p>Introduction: What's cool about starting a new project is you finally have a chance to do it right. You of course eventually mess everything up in your own way, but for that one moment the world has a perfect order, a rightness that feels satisfying and good. Arne Claassen, the CTO of notify.me, a brand new real time notification delivery service, is in this honeymoon period now.  Arne has been gracious enough to share with us his philosophy of how to build a notification service. I think you'll find it fascinating because Arne goes into a lot of useful detail about how his system works.    His main design philosophy is to minimize the bottlenecks that form around synchronous access, that is when  some resource is requested and the requestor ties up more resources, waiting for a response. If the requested resource can’t be delivered in a timely manner, more and more requests pile up until the server can’t accept any new ones. Nobody gets what they want and you have an outage. Breaking synchronous op</p><p>3 0.75944179 <a title="1312-lsi-3" href="../high_scalability-2008/high_scalability-2008-01-10-Letting_Clients_Know_What%27s_Changed%3A_Push_Me_or_Pull_Me%3F.html">205 high scalability-2008-01-10-Letting Clients Know What's Changed: Push Me or Pull Me?</a></p>
+<p>Introduction: I had a false belief I thought I came here to stay We're all just visiting All just breaking like waves The oceans made me, but who came up with me? Push me, pull me, push me, or pull me out .     So true Perl Jam   (Push me Pull me lyrics)  , so true. I too have wondered how web clients should be notified of model changes. Should servers push events to clients or should clients pull events from servers? A topic worthy of its own song if ever there was one.       To pull events the client simply starts a timer and makes a request to the server. This is polling. You can either pull a complete set of fresh data or get a list of changes. The server "knows" if anything you are interested in has changed and makes those changes available to you.  Knowing what has changed can be relatively simple with a publish-subscribe type backend or you can get very complex with fine grained bit maps of attributes and keeping per client state on what I client still needs to see.     Polling is heavy man.</p><p>4 0.69263029 <a title="1312-lsi-4" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
+<p>Introduction: Update :  Erlang at Facebook  by Eugene Letuchy. How Facebook uses Erlang to implement Chat, AIM Presence, and Chat Jabber support.  
+ 
+I've done some  XMPP  development so when I read  Facebook was making a Jabber chat client  I was really curious how they would make it work. While core XMPP is straightforward, a number of protocol extensions like discovery, forms, chat states, pubsub, multi user chat, and privacy lists really up the implementation complexity. Some real engineering challenges were involved to make this puppy scale and perform.  It's not clear what extensions they've  implemented, but a blog entry by Facebook's Eugene Letuchy hits some of the architectural challenges they faced and how they overcame them.
+ 
+A web based Jabber client poses a few problems because XMPP, like most IM protocols, is an asynchronous event driven system that pretty much assumes you have a full time open connection. After logging in the server sends a client roster information and presence info</p><p>5 0.68142021 <a title="1312-lsi-5" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>
 <p>Introduction: Rick Reedin an upcoming talk in March titledThat's 'Billion' with a 'B':
 Scaling to the next level at WhatsAppreveals some eye
 poppingWhatsAppstats:What has hundreds of nodes, thousands of cores, hundreds
@@ -223,75 +126,49 @@ experience scaling systems. So WhatsApp comes by thei</p><p>6 0.66975749 <a titl
 <p>[(1, 0.126), (2, 0.192), (10, 0.068), (30, 0.047), (33, 0.216), (40, 0.023), (61, 0.088), (77, 0.011), (79, 0.029), (85, 0.031), (94, 0.038)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.90274423 <a title="1312-lda-1" href="../high_scalability-2011/high_scalability-2011-06-14-Shakespeare_on_Why_Other_People_Like_Such_Stupid_Stuff.html">1060 high scalability-2011-06-14-Shakespeare on Why Other People Like Such Stupid Stuff</a></p>
-<p>Introduction: Jumping around the social mediasphere, it's not uncommon to feel the heat
-generated in praise of a favorite this or that over all the clearly inferior
-alternatives. Whilst human nature may never cool, I think Old Will had some
-insight worth considering the next time a flame threatens to flicker forth:My
-mistress' eyes are nothing like the sun (Sonnet 130)My mistress' eyes are
-nothing like the sun;Coral is far more red than her lips' red ;If snow be
-white, why then her breasts are dun;If hairs be wires, black wires grow on her
-head.I have seen roses damask, red and white,But no such roses see I in her
-cheeks;And in some perfumes is there more delightThan in the breath that from
-my mistress reeks.I love to hear her speak, yet well I knowThat music hath a
-far more pleasing sound;I grant I never saw a goddess go;My mistress, when she
-walks, treads on the ground:And yet, by heaven, I think my love as rareAs any
-she belied with false compare.-William Shakespeare</p><p>2 0.86413646 <a title="1312-lda-2" href="../high_scalability-2009/high_scalability-2009-08-20-VMware_to_bridge_a_DMZ.__.html">686 high scalability-2009-08-20-VMware to bridge a DMZ.  </a></p>
-<p>Introduction: Hey guys,There is a renewed push at my organization to deploy
-vmware...everywhere.I am rather excited as I know we have a lot of waste when
-it comes to resources.What has pricked my ears up however, is the notion of
-using this technology in our very busy public facing DMZ's.Today we get lots
-of spikes of traffic and we are coping very well. 40x HP blades,
-apache/php/perl/tomcat/ all in HA behind HA F5's and HA Checkpoint FW's. (20
-servers in 2 datacentres).The idea is, we virtualise these machines, including
-the firewalls onto hosts vmware clusters that span the public interface to our
-internal networks. This is something that has gone against the #1 rule I have
-ever lived by while working on the inet. No airgaps from the unknown to the
-known!I am interested in feedback on this scenario.From a resource
-perspective, our resource requirements in the DMZ will be lowered over time
-due to business change and we still have a lot of head room in our capacity.Do
-you think this is change for ch</p><p>same-blog 3 0.86145294 <a title="1312-lda-3" href="../high_scalability-2012/high_scalability-2012-08-27-Zoosk_-_The_Engineering_behind_Real_Time_Communications.html">1312 high scalability-2012-08-27-Zoosk - The Engineering behind Real Time Communications</a></p>
-<p>Introduction: This is a guest post byPeter Offringa, VP of engineering atZoosk. Zoosk is a
-50 million member romantic social network.Our members get the most rewarding
-experience from Zoosk when they can interact in real-time. After all, a future
-relationship is potentially at the other end of every connection a user makes.
-The excitement and richness of this situation can only be fully realized in
-real-time. The suite of Zoosk services facilitating these interactions are
-referred to by the general description of real-time communications (RTC).
-These communications are delivered using the XMPP protocol, which also powers
-other popular instant messaging products. Zoosk members experience real-time
-communications within three distinct interactions:Presence.  When a member is
-actively connected to the Zoosk RTC infrastructure, their public status
-appears as 'available'. If they are idle for a period of time, their state
-transitions to 'away'. Their presence automatically changes to 'offline' when
-they</p><p>4 0.82199371 <a title="1312-lda-4" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
-<p>Introduction: This is a guest post bySachin Sinha, Founder ofIqlectand developer
-ofBangDB.The goal for the paper is to provide the performances data for
-following embedded databases under various scenarios for random operations
-such as write and read. The data is presented in graphical manner to make the
-data self explanatory to some extent.LevelDB:LevelDB is a fast key-value
-storage library written at Google that provides an ordered mapping from string
-keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and
-uses SSTable and MemTable for the database implementation. It's written in C++
-and availabe under BSD license. LevelDB treats key and value as arbitrary byte
-arrays and stores keys in ordered fashion. It uses snappy compression for the
-data compression. Write and Read are concurrent for the db, but write performs
-best with single thread whereas Read scales with number of
-coresBerkleyDB:BerkleyDB (BDB) is a library that provides high performance
-embedded database for key/va</p><p>5 0.82069677 <a title="1312-lda-5" href="../high_scalability-2013/high_scalability-2013-07-12-Stuff_The_Internet_Says_On_Scalability_For_July_12%2C_2013.html">1490 high scalability-2013-07-12-Stuff The Internet Says On Scalability For July 12, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(The Shard Scaling 6)3500+: number of species
-found underneath miles of ice;360 TB/disc data capacity: 5D optical memory in
-glass;50% Of Internet Traffic: Comes From Only 35 Sites/Services;60 billion:
-potential alien planets that could give Snowden asylumQuotable Quotes:@ieure:
-"How concert app Loudie doubled its users in two weeks" The other co-founder
-finally signed in.@michalbe: "Daddy, how is software made?" "Well, when a
-programmer loves an idea very much they stay up all night and then push to
-github the next day"@TomDSweeney: Alan Kay: "The past 30 years have been
-completely mundane. It's all been scaling (of old technology) and Angry
-Birds"Rick Branson: Adopt a technology by understanding what it's best at and
-letting it do that first, then expandâ&euro;ŚK. Eric Drexler: System-level design
-seeks flexible models and accepts complexity, accepts imprecision and buries
-it in margins of safety, recognizes unpredictability and seeks to avoid it,
-embraces comp</p><p>6 0.81258428 <a title="1312-lda-6" href="../high_scalability-2012/high_scalability-2012-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_31%2C_2012.html">1315 high scalability-2012-08-30-Stuff The Internet Says On Scalability For August 31, 2012</a></p>
+<p>Introduction: Jumping around the social mediasphere, it's not uncommon to feel the heat generated in praise of a favorite this or that over all the clearly inferior alternatives. Whilst human nature may never cool, I think Old Will had some insight worth considering the next time a flame threatens to flicker forth:
+ 
+  My mistress' eyes are nothing like the sun (Sonnet 130)  
+  
+ 
+ 
+ 
+
+ My mistress' eyes are nothing like the sun; Coral is far more red than her lips' red ; If snow be white, why then her breasts are dun; If hairs be wires, black wires grow on her head. I have seen roses damask, red and white, But no such roses see I in her cheeks; And in some perfumes is there more delight Than in the breath that from my mistress reeks. I love to hear her speak, yet well I know That music hath a far more pleasing sound; I grant I never saw a goddess go; My mistress, when she walks, treads on the ground: And yet, by heaven, I think my love as rare As any she belied with false compare. 
+
+ 
+ 
+ 
+  –Willia</p><p>2 0.86413646 <a title="1312-lda-2" href="../high_scalability-2009/high_scalability-2009-08-20-VMware_to_bridge_a_DMZ.__.html">686 high scalability-2009-08-20-VMware to bridge a DMZ.  </a></p>
+<p>Introduction: Hey guys,  There is a renewed push at my organization to deploy vmware...everywhere.  I am rather excited as I know we have a lot of waste when it comes to resources.  What has pricked my ears up however, is the notion of using this technology in our very busy public facing DMZ's.  Today we get lots of spikes of traffic and we are coping very well.  40x HP blades, apache/php/perl/tomcat/ all in HA behind HA F5's and HA Checkpoint FW's.  (20 servers in 2 datacentres).  The idea is, we virtualise these machines, including the firewalls onto hosts vmware clusters that span the public interface to our internal networks.  This is something that has gone against the #1 rule I have ever lived by while working on the inet.  No airgaps from the unknown to the known!  I am interested in feedback on this scenario.  From a resource perspective, our resource requirements in the DMZ will be lowered over time due to business change and we still have a lot of head room in our capacity.  Do you think t</p><p>same-blog 3 0.86145294 <a title="1312-lda-3" href="../high_scalability-2012/high_scalability-2012-08-27-Zoosk_-_The_Engineering_behind_Real_Time_Communications.html">1312 high scalability-2012-08-27-Zoosk - The Engineering behind Real Time Communications</a></p>
+<p>Introduction: This is a guest post by   Peter Offringa, VP of engineering at    Zoosk  . Zoosk is a 50 million member romantic social network.  
+ 
+Our members get the most rewarding experience from Zoosk when they can interact in real-time. After all, a future relationship is potentially at the other end of every connection a user makes. The excitement and richness of this situation can only be fully realized in real-time. The suite of Zoosk services facilitating these interactions are referred to by the general description of real-time communications (RTC). These communications are delivered using the XMPP protocol, which also powers other popular instant messaging products. Zoosk members experience real-time communications within three distinct interactions:
+  
+  Presence .  When a member is actively connected to the Zoosk RTC infrastructure, their public status appears as ‘available’. If they are idle for a period of time, their state transitions to ‘away’. Their presence automatically changes to</p><p>4 0.82199371 <a title="1312-lda-4" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
+<p>Introduction: This is a guest post by  Sachin Sinha , Founder of  Iqlect  and developer of  BangDB . 
+ 
+The goal for the paper is to provide the performances data for following embedded databases under various scenarios for random operations such as write and read. The data is presented in graphical manner to make the data self explanatory to some extent.
+  
+  LevelDB :
+
+LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and uses SSTable and MemTable for the database implementation. It's written in C++ and availabe under BSD license. LevelDB treats key and value as arbitrary byte arrays and stores keys in ordered fashion. It uses snappy compression for the data compression. Write and Read are concurrent for the db, but write performs best with single thread whereas Read scales with number of cores
+
+ 
+   
+  BerkleyDB :
+
+BerkleyDB (BDB) is a library that provides high perf</p><p>5 0.82069677 <a title="1312-lda-5" href="../high_scalability-2013/high_scalability-2013-07-12-Stuff_The_Internet_Says_On_Scalability_For_July_12%2C_2013.html">1490 high scalability-2013-07-12-Stuff The Internet Says On Scalability For July 12, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+     (The Shard Scaling 6 )   
+  3500+ : number of species found underneath miles of ice;  360 TB/disc data capacity : 5D optical memory in glass;  50% Of Internet Traffic : Comes From Only 35 Sites/Services;  60 billion : potential alien planets that could give Snowden asylum 
+ Quotable Quotes:                                    
+ 
+  @ieure : "How concert app Loudie doubled its users in two weeks" The other co-founder finally signed in. 
+  @michalbe : "Daddy, how is software made?" "Well, when a programmer loves an idea very much they stay up all night and then push to github the next day" 
+  @TomDSweeney : Alan Kay: “The past 30 years have been completely mundane. It’s all been scaling (of old technology) and Angry Birds” 
+  Rick Branson : Adopt a technology by understanding what it's best at and letting it do that first, then expand… 
+  K. Eric Drexler : System-level design seeks flexible models and accepts complexity, accepts imprecision and buries i</p><p>6 0.81258428 <a title="1312-lda-6" href="../high_scalability-2012/high_scalability-2012-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_31%2C_2012.html">1315 high scalability-2012-08-30-Stuff The Internet Says On Scalability For August 31, 2012</a></p>
 <p>7 0.80356139 <a title="1312-lda-7" href="../high_scalability-2011/high_scalability-2011-06-24-Stuff_The_Internet_Says_On_Scalability_For_June_24%2C_2011.html">1067 high scalability-2011-06-24-Stuff The Internet Says On Scalability For June 24, 2011</a></p>
 <p>8 0.80283368 <a title="1312-lda-8" href="../high_scalability-2009/high_scalability-2009-06-05-HotPads_Shows_the_True_Cost_of_Hosting_on_Amazon.html">619 high scalability-2009-06-05-HotPads Shows the True Cost of Hosting on Amazon</a></p>
 <p>9 0.79269469 <a title="1312-lda-9" href="../high_scalability-2013/high_scalability-2013-09-20-Stuff_The_Internet_Says_On_Scalability_For_September_20%2C_2013.html">1520 high scalability-2013-09-20-Stuff The Internet Says On Scalability For September 20, 2013</a></p>

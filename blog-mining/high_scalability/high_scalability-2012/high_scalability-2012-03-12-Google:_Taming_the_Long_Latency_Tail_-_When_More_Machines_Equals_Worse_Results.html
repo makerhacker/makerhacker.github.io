@@ -16,115 +16,61 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1207-html" href="http://highscalability.com//blog/2012/3/12/google-taming-the-long-latency-tail-when-more-machines-equal.html">html</a></p><p>Introduction: Likewise the current belief that, in the case of artificial machines the very
-large and the very small are equally feasible and lasting is a manifest error.
-Thus, for example, a small obelisk or column or other solid figure can
-certainly be laid down or set up without danger of breaking, while the large
-ones will go to pieces under the slightest provocation, and that purely on
-account of their own weight. -- GalileoGalileo observed how things broke if
-they were naively scaled up. Interestingly, Google noticed a similar pattern
-when building larger software systems using the same techniques used to build
-smaller systems. Luiz Andre Barroso, Distinguished Engineer at Google, talks
-about this fundamental property of scaling systems in his fascinating talk,
-Warehouse-Scale Computing: Entering the Teenage Decade. Google found the
-larger the scale the greater the impact of latency variability. When a request
-is implemented by work done in parallel, as is common with today's service
-oriented</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Google found the larger the scale the greater the impact of latency variability. [sent-6, score-0.447]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1207-html" href="http://highscalability.com//blog/2012/3/12/google-taming-the-long-latency-tail-when-more-machines-equal.html">html</a></p><p>Introduction: Likewise the current belief that, in the case of artificial machines the very large and the very small are equally feasible and lasting is a manifest error. Thus, for example, a small obelisk or column or other solid figure can certainly be laid down or set up without danger of breaking, while the large ones will go to pieces under the slightest provocation, and that purely on account of their own weight. -- Galileo  
+Galileo observed how things broke if they were naively scaled up. Interestingly, Google noticed a similar pattern when building larger software systems using the same techniques used to build smaller systems. 
+ 
+ Luiz André Barroso , Distinguished Engineer at Google, talks about this fundamental property of scaling systems in his fascinating talk,  Warehouse-Scale Computing: Entering the Teenage Decade . Google found the larger the scale the greater the impact of latency variability. When a request is implemented by work done in parallel, as is common with today's service</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Google found the larger the scale the greater the impact of latency variability. [sent-6, score-0.447]
 </p><p>2 When a request is implemented by work done in parallel, as is common with today's service oriented systems, the overall response time is dominated by the long tail distribution of the parallel operations. [sent-7, score-0.698]
 </p><p>3 Every response must have a consistent and low latency or the overall operation response time will be tragically slow. [sent-8, score-0.554]
 </p><p>4 What is forcing a deeper look into latency variability is the advent of interactive real-time computing. [sent-10, score-0.384]
-</p><p>5 This is a fundamental property of scaling systems: you need to worry not just about not latency, but tail latency, that is the longer events in your system. [sent-41, score-0.326]
-</p><p>6 This latency could come from: RCP Library, DNS lookups, packet loss, microbursts, deep queues, high task response latency, locking, garbage collection, OS stack issues, router/switch overhead, transiting multiple hops, or slow processing code. [sent-47, score-0.524]
-</p><p>7 Luiz explains that flash is great, but it is also depressing at the same time. [sent-58, score-0.321]
-</p><p>8 Flash bridges the gapbetween RAM and disk, in terms of latency and bandwidth, but especially bandwidth. [sent-60, score-0.32]
-</p><p>9 That's a100x increase in latency variancefor that particular variance that used to be very fast. [sent-68, score-0.32]
+</p><p>5 That vision puts novel performance restrictions on your warehouse as a whole, particularly the  latency tail , which Luiz illustrates with an example. [sent-27, score-0.68]
+</p><p>6 If you look at the  distribution of latencies , most of them are small, but there's one out on the tail end that's large. [sent-32, score-0.457]
+</p><p>7 This is a fundamental property of scaling systems: you need to worry not just about not latency, but tail latency, that is the longer events in your system. [sent-41, score-0.326]
+</p><p>8 This latency could come from: RCP Library, DNS lookups, packet loss, microbursts, deep queues, high task response latency, locking, garbage collection, OS stack issues, router/switch overhead, transiting multiple hops, or slow processing code. [sent-47, score-0.524]
+</p><p>9 Flash bridges the gap  between RAM and disk, in terms of latency and bandwidth, but especially bandwidth. [sent-60, score-0.32]
 </p><p>10 These effects are real because they impact the latency tail, so in a strange way disk is better than flash at scale. [sent-69, score-0.693]
-</p><p>11 Disks Suck for Random IO and Flash is Good at Random IOBut flash will win in the end because flash has abetter random IO story than disk. [sent-70, score-0.605]
-</p><p>12 In Paper review: warehouse-scale computing: entering the teenage decade, Andrew Wang has a good summary of the current latency situation:I/O latency variability right now is terrible, with basically all durable storage displaying a long latency tail. [sent-75, score-1.233]
+</p><p>11 Disks Suck for Random IO and Flash is Good at Random IO   But flash will win in the end because flash has a  better random IO story than disk . [sent-70, score-0.677]
+</p><p>12 In  Paper review: warehouse-scale computing: entering the teenage decade , Andrew Wang has a good summary of the current latency situation:     I/O latency variability right now is terrible, with basically all durable storage displaying a long latency tail. [sent-75, score-1.233]
 </p><p>13 Random accesses to spinning disks are slow, flash writes are slow, and these high-latency events muck up the latency for potentially fast events. [sent-76, score-0.614]
 </p><p>14 Using TCP and interrupts adds orders of magnitude of latency to network requests, making fast network hardware slow again in software. [sent-78, score-0.472]
 </p><p>15 First, latency and variation in latency are the key performance metrics for services these days; today's web-based applications demand both to provide a good user experience. [sent-80, score-0.64]
 </p><p>16 So a root node talks to a number of parent nodes and the parent nodes talk to a number of leaf nodes. [sent-90, score-0.351]
 </p><p>17 Ideally the parent can provide a level of response filtering so the root only sees a subset of the response data. [sent-95, score-0.372]
-</p><p>18 By experimenting with workloads of various sizes, we determine that when disk accesses occur, both mean and median latencies increase, though the median should be unaffected. [sent-101, score-0.376]
-</p><p>19 By examining individual request latencies, we ﬁnd that this blocking gives rise to a phenomenon we call service inversion, where requests are served unfairly. [sent-104, score-0.35]
-</p><p>20 Byaddressing the blocking issuesboth in the Apache and the Flash server, we improve latency by more than an order of magnitude, and demonstrate a qualitatively different change in the latency proﬁles. [sent-107, score-0.734]
+</p><p>18 By examining individual request latencies, we ﬁnd that this blocking gives rise to a phenomenon we call service inversion, where requests are served unfairly. [sent-104, score-0.35]
+</p><p>19 Service inversion, where  short requests are often served with much higher latencies than much larger requests . [sent-105, score-0.324]
+</p><p>20 By  addressing the blocking issues  both in the Apache and the Flash server, we improve latency by more than an order of magnitude, and demonstrate a qualitatively different change in the latency proﬁles. [sent-107, score-0.734]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('latency', 0.32), ('tail', 0.254), ('flash', 0.237), ('unpredictability', 0.177), ('luiz', 0.153), ('parent', 0.138), ('random', 0.131), ('response', 0.117), ('latencies', 0.117), ('tree', 0.115), ('nd', 0.115), ('request', 0.114), ('warehouse', 0.106), ('tolerances', 0.104), ('magical', 0.096), ('burstiness', 0.094), ('blocking', 0.094), ('google', 0.089), ('teenage', 0.088), ('slow', 0.087), ('trading', 0.086), ('distribution', 0.086), ('depressing', 0.084), ('erase', 0.081), ('fungible', 0.079), ('inversion', 0.079), ('naively', 0.079), ('leaf', 0.075), ('parents', 0.073), ('disk', 0.072), ('fundamental', 0.072), ('requests', 0.072), ('trades', 0.072), ('phenomenon', 0.07), ('wimpy', 0.068), ('energy', 0.066), ('magnitude', 0.065), ('median', 0.065), ('dominated', 0.065), ('tied', 0.064), ('variability', 0.064), ('impact', 0.064), ('larger', 0.063), ('really', 0.062), ('long', 0.062), ('implication', 0.06), ('require', 0.059), ('entering', 0.059), ('reliably', 0.059), ('accesses', 0.057)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1207-tfidf-1" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
-<p>Introduction: Likewise the current belief that, in the case of artificial machines the very
-large and the very small are equally feasible and lasting is a manifest error.
-Thus, for example, a small obelisk or column or other solid figure can
-certainly be laid down or set up without danger of breaking, while the large
-ones will go to pieces under the slightest provocation, and that purely on
-account of their own weight. -- GalileoGalileo observed how things broke if
-they were naively scaled up. Interestingly, Google noticed a similar pattern
-when building larger software systems using the same techniques used to build
-smaller systems. Luiz Andre Barroso, Distinguished Engineer at Google, talks
-about this fundamental property of scaling systems in his fascinating talk,
-Warehouse-Scale Computing: Entering the Teenage Decade. Google found the
-larger the scale the greater the impact of latency variability. When a request
-is implemented by work done in parallel, as is common with today's service
-oriented</p><p>2 0.3212871 <a title="1207-tfidf-2" href="../high_scalability-2009/high_scalability-2009-07-25-Latency_is_Everywhere_and_it_Costs_You_Sales_-_How_to_Crush_it.html">661 high scalability-2009-07-25-Latency is Everywhere and it Costs You Sales - How to Crush it</a></p>
-<p>Introduction: Update 8:The Cost of Latency by James Hamilton. James summarizing some latency
-info from Steve Souder,Greg Linden, andMarissa Mayer. Speed [is] an
-undervalued and under-discussed asset on the web.Update 7:How do you know when
-you need more memcache servers?. Dathan Pattishall talks about using memcache
-not to scale, but to reduce latency and reduce I/O spikes, and how to use
-stats to know when more servers are needed.Update 6:Stock Traders Find Speed
-Pays, in Milliseconds. Goldman Sachs is making record profits off a500
-millisecondtrading advantage. Yes, latency matters. As an interesting aside,
-Libet found 500 msecs is about the time it takes the brain to weave together
-an experience of consciousness from all our sensor inputs.Update 5:Shopzilla's
-Site Redo - You Get What You Measure. At theVelocityconference Phil Dixon,
-from Shopzilla, presented data showing a 5 second speed up resulted in a 25%
-increase in page views, a 10% increase in revenue, a 50% reduction in
-hardware, and a 120</p><p>3 0.29252401 <a title="1207-tfidf-3" href="../high_scalability-2012/high_scalability-2012-06-18-Google_on_Latency_Tolerant_Systems%3A_Making_a_Predictable_Whole_Out_of_Unpredictable_Parts___.html">1266 high scalability-2012-06-18-Google on Latency Tolerant Systems: Making a Predictable Whole Out of Unpredictable Parts   </a></p>
-<p>Introduction: InTaming The Long Latency Tailwe coveredLuiz Barroso's exploration of the long
-tail latency (some operations are really slow) problems generated by large
-fanout architectures (a request is composed of potentially thousands of other
-requests). You may have noticed there weren't a lot of solutions. That's where
-a talk I attended,Achieving Rapid Response Times in Large Online
-Services(slide deck), byJeff Dean, also of Google, comes in:In this talk, I'll
-describe a collection of techniques and practices lowering response times in
-large distributed systems whose components run on shared clusters of machines,
-where pieces of these systems are subject to interference by other tasks, and
-where unpredictable latency hiccups are the norm, not the exception.The goal
-is to use software techniques to reduce variability given the increasing
-variability in underlying hardware, the need to handle dynamic workloads on a
-shared infrastructure, and the need to use large fanout architectures to
-operate at</p><p>4 0.27109984 <a title="1207-tfidf-4" href="../high_scalability-2011/high_scalability-2011-08-29-The_Three_Ages_of_Google_-_Batch%2C_Warehouse%2C_Instant.html">1107 high scalability-2011-08-29-The Three Ages of Google - Batch, Warehouse, Instant</a></p>
-<p>Introduction: The world has changed. And some things that should not have been forgotten,
-were lost. I found these words from the Lord of the Rings echoing in my head
-as I listened to a fascinating presentation by Luiz Andre Barroso,
-Distinguished Engineer at Google, concerning Google's legendary past, golden
-present, and apocryphal future. His talk, Warehouse-Scale Computing: Entering
-the Teenage Decade, was given at theFederated Computing Research Conference.
-Luiz clearly knows his stuff and was early at Google, so he has a deep and
-penetrating perspective on the technology. There's much to learn from, think
-about, and build.Lord of the Rings applies at two levels. At the change level,
-Middle Earth went throughthree ages. While listening to Luiz talk, it seems so
-has Google: Batch (indexes calculated every month), Warehouse (the datacenter
-is the computer), and Instant (make it all real-time). At the "what was
-forgot" level, in the Instant Age section of the talk,  a common theme was the
-challenge</p><p>5 0.25627047 <a title="1207-tfidf-5" href="../high_scalability-2011/high_scalability-2011-02-01-Google_Strategy%3A_Tree_Distribution_of_Requests_and_Responses.html">981 high scalability-2011-02-01-Google Strategy: Tree Distribution of Requests and Responses</a></p>
-<p>Introduction: If a large number of leaf node machines send requests to a central root node
-then that root node can become overwhelmed:The CPU becomes a bottleneck, for
-either processing requests or sending replies, because it can't possibly deal
-with the flood of requests.The network interface becomes a bottleneck because
-a wide fan-in causes TCP drops and retransmissions, which causes latency. Then
-clients start retrying requests which quickly causes a spiral of death in an
-undisciplined system.One solution to this problem is a strategy given by Dr.
-Jeff Dean, Head of Google's School of Infrastructure Wizardry, in this
-Stanford video presentation:Tree Distribution of Requests and
-Responses.Instead of having a root node connected to leaves in a flat
-topology, the idea is to create a tree of nodes. So a root node talks to a
-number of parent nodes and the parent nodes talk to a number of leaf nodes.
-Requests are pushed down the tree through the parents and only hit a subset of
-the leaf nodes.With this</p><p>6 0.21746755 <a title="1207-tfidf-6" href="../high_scalability-2011/high_scalability-2011-09-15-Paper%3A_It%27s_Time_for_Low_Latency_-_Inventing_the_1_Microsecond_Datacenter.html">1116 high scalability-2011-09-15-Paper: It's Time for Low Latency - Inventing the 1 Microsecond Datacenter</a></p>
+<p>Introduction: Likewise the current belief that, in the case of artificial machines the very large and the very small are equally feasible and lasting is a manifest error. Thus, for example, a small obelisk or column or other solid figure can certainly be laid down or set up without danger of breaking, while the large ones will go to pieces under the slightest provocation, and that purely on account of their own weight. -- Galileo  
+Galileo observed how things broke if they were naively scaled up. Interestingly, Google noticed a similar pattern when building larger software systems using the same techniques used to build smaller systems. 
+ 
+ Luiz André Barroso , Distinguished Engineer at Google, talks about this fundamental property of scaling systems in his fascinating talk,  Warehouse-Scale Computing: Entering the Teenage Decade . Google found the larger the scale the greater the impact of latency variability. When a request is implemented by work done in parallel, as is common with today's service</p><p>2 0.3212871 <a title="1207-tfidf-2" href="../high_scalability-2009/high_scalability-2009-07-25-Latency_is_Everywhere_and_it_Costs_You_Sales_-_How_to_Crush_it.html">661 high scalability-2009-07-25-Latency is Everywhere and it Costs You Sales - How to Crush it</a></p>
+<p>Introduction: Update 8 :  The Cost of Latency  by James Hamilton. James summarizing some latency info from      Steve Souder ,   Greg Linden , and   Marissa Mayer .      Speed [is] an undervalued and under-discussed asset on the web. 
+ 
+ Update 7:   How do you know when you need more memcache servers? . Dathan Pattishall talks about using memcache not to scale, but to reduce latency and reduce I/O spikes, and how to use stats to know when more servers are needed.  Update 6:   Stock Traders Find Speed Pays, in Milliseconds . Goldman Sachs is making record profits off a  500 millisecond  trading advantage. Yes, latency matters. As an interesting aside, Libet found 500 msecs is about the time it takes the brain to weave together an experience of consciousness from all our sensor inputs.  Update 5:   Shopzilla's Site Redo - You Get What You Measure . At the  Velocity  conference Phil Dixon, from Shopzilla, presented data showing a 5 second speed up resulted in a 25% increase in page views, a 10% increas</p><p>3 0.29252401 <a title="1207-tfidf-3" href="../high_scalability-2012/high_scalability-2012-06-18-Google_on_Latency_Tolerant_Systems%3A_Making_a_Predictable_Whole_Out_of_Unpredictable_Parts___.html">1266 high scalability-2012-06-18-Google on Latency Tolerant Systems: Making a Predictable Whole Out of Unpredictable Parts   </a></p>
+<p>Introduction: In   Taming The Long Latency Tail   we covered   Luiz Barroso  ’s exploration of the long tail latency (some operations are really slow) problems generated by large fanout architectures (a request is composed of potentially thousands of other requests). You may have noticed there weren’t a lot of solutions. That’s where a talk I attended,   Achieving Rapid Response Times in Large Online Services   (  slide deck  ), by  Jeff Dean , also of Google, comes in:
+  
+  In this talk, I’ll describe a collection of techniques and practices lowering response times in large distributed systems whose components run on shared clusters of machines, where pieces of these systems are subject to interference by other tasks, and where unpredictable latency hiccups are the norm, not the exception. 
+
+  
+ The goal is to use software techniques to reduce variability given the increasing variability in underlying hardware, the need to handle dynamic workloads on a shared infrastructure, and the need to use lar</p><p>4 0.27109984 <a title="1207-tfidf-4" href="../high_scalability-2011/high_scalability-2011-08-29-The_Three_Ages_of_Google_-_Batch%2C_Warehouse%2C_Instant.html">1107 high scalability-2011-08-29-The Three Ages of Google - Batch, Warehouse, Instant</a></p>
+<p>Introduction: The world has changed. And some things that should not have been forgotten, were lost.  I found these words from the Lord of the Rings echoing in my head as I listened to a fascinating presentation by  Luiz André Barroso , Distinguished Engineer at Google, concerning Google's legendary past, golden present, and apocryphal future. His talk,  Warehouse-Scale Computing: Entering the Teenage Decade , was given at the  Federated Computing Research Conference . Luiz clearly knows his stuff and was early at Google, so he has a deep and penetrating perspective on the technology. There's much to learn from, think about, and build.
+ 
+Lord of the Rings applies at two levels. At the change level, Middle Earth went through  three ages . While listening to Luiz talk, it seems so has Google: Batch (indexes calculated every month), Warehouse (the datacenter is the computer), and Instant (make it all real-time). At the "what was forgot" level, in the Instant Age section of the talk,  a common theme was</p><p>5 0.25627047 <a title="1207-tfidf-5" href="../high_scalability-2011/high_scalability-2011-02-01-Google_Strategy%3A_Tree_Distribution_of_Requests_and_Responses.html">981 high scalability-2011-02-01-Google Strategy: Tree Distribution of Requests and Responses</a></p>
+<p>Introduction: If a large number of leaf node machines send requests to a central root node then that root node can become overwhelmed:
+  
+ The CPU becomes a bottleneck, for either processing requests or sending replies, because it can't possibly deal with the flood of requests. 
+ The network interface becomes a bottleneck because a wide fan-in causes TCP drops and retransmissions, which causes latency. Then clients start retrying requests which quickly causes a spiral of death in an undisciplined system. 
+  
+One solution to this problem is a strategy given by Dr.  Jeff Dean , Head of Google's School of Infrastructure Wizardry, in this  Stanford video presentation :  Tree Distribution of Requests and Responses .
+ 
+ 
+ 
+Instead of having a root node connected to leaves in a flat topology, the idea is to create a tree of nodes. So a root node talks to a number of parent nodes and the parent nodes talk to a number of leaf nodes. Requests are pushed down the tree through the parents and only hit a subset</p><p>6 0.21746755 <a title="1207-tfidf-6" href="../high_scalability-2011/high_scalability-2011-09-15-Paper%3A_It%27s_Time_for_Low_Latency_-_Inventing_the_1_Microsecond_Datacenter.html">1116 high scalability-2011-09-15-Paper: It's Time for Low Latency - Inventing the 1 Microsecond Datacenter</a></p>
 <p>7 0.20628016 <a title="1207-tfidf-7" href="../high_scalability-2012/high_scalability-2012-12-10-Switch_your_databases_to_Flash_storage._Now._Or_you%27re_doing_it_wrong..html">1369 high scalability-2012-12-10-Switch your databases to Flash storage. Now. Or you're doing it wrong.</a></p>
 <p>8 0.18800148 <a title="1207-tfidf-8" href="../high_scalability-2012/high_scalability-2012-11-05-Gone_Fishin%27%3A_Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_In_The_Ambient_Cloud.html">1355 high scalability-2012-11-05-Gone Fishin': Building Super Scalable Systems: Blade Runner Meets Autonomic Computing In The Ambient Cloud</a></p>
 <p>9 0.18785034 <a title="1207-tfidf-9" href="../high_scalability-2009/high_scalability-2009-12-16-Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_in_the_Ambient_Cloud.html">750 high scalability-2009-12-16-Building Super Scalable Systems: Blade Runner Meets Autonomic Computing in the Ambient Cloud</a></p>
@@ -144,76 +90,35 @@ the leaf nodes.With this</p><p>6 0.21746755 <a title="1207-tfidf-6" href="../hig
 <p>[(0, 0.269), (1, 0.167), (2, 0.012), (3, 0.059), (4, -0.076), (5, 0.008), (6, 0.097), (7, 0.174), (8, -0.116), (9, -0.008), (10, 0.005), (11, -0.09), (12, -0.005), (13, 0.038), (14, 0.015), (15, 0.031), (16, -0.002), (17, 0.007), (18, 0.016), (19, -0.03), (20, 0.067), (21, 0.071), (22, 0.022), (23, -0.027), (24, 0.009), (25, 0.048), (26, -0.056), (27, -0.03), (28, -0.021), (29, -0.063), (30, 0.086), (31, -0.047), (32, 0.068), (33, 0.019), (34, 0.045), (35, 0.084), (36, 0.049), (37, -0.033), (38, -0.092), (39, -0.046), (40, 0.027), (41, -0.006), (42, 0.01), (43, -0.048), (44, -0.019), (45, -0.09), (46, 0.043), (47, -0.064), (48, 0.058), (49, 0.008)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.98433876 <a title="1207-lsi-1" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
-<p>Introduction: Likewise the current belief that, in the case of artificial machines the very
-large and the very small are equally feasible and lasting is a manifest error.
-Thus, for example, a small obelisk or column or other solid figure can
-certainly be laid down or set up without danger of breaking, while the large
-ones will go to pieces under the slightest provocation, and that purely on
-account of their own weight. -- GalileoGalileo observed how things broke if
-they were naively scaled up. Interestingly, Google noticed a similar pattern
-when building larger software systems using the same techniques used to build
-smaller systems. Luiz Andre Barroso, Distinguished Engineer at Google, talks
-about this fundamental property of scaling systems in his fascinating talk,
-Warehouse-Scale Computing: Entering the Teenage Decade. Google found the
-larger the scale the greater the impact of latency variability. When a request
-is implemented by work done in parallel, as is common with today's service
-oriented</p><p>2 0.88867944 <a title="1207-lsi-2" href="../high_scalability-2009/high_scalability-2009-07-25-Latency_is_Everywhere_and_it_Costs_You_Sales_-_How_to_Crush_it.html">661 high scalability-2009-07-25-Latency is Everywhere and it Costs You Sales - How to Crush it</a></p>
-<p>Introduction: Update 8:The Cost of Latency by James Hamilton. James summarizing some latency
-info from Steve Souder,Greg Linden, andMarissa Mayer. Speed [is] an
-undervalued and under-discussed asset on the web.Update 7:How do you know when
-you need more memcache servers?. Dathan Pattishall talks about using memcache
-not to scale, but to reduce latency and reduce I/O spikes, and how to use
-stats to know when more servers are needed.Update 6:Stock Traders Find Speed
-Pays, in Milliseconds. Goldman Sachs is making record profits off a500
-millisecondtrading advantage. Yes, latency matters. As an interesting aside,
-Libet found 500 msecs is about the time it takes the brain to weave together
-an experience of consciousness from all our sensor inputs.Update 5:Shopzilla's
-Site Redo - You Get What You Measure. At theVelocityconference Phil Dixon,
-from Shopzilla, presented data showing a 5 second speed up resulted in a 25%
-increase in page views, a 10% increase in revenue, a 50% reduction in
-hardware, and a 120</p><p>3 0.86929584 <a title="1207-lsi-3" href="../high_scalability-2012/high_scalability-2012-06-18-Google_on_Latency_Tolerant_Systems%3A_Making_a_Predictable_Whole_Out_of_Unpredictable_Parts___.html">1266 high scalability-2012-06-18-Google on Latency Tolerant Systems: Making a Predictable Whole Out of Unpredictable Parts   </a></p>
-<p>Introduction: InTaming The Long Latency Tailwe coveredLuiz Barroso's exploration of the long
-tail latency (some operations are really slow) problems generated by large
-fanout architectures (a request is composed of potentially thousands of other
-requests). You may have noticed there weren't a lot of solutions. That's where
-a talk I attended,Achieving Rapid Response Times in Large Online
-Services(slide deck), byJeff Dean, also of Google, comes in:In this talk, I'll
-describe a collection of techniques and practices lowering response times in
-large distributed systems whose components run on shared clusters of machines,
-where pieces of these systems are subject to interference by other tasks, and
-where unpredictable latency hiccups are the norm, not the exception.The goal
-is to use software techniques to reduce variability given the increasing
-variability in underlying hardware, the need to handle dynamic workloads on a
-shared infrastructure, and the need to use large fanout architectures to
-operate at</p><p>4 0.86790234 <a title="1207-lsi-4" href="../high_scalability-2013/high_scalability-2013-12-04-How_Can_Batching_Requests_Actually_Reduce_Latency%3F.html">1558 high scalability-2013-12-04-How Can Batching Requests Actually Reduce Latency?</a></p>
-<p>Introduction: Jeremy Edberg gave a talk on Scaling Reddit from 1 Million to 1 Billion-
-Pitfalls and Lessons andone of the issuesthey had was that they:Did not
-account for increased latency after moving to EC2. In the datacenter they had
-submillisecond access between machines so it was possible to make a 1000 calls
-to memache for one page load. Not so on EC2. Memcache access times increased
-10x to a millisecond which made their old approach unusable. Fix was to batch
-calls to memcache so a large number of gets are in one request.Dave Pacheco
-had aninteresting questionabout batching requests and its impact on latency:I
-was confused about the memcached problem after moving to the cloud. I
-understand why network latency may have gone from submillisecond to
-milliseconds, but how could you improve latency by batching requests?
-Shouldn't that improve efficiency, not latency, at the possible expense of
-latency (since some requests will wait on the client as they get batched)?
-Jeremy cleared it up by saying:</p><p>5 0.83192372 <a title="1207-lsi-5" href="../high_scalability-2011/high_scalability-2011-09-15-Paper%3A_It%27s_Time_for_Low_Latency_-_Inventing_the_1_Microsecond_Datacenter.html">1116 high scalability-2011-09-15-Paper: It's Time for Low Latency - Inventing the 1 Microsecond Datacenter</a></p>
-<p>Introduction: In It's Time for Low Latency  Stephen Rumble et al. explore the idea that it's
-time to rearchitect our stack to live in the modern era of low-latency
-datacenter instead of high-latency WANs. The implications for
-programarchitectures will be revolutionary.  Luiz Andre Barroso, Distinguished
-Engineer at Google, sees ultra low latency as a way to make computer
-resources, to be as much as possible, fungible, that is they are
-interchangeable and location independent, effectively turning a datacenter
-into single computer. Abstract from the paper:The operating systems community
-has ignored network latency for too long. In the past, speed-of-light delays
-in wide area networks and unoptimized network hardware have made sub-100µs
-round-trip times impossible. However, in the next few years datacenters will
-be deployed with low-latency Ethernet. Without the burden of propagation
-delays in the datacenter campus and network delays in the Ethernet devices, it
-will be up to us to ﬁnish the job and see</p><p>6 0.79573345 <a title="1207-lsi-6" href="../high_scalability-2011/high_scalability-2011-02-01-Google_Strategy%3A_Tree_Distribution_of_Requests_and_Responses.html">981 high scalability-2011-02-01-Google Strategy: Tree Distribution of Requests and Responses</a></p>
+<p>Introduction: Likewise the current belief that, in the case of artificial machines the very large and the very small are equally feasible and lasting is a manifest error. Thus, for example, a small obelisk or column or other solid figure can certainly be laid down or set up without danger of breaking, while the large ones will go to pieces under the slightest provocation, and that purely on account of their own weight. -- Galileo  
+Galileo observed how things broke if they were naively scaled up. Interestingly, Google noticed a similar pattern when building larger software systems using the same techniques used to build smaller systems. 
+ 
+ Luiz André Barroso , Distinguished Engineer at Google, talks about this fundamental property of scaling systems in his fascinating talk,  Warehouse-Scale Computing: Entering the Teenage Decade . Google found the larger the scale the greater the impact of latency variability. When a request is implemented by work done in parallel, as is common with today's service</p><p>2 0.88867944 <a title="1207-lsi-2" href="../high_scalability-2009/high_scalability-2009-07-25-Latency_is_Everywhere_and_it_Costs_You_Sales_-_How_to_Crush_it.html">661 high scalability-2009-07-25-Latency is Everywhere and it Costs You Sales - How to Crush it</a></p>
+<p>Introduction: Update 8 :  The Cost of Latency  by James Hamilton. James summarizing some latency info from      Steve Souder ,   Greg Linden , and   Marissa Mayer .      Speed [is] an undervalued and under-discussed asset on the web. 
+ 
+ Update 7:   How do you know when you need more memcache servers? . Dathan Pattishall talks about using memcache not to scale, but to reduce latency and reduce I/O spikes, and how to use stats to know when more servers are needed.  Update 6:   Stock Traders Find Speed Pays, in Milliseconds . Goldman Sachs is making record profits off a  500 millisecond  trading advantage. Yes, latency matters. As an interesting aside, Libet found 500 msecs is about the time it takes the brain to weave together an experience of consciousness from all our sensor inputs.  Update 5:   Shopzilla's Site Redo - You Get What You Measure . At the  Velocity  conference Phil Dixon, from Shopzilla, presented data showing a 5 second speed up resulted in a 25% increase in page views, a 10% increas</p><p>3 0.86929584 <a title="1207-lsi-3" href="../high_scalability-2012/high_scalability-2012-06-18-Google_on_Latency_Tolerant_Systems%3A_Making_a_Predictable_Whole_Out_of_Unpredictable_Parts___.html">1266 high scalability-2012-06-18-Google on Latency Tolerant Systems: Making a Predictable Whole Out of Unpredictable Parts   </a></p>
+<p>Introduction: In   Taming The Long Latency Tail   we covered   Luiz Barroso  ’s exploration of the long tail latency (some operations are really slow) problems generated by large fanout architectures (a request is composed of potentially thousands of other requests). You may have noticed there weren’t a lot of solutions. That’s where a talk I attended,   Achieving Rapid Response Times in Large Online Services   (  slide deck  ), by  Jeff Dean , also of Google, comes in:
+  
+  In this talk, I’ll describe a collection of techniques and practices lowering response times in large distributed systems whose components run on shared clusters of machines, where pieces of these systems are subject to interference by other tasks, and where unpredictable latency hiccups are the norm, not the exception. 
+
+  
+ The goal is to use software techniques to reduce variability given the increasing variability in underlying hardware, the need to handle dynamic workloads on a shared infrastructure, and the need to use lar</p><p>4 0.86790234 <a title="1207-lsi-4" href="../high_scalability-2013/high_scalability-2013-12-04-How_Can_Batching_Requests_Actually_Reduce_Latency%3F.html">1558 high scalability-2013-12-04-How Can Batching Requests Actually Reduce Latency?</a></p>
+<p>Introduction: Jeremy Edberg gave a talk on  Scaling Reddit from 1 Million to 1 Billion–Pitfalls and Lessons  and  one of the issues  they had was that they:
+  
+
+Did not account for increased latency after moving to EC2. In the datacenter they had submillisecond access between machines so it was possible to make a 1000 calls to memache for one page load. Not so on EC2. Memcache access times increased 10x to a millisecond which made their old approach unusable. Fix was to batch calls to memcache so a large number of gets are in one request.
+
+  
+Dave Pacheco had an  interesting question  about batching requests and its impact on latency:
+  
+
+ I was confused about the memcached problem after moving to the cloud.  I understand why network latency may have gone from submillisecond to milliseconds, but how could you improve latency by batching requests? Shouldn't that improve efficiency, not latency, at the possible expense of latency (since some requests will wait on the client as they get batched)?</p><p>5 0.83192372 <a title="1207-lsi-5" href="../high_scalability-2011/high_scalability-2011-09-15-Paper%3A_It%27s_Time_for_Low_Latency_-_Inventing_the_1_Microsecond_Datacenter.html">1116 high scalability-2011-09-15-Paper: It's Time for Low Latency - Inventing the 1 Microsecond Datacenter</a></p>
+<p>Introduction: In  It's Time for Low Latency   Stephen Rumble et al. explore the idea that it's time to rearchitect our stack to live in the modern era of low-latency datacenter instead of high-latency WANs. The implications for program  architectures will be revolutionary .   Luiz André Barroso , Distinguished Engineer at Google, sees ultra low latency as a way to make computer resources, to be as much as possible, fungible, that is they are interchangeable and location independent, effectively turning a datacenter into single computer.
+ 
+ Abstract from the paper:
+  
+
+The operating systems community has ignored network latency for too long. In the past, speed-of-light delays in wide area networks and unoptimized network hardware have made sub-100µs round-trip times impossible. However, in the next few years datacenters will be deployed with low-latency Ethernet. Without the burden of propagation delays in the datacenter campus and network delays in the Ethernet devices, it will be up to us to ﬁnish</p><p>6 0.79573345 <a title="1207-lsi-6" href="../high_scalability-2011/high_scalability-2011-02-01-Google_Strategy%3A_Tree_Distribution_of_Requests_and_Responses.html">981 high scalability-2011-02-01-Google Strategy: Tree Distribution of Requests and Responses</a></p>
 <p>7 0.76389599 <a title="1207-lsi-7" href="../high_scalability-2013/high_scalability-2013-01-15-More_Numbers_Every_Awesome_Programmer_Must_Know.html">1387 high scalability-2013-01-15-More Numbers Every Awesome Programmer Must Know</a></p>
 <p>8 0.73604083 <a title="1207-lsi-8" href="../high_scalability-2010/high_scalability-2010-11-15-Strategy%3A_Biggest_Performance_Impact_is_to_Reduce_the_Number_of_HTTP_Requests.html">942 high scalability-2010-11-15-Strategy: Biggest Performance Impact is to Reduce the Number of HTTP Requests</a></p>
 <p>9 0.73488986 <a title="1207-lsi-9" href="../high_scalability-2013/high_scalability-2013-11-13-Google%3A_Multiplex_Multiple_Works_Loads_on_Computers_to_Increase_Machine_Utilization_and_Save_Money.html">1548 high scalability-2013-11-13-Google: Multiplex Multiple Works Loads on Computers to Increase Machine Utilization and Save Money</a></p>
@@ -233,76 +138,45 @@ will be up to us to ﬁnish the job and see</p><p>6 0.79573345 <a title="1207-ls
 <p>[(1, 0.088), (2, 0.206), (5, 0.014), (8, 0.072), (10, 0.083), (27, 0.015), (30, 0.011), (37, 0.012), (40, 0.021), (43, 0.012), (47, 0.035), (49, 0.012), (56, 0.019), (61, 0.076), (77, 0.063), (79, 0.109), (85, 0.024), (94, 0.043)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95040494 <a title="1207-lda-1" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
-<p>Introduction: Likewise the current belief that, in the case of artificial machines the very
-large and the very small are equally feasible and lasting is a manifest error.
-Thus, for example, a small obelisk or column or other solid figure can
-certainly be laid down or set up without danger of breaking, while the large
-ones will go to pieces under the slightest provocation, and that purely on
-account of their own weight. -- GalileoGalileo observed how things broke if
-they were naively scaled up. Interestingly, Google noticed a similar pattern
-when building larger software systems using the same techniques used to build
-smaller systems. Luiz Andre Barroso, Distinguished Engineer at Google, talks
-about this fundamental property of scaling systems in his fascinating talk,
-Warehouse-Scale Computing: Entering the Teenage Decade. Google found the
-larger the scale the greater the impact of latency variability. When a request
-is implemented by work done in parallel, as is common with today's service
-oriented</p><p>2 0.94850349 <a title="1207-lda-2" href="../high_scalability-2007/high_scalability-2007-11-15-Video%3A_Dryad%3A_A_general-purpose_distributed_execution_platform.html">155 high scalability-2007-11-15-Video: Dryad: A general-purpose distributed execution platform</a></p>
-<p>Introduction: Dryad is Microsoft's answer to Google'smap-reduce. What's the question: How do
-you process really large amounts of data? My initial impression of Dryad is
-it's like a giant Unix command line filter on steroids. There are lots of
-inputs, outputs, tees, queues, and merge sorts all connected together by a
-master exec program. What else does Dryad have to offer the scalable
-infrastructure wars?Dryad models programs as the execution of a directed
-acyclic graph. Each vertex is a program and edges are typed communication
-channels (files, TCP pipes, and shared memory channels within a process). Map-
-reduce uses a different model. It's more like a large distributed sort where
-the programmer defines functions for mapping, partitioning, and reducing. Each
-approach seems to borrow from the spirit of its creating organization. The
-graph approach seems a bit too complicated and map-reduce seems a bit too
-simple. How ironic, in the Alanis Morissette sense.Dryad is a middleware layer
-that executes gra</p><p>3 0.94389147 <a title="1207-lda-3" href="../high_scalability-2012/high_scalability-2012-01-30-37signals_Still_Happily_Scaling_on_Moore_RAM_and_SSDs.html">1183 high scalability-2012-01-30-37signals Still Happily Scaling on Moore RAM and SSDs</a></p>
-<p>Introduction: There are so many architectural ideas swirling in the bit wind these days. Two
-of the biggest battles are cloud vs. bare metal and RAM vs. disk vs. SSD.
-37signals has published two solid articles that are counter hype cycle in
-their message:Technologists who grew up when RAM cost $1,000 per megabyte can
-have a hard time dealing with the luxury of RAM being virtually free.The
-progress of technology is throwing an ever greater number of optimizations
-into the "premature evil" bucket never to be seen again.37signals made quite a
-stir with their money shot of the864GB of RAM they bought for a mere $12Kas
-part of their caching layer for Basecamp. That's a lot of memory for not a lot
-of money. There's nothing like actually seeing it in the flesh to bring the
-point home. Does that makeMemory Based Architecturesa little more
-appealing?37signals then followed up with another provocative article:Three
-years later, Mr. Moore is still letting us punt on database sharding. The gist
-is scaling up is</p><p>4 0.93962437 <a title="1207-lda-4" href="../high_scalability-2011/high_scalability-2011-12-16-Stuff_The_Internet_Says_On_Scalability_For_December_16%2C_2011.html">1158 high scalability-2011-12-16-Stuff The Internet Says On Scalability For December 16, 2011</a></p>
-<p>Introduction: A HighScalability is forever:eBay:tens of millions of lines of code; Google
-code base change rate per month:50%; Apple:100 million downloads; Internet:186
-GbpsQuotable quotes:@OttmarAmann: Scalability is not as important as managing
-complexity @amankapur91: Does scalability imply standardization, and then does
-standardization imply loss of innovation?Spotify uses a P2P architecture and
-this paper,Spotify - Large Scale, Low Latency, P2P Music-on-Demand Streaming,
-describes it.The Faving spam counter-measures. Ironically, deviantART relates
-a gripping story of how they detected and stopped a deviant user from
-attacking their servers with an automated faving script which faved every 10
-seconds for 24 hours a day. The same spam filter they use on the rest of the
-site was used. Problem solved. Would like detail on their spam filter
-though.Interesting Google Group's thread on thebest practices for simulating
-transactions in Cassandra. Ah, the quest for atomic writes of multiple records
-is ne</p><p>5 0.93256736 <a title="1207-lda-5" href="../high_scalability-2011/high_scalability-2011-09-16-Stuff_The_Internet_Says_On_Scalability_For_September_16%2C_2011.html">1117 high scalability-2011-09-16-Stuff The Internet Says On Scalability For September 16, 2011</a></p>
-<p>Introduction: Between love and madness lies HighScalability:Google now 10x better: MapReduce
-sorts 1 petabyte of data using 8000 computers in 33 minutes; 1 Billion on
-Social Networks;Tumblr at 10 Billion Posts;Twitter at 100 Million
-Users;Testing at Google Scale: 1800 builds, 120 million test suites, 60
-million tests run daily.From theDash Memoon Google's Plan:Go is a very
-promising systems-programming language in the vein of C++. We fully hope and
-expect that Go becomes the standard back-end language at Google over the next
-few years.On GAE Go can load from a cold start in 100ms and the typical
-instance size is 4MB. Is it any wonder Go is a go? Should we expect to see
-Java and Python deprecated because Go is so much cheaper to run at
-scale?Potent Quotables:@caciufo: 30x more scalability w/ many-core. So perf
-doesn't have to level out or vex programmers. #IDF2011@joerglew: Evaluating
-divide&conquer; vs. master-slave architecture for workflows scalability in
-#vCO. I wonder what fits better to cust. ne</p><p>6 0.93236464 <a title="1207-lda-6" href="../high_scalability-2013/high_scalability-2013-12-20-Stuff_The_Internet_Says_On_Scalability_For_December_20th%2C_2013.html">1567 high scalability-2013-12-20-Stuff The Internet Says On Scalability For December 20th, 2013</a></p>
+<p>Introduction: Likewise the current belief that, in the case of artificial machines the very large and the very small are equally feasible and lasting is a manifest error. Thus, for example, a small obelisk or column or other solid figure can certainly be laid down or set up without danger of breaking, while the large ones will go to pieces under the slightest provocation, and that purely on account of their own weight. -- Galileo  
+Galileo observed how things broke if they were naively scaled up. Interestingly, Google noticed a similar pattern when building larger software systems using the same techniques used to build smaller systems. 
+ 
+ Luiz André Barroso , Distinguished Engineer at Google, talks about this fundamental property of scaling systems in his fascinating talk,  Warehouse-Scale Computing: Entering the Teenage Decade . Google found the larger the scale the greater the impact of latency variability. When a request is implemented by work done in parallel, as is common with today's service</p><p>2 0.94850349 <a title="1207-lda-2" href="../high_scalability-2007/high_scalability-2007-11-15-Video%3A_Dryad%3A_A_general-purpose_distributed_execution_platform.html">155 high scalability-2007-11-15-Video: Dryad: A general-purpose distributed execution platform</a></p>
+<p>Introduction: Dryad is Microsoft's answer to Google's  map-reduce . What's the question: How do you process really large amounts of data? My initial impression of Dryad is it's like a giant Unix command line filter on steroids. There are lots of inputs, outputs, tees, queues, and merge sorts all connected together by a master exec program.  What else does Dryad have to offer the scalable infrastructure wars?
+ 
+Dryad models programs as the execution of a directed acyclic graph. Each vertex is a program and edges are typed communication channels (files, TCP pipes, and shared memory channels within a process). Map-reduce uses a different model. It's more like a large distributed sort where the programmer defines functions for mapping, partitioning, and reducing.  Each approach seems to borrow from the spirit of its creating organization. The graph approach seems a bit too complicated and map-reduce seems a bit too simple. How ironic, in the Alanis Morissette sense.   Dryad is a middleware layer that ex</p><p>3 0.94389147 <a title="1207-lda-3" href="../high_scalability-2012/high_scalability-2012-01-30-37signals_Still_Happily_Scaling_on_Moore_RAM_and_SSDs.html">1183 high scalability-2012-01-30-37signals Still Happily Scaling on Moore RAM and SSDs</a></p>
+<p>Introduction: There are so many architectural ideas swirling in the bit wind these days. Two of the biggest battles are cloud vs. bare metal and RAM vs. disk vs. SSD. 37signals has published two solid articles that are counter hype cycle in their message:
+  
+
+Technologists who grew up when RAM cost $1,000 per megabyte can have a hard time dealing with the luxury of RAM being virtually free.
+
+
+The progress of technology is throwing an ever greater number of optimizations into the “premature evil” bucket never to be seen again.
+
+  
+37signals made quite a stir with their money shot of the  864GB of RAM they bought for a mere $12K  as part of their caching layer for Basecamp. That's a lot of memory for not a lot of money. There's nothing like actually seeing it in the flesh to bring the point home. Does that make  Memory Based Architectures  a little more appealing?
+ 
+37signals then followed up with another provocative article:  Three years later, Mr. Moore is still letting us punt on database sharding</p><p>4 0.93962437 <a title="1207-lda-4" href="../high_scalability-2011/high_scalability-2011-12-16-Stuff_The_Internet_Says_On_Scalability_For_December_16%2C_2011.html">1158 high scalability-2011-12-16-Stuff The Internet Says On Scalability For December 16, 2011</a></p>
+<p>Introduction: A HighScalability is forever:
+  
+ eBay:  tens of millions  of lines of code; Google code base change rate per month:  50% ; Apple:  100 million downloads ; Internet:  186 Gbps  
+ Quotable quotes:                  
+ 
+  @OttmarAmann  : Scalability is not as important as managing complexity  
+  @amankapur91  : Does scalability imply standardization, and then does standardization imply loss of innovation? 
+ 
+ 
+ Spotify uses a P2P architecture and this paper,  Spotify – Large Scale, Low Latency, P2P Music-on-Demand Streaming , describes it. 
+  The Faving spam counter-measures . Ironically, deviantART relates a gripping story of how they detected and stopped a deviant user from attacking their servers with an automated faving script which faved every 10 seconds for 24 hours a day. The same spam filter they use on the rest of the site was used. Problem solved. Would like detail on their spam filter though. 
+ Interesting Google Group's thread on the  best practices for simulating transactions</p><p>5 0.93256736 <a title="1207-lda-5" href="../high_scalability-2011/high_scalability-2011-09-16-Stuff_The_Internet_Says_On_Scalability_For_September_16%2C_2011.html">1117 high scalability-2011-09-16-Stuff The Internet Says On Scalability For September 16, 2011</a></p>
+<p>Introduction: Between love and madness lies  HighScalability : 
+  
+  Google now 10x better : MapReduce sorts 1 petabyte of data using 8000 computers in 33 minutes;  1 Billion on Social Networks ;  Tumblr at 10 Billion Posts ;  Twitter at 100 Million Users ;  Testing at Google Scale : 1800 builds, 120 million test suites, 60 million tests run daily. 
+ From the  Dash Memo  on Google's Plan:  Go is a very promising systems-programming language in the vein of C++. We fully hope and expect that Go becomes the standard back-end language at Google over the next few years.  On GAE  Go can load from  a cold start in 100ms and the typical instance size is 4MB. Is it any wonder Go is a go? Should we expect to see Java and Python deprecated because Go is so much cheaper to run at scale? 
+ Potent Quotables:               
+ 
+  @caciufo  : 30x more scalability w/ many-core. So perf doesn't have to level out or vex programmers. #IDF2011 
+  @joerglew  : Evaluating divide&conquer; vs. master-slave architecture for wor</p><p>6 0.93236464 <a title="1207-lda-6" href="../high_scalability-2013/high_scalability-2013-12-20-Stuff_The_Internet_Says_On_Scalability_For_December_20th%2C_2013.html">1567 high scalability-2013-12-20-Stuff The Internet Says On Scalability For December 20th, 2013</a></p>
 <p>7 0.93188006 <a title="1207-lda-7" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
 <p>8 0.92877692 <a title="1207-lda-8" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
 <p>9 0.92729104 <a title="1207-lda-9" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>

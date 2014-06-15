@@ -16,115 +16,58 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1233-html" href="http://highscalability.com//blog/2012/4/25/the-anatomy-of-search-technology-blekkos-nosql-database.html">html</a></p><p>Introduction: This is a guest post (part 2,part 3) by Greg Lindahl, CTO of blekko, the spam
-free search engine that had over 3.5 million unique visitors in March. Greg
-Lindahl was Founder and Distinguished Engineer at PathScale, at which he was
-the architect of the InfiniPath low-latency InfiniBand HCA, used to build
-tightly-coupled supercomputing clusters.Imagine that you're crazy enough to
-think about building a search engine.  It's a huge task: the minimum index
-size needed to answer most queries is a few billion webpages. Crawling and
-indexing a few billion webpages requires a cluster with several petabytes of
-usable disk -- that's several thousand 1 terabyte disks -- and produces an
-index that's about 100 terabytes in size.Serving query results quickly
-involves having most of the index in RAM or on solid state (flash) disk. If
-you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000
-servers at a capital cost of $3 million, plus about $1 million per year of
-server co-locatio</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Crawling and indexing a few billion webpages requires a cluster with several petabytes of usable disk -- that's several thousand 1 terabyte disks -- and produces an index that's about 100 terabytes in size. [sent-6, score-0.52]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1233-html" href="http://highscalability.com//blog/2012/4/25/the-anatomy-of-search-technology-blekkos-nosql-database.html">html</a></p><p>Introduction: This is a guest post ( part 2 ,  part 3 ) by Greg Lindahl, CTO of blekko, the spam free search engine that had over 3.5 million unique visitors in March. Greg Lindahl was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters. 
+ 
+Imagine that you're crazy enough to think about building a search engine.  It's a huge task: the minimum index size needed to answer most queries is a few billion webpages. Crawling and indexing a few billion webpages requires a cluster with several petabytes of usable disk -- that's several thousand 1 terabyte disks -- and produces an index that's about 100 terabytes in size.
+ 
+Serving query results quickly involves having most of the index in RAM or on solid state (flash) disk. If you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000 servers at a capital cost of $3 million, plus about $1 million per year of serve</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Crawling and indexing a few billion webpages requires a cluster with several petabytes of usable disk -- that's several thousand 1 terabyte disks -- and produces an index that's about 100 terabytes in size. [sent-6, score-0.52]
 </p><p>2 Putting the index into RAM on Amazon is very expensive, and only makes sense for a search engine with several % market share. [sent-13, score-0.247]
-</p><p>3 In blekko's datastore, we heavily rely on a construct called combinators to do processing at the database cell level. [sent-30, score-0.535]
-</p><p>4 A combinator is an atomic operation on a cell of a database that is associative and preferably commutative. [sent-31, score-0.869]
-</p><p>5 The fact that addition is associative and commutative means that we will (eventually) get the same answer in all 3 replicas of this cell. [sent-35, score-0.333]
-</p><p>6 The hierarchy of combinations means that the total number of transactions is dramatically reduced compared to a naive implementation, where every process talks directly to the 3 replicas of the cell, and every addition operation results in 3 immediate transactions. [sent-36, score-0.248]
-</p><p>7 The Logcount CombinatorSearch engines frequently need to count unique items in a set. [sent-37, score-0.28]
-</p><p>8 Examples include counting the number of inlinks to a website, the number of unique geographic areas linking to a website, and the number of unique Class-C IP networks linking to a website, and so on. [sent-38, score-0.477]
-</p><p>9 Keeping a perfect count would require keeping a lot of data, so we invented anapproximate method, which can count a up to a billion things with accuracy of +- 50% in only 16 bytes. [sent-40, score-0.256]
-</p><p>10 This combinator, which we call logcount, is implemented in a way which is commutative and associative -- you can AND the bits of two of these together to combine their counts. [sent-41, score-0.261]
-</p><p>11 The TopN Combinator Another common search engine operation is remembering the most important N items in a set. [sent-46, score-0.35]
-</p><p>12 The TopN combinator can represent the top N URLs in a finite-sized array that fits into a single cell of the database: The TopN combinator can be updated incrementally, as we crawl new webpages, and these updates are inexpensive. [sent-49, score-0.933]
-</p><p>13 Thanks to the ranks used to decide which of the urls fit into the N most important, it is commutative and associative. [sent-51, score-0.246]
+</p><p>3 org/wiki/Paxos_algorithm           Combinators    In a conventional database system, updates to the database are done in transactions, in which the program locks one or more rows of the database, makes some changes, and then commits or aborts the entire transaction. [sent-28, score-0.244]
+</p><p>4 In blekko's datastore, we heavily rely on a construct called combinators to do processing at the database cell level. [sent-30, score-0.535]
+</p><p>5 A combinator is an atomic operation on a cell of a database that is associative and preferably commutative. [sent-31, score-0.869]
+</p><p>6 The fact that addition is associative and commutative means that we will (eventually) get the same answer in all 3 replicas of this cell. [sent-35, score-0.333]
+</p><p>7 The hierarchy of combinations means that the total number of transactions is dramatically reduced compared to a naive implementation, where every process talks directly to the 3 replicas of the cell, and every addition operation results in 3 immediate transactions. [sent-36, score-0.248]
+</p><p>8 The Logcount Combinator   Search engines frequently need to count unique items in a set. [sent-37, score-0.28]
+</p><p>9 Examples include counting the number of inlinks to a website, the number of unique geographic areas linking to a website, and the number of unique Class-C IP networks linking to a website, and so on. [sent-38, score-0.477]
+</p><p>10 Keeping a perfect count would require keeping a lot of data, so we invented an  approximate method , which can count a up to a billion things with accuracy of +- 50% in only 16 bytes. [sent-40, score-0.256]
+</p><p>11 The TopN Combinator    Another common search engine operation is remembering the most important N items in a set. [sent-46, score-0.35]
+</p><p>12 The TopN combinator can represent the top N URLs in a finite-sized array that fits into a single cell of the database:               The TopN combinator can be updated incrementally, as we crawl new webpages, and these updates are inexpensive. [sent-49, score-0.933]
+</p><p>13 It can be read back in a single disk operation, without needing indexing or sorting or reading of any data about URLs not in the top N. [sent-50, score-0.2]
 </p><p>14 So far we've used combinators as single cells in our database tables. [sent-55, score-0.348]
-</p><p>15 Meta-Combinators: The Hash CombinatorIf a cell in the database contains a hash of (key,value) pairs, the hash meta- combinator can be used to atomically update only some of the (key,value) pairs, leaving the rest unchanged. [sent-58, score-0.758]
-</p><p>16 This gives us considerable freedom to make the columns in the database the ones that make sense to the programmer, instead of having to promote extra things to be columns in order to be able to change them atomically. [sent-59, score-0.252]
-</p><p>17 Taking The Reduce Out Of Map/ReduceSince we represent our database tables with combinators, why not use the combinators to shuffle and reduce the output of our MapReduce jobs? [sent-60, score-0.659]
-</p><p>18 Then we can write MapJobs that iterate over a table in the database, and write their output back into the database using combinators. [sent-61, score-0.349]
-</p><p>19 Let's wordcount the web:foreach row in "/crawl/url"  foreach word in html column    comb_add( "/wordcount", word, 1 )In this pseudo-code, we iterate over all of the html documents in the table /crawl/url, and for each word found, we increment the appropriate row in the table "/wordcount". [sent-62, score-0.759]
-</p><p>20 Our datastore:Looks like a tabular databaseSupports real-time and batch processing in the same clusterSupports high programmer productivityIn the next installment of this series, we'll take a more detailed look at web crawling, and using combinators to implement a crawler. [sent-72, score-0.394]
+</p><p>15 Meta-Combinators: The Hash Combinator   If a cell in the database contains a hash of (key,value) pairs, the hash meta-combinator can be used to atomically update only some of the (key,value) pairs, leaving the rest unchanged. [sent-58, score-0.451]
+</p><p>16 This gives us considerable freedom to make the columns in the database the ones that make sense to the programmer, instead of having to promote extra things to be columns in order to be able to change them atomically. [sent-59, score-0.187]
+</p><p>17 Taking The Reduce Out Of Map/Reduce   Since we represent our database tables with combinators, why not use the combinators to shuffle and reduce the output of our MapReduce jobs? [sent-60, score-0.581]
+</p><p>18 Then we can write MapJobs that iterate over a table in the database, and write their output back into the database using combinators. [sent-61, score-0.288]
+</p><p>19 A second feature of this method of wordcount is that the above function can  also be used in a streaming  context, to add the wordcounts of newly crawled documents to the existing counts in the table "/wordcount". [sent-64, score-0.206]
+</p><p>20 Our datastore:     Looks like a tabular database   Supports real-time and batch processing in the same cluster   Supports high programmer productivity     In the next installment of this series, we'll take a more detailed look at web crawling, and using combinators to implement a crawler. [sent-72, score-0.592]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('combinator', 0.307), ('combinators', 0.226), ('cell', 0.187), ('datastore', 0.172), ('logcount', 0.157), ('topn', 0.157), ('crawling', 0.138), ('associative', 0.136), ('blekko', 0.136), ('count', 0.128), ('commutative', 0.125), ('database', 0.122), ('urls', 0.121), ('operation', 0.117), ('mapjob', 0.116), ('mapjobs', 0.116), ('wordcount', 0.116), ('disk', 0.107), ('index', 0.099), ('foreach', 0.098), ('lindahl', 0.098), ('reduce', 0.096), ('indexing', 0.093), ('table', 0.09), ('items', 0.085), ('batch', 0.084), ('programmer', 0.084), ('search', 0.084), ('webpages', 0.083), ('row', 0.078), ('shuffle', 0.078), ('mapreduce', 0.077), ('output', 0.076), ('cluster', 0.076), ('word', 0.074), ('initial', 0.072), ('answer', 0.072), ('hash', 0.071), ('crawl', 0.071), ('linking', 0.071), ('sum', 0.068), ('number', 0.067), ('unique', 0.067), ('columns', 0.065), ('engine', 0.064), ('hierarchy', 0.064), ('pairs', 0.063), ('requires', 0.062), ('iterate', 0.061), ('represent', 0.061)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1233-tfidf-1" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
-<p>Introduction: This is a guest post (part 2,part 3) by Greg Lindahl, CTO of blekko, the spam
-free search engine that had over 3.5 million unique visitors in March. Greg
-Lindahl was Founder and Distinguished Engineer at PathScale, at which he was
-the architect of the InfiniPath low-latency InfiniBand HCA, used to build
-tightly-coupled supercomputing clusters.Imagine that you're crazy enough to
-think about building a search engine.  It's a huge task: the minimum index
-size needed to answer most queries is a few billion webpages. Crawling and
-indexing a few billion webpages requires a cluster with several petabytes of
-usable disk -- that's several thousand 1 terabyte disks -- and produces an
-index that's about 100 terabytes in size.Serving query results quickly
-involves having most of the index in RAM or on solid state (flash) disk. If
-you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000
-servers at a capital cost of $3 million, plus about $1 million per year of
-server co-locatio</p><p>2 0.27762261 <a title="1233-tfidf-2" href="../high_scalability-2012/high_scalability-2012-05-28-The_Anatomy_of_Search_Technology%3A_Crawling_using_Combinators.html">1253 high scalability-2012-05-28-The Anatomy of Search Technology: Crawling using Combinators</a></p>
-<p>Introduction: This is the second guest post (part 1,part 3) of a series by Greg Lindahl, CTO
-of blekko, the spam free search engine. Previously, Greg was Founder and
-Distinguished Engineer at PathScale, at which he was the architect of the
-InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled
-supercomputing clusters.What's so hard about crawling the web?Web crawlers
-have been around as long as the Web has -- and before the web, there were
-crawlers for gopher and ftp. You would think that 25 years of experience would
-render crawling a solved problem, but the vast growth of the web and new
-inventions in the technology of webspam and other unsavory content results in
-a constant supply of new challenges. The general difficulty of tightly-coupled
-parallel programming also rears its head, as the web has scaled from millions
-to 100s of billions of pages.Existing Open-Source Crawlers and CrawlsThis
-article is mainly going to discuss blekko's crawler and its use of
-combinators, but if you'd li</p><p>3 0.19691832 <a title="1233-tfidf-3" href="../high_scalability-2012/high_scalability-2012-07-09-Data_Replication_in_NoSQL_Databases.html">1279 high scalability-2012-07-09-Data Replication in NoSQL Databases</a></p>
-<p>Introduction: This is the third guest post (part 1,part 2) of a series by Greg Lindahl, CTO
-of blekko, the spam free search engine. Previously, Greg was Founder and
-Distinguished Engineer at PathScale, at which he was the architect of the
-InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled
-supercomputing clusters.blekko's home-grown NoSQL database was designed from
-the start to support a web-scale search engine, with 1,000s of servers and
-petabytes of disk. Data replication is a very important part of keeping the
-database up and serving queries. Like many NoSQL database authors, we decided
-to keep R=3 copies of each piece of data in the database, and not use RAID to
-improve reliability. The key goal we were shooting for was a database which
-degrades gracefully when there are many small failures over time, without
-needing human intervention.Why don't we like RAID for big NoSQL databases?Most
-big storage systems use RAID levels like 3, 4, 5, or 10 to improve
-reliability. A conservativ</p><p>4 0.16306683 <a title="1233-tfidf-4" href="../high_scalability-2012/high_scalability-2012-05-09-Cell_Architectures.html">1242 high scalability-2012-05-09-Cell Architectures</a></p>
-<p>Introduction: A consequence of Service Oriented Architectures is the burning need to provide
-services at scale. The architecture that has evolved to satisfy these
-requirements is a little known technique called the Cell Architecture.A Cell
-Architecture is based on the idea that massive scale requires parallelization
-and parallelization requires components be isolated from each other. These
-islands of isolation are called cells. A cell is a self-contained installation
-that can satisfy all the operations for a shard. A shard is a subset of a much
-larger dataset, typically a range of users, for example. Cell Architectures
-have several advantages:Cells provide a unit of parallelization that can be
-adjusted to any size as the user base grows.Cell are added in an incremental
-fashion as more capacity is required.Cells isolate failures. One cell failure
-does not impact other cells.Cells provide isolation as the storage and
-application horsepower to process requests is independent of other cells.Cells
-enable</p><p>5 0.15433376 <a title="1233-tfidf-5" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
-<p>Introduction: Update 2:Sorting 1 PB with MapReduce. PB is not peanut-butter-and-jelly
-misspelled. It's 1 petabyte or 1000 terabytes or 1,000,000 gigabytes.It took
-six hours and two minutes to sort 1PB (10 trillion 100-byte records) on 4,000
-computersand the results were replicated thrice on 48,000 disks.Update:Greg
-Lindenpoints to a new Google articleMapReduce: simplified data processing on
-large clusters. Some interesting stats: 100k MapReduce jobs are executed each
-day; more than 20 petabytes of data are processed per day; more than 10k
-MapReduce programs have been implemented; machines are dual processor with
-gigabit ethernet and 4-8 GB of memory.Google is the King of scalability.
-Everyone knows Google for their large, sophisticated, and fast searching, but
-they don't just shine in search. Their platform approach to building scalable
-applications allows them to roll out internet scale applications at an
-alarmingly high competition crushing rate. Their goal is always to build a
-higher performing h</p><p>6 0.15164496 <a title="1233-tfidf-6" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
+<p>Introduction: This is a guest post ( part 2 ,  part 3 ) by Greg Lindahl, CTO of blekko, the spam free search engine that had over 3.5 million unique visitors in March. Greg Lindahl was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters. 
+ 
+Imagine that you're crazy enough to think about building a search engine.  It's a huge task: the minimum index size needed to answer most queries is a few billion webpages. Crawling and indexing a few billion webpages requires a cluster with several petabytes of usable disk -- that's several thousand 1 terabyte disks -- and produces an index that's about 100 terabytes in size.
+ 
+Serving query results quickly involves having most of the index in RAM or on solid state (flash) disk. If you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000 servers at a capital cost of $3 million, plus about $1 million per year of serve</p><p>2 0.27762261 <a title="1233-tfidf-2" href="../high_scalability-2012/high_scalability-2012-05-28-The_Anatomy_of_Search_Technology%3A_Crawling_using_Combinators.html">1253 high scalability-2012-05-28-The Anatomy of Search Technology: Crawling using Combinators</a></p>
+<p>Introduction: This is the second guest post ( part 1 ,  part 3 ) of a series by Greg Lindahl, CTO of blekko, the spam free search engine.  Previously, Greg was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters.  
+  What's so hard about crawling the web?  
+Web crawlers have been around as long as the Web has -- and before the web, there were crawlers for gopher and ftp. You would think that 25 years of experience would render crawling a solved problem, but the vast growth of the web and new inventions in the technology of webspam and other unsavory content results in a constant supply of new challenges. The general difficulty of tightly-coupled parallel programming also rears its head, as the web has scaled from millions to 100s of billions of pages.
+  Existing Open-Source Crawlers and Crawls  
+This article is mainly going to discuss blekko's crawler and its use of combinat</p><p>3 0.19691832 <a title="1233-tfidf-3" href="../high_scalability-2012/high_scalability-2012-07-09-Data_Replication_in_NoSQL_Databases.html">1279 high scalability-2012-07-09-Data Replication in NoSQL Databases</a></p>
+<p>Introduction: This is the third guest post  (  part 1  ,   part 2  ) of a series by Greg Lindahl, CTO of blekko, the spam free search engine. Previously, Greg was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters. 
+ 
+blekko's home-grown NoSQL database was designed from the start to support a web-scale search engine, with 1,000s of servers and petabytes of disk. Data replication is a very important part of keeping the database up and serving queries.  Like many NoSQL database authors, we decided to keep R=3 copies of each piece of data in the database, and not use RAID to improve reliability. The key goal we were shooting for was a database which degrades gracefully when there are many small failures over time, without needing human intervention.
+  Why don't we like RAID for big NoSQL databases?  
+Most big storage systems use RAID levels like 3, 4, 5, or 10 to improve relia</p><p>4 0.16306683 <a title="1233-tfidf-4" href="../high_scalability-2012/high_scalability-2012-05-09-Cell_Architectures.html">1242 high scalability-2012-05-09-Cell Architectures</a></p>
+<p>Introduction: A consequence of Service Oriented Architectures is the burning need to provide services at scale. The architecture that has evolved to satisfy these requirements is a little known technique called the Cell Architecture.  A Cell Architecture is based on the idea that massive scale requires parallelization and parallelization requires components be isolated from each other. These islands of isolation are called cells. A cell is a self-contained installation that can satisfy all the operations for a  shard . A shard is a subset of a much larger dataset, typically a range of users, for example.   Cell Architectures have several advantages:
+  
+ Cells provide a unit of parallelization that can be adjusted to any size as the user base grows. 
+ Cell are added in an incremental fashion as more capacity is required. 
+ Cells isolate failures. One cell failure does not impact other cells. 
+ Cells provide isolation as the storage and application horsepower to process requests is independent of othe</p><p>5 0.15433376 <a title="1233-tfidf-5" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
+<p>Introduction: Update 2:   Sorting 1 PB with MapReduce . PB is not peanut-butter-and-jelly misspelled. It's 1 petabyte or 1000 terabytes or 1,000,000 gigabytes.  It took six hours and two minutes to sort 1PB (10 trillion 100-byte records) on 4,000 computers  and the results were replicated thrice on 48,000 disks.  Update:   Greg Linden  points to a new Google article  MapReduce: simplified data processing on large clusters . Some interesting stats: 100k MapReduce jobs are executed each day; more than 20 petabytes of data are processed per day; more than 10k MapReduce programs have been implemented; machines are dual processor with gigabit ethernet and 4-8 GB of memory.  Google is the King of scalability.  Everyone knows Google for their large,  sophisticated, and fast searching, but they don't just shine in search. Their platform approach to building scalable applications allows them to roll out internet scale applications at an alarmingly high competition crushing rate. Their goal is always to build</p><p>6 0.15164496 <a title="1233-tfidf-6" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
 <p>7 0.15164496 <a title="1233-tfidf-7" href="../high_scalability-2012/high_scalability-2012-11-19-Gone_Fishin%27%3A_Tumblr_Architecture_-_15_Billion_Page_Views_A_Month_And_Harder_To_Scale_Than_Twitter.html">1360 high scalability-2012-11-19-Gone Fishin': Tumblr Architecture - 15 Billion Page Views A Month And Harder To Scale Than Twitter</a></p>
 <p>8 0.15034851 <a title="1233-tfidf-8" href="../high_scalability-2013/high_scalability-2013-05-20-The_Tumblr_Architecture_Yahoo_Bought_for_a_Cool_Billion_Dollars.html">1461 high scalability-2013-05-20-The Tumblr Architecture Yahoo Bought for a Cool Billion Dollars</a></p>
 <p>9 0.14919333 <a title="1233-tfidf-9" href="../high_scalability-2009/high_scalability-2009-12-16-Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_in_the_Ambient_Cloud.html">750 high scalability-2009-12-16-Building Super Scalable Systems: Blade Runner Meets Autonomic Computing in the Ambient Cloud</a></p>
@@ -144,75 +87,35 @@ higher performing h</p><p>6 0.15164496 <a title="1233-tfidf-6" href="../high_sca
 <p>[(0, 0.243), (1, 0.154), (2, -0.03), (3, -0.003), (4, 0.005), (5, 0.082), (6, 0.036), (7, -0.004), (8, 0.036), (9, -0.013), (10, 0.037), (11, -0.015), (12, -0.022), (13, -0.0), (14, 0.068), (15, 0.054), (16, -0.157), (17, -0.041), (18, 0.03), (19, 0.019), (20, 0.004), (21, -0.047), (22, -0.036), (23, 0.023), (24, -0.04), (25, -0.067), (26, -0.047), (27, 0.017), (28, -0.009), (29, 0.052), (30, -0.047), (31, 0.057), (32, -0.004), (33, 0.019), (34, 0.02), (35, 0.03), (36, -0.004), (37, -0.008), (38, 0.002), (39, -0.032), (40, 0.049), (41, -0.016), (42, -0.049), (43, 0.003), (44, -0.016), (45, 0.06), (46, -0.007), (47, 0.038), (48, 0.064), (49, -0.053)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95526344 <a title="1233-lsi-1" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
-<p>Introduction: This is a guest post (part 2,part 3) by Greg Lindahl, CTO of blekko, the spam
-free search engine that had over 3.5 million unique visitors in March. Greg
-Lindahl was Founder and Distinguished Engineer at PathScale, at which he was
-the architect of the InfiniPath low-latency InfiniBand HCA, used to build
-tightly-coupled supercomputing clusters.Imagine that you're crazy enough to
-think about building a search engine.  It's a huge task: the minimum index
-size needed to answer most queries is a few billion webpages. Crawling and
-indexing a few billion webpages requires a cluster with several petabytes of
-usable disk -- that's several thousand 1 terabyte disks -- and produces an
-index that's about 100 terabytes in size.Serving query results quickly
-involves having most of the index in RAM or on solid state (flash) disk. If
-you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000
-servers at a capital cost of $3 million, plus about $1 million per year of
-server co-locatio</p><p>2 0.80709261 <a title="1233-lsi-2" href="../high_scalability-2013/high_scalability-2013-01-28-DuckDuckGo_Architecture_-_1_Million_Deep_Searches_a_Day_and_Growing.html">1395 high scalability-2013-01-28-DuckDuckGo Architecture - 1 Million Deep Searches a Day and Growing</a></p>
-<p>Introduction: This is an interview with Gabriel Weinberg, founder of Duck Duck Go and
-general all around startup guru, on what DDG's architecture looks like in
-2012.Innovative search engine upstart DuckDuckGo had30 million searchesin
-February 2012 and averages over 1 million searches a day. It's being
-positioned bysuper investor Fred Wilsonas a clean, private, impartial and fast
-search engine. After talking with Gabriel I like what Fred Wilson said
-earlier, it seems closer to the heart of the matter:We invested in DuckDuckGo
-for the Reddit, Hacker News anarchists.                  Choosing DuckDuckGo
-can be thought of as not just a technical choice, but a vote for revolution.
-In an age when knowing your essence is not about about love or friendship, but
-about more effectively selling you to advertisers, DDG is positioning
-themselves as thedo not track alternative, keepers of theprivacy flame. You
-will still be monetized of course, but in a more civilized and anonymous way.
-Pushing privacy is a good</p><p>3 0.79531354 <a title="1233-lsi-3" href="../high_scalability-2008/high_scalability-2008-06-08-Search_fast_in_million_rows.html">342 high scalability-2008-06-08-Search fast in million rows</a></p>
-<p>Introduction: I have a table .This table has many columns but search performed based on 1
-columns ,this table can have more than million rows.The data in these columns
-is something like funny,new york,hollywoodUser can search with parameters as
-funny hollywood .I need to take this 2 words and then search on column whether
-that column contain this words and how many times .It is not possible to index
-here .If the results return say 1200 results then without comparing each and
-every column i can't determine no of results.I need to compare for each and
-every column.This query is very frequent .How can i approach for this
-problem.What type of architecture,tools is helpful.I just know that this can
-be accomplished with distributed system but how can i make this system. I also
-see in this website that LinkedIn uses Lucene for search .Is Lucene is helpful
-in my case.My table has also lots of insertion ,however updation in not very
-frequent.</p><p>4 0.77168024 <a title="1233-lsi-4" href="../high_scalability-2014/high_scalability-2014-05-19-A_Short_On_How_the_Wayback_Machine_Stores_More_Pages_than_Stars_in_the_Milky_Way.html">1650 high scalability-2014-05-19-A Short On How the Wayback Machine Stores More Pages than Stars in the Milky Way</a></p>
-<p>Introduction: How does the Wayback Machinework? Now with over 400 billion webpages indexed,
-allowing the Internet to be browsed all the way back to 1996, it's an even
-more compelling question. I've looked several times but I've never found a
-really good answer.Here's some information from a thread on Hacker News. It
-starts with mmagin, a former Archive employee:I can't speak to their current
-infrastructure (though more of it is open source now - http://archive-
-access.sourceforge.net/projects/wayback/ ), but as far as the wayback machine,
-there was no SQL database anywhere in it.For the purposes of making the
-wayback machine go:Archived data was in ARC file format (predecessor to
-http://en.wikipedia.org/wiki/Web_ARChive) which is essentially a concatenation
-of separately gzipped records. That is, you can seek to a particular offset
-and start decompressing a record. Thus you could get at any archived web page
-with a triple (server, filename, file-offset) Thus it was spread across a lot
-of commodity g</p><p>5 0.76413429 <a title="1233-lsi-5" href="../high_scalability-2013/high_scalability-2013-06-07-Stuff_The_Internet_Says_On_Scalability_For_June_7%2C_2013.html">1472 high scalability-2013-06-07-Stuff The Internet Says On Scalability For June 7, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(Ever feel like everyone has already climbed
-your Everest?)Trillion Particles, 120,000 cores, and 350 TBs:Lessons Learned
-From a Hero I/O Run on HopperQuotable Quotes:@PenLlawen: @spolsky In my time
-as a scalability engineer, I've seen plenty of cases where optimisation was
-left too late. Even harder to fix.@davidlubar: Whoever said you can't fold a
-piece of paper in half more than 7 times probably forget to unfold it each
-time. I'm up to 6,000.deno:  A quick comparison of App Engine vs. Compute
-Engine prices shows that App Engine is at best 10x more expensive per unit of
-RAM.Fred Wilson: strategy is figuring out what part of the market the company
-wants to play in, how it goes to market, and how it differentiates itself in
-the market it is about what you are going to do and importantly what you are
-not going to doElon Musk: SpaceX was able to achieve orders of magnitude
-savings in rockets. Instead of looking at what other rockets cost, they looked
-at the</p><p>6 0.76297283 <a title="1233-lsi-6" href="../high_scalability-2009/high_scalability-2009-05-01-FastBit%3A_An_Efficient_Compressed_Bitmap_Index_Technology.html">587 high scalability-2009-05-01-FastBit: An Efficient Compressed Bitmap Index Technology</a></p>
+<p>Introduction: This is a guest post ( part 2 ,  part 3 ) by Greg Lindahl, CTO of blekko, the spam free search engine that had over 3.5 million unique visitors in March. Greg Lindahl was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters. 
+ 
+Imagine that you're crazy enough to think about building a search engine.  It's a huge task: the minimum index size needed to answer most queries is a few billion webpages. Crawling and indexing a few billion webpages requires a cluster with several petabytes of usable disk -- that's several thousand 1 terabyte disks -- and produces an index that's about 100 terabytes in size.
+ 
+Serving query results quickly involves having most of the index in RAM or on solid state (flash) disk. If you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000 servers at a capital cost of $3 million, plus about $1 million per year of serve</p><p>2 0.80709261 <a title="1233-lsi-2" href="../high_scalability-2013/high_scalability-2013-01-28-DuckDuckGo_Architecture_-_1_Million_Deep_Searches_a_Day_and_Growing.html">1395 high scalability-2013-01-28-DuckDuckGo Architecture - 1 Million Deep Searches a Day and Growing</a></p>
+<p>Introduction: This is an interview with  Gabriel Weinberg , founder of  Duck Duck Go  and general  all around startup guru , on what DDG’s architecture looks like in 2012. 
+ 
+Innovative search engine upstart DuckDuckGo had   30 million searches   in February 2012 and averages over 1 million searches a day. It’s being positioned by   super investor Fred Wilson   as a clean, private, impartial and fast search engine. After talking with Gabriel I like what Fred Wilson said earlier, it seems closer to the heart of the matter:   We invested in DuckDuckGo for the Reddit, Hacker News anarchists  .                      Choosing DuckDuckGo can be thought of as not just a technical choice, but a vote for revolution. In an age when knowing your essence is not about about love or friendship, but about more effectively selling you to advertisers, DDG is positioning themselves as the   do not track alternative  , keepers of the  privacy flame . You will still be monetized of course, but in a more civilized and an</p><p>3 0.79531354 <a title="1233-lsi-3" href="../high_scalability-2008/high_scalability-2008-06-08-Search_fast_in_million_rows.html">342 high scalability-2008-06-08-Search fast in million rows</a></p>
+<p>Introduction: I have a table .This table has many columns but search  performed based on 1 columns ,this table can have more than million rows.   The data in these columns is something like funny,new york,hollywood   User can search with parameters as funny hollywood .I need to take this 2 words and then search on column whether that column contain this words and how many times .It is not possible to index here .If the results return say 1200 results then without comparing each and every column i can't determine no of results.I need to compare for each and every column.This query is very frequent .How can i approach for this problem.What type of architecture,tools is helpful.   I just know that this can be accomplished with distributed system but how can i make this system. I also see in this website that LinkedIn uses Lucene for search .Is Lucene is helpful in my case.My table has also lots of insertion ,however updation in not very frequent.</p><p>4 0.77168024 <a title="1233-lsi-4" href="../high_scalability-2014/high_scalability-2014-05-19-A_Short_On_How_the_Wayback_Machine_Stores_More_Pages_than_Stars_in_the_Milky_Way.html">1650 high scalability-2014-05-19-A Short On How the Wayback Machine Stores More Pages than Stars in the Milky Way</a></p>
+<p>Introduction: How does the  Wayback Machine  work? Now with over  400 billion webpages indexed , allowing the Internet to be browsed all the way back to 1996, it's an even more compelling question. I've looked several times but I've never found a really good answer.
+ 
+Here's some information from a thread on Hacker News. It starts with  mmagin , a former Archive employee:
+  
+ I can't speak to their current infrastructure (though more of it is open source now - http://archive-access.sourceforge.net/projects/wayback/ ), but as far as the wayback machine, there was no SQL database anywhere in it. 
+  
+ For the purposes of making the wayback machine go: 
+ 
+ 
+ Archived data was in ARC file format (predecessor to http://en.wikipedia.org/wiki/Web_ARChive) which is essentially a concatenation of separately gzipped records. That is, you can seek to a particular offset and start decompressing a record. Thus you could get at any archived web page with a triple (server, filename, file-offset) Thus it was spread</p><p>5 0.76413429 <a title="1233-lsi-5" href="../high_scalability-2013/high_scalability-2013-06-07-Stuff_The_Internet_Says_On_Scalability_For_June_7%2C_2013.html">1472 high scalability-2013-06-07-Stuff The Internet Says On Scalability For June 7, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    ( Ever feel like everyone has already climbed your Everest?)    
+ Trillion Particles, 120,000 cores, and 350 TBs:  Lessons Learned From a Hero I/O Run on Hopper  
+ Quotable Quotes:                                   
+ 
+  @PenLlawen : @spolsky In my time as a scalability engineer, I’ve seen plenty of cases where optimisation was left too late. Even harder to fix. 
+  @davidlubar : Whoever said you can't fold a piece of paper in half more than 7 times probably forget to unfold it each time. I'm up to 6,000. 
+  deno :  A quick comparison of App Engine vs. Compute Engine prices shows that App Engine is at best 10x more expensive per unit of RAM. 
+  Fred Wilson : strategy is figuring out what part of the market the company wants to play in, how it goes to market, and how it differentiates itself in the market it is about what you are going to do and importantly what you are not going to do 
+  Elon Musk : SpaceX was able to achieve orders of magnitude saving</p><p>6 0.76297283 <a title="1233-lsi-6" href="../high_scalability-2009/high_scalability-2009-05-01-FastBit%3A_An_Efficient_Compressed_Bitmap_Index_Technology.html">587 high scalability-2009-05-01-FastBit: An Efficient Compressed Bitmap Index Technology</a></p>
 <p>7 0.76247758 <a title="1233-lsi-7" href="../high_scalability-2010/high_scalability-2010-04-14-Parallel_Information_Retrieval_and_Other_Search_Engine_Goodness.html">810 high scalability-2010-04-14-Parallel Information Retrieval and Other Search Engine Goodness</a></p>
 <p>8 0.75359964 <a title="1233-lsi-8" href="../high_scalability-2008/high_scalability-2008-03-18-Database_Design_101.html">281 high scalability-2008-03-18-Database Design 101</a></p>
 <p>9 0.7422682 <a title="1233-lsi-9" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
@@ -232,71 +135,31 @@ at the</p><p>6 0.76297283 <a title="1233-lsi-6" href="../high_scalability-2009/h
 <p>[(1, 0.115), (2, 0.22), (5, 0.011), (10, 0.045), (14, 0.034), (17, 0.014), (30, 0.013), (40, 0.037), (47, 0.013), (61, 0.095), (77, 0.025), (79, 0.118), (85, 0.018), (93, 0.078), (94, 0.087)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96722925 <a title="1233-lda-1" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
-<p>Introduction: This is a guest post (part 2,part 3) by Greg Lindahl, CTO of blekko, the spam
-free search engine that had over 3.5 million unique visitors in March. Greg
-Lindahl was Founder and Distinguished Engineer at PathScale, at which he was
-the architect of the InfiniPath low-latency InfiniBand HCA, used to build
-tightly-coupled supercomputing clusters.Imagine that you're crazy enough to
-think about building a search engine.  It's a huge task: the minimum index
-size needed to answer most queries is a few billion webpages. Crawling and
-indexing a few billion webpages requires a cluster with several petabytes of
-usable disk -- that's several thousand 1 terabyte disks -- and produces an
-index that's about 100 terabytes in size.Serving query results quickly
-involves having most of the index in RAM or on solid state (flash) disk. If
-you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000
-servers at a capital cost of $3 million, plus about $1 million per year of
-server co-locatio</p><p>2 0.96249431 <a title="1233-lda-2" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
-<p>Introduction: InNoSQL: Past, Present, FutureEric Brewerhas a particularly fine section on
-explaining the often hard to understand ideas ofBASE(Basically Available, Soft
-State, Eventually Consistent),ACID(Atomicity, Consistency, Isolation,
-Durability),CAP(Consistency Availability, Partition Tolerance), in terms of a
-pernicious long standing myth about the sanctity of consistency in
-banking.Myth: Money is important, so banksmustuse transactions to keep money
-safe and consistent, right?Reality: Banking transactions are inconsistent,
-particularly for ATMs. ATMs are designed to have a normal case behaviour and a
-partition mode behaviour. In partition mode Availability is chosen over
-Consistency.Why?1)Availability correlates with revenue and consistency
-generally does not.2)Historically there was never an idea of perfect
-communication so everything was partitioned.Your ATM transaction must go
-through so Availability is more important than consistency. If the ATM is down
-then you aren't making money. If yo</p><p>3 0.96182966 <a title="1233-lda-3" href="../high_scalability-2013/high_scalability-2013-09-06-Stuff_The_Internet_Says_On_Scalability_For_September_6%2C_2013.html">1513 high scalability-2013-09-06-Stuff The Internet Says On Scalability For September 6, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(Unidentified Ivy Bridge processor using 22
-nanometer Tri-Gate transistors)Quotable Quotes:@pbailis: Big ups to AWS folks
-for following up re: all of my questions on cr1 provisioning. We saw a huge
-win moving from m1.xl to cr1.8xl@rob_carlson: Packet switching via containers
---> almost 8X increase in trade; what will #drones bring? What is optimal mesh
-size?@mrtazz: "an Open Source, Clojure-based DevOps platform" congratulations,
-I now have no idea what you're talking about@KentBeck: If you can't make
-engineering decisions based on data, then make engineering decisions that
-result in data.@cassandralondon: Cassandra on AWS SSDs - a perfect fit because
-you don't get write amplification If you think about it, a cloud as a rule
-driven, capability rich environment, accessible over a large surfaced API,
-plays the same role as physics in biology. Software must specify every little
-detail. Biology relies on the laws of physics to do the work. A cloud provides
-th</p><p>4 0.95591861 <a title="1233-lda-4" href="../high_scalability-2007/high_scalability-2007-11-30-Strategy%3A_Efficiently_Geo-referencing_IPs.html">168 high scalability-2007-11-30-Strategy: Efficiently Geo-referencing IPs</a></p>
-<p>Introduction: A lot of apps need to map IP addresses to locations. Jeremy Cole inOn
-efficiently geo-referencing IPs with MaxMind GeoIP and MySQL GISsuccinctly
-explains the many uses for such a feature:Geo-referencing IPs is, in a
-nutshell, converting an IP address, perhaps from an incoming web visitor, a
-log file, a data file, or some other place, into the name of some entity
-owning that IP address. There are a lot of reasons you may want to geo-
-reference IP addresses to country, city, etc., such as in simple ad targeting
-systems, geographic load balancing, web analytics, and many more
-applications.This is difficult to do efficiently, at least it gives me a bit
-of brain freeze. In the same post Jeremy nicely explains where to get the geo-
-rereferncing data, how to load data, and the performance of different
-approaches for IP address searching. It's a great practical introduction to
-the subject.</p><p>5 0.95565057 <a title="1233-lda-5" href="../high_scalability-2007/high_scalability-2007-08-04-Product%3A_Cacti.html">58 high scalability-2007-08-04-Product: Cacti</a></p>
-<p>Introduction: Cactiis a network statistics graphing tool designed as a frontend to RRDtool's
-data storage and graphing functionality. It is intended to be intuitive and
-easy to use, as well as robust and scalable. It is generally used to graph
-time-series data like CPU load and bandwidth use.The frontend is written in
-PHP; it can handle multiple users, each with their own graph sets, so it is
-sometimes used by web hosting providers (especially dedicated server, virtual
-private server, and colocation providers) to display bandwidth statistics for
-their customers. It can be used to configure the data collection itself,
-allowing certain setups to be monitored without any manual configuration of
-RRDtool.</p><p>6 0.95422852 <a title="1233-lda-6" href="../high_scalability-2012/high_scalability-2012-02-24-Stuff_The_Internet_Says_On_Scalability_For_February_24%2C_2012.html">1198 high scalability-2012-02-24-Stuff The Internet Says On Scalability For February 24, 2012</a></p>
+<p>Introduction: This is a guest post ( part 2 ,  part 3 ) by Greg Lindahl, CTO of blekko, the spam free search engine that had over 3.5 million unique visitors in March. Greg Lindahl was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters. 
+ 
+Imagine that you're crazy enough to think about building a search engine.  It's a huge task: the minimum index size needed to answer most queries is a few billion webpages. Crawling and indexing a few billion webpages requires a cluster with several petabytes of usable disk -- that's several thousand 1 terabyte disks -- and produces an index that's about 100 terabytes in size.
+ 
+Serving query results quickly involves having most of the index in RAM or on solid state (flash) disk. If you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000 servers at a capital cost of $3 million, plus about $1 million per year of serve</p><p>2 0.96249431 <a title="1233-lda-2" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
+<p>Introduction: In   NoSQL: Past, Present, Future    Eric Brewer  has a particularly fine section on explaining the often hard to understand ideas of   BASE   (Basically Available, Soft State, Eventually Consistent),   ACID   (Atomicity, Consistency, Isolation, Durability),   CAP   (Consistency Availability, Partition Tolerance), in terms of a pernicious long standing myth about the sanctity of consistency in banking.
+    Myth   : Money is important, so banks   must   use transactions to keep money safe and consistent, right? 
+    Reality   : Banking transactions are inconsistent, particularly for ATMs. ATMs are designed to have a normal case behaviour and a partition mode behaviour. In partition mode Availability is chosen over Consistency. 
+   Why?   1)  Availability correlates with revenue and consistency generally does not.  2)  Historically there was never an idea of perfect communication so everything was partitioned.
+   Your ATM transaction must go through so Availability is more important than</p><p>3 0.96182966 <a title="1233-lda-3" href="../high_scalability-2013/high_scalability-2013-09-06-Stuff_The_Internet_Says_On_Scalability_For_September_6%2C_2013.html">1513 high scalability-2013-09-06-Stuff The Internet Says On Scalability For September 6, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+     ( Unidentified Ivy Bridge processor using 22 nanometer Tri-Gate transistors )   
+ Quotable Quotes:                                                 
+ 
+  @pbailis : Big ups to AWS folks for following up re: all of my questions on cr1 provisioning. We saw a huge win moving from m1.xl to cr1.8xl 
+  @rob_carlson : Packet switching via containers --> almost 8X increase in trade; what will #drones bring? What is optimal mesh size? 
+  @mrtazz : “an Open Source, Clojure-based DevOps platform” congratulations, I now have no idea what you’re talking about 
+  @KentBeck : If you can't make engineering decisions based on data, then make engineering decisions that result in data. 
+  @cassandralondon : Cassandra on AWS SSDs - a perfect fit because you don't get write amplification  
+ 
+ 
+ 
+ If you think about it, a cloud as a rule driven, capability rich environment, accessible over a large surfaced API, plays the same role as physics in biology. Software must speci</p><p>4 0.95591861 <a title="1233-lda-4" href="../high_scalability-2007/high_scalability-2007-11-30-Strategy%3A_Efficiently_Geo-referencing_IPs.html">168 high scalability-2007-11-30-Strategy: Efficiently Geo-referencing IPs</a></p>
+<p>Introduction: A lot of apps need to map IP addresses to locations.  Jeremy Cole in   On efficiently geo-referencing IPs with MaxMind GeoIP and MySQL GIS   succinctly explains the many uses for such a feature:     Geo-referencing IPs is, in a nutshell, converting an IP address, perhaps from an incoming web visitor, a log file, a data file, or some other place, into the name of some entity owning that IP address. There are a lot of reasons you may want to geo-reference IP addresses to country, city, etc., such as in simple ad targeting systems, geographic load balancing, web analytics, and many more applications.       This is difficult to do efficiently, at least it gives me a bit of brain freeze. In the same post Jeremy nicely explains where to get the geo-rereferncing data, how to load data,  and the performance of different approaches for IP address searching. It's a great practical introduction to the subject.</p><p>5 0.95565057 <a title="1233-lda-5" href="../high_scalability-2007/high_scalability-2007-08-04-Product%3A_Cacti.html">58 high scalability-2007-08-04-Product: Cacti</a></p>
+<p>Introduction: Cacti  is a network statistics graphing tool designed as a frontend to RRDtool's data storage and graphing functionality. It is intended to be intuitive and easy to use, as well as robust and scalable. It is generally used to graph time-series data like CPU load and bandwidth use.  The frontend is written in PHP; it can handle multiple users, each with their own graph sets, so it is sometimes used by web hosting providers (especially dedicated server, virtual private server, and colocation providers) to display bandwidth statistics for their customers. It can be used to configure the data collection itself, allowing certain setups to be monitored without any manual configuration of RRDtool.</p><p>6 0.95422852 <a title="1233-lda-6" href="../high_scalability-2012/high_scalability-2012-02-24-Stuff_The_Internet_Says_On_Scalability_For_February_24%2C_2012.html">1198 high scalability-2012-02-24-Stuff The Internet Says On Scalability For February 24, 2012</a></p>
 <p>7 0.95364451 <a title="1233-lda-7" href="../high_scalability-2012/high_scalability-2012-07-09-Data_Replication_in_NoSQL_Databases.html">1279 high scalability-2012-07-09-Data Replication in NoSQL Databases</a></p>
 <p>8 0.95326459 <a title="1233-lda-8" href="../high_scalability-2014/high_scalability-2014-04-25-Stuff_The_Internet_Says_On_Scalability_For_April_25th%2C_2014.html">1637 high scalability-2014-04-25-Stuff The Internet Says On Scalability For April 25th, 2014</a></p>
 <p>9 0.94959849 <a title="1233-lda-9" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>

@@ -16,112 +16,75 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1189-html" href="http://highscalability.com//blog/2012/2/7/hypertable-routs-hbase-in-performance-test-hbase-overwhelmed.html">html</a></p><p>Introduction: This is a guest post byDoug Judd, original creator of Hypertable and the CEO
-of Hypertable, Inc.Hypertable delivers 2X better throughput in most tests --
-HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage
-collection -- Both systems deliver similar results for random read uniform
-testWe recently conducted a test comparing the performance of Hypertable
-(@hypertable) version 0.9.5.5 to that of HBase (@HBase) version 0.90.4
-(CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and
-offer explanations for the discrepancies. For the full test report,
-seeHypertable vs. HBase II.IntroductionHypertable and HBase are both open
-source, scalable databases modeled after Google's proprietary Bigtable
-database.  The primary difference between the two systems is that Hypertable
-is written in C++, while HBase is written in Java.  We modeled this test after
-the one described in section 7 of theBigtable paperand tuned both systems for
-maximum performance.  The t</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 We modeled this test after the one described in section 7 of theBigtable paperand tuned both systems for maximum performance. [sent-15, score-0.387]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1189-html" href="http://highscalability.com//blog/2012/2/7/hypertable-routs-hbase-in-performance-test-hbase-overwhelmed.html">html</a></p><p>Introduction: This is a guest post by  Doug Judd , original creator of Hypertable and the CEO of Hypertable, Inc. 
+ 
+ Hypertable delivers 2X better throughput in most tests -- HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage collection -- Both systems deliver similar results for random read uniform test 
+ 
+We recently conducted a test comparing the performance of Hypertable ( @hypertable ) version 0.9.5.5 to that of HBase ( @HBase ) version 0.90.4 (CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and offer explanations for the discrepancies. For the full test report, see  Hypertable vs. HBase II .
+  Introduction  
+Hypertable and HBase are both open source, scalable databases modeled after Google's proprietary Bigtable database.  The primary difference between the two systems is that Hypertable is written in C++, while HBase is written in Java.  We modeled this test after the one described in section 7 of the  Bigtable paper  and tuned both systems fo</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 We modeled this test after the one described in section 7 of the  Bigtable paper  and tuned both systems for maximum performance. [sent-15, score-0.387]
 </p><p>2 The test was run on a total of sixteen machines connected together with gigabit Ethernet. [sent-16, score-0.363]
 </p><p>3 The tables used in the test were configured to use Snappy compression (using native Snappy libraries for HBase) and Bloom filters loaded with row keys. [sent-26, score-0.407]
-</p><p>4 We made every effort to tune HBase for maximum performance and details of the configuration we settled on can be found in the full test reportHypertable vs. [sent-27, score-0.391]
-</p><p>5 Instructions on how to setup and run this test can be found in Test Setup. [sent-29, score-0.315]
-</p><p>6 Random WriteIn this test we wrote 5TB of data into both Hypertable and HBase in four different runs, using value sizes 10000, 1000, 100, and 10. [sent-31, score-0.33]
-</p><p>7 The following chart summarizes the results:The exact performance measurements are provided in the following table. [sent-36, score-0.629]
-</p><p>8 This failure occurs, regardless of the configuration, when the RegionServer generates garbage at a rate that overwhelms the Java garbage collector (seeAvoiding Full GCs in HBase with MemStore-Local Allocation Buffersfor more details on this error). [sent-39, score-0.357]
+</p><p>4 We made every effort to tune HBase for maximum performance and details of the configuration we settled on can be found in the full test report  Hypertable vs. [sent-27, score-0.391]
+</p><p>5 Instructions on how to setup and run this test can be found in  Test Setup . [sent-29, score-0.315]
+</p><p>6 Random Write   In this test we wrote 5TB of data into both Hypertable and HBase in four different runs, using value sizes 10000, 1000, 100, and 10. [sent-31, score-0.33]
+</p><p>7 The following chart summarizes the results:        The exact performance measurements are provided in the following table. [sent-36, score-0.629]
+</p><p>8 This failure occurs, regardless of the configuration, when the RegionServer generates garbage at a rate that overwhelms the Java garbage collector (see  Avoiding Full GCs in HBase with MemStore-Local Allocation Buffers  for more details on this error). [sent-39, score-0.357]
 </p><p>9 We believe that while it is possible to construct a garbage collection scheme to overcome these problems, it would come at a heavy cost in runtime performance. [sent-40, score-0.259]
-</p><p>10 Random ReadIn this test we measured the query throughput for a set of random read requests. [sent-44, score-0.454]
-</p><p>11 Two tests were run on each system, one following aZipfian distribution (modeling realistic workload) and another that followed a uniform distribution. [sent-45, score-0.44]
+</p><p>10 Random Read   In this test we measured the query throughput for a set of random read requests. [sent-44, score-0.454]
+</p><p>11 Two tests were run on each system, one following a  Zipfian  distribution (modeling realistic workload) and another that followed a uniform distribution. [sent-45, score-0.44]
 </p><p>12 Each inserted key/value pair had a fixed key size of 20 bytes and a fixed value size of 1KB. [sent-46, score-0.39]
 </p><p>13 We ran two tests on each system, one in which we loaded the database with 5TB and another in which we loaded 0. [sent-47, score-0.322]
 </p><p>14 Each test client machine ran 128 test client processes for a total of 512, and each test client issued queries in series so there was a maximum of 512 queries outstanding at any given time. [sent-55, score-1.156]
 </p><p>15 The results of this test are summarized in the following chart. [sent-62, score-0.464]
 </p><p>16 The exact performance measurements are provided in the following table. [sent-63, score-0.435]
-</p><p>17 366 The performance discrepancy is due to the benefit provided to Hypertable by its query cache, a subsystem that is not present in HBase. [sent-73, score-0.326]
+</p><p>17 366          The performance discrepancy is due to the benefit provided to Hypertable by its query cache, a subsystem that is not present in HBase. [sent-73, score-0.326]
 </p><p>18 One interesting thing to note is that when we increased the size of the block cache in both systems, it had a detrimental effect on performance. [sent-75, score-0.285]
-</p><p>19 Uniform In this test, the set of keys queried followed a uniform distribution. [sent-78, score-0.333]
-</p><p>20 The following chart summarizes the results:The exact performance measurements are provided in the following table. [sent-79, score-0.629]
+</p><p>19 Uniform    In this test, the set of keys queried followed a uniform distribution. [sent-78, score-0.333]
+</p><p>20 The following chart summarizes the results:        The exact performance measurements are provided in the following table. [sent-79, score-0.629]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('hypertable', 0.59), ('hbase', 0.447), ('test', 0.26), ('garbage', 0.154), ('following', 0.126), ('regionservers', 0.1), ('keys', 0.1), ('ms', 0.094), ('uniform', 0.093), ('tests', 0.092), ('loaded', 0.092), ('measurements', 0.092), ('detrimental', 0.085), ('size', 0.079), ('snappy', 0.078), ('results', 0.078), ('provided', 0.077), ('followed', 0.074), ('exact', 0.072), ('random', 0.072), ('appeared', 0.072), ('value', 0.07), ('performance', 0.068), ('summarizes', 0.068), ('queried', 0.066), ('query', 0.065), ('subsystem', 0.065), ('modeled', 0.064), ('maximum', 0.063), ('cache', 0.062), ('issued', 0.06), ('block', 0.059), ('fixed', 0.057), ('throughput', 0.057), ('configured', 0.055), ('run', 0.055), ('collection', 0.054), ('client', 0.053), ('dataset', 0.053), ('zookeeper', 0.051), ('believe', 0.051), ('due', 0.051), ('generates', 0.049), ('total', 0.048), ('bytes', 0.048), ('community', 0.047), ('ran', 0.046), ('workloads', 0.046), ('propel', 0.045), ('bydoug', 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999988 <a title="1189-tfidf-1" href="../high_scalability-2012/high_scalability-2012-02-07-Hypertable_Routs_HBase_in_Performance_Test_--_HBase_Overwhelmed_by_Garbage_Collection.html">1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</a></p>
-<p>Introduction: This is a guest post byDoug Judd, original creator of Hypertable and the CEO
-of Hypertable, Inc.Hypertable delivers 2X better throughput in most tests --
-HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage
-collection -- Both systems deliver similar results for random read uniform
-testWe recently conducted a test comparing the performance of Hypertable
-(@hypertable) version 0.9.5.5 to that of HBase (@HBase) version 0.90.4
-(CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and
-offer explanations for the discrepancies. For the full test report,
-seeHypertable vs. HBase II.IntroductionHypertable and HBase are both open
-source, scalable databases modeled after Google's proprietary Bigtable
-database.  The primary difference between the two systems is that Hypertable
-is written in C++, while HBase is written in Java.  We modeled this test after
-the one described in section 7 of theBigtable paperand tuned both systems for
-maximum performance.  The t</p><p>2 0.43642318 <a title="1189-tfidf-2" href="../high_scalability-2009/high_scalability-2009-07-02-Hypertable_is_a_New_BigTable_Clone_that_Runs_on_HDFS_or_KFS.html">647 high scalability-2009-07-02-Hypertable is a New BigTable Clone that Runs on HDFS or KFS</a></p>
-<p>Introduction: Update 3: Presentation from theNoSQL conference:slides,video 1,video 2.Update
-2: The folks at Hypertable would like you to know that Hypertable is now
-officiallysponsored by Baidu, China's Leading Search Engine.As a sponsor of
-Hypertable, Baidu has committed an industrious team of engineers, numerous
-servers, and support resources to improve the quality and development of the
-open source technology.Update: InfoQ interview onHypertable Lead Discusses
-Hadoop and Distributed Databases. Hypertable differs from HBase in that it is
-a higher performance implementation of Bigtable.Skrentabloggives the heads up
-onHypertable,Zvents'open-source BigTable clone. It's written in C++ and can
-run on top of either HDFS or KFS. Performance looks encouraging at28M rows of
-data inserted at a per-node write rate of 7mb/sec.</p><p>3 0.28570682 <a title="1189-tfidf-3" href="../high_scalability-2010/high_scalability-2010-03-16-1_Billion_Reasons_Why_Adobe_Chose_HBase_.html">795 high scalability-2010-03-16-1 Billion Reasons Why Adobe Chose HBase </a></p>
-<p>Introduction: Cosmin Lehene ďťżwrote two excellent articles on Adobe's experiences with
-HBase:Why we're using HBase: Part 1andWhy we're using HBase: Part 2. Adobe
-needed ageneric,real-time, structured data storage and processing system that
-could handle any data volume, with access times under 50ms, with no downtime
-andno data loss. The article goes into great detail about their experiences
-with HBase and their evaluation process, providing a "well reasoned impartial
-use case from a commercial user". It talks about failure handling,
-availability, write performance, read performance, random reads, sequential
-scans, and consistency. One of the knocks against HBase has been it's
-complexity, as it has many parts that need installation and configuration. All
-is not lost according to the Adobe team:HBase is more complex than other
-systems (you need Hadoop, Zookeeper, cluster machines have multiple roles). We
-believe that for HBase, this is not accidental complexity and that the
-argument that "HBase is not a</p><p>4 0.26904881 <a title="1189-tfidf-4" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
-<p>Introduction: You may have read somewhere that Facebook has introduced a newSocial Inbox
-integrating email, IM, SMS,  text messages, on-site Facebook messages. All-in-
-all they need to store over 135 billion messages a month. Where do they store
-all that stuff? Facebook's Kannan Muthukkaruppan gives the surprise answer
-inThe Underlying Technology of Messages:HBase. HBase beat out MySQL,
-Cassandra, and a few others.Why a surprise? Facebook created Cassandra and it
-was purpose built for an inbox type application, but they found Cassandra's
-eventual consistency model wasn't a good match for their new real-time
-Messages product. Facebook also has an extensiveMySQL infrastructure, but they
-found performance suffered as data set and indexes grew larger. And they could
-have built their own, but they chose HBase.HBase is ascaleout table store
-supporting very high rates of row-level updates over massive amounts of data.
-Exactly what is needed for a Messaging system. HBase is also a column based
-key-value sto</p><p>5 0.18407792 <a title="1189-tfidf-5" href="../high_scalability-2010/high_scalability-2010-06-25-Hot_Scalability_Links_for_June_25%2C_2010.html">848 high scalability-2010-06-25-Hot Scalability Links for June 25, 2010</a></p>
-<p>Introduction: Royans Tharakan is blogging like a mad man at theVelocity Conference. Read a
-summary of many of the presentations on hisblog.Zuckerberg almostguarantees 1
-billion Facebook users. AndI almost believe him.Northscale introducesMembase,
-a new distributed key-value NoSQL competitor featuring a memcache compatible
-interface, yet is persistent like a database. Hopefully we'll have more on
-their internals later.Notable Tweets: Aaron Cordova - scalability means "can
-change size" and also "works at large sizes" - this conflates two orthogonal
-features of cloud computing. Jaime Garcia Reinoso- It's the scalability,
-stupid! Alex Averbuch \- when I read/hear "unlimited/inifinite scalability" I
-stop reading/listening and start thinking about cake.Dennis Clark- I used to
-smirk at developers whose main DB experience was in MUMPS or Pick, until I
-realized those are old-school #NoSQL engines.Hypertable vs. HBase Performance
-Evaluation. Hypertable's benchmarking shows Hypertable has up to 10 times
-better</p><p>6 0.16210514 <a title="1189-tfidf-6" href="../high_scalability-2009/high_scalability-2009-10-29-Digg_-_Looking_to_the_Future_with_Cassandra.html">732 high scalability-2009-10-29-Digg - Looking to the Future with Cassandra</a></p>
+<p>Introduction: This is a guest post by  Doug Judd , original creator of Hypertable and the CEO of Hypertable, Inc. 
+ 
+ Hypertable delivers 2X better throughput in most tests -- HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage collection -- Both systems deliver similar results for random read uniform test 
+ 
+We recently conducted a test comparing the performance of Hypertable ( @hypertable ) version 0.9.5.5 to that of HBase ( @HBase ) version 0.90.4 (CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and offer explanations for the discrepancies. For the full test report, see  Hypertable vs. HBase II .
+  Introduction  
+Hypertable and HBase are both open source, scalable databases modeled after Google's proprietary Bigtable database.  The primary difference between the two systems is that Hypertable is written in C++, while HBase is written in Java.  We modeled this test after the one described in section 7 of the  Bigtable paper  and tuned both systems fo</p><p>2 0.43642318 <a title="1189-tfidf-2" href="../high_scalability-2009/high_scalability-2009-07-02-Hypertable_is_a_New_BigTable_Clone_that_Runs_on_HDFS_or_KFS.html">647 high scalability-2009-07-02-Hypertable is a New BigTable Clone that Runs on HDFS or KFS</a></p>
+<p>Introduction: Update 3 : Presentation from the  NoSQL conference :  slides ,  video 1 ,  video 2 .
+ 
+ Update 2 : The folks at Hypertable would like you to know that  Hypertable is now officially  sponsored by Baidu , China’s Leading Search Engine.  As a sponsor of Hypertable, Baidu has committed an industrious team of engineers, numerous servers, and support resources to improve the quality and development of the open source technology. 
+ 
+ Update : InfoQ interview on  Hypertable Lead Discusses Hadoop and Distributed Databases . Hypertable differs from HBase in that it is a higher performance implementation of Bigtable.
+ 
+ Skrentablog  gives the heads up on  Hypertable ,  Zvents'  open-source BigTable clone. It's written in C++ and can run on top of either HDFS or KFS. Performance looks encouraging at  28M rows of data inserted at a per-node write rate of 7mb/sec .</p><p>3 0.28570682 <a title="1189-tfidf-3" href="../high_scalability-2010/high_scalability-2010-03-16-1_Billion_Reasons_Why_Adobe_Chose_HBase_.html">795 high scalability-2010-03-16-1 Billion Reasons Why Adobe Chose HBase </a></p>
+<p>Introduction: Cosmin Lehene ﻿wrote two excellent articles on Adobe's experiences with HBase:  Why we’re using HBase: Part 1   and  Why we’re using HBase: Part 2 . Adobe needed a  generic,   real-time, structured data storage and processing system that could handle any data volume, with access times under 50ms, with no downtime and   no data loss . The article goes into great detail about their experiences with HBase and their evaluation process, providing a "well reasoned impartial use case from a commercial user". It talks about failure handling, availability, write performance, read performance, random reads, sequential scans, and consistency. 
+ 
+One of the knocks against HBase has been it's complexity, as it has many parts that need installation and configuration. All is not lost according to the Adobe team:
+  
+
+HBase is more complex than other systems (you need Hadoop, Zookeeper, cluster machines have multiple roles). We believe that for HBase, this is not accidental complexity and that the argu</p><p>4 0.26904881 <a title="1189-tfidf-4" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
+<p>Introduction: You may have read somewhere that Facebook has introduced a new  Social Inbox  integrating email, IM, SMS,  text messages, on-site Facebook messages. All-in-all they need to store over 135 billion messages a month. Where do they store all that stuff? Facebook's Kannan Muthukkaruppan gives the surprise answer in  The Underlying Technology of Messages :  HBase . HBase beat out MySQL, Cassandra, and a few others.
+ 
+Why a surprise? Facebook created Cassandra and it was purpose built for an inbox type application, but they found Cassandra's eventual consistency model wasn't a good match for their new real-time Messages product. Facebook also has an extensive  MySQL infrastructure , but they found performance suffered as data set and indexes grew larger. And they could have built their own, but they chose HBase.
+ 
+HBase is a   scaleout table store supporting very high rates of row-level updates over massive amounts of data  . Exactly what is needed for a Messaging system. HBase is also a colu</p><p>5 0.18407792 <a title="1189-tfidf-5" href="../high_scalability-2010/high_scalability-2010-06-25-Hot_Scalability_Links_for_June_25%2C_2010.html">848 high scalability-2010-06-25-Hot Scalability Links for June 25, 2010</a></p>
+<p>Introduction: Royans Tharakan is blogging like a mad man at the  Velocity Conference . Read a summary of many of the presentations on his  blog . 
+ Zuckerberg almost  guarantees 1 billion Facebook users . And  I almost  believe him. 
+ Northscale introduces  Membase , a new distributed key-value NoSQL competitor featuring a memcache compatible interface, yet is persistent like a database. Hopefully we'll have more on their internals later. 
+ Notable Tweets:     
+ 
+  Aaron Cordova  -  scalability means "can change size" and also "works at large sizes" - this conflates two orthogonal features of cloud computing.   
+  Jaime Garcia Reinoso  - I t's the scalability, stupid!   
+  Alex Averbuch   - when I read/hear "unlimited/inifinite scalability" I stop reading/listening and start thinking about cake.  
+  Dennis Clark   - I used to smirk at developers whose main DB experience was in MUMPS or Pick, until I realized those are old-school  #NoSQL  engines.  
+ 
+ 
+  Hypertable vs. HBase Performance Evaluation .</p><p>6 0.16210514 <a title="1189-tfidf-6" href="../high_scalability-2009/high_scalability-2009-10-29-Digg_-_Looking_to_the_Future_with_Cassandra.html">732 high scalability-2009-10-29-Digg - Looking to the Future with Cassandra</a></p>
 <p>7 0.15179239 <a title="1189-tfidf-7" href="../high_scalability-2011/high_scalability-2011-09-02-Stuff_The_Internet_Says_On_Scalability_For_September_2%2C_2011.html">1109 high scalability-2011-09-02-Stuff The Internet Says On Scalability For September 2, 2011</a></p>
 <p>8 0.14199482 <a title="1189-tfidf-8" href="../high_scalability-2009/high_scalability-2009-07-02-Product%3A_Hbase.html">650 high scalability-2009-07-02-Product: Hbase</a></p>
 <p>9 0.14064446 <a title="1189-tfidf-9" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
@@ -141,73 +104,48 @@ better</p><p>6 0.16210514 <a title="1189-tfidf-6" href="../high_scalability-2009
 <p>[(0, 0.15), (1, 0.064), (2, -0.034), (3, 0.022), (4, 0.027), (5, 0.109), (6, 0.038), (7, 0.008), (8, 0.02), (9, 0.01), (10, 0.048), (11, -0.014), (12, 0.074), (13, -0.026), (14, -0.053), (15, 0.007), (16, -0.032), (17, -0.086), (18, -0.079), (19, -0.092), (20, -0.015), (21, 0.028), (22, 0.004), (23, -0.006), (24, -0.035), (25, -0.06), (26, -0.005), (27, 0.007), (28, -0.036), (29, -0.051), (30, 0.009), (31, 0.062), (32, 0.1), (33, -0.042), (34, 0.088), (35, 0.13), (36, 0.022), (37, 0.027), (38, -0.011), (39, -0.018), (40, -0.025), (41, 0.03), (42, 0.129), (43, 0.041), (44, -0.056), (45, 0.048), (46, 0.005), (47, 0.031), (48, 0.089), (49, 0.028)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95709234 <a title="1189-lsi-1" href="../high_scalability-2012/high_scalability-2012-02-07-Hypertable_Routs_HBase_in_Performance_Test_--_HBase_Overwhelmed_by_Garbage_Collection.html">1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</a></p>
-<p>Introduction: This is a guest post byDoug Judd, original creator of Hypertable and the CEO
-of Hypertable, Inc.Hypertable delivers 2X better throughput in most tests --
-HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage
-collection -- Both systems deliver similar results for random read uniform
-testWe recently conducted a test comparing the performance of Hypertable
-(@hypertable) version 0.9.5.5 to that of HBase (@HBase) version 0.90.4
-(CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and
-offer explanations for the discrepancies. For the full test report,
-seeHypertable vs. HBase II.IntroductionHypertable and HBase are both open
-source, scalable databases modeled after Google's proprietary Bigtable
-database.  The primary difference between the two systems is that Hypertable
-is written in C++, while HBase is written in Java.  We modeled this test after
-the one described in section 7 of theBigtable paperand tuned both systems for
-maximum performance.  The t</p><p>2 0.76376539 <a title="1189-lsi-2" href="../high_scalability-2009/high_scalability-2009-07-02-Hypertable_is_a_New_BigTable_Clone_that_Runs_on_HDFS_or_KFS.html">647 high scalability-2009-07-02-Hypertable is a New BigTable Clone that Runs on HDFS or KFS</a></p>
-<p>Introduction: Update 3: Presentation from theNoSQL conference:slides,video 1,video 2.Update
-2: The folks at Hypertable would like you to know that Hypertable is now
-officiallysponsored by Baidu, China's Leading Search Engine.As a sponsor of
-Hypertable, Baidu has committed an industrious team of engineers, numerous
-servers, and support resources to improve the quality and development of the
-open source technology.Update: InfoQ interview onHypertable Lead Discusses
-Hadoop and Distributed Databases. Hypertable differs from HBase in that it is
-a higher performance implementation of Bigtable.Skrentabloggives the heads up
-onHypertable,Zvents'open-source BigTable clone. It's written in C++ and can
-run on top of either HDFS or KFS. Performance looks encouraging at28M rows of
-data inserted at a per-node write rate of 7mb/sec.</p><p>3 0.7217201 <a title="1189-lsi-3" href="../high_scalability-2010/high_scalability-2010-03-16-1_Billion_Reasons_Why_Adobe_Chose_HBase_.html">795 high scalability-2010-03-16-1 Billion Reasons Why Adobe Chose HBase </a></p>
-<p>Introduction: Cosmin Lehene ďťżwrote two excellent articles on Adobe's experiences with
-HBase:Why we're using HBase: Part 1andWhy we're using HBase: Part 2. Adobe
-needed ageneric,real-time, structured data storage and processing system that
-could handle any data volume, with access times under 50ms, with no downtime
-andno data loss. The article goes into great detail about their experiences
-with HBase and their evaluation process, providing a "well reasoned impartial
-use case from a commercial user". It talks about failure handling,
-availability, write performance, read performance, random reads, sequential
-scans, and consistency. One of the knocks against HBase has been it's
-complexity, as it has many parts that need installation and configuration. All
-is not lost according to the Adobe team:HBase is more complex than other
-systems (you need Hadoop, Zookeeper, cluster machines have multiple roles). We
-believe that for HBase, this is not accidental complexity and that the
-argument that "HBase is not a</p><p>4 0.61033595 <a title="1189-lsi-4" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
-<p>Introduction: This is a guest post bySachin Sinha, Founder ofIqlectand developer
-ofBangDB.The goal for the paper is to provide the performances data for
-following embedded databases under various scenarios for random operations
-such as write and read. The data is presented in graphical manner to make the
-data self explanatory to some extent.LevelDB:LevelDB is a fast key-value
-storage library written at Google that provides an ordered mapping from string
-keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and
-uses SSTable and MemTable for the database implementation. It's written in C++
-and availabe under BSD license. LevelDB treats key and value as arbitrary byte
-arrays and stores keys in ordered fashion. It uses snappy compression for the
-data compression. Write and Read are concurrent for the db, but write performs
-best with single thread whereas Read scales with number of
-coresBerkleyDB:BerkleyDB (BDB) is a library that provides high performance
-embedded database for key/va</p><p>5 0.59108293 <a title="1189-lsi-5" href="../high_scalability-2013/high_scalability-2013-04-03-5_Steps_to_Benchmarking_Managed_NoSQL_-_DynamoDB_vs_Cassandra.html">1434 high scalability-2013-04-03-5 Steps to Benchmarking Managed NoSQL - DynamoDB vs Cassandra</a></p>
-<p>Introduction: This is a guest post byBen BromheadfromInstaclustrDeciding to use a managed
-NoSQL datastore is a great step in ensuring you run a fast, scalable and
-resilient application without needing to be an expert in highly available
-architecture. How do you know which technology is the best for your
-application? How do you know whether the provider's performance claims are
-true? You are putting your application on someone else’s infrastructure and
-that requires some hard answers about their claims.To determine the
-suitability of a provider, your first port of call is to benchmark. Choosing a
-service provider is often done in a number of stages. First is to shortlist
-providers based on capabilities and claimed performance, ruling out those that
-do not meet your application requirements. Second is to look for benchmarks
-conducted by third parties, if any. The final stage is to benchmark the
-service yourself.In this article we will show you how to run some preliminary
-benchmarks against two managed</p><p>6 0.58524954 <a title="1189-lsi-6" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
+<p>Introduction: This is a guest post by  Doug Judd , original creator of Hypertable and the CEO of Hypertable, Inc. 
+ 
+ Hypertable delivers 2X better throughput in most tests -- HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage collection -- Both systems deliver similar results for random read uniform test 
+ 
+We recently conducted a test comparing the performance of Hypertable ( @hypertable ) version 0.9.5.5 to that of HBase ( @HBase ) version 0.90.4 (CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and offer explanations for the discrepancies. For the full test report, see  Hypertable vs. HBase II .
+  Introduction  
+Hypertable and HBase are both open source, scalable databases modeled after Google's proprietary Bigtable database.  The primary difference between the two systems is that Hypertable is written in C++, while HBase is written in Java.  We modeled this test after the one described in section 7 of the  Bigtable paper  and tuned both systems fo</p><p>2 0.76376539 <a title="1189-lsi-2" href="../high_scalability-2009/high_scalability-2009-07-02-Hypertable_is_a_New_BigTable_Clone_that_Runs_on_HDFS_or_KFS.html">647 high scalability-2009-07-02-Hypertable is a New BigTable Clone that Runs on HDFS or KFS</a></p>
+<p>Introduction: Update 3 : Presentation from the  NoSQL conference :  slides ,  video 1 ,  video 2 .
+ 
+ Update 2 : The folks at Hypertable would like you to know that  Hypertable is now officially  sponsored by Baidu , China’s Leading Search Engine.  As a sponsor of Hypertable, Baidu has committed an industrious team of engineers, numerous servers, and support resources to improve the quality and development of the open source technology. 
+ 
+ Update : InfoQ interview on  Hypertable Lead Discusses Hadoop and Distributed Databases . Hypertable differs from HBase in that it is a higher performance implementation of Bigtable.
+ 
+ Skrentablog  gives the heads up on  Hypertable ,  Zvents'  open-source BigTable clone. It's written in C++ and can run on top of either HDFS or KFS. Performance looks encouraging at  28M rows of data inserted at a per-node write rate of 7mb/sec .</p><p>3 0.7217201 <a title="1189-lsi-3" href="../high_scalability-2010/high_scalability-2010-03-16-1_Billion_Reasons_Why_Adobe_Chose_HBase_.html">795 high scalability-2010-03-16-1 Billion Reasons Why Adobe Chose HBase </a></p>
+<p>Introduction: Cosmin Lehene ﻿wrote two excellent articles on Adobe's experiences with HBase:  Why we’re using HBase: Part 1   and  Why we’re using HBase: Part 2 . Adobe needed a  generic,   real-time, structured data storage and processing system that could handle any data volume, with access times under 50ms, with no downtime and   no data loss . The article goes into great detail about their experiences with HBase and their evaluation process, providing a "well reasoned impartial use case from a commercial user". It talks about failure handling, availability, write performance, read performance, random reads, sequential scans, and consistency. 
+ 
+One of the knocks against HBase has been it's complexity, as it has many parts that need installation and configuration. All is not lost according to the Adobe team:
+  
+
+HBase is more complex than other systems (you need Hadoop, Zookeeper, cluster machines have multiple roles). We believe that for HBase, this is not accidental complexity and that the argu</p><p>4 0.61033595 <a title="1189-lsi-4" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
+<p>Introduction: This is a guest post by  Sachin Sinha , Founder of  Iqlect  and developer of  BangDB . 
+ 
+The goal for the paper is to provide the performances data for following embedded databases under various scenarios for random operations such as write and read. The data is presented in graphical manner to make the data self explanatory to some extent.
+  
+  LevelDB :
+
+LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and uses SSTable and MemTable for the database implementation. It's written in C++ and availabe under BSD license. LevelDB treats key and value as arbitrary byte arrays and stores keys in ordered fashion. It uses snappy compression for the data compression. Write and Read are concurrent for the db, but write performs best with single thread whereas Read scales with number of cores
+
+ 
+   
+  BerkleyDB :
+
+BerkleyDB (BDB) is a library that provides high perf</p><p>5 0.59108293 <a title="1189-lsi-5" href="../high_scalability-2013/high_scalability-2013-04-03-5_Steps_to_Benchmarking_Managed_NoSQL_-_DynamoDB_vs_Cassandra.html">1434 high scalability-2013-04-03-5 Steps to Benchmarking Managed NoSQL - DynamoDB vs Cassandra</a></p>
+<p>Introduction: This is a guest post by  Ben Bromhead  from  Instaclustr  
+ 
+ 
+ 
+Deciding to use a managed NoSQL datastore is a great step in ensuring you run a fast, scalable and resilient application without needing to be an expert in highly available architecture. How do you know which technology is the best for your application? How do you know whether the provider's performance claims are true? You are putting your application on someone else’s infrastructure and that requires some hard answers about their claims.
+ 
+To determine the suitability of a provider, your first port of call is to benchmark. Choosing a service provider is often done in a number of stages. First is to shortlist providers based on capabilities and claimed performance, ruling out those that do not meet your application requirements. Second is to look for benchmarks conducted by third parties, if any. The final stage is to benchmark the service yourself.
+ 
+In this article we will show you how to run some preliminary benchmark</p><p>6 0.58524954 <a title="1189-lsi-6" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
 <p>7 0.58024126 <a title="1189-lsi-7" href="../high_scalability-2011/high_scalability-2011-04-12-Caching_and_Processing_2TB_Mozilla_Crash_Reports_in_memory_with_Hazelcast.html">1020 high scalability-2011-04-12-Caching and Processing 2TB Mozilla Crash Reports in memory with Hazelcast</a></p>
 <p>8 0.56817394 <a title="1189-lsi-8" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
 <p>9 0.5543319 <a title="1189-lsi-9" href="../high_scalability-2012/high_scalability-2012-08-03-Stuff_The_Internet_Says_On_Scalability_For_August_3%2C_2012.html">1297 high scalability-2012-08-03-Stuff The Internet Says On Scalability For August 3, 2012</a></p>
@@ -227,75 +165,28 @@ benchmarks against two managed</p><p>6 0.58524954 <a title="1189-lsi-6" href="..
 <p>[(1, 0.137), (2, 0.146), (10, 0.086), (17, 0.024), (23, 0.013), (39, 0.145), (40, 0.022), (61, 0.138), (79, 0.098), (85, 0.04), (94, 0.046)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9127515 <a title="1189-lda-1" href="../high_scalability-2012/high_scalability-2012-02-07-Hypertable_Routs_HBase_in_Performance_Test_--_HBase_Overwhelmed_by_Garbage_Collection.html">1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</a></p>
-<p>Introduction: This is a guest post byDoug Judd, original creator of Hypertable and the CEO
-of Hypertable, Inc.Hypertable delivers 2X better throughput in most tests --
-HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage
-collection -- Both systems deliver similar results for random read uniform
-testWe recently conducted a test comparing the performance of Hypertable
-(@hypertable) version 0.9.5.5 to that of HBase (@HBase) version 0.90.4
-(CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and
-offer explanations for the discrepancies. For the full test report,
-seeHypertable vs. HBase II.IntroductionHypertable and HBase are both open
-source, scalable databases modeled after Google's proprietary Bigtable
-database.  The primary difference between the two systems is that Hypertable
-is written in C++, while HBase is written in Java.  We modeled this test after
-the one described in section 7 of theBigtable paperand tuned both systems for
-maximum performance.  The t</p><p>2 0.89270753 <a title="1189-lda-2" href="../high_scalability-2009/high_scalability-2009-08-31-Scaling_MySQL_on_Amazon_Web_Services.html">690 high scalability-2009-08-31-Scaling MySQL on Amazon Web Services</a></p>
-<p>Introduction: I've recently started working with a large company who is looking to take one
-of their heavily utilized applications and move it to Amazon Web Services. I'm
-not looking to start a debate on the merits of EC2, the decision to move to
-aws is already made (and is a much better decision than paying a vendor
-millions to host it).I've done my reasearch and I'm comfortable with creating
-this environment with one exception, scaling MySQL. I havent done much work
-with MySQL, i'm more of an Oracle guy up to now. I'm struggling to determine a
-way to scale MySQL on the fly in a way so that replication works, the server
-takes its proper place in line for master candidacy, and the apache servers
-become aware of it.So this is really three questions:1. What are some proven
-methods of load balancing the read traffic going from apache to MySQL.2. How
-do I let the load balancing mechanism know when I scale up / down a new Mysql
-Server?3. How to alert the master of the new server and initiate replication</p><p>3 0.88931286 <a title="1189-lda-3" href="../high_scalability-2010/high_scalability-2010-09-16-How_Can_the_Large_Hadron_Collider_Withstand_One_Petabyte_of_Data_a_Second%3F.html">901 high scalability-2010-09-16-How Can the Large Hadron Collider Withstand One Petabyte of Data a Second?</a></p>
-<p>Introduction: Why is there something rather than nothing? That's the kind of question
-theLarge Hadron Colliderin CERN is hopefully poised to answer. And what is the
-output of this beautiful 17-mile long,6 billion dollar wabi-sabishproton
-smashing machine? Data. Great heaping torrents of Grand Canyon sized data. 15
-million gigabytes every year. That's 1000 times the information printed in
-books every year. It's so much data 10,000 scientists will use agridof80,000+
-computers, in 300 computer centers , in 50 different countries just to help
-make sense of it all.How will all this data be collected, transported, stored,
-and analyzed? It turns out, using what amounts to sort of Internet of
-Particles instead of an Internet of Things.Two good articles have recently
-shed some electro-magnetic energy in the human visible spectrum on the IT
-aspects of the collider:LHC computing grid pushes petabytes of data, beats
-expectations by John Timmer on Ars Technica and an overview of theBrookhaven's
-RHIC/ATLAS Comput</p><p>4 0.88490492 <a title="1189-lda-4" href="../high_scalability-2010/high_scalability-2010-06-16-Hot_Scalability_Links_for_June_16%2C_2010.html">842 high scalability-2010-06-16-Hot Scalability Links for June 16, 2010</a></p>
-<p>Introduction: You're Doing it Wrong by Poul-Henning Kamp. Don't look so guilty, he's not
-talking about you know what, he's talking about writing high-performance
-server programs: Not just wrong as in not perfect, but wrong as in wasting
-half, or more, of your performance. What good is an O(log2(n)) algorithm if
-those operations cause page faults and slow disk operations? For most relevant
-datasets an O(n) or even an O(n^2) algorithm, which avoids page faults, will
-run circles around it. A Microsoft Windows Azure primer: the basicsby Peter
-Bright. Nice article explaining the basics of Azure and how it compares to
-Google and Amazon.A call to change the name from NoSQL to Postmodern
-Databases. Interesting idea, but the problem is the same one I have for
-Postmodern Art, when is it? I always feel like I'm in the post-post modern
-period, yet for art it's really in the early 1900s. Let's save future
-developers from this existential time crisis.Constructions from Dots and
-Linesby Marko A. Rodriguez, Peter N</p><p>5 0.86943263 <a title="1189-lda-5" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
-<p>Introduction: I remember the excitement of when Twitter first opened up their firehose. As
-an early adopter of the Twitter API I could easily imagine some of the cool
-things you could do with all that data. I also remember the disappointment of
-learning that in the land of BigData, data has a price, and that price would
-be too high for little fish like me. It was like learning for the first time
-there would be no BigData Santa Clause.For a while though I had the pleasure
-of pondering just how I would handle all that data. It's a fascinating
-problem. You have to be able to reliably consume it, normalize it, merge it
-with other data, apply functions on it, store it, query it, distribute it, and
-oh yah, monetize it. Most of that in realish-time. And if you are trying to
-create a platform for allowing the entire Internet do to the same thing to the
-firehose, the challenge is exponentially harder.DataSift is in the exciting
-position of creating just such a firehose eating, data chomping machine. You
-see,</p><p>6 0.86054373 <a title="1189-lda-6" href="../high_scalability-2008/high_scalability-2008-09-10-Shard_servers_--_go_big_or_small%3F.html">383 high scalability-2008-09-10-Shard servers -- go big or small?</a></p>
+<p>Introduction: This is a guest post by  Doug Judd , original creator of Hypertable and the CEO of Hypertable, Inc. 
+ 
+ Hypertable delivers 2X better throughput in most tests -- HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage collection -- Both systems deliver similar results for random read uniform test 
+ 
+We recently conducted a test comparing the performance of Hypertable ( @hypertable ) version 0.9.5.5 to that of HBase ( @HBase ) version 0.90.4 (CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and offer explanations for the discrepancies. For the full test report, see  Hypertable vs. HBase II .
+  Introduction  
+Hypertable and HBase are both open source, scalable databases modeled after Google's proprietary Bigtable database.  The primary difference between the two systems is that Hypertable is written in C++, while HBase is written in Java.  We modeled this test after the one described in section 7 of the  Bigtable paper  and tuned both systems fo</p><p>2 0.89270753 <a title="1189-lda-2" href="../high_scalability-2009/high_scalability-2009-08-31-Scaling_MySQL_on_Amazon_Web_Services.html">690 high scalability-2009-08-31-Scaling MySQL on Amazon Web Services</a></p>
+<p>Introduction: I've recently started working with a large company who is looking to take one of their heavily utilized applications and move it to Amazon Web Services.  I'm not looking to start a debate on the merits of EC2, the decision to move to aws is already made (and is a much better decision than paying a vendor millions to host it).  I've done my reasearch and I'm comfortable with creating this environment with one exception, scaling MySQL.  I havent done much work with MySQL, i'm more of an Oracle guy up to now.  I'm struggling to determine a way to scale MySQL on the fly in a way so that replication works, the server takes its proper place in line for master candidacy, and the apache servers become aware of it.  So this is really three questions:  1. What are some proven methods of load balancing the read traffic going from apache to MySQL. 2. How do I let the load balancing mechanism know when I scale up / down a new Mysql Server?   3. How to alert the master of the new server and initiate</p><p>3 0.88931286 <a title="1189-lda-3" href="../high_scalability-2010/high_scalability-2010-09-16-How_Can_the_Large_Hadron_Collider_Withstand_One_Petabyte_of_Data_a_Second%3F.html">901 high scalability-2010-09-16-How Can the Large Hadron Collider Withstand One Petabyte of Data a Second?</a></p>
+<p>Introduction: Why is there something rather than nothing? That's the kind of question the  Large Hadron Collider  in CERN is hopefully poised to answer. And what is the output of this beautiful 17-mile long,  6 billion  dollar  wabi-sabish  proton smashing machine? Data. Great heaping torrents of Grand Canyon sized data. 15 million gigabytes every year. That's 1000 times the information printed in books every year. It's so much data 10,000 scientists will use a  grid  of  80,000+ computers , in 300 computer centers , in 50 different countries just to help make sense of it all.
+ 
+How will all this data be collected, transported, stored, and analyzed? It turns out, using what amounts to sort of Internet of Particles instead of an Internet of Things.
+ 
+Two good articles have recently shed some electro-magnetic energy in the human visible spectrum on the IT aspects of the collider:  LHC computing grid pushes petabytes of data, beats expectations  by John Timmer on Ars Technica and an overview of the  Br</p><p>4 0.88490492 <a title="1189-lda-4" href="../high_scalability-2010/high_scalability-2010-06-16-Hot_Scalability_Links_for_June_16%2C_2010.html">842 high scalability-2010-06-16-Hot Scalability Links for June 16, 2010</a></p>
+<p>Introduction: You're Doing it Wrong  by Poul-Henning Kamp. Don't look so guilty, he's not talking about you know what, he's talking about writing high-performance server programs:  Not just wrong as in not perfect, but wrong as in wasting half, or more, of your performance. What good is an  O(log2(n))  algorithm if those operations cause page faults and slow disk operations? For most relevant datasets an  O(n)  or even an  O(n^2)  algorithm, which avoids page faults, will run circles around it.   
+  A Microsoft Windows Azure primer: the basics  by Peter Bright. Nice article explaining the basics of Azure and how it compares to Google and Amazon. 
+ A call to change the name from  NoSQL to Postmodern Databases . Interesting idea, but the problem is the same one I have for Postmodern Art, when is it? I always feel like I'm in the post-post modern period, yet for art it's really in the early 1900s. Let's save future developers from this existential time crisis. 
+  Constructions from Dots and Lines  by M</p><p>5 0.86943263 <a title="1189-lda-5" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
+<p>Introduction: I remember the excitement of when Twitter first opened up their firehose.  As an early adopter of the Twitter API I could easily imagine some of the cool things you could do with all that data. I also remember the disappointment of learning that in the land of BigData, data has a price, and that price would be too high for little fish like me. It was like learning for the first time there would be no BigData Santa Clause.
+ 
+For a while though I had the pleasure of pondering just how I would handle all that data. It's a fascinating problem. You have to be able to reliably consume it, normalize it, merge it with other data, apply functions on it, store it, query it, distribute it, and oh yah, monetize it. Most of that in realish-time. And if you are trying to create a platform for allowing the entire Internet do to the same thing to the firehose, the challenge is exponentially harder.
+ 
+DataSift is in the exciting position of creating just such a firehose eating, data chomping machine. Y</p><p>6 0.86054373 <a title="1189-lda-6" href="../high_scalability-2008/high_scalability-2008-09-10-Shard_servers_--_go_big_or_small%3F.html">383 high scalability-2008-09-10-Shard servers -- go big or small?</a></p>
 <p>7 0.85682118 <a title="1189-lda-7" href="../high_scalability-2010/high_scalability-2010-07-08-Cloud_AWS_Infrastructure_vs._Physical_Infrastructure.html">853 high scalability-2010-07-08-Cloud AWS Infrastructure vs. Physical Infrastructure</a></p>
 <p>8 0.85674065 <a title="1189-lda-8" href="../high_scalability-2013/high_scalability-2013-08-07-RAFT_-_In_Search_of_an_Understandable_Consensus_Algorithm.html">1498 high scalability-2013-08-07-RAFT - In Search of an Understandable Consensus Algorithm</a></p>
 <p>9 0.85566092 <a title="1189-lda-9" href="../high_scalability-2012/high_scalability-2012-07-23-State_of_the_CDN%3A_More_Traffic%2C_Stable_Prices%2C_More_Products%2C_Profits_-_Not_So_Much.html">1289 high scalability-2012-07-23-State of the CDN: More Traffic, Stable Prices, More Products, Profits - Not So Much</a></p>

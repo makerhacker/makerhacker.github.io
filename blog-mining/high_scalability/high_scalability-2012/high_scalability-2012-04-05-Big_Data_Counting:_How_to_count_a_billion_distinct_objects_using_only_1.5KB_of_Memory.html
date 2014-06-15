@@ -16,115 +16,64 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1222 high scalability-2012-04-05-Big Data Counting: How to count a billion distinct objects using only 1.5KB of Memory</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1222-html" href="http://highscalability.com//blog/2012/4/5/big-data-counting-how-to-count-a-billion-distinct-objects-us.html">html</a></p><p>Introduction: This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing
-how they are able to accurately estimate the cardinality of sets with billions
-of distinct elements using surprisingly small data structures. Their servers
-receive well over 100 billion events per month.AtClearspringwe like to count
-things. Counting the number of distinct elements (the cardinality) of a set is
-challenge when the cardinality of the set is large.To better understand the
-challenge of determining the cardinality of large sets let's imagine that you
-have a 16 character ID and you'd like to count the number of distinct IDs that
-you've seen in your logs. Here is an example:4f67bfc603106cb2These 16
-characters represent 128 bits. 65K IDs would require 1 megabyte of space. We
-receive over 3 billion events per day, and each event has an ID. Those IDs
-require 384,000,000,000 bits or 45 gigabytes of storage. And that is just the
-space that the ID field requires! To get the cardinality of IDs in our daily
-e</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing how they are able to accurately estimate the cardinality of sets with billions of distinct elements using surprisingly small data structures. [sent-1, score-1.052]
-</p><p>2 Counting the number of distinct elements (the cardinality) of a set is challenge when the cardinality of the set is large. [sent-4, score-1.078]
-</p><p>3 To better understand the challenge of determining the cardinality of large sets let's imagine that you have a 16 character ID and you'd like to count the number of distinct IDs that you've seen in your logs. [sent-5, score-1.072]
-</p><p>4 To get the cardinality of IDs in our daily events we could take a simplistic approach. [sent-11, score-0.639]
-</p><p>5 You would need a machine with several hundred gigs of memory to count distinct elements this way and that is only to count a single day's worth of unique IDs. [sent-14, score-0.703]
-</p><p>6 Bitmaps can be used to quickly and accurately get the cardinality of a given input. [sent-18, score-0.687]
-</p><p>7 The basic idea with a bitmap is mapping the input dataset to a bit field using a hash function where each input element uniquely maps to one of the bits in the field. [sent-19, score-1.001]
-</p><p>8 While bitmaps drastically reduce the space requirements from the naive set implementation described above they are still problematic when the cardinality is very high and/or you have a very large number of different sets to count. [sent-21, score-1.115]
-</p><p>9 We've leveraged this research to provide a open sourceimplementationof cardinality estimators, set membership detection, and top-k algorithms. [sent-25, score-0.716]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1222-html" href="http://highscalability.com//blog/2012/4/5/big-data-counting-how-to-count-a-billion-distinct-objects-us.html">html</a></p><p>Introduction: This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing how they are able to accurately estimate the cardinality of sets with billions of distinct elements using surprisingly small data structures. Their servers receive well over 100 billion events per month.  
+ 
+At  Clearspring  we like to count things. Counting the number of distinct elements (the cardinality) of a set is challenge when the cardinality of the set     is large.
+ 
+To better understand the challenge of determining the cardinality of large sets let's imagine that you have a 16 character ID and you'd like to count the number of distinct IDs that you've     seen in your logs. Here is an example:
+ 
+4f67bfc603106cb2
+ 
+ These 16 characters represent 128 bits. 65K IDs would require 1   megabyte of space. We receive over 3 billion events per day, and each   event has an ID. Those IDs require 384,000,000,000 bits or 45   gigabytes of storage.  And that is just the space that the ID field requires! To get the</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing how they are able to accurately estimate the cardinality of sets with billions of distinct elements using surprisingly small data structures. [sent-1, score-1.052]
+</p><p>2 Counting the number of distinct elements (the cardinality) of a set is challenge when the cardinality of the set     is large. [sent-4, score-1.078]
+</p><p>3 To better understand the challenge of determining the cardinality of large sets let's imagine that you have a 16 character ID and you'd like to count the number of distinct IDs that you've     seen in your logs. [sent-5, score-1.072]
+</p><p>4 You would need a machine with several hundred gigs of memory to count distinct elements this way and that is only to count a single day's worth of unique IDs. [sent-14, score-0.703]
+</p><p>5 Bitmaps can be used to quickly and accurately get the cardinality of a given input. [sent-18, score-0.687]
+</p><p>6 The basic idea with a bitmap is mapping the input dataset to a bit field using a hash function where each input element uniquely maps to one     of the bits in the field. [sent-19, score-1.001]
+</p><p>7 While bitmaps drastically reduce the space requirements from the naive set     implementation described above they are still problematic when the cardinality is very high and/or you have a very large number of different sets to count. [sent-21, score-1.115]
+</p><p>8 Luckily,  cardinality   estimation  is a       popular  area of       research . [sent-24, score-0.698]
+</p><p>9 We've leveraged this     research to provide a open source  implementation  of cardinality estimators, set membership detection, and top-k algorithms. [sent-25, score-0.716]
 </p><p>10 Note that our input dataset has extra data in it so the cardinality is higher than the standard reference answer to this question. [sent-28, score-0.895]
-</p><p>11 Compare that to a perfect count using a HashMap that requires nearly 10 megabytes of space and you can easily see why cardinality estimators are useful. [sent-31, score-1.121]
+</p><p>11 Compare that to a perfect count using a HashMap that requires nearly 10 megabytes of space and     you can easily see why cardinality estimators are useful. [sent-31, score-1.121]
 </p><p>12 The name comes from the fact that you can estimate the cardinality of a set with cardinality Nmax using just loglog(Nmax) + O(1) bits. [sent-47, score-1.441]
 </p><p>13 In Hyper LogLog's case this is done by defining the desired relative standard deviation and the max cardinality you expect to count. [sent-49, score-0.771]
-</p><p>14 Taking the average of the additional observables yields a counter whose accuracy improves as m grows in size but only requires a constant number of operations to be performed on each element of the input set. [sent-53, score-0.794]
-</p><p>15 The result is that, according to the authors of thispaper, this counter can count one billion distinct items with an accuracy of 2% using only 1. [sent-54, score-0.672]
-</p><p>16 Merging Distributed CountersWe've shown that using the counters described above we can estimate the cardinality of large sets. [sent-57, score-0.872]
-</p><p>17 The idea is a little mind-bending but if you take a moment to think about it the concept is not that much different than basic cardinality estimation. [sent-62, score-0.686]
-</p><p>18 Because the counters represent the cardinality as set of bits in a map we can take two compatible counters and merge their bits into a single map. [sent-63, score-1.142]
-</p><p>19 The algorithms already handle collisions so we can still get a cardinality estimation with the desired precision even though we never brought all of the input data to a single machine. [sent-64, score-1.101]
-</p><p>20 If estimating the cardinality of large sets is a problem and you happen to use a JVM based language then you should check out thestream-libproject -- it provides implementations of the algorithms described above as well as several other stream-processing utilities. [sent-67, score-0.741]
+</p><p>14 Taking the average of the additional     observables yields a counter whose accuracy improves as m grows in size but only requires a constant number of operations to be performed on each element of the input set. [sent-53, score-0.794]
+</p><p>15 The result is     that, according to the authors of this  paper ,  this counter can count one billion distinct items with an accuracy of 2%     using only 1. [sent-54, score-0.672]
+</p><p>16 Merging Distributed Counters   We've shown that using the counters described above we can estimate the cardinality of large sets. [sent-57, score-0.872]
+</p><p>17 The idea is a little mind-bending but if you take a moment to think about     it the concept is not that much different than basic cardinality estimation. [sent-62, score-0.686]
+</p><p>18 Because the counters represent the cardinality as set of bits in a map we can take two compatible counters and     merge their bits into a single map. [sent-63, score-1.142]
+</p><p>19 The algorithms already handle collisions so we can still get a cardinality estimation with the desired precision even though we never brought all of the     input data to a single machine. [sent-64, score-1.101]
+</p><p>20 If estimating the cardinality of large sets is a problem and you happen to use     a JVM based language then you should check out the  stream-lib  project — it provides implementations of the algorithms described above as well as several other stream-processing utilities. [sent-67, score-0.741]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('cardinality', 0.639), ('loglog', 0.235), ('bitmap', 0.215), ('input', 0.194), ('count', 0.174), ('hyper', 0.153), ('counter', 0.152), ('distinct', 0.147), ('bitmaps', 0.142), ('probabilistic', 0.141), ('collisions', 0.119), ('bits', 0.115), ('ids', 0.103), ('counters', 0.098), ('accuracy', 0.098), ('hash', 0.097), ('space', 0.096), ('megabytes', 0.092), ('desired', 0.09), ('estimate', 0.086), ('gigs', 0.083), ('elements', 0.079), ('estimators', 0.078), ('hashset', 0.078), ('nmax', 0.078), ('observables', 0.078), ('set', 0.077), ('error', 0.074), ('counting', 0.066), ('element', 0.064), ('dataset', 0.062), ('size', 0.062), ('function', 0.06), ('estimation', 0.059), ('algorithm', 0.059), ('number', 0.059), ('sets', 0.053), ('result', 0.053), ('linear', 0.052), ('equation', 0.051), ('efficiency', 0.05), ('described', 0.049), ('empty', 0.048), ('billion', 0.048), ('accurately', 0.048), ('concept', 0.047), ('unique', 0.046), ('yields', 0.045), ('requires', 0.042), ('max', 0.042)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1222-tfidf-1" href="../high_scalability-2012/high_scalability-2012-04-05-Big_Data_Counting%3A_How_to_count_a_billion_distinct_objects_using_only_1.5KB_of_Memory.html">1222 high scalability-2012-04-05-Big Data Counting: How to count a billion distinct objects using only 1.5KB of Memory</a></p>
-<p>Introduction: This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing
-how they are able to accurately estimate the cardinality of sets with billions
-of distinct elements using surprisingly small data structures. Their servers
-receive well over 100 billion events per month.AtClearspringwe like to count
-things. Counting the number of distinct elements (the cardinality) of a set is
-challenge when the cardinality of the set is large.To better understand the
-challenge of determining the cardinality of large sets let's imagine that you
-have a 16 character ID and you'd like to count the number of distinct IDs that
-you've seen in your logs. Here is an example:4f67bfc603106cb2These 16
-characters represent 128 bits. 65K IDs would require 1 megabyte of space. We
-receive over 3 billion events per day, and each event has an ID. Those IDs
-require 384,000,000,000 bits or 45 gigabytes of storage. And that is just the
-space that the ID field requires! To get the cardinality of IDs in our daily
-e</p><p>2 0.17256439 <a title="1222-tfidf-2" href="../high_scalability-2014/high_scalability-2014-03-12-Paper%3A_Scalable_Eventually_Consistent_Counters_over_Unreliable_Networks.html">1611 high scalability-2014-03-12-Paper: Scalable Eventually Consistent Counters over Unreliable Networks</a></p>
-<p>Introduction: Counting at scale in a distributed environment issurprisingly hard. And it's a
-subject we've covered before in various ways:Big Data Counting: How to count a
-billion distinct objects using only 1.5KB of Memory,How to update video views
-count effectively?,Numbers Everyone Should Know (sharded
-counters).Kellabyte(which is an excellent blog) inScalable Eventually
-Consistent Counterstalks about how the Cassandra counter implementation scores
-well on the scalability and high availability front, but in so doing has "over
-and under counting problem in partitioned environments."Which is often fine.
-But if you want more accuracy there's a PN-counter, which is aCRDT (convergent
-replicated data type)where "all the changes made to a counter on each node
-rather than storing and modifying a single value so that you can merge all the
-values into the proper final value. Of course the trade-off here is additional
-storage and processing but there are ways to optimize this."And there's a
-paper you can co</p><p>3 0.10723469 <a title="1222-tfidf-3" href="../high_scalability-2008/high_scalability-2008-04-19-How_to_build_a_real-time_analytics_system%3F.html">304 high scalability-2008-04-19-How to build a real-time analytics system?</a></p>
-<p>Introduction: Hello everybody!I am a developer of a website with a lot of traffic. Right now
-we are managing the whole website using perl + postgresql + fastcgi +
-memcached + mogileFS + lighttpd + roundrobin DNS distributed over 5 servers
-and I must say it works like a charm, load is stable and everything works very
-fast and we are recording about 8 million pageviews per day.The only problem
-is with postgres database since we have it installed only on one server and if
-this server goes down, the whole "cluster" goes down. That's why we have a
-master2slave replication so we still have a backup database except that when
-the master goes down, all inserts/updates are disabled so the whole website is
-just read only.But this is not a problem since this configuration is working
-for us and we don't have any problems with it.Right now we are planning to
-build our own analytics service that would be customized for our needs. We
-tried various different software packages but were not satisfied with any of
-them.</p><p>4 0.10591967 <a title="1222-tfidf-4" href="../high_scalability-2009/high_scalability-2009-05-01-FastBit%3A_An_Efficient_Compressed_Bitmap_Index_Technology.html">587 high scalability-2009-05-01-FastBit: An Efficient Compressed Bitmap Index Technology</a></p>
-<p>Introduction: Data mining and fast queries are always in that bin of hard to do things where
-doing something smarter can yield big results. Bloom Filters are one such do
-it smarter strategy, compressed bitmap indexes are another. In one application
-"FastBit outruns other search indexes by a factor of 10 to 100 and doesn't
-require much more room than the original data size." The data size is an
-interesting metric. Our old standard b-trees can be two to four times larger
-than the original data. In a test searching an Enron email database FastBit
-outran MySQL by 10 to 1,000 times.FastBit is a software tool for searching
-large read-only datasets. It organizes user data in a column-oriented
-structure which is efficient for on-line analytical processing (OLAP), and
-utilizes compressed bitmap indices to further speed up query processing.
-Analyses have proven the compressed bitmap index used in FastBit to be
-theoretically optimal for one-dimensional queries. Compared with other optimal
-indexing methods, bit</p><p>5 0.10251899 <a title="1222-tfidf-5" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
-<p>Introduction: Google AppEngine NumbersThis group of numbers is from Brett Slatkin inBuilding
-Scalable Web Apps with Google App Engine.Writes are expensive!Datastore is
-transactional: writes require disk accessDisk access means disk seeksRule of
-thumb: 10ms for a disk seekSimple math: 1s / 10ms = 100 seeks/sec
-maximumDepends on:* The size and shape of your data* Doing work in batches
-(batch puts and gets)Reads are cheap!Reads do not need to be transactional,
-just consistentData is read from disk once, then it's easily cachedAll
-subsequent reads come straight from memoryRule of thumb: 250usec for 1MB of
-data from memorySimple math: 1s / 250usec = 4GB/sec maximum* For a 1MB entity,
-that's 4000 fetches/secNumbers MiscellaneousThis group of numbers is from a
-presentationJeff Deangave at a Engineering All-Hands Meeting at Google.L1
-cache reference 0.5 nsBranch mispredict 5 nsL2 cache reference 7 nsMutex
-lock/unlock 100 nsMain memory reference 100 nsCompress 1K bytes with Zippy
-10,000 nsSend 2K bytes over</p><p>6 0.097189702 <a title="1222-tfidf-6" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
+<p>Introduction: This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing how they are able to accurately estimate the cardinality of sets with billions of distinct elements using surprisingly small data structures. Their servers receive well over 100 billion events per month.  
+ 
+At  Clearspring  we like to count things. Counting the number of distinct elements (the cardinality) of a set is challenge when the cardinality of the set     is large.
+ 
+To better understand the challenge of determining the cardinality of large sets let's imagine that you have a 16 character ID and you'd like to count the number of distinct IDs that you've     seen in your logs. Here is an example:
+ 
+4f67bfc603106cb2
+ 
+ These 16 characters represent 128 bits. 65K IDs would require 1   megabyte of space. We receive over 3 billion events per day, and each   event has an ID. Those IDs require 384,000,000,000 bits or 45   gigabytes of storage.  And that is just the space that the ID field requires! To get the</p><p>2 0.17256439 <a title="1222-tfidf-2" href="../high_scalability-2014/high_scalability-2014-03-12-Paper%3A_Scalable_Eventually_Consistent_Counters_over_Unreliable_Networks.html">1611 high scalability-2014-03-12-Paper: Scalable Eventually Consistent Counters over Unreliable Networks</a></p>
+<p>Introduction: Counting at scale in a distributed environment is  surprisingly hard . And it's a subject we've covered before in various ways:  Big Data Counting: How to count a billion distinct objects using only 1.5KB of Memory ,  How to update video views count effectively? ,  Numbers Everyone Should Know (sharded counters) .
+ 
+ Kellabyte  (which is an excellent blog) in  Scalable Eventually Consistent Counters  talks about how the Cassandra counter implementation scores well on the scalability and high availability front, but in so doing has "over and under counting problem in partitioned environments."
+ 
+Which is often fine. But if you want more accuracy there's a PN-counter, which is a  CRDT (convergent replicated data type)  where "all the changes made to a counter on each node rather than storing and modifying a single value so that you can merge all the values into the proper final value. Of course the trade-off here is additional storage and processing but there are ways to optimize this."</p><p>3 0.10723469 <a title="1222-tfidf-3" href="../high_scalability-2008/high_scalability-2008-04-19-How_to_build_a_real-time_analytics_system%3F.html">304 high scalability-2008-04-19-How to build a real-time analytics system?</a></p>
+<p>Introduction: Hello everybody!     I am a developer of a website with a lot of traffic. Right now we are managing the whole website using perl + postgresql + fastcgi + memcached + mogileFS + lighttpd + roundrobin DNS distributed over 5 servers and I must say it works like a charm, load is stable and everything works very fast and we are recording about 8 million pageviews per day.     The only problem is with postgres database since we have it installed only on one server and if this server goes down, the whole "cluster" goes down. That's why we have a master2slave replication so we still have a backup database except that when the master goes down, all inserts/updates are disabled so the whole website is just read only.     But this is not a problem since this configuration is working for us and we don't have any problems with it.     Right now we are planning to build our own analytics service that would be customized for our needs. We tried various different software packages but were not satisfi</p><p>4 0.10591967 <a title="1222-tfidf-4" href="../high_scalability-2009/high_scalability-2009-05-01-FastBit%3A_An_Efficient_Compressed_Bitmap_Index_Technology.html">587 high scalability-2009-05-01-FastBit: An Efficient Compressed Bitmap Index Technology</a></p>
+<p>Introduction: Data mining and fast queries are always in that bin of hard to do things where doing something smarter can yield big results. Bloom Filters are one such do it smarter strategy, compressed bitmap indexes are another. In one application "FastBit outruns other search indexes by a factor of 10 to 100 and doesnâ&euro;&trade;t require much more room than the original data size." The data size is an interesting metric. Our old standard b-trees can be two to four times larger than the original data. In a test searching an Enron email database FastBit outran MySQL by 10 to 1,000 times.      
+   FastBit is a software tool for searching large read-only datasets. It organizes user data in a column-oriented structure which is efficient for on-line analytical processing (OLAP), and utilizes compressed bitmap indices to further speed up query processing. Analyses have proven the compressed bitmap index used in FastBit to be theoretically optimal for one-dimensional queries. Compared with other optimal indexing me</p><p>5 0.10251899 <a title="1222-tfidf-5" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
+<p>Introduction: Google AppEngine Numbers  
+This group of numbers is from Brett Slatkin in  Building Scalable Web Apps with Google App Engine .
+  Writes are expensive!   Datastore is transactional: writes require disk access   Disk access means disk seeks   Rule of thumb: 10ms for a disk seek   Simple math: 1s / 10ms = 100 seeks/sec maximum   Depends on: * The size and shape of your data * Doing work in batches (batch puts and gets) 
+ Reads are cheap! 
+   Reads do not need to be transactional, just consistent   Data is read from disk once, then it's easily cached   All subsequent reads come straight from memory   Rule of thumb: 250usec for 1MB of data from memory   Simple math: 1s / 250usec = 4GB/sec maximum * For a 1MB entity, that's 4000 fetches/sec 
+ Numbers Miscellaneous 
+This group of numbers is from a presentation  Jeff Dean  gave at a Engineering All-Hands Meeting at Google.      L1 cache reference 0.5 ns    Branch mispredict 5 ns    L2 cache reference 7 ns    Mutex lock/unlock 100 ns    Main me</p><p>6 0.097189702 <a title="1222-tfidf-6" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
 <p>7 0.080389865 <a title="1222-tfidf-7" href="../high_scalability-2013/high_scalability-2013-04-24-Strategy%3A_Using_Lots_of_RAM_Often_Cheaper_than_Using_a_Hadoop_Cluster.html">1445 high scalability-2013-04-24-Strategy: Using Lots of RAM Often Cheaper than Using a Hadoop Cluster</a></p>
 <p>8 0.076865986 <a title="1222-tfidf-8" href="../high_scalability-2010/high_scalability-2010-08-18-Misco%3A_A_MapReduce_Framework_for_Mobile_Systems_-_Start_of_the_Ambient_Cloud%3F.html">882 high scalability-2010-08-18-Misco: A MapReduce Framework for Mobile Systems - Start of the Ambient Cloud?</a></p>
 <p>9 0.07596118 <a title="1222-tfidf-9" href="../high_scalability-2007/high_scalability-2007-07-16-Blog%3A_MySQL_Performance_Blog_-_Everything_about_MySQL_Performance._.html">15 high scalability-2007-07-16-Blog: MySQL Performance Blog - Everything about MySQL Performance. </a></p>
@@ -144,75 +93,49 @@ lock/unlock 100 nsMain memory reference 100 nsCompress 1K bytes with Zippy
 <p>[(0, 0.105), (1, 0.07), (2, -0.013), (3, -0.002), (4, -0.001), (5, 0.035), (6, 0.022), (7, 0.031), (8, -0.016), (9, 0.001), (10, 0.032), (11, 0.015), (12, 0.012), (13, -0.003), (14, 0.019), (15, 0.007), (16, -0.014), (17, -0.014), (18, 0.016), (19, 0.004), (20, -0.012), (21, -0.011), (22, -0.017), (23, 0.043), (24, 0.005), (25, -0.034), (26, -0.012), (27, 0.005), (28, 0.03), (29, 0.015), (30, 0.008), (31, -0.007), (32, -0.007), (33, 0.028), (34, -0.044), (35, -0.02), (36, 0.011), (37, -0.015), (38, -0.013), (39, -0.018), (40, 0.001), (41, 0.031), (42, 0.01), (43, -0.006), (44, 0.041), (45, 0.015), (46, -0.043), (47, 0.014), (48, 0.021), (49, -0.001)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.94222224 <a title="1222-lsi-1" href="../high_scalability-2012/high_scalability-2012-04-05-Big_Data_Counting%3A_How_to_count_a_billion_distinct_objects_using_only_1.5KB_of_Memory.html">1222 high scalability-2012-04-05-Big Data Counting: How to count a billion distinct objects using only 1.5KB of Memory</a></p>
-<p>Introduction: This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing
-how they are able to accurately estimate the cardinality of sets with billions
-of distinct elements using surprisingly small data structures. Their servers
-receive well over 100 billion events per month.AtClearspringwe like to count
-things. Counting the number of distinct elements (the cardinality) of a set is
-challenge when the cardinality of the set is large.To better understand the
-challenge of determining the cardinality of large sets let's imagine that you
-have a 16 character ID and you'd like to count the number of distinct IDs that
-you've seen in your logs. Here is an example:4f67bfc603106cb2These 16
-characters represent 128 bits. 65K IDs would require 1 megabyte of space. We
-receive over 3 billion events per day, and each event has an ID. Those IDs
-require 384,000,000,000 bits or 45 gigabytes of storage. And that is just the
-space that the ID field requires! To get the cardinality of IDs in our daily
-e</p><p>2 0.74852329 <a title="1222-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-02-Piccolo_-_Building_Distributed_Programs_that_are_11x_Faster_than_Hadoop.html">983 high scalability-2011-02-02-Piccolo - Building Distributed Programs that are 11x Faster than Hadoop</a></p>
-<p>Introduction: Piccolo(notthisorthis) is a system for distributed computing, Piccolo is a new
-data-centric programming model for writing parallel in-memory applications in
-data centers. Unlike existing data-ﬂow models, Piccolo allows computation
-running on different machines to share distributed, mutable state via a key-
-value table interface. Traditional data-centric models (such as Hadoop) which
-present the user a single object at a time to operate on, Piccolo exposes a
-global table interface which is available to all parts of the computation
-simultaneously. This allows users to specify programs in an intuitive manner
-very similar to that of writing programs for a single machine.Using an in-
-memory key-value store is a very different approach from the canonical map-
-reduce, which is based on using distributed file systems. The results are
-impressive:Experiments have shown that Piccolo is fast and pro-vides excellent
-scaling for many applications. The performance of PageRank and k-means on
-Piccolo i</p><p>3 0.74101663 <a title="1222-lsi-3" href="../high_scalability-2013/high_scalability-2013-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_30%2C_2013.html">1509 high scalability-2013-08-30-Stuff The Internet Says On Scalability For August 30, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(Nerd Power: Paul Kasemir software engineer AND
-American Ninja Warrior)Two billion documents, 30 terabytes: Github source code
-indexedQuotable Quotes:David Krakauer: We fail to make intelligent machines
-because engineering is about putting together stupid components to make smart
-objects. Evolution is about putting together smart components into intelligent
-aggregates. Your brain is like an ecosystem of organisms. It's not like a
-circuit of gates.@spyced: At this point if you depend on EBS for critical
-services you're living in denial and I can't help you. @skilpat: TIL Friedrich
-Engels, not Leslie Lamport, invented logical clocks in a 1844 letter to Karl
-MarxDan Geer: Risk is a necessary consequence of dependence.@postwait: OS Rule
-1. The version of /usr/bin/X you want today will never be what your OS ships.
-Use /keep/your/shit/to/yourself/X instead.@antirez: the moral is: "Hey, that's
-a completely harmless commit about error reporting! It will never aff</p><p>4 0.71114713 <a title="1222-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-10-Stuff_The_Internet_Says_On_Scalability_For_August_10%2C_2012.html">1302 high scalability-2012-08-10-Stuff The Internet Says On Scalability For August 10, 2012</a></p>
-<p>Introduction: It's HighScalability Time:TNW: On an average day, out of 30 trillion URLs on
-the web, Google crawls 20B web pages and now serves 100B searches every
-month.Quotable Quotes:@tapbot_paul: The 2 computers on the Curiosity rover are
-RAD750 based, they are approximately 1/10th the speed of an iPhone 4s and
-"only" cost $200k each.@merv: #cassandra12 Why @adrianco loves what he's
-doing: "You are no longer IO-bound, you're CPU bound, like you're supposed to
-be."@maxtaco: Garbage collection solves a minuscule %age of bugs, that are
-non-critical (memleaks? big deal!) and easy to find and fix. At a HUGE
-expense.@merv: #cassandra12 @eddie_satterly describing $1M savings in first
-year migrating from MS SQL Server with SAN to Cassandra solution - w more
-data.@mattbrauchler: A slow node is worse than a down node
-#cassandra12@practicingEA: "The math of predictive analytics has been around
-for years, its the computers that have caught up"@markimbriaco: When we say to
-decouple your code, we mean from oth</p><p>5 0.70896703 <a title="1222-lsi-5" href="../high_scalability-2012/high_scalability-2012-01-17-Paper%3A_Feeding_Frenzy%3A_Selectively_Materializing_Users%E2%80%99_Event_Feeds.html">1175 high scalability-2012-01-17-Paper: Feeding Frenzy: Selectively Materializing Users’ Event Feeds</a></p>
-<p>Introduction: How do you scale an inbox that has multiple highly volatile feeds? That's a
-problem faced by social networks like Tumblr, Facebook, and Twitter. Follow a
-few hundred event sources and it's hard to scalably order an inbox so that you
-see a correct view as event sources continually publish new events.This can be
-considered like aview materializationproblem in a database. In a database a
-view is a virtual table defined by a query that can be accessed like a table.
-Materialization refers to when the data behind the view is created. If a view
-is a join on several tables and that join is performed when the view is
-accessed, then performance will be slow. If the view is precomputed access to
-the view will be fast, but more resources are used, especially considering
-that the view may never be accessed.Your wall/inbox/stream is a view on all
-the people/things you follow. If you never look at your inbox then
-materializing the view in your inbox is a waste of resources, yet you'll be
-mad if displ</p><p>6 0.70781392 <a title="1222-lsi-6" href="../high_scalability-2014/high_scalability-2014-03-12-Paper%3A_Scalable_Eventually_Consistent_Counters_over_Unreliable_Networks.html">1611 high scalability-2014-03-12-Paper: Scalable Eventually Consistent Counters over Unreliable Networks</a></p>
+<p>Introduction: This is a guest post by Matt Abrams (@abramsm), from Clearspring, discussing how they are able to accurately estimate the cardinality of sets with billions of distinct elements using surprisingly small data structures. Their servers receive well over 100 billion events per month.  
+ 
+At  Clearspring  we like to count things. Counting the number of distinct elements (the cardinality) of a set is challenge when the cardinality of the set     is large.
+ 
+To better understand the challenge of determining the cardinality of large sets let's imagine that you have a 16 character ID and you'd like to count the number of distinct IDs that you've     seen in your logs. Here is an example:
+ 
+4f67bfc603106cb2
+ 
+ These 16 characters represent 128 bits. 65K IDs would require 1   megabyte of space. We receive over 3 billion events per day, and each   event has an ID. Those IDs require 384,000,000,000 bits or 45   gigabytes of storage.  And that is just the space that the ID field requires! To get the</p><p>2 0.74852329 <a title="1222-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-02-Piccolo_-_Building_Distributed_Programs_that_are_11x_Faster_than_Hadoop.html">983 high scalability-2011-02-02-Piccolo - Building Distributed Programs that are 11x Faster than Hadoop</a></p>
+<p>Introduction: Piccolo  (not  this  or  this ) is a system for distributed computing, Piccolo is a n ew data-centric programming model for writing parallel in-memory applications in data centers .  Unlike existing data-ﬂow models, Piccolo allows computation running on different machines to share distributed, mutable state via a key-value table interface. T  raditional data-centric models (such as Hadoop) which present the user a single object at a time to operate on, Piccolo exposes a global table interface which is available to all parts of the computation simultaneously. This allows users to specify programs in an intuitive manner very similar to that of writing programs for a single machine. 
+ 
+Using an in-memory key-value store is a very different approach from the canonical map-reduce, which is based on using distributed file systems. The results are impressive:
+  
+
+Experiments have shown that Piccolo is fast and pro-vides excellent scaling for many applications. The performance of PageRank and</p><p>3 0.74101663 <a title="1222-lsi-3" href="../high_scalability-2013/high_scalability-2013-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_30%2C_2013.html">1509 high scalability-2013-08-30-Stuff The Internet Says On Scalability For August 30, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+     ( Nerd Power: Paul Kasemir software engineer AND American Ninja Warrior )   
+  Two billion documents, 30 terabytes : Github source code indexed 
+ Quotable Quotes:                                                                                                          
+ 
+  David Krakauer : We fail to make intelligent machines because engineering is about putting together stupid components to make smart objects. Evolution is about putting together smart components into intelligent aggregates. Your brain is like an ecosystem of organisms. It's not like a circuit of gates. 
+  @spyced : At this point if you depend on EBS for critical services you're living in denial and I can't help you.  
+  @skilpat : TIL Friedrich Engels, not Leslie Lamport, invented logical clocks in a 1844 letter to Karl Marx 
+  Dan Geer : Risk is a necessary consequence of dependence. 
+  @postwait : OS Rule 1. The version of /usr/bin/X you want today will never be what your OS ships</p><p>4 0.71114713 <a title="1222-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-10-Stuff_The_Internet_Says_On_Scalability_For_August_10%2C_2012.html">1302 high scalability-2012-08-10-Stuff The Internet Says On Scalability For August 10, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+  TNW : On an average day, out of 30 trillion URLs on the web, Google crawls 20B web pages and now serves 100B searches every month. 
+ Quotable Quotes:                                        
+ 
+  @tapbot_paul : The 2 computers on the Curiosity rover are RAD750 based, they are approximately 1/10th the speed of an iPhone 4s and “only” cost $200k each. 
+  @merv : #cassandra12 Why @adrianco loves what he's doing: "You are no longer IO-bound, you’re CPU bound, like you’re supposed to be." 
+  @maxtaco : Garbage collection solves a minuscule %age of bugs, that are non-critical (memleaks? big deal!) and easy to find and fix. At a HUGE expense. 
+ 
+ 
+  @merv : #cassandra12 @eddie_satterly describing $1M savings in first year migrating from MS SQL Server with SAN to Cassandra solution - w more data. 
+  @mattbrauchler : A slow node is worse than a down node #cassandra12 
+  @practicingEA : "The math of predictive analytics has been around for years, its the computers t</p><p>5 0.70896703 <a title="1222-lsi-5" href="../high_scalability-2012/high_scalability-2012-01-17-Paper%3A_Feeding_Frenzy%3A_Selectively_Materializing_Users%E2%80%99_Event_Feeds.html">1175 high scalability-2012-01-17-Paper: Feeding Frenzy: Selectively Materializing Users’ Event Feeds</a></p>
+<p>Introduction: How do you scale an inbox that has multiple highly volatile feeds? That's a problem faced by social networks like Tumblr, Facebook, and Twitter. Follow a few hundred event sources and it's hard to scalably order an inbox so that you see a correct view as event sources continually publish new events.
+ 
+This can be considered like a  view materialization  problem in a database. In a database a view is a virtual table defined by a query that can be accessed like a table. Materialization refers to when the data behind the view is created. If a view is a join on several tables and that join is performed when the view is accessed, then performance will be slow. If the view is precomputed access to the view will be fast, but more resources are used, especially considering that the view may never be accessed.
+ 
+Your wall/inbox/stream is a view on all the people/things you follow. If you never look at your inbox then materializing the view in your inbox is a waste of resources, yet you'll be ma</p><p>6 0.70781392 <a title="1222-lsi-6" href="../high_scalability-2014/high_scalability-2014-03-12-Paper%3A_Scalable_Eventually_Consistent_Counters_over_Unreliable_Networks.html">1611 high scalability-2014-03-12-Paper: Scalable Eventually Consistent Counters over Unreliable Networks</a></p>
 <p>7 0.70182192 <a title="1222-lsi-7" href="../high_scalability-2012/high_scalability-2012-11-26-BigData_using_Erlang%2C_C_and_Lisp_to_Fight_the_Tsunami_of_Mobile_Data.html">1362 high scalability-2012-11-26-BigData using Erlang, C and Lisp to Fight the Tsunami of Mobile Data</a></p>
 <p>8 0.6891346 <a title="1222-lsi-8" href="../high_scalability-2013/high_scalability-2013-06-07-Stuff_The_Internet_Says_On_Scalability_For_June_7%2C_2013.html">1472 high scalability-2013-06-07-Stuff The Internet Says On Scalability For June 7, 2013</a></p>
 <p>9 0.68698442 <a title="1222-lsi-9" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
@@ -232,66 +155,18 @@ mad if displ</p><p>6 0.70781392 <a title="1222-lsi-6" href="../high_scalability-
 <p>[(1, 0.09), (2, 0.14), (10, 0.046), (27, 0.011), (51, 0.016), (61, 0.052), (77, 0.023), (79, 0.085), (85, 0.02), (94, 0.408)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.97423756 <a title="1222-lda-1" href="../high_scalability-2014/high_scalability-2014-02-25-Peter_Norvig%27s_9_Master_Steps_to_Improving_a_Program.html">1601 high scalability-2014-02-25-Peter Norvig's 9 Master Steps to Improving a Program</a></p>
-<p>Introduction: Inspired by axkcd comic,Peter Norvig,Director of Research at Google and all
-around interesting and nice guy, has created an above par code kata involving
-a regex program that demonstrates the core inner loop of many successful
-systems profiled on HighScalability.The original code is atxkcd 1313: Regex
-Golf, which comes up with an algorithm to find a short regex that matches the
-winners and not the losers from two arbitrary lists. The Python code is
-readable, the process is TDDish, and the problem, which sounds simple, but
-soon explodes into regex weirdness, as does most regex code. If you find
-regular expressions confusing you'll definitely benefit from Peter's
-deliberate strategy for finding a regex.The post demonstrating the iterated
-improvement of the program is atxkcd 1313: Regex Golf (Part 2: Infinite
-Problems). As with most first solutions it wasn't optimal. To improve the
-program Peter recommends the following steps: Profiling: Figure out where the
-program spends its time. Speed</p><p>2 0.97393411 <a title="1222-lda-2" href="../high_scalability-2009/high_scalability-2009-05-22-Distributed_content_system_with_bandwidth_balancing.html">605 high scalability-2009-05-22-Distributed content system with bandwidth balancing</a></p>
-<p>Introduction: I am looking for a way to distribute files over servers in different physical
-locations. My main concern is that I have bandwidth limitations on each
-location, and wish to spread the bandwidth load evenly. Atm. I just have 1:1
-copies of the files on all servers, and have the application pick a random
-server to serve the file as a temp fix...It's a small video streaming service.
-I want to spoonfeed the stream to the client with a max bandwidth output, and
-support seek. At present I use php to limit the network stream, and read the
-file at a given offset sendt as a get parameter from the player for seek. It's
-psuedo streaming, but it works.I have been looking at MogileFS, which would
-solve the storage part. With MogileFS I can make use of my current php
-solution as it supports lighttpd and apache (with mod_rewrite or similar).
-However I don't see how I can apply MogileFS to check for bandwidth %
-usage?Any reccomendations for how I can solve this?</p><p>3 0.96647525 <a title="1222-lda-3" href="../high_scalability-2009/high_scalability-2009-04-07-Six_Lessons_Learned_Deploying_a_Large-scale_Infrastructure_in_Amazon_EC2_.html">559 high scalability-2009-04-07-Six Lessons Learned Deploying a Large-scale Infrastructure in Amazon EC2 </a></p>
-<p>Introduction: Lessons learned fromOpenX's large-scale deploymentto Amazon EC2:Expect
-failures; what's more, embrace themFully automate your infrastructure
-deploymentsDesign your infrastructure so that it scales horizontallyEstablish
-clear measurable goalsBe prepared to quickly identify and eliminate
-bottlenecksPlay wack-a-mole for a while, until things get stable</p><p>4 0.96382648 <a title="1222-lda-4" href="../high_scalability-2008/high_scalability-2008-10-15-Sun_Customer_Ready_HPC_Cluster%3A_Reference_Configurations_with_Sun_Fire_X2200_M2_and_X2100_M2_Servers.html">418 high scalability-2008-10-15-Sun Customer Ready HPC Cluster: Reference Configurations with Sun Fire X2200 M2 and X2100 M2 Servers</a></p>
-<p>Introduction: The reference configurations described in this blueprint are starting points
-for building Sun Customer Ready HPC Clusters configured with Sun Fire X2100 M2
-and X2200 M2 servers. The configurations define how Sun Systems Group products
-can be configured in a typical grid rack deployment. This document describes
-configurations in detail using Sun Fire X2100 M2 and X2200 M2 servers with a
-Gigabit Ethernet data fabric, as well as configurations using Sun Fire X2200
-M2 servers with a high-speed InfiniBand fabric. These configurations focus on
-single rack solutions, with external connections through uplink ports of the
-switches.These reference configurations have been architected using Sun's
-expertise gained in actual, real-world installations. Within certain
-constraints, as described in the later sections, the system can be tailored to
-the customer needs. Certain system components described in this document are
-only available through Sun's factory integration. Although the information
-conta</p><p>5 0.96218026 <a title="1222-lda-5" href="../high_scalability-2007/high_scalability-2007-10-07-Using_ThreadLocal_to_pass_context_information_around_in_web_applications.html">115 high scalability-2007-10-07-Using ThreadLocal to pass context information around in web applications</a></p>
-<p>Introduction: Hi,In java web servers, each http request is handled by a thread in thread
-pool. So for a Servlet handling the request, a thread is assigned. It is
-tempting (and very convinient) to keep context information in the threadlocal
-variable. I recently had a requirement where we need to assign logged in user
-id and timestamp to request sent to web services. Because we already had the
-code in place, it was extremely difficult to change the method signatures to
-pass user id everywhere. The solution I thought isclass ReferenceIdGenerator
-{public static setReferenceId(String login) {threadLocal.set(login +
-System.currentMillis());}public static String getReferenceId() {return
-threadLocal.get();}private static ThreadLocal threadLocal =new
-ThreadLocal();}class MySevlet {void service(.....) {HttpSession session =
-request.getSession(false);String userId =
-session.get("userId");ReferenceIdGenerator.setRefernceId(userId);try
-{doSomething();}finally {ReferenceIdGenerator.remove();}}This method is also</p><p>6 0.94372314 <a title="1222-lda-6" href="../high_scalability-2012/high_scalability-2012-08-16-Paper%3A_A_Provably_Correct_Scalable_Concurrent_Skip_List.html">1305 high scalability-2012-08-16-Paper: A Provably Correct Scalable Concurrent Skip List</a></p>
+<p>Introduction: Inspired by a  xkcd comic ,  Peter Norvig ,  Director of Research at Google and all around interesting and nice guy, has created an above par code kata involving a regex program that demonstrates the core inner loop of many successful systems profiled on HighScalability.  
+ 
+ The original code is at  xkcd 1313: Regex Golf , which comes up with an algorithm to find a short regex that matches the winners and not the losers from two arbitrary lists. The Python code is readable, the process is TDDish, and the problem, which sounds simple, but soon explodes into regex weirdness, as does most regex code. If you find regular expressions confusing you'll definitely benefit from Peter's deliberate strategy for finding a regex.  
+ 
+ The post demonstrating the iterated improvement of the program is at  xkcd 1313: Regex Golf (Part 2: Infinite Problems) . As with most first solutions it wasn't optimal. To improve the program Peter recommends the following steps:  
+  
+    Profiling : Figure out wher</p><p>2 0.97393411 <a title="1222-lda-2" href="../high_scalability-2009/high_scalability-2009-05-22-Distributed_content_system_with_bandwidth_balancing.html">605 high scalability-2009-05-22-Distributed content system with bandwidth balancing</a></p>
+<p>Introduction: I am looking for a way to distribute files over servers in different physical locations. My main concern is that I have bandwidth limitations on each location, and wish to spread the bandwidth load evenly. Atm. I just have 1:1 copies of the files on all servers, and have the application pick a random server to serve the file as a temp fix...     It's a small video streaming service. I want to spoonfeed the stream to the client with a max bandwidth output, and support seek. At present I use php to limit the network stream, and read the file at a given offset sendt as a get parameter from the player for seek. It's psuedo streaming, but it works.     I have been looking at MogileFS, which would solve the storage part. With MogileFS I can make use of my current php solution as it supports lighttpd and apache (with mod_rewrite or similar). However I don't see how I can apply MogileFS to check for bandwidth % usage?     Any reccomendations for how I can solve this?</p><p>3 0.96647525 <a title="1222-lda-3" href="../high_scalability-2009/high_scalability-2009-04-07-Six_Lessons_Learned_Deploying_a_Large-scale_Infrastructure_in_Amazon_EC2_.html">559 high scalability-2009-04-07-Six Lessons Learned Deploying a Large-scale Infrastructure in Amazon EC2 </a></p>
+<p>Introduction: Lessons learned from  OpenX's large-scale deployment  to Amazon EC2:
+   Expect failures; what's more, embrace them      Fully automate your infrastructure deployments     Design your infrastructure so that it scales horizontally     Establish clear measurable goals     Be prepared to quickly identify and eliminate bottlenecks     Play wack-a-mole for a while, until things get stable</p><p>4 0.96382648 <a title="1222-lda-4" href="../high_scalability-2008/high_scalability-2008-10-15-Sun_Customer_Ready_HPC_Cluster%3A_Reference_Configurations_with_Sun_Fire_X2200_M2_and_X2100_M2_Servers.html">418 high scalability-2008-10-15-Sun Customer Ready HPC Cluster: Reference Configurations with Sun Fire X2200 M2 and X2100 M2 Servers</a></p>
+<p>Introduction: The reference configurations described in this blueprint are starting points for building Sun Customer Ready HPC Clusters configured with Sun Fire X2100 M2 and X2200 M2 servers. The configurations define how Sun Systems Group products can be configured in a typical grid rack deployment. This document describes configurations in detail using Sun Fire X2100 M2 and X2200 M2 servers with a Gigabit Ethernet data fabric, as well as configurations using Sun Fire X2200 M2 servers with a high-speed InfiniBand fabric. These configurations focus on single rack solutions, with external connections through uplink ports of the switches.     These reference configurations have been architected using Sun's expertise gained in actual, real-world installations. Within certain constraints, as described in the later sections, the system can be tailored to the customer needs. Certain system components described in this document are only available through Sun's factory integration. Although the information</p><p>5 0.96218026 <a title="1222-lda-5" href="../high_scalability-2007/high_scalability-2007-10-07-Using_ThreadLocal_to_pass_context_information_around_in_web_applications.html">115 high scalability-2007-10-07-Using ThreadLocal to pass context information around in web applications</a></p>
+<p>Introduction: Hi,     In java web servers, each http request is handled by a thread in thread pool. So for a Servlet handling the request, a thread is assigned. It is tempting (and very convinient) to keep context information in the threadlocal variable. I recently had a requirement where we need to assign logged in user id and timestamp to request sent to web services. Because we already had the code in place, it was extremely difficult to change the method signatures to pass user id everywhere. The solution I thought is   class ReferenceIdGenerator {   public static setReferenceId(String login) {      threadLocal.set(login + System.currentMillis());   }     public static String getReferenceId() {     return threadLocal.get();   }   private static ThreadLocal threadLocal =       new ThreadLocal();       }     class MySevlet {     void service(.....) {       HttpSession session = request.getSession(false);      String userId = session.get("userId");          ReferenceIdGenerator.setRefernceId(userId</p><p>6 0.94372314 <a title="1222-lda-6" href="../high_scalability-2012/high_scalability-2012-08-16-Paper%3A_A_Provably_Correct_Scalable_Concurrent_Skip_List.html">1305 high scalability-2012-08-16-Paper: A Provably Correct Scalable Concurrent Skip List</a></p>
 <p>same-blog 7 0.91835117 <a title="1222-lda-7" href="../high_scalability-2012/high_scalability-2012-04-05-Big_Data_Counting%3A_How_to_count_a_billion_distinct_objects_using_only_1.5KB_of_Memory.html">1222 high scalability-2012-04-05-Big Data Counting: How to count a billion distinct objects using only 1.5KB of Memory</a></p>
 <p>8 0.88176841 <a title="1222-lda-8" href="../high_scalability-2010/high_scalability-2010-06-01-Web_Speed_Can_Push_You_Off_of_Google_Search_Rankings%21_What_Can_You_Do%3F.html">834 high scalability-2010-06-01-Web Speed Can Push You Off of Google Search Rankings! What Can You Do?</a></p>
 <p>9 0.87386459 <a title="1222-lda-9" href="../high_scalability-2007/high_scalability-2007-09-13-Design_Preparations_for_Scaling.html">91 high scalability-2007-09-13-Design Preparations for Scaling</a></p>

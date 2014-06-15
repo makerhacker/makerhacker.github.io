@@ -16,115 +16,60 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1146-html" href="http://highscalability.com//blog/2011/11/23/paper-dont-settle-for-eventual-scalable-causal-consistency-f.html">html</a></p><p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 ALPS sounds great, but we want more, we want consistency guarantees as well. [sent-8, score-0.393]
-</p><p>2 Most current systems achieve low latency by avoiding synchronous operation across the WAN, directing reads and writes to a local datacenter, and then using eventual consistency to maintain order. [sent-10, score-0.695]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1146-html" href="http://highscalability.com//blog/2011/11/23/paper-dont-settle-for-eventual-scalable-causal-consistency-f.html">html</a></p><p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 ALPS sounds great, but we want more, we want consistency guarantees as well. [sent-8, score-0.393]
+</p><p>2 Most current systems achieve low latency by avoiding synchronous operation across the WAN, directing reads and writes to a local datacenter, and then using eventual consistency to maintain order. [sent-10, score-0.695]
 </p><p>3 Let's learn more about causal consistency and how it might help us build bigger and better distributed systems. [sent-13, score-0.829]
-</p><p>4 In atalk on COPS, Wyatt Lloyd, defines consistency as arestriction on the ordering and timing of operations. [sent-14, score-0.404]
-</p><p>5 We want the strongest consistency guarantees possible because it makes the programmer's life a lot easier. [sent-15, score-0.393]
+</p><p>4 In a  talk on COPS ,  Wyatt Lloyd , defines consistency as a  restriction on the ordering and timing of operations . [sent-14, score-0.542]
+</p><p>5 Strong consistency  defines a total ordering on all operations and what you write is what you read, regardless of location. [sent-16, score-0.542]
 </p><p>6 This is called linearizability and is impossible to achieve strong consistency with ALPS properties. [sent-17, score-0.43]
-</p><p>7 Sequential consistency still guarantees a total ordering on operations, but is not required to happen in real-time. [sent-19, score-0.551]
+</p><p>7 Sequential consistency  still guarantees a total ordering on operations, but is not required to happen in real-time. [sent-19, score-0.551]
 </p><p>8 Sequential consistency and low latency are impossible to achieve on a WAN. [sent-20, score-0.43]
-</p><p>9 There's a general idea if you want an always-on scalable datastore that you have to sacrifice consistency and settle for eventual consistency. [sent-22, score-0.532]
-</p><p>10 There's another form of consistency,causal consistency, that sits between eventual consistency and the stronger forms of consistency. [sent-23, score-0.454]
-</p><p>11 Causal consistency gives apartial order over operations so the clients see operations in order governed by causality. [sent-24, score-0.657]
-</p><p>12 Theoretically causal consistency is a stronger consistency guarantee, that is also scalable, and maintains ALPS properties. [sent-25, score-1.176]
-</p><p>13 A key property of causal consistency to keep in mind is that it guarantees you will be working on consistent values, but it doesn't guarantee you will be working on the most recent values. [sent-27, score-1.153]
-</p><p>14 Here's amoney quote describing causal consistency in more detail:The central approach in COPS involves explicitly tracking and enforcing causal dependencies between updates. [sent-34, score-1.424]
-</p><p>15 This approach differs from traditional causal systems that exchange update logs between replicas. [sent-38, score-0.583]
-</p><p>16 Even though COPS provides a causal+ consistent data store, it is impossible for clients to obtain a consistent view of multiple keys by issuing single-key gets. [sent-41, score-0.448]
-</p><p>17 In another example, a photo upload followed by adding a reference of the photo album will always happen in that order so you don't have to worry about dangling references. [sent-60, score-0.364]
-</p><p>18 This sounds a lot like eventual consistency to me. [sent-68, score-0.405]
-</p><p>19 They call this causal consistency + convergent conflict handling as causal+ consistency. [sent-69, score-0.829]
-</p><p>20 They don't expose the value of a replicated put operation until they confirm all the causally previous operations have shown up in the datacenter. [sent-74, score-0.348]
+</p><p>9 Eventual consistency  is an ALPS system (Cassandra), but is a weak property that doesn't give any ordering guarantees at all. [sent-21, score-0.573]
+</p><p>10 There's a general idea if you want an always-on scalable datastore that you have to sacrifice consistency and settle for eventual consistency. [sent-22, score-0.532]
+</p><p>11 There's another form of consistency,  causal consistency , that sits between eventual consistency and the stronger forms of consistency. [sent-23, score-1.283]
+</p><p>12 Causal consistency gives a  partial order over operations so the clients see operations in order governed by causality . [sent-24, score-0.741]
+</p><p>13 Theoretically causal consistency is a stronger consistency guarantee, that is also scalable, and maintains ALPS properties. [sent-25, score-0.645]
+</p><p>14 A key property of causal consistency to keep in mind is that it guarantees you will be working on consistent values, but it doesn't guarantee you will be working on the most recent values. [sent-27, score-1.153]
+</p><p>15 The driver for causal consistency is low latency. [sent-30, score-0.531]
+</p><p>16 Here's a  money quote  describing causal consistency in more detail:     The central approach in COPS involves explicitly tracking and enforcing causal dependencies between updates. [sent-34, score-1.424]
+</p><p>17 This approach differs from traditional causal systems that exchange update logs between replicas. [sent-38, score-0.583]
+</p><p>18 Even though COPS provides a causal+ consistent data store, it is impossible for clients to obtain a consistent view of multiple keys by issuing single-key gets. [sent-41, score-0.448]
+</p><p>19 This sounds a lot like eventual consistency to me. [sent-68, score-0.405]
+</p><p>20 They call this causal consistency + convergent conflict handling as causal+ consistency. [sent-69, score-0.829]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('causal', 0.531), ('cops', 0.408), ('consistency', 0.298), ('alps', 0.238), ('consistent', 0.155), ('operations', 0.138), ('causally', 0.109), ('freedman', 0.109), ('eventual', 0.107), ('ordering', 0.106), ('guarantees', 0.095), ('album', 0.094), ('datacenters', 0.092), ('photo', 0.086), ('causality', 0.084), ('datacenter', 0.082), ('settle', 0.081), ('conflicts', 0.075), ('property', 0.074), ('serialization', 0.071), ('boss', 0.065), ('thick', 0.065), ('wyatt', 0.065), ('dependency', 0.064), ('dependencies', 0.064), ('lloyd', 0.059), ('programmer', 0.058), ('avoiding', 0.055), ('operation', 0.054), ('cluster', 0.052), ('happen', 0.052), ('systems', 0.052), ('stronger', 0.049), ('impossible', 0.049), ('keys', 0.048), ('previous', 0.047), ('writer', 0.047), ('immediately', 0.046), ('local', 0.046), ('always', 0.046), ('scalable', 0.046), ('partition', 0.046), ('vector', 0.046), ('strongly', 0.043), ('gives', 0.042), ('achieve', 0.042), ('eventually', 0.041), ('strong', 0.041), ('latency', 0.041), ('clients', 0.041)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="1146-tfidf-1" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
-<p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><p>2 0.59634894 <a title="1146-tfidf-2" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
-<p>Introduction: Here are a few updates on the articlePaper: Don't Settle For Eventual:
-Scalable Causal Consistency For Wide-Area Storage With COPS from Mike Freedman
-and Wyatt Lloyd.Q: How software architectures could change in response to
-casual+ consistency?A: I don't really think they would much. Somebody would
-still run a two-tier architecture in their datacenter:  a front-tier of
-webservers running both (say) PHP and our client library, and a back tier of
-storage nodes running COPS.  (I'm not sure if it was obvious given the
-discussion of our "thick" client -- you should think of the COPS client
-dropping in where a memcache client library does...albeit ours has per-session
-state.) Q: Why not just use vector clocks?A: The problem with vector clocks
-and scalability has always been that the size of vector clocks in O(N), where
-N is the number of nodes.  So if we want to scale to a datacenter with 10K
-nodes, each piece of metadata must have size O(10K).  And in fact, vector
-clocks alone only allow yo</p><p>3 0.26011196 <a title="1146-tfidf-3" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
-<p>Introduction: Update:Streamy Explains CAP and HBase's Approach to CAP.We plan to employ
-inter-cluster replication, with each cluster located in a single DC. Remote
-replication will introduce some eventual consistency into the system, but each
-cluster will continue to be strongly consistent.Ryan Barrett, Google App
-Engine datastore lead, gave this talkTransactions Across Datacenters (and
-Other Weekend Projects)at the Google I/O 2009 conference.While the talk
-doesn't necessarily break new technical ground, Ryan does an excellent job
-explaining and evaluating the different options you have when architecting a
-system to work across multiple datacenters. This is calledmultihoming,
-operating from multiple datacenters simultaneously.As multihoming is one of
-the most challenging tasks in all computing, Ryan's clear and thoughtful style
-comfortably leads you through the various options. On the trip you learn:The
-differentmulti-homing optionsare: Backups, Master-Slave, Multi-Master, 2PC,
-and Paxos. You'll als</p><p>4 0.19493389 <a title="1146-tfidf-4" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
-<p>Introduction: The title of this post is a quote from Ilya Grigorik's post Weak Consistency
-and CAP Implications. Besides the article being excellent, I thought this idea
-had something to add to the great NoSQL versus RDBMS debate, whereMike
-Stonebraker makes the argument that network partitions are rare so designing
-eventually consistent systems for such rare occurrence is not worth losing
-ACID semantics over. Even if network partitions are rare, latency between
-datacenters is not rare, so the game is still on.The rare-partition argument
-seems to flow from a centralized-distributed view of systems. Such systems are
-scale-out in that they grow by adding distributed nodes, but the nodes
-generally do not cross datacenter boundaries. The assumption is the network is
-fast enough that distributed operations are roughly homogenous between
-nodes.In a fully-distributed system the nodes can be dispersed across
-datacenters, which gives operations a widely variable performance profile.
-Because everything talks</p><p>5 0.16338667 <a title="1146-tfidf-5" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
-<p>Introduction: InNoSQL: Past, Present, FutureEric Brewerhas a particularly fine section on
-explaining the often hard to understand ideas ofBASE(Basically Available, Soft
-State, Eventually Consistent),ACID(Atomicity, Consistency, Isolation,
-Durability),CAP(Consistency Availability, Partition Tolerance), in terms of a
-pernicious long standing myth about the sanctity of consistency in
-banking.Myth: Money is important, so banksmustuse transactions to keep money
-safe and consistent, right?Reality: Banking transactions are inconsistent,
-particularly for ATMs. ATMs are designed to have a normal case behaviour and a
-partition mode behaviour. In partition mode Availability is chosen over
-Consistency.Why?1)Availability correlates with revenue and consistency
-generally does not.2)Historically there was never an idea of perfect
-communication so everything was partitioned.Your ATM transaction must go
-through so Availability is more important than consistency. If the ATM is down
-then you aren't making money. If yo</p><p>6 0.16268636 <a title="1146-tfidf-6" href="../high_scalability-2012/high_scalability-2012-12-18-Georeplication%3A_When_Bad_Things_Happen_to_Good_Systems.html">1374 high scalability-2012-12-18-Georeplication: When Bad Things Happen to Good Systems</a></p>
+<p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><p>2 0.59634894 <a title="1146-tfidf-2" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
+<p>Introduction: Here are a few updates on the article  Paper: Don’t Settle For Eventual: Scalable Causal Consistency For Wide-Area Storage With COPS  from Mike Freedman and Wyatt Lloyd.
+ 
+ Q: How software architectures could change in response to casual+ consistency? 
+ 
+ A : I don't really think they would much. Somebody would still run a two-tier architecture in their datacenter:  a front-tier of webservers running both (say) PHP and our client library, and a back tier of storage nodes running COPS.  (I'm not sure if it was obvious given the discussion of our "thick" client -- you should think of the COPS client dropping in where a memcache client library does...albeit ours has per-session state.)
+ 
+ 
+ 
+ Q: Why not just use vector clocks? 
+ 
+ A : The problem with vector clocks and scalability has always been that the size of vector clocks in O(N), where N is the number of nodes.  So if we want to scale to a datacenter with 10K nodes, each piece of metadata must have size O(10K).  And in fact, vector</p><p>3 0.26011196 <a title="1146-tfidf-3" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
+<p>Introduction: Update:   Streamy Explains CAP and HBase's Approach to CAP .  We plan to employ inter-cluster replication, with each cluster located in a single DC.  Remote replication will introduce some eventual consistency into the system, but each cluster will continue to be strongly consistent.   Ryan Barrett, Google App Engine datastore lead, gave this talk   Transactions Across Datacenters (and Other Weekend Projects)   at the Google I/O 2009 conference.   While the talk doesn't necessarily break new technical ground, Ryan does an excellent job explaining and evaluating the different options you have when architecting a system to work across multiple datacenters. This is called  multihoming ,  operating from multiple datacenters simultaneously.  As multihoming is one of the most challenging tasks in all computing, Ryan's clear and thoughtful style comfortably leads you through the various options. On the trip you learn:
+   The different  multi-homing options  are: Backups, Master-Slave, Multi-M</p><p>4 0.19493389 <a title="1146-tfidf-4" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
+<p>Introduction: The title of this post is a quote from Ilya Grigorik's post  Weak Consistency and CAP Implications . Besides the article being excellent, I thought this idea had something to add to the great NoSQL versus RDBMS debate, where  Mike Stonebraker  makes the argument that network partitions are rare so designing eventually consistent systems for such rare occurrence is not worth losing ACID semantics over. Even if network partitions are rare, latency between datacenters is not rare, so the game is still on.
+ 
+The rare-partition argument seems to flow from a centralized-distributed view of systems. Such systems are scale-out in that they grow by adding distributed nodes, but the nodes generally do not cross datacenter boundaries. The assumption is the network is fast enough that distributed operations are roughly homogenous between nodes.
+ 
+In a fully-distributed system the nodes can be dispersed across datacenters, which gives operations a widely variable performance profile. Because everyt</p><p>5 0.16338667 <a title="1146-tfidf-5" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
+<p>Introduction: In   NoSQL: Past, Present, Future    Eric Brewer  has a particularly fine section on explaining the often hard to understand ideas of   BASE   (Basically Available, Soft State, Eventually Consistent),   ACID   (Atomicity, Consistency, Isolation, Durability),   CAP   (Consistency Availability, Partition Tolerance), in terms of a pernicious long standing myth about the sanctity of consistency in banking.
+    Myth   : Money is important, so banks   must   use transactions to keep money safe and consistent, right? 
+    Reality   : Banking transactions are inconsistent, particularly for ATMs. ATMs are designed to have a normal case behaviour and a partition mode behaviour. In partition mode Availability is chosen over Consistency. 
+   Why?   1)  Availability correlates with revenue and consistency generally does not.  2)  Historically there was never an idea of perfect communication so everything was partitioned.
+   Your ATM transaction must go through so Availability is more important than</p><p>6 0.16268636 <a title="1146-tfidf-6" href="../high_scalability-2012/high_scalability-2012-12-18-Georeplication%3A_When_Bad_Things_Happen_to_Good_Systems.html">1374 high scalability-2012-12-18-Georeplication: When Bad Things Happen to Good Systems</a></p>
 <p>7 0.15711644 <a title="1146-tfidf-7" href="../high_scalability-2010/high_scalability-2010-12-23-Paper%3A_CRDTs%3A_Consistency_without_concurrency_control.html">963 high scalability-2010-12-23-Paper: CRDTs: Consistency without concurrency control</a></p>
 <p>8 0.15322368 <a title="1146-tfidf-8" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
 <p>9 0.15153052 <a title="1146-tfidf-9" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
@@ -144,76 +89,36 @@ then you aren't making money. If yo</p><p>6 0.16268636 <a title="1146-tfidf-6" h
 <p>[(0, 0.168), (1, 0.102), (2, 0.0), (3, 0.071), (4, 0.02), (5, 0.104), (6, 0.012), (7, -0.007), (8, -0.071), (9, -0.06), (10, 0.009), (11, 0.061), (12, -0.123), (13, -0.049), (14, 0.072), (15, 0.084), (16, 0.042), (17, 0.012), (18, 0.009), (19, -0.082), (20, 0.119), (21, 0.108), (22, -0.018), (23, -0.006), (24, -0.117), (25, -0.069), (26, 0.043), (27, -0.002), (28, 0.045), (29, -0.168), (30, 0.048), (31, -0.064), (32, -0.064), (33, 0.009), (34, 0.005), (35, -0.018), (36, -0.044), (37, 0.046), (38, -0.039), (39, 0.031), (40, -0.035), (41, 0.089), (42, -0.031), (43, 0.011), (44, 0.025), (45, -0.05), (46, 0.028), (47, 0.013), (48, 0.024), (49, -0.027)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95910132 <a title="1146-lsi-1" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
-<p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><p>2 0.95352036 <a title="1146-lsi-2" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
-<p>Introduction: Here are a few updates on the articlePaper: Don't Settle For Eventual:
-Scalable Causal Consistency For Wide-Area Storage With COPS from Mike Freedman
-and Wyatt Lloyd.Q: How software architectures could change in response to
-casual+ consistency?A: I don't really think they would much. Somebody would
-still run a two-tier architecture in their datacenter:  a front-tier of
-webservers running both (say) PHP and our client library, and a back tier of
-storage nodes running COPS.  (I'm not sure if it was obvious given the
-discussion of our "thick" client -- you should think of the COPS client
-dropping in where a memcache client library does...albeit ours has per-session
-state.) Q: Why not just use vector clocks?A: The problem with vector clocks
-and scalability has always been that the size of vector clocks in O(N), where
-N is the number of nodes.  So if we want to scale to a datacenter with 10K
-nodes, each piece of metadata must have size O(10K).  And in fact, vector
-clocks alone only allow yo</p><p>3 0.90753931 <a title="1146-lsi-3" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
-<p>Introduction: InNoSQL: Past, Present, FutureEric Brewerhas a particularly fine section on
-explaining the often hard to understand ideas ofBASE(Basically Available, Soft
-State, Eventually Consistent),ACID(Atomicity, Consistency, Isolation,
-Durability),CAP(Consistency Availability, Partition Tolerance), in terms of a
-pernicious long standing myth about the sanctity of consistency in
-banking.Myth: Money is important, so banksmustuse transactions to keep money
-safe and consistent, right?Reality: Banking transactions are inconsistent,
-particularly for ATMs. ATMs are designed to have a normal case behaviour and a
-partition mode behaviour. In partition mode Availability is chosen over
-Consistency.Why?1)Availability correlates with revenue and consistency
-generally does not.2)Historically there was never an idea of perfect
-communication so everything was partitioned.Your ATM transaction must go
-through so Availability is more important than consistency. If the ATM is down
-then you aren't making money. If yo</p><p>4 0.90734661 <a title="1146-lsi-4" href="../high_scalability-2012/high_scalability-2012-12-18-Georeplication%3A_When_Bad_Things_Happen_to_Good_Systems.html">1374 high scalability-2012-12-18-Georeplication: When Bad Things Happen to Good Systems</a></p>
-<p>Introduction: Georeplication is one of the standard techniques for dealing when bad things--
-failure and latency--happen to good systems. The problem is always: how do you
-do that? Murat Demirbas, Associate Professor at SUNY Buffalo, has a couple of
-really good posts that can help:MDCC: Multi-Data Center Consistency andMaking
-Geo-Replicated Systems Fast as Possible, Consistent when Necessary. In MDCC:
-Multi-Data Center Consistency Murat discusses a paper that says synchronous
-wide-area replication can be feasible. There's a quick and clear explanation
-of Paxos and various optimizations that is worth the price of admission. We
-find that strong consistency doesn't have to be lost across a WAN:The good
-thing about using Paxos over the WAN is you /almost/ get the full CAP  (all
-three properties: consistency, availability, and partition-freedom). As we
-discussed earlier (Paxos taught), Paxos is CP, that is, in the presence of a
-partition, Paxos keeps consistency over availability. But, Paxos can still
-pr</p><p>5 0.86125892 <a title="1146-lsi-5" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
-<p>Introduction: The title of this post is a quote from Ilya Grigorik's post Weak Consistency
-and CAP Implications. Besides the article being excellent, I thought this idea
-had something to add to the great NoSQL versus RDBMS debate, whereMike
-Stonebraker makes the argument that network partitions are rare so designing
-eventually consistent systems for such rare occurrence is not worth losing
-ACID semantics over. Even if network partitions are rare, latency between
-datacenters is not rare, so the game is still on.The rare-partition argument
-seems to flow from a centralized-distributed view of systems. Such systems are
-scale-out in that they grow by adding distributed nodes, but the nodes
-generally do not cross datacenter boundaries. The assumption is the network is
-fast enough that distributed operations are roughly homogenous between
-nodes.In a fully-distributed system the nodes can be dispersed across
-datacenters, which gives operations a widely variable performance profile.
-Because everything talks</p><p>6 0.83218902 <a title="1146-lsi-6" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
+<p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><p>2 0.95352036 <a title="1146-lsi-2" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
+<p>Introduction: Here are a few updates on the article  Paper: Don’t Settle For Eventual: Scalable Causal Consistency For Wide-Area Storage With COPS  from Mike Freedman and Wyatt Lloyd.
+ 
+ Q: How software architectures could change in response to casual+ consistency? 
+ 
+ A : I don't really think they would much. Somebody would still run a two-tier architecture in their datacenter:  a front-tier of webservers running both (say) PHP and our client library, and a back tier of storage nodes running COPS.  (I'm not sure if it was obvious given the discussion of our "thick" client -- you should think of the COPS client dropping in where a memcache client library does...albeit ours has per-session state.)
+ 
+ 
+ 
+ Q: Why not just use vector clocks? 
+ 
+ A : The problem with vector clocks and scalability has always been that the size of vector clocks in O(N), where N is the number of nodes.  So if we want to scale to a datacenter with 10K nodes, each piece of metadata must have size O(10K).  And in fact, vector</p><p>3 0.90753931 <a title="1146-lsi-3" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
+<p>Introduction: In   NoSQL: Past, Present, Future    Eric Brewer  has a particularly fine section on explaining the often hard to understand ideas of   BASE   (Basically Available, Soft State, Eventually Consistent),   ACID   (Atomicity, Consistency, Isolation, Durability),   CAP   (Consistency Availability, Partition Tolerance), in terms of a pernicious long standing myth about the sanctity of consistency in banking.
+    Myth   : Money is important, so banks   must   use transactions to keep money safe and consistent, right? 
+    Reality   : Banking transactions are inconsistent, particularly for ATMs. ATMs are designed to have a normal case behaviour and a partition mode behaviour. In partition mode Availability is chosen over Consistency. 
+   Why?   1)  Availability correlates with revenue and consistency generally does not.  2)  Historically there was never an idea of perfect communication so everything was partitioned.
+   Your ATM transaction must go through so Availability is more important than</p><p>4 0.90734661 <a title="1146-lsi-4" href="../high_scalability-2012/high_scalability-2012-12-18-Georeplication%3A_When_Bad_Things_Happen_to_Good_Systems.html">1374 high scalability-2012-12-18-Georeplication: When Bad Things Happen to Good Systems</a></p>
+<p>Introduction: Georeplication is one of the standard techniques for dealing when bad things--failure and latency--happen to good systems. The problem is always: how do you do that?  Murat Demirbas , Associate Professor at SUNY Buffalo, has a couple of really good posts that can help:  MDCC: Multi-Data Center Consistency  and  Making Geo-Replicated Systems Fast as Possible, Consistent when Necessary . 
+ 
+In  MDCC: Multi-Data Center Consistency  Murat discusses a paper that says synchronous wide-area replication can be feasible. There's a quick and clear explanation of Paxos and various optimizations that is worth the price of admission. We find that strong consistency doesn't have to be lost across a WAN:
+  
+
+The good thing about using Paxos over the WAN is you /almost/ get the full CAP  (all three properties: consistency, availability, and partition-freedom). As we discussed earlier (Paxos taught), Paxos is CP, that is, in the presence of a partition, Paxos keeps consistency over availability. But, P</p><p>5 0.86125892 <a title="1146-lsi-5" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
+<p>Introduction: The title of this post is a quote from Ilya Grigorik's post  Weak Consistency and CAP Implications . Besides the article being excellent, I thought this idea had something to add to the great NoSQL versus RDBMS debate, where  Mike Stonebraker  makes the argument that network partitions are rare so designing eventually consistent systems for such rare occurrence is not worth losing ACID semantics over. Even if network partitions are rare, latency between datacenters is not rare, so the game is still on.
+ 
+The rare-partition argument seems to flow from a centralized-distributed view of systems. Such systems are scale-out in that they grow by adding distributed nodes, but the nodes generally do not cross datacenter boundaries. The assumption is the network is fast enough that distributed operations are roughly homogenous between nodes.
+ 
+In a fully-distributed system the nodes can be dispersed across datacenters, which gives operations a widely variable performance profile. Because everyt</p><p>6 0.83218902 <a title="1146-lsi-6" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
 <p>7 0.81721127 <a title="1146-lsi-7" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
 <p>8 0.81123555 <a title="1146-lsi-8" href="../high_scalability-2010/high_scalability-2010-09-01-Paper%3A_The_Case_for_Determinism_in_Database_Systems__.html">890 high scalability-2010-09-01-Paper: The Case for Determinism in Database Systems  </a></p>
 <p>9 0.75448829 <a title="1146-lsi-9" href="../high_scalability-2009/high_scalability-2009-02-03-Paper%3A_Optimistic_Replication.html">507 high scalability-2009-02-03-Paper: Optimistic Replication</a></p>
@@ -233,75 +138,44 @@ Because everything talks</p><p>6 0.83218902 <a title="1146-lsi-6" href="../high_
 <p>[(1, 0.125), (2, 0.191), (10, 0.048), (30, 0.012), (40, 0.03), (47, 0.027), (56, 0.011), (61, 0.091), (68, 0.182), (77, 0.02), (79, 0.103), (85, 0.037), (94, 0.015), (96, 0.015)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.89805037 <a title="1146-lda-1" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
-<p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><p>2 0.8851769 <a title="1146-lda-2" href="../high_scalability-2012/high_scalability-2012-03-09-Stuff_The_Internet_Says_On_Scalability_For_March_9%2C_2012.html">1206 high scalability-2012-03-09-Stuff The Internet Says On Scalability For March 9, 2012</a></p>
-<p>Introduction: You've Got Questions We've Got HighScalability:1 trillion bits per second:
-IBM's Holey Optochip;Scale of the Universe: 2;Infinite wireless: Vortex radio
-waves; 105,000 Servers: Akamai.Quotable quotes:@CodingFabian: IaaS = Ops
-without Hardware; PaaS = Devs without Ops; SaaS = Business without
-Devs@audaciouslife: While I was away 90K signed on MT @akfirat One course, 90K
-students. Talk about scalability in education @dthume: "Fault tolerance
-implies scalability" - Joe Armstrong, @jessiekeck: Looks like my local bar
-takes the same approach to scalability with their paper towels as I do w/
-software. http://pic.twitter.com/DTL2W1eC@neil_conway: Weird: network locality
-is no longer important within a DC and yet communication predicted to dominate
-computation cost in manycore CPUs@coda: You don't "beat the CAP theorem". You
-"build distributed systems that don't suck miserably". At best.@drunkcod:
-"programmers know the benefits of everything but the trade-offs of nothing"
-The problem with soft</p><p>3 0.86660999 <a title="1146-lda-3" href="../high_scalability-2011/high_scalability-2011-04-20-Packet_Pushers%3A_How_to_Build_a_Low_Cost_Data_Center.html">1027 high scalability-2011-04-20-Packet Pushers: How to Build a Low Cost Data Center</a></p>
-<p>Introduction: The main thrust of the Packet Pushers Show 41 episode was to reveal and
-ruminate over the horrors of a successfulattack on RSA, which puts the whole
-world security complex at risk. Near the end, at about 46 minutes in, there
-was an excellent section on how to go about building out a low cost
-datacenter.Who cares? Well, someone emailed me this exact same question awhile
-back and I had a pretty useless response. So here's making up for that by
-summarizing the recommendations from the elite Packet Pushers cabal: Look at
-Arista and Juniper. JuniperHas a range of stackable switches, which includes
-some 10 gig.If your budget can stretch for it they might make a good deal on
-their new QFX proto-fabric product. You can't get a full sized fabric
-solution, but you can get a few switches together to make a two port fabric.
-Good solution if you are running 10 gig and only need 30 or 40 10 gig ports.
-Thinks Juniper would make a good deal in order to get a few reference sites
-for QFX.Arista Networks</p><p>4 0.85267502 <a title="1146-lda-4" href="../high_scalability-2007/high_scalability-2007-10-16-How_Scalable_are_Single_Page_Ajax_Apps%3F.html">124 high scalability-2007-10-16-How Scalable are Single Page Ajax Apps?</a></p>
-<p>Introduction: I've been using GWT for an application and I get the same feeling using it
-that I first got using html. I've always sucked at building UIs. Starting with
-programming HP terminals, moving on to the Apple Lisa, then X Windows, and
-Microsoft Windows, I just never had IT, whatever IT is. On the Beauty and the
-Geek scale my interfaces are definitely horned-rimmed and pocket protector
-friendly. Html helped free me from all that to just build stuff that worked,
-but didn't have to look all that great. Expectations were pretty low and I
-eagerly fulfilled them. With Ajax expectations have risen again and I find
-myself once more easily identifiable as a styless geek. Using GWT I have some
-hopes I can suck a little less.In working with GWT I was so focussed on its
-tasty easily digestible Ajaxy goodness, I didn't stop to think about the topic
-of this site: scalability. When I finally brought my distracted mind around to
-consider the scalability of the single page webs site I was building, I became</p><p>5 0.83974046 <a title="1146-lda-5" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
-<p>Introduction: Here are a few updates on the articlePaper: Don't Settle For Eventual:
-Scalable Causal Consistency For Wide-Area Storage With COPS from Mike Freedman
-and Wyatt Lloyd.Q: How software architectures could change in response to
-casual+ consistency?A: I don't really think they would much. Somebody would
-still run a two-tier architecture in their datacenter:  a front-tier of
-webservers running both (say) PHP and our client library, and a back tier of
-storage nodes running COPS.  (I'm not sure if it was obvious given the
-discussion of our "thick" client -- you should think of the COPS client
-dropping in where a memcache client library does...albeit ours has per-session
-state.) Q: Why not just use vector clocks?A: The problem with vector clocks
-and scalability has always been that the size of vector clocks in O(N), where
-N is the number of nodes.  So if we want to scale to a datacenter with 10K
-nodes, each piece of metadata must have size O(10K).  And in fact, vector
-clocks alone only allow yo</p><p>6 0.83023673 <a title="1146-lda-6" href="../high_scalability-2013/high_scalability-2013-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_30%2C_2013.html">1509 high scalability-2013-08-30-Stuff The Internet Says On Scalability For August 30, 2013</a></p>
+<p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><p>2 0.8851769 <a title="1146-lda-2" href="../high_scalability-2012/high_scalability-2012-03-09-Stuff_The_Internet_Says_On_Scalability_For_March_9%2C_2012.html">1206 high scalability-2012-03-09-Stuff The Internet Says On Scalability For March 9, 2012</a></p>
+<p>Introduction: You've Got Questions We've Got HighScalability:
+  
+  1 trillion bits per second : IBM’s Holey Optochip;  Scale of the Universe : 2;  Infinite wireless : Vortex radio waves;  105,000 Servers : Akamai. 
+ Quotable quotes:                                 
+ 
+  @CodingFabian : IaaS = Ops without Hardware; PaaS = Devs without Ops; SaaS = Business without Devs 
+  @audaciouslife : While I was away 90K signed on MT @akfirat One course, 90K students. Talk about scalability in education  
+  @dthume : "Fault tolerance implies scalability" - Joe Armstrong,  
+  @jessiekeck : Looks like my local bar takes the same approach to scalability with their paper towels as I do w/ software. http://pic.twitter.com/DTL2W1eC 
+  @neil_conway : Weird: network locality is no longer important within a DC and yet communication predicted to dominate computation cost in manycore CPUs 
+  @coda : You don't "beat the CAP theorem". You "build distributed systems that don't suck miserably". At best. 
+  @drunkcod : "programme</p><p>3 0.86660999 <a title="1146-lda-3" href="../high_scalability-2011/high_scalability-2011-04-20-Packet_Pushers%3A_How_to_Build_a_Low_Cost_Data_Center.html">1027 high scalability-2011-04-20-Packet Pushers: How to Build a Low Cost Data Center</a></p>
+<p>Introduction: The main thrust of the Packet Pushers  Show 41  episode was to reveal and ruminate over the horrors of a successful  attack on RSA , which puts the whole world security complex at risk. Near the end, at about 46 minutes in, there was an excellent section on how to go about building out a low cost datacenter.
+ 
+Who cares? Well, someone emailed me this exact same question awhile back and I had a pretty useless response. So here's making up for that by summarizing the recommendations from the elite Packet Pushers cabal:
+ 
+ 
+  
+ Look at Arista and Juniper.  
+ Juniper           
+ 
+ Has a range of stackable switches, which includes some 10 gig. 
+ If your budget can stretch for it they might make a good deal on their new QFX proto-fabric product. You can't get a full sized fabric solution, but you can get a few switches together to make a two port fabric. Good solution if you are running 10 gig and only need 30 or 40 10 gig ports. Thinks Juniper would make a good deal in order to get a few re</p><p>4 0.85267502 <a title="1146-lda-4" href="../high_scalability-2007/high_scalability-2007-10-16-How_Scalable_are_Single_Page_Ajax_Apps%3F.html">124 high scalability-2007-10-16-How Scalable are Single Page Ajax Apps?</a></p>
+<p>Introduction: I've been using GWT for an application and I get the same feeling using it that I first got using html. I've always sucked at building UIs. Starting with programming HP terminals, moving on to the Apple Lisa, then X Windows, and Microsoft Windows, I just never had IT, whatever IT is. On the Beauty and the Geek scale my interfaces are definitely horned-rimmed and pocket protector friendly. Html helped free me from all that to just build stuff that worked, but didn't have to look all that great. Expectations were pretty low and I eagerly fulfilled them. With Ajax expectations have risen again and I find myself once more easily identifiable as a styless geek. Using GWT I have some hopes I can suck a little less.     In working with GWT I was so focussed on its tasty easily digestible Ajaxy goodness, I didn't stop to think about the topic of this site: scalability. When I finally brought my distracted mind around to consider the scalability of the single page webs site I was building, I be</p><p>5 0.83974046 <a title="1146-lda-5" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
+<p>Introduction: Here are a few updates on the article  Paper: Don’t Settle For Eventual: Scalable Causal Consistency For Wide-Area Storage With COPS  from Mike Freedman and Wyatt Lloyd.
+ 
+ Q: How software architectures could change in response to casual+ consistency? 
+ 
+ A : I don't really think they would much. Somebody would still run a two-tier architecture in their datacenter:  a front-tier of webservers running both (say) PHP and our client library, and a back tier of storage nodes running COPS.  (I'm not sure if it was obvious given the discussion of our "thick" client -- you should think of the COPS client dropping in where a memcache client library does...albeit ours has per-session state.)
+ 
+ 
+ 
+ Q: Why not just use vector clocks? 
+ 
+ A : The problem with vector clocks and scalability has always been that the size of vector clocks in O(N), where N is the number of nodes.  So if we want to scale to a datacenter with 10K nodes, each piece of metadata must have size O(10K).  And in fact, vector</p><p>6 0.83023673 <a title="1146-lda-6" href="../high_scalability-2013/high_scalability-2013-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_30%2C_2013.html">1509 high scalability-2013-08-30-Stuff The Internet Says On Scalability For August 30, 2013</a></p>
 <p>7 0.82574677 <a title="1146-lda-7" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
 <p>8 0.82457972 <a title="1146-lda-8" href="../high_scalability-2014/high_scalability-2014-02-21-Stuff_The_Internet_Says_On_Scalability_For_February_21st%2C_2014.html">1600 high scalability-2014-02-21-Stuff The Internet Says On Scalability For February 21st, 2014</a></p>
 <p>9 0.82370406 <a title="1146-lda-9" href="../high_scalability-2007/high_scalability-2007-08-02-Product%3A_Mashery.html">55 high scalability-2007-08-02-Product: Mashery</a></p>

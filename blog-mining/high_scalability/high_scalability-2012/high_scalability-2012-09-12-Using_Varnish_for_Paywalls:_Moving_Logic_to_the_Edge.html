@@ -16,38 +16,33 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1321 high scalability-2012-09-12-Using Varnish for Paywalls: Moving Logic to the Edge</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1321-html" href="http://highscalability.com//blog/2012/9/12/using-varnish-for-paywalls-moving-logic-to-the-edge.html">html</a></p><p>Introduction: This is a guest post fromPer Buer, founder and CEO of Varnish Software,
-provider of Varnish Cache, an open source web application accelerator freely
-available at varnish-cache.org. Varnish powers a lot of really big websites
-worldwide.We at Varnish Software are all about speed. Varnish Cache is built
-for speed. It executes its policy code more or less a thousand times faster
-than your typical Java or PHP based application servers, mostly due to the
-fact that the configuration is compiled into system call free machine
-code.System calls require expensive context switches, stall the CPU and wreck
-havoc in the CPU cache so avoiding them makes the code fly. There are strong
-limitations on what kind of logic you can move into Varnish Cache, but the
-logic that you do move there will run very fast.An example is using Varnish
-for access control to serve access controlled content from the caching edge
-layer.The Varnish PaywallWho gets to access your content? In a traditional
-environment the cach</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This is a guest post fromPer Buer, founder and CEO of Varnish Software, provider of Varnish Cache, an open source web application accelerator freely available at varnish-cache. [sent-1, score-0.199]
-</p><p>2 It executes its policy code more or less a thousand times faster than your typical Java or PHP based application servers, mostly due to the fact that the configuration is compiled into system call free machine code. [sent-6, score-0.131]
-</p><p>3 System calls require expensive context switches, stall the CPU and wreck havoc in the CPU cache so avoiding them makes the code fly. [sent-7, score-0.396]
-</p><p>4 There are strong limitations on what kind of logic you can move into Varnish Cache, but the logic that you do move there will run very fast. [sent-8, score-0.174]
-</p><p>5 An example is using Varnish for access control to serve access controlled content from the caching edge layer. [sent-9, score-0.87]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1321-html" href="http://highscalability.com//blog/2012/9/12/using-varnish-for-paywalls-moving-logic-to-the-edge.html">html</a></p><p>Introduction: This is a guest post from  Per Buer , founder and CEO of  Varnish Software , provider of Varnish Cache, an open source web application accelerator freely available at  varnish-cache.org . Varnish powers a lot of really big websites worldwide. 
+ 
+We at  Varnish Software  are all about speed. Varnish Cache is built for speed. It executes its policy code more or less a thousand times faster than your typical Java or PHP based application servers, mostly due to the fact that the configuration is compiled into system call free machine code.
+ 
+System calls require expensive context switches, stall the CPU and wreck havoc in the CPU cache so avoiding them makes the code fly. There are strong limitations on what kind of logic you can move into Varnish Cache, but the logic that you do move there will run very fast.
+ 
+An example is using Varnish for access control to  serve access controlled content from the caching edge layer. 
+  The Varnish Paywall  
+Who gets to access your content? In a tradi</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This is a guest post from  Per Buer , founder and CEO of  Varnish Software , provider of Varnish Cache, an open source web application accelerator freely available at  varnish-cache. [sent-1, score-0.199]
+</p><p>2 System calls require expensive context switches, stall the CPU and wreck havoc in the CPU cache so avoiding them makes the code fly. [sent-7, score-0.396]
+</p><p>3 There are strong limitations on what kind of logic you can move into Varnish Cache, but the logic that you do move there will run very fast. [sent-8, score-0.174]
+</p><p>4 An example is using Varnish for access control to  serve access controlled content from the caching edge layer. [sent-9, score-0.87]
+</p><p>5 The Varnish Paywall   Who gets to access your content? [sent-10, score-0.232]
 </p><p>6 In a traditional environment the caching layer only serves up pieces of content without giving any thought to who gets access to it. [sent-11, score-0.533]
 </p><p>7 Since the rules governing access control can be rather complex these rules have traditionally been implemented in the application server, which is slow. [sent-12, score-0.625]
-</p><p>8 We've seen companies struggle with performance as they suddenly have to revert to serving content from their application layer again. [sent-13, score-0.379]
+</p><p>8 We’ve seen companies struggle with performance as they suddenly have to revert to serving content from their application layer again. [sent-13, score-0.379]
 </p><p>9 With a bit of effort and some open source magic you can have your lunch and eat it too: serve access controlled content from the caching edge layer. [sent-14, score-0.833]
-</p><p>10 One would be aheadercoming from the origin server indicating that this piece of information is under access control, maybe X-Access-Control. [sent-17, score-0.418]
+</p><p>10 One would be a  header  coming from the origin server indicating that this piece of information is under access control, maybe X-Access-Control. [sent-17, score-0.415]
 </p><p>11 If the header is present Varnish would then check whether the user is logged in or not, using a cookie. [sent-18, score-0.179]
 </p><p>12 This cookie would be set by an authentication service, and if you are worried about users cheating you could secure it by signing the cookie cryptographically. [sent-19, score-0.804]
-</p><p>13 It's possible, but not recommended to implement the actual authentication in Varnish itself using modules to access data in a database or another data source. [sent-20, score-0.321]
+</p><p>13 It’s possible, but not recommended to implement the actual authentication in Varnish itself using modules to access data in a database or another data source. [sent-20, score-0.321]
 </p><p>14 Authenticated access is not the only option, you might also want to limit access to say 5 articles per user per week. [sent-22, score-0.358]
 </p><p>15 If so, you would store the read article count in a signed cookie or a NoSQL database like Redis or MemcacheDB. [sent-23, score-0.353]
 </p><p>16 To do this you extend Varnish through the use of a Varnish Module as VCL itself lacks flow control structures such as for loops. [sent-24, score-0.145]
-</p><p>17 You could just check for the presence of a certain value in a cookie and you've proven the concept. [sent-28, score-0.285]
+</p><p>17 You could just check for the presence of a certain value in a cookie and you’ve proven the concept. [sent-28, score-0.285]
 </p><p>18 The more advanced controls will require more effort, maybe a week or two of work, depending on the complexity. [sent-29, score-0.164]
-</p><p>19 CautionBe wary when moving logic away from your application servers. [sent-30, score-0.25]
+</p><p>19 Caution   Be wary when moving logic away from your application servers. [sent-30, score-0.25]
 </p><p>20 In some organization the edge cache is considered infrastructure and not part of the web application and handled by different teams. [sent-32, score-0.302]
 </p>
 <br/>
@@ -55,75 +50,47 @@ environment the cach</p><br/><h2>Summary: the most important sentenses genereted
 <p>[('varnish', 0.7), ('cookie', 0.227), ('vmod', 0.183), ('access', 0.179), ('https', 0.174), ('cache', 0.114), ('content', 0.11), ('edge', 0.108), ('effort', 0.101), ('controlled', 0.095), ('authentication', 0.089), ('logic', 0.087), ('wreck', 0.083), ('wary', 0.083), ('governing', 0.083), ('pieces', 0.08), ('control', 0.08), ('application', 0.08), ('rules', 0.075), ('cheating', 0.075), ('havoc', 0.075), ('stall', 0.072), ('struggle', 0.07), ('lunch', 0.07), ('revert', 0.066), ('signing', 0.065), ('guidelines', 0.065), ('messy', 0.065), ('lacks', 0.065), ('would', 0.064), ('indicating', 0.063), ('signed', 0.062), ('serve', 0.061), ('freely', 0.061), ('maybe', 0.06), ('accelerator', 0.058), ('caching', 0.058), ('check', 0.058), ('worried', 0.057), ('official', 0.057), ('header', 0.057), ('traditionally', 0.053), ('gets', 0.053), ('recommended', 0.053), ('layer', 0.053), ('require', 0.052), ('origin', 0.052), ('controls', 0.052), ('compiled', 0.051), ('eat', 0.051)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999982 <a title="1321-tfidf-1" href="../high_scalability-2012/high_scalability-2012-09-12-Using_Varnish_for_Paywalls%3A_Moving_Logic_to_the_Edge.html">1321 high scalability-2012-09-12-Using Varnish for Paywalls: Moving Logic to the Edge</a></p>
-<p>Introduction: This is a guest post fromPer Buer, founder and CEO of Varnish Software,
-provider of Varnish Cache, an open source web application accelerator freely
-available at varnish-cache.org. Varnish powers a lot of really big websites
-worldwide.We at Varnish Software are all about speed. Varnish Cache is built
-for speed. It executes its policy code more or less a thousand times faster
-than your typical Java or PHP based application servers, mostly due to the
-fact that the configuration is compiled into system call free machine
-code.System calls require expensive context switches, stall the CPU and wreck
-havoc in the CPU cache so avoiding them makes the code fly. There are strong
-limitations on what kind of logic you can move into Varnish Cache, but the
-logic that you do move there will run very fast.An example is using Varnish
-for access control to serve access controlled content from the caching edge
-layer.The Varnish PaywallWho gets to access your content? In a traditional
-environment the cach</p><p>2 0.47925112 <a title="1321-tfidf-2" href="../high_scalability-2011/high_scalability-2011-02-28-A_Practical_Guide_to_Varnish_-_Why_Varnish_Matters.html">996 high scalability-2011-02-28-A Practical Guide to Varnish - Why Varnish Matters</a></p>
-<p>Introduction: This is a guest post byJeff Sufrom Factual.What is Varnish?Varnishis an open
-source, high performance http accelerator that sits in front of a web stack
-and caches pages.  This caching layer is very configurable and can be used for
-both static and dynamic content.One great thing about Varnish is that it can
-improve the performance of your website without requiring any code changes.
-If you haven't heard of Varnish (or have heard of it, but haven't used it),
-please read on.  Adding Varnish to your stack can be completely noninvasive,
-but if you tweak your stack to play along with some of varnish's more advanced
-features, you'll be able to increase performance by orders of magnitude.Some
-of the high profile companies using Varnish include: Twitter, Facebook, Heroku
-and LinkedIn.Our Use CaseOne of Factual's first high profile projects was
-Newsweek's "America's Best High Schools: The List". After realizing that we
-had only a few weeks to increase our throughput by tenfold, we looked into a</p><p>3 0.19428708 <a title="1321-tfidf-3" href="../high_scalability-2013/high_scalability-2013-07-03-5_Rockin%27_Tips_for_Scaling_PHP_to_30%2C000_Concurrent_Users_Per_Server.html">1486 high scalability-2013-07-03-5 Rockin' Tips for Scaling PHP to 30,000 Concurrent Users Per Server</a></p>
-<p>Introduction: Jonathan Block, CTO atRockThePost.com, a crowdfunding company, haswritten a
-nice set of tipsfor smaller sites on how to scale a service on EC2 using a
-small two person development team. Their service has a typical small scale
-structure:PHP's Zend Framework 2Two m1.medium for web serversELB to split the
-loadmaster/slave MySQL databaseSiege for load testingThe very sensible tips
-that can handle 30,000 concurrent users per web server: Use PHP's APC feature.
-APC is opcode cache that is "really a requirement in order for a website to
-have a chance at performing well."Put everything that's not a .php request on
-a CDN. Don't serve static files from your web server. They put everything on
-S3 and use CloudFront as their CDN. Recent CloudFront problems have caused
-them to serve directly from S3.Don't make connections to other servers in your
-PHP code. Making connections to other servers blocks the server and slows down
-processing. Use the APC key/value store for data storage and Varnish for
-cach</p><p>4 0.16850686 <a title="1321-tfidf-4" href="../high_scalability-2008/high_scalability-2008-02-13-What%27s_your_scalability_plan%3F.html">248 high scalability-2008-02-13-What's your scalability plan?</a></p>
-<p>Introduction: How do you plan to scale your system as you reach predictable milestones? This
-topic came up in another venue and it reminded me about a great comment an
-Anonymous wrote a while ago and I wanted to make sure that comment didn't get
-lost.The Anonymous scaling plan was relatively simple and direct:My two cents
-on what I'm using to start a website from scratch using a single server for
-now. Later, I'll scale out horizontally when the need arises.Phase
-1breakSingle Server, Dual Quad-Core 2.66, 8gb RAM, 500gb Disk Raid 10OS:
-Fedora 8. You could go with pretty much any Linux though. I like Fedora 8 best
-for servers.Proxy Cache: Varnish - it is way faster than Squid per my own
-benchmarks. Squid chokes bigtime.Web Server: Lighttpd - faster than Apache 2
-and easier to configure for me.Object Cache: Memcached. Very scalable.PHP
-Cache: APC. Easy to configure and seems to work fine.Language: PHP 5 - no
-bloated frameworks, waste of time for me. You spend too much time trying to
-figure out the frame</p><p>5 0.16380179 <a title="1321-tfidf-5" href="../high_scalability-2010/high_scalability-2010-09-28-6_Strategies_for_Scaling_BBC_iPlayer.html">908 high scalability-2010-09-28-6 Strategies for Scaling BBC iPlayer</a></p>
-<p>Introduction: The BBC's iPlayer site averages 8 million page views a day for 1.3 million
-users. Technical Architect Simon Frost describes how they scaled their site
-inScaling the BBC iPlayer to handle demand:Use frameworks. Frameworks support
-component based development which makes it convenient for team development,
-but can introduce delays that have to be minimized. Zend/PHP is used because
-it supports components and is easy to recruit for.  MySQL is used for program
-metadata. CouchDB is used for key-value access for fast read/write of user-
-focused data.Prove architecture before building it. Eliminate guesswork by
-coming up with alternate architectures and create prototypes to determine
-which option works best. Balance performance with factors like ease of
-development.Cache a lot. Data is cached in memcached for a few seconds to
-minutes. Short cache invalidation periods keep the data up to date for the
-users, but even these short periods make a huge difference in performance.
-Caching doesn't have</p><p>6 0.15694256 <a title="1321-tfidf-6" href="../high_scalability-2012/high_scalability-2012-02-16-A_Short_on_the_Pinterest_Stack_for_Handling_3%2B_Million_Users.html">1193 high scalability-2012-02-16-A Short on the Pinterest Stack for Handling 3+ Million Users</a></p>
+<p>Introduction: This is a guest post from  Per Buer , founder and CEO of  Varnish Software , provider of Varnish Cache, an open source web application accelerator freely available at  varnish-cache.org . Varnish powers a lot of really big websites worldwide. 
+ 
+We at  Varnish Software  are all about speed. Varnish Cache is built for speed. It executes its policy code more or less a thousand times faster than your typical Java or PHP based application servers, mostly due to the fact that the configuration is compiled into system call free machine code.
+ 
+System calls require expensive context switches, stall the CPU and wreck havoc in the CPU cache so avoiding them makes the code fly. There are strong limitations on what kind of logic you can move into Varnish Cache, but the logic that you do move there will run very fast.
+ 
+An example is using Varnish for access control to  serve access controlled content from the caching edge layer. 
+  The Varnish Paywall  
+Who gets to access your content? In a tradi</p><p>2 0.47925112 <a title="1321-tfidf-2" href="../high_scalability-2011/high_scalability-2011-02-28-A_Practical_Guide_to_Varnish_-_Why_Varnish_Matters.html">996 high scalability-2011-02-28-A Practical Guide to Varnish - Why Varnish Matters</a></p>
+<p>Introduction: This is a guest post by  Jeff Su  from Factual. 
+ 
+ 
+  What is Varnish?  
+ Varnish  is an open source, high performance http accelerator that sits in front of a web stack and caches pages.  This caching layer is very configurable and can be used for both static and dynamic content.
+ 
+One great thing about Varnish is that it can improve the performance of your website without requiring any code changes.  If you haven’t heard of Varnish (or have heard of it, but haven’t used it), please read on.  Adding Varnish to your stack can be completely noninvasive, but if you tweak your stack to play along with some of varnish’s more advanced features, you’ll be able to increase performance by orders of magnitude.
+ 
+Some of the high profile companies using Varnish include:  Twitter ,  Facebook ,  Heroku  and  LinkedIn .
+  Our Use Case  
+One of Factual’s first high profile projects was  Newsweek’s “America’s Best High Schools: The List” . After realizing that we had only a few weeks to increase our</p><p>3 0.19428708 <a title="1321-tfidf-3" href="../high_scalability-2013/high_scalability-2013-07-03-5_Rockin%27_Tips_for_Scaling_PHP_to_30%2C000_Concurrent_Users_Per_Server.html">1486 high scalability-2013-07-03-5 Rockin' Tips for Scaling PHP to 30,000 Concurrent Users Per Server</a></p>
+<p>Introduction: Jonathan Block , CTO at  RockThePost.com , a crowdfunding company, has  written a nice set of tips  for smaller sites on how to scale a service on EC2 using a small two person development team. 
+ 
+Their service has a typical small scale structure:
+  
+ PHP's Zend Framework 2 
+ Two m1.medium for web servers 
+ ELB to split the load 
+ master/slave MySQL database 
+ Siege for load testing 
+  
+The very sensible tips that can handle 30,000 concurrent users per web server: 
+  
+  Use PHP's APC feature . APC is opcode cache that is " really a requirement in order for a website to have a chance at performing well."  
+  Put everything that's not a .php request on a CDN . Don't serve static files from your web server. They put everything on S3 and use CloudFront as their CDN. Recent CloudFront problems have caused them to serve directly from S3. 
+  Don't make connections to other servers in your PHP code . Making connections to other servers blocks the server and slows down processing. Use the APC k</p><p>4 0.16850686 <a title="1321-tfidf-4" href="../high_scalability-2008/high_scalability-2008-02-13-What%27s_your_scalability_plan%3F.html">248 high scalability-2008-02-13-What's your scalability plan?</a></p>
+<p>Introduction: How do you plan to scale your system as you reach predictable milestones? This topic came up in another venue and it reminded me about a great comment an Anonymous wrote a while ago and I wanted to make sure that comment didn't get lost.      The Anonymous scaling plan was relatively simple and direct:    My two cents on what I'm using to start a website from scratch using a single server for now. Later, I'll scale out horizontally when the need arises.   Phase 1            Single Server, Dual Quad-Core 2.66, 8gb RAM, 500gb Disk Raid 10   OS: Fedora 8. You could go with pretty much any Linux though. I like Fedora 8 best for servers.   Proxy Cache: Varnish - it is way faster than Squid per my own benchmarks. Squid chokes bigtime.   Web Server: Lighttpd - faster than Apache 2 and easier to configure for me.   Object Cache: Memcached. Very scalable.   PHP Cache: APC. Easy to configure and seems to work fine.   Language: PHP 5 - no bloated frameworks, waste of time for me. You spend too mu</p><p>5 0.16380179 <a title="1321-tfidf-5" href="../high_scalability-2010/high_scalability-2010-09-28-6_Strategies_for_Scaling_BBC_iPlayer.html">908 high scalability-2010-09-28-6 Strategies for Scaling BBC iPlayer</a></p>
+<p>Introduction: The BBC's iPlayer site averages 8 million page views a day for 1.3 million users. Technical Architect Simon Frost describes how they scaled their site in   Scaling the BBC iPlayer to handle demand :
+  
+  Use frameworks . Frameworks support component based development which makes it convenient for team development, but can introduce delays that have to be minimized. Zend/PHP is used because it supports components and is easy to recruit for.Â  MySQL is used for program metadata. CouchDB is used for key-value access for fast read/write of user-focused data. 
+  Prove architecture before building it . Eliminate guesswork by coming up with alternate architectures and create prototypes to determine which option works best. Balance performance with factors like ease of development.  
+  Cache a lot . Data is cached in memcached for a few seconds to minutes. Short cache invalidation periods keep the data up to date for the users, but even these short periods make a huge difference in performance.</p><p>6 0.15694256 <a title="1321-tfidf-6" href="../high_scalability-2012/high_scalability-2012-02-16-A_Short_on_the_Pinterest_Stack_for_Handling_3%2B_Million_Users.html">1193 high scalability-2012-02-16-A Short on the Pinterest Stack for Handling 3+ Million Users</a></p>
 <p>7 0.13684914 <a title="1321-tfidf-7" href="../high_scalability-2009/high_scalability-2009-09-17-Hot_Links_for_2009-9-17_.html">707 high scalability-2009-09-17-Hot Links for 2009-9-17 </a></p>
 <p>8 0.13354626 <a title="1321-tfidf-8" href="../high_scalability-2014/high_scalability-2014-02-17-How_the_AOL.com_Architecture_Evolved_to_99.999%25_Availability%2C_8_Million_Visitors_Per_Day%2C_and_200%2C000_Requests_Per_Second.html">1597 high scalability-2014-02-17-How the AOL.com Architecture Evolved to 99.999% Availability, 8 Million Visitors Per Day, and 200,000 Requests Per Second</a></p>
 <p>9 0.13003871 <a title="1321-tfidf-9" href="../high_scalability-2008/high_scalability-2008-03-29-20_New_Rules_for_Faster_Web_Pages.html">291 high scalability-2008-03-29-20 New Rules for Faster Web Pages</a></p>
@@ -143,72 +110,39 @@ Caching doesn't have</p><p>6 0.15694256 <a title="1321-tfidf-6" href="../high_sc
 <p>[(0, 0.156), (1, 0.058), (2, -0.014), (3, -0.101), (4, 0.009), (5, -0.009), (6, 0.005), (7, -0.011), (8, -0.041), (9, 0.017), (10, -0.015), (11, -0.008), (12, -0.028), (13, 0.024), (14, -0.065), (15, -0.027), (16, -0.009), (17, -0.035), (18, 0.024), (19, -0.109), (20, -0.085), (21, 0.019), (22, 0.037), (23, 0.006), (24, -0.003), (25, 0.085), (26, 0.008), (27, 0.013), (28, -0.021), (29, -0.031), (30, -0.063), (31, 0.038), (32, -0.027), (33, 0.028), (34, -0.036), (35, 0.026), (36, -0.031), (37, 0.038), (38, 0.017), (39, 0.021), (40, -0.061), (41, -0.012), (42, -0.029), (43, -0.01), (44, -0.044), (45, 0.03), (46, -0.038), (47, 0.01), (48, -0.034), (49, -0.026)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95104736 <a title="1321-lsi-1" href="../high_scalability-2012/high_scalability-2012-09-12-Using_Varnish_for_Paywalls%3A_Moving_Logic_to_the_Edge.html">1321 high scalability-2012-09-12-Using Varnish for Paywalls: Moving Logic to the Edge</a></p>
-<p>Introduction: This is a guest post fromPer Buer, founder and CEO of Varnish Software,
-provider of Varnish Cache, an open source web application accelerator freely
-available at varnish-cache.org. Varnish powers a lot of really big websites
-worldwide.We at Varnish Software are all about speed. Varnish Cache is built
-for speed. It executes its policy code more or less a thousand times faster
-than your typical Java or PHP based application servers, mostly due to the
-fact that the configuration is compiled into system call free machine
-code.System calls require expensive context switches, stall the CPU and wreck
-havoc in the CPU cache so avoiding them makes the code fly. There are strong
-limitations on what kind of logic you can move into Varnish Cache, but the
-logic that you do move there will run very fast.An example is using Varnish
-for access control to serve access controlled content from the caching edge
-layer.The Varnish PaywallWho gets to access your content? In a traditional
-environment the cach</p><p>2 0.91902119 <a title="1321-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-28-A_Practical_Guide_to_Varnish_-_Why_Varnish_Matters.html">996 high scalability-2011-02-28-A Practical Guide to Varnish - Why Varnish Matters</a></p>
-<p>Introduction: This is a guest post byJeff Sufrom Factual.What is Varnish?Varnishis an open
-source, high performance http accelerator that sits in front of a web stack
-and caches pages.  This caching layer is very configurable and can be used for
-both static and dynamic content.One great thing about Varnish is that it can
-improve the performance of your website without requiring any code changes.
-If you haven't heard of Varnish (or have heard of it, but haven't used it),
-please read on.  Adding Varnish to your stack can be completely noninvasive,
-but if you tweak your stack to play along with some of varnish's more advanced
-features, you'll be able to increase performance by orders of magnitude.Some
-of the high profile companies using Varnish include: Twitter, Facebook, Heroku
-and LinkedIn.Our Use CaseOne of Factual's first high profile projects was
-Newsweek's "America's Best High Schools: The List". After realizing that we
-had only a few weeks to increase our throughput by tenfold, we looked into a</p><p>3 0.76438564 <a title="1321-lsi-3" href="../high_scalability-2013/high_scalability-2013-01-30-Better_Browser_Caching_is_More_Important_than_No_Javascript_or_Fast_Networks_for_HTTP_Performance.html">1396 high scalability-2013-01-30-Better Browser Caching is More Important than No Javascript or Fast Networks for HTTP Performance</a></p>
-<p>Introduction: Performance guruSteve Souders gave his keynote presentation, Cache is King!
-(slides), at the HTML5DevCon, besides being an extremely clear explanation of
-how caching works on the Internet and how to optimize your use of HTTP to get
-the best performance, Steve ran experiments that found some surprising results
-on what gave the best web site performance improvements.In his base line test,
-page loads took 7.65 seconds (median of three runs). What change--Fast
-Network, No Javascript, or Primed Cache--would make the biggest performance
-improvement? It was Primed Cache.Fast Network - Using a fast FIOS network the
-load time was 4.13 seconds. Steve was surprised how big a difference this
-made, given how much work must happen in the browser. No JavaScript - 4.74
-seconds after disabling JavaScript. Both reduces transfers and skips parsing
-by the browser. Steve thought the effect would have been larger.Primed Cache-
-3.46 seconds using a warm cache, less than half than the empty cache page view
-ti</p><p>4 0.74190074 <a title="1321-lsi-4" href="../high_scalability-2009/high_scalability-2009-08-07-Strategy%3A_Break_Up_the_Memcache_Dog_Pile_.html">673 high scalability-2009-08-07-Strategy: Break Up the Memcache Dog Pile </a></p>
-<p>Introduction: Update:AsynchronousHTTP cache validations. A proposed HTTP caching
-extension:if your application can afford to show slightly out of date content,
-then stale-while-revalidate can guarantee that the user will always be served
-directly from the cache, hence guaranteeing a consistent response-time user-
-experience.Caching is like aspirin for headaches. Head hurts: pop a 'sprin.
-Slow site: add caching.Facebookmust have a lot of headaches because they
-popped 805 memcached servers between 10,000 web servers and 1,800 MySQL
-servers and they reportedly have a 99% cache hit rate. But what's the best way
-for you to cache for your application? It's a remarkably complex and rich
-topic. Alexey Kovyrin talks about one common caching problem called theDog
-PileEffectinDog-pile Effect and How to Avoid it with Ruby on Rails. Glenn
-Franxman also has a Django solution inMintCache.Data is usually cached because
-it's too expensive to calculate for every hit. Maybe it's a gnarly SQL query
-you want to avoid an</p><p>5 0.722215 <a title="1321-lsi-5" href="../high_scalability-2010/high_scalability-2010-06-04-Strategy%3A_Cache_Larger_Chunks_-_Cache_Hit_Rate_is_a_Bad_Indicator.html">836 high scalability-2010-06-04-Strategy: Cache Larger Chunks - Cache Hit Rate is a Bad Indicator</a></p>
-<p>Introduction: Isn't the secret to fast, scalable websites tocache everything? Caching, if
-not thesecret sauceof many a website, is it at least a popular condiment. But
-not so fast says Peter Zaitsev inBeyond great cache hit ratio. The point Peter
-makes is that we read about websites likeAmazonandFacebook that can literally
-make hundreds of calls to satisfy a user request. Even if you have an awesome
-cache hit ratio, pages can still be slow because making and processing all
-those requests takes time. The solution is toremove requests all together. You
-do this bycaching larger blocksso you have to make fewer requests. The post
-has a lot of good advice worth reading: 1) Make non cacheable blocks as small
-as possible, 2) Maximize amount of uses of the cache item, 3) Control
-invalidation, 4) Multi-Get.</p><p>6 0.71985614 <a title="1321-lsi-6" href="../high_scalability-2008/high_scalability-2008-07-20-Strategy%3A_Front_S3_with_a_Caching_Proxy.html">353 high scalability-2008-07-20-Strategy: Front S3 with a Caching Proxy</a></p>
+<p>Introduction: This is a guest post from  Per Buer , founder and CEO of  Varnish Software , provider of Varnish Cache, an open source web application accelerator freely available at  varnish-cache.org . Varnish powers a lot of really big websites worldwide. 
+ 
+We at  Varnish Software  are all about speed. Varnish Cache is built for speed. It executes its policy code more or less a thousand times faster than your typical Java or PHP based application servers, mostly due to the fact that the configuration is compiled into system call free machine code.
+ 
+System calls require expensive context switches, stall the CPU and wreck havoc in the CPU cache so avoiding them makes the code fly. There are strong limitations on what kind of logic you can move into Varnish Cache, but the logic that you do move there will run very fast.
+ 
+An example is using Varnish for access control to  serve access controlled content from the caching edge layer. 
+  The Varnish Paywall  
+Who gets to access your content? In a tradi</p><p>2 0.91902119 <a title="1321-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-28-A_Practical_Guide_to_Varnish_-_Why_Varnish_Matters.html">996 high scalability-2011-02-28-A Practical Guide to Varnish - Why Varnish Matters</a></p>
+<p>Introduction: This is a guest post by  Jeff Su  from Factual. 
+ 
+ 
+  What is Varnish?  
+ Varnish  is an open source, high performance http accelerator that sits in front of a web stack and caches pages.  This caching layer is very configurable and can be used for both static and dynamic content.
+ 
+One great thing about Varnish is that it can improve the performance of your website without requiring any code changes.  If you haven’t heard of Varnish (or have heard of it, but haven’t used it), please read on.  Adding Varnish to your stack can be completely noninvasive, but if you tweak your stack to play along with some of varnish’s more advanced features, you’ll be able to increase performance by orders of magnitude.
+ 
+Some of the high profile companies using Varnish include:  Twitter ,  Facebook ,  Heroku  and  LinkedIn .
+  Our Use Case  
+One of Factual’s first high profile projects was  Newsweek’s “America’s Best High Schools: The List” . After realizing that we had only a few weeks to increase our</p><p>3 0.76438564 <a title="1321-lsi-3" href="../high_scalability-2013/high_scalability-2013-01-30-Better_Browser_Caching_is_More_Important_than_No_Javascript_or_Fast_Networks_for_HTTP_Performance.html">1396 high scalability-2013-01-30-Better Browser Caching is More Important than No Javascript or Fast Networks for HTTP Performance</a></p>
+<p>Introduction: Performance guru  Steve Souders  gave his keynote presentation,  Cache is King!  ( slides ), at the HTML5DevCon, besides being an extremely clear explanation of how caching works on the Internet and how to optimize your use of HTTP to get the best performance, Steve ran experiments that found some surprising results on what gave the best web site performance improvements.
+ 
+In his base line test, page loads took 7.65 seconds (median of three runs). What change--Fast Network, No Javascript, or Primed Cache--would make the biggest performance improvement? It was Primed Cache.
+  
+ Fast Network - Using a fast FIOS network the load time was 4.13 seconds. Steve was surprised how big a difference this made, given how much work must happen in the browser.  
+ No JavaScript - 4.74 seconds after disabling JavaScript. Both reduces transfers and skips parsing by the browser. Steve thought the effect would have been larger. 
+  Primed Cache  - 3.46 seconds using a warm cache, less than half than the</p><p>4 0.74190074 <a title="1321-lsi-4" href="../high_scalability-2009/high_scalability-2009-08-07-Strategy%3A_Break_Up_the_Memcache_Dog_Pile_.html">673 high scalability-2009-08-07-Strategy: Break Up the Memcache Dog Pile </a></p>
+<p>Introduction: Update:  Asynchronous  HTTP cache validations . A proposed HTTP caching extension:  if your application can afford to show slightly out of date content, then stale-while-revalidate can guarantee that the user will always be served directly from the cache, hence guaranteeing a consistent response-time user-experience.   Caching is like aspirin for headaches. Head hurts: pop a 'sprin. Slow site: add caching.  Facebook  must have a lot of headaches because they popped 805 memcached servers between 10,000 web servers and 1,800 MySQL servers and they reportedly have a 99% cache hit rate. But what's the best way for you to cache for your application? It's a remarkably complex and rich topic. Alexey Kovyrin talks about one common caching problem called the   Dog Pile  Effect  in  Dog-pile Effect and How to Avoid it with Ruby on Rails . Glenn Franxman also has a Django solution in  MintCache .
+ 
+Data is usually cached because it's too expensive to calculate for every hit. Maybe it's a gnarly S</p><p>5 0.722215 <a title="1321-lsi-5" href="../high_scalability-2010/high_scalability-2010-06-04-Strategy%3A_Cache_Larger_Chunks_-_Cache_Hit_Rate_is_a_Bad_Indicator.html">836 high scalability-2010-06-04-Strategy: Cache Larger Chunks - Cache Hit Rate is a Bad Indicator</a></p>
+<p>Introduction: Isn't the secret to fast, scalable websites to  cache everything ? Caching, if not the  secret sauce  of many a website, is it at least a popular condiment. But not so fast says Peter Zaitsev in  Beyond great cache hit ratio . The point Peter makes is that we read about websites like  Amazon  and  Facebook  that can literally make hundreds of calls to satisfy a user request. Even if you have an awesome cache hit ratio, pages can still be slow because making and processing all those requests takes time. The solution is to  remove requests all together . You do this by  caching larger blocks  so you have to make fewer requests. 
+ 
+The post has a lot of good advice worth reading: 1) Make non cacheable blocks as small as possible, 2) Maximize amount of uses of the cache item, 3) Control invalidation, 4) Multi-Get.</p><p>6 0.71985614 <a title="1321-lsi-6" href="../high_scalability-2008/high_scalability-2008-07-20-Strategy%3A_Front_S3_with_a_Caching_Proxy.html">353 high scalability-2008-07-20-Strategy: Front S3 with a Caching Proxy</a></p>
 <p>7 0.70098597 <a title="1321-lsi-7" href="../high_scalability-2013/high_scalability-2013-02-06-Super_Bowl_Advertisers_Ready_for_the_Traffic%3F_Nope..It%27s_Lights_Out..html">1401 high scalability-2013-02-06-Super Bowl Advertisers Ready for the Traffic? Nope..It's Lights Out.</a></p>
 <p>8 0.69502652 <a title="1321-lsi-8" href="../high_scalability-2010/high_scalability-2010-09-30-More_Troubles_with_Caching.html">911 high scalability-2010-09-30-More Troubles with Caching</a></p>
 <p>9 0.69458556 <a title="1321-lsi-9" href="../high_scalability-2008/high_scalability-2008-07-29-Ehcache_-_A_Java_Distributed_Cache_.html">359 high scalability-2008-07-29-Ehcache - A Java Distributed Cache </a></p>
@@ -228,76 +162,19 @@ invalidation, 4) Multi-Get.</p><p>6 0.71985614 <a title="1321-lsi-6" href="../hi
 <p>[(1, 0.11), (2, 0.214), (10, 0.077), (30, 0.033), (32, 0.016), (40, 0.017), (47, 0.02), (61, 0.099), (77, 0.029), (79, 0.067), (94, 0.043), (99, 0.172)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.9602263 <a title="1321-lda-1" href="../high_scalability-2008/high_scalability-2008-12-29-Paper%3A_Spamalytics%3A_An_Empirical_Analysisof_Spam_Marketing_Conversion.html">478 high scalability-2008-12-29-Paper: Spamalytics: An Empirical Analysisof Spam Marketing Conversion</a></p>
-<p>Introduction: Under the philosophy thatthe best method to analyse spam is to become a
-spammer, this absolutely fascinating paper recounts how a team of UC Berkely
-researchers went under cover to infiltrate a spam network. Part CSI, part
-Mission Impossible, and part MacGyver, the team hijacked the botnet so that
-their code was actually part of the dark network itself. Once inside they
-figured out the architecture and protocols of the botnet and how many sales
-they were able to tally. Truly elegant work.Two different spam campaigns were
-run on aStormbotnet network of 75,800 zombie computers. Storm is a peer-to-
-peer botnet that uses spam to creep its tentacles through the world wide
-computer network. One of the campains distributed viruses in order to recruit
-new bots into the network. This is normally accomplished by enticing people to
-download email attachments. An astonishing one in ten people downloaded the
-executable and ran it, which means we won't run out of zombies soon. The
-downloaded compone</p><p>2 0.93092388 <a title="1321-lda-2" href="../high_scalability-2010/high_scalability-2010-09-23-Working_With_Large_Data_Sets.html">907 high scalability-2010-09-23-Working With Large Data Sets</a></p>
-<p>Introduction: This is an excerpt from my blogpostWorking With Large Data Sets...For the past
-18 months I've moved from working on the SMTP proxy to working on our other
-systems, all of which make use of the data we collect from each connection.
-It's a fair amount of data and it can be up to 2Kb in size for each
-connection. Our servers receive approximately 1000 of these pieces of data per
-second, which is fairly sustained due to our global distribution of customers.
-If you compare that toTwitter's peak of 3,283 tweets per second (maximum of
-140 characters), you can see it's not a small amount of data that we are
-dealing with here.I recently set out to scientifically prove the benefits of
-throttling, which is our technology for slowing down connections in order to
-detect spambots, who are kind enough to disconnect quite quickly when they see
-a slow connection. Due to the nature of the data we had, I needed to work with
-a long range of data to show evidence that an IP that appeared on Spamhaus had
-pre</p><p>3 0.92032814 <a title="1321-lda-3" href="../high_scalability-2008/high_scalability-2008-08-30-Paper%3A_GargantuanComputing%E2%80%94GRIDs_and_P2P.html">374 high scalability-2008-08-30-Paper: GargantuanComputing—GRIDs and P2P</a></p>
-<p>Introduction: I found the discussion of the available bandwidth of tree vs higher
-dimensional virtual networks topologies quite, to quote Spock,fascinating:A
-mathematical analysis by Ritter (2002) (one of the original developersof
-Napster) presented a detailed numerical argument demonstrating that
-theGnutella network could not scale to the capacity of its competitor,
-theNapster network. Essentially, that model showed that the Gnutella network
-isseverely bandwidth-limited long before the P2P population reaches a
-millionpeers. In each of these previous studies, the conclusions have
-overlooked theintrinsic bandwidth limits of the underlying topology in the
-Gnutella network:a Cayley tree (Rains and Sloane 1999) (see Sect. 9.4 for the
-definition).Trees are known to have lower aggregate bandwidth than higher
-dimensionaltopologies, e.g., hypercubes and hypertori. Studies of
-interconnectiontopologies in the literature have tended to focus on hardware
-implementations(see, e.g., Culler et al. 1996; Buyya 1999</p><p>4 0.90330601 <a title="1321-lda-4" href="../high_scalability-2011/high_scalability-2011-12-23-Stuff_The_Internet_Says_On_Scalability_For_December_23%2C_2011.html">1163 high scalability-2011-12-23-Stuff The Internet Says On Scalability For December 23, 2011</a></p>
-<p>Introduction: A merry HighScalability to all and to all a good night:Santa: 3.7 million
-appointments; iPad2 == 1986 Cray 2 6 processor super computer; Watson: 200
-million pagesof natural language content Funny: a cautionary tale about
-storage and backup. Where is my data? I'm kinda big deal after all! I should
-have listened to my postdoc, he can build cheaper storage than you can.Nothing
-stirs up more energy than when someone says they are abandoning and old
-beloved framework for a newer sexier model. Feelings of betrayal and
-abandonment leak over everything, which is always a good draw for reality
-social networking. Here Paul Querna tells why The Switch: Python to Node.js.
-And here we see the response onHacker News. Python got the job done for
-cloudkick, they were acquired, but they wanted something more going forward, a
-trophy wife if you will, after the first wife put them through law school.
-Good discussion all around. You may find something that helps in your own
-platform decision. Or you just</p><p>5 0.90164244 <a title="1321-lda-5" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
-<p>Introduction: Update 2:AHSCALE benchmarkfinds HSCALE "adds a maximum overhead of about 0.24
-ms per query (against a partitioned table)."Future releasespromise much
-improved results.Update:A new presentation atAn Introduction to HSCALE.After
-writingSkype Plans for PostgreSQL to Scale to 1 Billion Users, which shows how
-Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL
-Proxy articles all over the place. It's like those "get rich quick" books that
-say all you have to do is visualize a giraffe with a big yellow dot
-superimposed over it and by sympathetic magic giraffes will suddenly stampede
-into your life. Without realizing it I must have visualized transparent
-proxies smothered in yellow dots.One of the brightest images is a wonderful
-series of articles by Peter Romianowski describing the evolution of their
-proxy architecture. Their application is an OLTP system executing 200 million
-transaction per month, tables with more than 1.5 billion rows, and a 600 GB
-total database size</p><p>6 0.89665234 <a title="1321-lda-6" href="../high_scalability-2012/high_scalability-2012-12-05-5_Ways_to_Make_Cloud_Failure_Not_an_Option.html">1367 high scalability-2012-12-05-5 Ways to Make Cloud Failure Not an Option</a></p>
+<p>Introduction: Under the philosophy that  the best method to analyse spam is to become a spammer , this absolutely fascinating paper recounts how a team of UC Berkely researchers went under cover to infiltrate a spam network. Part CSI, part Mission Impossible, and part MacGyver, the team hijacked the botnet so that their code was actually part of the dark network itself. Once inside they figured out the architecture and protocols of the botnet and how many sales they were able to tally. Truly elegant work.   Two different spam campaigns were run on a  Storm  botnet network of 75,800 zombie computers. Storm is a peer-to-peer botnet that uses spam to creep its tentacles through the world wide computer network. One of the campains distributed viruses in order to recruit new bots into the network. This is normally accomplished by enticing people to download email attachments. An astonishing one in ten people downloaded the executable and ran it, which means we won't run out of zombies soon. The downloade</p><p>2 0.93092388 <a title="1321-lda-2" href="../high_scalability-2010/high_scalability-2010-09-23-Working_With_Large_Data_Sets.html">907 high scalability-2010-09-23-Working With Large Data Sets</a></p>
+<p>Introduction: This is an excerpt from my blogpost  Working With Large Data Sets ...
+ 
+For the past 18 months I’ve moved from working on the SMTP proxy to working on our other systems, all of which make use of the data we collect from each connection. It’s a fair amount of data and it can be up to 2Kb in size for each connection. Our servers receive approximately 1000 of these pieces of data per second, which is fairly sustained due to our global distribution of customers. If you compare that to  Twitter’s peak of 3,283 tweets per second  (maximum of 140 characters), you can see it’s not a small amount of data that we are dealing with here.
+ 
+I recently set out to scientifically prove the benefits of throttling, which is our technology for slowing down connections in order to detect spambots, who are kind enough to disconnect quite quickly when they see a slow connection. Due to the nature of the data we had, I needed to work with a long range of data to show evidence that an IP that appeared on Spam</p><p>3 0.92032814 <a title="1321-lda-3" href="../high_scalability-2008/high_scalability-2008-08-30-Paper%3A_GargantuanComputing%E2%80%94GRIDs_and_P2P.html">374 high scalability-2008-08-30-Paper: GargantuanComputing—GRIDs and P2P</a></p>
+<p>Introduction: I found the discussion of the available bandwidth of tree vs higher dimensional virtual networks topologies quite, to quote Spock,  fascinating :   A mathematical analysis by Ritter (2002) (one of the original developers of Napster) presented a detailed numerical argument demonstrating that the Gnutella network could not scale to the capacity of its competitor,  the Napster network. Essentially, that model showed that the Gnutella network is severely bandwidth-limited long before the P2P population reaches a million peers.  In each of these previous studies, the conclusions have overlooked the intrinsic bandwidth limits of the underlying topology in the Gnutella network: a Cayley tree (Rains and Sloane 1999) (see Sect. 9.4 for the definition).  Trees are known to have lower aggregate bandwidth than higher dimensional topologies, e.g., hypercubes and hypertori. Studies of interconnection topologies in the literature have tended to focus on hardware implementations (see, e.g., Culler et</p><p>4 0.90330601 <a title="1321-lda-4" href="../high_scalability-2011/high_scalability-2011-12-23-Stuff_The_Internet_Says_On_Scalability_For_December_23%2C_2011.html">1163 high scalability-2011-12-23-Stuff The Internet Says On Scalability For December 23, 2011</a></p>
+<p>Introduction: A merry HighScalability to all and to all a good night:
+  
+ Santa: 3.7 million appointments; iPad2 ==  1986 Cray 2 6 processor super computer ; Watson:  200 million pages  of natural language content  
+ Funny:  a cautionary tale about storage and backup .  Where is my data? I’m kinda big deal after all! I should have listened to my postdoc, he can build cheaper storage than you can.  
+ Nothing stirs up more energy than when someone says they are abandoning and old beloved framework for a newer sexier model. Feelings of betrayal and abandonment leak over everything, which is always a good draw for reality social networking. Here Paul Querna tells why  The Switch: Python to Node.js . And here we see the response on  Hacker News . Python got the job done for cloudkick, they were acquired, but they wanted something more going forward, a trophy wife if you will, after the first wife put them through law school. Good discussion all around. You may find something that helps in your own platfo</p><p>5 0.90164244 <a title="1321-lda-5" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
+<p>Introduction: Update 2:  A  HSCALE benchmark  finds HSCALE "adds a maximum overhead of about 0.24 ms per query (against a partitioned table)."  Future releases  promise much improved results.  Update:  A new presentation at  An Introduction to HSCALE .   After writing  Skype Plans for PostgreSQL to Scale to 1 Billion Users , which shows how Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL Proxy articles all over the place. It's like those "get rich quick" books that say all you have to do is visualize a giraffe with a big yellow dot superimposed over it and by sympathetic magic giraffes will suddenly stampede into your life. Without realizing it I must have visualized transparent proxies smothered in yellow dots.  One of the brightest images is a wonderful series of articles by Peter Romianowski describing the evolution of their proxy architecture. Their application is an OLTP system executing 200 million transaction per month, tables with more than 1.5 billion rows, and a 6</p><p>6 0.89665234 <a title="1321-lda-6" href="../high_scalability-2012/high_scalability-2012-12-05-5_Ways_to_Make_Cloud_Failure_Not_an_Option.html">1367 high scalability-2012-12-05-5 Ways to Make Cloud Failure Not an Option</a></p>
 <p>7 0.89614815 <a title="1321-lda-7" href="../high_scalability-2012/high_scalability-2012-10-29-Gone_Fishin%27_Two.html">1350 high scalability-2012-10-29-Gone Fishin' Two</a></p>
 <p>same-blog 8 0.88484126 <a title="1321-lda-8" href="../high_scalability-2012/high_scalability-2012-09-12-Using_Varnish_for_Paywalls%3A_Moving_Logic_to_the_Edge.html">1321 high scalability-2012-09-12-Using Varnish for Paywalls: Moving Logic to the Edge</a></p>
 <p>9 0.8846634 <a title="1321-lda-9" href="../high_scalability-2011/high_scalability-2011-11-04-Stuff_The_Internet_Says_On_Scalability_For_November_4%2C_2011.html">1137 high scalability-2011-11-04-Stuff The Internet Says On Scalability For November 4, 2011</a></p>

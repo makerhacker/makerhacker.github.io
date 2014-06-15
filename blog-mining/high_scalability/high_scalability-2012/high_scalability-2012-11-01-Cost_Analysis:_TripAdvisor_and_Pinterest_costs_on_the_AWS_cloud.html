@@ -16,115 +16,77 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1353 high scalability-2012-11-01-Cost Analysis: TripAdvisor and Pinterest costs on the AWS cloud</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1353-html" href="http://highscalability.com//blog/2012/11/1/cost-analysis-tripadvisor-and-pinterest-costs-on-the-aws-clo.html">html</a></p><p>Introduction: This is a guest post by Ali Khajeh-Hosseini, Technical Lead at
-PlanForCloud.com.  I read a recent blog post about TripAdvisor's experiment
-with AWS where they attempted to process 700K HTTP requests per minute on a
-replica of their live site. There was also an interesting blog post on
-Pinterest's massive growth on AWS. These blogs highlighted exactly the types
-of questions we're interested in, mainly:How much would it cost to deploy
-System X on Cloud Y? e.g. how much would it cost to host TripAdvisor on the
-AWS US-East cloud?Would it be cheaper to use deployment option X or Y? e.g.
-would it be cheaper to use reserved instances, different types of instances,
-different cloud providers...What happens to costs when the system grows? e.g.
-Pinterest has around 410TB of data on S3, what if that keeps growing at a rate
-of 25% every month, like it has been in the last 10 months?I created a couple
-of deployments in PlanForCloud to explore these questions and the results are
-very interesting - th</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 These blogs highlighted exactly the types of questions we're interested in, mainly:How much would it cost to deploy System X on Cloud Y? [sent-5, score-0.511]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1353-html" href="http://highscalability.com//blog/2012/11/1/cost-analysis-tripadvisor-and-pinterest-costs-on-the-aws-clo.html">html</a></p><p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at PlanForCloud.com.   
+ 
+ I read a recent blog post about   TripAdvisor's experiment with AWS   where they attempted to process 700K HTTP requests per minute on a replica of their live site. There was also an interesting blog post on   Pinterest's massive growth on AWS  . These blogs highlighted exactly the types of questions we're interested in, mainly: 
+    
+  How much would it cost to deploy System X on Cloud Y?   e.g. how much would it cost to host TripAdvisor on the AWS US-East cloud?  
+  Would it be cheaper to use deployment option X or Y?   e.g. would it be cheaper to use reserved instances, different types of instances, different cloud providers...  
+  What happens to costs when the system grows?   e.g. Pinterest has around 410TB of data on S3, what if that keeps growing at a rate of 25% every month, like it has been in the last 10 months?  
+      I created a couple of deployments in PlanForCloud to explore these qu</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 These blogs highlighted exactly the types of questions we're interested in, mainly:         How much would it cost to deploy System X on Cloud Y? [sent-5, score-0.511]
 </p><p>2 how much would it cost to host TripAdvisor on the AWS US-East cloud? [sent-8, score-0.317]
 </p><p>3 Would it be cheaper to use deployment option X or Y? [sent-9, score-0.313]
 </p><p>4 would it be cheaper to use reserved instances, different types of instances, different cloud providers. [sent-12, score-0.688]
 </p><p>5 Pinterest has around 410TB of data on S3, what if that keeps growing at a rate of 25% every month, like it has been in the last 10 months? [sent-18, score-0.416]
-</p><p>6 I created a couple of deployments in PlanForCloud to explore these questions and the results are very interesting - they show how important it is to get an idea of costs and budget for cloud spend prior to using the cloud:1. [sent-19, score-0.299]
+</p><p>6 I created a couple of deployments in PlanForCloud to explore these questions and the results are very interesting - they show how important it is to get an idea of   costs and budget for cloud spend prior to using the cloud  :             1. [sent-19, score-0.41]
 </p><p>7 TripAdvisor's "700K requests/minute" deployment on the AWS US-East cloud - how much would it cost? [sent-20, score-0.492]
-</p><p>8 Storage- 5TB of EBS with snapshots to S3 every month for backups of all databases. [sent-30, score-0.287]
-</p><p>9 Data Transfers- 145TB of data going out to users every month (around 200GB/hour). [sent-31, score-0.287]
-</p><p>10 The total cost of this deployment would be around $140,000 per month which translates to around $1. [sent-34, score-1.141]
+</p><p>8 Storage   - 5TB of EBS with snapshots to S3 every month for backups of all databases. [sent-30, score-0.287]
+</p><p>9 Data Transfers    - 145TB of data going out to users every month (around 200GB/hour). [sent-31, score-0.287]
+</p><p>10 The total cost of this deployment would be around $140,000 per month which translates to   around $1. [sent-34, score-1.141]
 </p><p>11 How much would be saved if TripAdvisor's deployment used AWS Reserved Instances? [sent-37, score-0.381]
-</p><p>12 If TripAdvisor was to use 1-year Heavy Utilized servers, they would immediately start to save around $800,000 per year, and that's not even including AWS's Volume Discounts that might apply in this case as a large number of reserved instances would be purchased. [sent-38, score-1.087]
+</p><p>12 If TripAdvisor was to use 1-year Heavy Utilized servers, they would immediately start to   save around $800,000 per year  , and that's not even including AWS's Volume Discounts that might apply in this case as a large number of reserved instances would be purchased. [sent-38, score-1.171]
 </p><p>13 What would happen to Pinterest's storage cost if they keep growing at a rate of 25% every month? [sent-40, score-0.431]
 </p><p>14 Pinterest has around 410TB of user data on AWS S3, which costs around $39K per month on S3 Standard Storage. [sent-41, score-0.784]
 </p><p>15 If this figure grows by 25% every month, like it has been for the last year, Pinterest would have to pay around $470,000/month one year from now if they keep using S3 Standard Storage. [sent-42, score-0.619]
 </p><p>16 The same amount of user data would cost around $319,000/month if they use S3 Reduced Redundancy storage. [sent-43, score-0.435]
-</p><p>17 The payoffs in these cases are as follows:For TripAdvisor (and any company that is thinking of running long term projects/sites on AWS), they should take reserved instances seriously. [sent-44, score-0.643]
-</p><p>18 For example, the TripAdvisor 700K system would save around $800K/year if it uses reserved instances vs on-demand (I know this was short-lived experimental system, but I'm just using it as an example). [sent-45, score-0.873]
-</p><p>19 Companies can also buy their reserved instances in stages to stagger the upfront costs. [sent-47, score-0.607]
-</p><p>20 For Pinterest (and any company that is looking to grow their systems on the cloud), they should use growth patterns to do "what-if" style analysis to a) understand the costs of elasticity b) compare deployment options. [sent-48, score-0.493]
+</p><p>17 The payoffs in these cases are as follows:     For TripAdvisor (and any company that is thinking of running long term projects/sites on AWS), they should take reserved instances seriously. [sent-44, score-0.455]
+</p><p>18 For example, the TripAdvisor 700K system would save around $800K/year if it uses reserved instances vs on-demand (I know this was short-lived experimental system, but I'm just using it as an example). [sent-45, score-0.69]
+</p><p>19 Companies can also buy their reserved instances in stages to stagger the upfront costs. [sent-47, score-0.301]
+</p><p>20 For Pinterest (and any company that is looking to grow their systems on the cloud), they should use growth patterns to do "what-if" style analysis to a) understand the costs of elasticity b) compare deployment options. [sent-48, score-0.237]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('tripadvisor', 0.435), ('pinterest', 0.32), ('reserved', 0.306), ('xlarge', 0.228), ('month', 0.218), ('aws', 0.209), ('instances', 0.188), ('around', 0.183), ('deployment', 0.174), ('would', 0.142), ('costs', 0.128), ('ebs', 0.125), ('upfront', 0.113), ('cloud', 0.111), ('cost', 0.11), ('running', 0.096), ('iops', 0.09), ('grows', 0.087), ('planforcloud', 0.085), ('year', 0.084), ('compare', 0.082), ('highlighted', 0.076), ('bills', 0.076), ('volume', 0.075), ('ali', 0.073), ('per', 0.072), ('cheaper', 0.071), ('attempted', 0.069), ('every', 0.069), ('option', 0.068), ('much', 0.065), ('discounts', 0.064), ('charges', 0.063), ('rough', 0.063), ('questions', 0.06), ('utilized', 0.059), ('translates', 0.059), ('types', 0.058), ('standard', 0.058), ('purchasing', 0.058), ('forecasting', 0.058), ('rate', 0.057), ('growth', 0.056), ('blog', 0.055), ('save', 0.054), ('last', 0.054), ('example', 0.053), ('growing', 0.053), ('company', 0.053), ('provisioned', 0.052)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1353-tfidf-1" href="../high_scalability-2012/high_scalability-2012-11-01-Cost_Analysis%3A_TripAdvisor_and_Pinterest_costs_on_the_AWS_cloud.html">1353 high scalability-2012-11-01-Cost Analysis: TripAdvisor and Pinterest costs on the AWS cloud</a></p>
-<p>Introduction: This is a guest post by Ali Khajeh-Hosseini, Technical Lead at
-PlanForCloud.com.  I read a recent blog post about TripAdvisor's experiment
-with AWS where they attempted to process 700K HTTP requests per minute on a
-replica of their live site. There was also an interesting blog post on
-Pinterest's massive growth on AWS. These blogs highlighted exactly the types
-of questions we're interested in, mainly:How much would it cost to deploy
-System X on Cloud Y? e.g. how much would it cost to host TripAdvisor on the
-AWS US-East cloud?Would it be cheaper to use deployment option X or Y? e.g.
-would it be cheaper to use reserved instances, different types of instances,
-different cloud providers...What happens to costs when the system grows? e.g.
-Pinterest has around 410TB of data on S3, what if that keeps growing at a rate
-of 25% every month, like it has been in the last 10 months?I created a couple
-of deployments in PlanForCloud to explore these questions and the results are
-very interesting - th</p><p>2 0.63628739 <a title="1353-tfidf-2" href="../high_scalability-2013/high_scalability-2013-06-24-Update_on_How_29_Cloud_Price_Drops_Changed_the_Bottom_Line_of_TripAdvisor_and_Pinterest_-_Results_Mixed.html">1480 high scalability-2013-06-24-Update on How 29 Cloud Price Drops Changed the Bottom Line of TripAdvisor and Pinterest - Results Mixed</a></p>
-<p>Introduction: This is a guest post byAli Khajeh-Hosseini, Technical Lead atPlanForCloud. The
-original article was publishedon their site. With 29 cloud price reductions I
-thought it would be interesting to see how the bottom line would change
-compared to an articlewe published last year. The result is surprisingly
-little for TripAdvisor because prices for On Demand instances havenot dropped
-as fastas for other other instances types.Over the last year and a half,we
-counted 29 price reductionsin cloud services provided by AWS, Google Compute
-Engine, Windows Azure, and Rackspace Cloud. Price reductions have a direct
-effect on cloud users, but given the usual tiny reductions, how significant is
-that effect on the bottom line?Last year I wrote aboutcloud cost forecasts for
-TripAdvisor and Pinterest.TripAdvisor was experimenting with AWSand attempted
-to process 700K HTTP requests per minute on a replica of its live site,
-andPinterest was growing massively on AWS. In the wake of the cloud providers'
-price</p><p>3 0.29671133 <a title="1353-tfidf-3" href="../high_scalability-2012/high_scalability-2012-05-21-Pinterest_Architecture_Update_-_18_Million_Visitors%2C_10x_Growth%2C12_Employees%2C_410_TB_of_Data.html">1248 high scalability-2012-05-21-Pinterest Architecture Update - 18 Million Visitors, 10x Growth,12 Employees, 410 TB of Data</a></p>
-<p>Introduction: There has been an update on Pinterest: Pinterest growth driven by Amazon cloud
-scalability since our last post: A Short on the Pinterest Stack for Handling
-3+ Million Users.With Pinterest we see a story very similar to that
-ofInstagram. Huge growth, lots of users, lots of data, with remarkably few
-employees, all on the cloud.While it's true that both Pinterest and Instagram
-are not making great advances inscience and technology, that is more indicator
-of the easy power of today's commodity environments rather than a sign of
-Silicon Valley's lack of innovation. The numbers are so huge and the
-valuations are so high we naturally want some sort of fundamental
-technological revolution to underlie their growth. The revolution is more
-subtle. It really is just that easy to attain such growth these days, if you
-can execute on the right idea. Get used to it. This is the new normal.Here's
-what Pinterest looks like today: 80 million objects stored in S3 with 410
-terabytes of user data, 10x what</p><p>4 0.24486214 <a title="1353-tfidf-4" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
-<p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><p>5 0.22952914 <a title="1353-tfidf-5" href="../high_scalability-2013/high_scalability-2013-01-02-Why_Pinterest_Uses_the_Cloud_Instead_of_Going_Solo_-_To_Be_Or_Not_To_Be.html">1380 high scalability-2013-01-02-Why Pinterest Uses the Cloud Instead of Going Solo - To Be Or Not To Be</a></p>
-<p>Introduction: I love it when a somewhat older article like Pinterest Cut Costs From $54 To
-$20 Per Hour By Automatically Shutting Down Systems hits Hacker News and
-generates agood conversation. One of the common sentiments about the cloud was
-raised: why doesn't Pinterest save a lot of money by running their own
-hardware instead of using the cloud?Ryan Park, Operations Engineer at
-Pinterest, responds in what I think is the perfectmodern responseto that
-ultimate existential design dilemma:Our #1 requirement has been to keep up
-with the growth in traffic on the site. We've been growing so fast that
-there's literally no way we could have ordered and racked equipment fast
-enough. We were also a very small team -- a year ago there were only about a
-dozen people in the whole company. At this point we're much larger, which
-gives us room to consider more options like colo or multiple cloud
-providers.AWS certainly feels pretty costly when you compare colo prices to
-the list price for on-demand instances. But</p><p>6 0.19761851 <a title="1353-tfidf-6" href="../high_scalability-2011/high_scalability-2011-07-01-TripAdvisor_Strategy%3A_No_Architects%2C_Engineers_Work_Across_the_Entire_Stack.html">1072 high scalability-2011-07-01-TripAdvisor Strategy: No Architects, Engineers Work Across the Entire Stack</a></p>
+<p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at PlanForCloud.com.   
+ 
+ I read a recent blog post about   TripAdvisor's experiment with AWS   where they attempted to process 700K HTTP requests per minute on a replica of their live site. There was also an interesting blog post on   Pinterest's massive growth on AWS  . These blogs highlighted exactly the types of questions we're interested in, mainly: 
+    
+  How much would it cost to deploy System X on Cloud Y?   e.g. how much would it cost to host TripAdvisor on the AWS US-East cloud?  
+  Would it be cheaper to use deployment option X or Y?   e.g. would it be cheaper to use reserved instances, different types of instances, different cloud providers...  
+  What happens to costs when the system grows?   e.g. Pinterest has around 410TB of data on S3, what if that keeps growing at a rate of 25% every month, like it has been in the last 10 months?  
+      I created a couple of deployments in PlanForCloud to explore these qu</p><p>2 0.63628739 <a title="1353-tfidf-2" href="../high_scalability-2013/high_scalability-2013-06-24-Update_on_How_29_Cloud_Price_Drops_Changed_the_Bottom_Line_of_TripAdvisor_and_Pinterest_-_Results_Mixed.html">1480 high scalability-2013-06-24-Update on How 29 Cloud Price Drops Changed the Bottom Line of TripAdvisor and Pinterest - Results Mixed</a></p>
+<p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at  PlanForCloud . The original article was published  on their site . With 29 cloud price reductions I thought it would be interesting to see how the bottom line would change compared to an article  we published last year . The result is surprisingly little for TripAdvisor because prices for On Demand instances have  not dropped as fast  as for other other instances types. 
+ 
+Over the last year and a half,  we counted 29 price reductions  in cloud services provided by AWS, Google Compute Engine, Windows Azure, and Rackspace Cloud. Price reductions have a direct effect on cloud users, but given the usual tiny reductions, how significant is that effect on the bottom line?
+ 
+Last year I wrote about  cloud cost forecasts for TripAdvisor and Pinterest .  TripAdvisor was experimenting with AWS  and attempted to process 700K HTTP requests per minute on a replica of its live site, and  Pinterest was growing massively on AWS . In th</p><p>3 0.29671133 <a title="1353-tfidf-3" href="../high_scalability-2012/high_scalability-2012-05-21-Pinterest_Architecture_Update_-_18_Million_Visitors%2C_10x_Growth%2C12_Employees%2C_410_TB_of_Data.html">1248 high scalability-2012-05-21-Pinterest Architecture Update - 18 Million Visitors, 10x Growth,12 Employees, 410 TB of Data</a></p>
+<p>Introduction: There has been an update on Pinterest:  Pinterest growth driven by Amazon cloud scalability  since our last post:  A Short on the Pinterest Stack for Handling 3+ Million Users .
+ 
+With Pinterest we see a story very similar to that of  Instagram . Huge growth, lots of users, lots of data, with remarkably few employees, all on the cloud.
+ 
+While it's true that both Pinterest and Instagram are not making great advances in  science and technology , that is more indicator of the easy power of today's commodity environments rather than a sign of Silicon Valley's lack of innovation. The numbers are so huge and the valuations are so high we naturally want some sort of fundamental technological revolution to underlie their growth. The revolution is more subtle. It really is just that easy to attain such growth these days, if you can execute on the right idea. Get used to it. This is the new normal.
+ 
+Here's what Pinterest looks like today: 
+  
+ 80 million objects stored in S3 with 410 terabytes</p><p>4 0.24486214 <a title="1353-tfidf-4" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
+<p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><p>5 0.22952914 <a title="1353-tfidf-5" href="../high_scalability-2013/high_scalability-2013-01-02-Why_Pinterest_Uses_the_Cloud_Instead_of_Going_Solo_-_To_Be_Or_Not_To_Be.html">1380 high scalability-2013-01-02-Why Pinterest Uses the Cloud Instead of Going Solo - To Be Or Not To Be</a></p>
+<p>Introduction: I love it when a somewhat older article like  Pinterest Cut Costs From $54 To $20 Per Hour By Automatically Shutting Down Systems  hits Hacker News and generates a  good conversation . One of the common sentiments about the cloud was raised: why doesn't Pinterest save a lot of money by running their own hardware instead of using the cloud?
+ 
+ Ryan Park , Operations Engineer at Pinterest, responds in what I think is the perfect  modern response  to that ultimate existential design dilemma:
+  
+
+Our #1 requirement has been to keep up with the growth in traffic on the site. We've been growing so fast that there's literally no way we could have ordered and racked equipment fast enough. We were also a very small team -- a year ago there were only about a dozen people in the whole company. At this point we're much larger, which gives us room to consider more options like colo or multiple cloud providers.
+
+
+ AWS certainly feels pretty costly when you compare colo prices to the list price for o</p><p>6 0.19761851 <a title="1353-tfidf-6" href="../high_scalability-2011/high_scalability-2011-07-01-TripAdvisor_Strategy%3A_No_Architects%2C_Engineers_Work_Across_the_Entire_Stack.html">1072 high scalability-2011-07-01-TripAdvisor Strategy: No Architects, Engineers Work Across the Entire Stack</a></p>
 <p>7 0.1866827 <a title="1353-tfidf-7" href="../high_scalability-2012/high_scalability-2012-12-12-Pinterest_Cut_Costs_from_%2454_to_%2420_Per_Hour_by_Automatically_Shutting_Down_Systems.html">1371 high scalability-2012-12-12-Pinterest Cut Costs from $54 to $20 Per Hour by Automatically Shutting Down Systems</a></p>
 <p>8 0.18642096 <a title="1353-tfidf-8" href="../high_scalability-2011/high_scalability-2011-06-14-A_TripAdvisor_Short.html">1059 high scalability-2011-06-14-A TripAdvisor Short</a></p>
 <p>9 0.18363355 <a title="1353-tfidf-9" href="../high_scalability-2013/high_scalability-2013-06-26-Leveraging_Cloud_Computing_at_Yelp_-_102_Million_Monthly_Vistors_and_39_Million_Reviews.html">1482 high scalability-2013-06-26-Leveraging Cloud Computing at Yelp - 102 Million Monthly Vistors and 39 Million Reviews</a></p>
@@ -144,76 +106,39 @@ the list price for on-demand instances. But</p><p>6 0.19761851 <a title="1353-tf
 <p>[(0, 0.191), (1, 0.063), (2, -0.012), (3, 0.03), (4, -0.107), (5, -0.123), (6, 0.024), (7, -0.121), (8, 0.14), (9, -0.177), (10, 0.01), (11, -0.067), (12, 0.077), (13, -0.054), (14, -0.1), (15, 0.043), (16, -0.021), (17, 0.028), (18, -0.005), (19, 0.049), (20, -0.064), (21, -0.019), (22, 0.011), (23, -0.057), (24, -0.107), (25, -0.118), (26, -0.05), (27, -0.037), (28, 0.005), (29, -0.027), (30, 0.009), (31, 0.121), (32, -0.065), (33, 0.169), (34, -0.087), (35, -0.012), (36, -0.024), (37, -0.129), (38, 0.054), (39, -0.021), (40, 0.082), (41, 0.095), (42, 0.062), (43, 0.007), (44, -0.049), (45, -0.145), (46, -0.003), (47, -0.031), (48, -0.063), (49, 0.023)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95306075 <a title="1353-lsi-1" href="../high_scalability-2012/high_scalability-2012-11-01-Cost_Analysis%3A_TripAdvisor_and_Pinterest_costs_on_the_AWS_cloud.html">1353 high scalability-2012-11-01-Cost Analysis: TripAdvisor and Pinterest costs on the AWS cloud</a></p>
-<p>Introduction: This is a guest post by Ali Khajeh-Hosseini, Technical Lead at
-PlanForCloud.com.  I read a recent blog post about TripAdvisor's experiment
-with AWS where they attempted to process 700K HTTP requests per minute on a
-replica of their live site. There was also an interesting blog post on
-Pinterest's massive growth on AWS. These blogs highlighted exactly the types
-of questions we're interested in, mainly:How much would it cost to deploy
-System X on Cloud Y? e.g. how much would it cost to host TripAdvisor on the
-AWS US-East cloud?Would it be cheaper to use deployment option X or Y? e.g.
-would it be cheaper to use reserved instances, different types of instances,
-different cloud providers...What happens to costs when the system grows? e.g.
-Pinterest has around 410TB of data on S3, what if that keeps growing at a rate
-of 25% every month, like it has been in the last 10 months?I created a couple
-of deployments in PlanForCloud to explore these questions and the results are
-very interesting - th</p><p>2 0.93876344 <a title="1353-lsi-2" href="../high_scalability-2013/high_scalability-2013-06-24-Update_on_How_29_Cloud_Price_Drops_Changed_the_Bottom_Line_of_TripAdvisor_and_Pinterest_-_Results_Mixed.html">1480 high scalability-2013-06-24-Update on How 29 Cloud Price Drops Changed the Bottom Line of TripAdvisor and Pinterest - Results Mixed</a></p>
-<p>Introduction: This is a guest post byAli Khajeh-Hosseini, Technical Lead atPlanForCloud. The
-original article was publishedon their site. With 29 cloud price reductions I
-thought it would be interesting to see how the bottom line would change
-compared to an articlewe published last year. The result is surprisingly
-little for TripAdvisor because prices for On Demand instances havenot dropped
-as fastas for other other instances types.Over the last year and a half,we
-counted 29 price reductionsin cloud services provided by AWS, Google Compute
-Engine, Windows Azure, and Rackspace Cloud. Price reductions have a direct
-effect on cloud users, but given the usual tiny reductions, how significant is
-that effect on the bottom line?Last year I wrote aboutcloud cost forecasts for
-TripAdvisor and Pinterest.TripAdvisor was experimenting with AWSand attempted
-to process 700K HTTP requests per minute on a replica of its live site,
-andPinterest was growing massively on AWS. In the wake of the cloud providers'
-price</p><p>3 0.86432928 <a title="1353-lsi-3" href="../high_scalability-2012/high_scalability-2012-12-12-Pinterest_Cut_Costs_from_%2454_to_%2420_Per_Hour_by_Automatically_Shutting_Down_Systems.html">1371 high scalability-2012-12-12-Pinterest Cut Costs from $54 to $20 Per Hour by Automatically Shutting Down Systems</a></p>
-<p>Introduction: We've long known one of the virtues of the cloud is, through the magic of
-services and automation, that systems can be shut or tuned down when not in
-use. What may be surprising is how much money can be saved. This aspect of
-cloudiness got a lot of pub atAWS re:Invent and is being rebranded under the
-term Cost-Aware Architecture. Aninteresting examplewas given by Ryan Park,
-Pinterest's technical operations lead:20% of their systems are shutdown after
-hours in response to traffic loadsReserved instances are used for standard
-traffic On-demand and spot instances are used to handle the elastic load
-throughout the day. When more servers are needed for an auto-scaled service,
-spot requests are opened and on-demand instances are started at the same time.
-Most services are targeted to run at about 50% on-demand and 50% spot.Watchdog
-processes continually check what's running. More instances are launched when
-needed and terminated when not needed. If spot prices spike and spot instances
-are sh</p><p>4 0.83968931 <a title="1353-lsi-4" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
-<p>Introduction: Vaibhav PuranikinWeb serving in the cloud - our experiences with nginx and
-instance sizesdescribes their experience trying to maximum traffic and minimum
-their web serving costs on EC2. Initially they tested with two m1.small
-instance types and then they the switched to two c1.mediums instance types.
-The m1s are the standard instance types and the c1s are the high CPU instance
-types. Obviously the mediums have greater capability, but the cost difference
-was interesting:In the long term they will save money using the larger
-instances and not autoscaling. With the small instances, traffic bursts caused
-autoscaling to kick in. New instances were started in response to load. The
-instances woud be up for a short period of time and then spin down again. This
-constant churn costs a lot of money. Selecting the larger instance sizes,
-which are capable of handling the load without autoscaling, turn out to save
-money even though they are more expensive. Starting new instances also takes a
-few min</p><p>5 0.81778395 <a title="1353-lsi-5" href="../high_scalability-2012/high_scalability-2012-05-21-Pinterest_Architecture_Update_-_18_Million_Visitors%2C_10x_Growth%2C12_Employees%2C_410_TB_of_Data.html">1248 high scalability-2012-05-21-Pinterest Architecture Update - 18 Million Visitors, 10x Growth,12 Employees, 410 TB of Data</a></p>
-<p>Introduction: There has been an update on Pinterest: Pinterest growth driven by Amazon cloud
-scalability since our last post: A Short on the Pinterest Stack for Handling
-3+ Million Users.With Pinterest we see a story very similar to that
-ofInstagram. Huge growth, lots of users, lots of data, with remarkably few
-employees, all on the cloud.While it's true that both Pinterest and Instagram
-are not making great advances inscience and technology, that is more indicator
-of the easy power of today's commodity environments rather than a sign of
-Silicon Valley's lack of innovation. The numbers are so huge and the
-valuations are so high we naturally want some sort of fundamental
-technological revolution to underlie their growth. The revolution is more
-subtle. It really is just that easy to attain such growth these days, if you
-can execute on the right idea. Get used to it. This is the new normal.Here's
-what Pinterest looks like today: 80 million objects stored in S3 with 410
-terabytes of user data, 10x what</p><p>6 0.77934903 <a title="1353-lsi-6" href="../high_scalability-2011/high_scalability-2011-12-28-Strategy%3A_Guaranteed_Availability_Requires_Reserving_Instances_in_Specific_Zones.html">1165 high scalability-2011-12-28-Strategy: Guaranteed Availability Requires Reserving Instances in Specific Zones</a></p>
+<p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at PlanForCloud.com.   
+ 
+ I read a recent blog post about   TripAdvisor's experiment with AWS   where they attempted to process 700K HTTP requests per minute on a replica of their live site. There was also an interesting blog post on   Pinterest's massive growth on AWS  . These blogs highlighted exactly the types of questions we're interested in, mainly: 
+    
+  How much would it cost to deploy System X on Cloud Y?   e.g. how much would it cost to host TripAdvisor on the AWS US-East cloud?  
+  Would it be cheaper to use deployment option X or Y?   e.g. would it be cheaper to use reserved instances, different types of instances, different cloud providers...  
+  What happens to costs when the system grows?   e.g. Pinterest has around 410TB of data on S3, what if that keeps growing at a rate of 25% every month, like it has been in the last 10 months?  
+      I created a couple of deployments in PlanForCloud to explore these qu</p><p>2 0.93876344 <a title="1353-lsi-2" href="../high_scalability-2013/high_scalability-2013-06-24-Update_on_How_29_Cloud_Price_Drops_Changed_the_Bottom_Line_of_TripAdvisor_and_Pinterest_-_Results_Mixed.html">1480 high scalability-2013-06-24-Update on How 29 Cloud Price Drops Changed the Bottom Line of TripAdvisor and Pinterest - Results Mixed</a></p>
+<p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at  PlanForCloud . The original article was published  on their site . With 29 cloud price reductions I thought it would be interesting to see how the bottom line would change compared to an article  we published last year . The result is surprisingly little for TripAdvisor because prices for On Demand instances have  not dropped as fast  as for other other instances types. 
+ 
+Over the last year and a half,  we counted 29 price reductions  in cloud services provided by AWS, Google Compute Engine, Windows Azure, and Rackspace Cloud. Price reductions have a direct effect on cloud users, but given the usual tiny reductions, how significant is that effect on the bottom line?
+ 
+Last year I wrote about  cloud cost forecasts for TripAdvisor and Pinterest .  TripAdvisor was experimenting with AWS  and attempted to process 700K HTTP requests per minute on a replica of its live site, and  Pinterest was growing massively on AWS . In th</p><p>3 0.86432928 <a title="1353-lsi-3" href="../high_scalability-2012/high_scalability-2012-12-12-Pinterest_Cut_Costs_from_%2454_to_%2420_Per_Hour_by_Automatically_Shutting_Down_Systems.html">1371 high scalability-2012-12-12-Pinterest Cut Costs from $54 to $20 Per Hour by Automatically Shutting Down Systems</a></p>
+<p>Introduction: We've long known one of the virtues of the cloud is, through the magic of services and automation, that systems can be shut or tuned down when not in use. What may be surprising is how much money can be saved. 
+ 
+This aspect of cloudiness got a lot of pub at  AWS re:Invent  and is being rebranded under the term  Cost-Aware Architecture . An  interesting example  was given by Ryan Park, Pinterest’s technical operations lead:
+  
+ 20% of their systems are shutdown after hours in response to traffic loads 
+ Reserved instances are used for standard traffic  
+ On-demand and spot instances are used to handle the elastic load throughout the day. When more servers are needed for an auto-scaled service,  spot requests are opened and on-demand instances are started at the same time. Most services are targeted to run at about 50% on-demand and 50% spot. 
+ Watchdog processes continually check what's running. More instances are launched when needed and terminated when not needed. If spot prices spik</p><p>4 0.83968931 <a title="1353-lsi-4" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
+<p>Introduction: Vaibhav Puranik  in  Web  serving in the cloud – our experiences with nginx and instance sizes  describes their experience trying to maximum traffic and minimum their web serving costs on EC2. Initially they tested with two m1.small instance types and then they the switched to two c1.mediums instance types. The m1s are the standard instance types and the c1s are the high CPU instance types. Obviously the mediums have greater capability, but the cost difference was interesting:
+  
+ In the long term they will save money using the larger instances and not autoscaling. With the small instances, traffic bursts caused autoscaling to kick in. New instances were started in response to load. The instances woud be up for a short period of time and then spin down again. This constant churn costs a lot of money. Selecting the larger instance sizes, which are capable of handling the load without autoscaling, turn out to save money even though they are more expensive. Starting new instances also tak</p><p>5 0.81778395 <a title="1353-lsi-5" href="../high_scalability-2012/high_scalability-2012-05-21-Pinterest_Architecture_Update_-_18_Million_Visitors%2C_10x_Growth%2C12_Employees%2C_410_TB_of_Data.html">1248 high scalability-2012-05-21-Pinterest Architecture Update - 18 Million Visitors, 10x Growth,12 Employees, 410 TB of Data</a></p>
+<p>Introduction: There has been an update on Pinterest:  Pinterest growth driven by Amazon cloud scalability  since our last post:  A Short on the Pinterest Stack for Handling 3+ Million Users .
+ 
+With Pinterest we see a story very similar to that of  Instagram . Huge growth, lots of users, lots of data, with remarkably few employees, all on the cloud.
+ 
+While it's true that both Pinterest and Instagram are not making great advances in  science and technology , that is more indicator of the easy power of today's commodity environments rather than a sign of Silicon Valley's lack of innovation. The numbers are so huge and the valuations are so high we naturally want some sort of fundamental technological revolution to underlie their growth. The revolution is more subtle. It really is just that easy to attain such growth these days, if you can execute on the right idea. Get used to it. This is the new normal.
+ 
+Here's what Pinterest looks like today: 
+  
+ 80 million objects stored in S3 with 410 terabytes</p><p>6 0.77934903 <a title="1353-lsi-6" href="../high_scalability-2011/high_scalability-2011-12-28-Strategy%3A_Guaranteed_Availability_Requires_Reserving_Instances_in_Specific_Zones.html">1165 high scalability-2011-12-28-Strategy: Guaranteed Availability Requires Reserving Instances in Specific Zones</a></p>
 <p>7 0.75972694 <a title="1353-lsi-7" href="../high_scalability-2013/high_scalability-2013-01-02-Why_Pinterest_Uses_the_Cloud_Instead_of_Going_Solo_-_To_Be_Or_Not_To_Be.html">1380 high scalability-2013-01-02-Why Pinterest Uses the Cloud Instead of Going Solo - To Be Or Not To Be</a></p>
 <p>8 0.75668126 <a title="1353-lsi-8" href="../high_scalability-2013/high_scalability-2013-11-05-10_Things_You_Should_Know_About_AWS.html">1543 high scalability-2013-11-05-10 Things You Should Know About AWS</a></p>
 <p>9 0.72053969 <a title="1353-lsi-9" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
@@ -233,76 +158,36 @@ terabytes of user data, 10x what</p><p>6 0.77934903 <a title="1353-lsi-6" href="
 <p>[(1, 0.126), (2, 0.198), (10, 0.332), (27, 0.045), (61, 0.04), (79, 0.138), (94, 0.021)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.98808968 <a title="1353-lda-1" href="../high_scalability-2008/high_scalability-2008-10-26-Should_you_use_a_SAN_to_scale_your_architecture%3F_.html">430 high scalability-2008-10-26-Should you use a SAN to scale your architecture? </a></p>
-<p>Introduction: This is a question everyone must struggle with when building out their
-datacenter. Storage choices are always the ones I have the least confidence
-in. David Marks in his blogYou Can Change It Later!asks the questionShould I
-get a SAN to scale my site architecture?and answers no. A better solution is
-to use commodity hardware, directly attach storage on servers, and partition
-across servers to scale and for greater availability.David's reasoning is
-interesting:A SAN creates a SPOF (single point of failure) that is dependent
-on a vendor to fly and fix when there's a problem. This can lead to long down
-times during this outage you have no access to your data at all.Using easily
-available commodity hardware minimizes risks to your company, it's not just
-about saving money. Zooming over to Fry's to buy emergency equipment provides
-the kind of agility startups need in order to respond quickly to ever changing
-situations.It's hard to beat the power and flexibility (backups, easy to add
-storag</p><p>2 0.98775893 <a title="1353-lda-2" href="../high_scalability-2013/high_scalability-2013-06-24-Update_on_How_29_Cloud_Price_Drops_Changed_the_Bottom_Line_of_TripAdvisor_and_Pinterest_-_Results_Mixed.html">1480 high scalability-2013-06-24-Update on How 29 Cloud Price Drops Changed the Bottom Line of TripAdvisor and Pinterest - Results Mixed</a></p>
-<p>Introduction: This is a guest post byAli Khajeh-Hosseini, Technical Lead atPlanForCloud. The
-original article was publishedon their site. With 29 cloud price reductions I
-thought it would be interesting to see how the bottom line would change
-compared to an articlewe published last year. The result is surprisingly
-little for TripAdvisor because prices for On Demand instances havenot dropped
-as fastas for other other instances types.Over the last year and a half,we
-counted 29 price reductionsin cloud services provided by AWS, Google Compute
-Engine, Windows Azure, and Rackspace Cloud. Price reductions have a direct
-effect on cloud users, but given the usual tiny reductions, how significant is
-that effect on the bottom line?Last year I wrote aboutcloud cost forecasts for
-TripAdvisor and Pinterest.TripAdvisor was experimenting with AWSand attempted
-to process 700K HTTP requests per minute on a replica of its live site,
-andPinterest was growing massively on AWS. In the wake of the cloud providers'
-price</p><p>3 0.98493934 <a title="1353-lda-3" href="../high_scalability-2010/high_scalability-2010-01-27-Hot_Scalability_Links_for_January_28_2010.html">767 high scalability-2010-01-27-Hot Scalability Links for January 28 2010</a></p>
-<p>Introduction: Google's Research Areas of Interest: Building scalable, robust cluster
-applications.At Google we see distributed systems as a technology in its
-infancy, with huge gaps in the supporting research  that represent some of the
-most important problems in the space. Here are some examples:Resource
-sharing,Balancing cost, performance, and reliability,Self-maintaining systems.
-Amazon SimpleDB: A Simple Way to Store Complex DatabyPaul Tremblett.The most
-effective way I have found to understand SimpleDB is to think about it in
-terms of something else we all use and understand -- a spreadsheet.Rackspace
-Cloud Servers versus Amazon EC2: Performance Analysis.The Bitsource conducted
-a review of the two cloud computing platforms, Rackspace Cloud Servers and
-Amazon Elastic Compute Cloud (EC2), to get a general idea of overall system
-performance.Private Clouds Are Not The Futureby Jame Hamilton.Private clouds
-are better than nothing but an investment in a private cloud is an investment
-in a temporary f</p><p>4 0.98337567 <a title="1353-lda-4" href="../high_scalability-2011/high_scalability-2011-06-22-It%27s_the_Fraking_IOPS_-_1_SSD_is_44%2C000_IOPS%2C_Hard_Drive_is_180.html">1066 high scalability-2011-06-22-It's the Fraking IOPS - 1 SSD is 44,000 IOPS, Hard Drive is 180</a></p>
-<p>Introduction: Planning your next buildout and thinking SSDs are still far in the future?
-Still too expensive, too low density. Hard disks are cheap, familiar, and
-store lots of stuff. In this short and entertaining video Wikia's Artur
-Bergmanwants to change your mind about SSDs. SSDs are for today, get with the
-math already.Here's Artur's logic:Wikia is all SSD in production. The new
-Wikia file servers have a theoretical read rate of ~10GB/sec sequential,
-6GB/sec random and 1.2 million IOPs. If you can't do math or love the past,
-you love spinning rust. If you are awesome you love SSDs.SSDs are cheaper than
-drives using the most relevant metric: $/GB/IOPS. 1 SSD is 44,000 IOPS and one
-hard drive is 180 IOPS. Need 1 SSD instead of 50 hard drives.With 8 million
-files there's a 9 minute fsck. Full backup in 12 minutes (X-25M based).4
-GB/sec random read average latency 1 msec.2.2 GB/sec random write average
-latency 1 msec.50TBs of SSDs in one machine for $80,000. With the densities
-most products can ski</p><p>5 0.97514474 <a title="1353-lda-5" href="../high_scalability-2014/high_scalability-2014-04-21-This_is_why_Microsoft_won._And_why_they_lost..html">1635 high scalability-2014-04-21-This is why Microsoft won. And why they lost.</a></p>
-<p>Introduction: My favorite kind of histories are those told from an insider's perspective.
-The story of Richard the Lionheart is full of great battles and dynastic
-intrigue. The story of one of his soldiers, not so much. Yet the soldiers'
-story, as someone who has experienced the real consequences of decisions made
-and actions taken, is more revealing.We get such a history in Chat Wars, a
-wonderful article written by David Auerbach, who in 1998 worked at Microsoft
-on MSN Messenger Service, Microsoft's instant messaging app (for a related
-story see The Rise and Fall of AIM, the Breakthrough AOL Never Wanted).It's as
-if Herodotus visited Microsoft and wrote down his experiences. It has that
-same sort of conversational tone, insightful on-the-ground observations, and
-facts no outsider might ever believe.Much of the article is a play-by-play
-account of the cat and mouse game David plays changing Messenger to track
-AOL's Instant Messenger protocol changes. AOL repeatedly tried to make it so
-Messenger coul</p><p>6 0.96613413 <a title="1353-lda-6" href="../high_scalability-2012/high_scalability-2012-08-06-Paper%3A_High-Performance_Concurrency_Control_Mechanisms_for_Main-Memory_Databases.html">1299 high scalability-2012-08-06-Paper: High-Performance Concurrency Control Mechanisms for Main-Memory Databases</a></p>
+<p>Introduction: This is a question everyone must struggle with when building out their datacenter. Storage choices are always the ones I have the least confidence in.  David Marks in his blog  You Can Change It Later!  asks the question   Should I get a SAN to scale my site architecture?   and answers no. A better solution is to use commodity hardware, directly attach storage on servers, and partition across servers to scale and for greater availability.  David's reasoning is interesting:
+  A SAN creates a SPOF (single point of failure) that is dependent on a vendor to fly and fix when there's a problem. This can lead to long down times during this outage you have no access to your data at all.   Using easily available commodity hardware minimizes risks to your company, it's not just about saving money. Zooming over to Fry's to buy emergency equipment provides the kind of agility startups need in order to respond quickly to ever changing situations.  It's hard to beat the power and flexibility (backup</p><p>2 0.98775893 <a title="1353-lda-2" href="../high_scalability-2013/high_scalability-2013-06-24-Update_on_How_29_Cloud_Price_Drops_Changed_the_Bottom_Line_of_TripAdvisor_and_Pinterest_-_Results_Mixed.html">1480 high scalability-2013-06-24-Update on How 29 Cloud Price Drops Changed the Bottom Line of TripAdvisor and Pinterest - Results Mixed</a></p>
+<p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at  PlanForCloud . The original article was published  on their site . With 29 cloud price reductions I thought it would be interesting to see how the bottom line would change compared to an article  we published last year . The result is surprisingly little for TripAdvisor because prices for On Demand instances have  not dropped as fast  as for other other instances types. 
+ 
+Over the last year and a half,  we counted 29 price reductions  in cloud services provided by AWS, Google Compute Engine, Windows Azure, and Rackspace Cloud. Price reductions have a direct effect on cloud users, but given the usual tiny reductions, how significant is that effect on the bottom line?
+ 
+Last year I wrote about  cloud cost forecasts for TripAdvisor and Pinterest .  TripAdvisor was experimenting with AWS  and attempted to process 700K HTTP requests per minute on a replica of its live site, and  Pinterest was growing massively on AWS . In th</p><p>3 0.98493934 <a title="1353-lda-3" href="../high_scalability-2010/high_scalability-2010-01-27-Hot_Scalability_Links_for_January_28_2010.html">767 high scalability-2010-01-27-Hot Scalability Links for January 28 2010</a></p>
+<p>Introduction: Google's Research Areas of Interest:  Building scalable, robust cluster applications .  At Google we see distributed systems as a technology in its infancy, with huge gaps in the supporting research  that represent some of the most important problems in the space. Here are some examples:   Resource sharing,   Balancing cost, performance, and reliability,   Self-maintaining systems.   
+  Amazon SimpleDB: A Simple Way to Store Complex Data  by  Paul Tremblett.   The most effective way I have found to understand SimpleDB is to think about it in terms of something else we all use and understand -- a spreadsheet.  
+  Rackspace Cloud Servers versus Amazon EC2: Performance Analysis .  The Bitsource conducted a review of the two cloud computing platforms, Rackspace Cloud Servers and Amazon Elastic Compute Cloud (EC2), to get a general idea of overall system performance.  
+ 
+ 
+  Private Clouds Are Not The Future  by Jame Hamilton.     Private clouds are better than nothing but an investment in</p><p>4 0.98337567 <a title="1353-lda-4" href="../high_scalability-2011/high_scalability-2011-06-22-It%27s_the_Fraking_IOPS_-_1_SSD_is_44%2C000_IOPS%2C_Hard_Drive_is_180.html">1066 high scalability-2011-06-22-It's the Fraking IOPS - 1 SSD is 44,000 IOPS, Hard Drive is 180</a></p>
+<p>Introduction: Planning your next buildout and thinking SSDs are still far in the future? Still too expensive, too low density. Hard disks are cheap, familiar, and store lots of stuff. In this short and entertaining video Wikia's  Artur Bergman  wants to change your mind about SSDs. SSDs are for today, get with the math already.
+ 
+Here's Artur's logic:
+  
+ Wikia is all SSD in production. The new Wikia file servers have a theoretical read rate of ~10GB/sec sequential, 6GB/sec random and 1.2 million IOPs. If you can't do math or love the past, you love spinning rust. If you are awesome you love SSDs. 
+ SSDs are cheaper than drives using the most relevant metric: $/GB/IOPS. 1 SSD is 44,000 IOPS and one hard drive is 180 IOPS. Need 1 SSD instead of 50 hard drives. 
+ With 8 million files there's a 9 minute fsck. Full backup in 12 minutes (X-25M based). 
+ 4 GB/sec random read average latency 1 msec. 
+ 2.2 GB/sec random write average latency 1 msec. 
+ 50TBs of SSDs in one machine for $80,000. With the densi</p><p>5 0.97514474 <a title="1353-lda-5" href="../high_scalability-2014/high_scalability-2014-04-21-This_is_why_Microsoft_won._And_why_they_lost..html">1635 high scalability-2014-04-21-This is why Microsoft won. And why they lost.</a></p>
+<p>Introduction: My favorite kind of histories are those told from an insider's perspective. The story of Richard the Lionheart is full of great battles and dynastic intrigue. The story of one of his soldiers, not so much. Yet the soldiers' story, as someone who has experienced the real consequences of decisions made and actions taken, is more revealing.
+ 
+We get such a history in  Chat Wars , a wonderful article written by David Auerbach, who in 1998 worked at Microsoft on MSN Messenger Service, Microsoft’s instant messaging app (for a related story see  The Rise and Fall of AIM, the Breakthrough AOL Never Wanted ).
+ 
+It's as if Herodotus visited Microsoft and wrote down his experiences. It has that same sort of conversational tone, insightful on-the-ground observations, and facts no outsider might ever believe.
+ 
+Much of the article is a play-by-play account of the cat and mouse game David plays changing Messenger to track AOL's Instant Messenger protocol changes. AOL repeatedly tried to make it so M</p><p>6 0.96613413 <a title="1353-lda-6" href="../high_scalability-2012/high_scalability-2012-08-06-Paper%3A_High-Performance_Concurrency_Control_Mechanisms_for_Main-Memory_Databases.html">1299 high scalability-2012-08-06-Paper: High-Performance Concurrency Control Mechanisms for Main-Memory Databases</a></p>
 <p>7 0.96482915 <a title="1353-lda-7" href="../high_scalability-2011/high_scalability-2011-05-23-Evernote_Architecture_-_9_Million_Users_and_150_Million_Requests_a_Day.html">1046 high scalability-2011-05-23-Evernote Architecture - 9 Million Users and 150 Million Requests a Day</a></p>
 <p>8 0.94386756 <a title="1353-lda-8" href="../high_scalability-2014/high_scalability-2014-04-14-How_do_you_even_do_anything_without_using_EBS%3F.html">1631 high scalability-2014-04-14-How do you even do anything without using EBS?</a></p>
 <p>9 0.9405787 <a title="1353-lda-9" href="../high_scalability-2014/high_scalability-2014-01-24-Stuff_The_Internet_Says_On_Scalability_For_January_24th%2C_2014.html">1585 high scalability-2014-01-24-Stuff The Internet Says On Scalability For January 24th, 2014</a></p>

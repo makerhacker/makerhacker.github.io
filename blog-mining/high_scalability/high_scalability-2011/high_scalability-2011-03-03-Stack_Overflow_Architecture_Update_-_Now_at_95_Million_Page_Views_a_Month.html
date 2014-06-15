@@ -16,102 +16,60 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>998 high scalability-2011-03-03-Stack Overflow Architecture Update - Now at 95 Million Page Views a Month</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-998-html" href="http://highscalability.com//blog/2011/3/3/stack-overflow-architecture-update-now-at-95-million-page-vi.html">html</a></p><p>Introduction: A lot has happened since my first article on the Stack Overflow Architecture.
-Contrary to the theme of that last article, which lavished attention on Stack
-Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up
-and out in the last few years.Stack Overflow has grown up by more then
-doubling in size to over 16 million users and multiplying its number of page
-views nearly 6 times to 95 million page views a month.  Stack Overflow has
-grown out by expanding into theStack Exchange Network, which includes Stack
-Overflow, Server Fault, and Super User for a grand total of 43 different
-sites. That's a lot of fruitful multiplying going on.What hasn't changed is
-Stack Overflow's openness about what they are doing. And that's what prompted
-this update. A recent series of posts talks a lot about how they've been
-handling their growth: Stack Exchange's Architecture in Bullet Points, Stack
-Overflow's New York Data Center, Designing For Scalability of Management and
-Fault Tolera</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Contrary to the theme of that last article, which lavished attention on Stack Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up and out in the last few years. [sent-2, score-0.061]
-</p><p>2 Stack Overflow has grown up by more then doubling in size to over 16 million users and multiplying its number of page views nearly 6 times to 95 million page views a month. [sent-3, score-0.425]
-</p><p>3 Stack Overflow has grown out by expanding into theStack Exchange Network, which includes Stack Overflow, Server Fault, and Super User for a grand total of 43 different sites. [sent-4, score-0.061]
-</p><p>4 More users, more page views, more datacenters, more sites, more developers, more operating systems, more databases, more machines. [sent-12, score-0.042]
-</p><p>5 Stack Overflow was known for their Windows stack, now they are using a lot more Linux machines for HAProxy, Redis, Bacula, Nagios, logs, and routers. [sent-15, score-0.042]
-</p><p>6 Stack Overflow is nowbeing served by two differentswitches on two different internet connections, they've added redundant machines, and some functions have moved to a second datacenter. [sent-18, score-0.052]
-</p><p>7 Unfortunately, I couldn't find any coverage on some of the open questions I had last time, like how they were going to deal with multi-tenancy across so many diffrent properties, but there's still plenty to learn from. [sent-22, score-0.082]
-</p><p>8 Data Centers1 Rack with Peak Internet in OR (Hosts our chat and Data Explorer)2 Racks with Peer 1 in NY (Hosts the rest of the Stack Exchange Network)Hardware10 Dell R610 IIS web servers (3 dedicated to Stack Overflow):1x Intel Xeon Processor E5640 @ 2. [sent-25, score-0.041]
-</p><p>9 66 GHz16 GB RAMCentOS1 Dell R610 Linux backup server running Bacula:1x Intel Xeon Processor E5640 @ 2. [sent-29, score-0.063]
-</p><p>10 66 GHz32 GB RAM1 Dell R610 Linux management server for Nagios and logs:1x Intel Xeon Processor E5640 @ 2. [sent-30, score-0.063]
-</p><p>11 NET:  for searchBacula: for backupsNagios: (withn2rrdand drraw plugins) for monitoringSplunk: for logsSQL Monitor:from Red Gate - for SQL Server monitoringBind: for DNSRovio:  a little robot (a real robot) allowing remote developers to visit the office "virtually. [sent-41, score-0.099]
-</p><p>12 5 GenericStandards:OpenSearch, AtomHost:PEAK InternetMore Architecture and Lessons LearnedHAProxy is used instead of Windows NLB because HAProxy is cheap, easy, free, works great as a 512MB VM "device" on a network via Hyper-V. [sent-48, score-0.063]
-</p><p>13 It also works in front of the boxes so it's completely transparent to them, and easier to troubleshoot as a different networking layer instead of being intermixed with all your windows configuration. [sent-49, score-0.106]
-</p><p>14 Mostly interested in peak HTTP request figures as this is what they need to make sure they can handle. [sent-54, score-0.051]
-</p><p>15 All pages accessed by (and subsequently served to) annonymous users are cached viaOutput Caching. [sent-60, score-0.105]
-</p><p>16 local cache: can only be accessed from 1 server/site pair To limit network latency they use a local "L1" cache, basically HttpRuntime. [sent-62, score-0.116]
-</p><p>17 This would reduce the cache lookup overhead to 0 bytes on the network. [sent-64, score-0.172]
-</p><p>18 This resides purely in memory, no network or DB access. [sent-66, score-0.194]
-</p><p>19 They have plenty of CPU and most of their data are strings so they get a great compression ratio. [sent-69, score-0.04]
-</p><p>20 When a specific cache invalidation is required they useRedis messaging to publish removal notices to the "L1" caches. [sent-72, score-0.144]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-998-html" href="http://highscalability.com//blog/2011/3/3/stack-overflow-architecture-update-now-at-95-million-page-vi.html">html</a></p><p>Introduction: A lot has happened since my first article on the  Stack Overflow Architecture . Contrary to the theme of that last article, which lavished attention on Stack Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up and out in the last few years.
+ 
+Stack Overflow has grown up by more then doubling in size to over 16 million users and multiplying its number of page views nearly 6 times to 95 million page views a month.  
+ 
+Stack Overflow has grown out by expanding into the  Stack Exchange Network , which includes Stack Overflow, Server Fault, and Super User for a grand total of 43 different sites. That's a lot of fruitful multiplying going on.
+ 
+What hasn't changed is Stack Overflow's openness about what they are doing. And that's what prompted this update. A recent series of posts talks a lot about how they've been handling their growth:  Stack Exchange’s Architecture in Bullet Points ,  Stack Overflow’s New York Data Center ,  Designing For Scalability of Manageme</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Contrary to the theme of that last article, which lavished attention on Stack Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up and out in the last few years. [sent-2, score-0.061]
+</p><p>2 Stack Overflow has grown up by more then doubling in size to over 16 million users and multiplying its number of page views nearly 6 times to 95 million page views a month. [sent-3, score-0.425]
+</p><p>3 Stack Overflow has grown out by expanding into the  Stack Exchange Network , which includes Stack Overflow, Server Fault, and Super User for a grand total of 43 different sites. [sent-4, score-0.061]
+</p><p>4 Stack Overflow is now  being served by two different  switches on two different internet connections, they've added redundant machines, and some functions have moved to a second datacenter. [sent-18, score-0.052]
+</p><p>5 Unfortunately, I couldn't find any coverage on some of the open questions I had last time, like how they were going to deal with multi-tenancy across so many diffrent properties, but there's still plenty to learn from. [sent-22, score-0.082]
+</p><p>6 66 GHz   16 GB RAM   CentOS           1 Dell R610 Linux backup server running Bacula:                                               1x Intel Xeon Processor E5640 @ 2. [sent-29, score-0.063]
+</p><p>7 66 GHz   32 GB RAM           1 Dell R610 Linux management server for Nagios and logs:                                               1x Intel Xeon Processor E5640 @ 2. [sent-30, score-0.063]
+</p><p>8 See github network graph   Prettify   Google Analytics   Cruise Control . [sent-44, score-0.063]
+</p><p>9 NET   HAProxy   Cacti   MarkdownSharp   Flot   Nginx   Kiln   CDN: none, all static content is served off the  sstatic. [sent-45, score-0.052]
+</p><p>10 5 Generic    Standards:  OpenSearch, Atom    Host:  PEAK Internet             More Architecture and Lessons Learned     HAProxy is used instead of Windows NLB because HAProxy is cheap, easy, free, works great as a 512MB VM “device” on a network via Hyper-V. [sent-48, score-0.063]
+</p><p>11 It also works in front of the boxes so it’s completely transparent to them, and easier to troubleshoot as a different networking layer instead of being intermixed with all your windows configuration. [sent-49, score-0.106]
+</p><p>12 Mostly interested in peak HTTP request figures as this is what they need to make sure they can handle. [sent-54, score-0.051]
+</p><p>13 All pages accessed by (and subsequently served to) annonymous users are cached via  Output Caching . [sent-60, score-0.105]
+</p><p>14 Each site has 3 distinct caches: local, site, global. [sent-61, score-0.047]
+</p><p>15 local cache : can only be accessed from 1 server/site pair                          To limit network latency they use a local "L1" cache, basically HttpRuntime. [sent-62, score-0.206]
+</p><p>16 This would reduce the cache lookup overhead to 0 bytes on the network. [sent-64, score-0.172]
+</p><p>17 This resides purely in memory, no network or DB access. [sent-66, score-0.194]
+</p><p>18 When a specific cache invalidation is required they use  Redis messaging  to publish removal notices to the "L1" caches. [sent-72, score-0.144]
+</p><p>19 For their IO system  they selected  a RAID 10 array of  Intel X25 solid state drives  . [sent-75, score-0.045]
+</p><p>20 Meta StackOverflow     How does StackOverflow handle cache invalidation? [sent-84, score-0.09]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('overflow', 0.661), ('stack', 0.286), ('xeon', 0.19), ('dell', 0.183), ('exchange', 0.156), ('intel', 0.155), ('redis', 0.123), ('processor', 0.123), ('gb', 0.12), ('fault', 0.097), ('cache', 0.09), ('bacula', 0.087), ('threadstack', 0.087), ('stackoverflow', 0.08), ('resides', 0.075), ('meta', 0.072), ('multiplying', 0.07), ('haproxy', 0.068), ('windows', 0.066), ('network', 0.063), ('server', 0.063), ('views', 0.063), ('grown', 0.061), ('linux', 0.06), ('robot', 0.06), ('purely', 0.056), ('invalidation', 0.054), ('accessed', 0.053), ('bullet', 0.052), ('served', 0.052), ('peak', 0.051), ('db', 0.047), ('distinct', 0.047), ('nagios', 0.046), ('selected', 0.045), ('sql', 0.045), ('million', 0.042), ('debugging', 0.042), ('machines', 0.042), ('questions', 0.042), ('page', 0.042), ('bytes', 0.041), ('lookup', 0.041), ('chat', 0.041), ('hosts', 0.04), ('plenty', 0.04), ('easier', 0.04), ('york', 0.04), ('drraw', 0.039), ('acaching', 0.039)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="998-tfidf-1" href="../high_scalability-2011/high_scalability-2011-03-03-Stack_Overflow_Architecture_Update_-_Now_at_95_Million_Page_Views_a_Month.html">998 high scalability-2011-03-03-Stack Overflow Architecture Update - Now at 95 Million Page Views a Month</a></p>
-<p>Introduction: A lot has happened since my first article on the Stack Overflow Architecture.
-Contrary to the theme of that last article, which lavished attention on Stack
-Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up
-and out in the last few years.Stack Overflow has grown up by more then
-doubling in size to over 16 million users and multiplying its number of page
-views nearly 6 times to 95 million page views a month.  Stack Overflow has
-grown out by expanding into theStack Exchange Network, which includes Stack
-Overflow, Server Fault, and Super User for a grand total of 43 different
-sites. That's a lot of fruitful multiplying going on.What hasn't changed is
-Stack Overflow's openness about what they are doing. And that's what prompted
-this update. A recent series of posts talks a lot about how they've been
-handling their growth: Stack Exchange's Architecture in Bullet Points, Stack
-Overflow's New York Data Center, Designing For Scalability of Management and
-Fault Tolera</p><p>2 0.51640242 <a title="998-tfidf-2" href="../high_scalability-2009/high_scalability-2009-08-05-Stack_Overflow_Architecture.html">671 high scalability-2009-08-05-Stack Overflow Architecture</a></p>
-<p>Introduction: Update 2:Stack Overflow Architecture Update - Now At 95 Million Page Views A
-MonthUpdate:Startup - ASP.NETMVC, Cloud Scale & Deploymentshows an interesting
-alternative approach for a Windows stack using ServerPath/GoGrid for a
-dedicated database machine, elastic VMs for the front end, and a free load
-balancer.Stack Overflowis a much loved programmer question and answer site
-written by two guys nobody has ever heard of before. Well, not exactly. The
-site was created by top programmer and blog starsJeff AtwoodandJoel Spolsky.
-In that sense Stack Overflow is like a celebrity owned restaurant, only it
-should be around for a while. Joel estimates 1/3 of all the programmers in the
-world have used the site so they must be serving up something good.I fell in
-deep like with Stack Overflow for purely selfish reasons, it helped me solve a
-few difficult problems that were jabbing my eyes out with pain. I also
-appreciate their no-apologies anthropologically based design philosophy. Use
-design to en</p><p>3 0.28021452 <a title="998-tfidf-3" href="../high_scalability-2011/high_scalability-2011-10-24-StackExchange_Architecture_Updates_-_Running_Smoothly%2C_Amazon_4x_More_Expensive.html">1131 high scalability-2011-10-24-StackExchange Architecture Updates - Running Smoothly, Amazon 4x More Expensive</a></p>
-<p>Introduction: We've had a few articles on theStackOverlflow Architecture and Stack Overflow
-Architecture Update - Now at 95 Million Page Views a Month. Time for another
-update. This time from a podcast. Every week or so Jeff, Joel and guests sit
-around and converse. The result is a podcast. In a recent podcast they talked
-about some of their recent architecture issues, problems, and updates. And
-since I wrote this article before my vacation, they've also published a new
-architecture update article:The Stack Exchange Architecture - 2011 Edition,
-Episode 1.My overall impression is they are in a comfortable place, adding new
-sites, adding new features, making a house a home.Notable for their scale-up
-architecture, you might expect with their growth that they would slam into a
-wall. Not so. They've been able to scale-up the power of individual servers by
-adding more CPU and RAM. SSD has been added in some cases. Even their flagship
-StackOverflow product runs on a single server. New machines have been bo</p><p>4 0.18250097 <a title="998-tfidf-4" href="../high_scalability-2011/high_scalability-2011-05-02-Stack_Overflow_Makes_Slow_Pages_100x_Faster_by_Simple_SQL_Tuning.html">1032 high scalability-2011-05-02-Stack Overflow Makes Slow Pages 100x Faster by Simple SQL Tuning</a></p>
-<p>Introduction: The most common complaint against NoSQL is that if you know how to write good
-SQL queries then SQL works fine. If SQL is slow you can always tune it and
-make it faster. A great example of this incremental improvement process was
-written up by StackExchange's Sam Saffron, in A day in the life of a slow page
-at Stack Overflow, where he shows through profiling and SQL tuning it was
-possible to reduce page load times from 630ms to 40ms for some pages and for
-other pages the improvement was 100x.Sam provides a lot of wonderful detail of
-his tuning process, how it works, the thought process, the tools used, and the
-tradeoffs involved. Here's a short summary of the steps:Using theirmini-
-profiler it was shown that abadge detail pagewas taking 630.3 ms to load,
-298.1 ms of that was spent on SQL queries, and then the tool listed the SQL
-queries for the page and how long each took.From the historical logs, which
-are stored inHAProxy on a month-by-month basis, Sam was able to determine this
-page</p><p>5 0.15295072 <a title="998-tfidf-5" href="../high_scalability-2007/high_scalability-2007-11-20-what_is_j2ee_stack.html">162 high scalability-2007-11-20-what is j2ee stack</a></p>
-<p>Introduction: I see everyone talk about lamp stack is less than j2ee stack .i m newbie can
-anyone plz explain what is j2ee stack</p><p>6 0.14911509 <a title="998-tfidf-6" href="../high_scalability-2009/high_scalability-2009-04-23-Which_Key_value_pair_database_to_be_used.html">578 high scalability-2009-04-23-Which Key value pair database to be used</a></p>
+<p>Introduction: A lot has happened since my first article on the  Stack Overflow Architecture . Contrary to the theme of that last article, which lavished attention on Stack Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up and out in the last few years.
+ 
+Stack Overflow has grown up by more then doubling in size to over 16 million users and multiplying its number of page views nearly 6 times to 95 million page views a month.  
+ 
+Stack Overflow has grown out by expanding into the  Stack Exchange Network , which includes Stack Overflow, Server Fault, and Super User for a grand total of 43 different sites. That's a lot of fruitful multiplying going on.
+ 
+What hasn't changed is Stack Overflow's openness about what they are doing. And that's what prompted this update. A recent series of posts talks a lot about how they've been handling their growth:  Stack Exchange’s Architecture in Bullet Points ,  Stack Overflow’s New York Data Center ,  Designing For Scalability of Manageme</p><p>2 0.51640242 <a title="998-tfidf-2" href="../high_scalability-2009/high_scalability-2009-08-05-Stack_Overflow_Architecture.html">671 high scalability-2009-08-05-Stack Overflow Architecture</a></p>
+<p>Introduction: Update 2 :  Stack Overflow Architecture Update - Now At 95 Million Page Views A Month    Update:  Startup – ASP.NET   MVC, Cloud Scale & Deployment  shows an interesting alternative approach for a Windows stack using ServerPath/GoGrid for a dedicated database machine, elastic VMs for the front end, and a free load balancer.    Stack Overflow  is a much loved programmer question and answer site written by two guys nobody has ever heard of before. Well, not exactly. The site was created by top programmer and blog stars  Jeff Atwood  and  Joel Spolsky . In that sense Stack Overflow is like a celebrity owned restaurant, only it should be around for a while. Joel estimates 1/3 of all the programmers in the world have used the site so they must be serving up something good.
+ 
+I fell in deep like with Stack Overflow for purely selfish reasons, it helped me solve a few difficult problems that were jabbing my eyes out with pain. I also appreciate their no-apologies anthropologically based desig</p><p>3 0.28021452 <a title="998-tfidf-3" href="../high_scalability-2011/high_scalability-2011-10-24-StackExchange_Architecture_Updates_-_Running_Smoothly%2C_Amazon_4x_More_Expensive.html">1131 high scalability-2011-10-24-StackExchange Architecture Updates - Running Smoothly, Amazon 4x More Expensive</a></p>
+<p>Introduction: We've had a few articles on the  StackOverlflow Architecture  and  Stack Overflow Architecture Update - Now at 95 Million Page Views a Month . Time for another update. This time from a podcast. Every week or so Jeff, Joel and guests sit around and converse. The result is a  podcast . In a recent  podcast  they talked about some of their recent architecture issues, problems, and updates. And since I wrote this article before my vacation, they've also published a new architecture update article:  The Stack Exchange Architecture – 2011 Edition, Episode 1 .
+ 
+My overall impression is they are in a comfortable place, adding new sites, adding new features, making a house a home.
+ 
+Notable for their scale-up architecture, you might expect with their growth that they would slam into a wall. Not so. They've been able to scale-up the power of individual servers by adding more CPU and RAM. SSD has been added in some cases. Even their flagship StackOverflow product runs on a single server. New mac</p><p>4 0.18250097 <a title="998-tfidf-4" href="../high_scalability-2011/high_scalability-2011-05-02-Stack_Overflow_Makes_Slow_Pages_100x_Faster_by_Simple_SQL_Tuning.html">1032 high scalability-2011-05-02-Stack Overflow Makes Slow Pages 100x Faster by Simple SQL Tuning</a></p>
+<p>Introduction: The most common complaint against NoSQL is that if you know how to write good SQL queries then SQL works fine. If SQL is slow you can always tune it and make it faster. A great example of this incremental improvement process was written up by StackExchange's Sam Saffron, in  A day in the life of a slow page at Stack Overflow , where he shows through profiling and SQL tuning it was possible to reduce page load times from 630ms to 40ms for some pages and for other pages the improvement was 100x.
+ 
+Sam provides a lot of wonderful detail of his tuning process, how it works, the thought process, the tools used, and the tradeoffs involved. Here's a short summary of the steps:
+  
+ Using their  mini-profiler  it was shown that a  badge detail page  was taking 630.3 ms to load, 298.1 ms of that was spent on SQL queries, and then the tool listed the SQL queries for the page and how long each took. 
+ From the historical logs, which are stored in  HAProxy  on a month-by-month basis, Sam was able t</p><p>5 0.15295072 <a title="998-tfidf-5" href="../high_scalability-2007/high_scalability-2007-11-20-what_is_j2ee_stack.html">162 high scalability-2007-11-20-what is j2ee stack</a></p>
+<p>Introduction: I see everyone talk about lamp stack is less than j2ee stack .i m newbie can anyone plz explain what is j2ee stack</p><p>6 0.14911509 <a title="998-tfidf-6" href="../high_scalability-2009/high_scalability-2009-04-23-Which_Key_value_pair_database_to_be_used.html">578 high scalability-2009-04-23-Which Key value pair database to be used</a></p>
 <p>7 0.13161504 <a title="998-tfidf-7" href="../high_scalability-2007/high_scalability-2007-12-28-Amazon%27s_EC2%3A_Pay_as_You_Grow_Could_Cut_Your_Costs_in_Half.html">195 high scalability-2007-12-28-Amazon's EC2: Pay as You Grow Could Cut Your Costs in Half</a></p>
 <p>8 0.13096868 <a title="998-tfidf-8" href="../high_scalability-2009/high_scalability-2009-08-16-ThePort__Network__Architecture.html">682 high scalability-2009-08-16-ThePort  Network  Architecture</a></p>
 <p>9 0.11841425 <a title="998-tfidf-9" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
@@ -131,75 +89,32 @@ anyone plz explain what is j2ee stack</p><p>6 0.14911509 <a title="998-tfidf-6" 
 <p>[(0, 0.186), (1, 0.065), (2, -0.032), (3, -0.095), (4, -0.011), (5, -0.021), (6, 0.001), (7, 0.014), (8, -0.01), (9, 0.023), (10, -0.016), (11, -0.076), (12, -0.006), (13, 0.036), (14, -0.066), (15, 0.048), (16, -0.01), (17, 0.007), (18, -0.043), (19, -0.045), (20, -0.034), (21, -0.007), (22, -0.008), (23, -0.056), (24, 0.028), (25, -0.007), (26, -0.037), (27, 0.003), (28, -0.017), (29, 0.028), (30, -0.003), (31, 0.007), (32, -0.025), (33, -0.036), (34, 0.002), (35, 0.028), (36, 0.025), (37, 0.089), (38, 0.033), (39, 0.073), (40, 0.007), (41, -0.042), (42, -0.039), (43, -0.018), (44, 0.042), (45, -0.013), (46, -0.015), (47, -0.005), (48, -0.012), (49, 0.019)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97512329 <a title="998-lsi-1" href="../high_scalability-2011/high_scalability-2011-03-03-Stack_Overflow_Architecture_Update_-_Now_at_95_Million_Page_Views_a_Month.html">998 high scalability-2011-03-03-Stack Overflow Architecture Update - Now at 95 Million Page Views a Month</a></p>
-<p>Introduction: A lot has happened since my first article on the Stack Overflow Architecture.
-Contrary to the theme of that last article, which lavished attention on Stack
-Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up
-and out in the last few years.Stack Overflow has grown up by more then
-doubling in size to over 16 million users and multiplying its number of page
-views nearly 6 times to 95 million page views a month.  Stack Overflow has
-grown out by expanding into theStack Exchange Network, which includes Stack
-Overflow, Server Fault, and Super User for a grand total of 43 different
-sites. That's a lot of fruitful multiplying going on.What hasn't changed is
-Stack Overflow's openness about what they are doing. And that's what prompted
-this update. A recent series of posts talks a lot about how they've been
-handling their growth: Stack Exchange's Architecture in Bullet Points, Stack
-Overflow's New York Data Center, Designing For Scalability of Management and
-Fault Tolera</p><p>2 0.78307444 <a title="998-lsi-2" href="../high_scalability-2009/high_scalability-2009-02-12-MySpace_Architecture.html">511 high scalability-2009-02-12-MySpace Architecture</a></p>
-<p>Introduction: Update:Presentation: Behind the Scenes at MySpace.com. Dan Farino, Chief
-Systems Architect at MySpace shares details of some of MySpace's cool internal
-operations tools.MySpace.com is one of the fastest growing site on the
-Internet with 65 million subscribers and 260,000 new users registering each
-day. Often criticized for poor performance, MySpace has had to tackle
-scalability issues few other sites have faced. How did they do it?Site:
-http://myspace.comInformation SourcesPresentation: Behind the Scenes at
-MySpace.comInside MySpace.comPlatformASP.NET 2.0WindowsIISSQL ServerWhat's
-Inside?300 million users.Pushes 100 gigabits/second to the internet. 10Gb/sec
-is HTML content.4,500+ web servers windows 2003/IIS 6.0/APS.NET.1,200+ cache
-servers running 64-bit Windows 2003. 16GB of objects cached in RAM.500+
-database servers running 64-bit Windows and SQL Server 2005.MySpace processes
-1.5 Billion page views per day and handles 2.3 million concurrent users during
-the dayMembership Milestones</p><p>3 0.76092643 <a title="998-lsi-3" href="../high_scalability-2011/high_scalability-2011-10-24-StackExchange_Architecture_Updates_-_Running_Smoothly%2C_Amazon_4x_More_Expensive.html">1131 high scalability-2011-10-24-StackExchange Architecture Updates - Running Smoothly, Amazon 4x More Expensive</a></p>
-<p>Introduction: We've had a few articles on theStackOverlflow Architecture and Stack Overflow
-Architecture Update - Now at 95 Million Page Views a Month. Time for another
-update. This time from a podcast. Every week or so Jeff, Joel and guests sit
-around and converse. The result is a podcast. In a recent podcast they talked
-about some of their recent architecture issues, problems, and updates. And
-since I wrote this article before my vacation, they've also published a new
-architecture update article:The Stack Exchange Architecture - 2011 Edition,
-Episode 1.My overall impression is they are in a comfortable place, adding new
-sites, adding new features, making a house a home.Notable for their scale-up
-architecture, you might expect with their growth that they would slam into a
-wall. Not so. They've been able to scale-up the power of individual servers by
-adding more CPU and RAM. SSD has been added in some cases. Even their flagship
-StackOverflow product runs on a single server. New machines have been bo</p><p>4 0.76019621 <a title="998-lsi-4" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
-<p>Introduction: Now that we have theC10K concurrent connection problemlicked, how do we level
-up and support 10 million concurrent connections? Impossible you say. Nope,
-systems right now are delivering 10 million concurrent connections using
-techniques that are as radical as they may be unfamiliar.To learn how it's
-done we turn toRobert Graham, CEO of Errata Security, and his absolutely
-fantastic talk atShmoocon 2013calledC10M Defending The Internet At
-Scale.Robert has a brilliant way of framing the problem that I've never heard
-of before. He starts with a little bit of history, relating how Unix wasn't
-originally designed to be a general server OS, it was designed to be a control
-system for a telephone network. It was the telephone network that actually
-transported the data so there was a clean separation between the control plane
-and the data plane. Theproblem is we now use Unix servers as part of the data
-plane, which we shouldn't do at all. If we were designing a kernel for
-handling one applicati</p><p>5 0.73604798 <a title="998-lsi-5" href="../high_scalability-2009/high_scalability-2009-08-05-Stack_Overflow_Architecture.html">671 high scalability-2009-08-05-Stack Overflow Architecture</a></p>
-<p>Introduction: Update 2:Stack Overflow Architecture Update - Now At 95 Million Page Views A
-MonthUpdate:Startup - ASP.NETMVC, Cloud Scale & Deploymentshows an interesting
-alternative approach for a Windows stack using ServerPath/GoGrid for a
-dedicated database machine, elastic VMs for the front end, and a free load
-balancer.Stack Overflowis a much loved programmer question and answer site
-written by two guys nobody has ever heard of before. Well, not exactly. The
-site was created by top programmer and blog starsJeff AtwoodandJoel Spolsky.
-In that sense Stack Overflow is like a celebrity owned restaurant, only it
-should be around for a while. Joel estimates 1/3 of all the programmers in the
-world have used the site so they must be serving up something good.I fell in
-deep like with Stack Overflow for purely selfish reasons, it helped me solve a
-few difficult problems that were jabbing my eyes out with pain. I also
-appreciate their no-apologies anthropologically based design philosophy. Use
-design to en</p><p>6 0.7359786 <a title="998-lsi-6" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
+<p>Introduction: A lot has happened since my first article on the  Stack Overflow Architecture . Contrary to the theme of that last article, which lavished attention on Stack Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up and out in the last few years.
+ 
+Stack Overflow has grown up by more then doubling in size to over 16 million users and multiplying its number of page views nearly 6 times to 95 million page views a month.  
+ 
+Stack Overflow has grown out by expanding into the  Stack Exchange Network , which includes Stack Overflow, Server Fault, and Super User for a grand total of 43 different sites. That's a lot of fruitful multiplying going on.
+ 
+What hasn't changed is Stack Overflow's openness about what they are doing. And that's what prompted this update. A recent series of posts talks a lot about how they've been handling their growth:  Stack Exchange’s Architecture in Bullet Points ,  Stack Overflow’s New York Data Center ,  Designing For Scalability of Manageme</p><p>2 0.78307444 <a title="998-lsi-2" href="../high_scalability-2009/high_scalability-2009-02-12-MySpace_Architecture.html">511 high scalability-2009-02-12-MySpace Architecture</a></p>
+<p>Introduction: Update:  Presentation: Behind the Scenes at MySpace.com . Dan Farino, Chief Systems Architect at MySpace shares details of some of MySpace's cool internal operations tools.   MySpace.com  is one of the fastest growing site on the Internet with 65 million subscribers and 260,000 new users registering each day. Often criticized for poor performance, MySpace has had to tackle scalability issues few other sites have faced. How did they do it?
+ 
+Site: http://myspace.com
+  Information Sources    Presentation: Behind the Scenes at MySpace.com      Inside MySpace.com  
+ Platform 
+    ASP.NET 2.0     Windows    IIS    SQL Server 
+ What's Inside? 
+   300 million users.   Pushes 100 gigabits/second to the internet. 10Gb/sec is HTML content.   4,500+ web servers windows 2003/IIS 6.0/APS.NET.   1,200+ cache servers running 64-bit Windows 2003. 16GB of objects cached in RAM.   500+ database servers running 64-bit Windows and SQL Server 2005.      MySpace processes 1.5 Billion page views per day and</p><p>3 0.76092643 <a title="998-lsi-3" href="../high_scalability-2011/high_scalability-2011-10-24-StackExchange_Architecture_Updates_-_Running_Smoothly%2C_Amazon_4x_More_Expensive.html">1131 high scalability-2011-10-24-StackExchange Architecture Updates - Running Smoothly, Amazon 4x More Expensive</a></p>
+<p>Introduction: We've had a few articles on the  StackOverlflow Architecture  and  Stack Overflow Architecture Update - Now at 95 Million Page Views a Month . Time for another update. This time from a podcast. Every week or so Jeff, Joel and guests sit around and converse. The result is a  podcast . In a recent  podcast  they talked about some of their recent architecture issues, problems, and updates. And since I wrote this article before my vacation, they've also published a new architecture update article:  The Stack Exchange Architecture – 2011 Edition, Episode 1 .
+ 
+My overall impression is they are in a comfortable place, adding new sites, adding new features, making a house a home.
+ 
+Notable for their scale-up architecture, you might expect with their growth that they would slam into a wall. Not so. They've been able to scale-up the power of individual servers by adding more CPU and RAM. SSD has been added in some cases. Even their flagship StackOverflow product runs on a single server. New mac</p><p>4 0.76019621 <a title="998-lsi-4" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: Now that we have the    C10K concurrent connection problem    licked, how do we level up and support 10 million concurrent connections? Impossible you say. Nope, systems right now are delivering 10 million concurrent connections using techniques that are as radical as they may be unfamiliar. 
+   To learn how it’s done we turn to    Robert Graham   , CEO of Errata Security, and his absolutely fantastic talk at    Shmoocon 2013    called    C10M Defending The Internet At Scale   . 
+  Robert has a brilliant way of framing the problem that I’ve never heard of before. He starts with a little bit of history, relating how Unix wasn’t originally designed to be a general server OS, it was designed to be a control system for a telephone network. It was the telephone network that actually transported the data so there was a clean separation between the control plane and the data plane. The  problem is we now use Unix servers as part of the data plane , which we shouldn’t do at all. If we were des</p><p>5 0.73604798 <a title="998-lsi-5" href="../high_scalability-2009/high_scalability-2009-08-05-Stack_Overflow_Architecture.html">671 high scalability-2009-08-05-Stack Overflow Architecture</a></p>
+<p>Introduction: Update 2 :  Stack Overflow Architecture Update - Now At 95 Million Page Views A Month    Update:  Startup – ASP.NET   MVC, Cloud Scale & Deployment  shows an interesting alternative approach for a Windows stack using ServerPath/GoGrid for a dedicated database machine, elastic VMs for the front end, and a free load balancer.    Stack Overflow  is a much loved programmer question and answer site written by two guys nobody has ever heard of before. Well, not exactly. The site was created by top programmer and blog stars  Jeff Atwood  and  Joel Spolsky . In that sense Stack Overflow is like a celebrity owned restaurant, only it should be around for a while. Joel estimates 1/3 of all the programmers in the world have used the site so they must be serving up something good.
+ 
+I fell in deep like with Stack Overflow for purely selfish reasons, it helped me solve a few difficult problems that were jabbing my eyes out with pain. I also appreciate their no-apologies anthropologically based desig</p><p>6 0.7359786 <a title="998-lsi-6" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
 <p>7 0.7242046 <a title="998-lsi-7" href="../high_scalability-2007/high_scalability-2007-07-12-FeedBurner_Architecture.html">7 high scalability-2007-07-12-FeedBurner Architecture</a></p>
 <p>8 0.72186309 <a title="998-lsi-8" href="../high_scalability-2007/high_scalability-2007-11-12-Slashdot_Architecture_-_How_the_Old_Man_of_the_Internet_Learned_to_Scale.html">150 high scalability-2007-11-12-Slashdot Architecture - How the Old Man of the Internet Learned to Scale</a></p>
 <p>9 0.72086912 <a title="998-lsi-9" href="../high_scalability-2012/high_scalability-2012-07-16-Cinchcast_Architecture_-_Producing_1%2C500_Hours_of_Audio_Every_Day.html">1284 high scalability-2012-07-16-Cinchcast Architecture - Producing 1,500 Hours of Audio Every Day</a></p>
@@ -219,70 +134,25 @@ design to en</p><p>6 0.7359786 <a title="998-lsi-6" href="../high_scalability-20
 <p>[(1, 0.123), (2, 0.173), (8, 0.01), (10, 0.048), (17, 0.016), (30, 0.054), (47, 0.029), (56, 0.014), (61, 0.128), (68, 0.095), (77, 0.039), (79, 0.06), (85, 0.079), (94, 0.027)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.91885507 <a title="998-lda-1" href="../high_scalability-2011/high_scalability-2011-03-03-Stack_Overflow_Architecture_Update_-_Now_at_95_Million_Page_Views_a_Month.html">998 high scalability-2011-03-03-Stack Overflow Architecture Update - Now at 95 Million Page Views a Month</a></p>
-<p>Introduction: A lot has happened since my first article on the Stack Overflow Architecture.
-Contrary to the theme of that last article, which lavished attention on Stack
-Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up
-and out in the last few years.Stack Overflow has grown up by more then
-doubling in size to over 16 million users and multiplying its number of page
-views nearly 6 times to 95 million page views a month.  Stack Overflow has
-grown out by expanding into theStack Exchange Network, which includes Stack
-Overflow, Server Fault, and Super User for a grand total of 43 different
-sites. That's a lot of fruitful multiplying going on.What hasn't changed is
-Stack Overflow's openness about what they are doing. And that's what prompted
-this update. A recent series of posts talks a lot about how they've been
-handling their growth: Stack Exchange's Architecture in Bullet Points, Stack
-Overflow's New York Data Center, Designing For Scalability of Management and
-Fault Tolera</p><p>2 0.90002966 <a title="998-lda-2" href="../high_scalability-2010/high_scalability-2010-07-12-Creating_Scalable_Digital_Libraries.html">856 high scalability-2010-07-12-Creating Scalable Digital Libraries</a></p>
-<p>Introduction: Like many other media content providers, libraries and museums are
-increasingly moving their content onto the Web.  While the move itself is no
-easy process (with digitization, web development, and training costs), being
-able to successfully deliver content to a wide audience is an ongoing concern,
-particularly for large libraries.Much of the concern is financial, as most
-libraries do not have the internal budget or outside investors that for-profit
-businesses enjoy.  Even large university libraries will face serious budget
-constraints that even other university departments, such as science and
-technology would not face.Creating a scalable infrastructure and also
-distributing a large digital collection that can handle multiple requests,
-requires planning that many librarians have not even imagined.  They must stop
-thinking in terms of "one-item-per-customer" and start thinking in terms of
-numerous users accessing the same information simultaneously.Content Delivery
-NetworkOne option to</p><p>3 0.89955372 <a title="998-lda-3" href="../high_scalability-2008/high_scalability-2008-08-08-Separation_into_read-write_only_databases.html">361 high scalability-2008-08-08-Separation into read-write only databases</a></p>
-<p>Introduction: At least in the articles on Plenty of Fish and Slashdot it was mentioned that
-one can achieve higher performance by creating read-only and write-only
-databases where possible.I have read the comments and tried unsuccessfully to
-find more information on the net about this. I still do not understand the
-concept. Can someone explain it in more detail, as well as recommend resources
-for further investigation? (Are there books written specifically about this
-technique?) I think it is a very important issue, because databases are
-oftentimes the bottleneck.</p><p>4 0.89932191 <a title="998-lda-4" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
-<p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><p>5 0.89904064 <a title="998-lda-5" href="../high_scalability-2010/high_scalability-2010-11-30-NoCAP_%E2%80%93_Part_III_%E2%80%93_GigaSpaces_clustering_explained...html">950 high scalability-2010-11-30-NoCAP – Part III – GigaSpaces clustering explained..</a></p>
-<p>Introduction: In many of the recent discussions on the design of large scale systems (a.k.a.
-Web Scale) it was argued that the right set of tradeoffs for building large
-scale systems would be to give away Consistency for Availability and Partition
-tolerance. Those arguments relied on the foundation of the CAP theorem
-developed in early 2000-2002. One of the core principals behind the CAP
-theorem is that you must choose two out of the three CAP properties. In many
-of the transactional systems giving away consistency is either impossible or
-yields a huge complexity in the design of those systems. In this series of
-posts, I've tried to suggest a different set of tradeoffs in which we could
-achieve scalability without compromising on consistency. I also argued that
-rather than choosing only two out of the three CAP properties we could choose
-various degrees of all three. The degrees would be determined by the most
-likely availability and partition tolerance scenarios in our specific
-application.  The su</p><p>6 0.89895135 <a title="998-lda-6" href="../high_scalability-2012/high_scalability-2012-03-09-Stuff_The_Internet_Says_On_Scalability_For_March_9%2C_2012.html">1206 high scalability-2012-03-09-Stuff The Internet Says On Scalability For March 9, 2012</a></p>
+<p>Introduction: A lot has happened since my first article on the  Stack Overflow Architecture . Contrary to the theme of that last article, which lavished attention on Stack Overflow's dedication to a scale-up strategy, Stack Overflow has both grown up and out in the last few years.
+ 
+Stack Overflow has grown up by more then doubling in size to over 16 million users and multiplying its number of page views nearly 6 times to 95 million page views a month.  
+ 
+Stack Overflow has grown out by expanding into the  Stack Exchange Network , which includes Stack Overflow, Server Fault, and Super User for a grand total of 43 different sites. That's a lot of fruitful multiplying going on.
+ 
+What hasn't changed is Stack Overflow's openness about what they are doing. And that's what prompted this update. A recent series of posts talks a lot about how they've been handling their growth:  Stack Exchange’s Architecture in Bullet Points ,  Stack Overflow’s New York Data Center ,  Designing For Scalability of Manageme</p><p>2 0.90002966 <a title="998-lda-2" href="../high_scalability-2010/high_scalability-2010-07-12-Creating_Scalable_Digital_Libraries.html">856 high scalability-2010-07-12-Creating Scalable Digital Libraries</a></p>
+<p>Introduction: Like many other media content providers, libraries and museums are increasingly moving their content onto the Web.  While the move itself is no easy process (with digitization, web development, and training costs), being able to successfully deliver content to a wide audience is an ongoing concern, particularly for large libraries.
+ 
+Much of the concern is financial, as most libraries do not have the internal budget or outside investors that for-profit businesses enjoy.  Even large university libraries will face serious budget constraints that even other university departments, such as science and technology would not face.
+ 
+Creating a scalable infrastructure and also distributing a large digital collection that can handle multiple requests, requires planning that many librarians have not even imagined.  They must stop thinking in terms of "one-item-per-customer" and start thinking in terms of numerous users accessing the same information simultaneously.
+ 
+ Content Delivery Network</p><p>3 0.89955372 <a title="998-lda-3" href="../high_scalability-2008/high_scalability-2008-08-08-Separation_into_read-write_only_databases.html">361 high scalability-2008-08-08-Separation into read-write only databases</a></p>
+<p>Introduction: At least in the articles on Plenty of Fish and Slashdot it was mentioned that one can achieve higher performance by creating read-only and write-only databases where possible.    I have read the comments and tried unsuccessfully to find more information on the net about this. I still do not understand the concept. Can someone explain it in more detail, as well as recommend resources for further investigation? (Are there books written specifically about this technique?) I think it is a very important issue, because databases are oftentimes the bottleneck.</p><p>4 0.89932191 <a title="998-lda-4" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
+<p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><p>5 0.89904064 <a title="998-lda-5" href="../high_scalability-2010/high_scalability-2010-11-30-NoCAP_%E2%80%93_Part_III_%E2%80%93_GigaSpaces_clustering_explained...html">950 high scalability-2010-11-30-NoCAP – Part III – GigaSpaces clustering explained..</a></p>
+<p>Introduction: In many of the recent discussions on the design of large scale systems (a.k.a. Web Scale) it was argued that the right set of tradeoffs for building large scale systems would be to give away  C onsistency for  A vailability and  P artition tolerance. Those arguments relied on the foundation of the CAP theorem developed in early 2000-2002. One of the core principals behind the CAP theorem is that you must choose two out of the three CAP properties. In many of the transactional systems giving away consistency is either impossible or yields a huge complexity in the design of those systems. In this series of posts, I've tried to suggest a different set of tradeoffs in which we could achieve scalability without compromising on consistency. I also argued that rather than choosing only two out of the three CAP properties we could choose various degrees of all three. The degrees would be determined by the most likely availability and partition tolerance scenarios in our specific application.</p><p>6 0.89895135 <a title="998-lda-6" href="../high_scalability-2012/high_scalability-2012-03-09-Stuff_The_Internet_Says_On_Scalability_For_March_9%2C_2012.html">1206 high scalability-2012-03-09-Stuff The Internet Says On Scalability For March 9, 2012</a></p>
 <p>7 0.89870089 <a title="998-lda-7" href="../high_scalability-2008/high_scalability-2008-05-27-eBay_Architecture.html">331 high scalability-2008-05-27-eBay Architecture</a></p>
 <p>8 0.89727008 <a title="998-lda-8" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>9 0.89699459 <a title="998-lda-9" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>

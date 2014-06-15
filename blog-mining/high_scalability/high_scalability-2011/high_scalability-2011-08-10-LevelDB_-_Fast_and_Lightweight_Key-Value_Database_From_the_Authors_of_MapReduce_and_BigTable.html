@@ -16,115 +16,78 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1096 high scalability-2011-08-10-LevelDB - Fast and Lightweight Key-Value Database From the Authors of MapReduce and BigTable</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1096-html" href="http://highscalability.com//blog/2011/8/10/leveldb-fast-and-lightweight-keyvalue-database-from-the-auth.html">html</a></p><p>Introduction: LevelDBis an exciting new entrant into the pantheon of embedded databases,
-notable both for its pedigree, being authored by the makers of the now
-mythical Google MapReduce and BigTable products, and for its emphasis on
-efficient disk based random access using log-structured-merge (LSM) trees. The
-plan is to keep LevelDB fairly low-level. The intention is that it will be a
-useful building block for higher-level storage systems. Basho isalready
-investigatingusing LevelDB as one if its storage engines.In the past many
-systems were built around embedded databases, though most developers now use
-database servers connected to via RPCs. An embedded database is a database
-distributed as a library and linked directly into your application. The
-application is responsible for providing a service level API, sharding,
-backups, initiating consistency checking, initiation rollback,  startup,
-shutdown, queries, etc. Applications become the container for the database and
-the manager of the database.Arc</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 LevelDBis an exciting new entrant into the pantheon of embedded databases, notable both for its pedigree, being authored by the makers of the now mythical Google MapReduce and BigTable products, and for its emphasis on efficient disk based random access using log-structured-merge (LSM) trees. [sent-1, score-0.188]
-</p><p>2 An embedded database is a database distributed as a library and linked directly into your application. [sent-6, score-0.282]
-</p><p>3 Architectures using embedded databases typically never expose a raw database abstraction at all. [sent-9, score-0.214]
-</p><p>4 They have a service API and the services use the embedded database library call transparently behind the scene. [sent-10, score-0.236]
-</p><p>5 Often an embedded database will provide multiple access types, like indexed access for key-value uses and btrees for range queries and cursors. [sent-11, score-0.23]
-</p><p>6 BerkelyDBis one well known example of an embedded database,SQLiteis another, the file system is perhaps the most commonly used database, and there have been many many other btree libraries in common use. [sent-12, score-0.227]
-</p><p>7 Here are some excellent FAQish tips, performance suggestions, and porting issues extracted from the list:Largest tested database: 1 billion entries with 16 byte keys and 100 byte values (roughly 100 GB of raw data, about half that after compression). [sent-20, score-0.314]
-</p><p>8 TokyoCabinet could be filled with a million 100-byte writes in less than two seconds if writing sequentially, but the time  ballooned to ~2000 seconds when writing randomly. [sent-32, score-0.204]
-</p><p>9 What leveldb does differently from B+trees is that it trades off write latency for write throughput: write latency is reduced by doing bulk writes, but the same data may be rewritten multiple times (at high throughput) in the background due to compactions. [sent-43, score-0.925]
-</p><p>10 It always appends to a log file, or merges existing files together to produce new ones. [sent-45, score-0.271]
-</p><p>11 So an OS crash will cause a partially written log record (or a few partially written log records). [sent-46, score-0.595]
-</p><p>12 Every write will cause a log file to grow, regardless of whether or not you are writing to a key which already exists in the database, and regardless of whether or not you are overwriting a key with the exact same value. [sent-52, score-0.187]
-</p><p>13 LevelDB's performance improves greatly with more memory, a larger write buffer reduces the need to merge sorted files (since it creates a smaller number of larger sorted files). [sent-59, score-0.235]
-</p><p>14 A good sign of adoption, language bindings are being built:Java,Tie::LevelDB on CPANComparingLevelDB and Bitcask: LevelDB is a persistent ordered map; bitcask is a persistent hash table (no ordered iteration). [sent-68, score-0.268]
-</p><p>15 To clarify, leveldb stores data in a sequence of levels. [sent-73, score-0.778]
-</p><p>16 So if 10% of the db fits in memory, leveldb will need to do one seek (for the last level since all of the earlier levels should end up cached in the OS buffer cache). [sent-76, score-0.838]
-</p><p>17 If 1% fits in memory, leveldb will need two seeks. [sent-77, score-0.74]
-</p><p>18 Writes can be lost, but that doesn't trash the data files: Leveldb never writes in place: it always appends to a log file, or merges existing files together to produce new ones. [sent-79, score-0.395]
-</p><p>19 So an OS crash will cause a partially written log record (or a few partially written log records). [sent-80, score-0.595]
-</p><p>20 Possible future enhancements:Do not hold the mutex while the writer is appending to the log (allow concurrent readers to proceed)Implement group commit (so concurrent writers have their writes grouped together). [sent-98, score-0.332]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1096-html" href="http://highscalability.com//blog/2011/8/10/leveldb-fast-and-lightweight-keyvalue-database-from-the-auth.html">html</a></p><p>Introduction: LevelDB  is an exciting new entrant into the pantheon of embedded databases, notable both for its pedigree, being authored by the makers of the now mythical Google MapReduce and BigTable products, and for its emphasis on efficient disk based random access using log-structured-merge (LSM) trees. 
+ 
+The plan is to keep LevelDB fairly low-level. The intention is that it will be a useful building block for higher-level storage systems. Basho is  already investigating  using LevelDB as one if its storage engines.
+ 
+In the past many systems were built around embedded databases, though most developers now use database servers connected to via RPCs. An embedded database is a database distributed as a library and linked directly into your application. The application is responsible for providing a service level API, sharding, backups, initiating consistency checking, initiation rollback,  startup, shutdown, queries, etc. Applications become the container for the database and the manager of the</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 LevelDB  is an exciting new entrant into the pantheon of embedded databases, notable both for its pedigree, being authored by the makers of the now mythical Google MapReduce and BigTable products, and for its emphasis on efficient disk based random access using log-structured-merge (LSM) trees. [sent-1, score-0.188]
+</p><p>2 In the past many systems were built around embedded databases, though most developers now use database servers connected to via RPCs. [sent-5, score-0.166]
+</p><p>3 An embedded database is a database distributed as a library and linked directly into your application. [sent-6, score-0.282]
+</p><p>4 Architectures using embedded databases typically never expose a raw database abstraction at all. [sent-9, score-0.214]
+</p><p>5 They have a service API and the services use the embedded database library call transparently behind the scene. [sent-10, score-0.236]
+</p><p>6 Often an embedded database will provide multiple access types, like indexed access for key-value uses and btrees for range queries and cursors. [sent-11, score-0.23]
+</p><p>7 BerkelyDB  is one well known example of an embedded database,  SQLite  is another, the file system is perhaps the most commonly used database, and there have been many many other btree libraries in common use. [sent-12, score-0.227]
+</p><p>8 Here are some excellent FAQish tips, performance suggestions, and porting issues extracted from the list:     Largest tested database: 1 billion entries with 16 byte keys and 100 byte values (roughly 100 GB of raw data, about half that after compression). [sent-20, score-0.314]
+</p><p>9 They wanted to put together something like the BigTable tablet stack that had minimal dependencies and would be suitable for open sourcing, and also would be suitable for use in Chrome (for the IndexedDB implementation). [sent-25, score-0.16]
+</p><p>10 What leveldb does differently from B+trees is that it trades off write latency for write throughput: write latency is reduced by doing bulk writes, but the same data may be rewritten multiple times (at high throughput) in the background due to compactions. [sent-43, score-0.878]
+</p><p>11 It always appends to a log file, or merges existing files together to produce new ones. [sent-45, score-0.271]
+</p><p>12 So an OS crash will cause a partially written log record (or a few partially written log records). [sent-46, score-0.595]
+</p><p>13 Leveldb recovery code uses checksums to detect this and will skip the incomplete records. [sent-47, score-0.151]
+</p><p>14 LevelDB's performance improves greatly with more memory, a larger write buffer reduces the need to merge sorted files (since it creates a smaller number of larger sorted files). [sent-59, score-0.235]
+</p><p>15 A good sign of adoption, language bindings are being built:  Java ,  Tie::LevelDB on CPAN    Comparing  LevelDB and Bitcask : LevelDB is a persistent ordered map; bitcask is a persistent hash table (no ordered iteration). [sent-68, score-0.268]
+</p><p>16 To clarify, leveldb stores data in a sequence of levels. [sent-73, score-0.778]
+</p><p>17 So if 10% of the db fits in memory, leveldb will need to do one seek (for the last level since all of the earlier levels should end up cached in the OS buffer cache). [sent-76, score-0.838]
+</p><p>18 If 1% fits in memory, leveldb will need two seeks. [sent-77, score-0.74]
+</p><p>19 Writes can be lost , but that doesn't trash the data files: Leveldb never writes in place: it always appends to a log file, or merges existing files together to produce new ones. [sent-79, score-0.395]
+</p><p>20 So an OS crash will cause a partially written log record (or a few partially written log records). [sent-80, score-0.595]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('leveldb', 0.74), ('kyoto', 0.274), ('bitcask', 0.184), ('writes', 0.124), ('embedded', 0.12), ('partially', 0.111), ('log', 0.091), ('keys', 0.09), ('bigtable', 0.09), ('byte', 0.082), ('tablet', 0.078), ('compactions', 0.075), ('indexeddb', 0.075), ('library', 0.07), ('random', 0.068), ('files', 0.067), ('btrees', 0.064), ('berkelydb', 0.061), ('sorted', 0.061), ('values', 0.06), ('seek', 0.06), ('trees', 0.06), ('appends', 0.059), ('lsm', 0.059), ('btree', 0.057), ('crash', 0.056), ('riak', 0.056), ('checksums', 0.056), ('merges', 0.054), ('throughput', 0.053), ('incomplete', 0.053), ('compared', 0.052), ('file', 0.05), ('databases', 0.048), ('background', 0.047), ('database', 0.046), ('written', 0.046), ('write', 0.046), ('block', 0.045), ('record', 0.043), ('representation', 0.043), ('skip', 0.042), ('ordered', 0.042), ('suitable', 0.041), ('benchmarks', 0.041), ('seconds', 0.04), ('concurrent', 0.04), ('level', 0.038), ('stores', 0.038), ('readers', 0.037)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1096-tfidf-1" href="../high_scalability-2011/high_scalability-2011-08-10-LevelDB_-_Fast_and_Lightweight_Key-Value_Database_From_the_Authors_of_MapReduce_and_BigTable.html">1096 high scalability-2011-08-10-LevelDB - Fast and Lightweight Key-Value Database From the Authors of MapReduce and BigTable</a></p>
-<p>Introduction: LevelDBis an exciting new entrant into the pantheon of embedded databases,
-notable both for its pedigree, being authored by the makers of the now
-mythical Google MapReduce and BigTable products, and for its emphasis on
-efficient disk based random access using log-structured-merge (LSM) trees. The
-plan is to keep LevelDB fairly low-level. The intention is that it will be a
-useful building block for higher-level storage systems. Basho isalready
-investigatingusing LevelDB as one if its storage engines.In the past many
-systems were built around embedded databases, though most developers now use
-database servers connected to via RPCs. An embedded database is a database
-distributed as a library and linked directly into your application. The
-application is responsible for providing a service level API, sharding,
-backups, initiating consistency checking, initiation rollback,  startup,
-shutdown, queries, etc. Applications become the container for the database and
-the manager of the database.Arc</p><p>2 0.33799106 <a title="1096-tfidf-2" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
-<p>Introduction: This is a guest post bySachin Sinha, Founder ofIqlectand developer
-ofBangDB.The goal for the paper is to provide the performances data for
-following embedded databases under various scenarios for random operations
-such as write and read. The data is presented in graphical manner to make the
-data self explanatory to some extent.LevelDB:LevelDB is a fast key-value
-storage library written at Google that provides an ordered mapping from string
-keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and
-uses SSTable and MemTable for the database implementation. It's written in C++
-and availabe under BSD license. LevelDB treats key and value as arbitrary byte
-arrays and stores keys in ordered fashion. It uses snappy compression for the
-data compression. Write and Read are concurrent for the db, but write performs
-best with single thread whereas Read scales with number of
-coresBerkleyDB:BerkleyDB (BDB) is a library that provides high performance
-embedded database for key/va</p><p>3 0.23679525 <a title="1096-tfidf-3" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
-<p>Introduction: How would you implement a key-value storage system if you were starting from
-scratch? The approach Basho settled on withBitcask, their new backend for
-Riak, is an interesting combination of using RAM to store a hash map of file
-pointers to values and a log-structured file system for efficient writes.  In
-this excellent Changelog interview, some folks from Basho describe Bitcask in
-more detail.The essential Bitcask:Keys are stored in memory for fast lookups.
-All keys must fit in RAM.Writes are append-only, which means writes are
-strictly sequential and do not require seeking. Writes are write-through.
-Every time a value is updated the data file on disk is appended and the in-
-memory key index is updated with the file pointer.Read queries are satisfied
-with O(1) random disk seeks. Latency is very predictable if all keys fit in
-memory because there's no random seeking around through a file.For reads, the
-file system cache in the kernel is used instead of writing a complicated
-caching sche</p><p>4 0.19635138 <a title="1096-tfidf-4" href="../high_scalability-2011/high_scalability-2011-07-08-Stuff_The_Internet_Says_On_Scalability_For_July_8%2C_2011.html">1076 high scalability-2011-07-08-Stuff The Internet Says On Scalability For July 8, 2011</a></p>
-<p>Introduction: Submitted for your scaling pleasure: Facebook confirms 750 million users,
-sharing 4 billion items daily;Yahoo: 42,000 Hadoop nodes storing 180-200
-petabytes; Formspring hits 25 million users.Zynga's Cadir Lee: It's not the
-amount of hardware that matters. It's the architecture of the application. You
-have to work at making your app architecture so that it takes advantage of
-Amazon. You have to have complete fluidity with the storage tier, the web
-tier. We are running our own data centers. We are looking more at doing our
-own data centers with more of a private cloud.Love the sensing making
-described by Hunch's Infographic on their Taste Graph. 500 million people, 200
-million items, 30 billion edges. 48 processors. 1 TB RAM. IsMongoDB is the New
-MySQL? Stephen O'Grady thinks so using a worse is better argument: wide
-adoption by applications, enterprise inroads, simple feature set, and the
-number complainers. Who plays PostgreSQL in this movie?Java is the startup
-founder getting kicked o</p><p>5 0.12503053 <a title="1096-tfidf-5" href="../high_scalability-2014/high_scalability-2014-01-15-Vedis_-_An_Embedded_Implementation_of_Redis_Supporting_Terabyte_Sized_Databases.html">1580 high scalability-2014-01-15-Vedis - An Embedded Implementation of Redis Supporting Terabyte Sized Databases</a></p>
-<p>Introduction: I don't know about you, but when I first learned about Redis my initial
-thought was wow, why hasn't anyone done this before? My next thought was why
-put this functionality in a separate process? Why not just embed it in your
-own server code and skip the network path completely? Especially in a Service
-Oriented Architecture there's no need for an extra hop or extra software
-installation and configuration.Now you can embed Redis-like code directly into
-your server withVedis \- anembeddable datastoreC library built with over 70
-commands similar in concept to Redis but without the networking layer since
-Vedis run in the same process of the host application. It's transactional,
-cross platform, thread safe, key-value, supports terabyte sized databases, has
-a GPL-like license (which isn't great for commercial apps), and supports an
-on-disk as well as in-memory datastore.More about Vedis:Unlike most other
-datastores (i.e. memcache, Redis), Vedis does not have a separate server
-process. Vedis r</p><p>6 0.11914718 <a title="1096-tfidf-6" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
+<p>Introduction: LevelDB  is an exciting new entrant into the pantheon of embedded databases, notable both for its pedigree, being authored by the makers of the now mythical Google MapReduce and BigTable products, and for its emphasis on efficient disk based random access using log-structured-merge (LSM) trees. 
+ 
+The plan is to keep LevelDB fairly low-level. The intention is that it will be a useful building block for higher-level storage systems. Basho is  already investigating  using LevelDB as one if its storage engines.
+ 
+In the past many systems were built around embedded databases, though most developers now use database servers connected to via RPCs. An embedded database is a database distributed as a library and linked directly into your application. The application is responsible for providing a service level API, sharding, backups, initiating consistency checking, initiation rollback,  startup, shutdown, queries, etc. Applications become the container for the database and the manager of the</p><p>2 0.33799106 <a title="1096-tfidf-2" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
+<p>Introduction: This is a guest post by  Sachin Sinha , Founder of  Iqlect  and developer of  BangDB . 
+ 
+The goal for the paper is to provide the performances data for following embedded databases under various scenarios for random operations such as write and read. The data is presented in graphical manner to make the data self explanatory to some extent.
+  
+  LevelDB :
+
+LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and uses SSTable and MemTable for the database implementation. It's written in C++ and availabe under BSD license. LevelDB treats key and value as arbitrary byte arrays and stores keys in ordered fashion. It uses snappy compression for the data compression. Write and Read are concurrent for the db, but write performs best with single thread whereas Read scales with number of cores
+
+ 
+   
+  BerkleyDB :
+
+BerkleyDB (BDB) is a library that provides high perf</p><p>3 0.23679525 <a title="1096-tfidf-3" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
+<p>Introduction: How would you implement a key-value storage system if you were starting from scratch? The approach Basho settled on with  Bitcask , their new backend for Riak, is an interesting combination of using RAM to store a hash map of file pointers to values and a log-structured file system for efficient writes.  In this excellent  Changelog interview , some folks from Basho describe Bitcask in more detail.
+ 
+The essential Bitcask:
+  
+ 
+ Keys are stored in memory for fast lookups. All keys must fit in RAM. 
+ Writes are append-only, which means writes are strictly sequential and do not require seeking. Writes are write-through. Every time a value is updated the data file on disk is appended and the in-memory key index is updated with the file pointer. 
+ Read queries are satisfied with O(1) random disk seeks. Latency is very predictable if all keys fit in memory because there's no random seeking around through a file. 
+ For reads, the file system cache in the kernel is used instead of writing a c</p><p>4 0.19635138 <a title="1096-tfidf-4" href="../high_scalability-2011/high_scalability-2011-07-08-Stuff_The_Internet_Says_On_Scalability_For_July_8%2C_2011.html">1076 high scalability-2011-07-08-Stuff The Internet Says On Scalability For July 8, 2011</a></p>
+<p>Introduction: Submitted for your scaling pleasure: 
+  
+   Facebook confirms 750 million users, sharing 4 billion items daily ;  Yahoo: 42,000 Hadoop nodes storing 180-200 petabytes ;  Formspring hits 25 million users . 
+ Zynga's  Cadir Lee : It’s not the amount of hardware that matters. It’s the architecture of the application. You have to work at making your app architecture so that it takes advantage of Amazon. You have to have complete fluidity with the storage tier, the web tier. We are running our own data centers. We are looking more at doing our own data centers with more of a private cloud.  
+ Love the sensing making described by Hunch’s  Infographic on their Taste Graph . 500 million people, 200 million items, 30 billion edges. 48 processors. 1 TB RAM.  
+ Is  MongoDB is the New MySQL?  Stephen O'Grady thinks so using a worse is better argument: wide adoption by applications, enterprise inroads, simple feature set, and the number complainers. Who plays PostgreSQL in this movie? 
+ Java is the</p><p>5 0.12503053 <a title="1096-tfidf-5" href="../high_scalability-2014/high_scalability-2014-01-15-Vedis_-_An_Embedded_Implementation_of_Redis_Supporting_Terabyte_Sized_Databases.html">1580 high scalability-2014-01-15-Vedis - An Embedded Implementation of Redis Supporting Terabyte Sized Databases</a></p>
+<p>Introduction: I don't know about you, but when I first learned about Redis my initial thought was wow, why hasn't anyone done this before? My next thought was why put this functionality in a separate process? Why not just embed it in your own server code and skip the network path completely? Especially in a Service Oriented Architecture there's no need for an extra hop or extra software installation and configuration.
+ 
+Now you can embed Redis-like code directly into your server with  Vedis  - an  embeddable datastore  C library built with over 70 commands similar in concept to Redis but without the networking layer since Vedis run in the same process of the host application. It's transactional, cross platform, thread safe, key-value, supports terabyte sized databases, has a GPL-like license (which isn't great for commercial apps), and supports an on-disk as well as in-memory datastore.
+ 
+More about Vedis:
+  
+
+Unlike most other datastores (i.e. memcache, Redis), Vedis does not have a separate server</p><p>6 0.11914718 <a title="1096-tfidf-6" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
 <p>7 0.1137986 <a title="1096-tfidf-7" href="../high_scalability-2010/high_scalability-2010-12-21-SQL_%2B_NoSQL_%3D_Yes_%21.html">961 high scalability-2010-12-21-SQL + NoSQL = Yes !</a></p>
 <p>8 0.1089896 <a title="1096-tfidf-8" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
 <p>9 0.10679556 <a title="1096-tfidf-9" href="../high_scalability-2009/high_scalability-2009-05-05-Drop_ACID_and_Think_About_Data.html">589 high scalability-2009-05-05-Drop ACID and Think About Data</a></p>
@@ -144,76 +107,45 @@ process. Vedis r</p><p>6 0.11914718 <a title="1096-tfidf-6" href="../high_scalab
 <p>[(0, 0.154), (1, 0.106), (2, -0.035), (3, -0.014), (4, 0.01), (5, 0.106), (6, 0.061), (7, 0.008), (8, -0.009), (9, -0.004), (10, 0.02), (11, -0.047), (12, -0.007), (13, 0.001), (14, 0.017), (15, 0.012), (16, -0.042), (17, 0.016), (18, -0.003), (19, -0.021), (20, 0.014), (21, -0.017), (22, -0.028), (23, 0.093), (24, 0.028), (25, -0.05), (26, -0.012), (27, -0.025), (28, -0.021), (29, -0.036), (30, 0.003), (31, -0.058), (32, 0.041), (33, -0.032), (34, -0.031), (35, 0.023), (36, -0.026), (37, 0.014), (38, 0.053), (39, -0.017), (40, -0.045), (41, -0.004), (42, 0.009), (43, -0.006), (44, -0.032), (45, 0.007), (46, 0.04), (47, -0.006), (48, 0.034), (49, 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95385915 <a title="1096-lsi-1" href="../high_scalability-2011/high_scalability-2011-08-10-LevelDB_-_Fast_and_Lightweight_Key-Value_Database_From_the_Authors_of_MapReduce_and_BigTable.html">1096 high scalability-2011-08-10-LevelDB - Fast and Lightweight Key-Value Database From the Authors of MapReduce and BigTable</a></p>
-<p>Introduction: LevelDBis an exciting new entrant into the pantheon of embedded databases,
-notable both for its pedigree, being authored by the makers of the now
-mythical Google MapReduce and BigTable products, and for its emphasis on
-efficient disk based random access using log-structured-merge (LSM) trees. The
-plan is to keep LevelDB fairly low-level. The intention is that it will be a
-useful building block for higher-level storage systems. Basho isalready
-investigatingusing LevelDB as one if its storage engines.In the past many
-systems were built around embedded databases, though most developers now use
-database servers connected to via RPCs. An embedded database is a database
-distributed as a library and linked directly into your application. The
-application is responsible for providing a service level API, sharding,
-backups, initiating consistency checking, initiation rollback,  startup,
-shutdown, queries, etc. Applications become the container for the database and
-the manager of the database.Arc</p><p>2 0.88641316 <a title="1096-lsi-2" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
-<p>Introduction: How would you implement a key-value storage system if you were starting from
-scratch? The approach Basho settled on withBitcask, their new backend for
-Riak, is an interesting combination of using RAM to store a hash map of file
-pointers to values and a log-structured file system for efficient writes.  In
-this excellent Changelog interview, some folks from Basho describe Bitcask in
-more detail.The essential Bitcask:Keys are stored in memory for fast lookups.
-All keys must fit in RAM.Writes are append-only, which means writes are
-strictly sequential and do not require seeking. Writes are write-through.
-Every time a value is updated the data file on disk is appended and the in-
-memory key index is updated with the file pointer.Read queries are satisfied
-with O(1) random disk seeks. Latency is very predictable if all keys fit in
-memory because there's no random seeking around through a file.For reads, the
-file system cache in the kernel is used instead of writing a complicated
-caching sche</p><p>3 0.8271724 <a title="1096-lsi-3" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
-<p>Introduction: This is a guest post bySachin Sinha, Founder ofIqlectand developer
-ofBangDB.The goal for the paper is to provide the performances data for
-following embedded databases under various scenarios for random operations
-such as write and read. The data is presented in graphical manner to make the
-data self explanatory to some extent.LevelDB:LevelDB is a fast key-value
-storage library written at Google that provides an ordered mapping from string
-keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and
-uses SSTable and MemTable for the database implementation. It's written in C++
-and availabe under BSD license. LevelDB treats key and value as arbitrary byte
-arrays and stores keys in ordered fashion. It uses snappy compression for the
-data compression. Write and Read are concurrent for the db, but write performs
-best with single thread whereas Read scales with number of
-coresBerkleyDB:BerkleyDB (BDB) is a library that provides high performance
-embedded database for key/va</p><p>4 0.7896747 <a title="1096-lsi-4" href="../high_scalability-2010/high_scalability-2010-08-30-Pomegranate_-_Storing_Billions_and_Billions_of_Tiny_Little_Files.html">889 high scalability-2010-08-30-Pomegranate - Storing Billions and Billions of Tiny Little Files</a></p>
-<p>Introduction: Pomegranateis a novel distributed file system built over distributed tabular
-storage that acts an awful lot like a NoSQL system. It's targeted at
-increasing the performance of tiny object access in order to support
-applications like online photo and micro-blog services, which require high
-concurrency, high throughput, and low latency. Their tests seem to indicate it
-works:We have demonstrate that file system over tabular storage performs well
-for highly concurrent access. In our test cluster, we observedlinearly
-increased more than100,000aggregate read and write requests served per second
-(RPS). Rather than sitting atop the file system like almost every other K-V
-store, Pomegranate is baked into file system. The idea is that the file system
-API is common to every platform so it wouldn't require a separate API to use.
-Every application could use it out of the box.The features of Pomegranate
-are:It handles billions of small files efficiently, even in one directory;It
-provide separate and</p><p>5 0.76093888 <a title="1096-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-31-BerkeleyDB_%26_other_distributed_high_performance_key-value_databases.html">50 high scalability-2007-07-31-BerkeleyDB & other distributed high performance key-value databases</a></p>
-<p>Introduction: I currently use BerkeleyDB as an embedded
-databasehttp://www.oracle.com/database/berkeley-db/a decision which was
-initially brought on by learning that Google used BerkeleyDB for their
-universal sign-on feature.Lustre looks impressive, but their white paper shows
-speeds of 800 files created per second, as a good number. However, BerkeleyDB
-on my mac mini does 200,000 row creations per second, and can be used as a
-distributed file system.I'm having I/O scalability issues with BerkeleyDB on
-one machine, and about to implement their distributed replication feature (and
-go multi-machine), which in effect makes it work like a distributed file
-system, but with local access speeds. That's why I was looking at Lustre.The
-key feature difference between BerkeleyDB and Lustre is that BerkeleyDB has a
-complete copy of all the data on each computer, making it not a viable
-solution for massive sized database applications. However, if you have < 1TB
-(ie, one disk) of total possible data, it seems to</p><p>6 0.7547031 <a title="1096-lsi-6" href="../high_scalability-2013/high_scalability-2013-04-17-Tachyon__-_Fault_Tolerant_Distributed_File_System_with_300_Times_Higher_Throughput_than_HDFS.html">1442 high scalability-2013-04-17-Tachyon  - Fault Tolerant Distributed File System with 300 Times Higher Throughput than HDFS</a></p>
+<p>Introduction: LevelDB  is an exciting new entrant into the pantheon of embedded databases, notable both for its pedigree, being authored by the makers of the now mythical Google MapReduce and BigTable products, and for its emphasis on efficient disk based random access using log-structured-merge (LSM) trees. 
+ 
+The plan is to keep LevelDB fairly low-level. The intention is that it will be a useful building block for higher-level storage systems. Basho is  already investigating  using LevelDB as one if its storage engines.
+ 
+In the past many systems were built around embedded databases, though most developers now use database servers connected to via RPCs. An embedded database is a database distributed as a library and linked directly into your application. The application is responsible for providing a service level API, sharding, backups, initiating consistency checking, initiation rollback,  startup, shutdown, queries, etc. Applications become the container for the database and the manager of the</p><p>2 0.88641316 <a title="1096-lsi-2" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
+<p>Introduction: How would you implement a key-value storage system if you were starting from scratch? The approach Basho settled on with  Bitcask , their new backend for Riak, is an interesting combination of using RAM to store a hash map of file pointers to values and a log-structured file system for efficient writes.  In this excellent  Changelog interview , some folks from Basho describe Bitcask in more detail.
+ 
+The essential Bitcask:
+  
+ 
+ Keys are stored in memory for fast lookups. All keys must fit in RAM. 
+ Writes are append-only, which means writes are strictly sequential and do not require seeking. Writes are write-through. Every time a value is updated the data file on disk is appended and the in-memory key index is updated with the file pointer. 
+ Read queries are satisfied with O(1) random disk seeks. Latency is very predictable if all keys fit in memory because there's no random seeking around through a file. 
+ For reads, the file system cache in the kernel is used instead of writing a c</p><p>3 0.8271724 <a title="1096-lsi-3" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
+<p>Introduction: This is a guest post by  Sachin Sinha , Founder of  Iqlect  and developer of  BangDB . 
+ 
+The goal for the paper is to provide the performances data for following embedded databases under various scenarios for random operations such as write and read. The data is presented in graphical manner to make the data self explanatory to some extent.
+  
+  LevelDB :
+
+LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and uses SSTable and MemTable for the database implementation. It's written in C++ and availabe under BSD license. LevelDB treats key and value as arbitrary byte arrays and stores keys in ordered fashion. It uses snappy compression for the data compression. Write and Read are concurrent for the db, but write performs best with single thread whereas Read scales with number of cores
+
+ 
+   
+  BerkleyDB :
+
+BerkleyDB (BDB) is a library that provides high perf</p><p>4 0.7896747 <a title="1096-lsi-4" href="../high_scalability-2010/high_scalability-2010-08-30-Pomegranate_-_Storing_Billions_and_Billions_of_Tiny_Little_Files.html">889 high scalability-2010-08-30-Pomegranate - Storing Billions and Billions of Tiny Little Files</a></p>
+<p>Introduction: Pomegranate  is a novel distributed file system built over distributed tabular storage that acts an awful lot like a NoSQL system. It's targeted at increasing the performance of tiny object access in order to support applications like online photo and micro-blog services, which require high concurrency, high throughput, and low latency.   Their tests seem to indicate it works:
+  
+
+We have demonstrate that file system over tabular storage performs well for highly concurrent access. In our test cluster, we observed  linearly  increased more than  100,000  aggregate read and write requests served per second (  RPS  ).   
+
+  
+Rather than sitting atop the file system like almost every other K-V store, Pomegranate is baked into file system. The idea is that the file system API is common to every platform so it wouldn't require a separate API to use. Every application could use it out of the box.
+ 
+The features of Pomegranate are:
+  
+ It handles billions of small files efficiently, even in on</p><p>5 0.76093888 <a title="1096-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-31-BerkeleyDB_%26_other_distributed_high_performance_key-value_databases.html">50 high scalability-2007-07-31-BerkeleyDB & other distributed high performance key-value databases</a></p>
+<p>Introduction: I currently use BerkeleyDB as an embedded database   http://www.oracle.com/database/berkeley-db/   a decision which was initially brought on by learning that Google used BerkeleyDB for their universal sign-on feature.     Lustre looks impressive, but their white paper shows speeds of 800 files created per second, as a good number.  However, BerkeleyDB on my mac mini does 200,000 row creations per second, and can be used as a distributed file system.     I'm having I/O scalability issues with BerkeleyDB on one machine, and about to implement their distributed replication feature (and go multi-machine), which in effect makes it work like a distributed file system, but with local access speeds.  That's why I was looking at Lustre.     The key feature difference between BerkeleyDB and Lustre is that BerkeleyDB has a complete copy of all the data on each computer, making it not a viable solution for massive sized database applications.  However, if you have < 1TB (ie, one disk) of total pos</p><p>6 0.7547031 <a title="1096-lsi-6" href="../high_scalability-2013/high_scalability-2013-04-17-Tachyon__-_Fault_Tolerant_Distributed_File_System_with_300_Times_Higher_Throughput_than_HDFS.html">1442 high scalability-2013-04-17-Tachyon  - Fault Tolerant Distributed File System with 300 Times Higher Throughput than HDFS</a></p>
 <p>7 0.75439221 <a title="1096-lsi-7" href="../high_scalability-2010/high_scalability-2010-11-09-Paper%3A_Hyder_-_Scaling_Out_without_Partitioning_.html">937 high scalability-2010-11-09-Paper: Hyder - Scaling Out without Partitioning </a></p>
 <p>8 0.74674696 <a title="1096-lsi-8" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
 <p>9 0.72227257 <a title="1096-lsi-9" href="../high_scalability-2012/high_scalability-2012-12-10-Switch_your_databases_to_Flash_storage._Now._Or_you%27re_doing_it_wrong..html">1369 high scalability-2012-12-10-Switch your databases to Flash storage. Now. Or you're doing it wrong.</a></p>
@@ -233,74 +165,35 @@ solution for massive sized database applications. However, if you have < 1TB
 <p>[(1, 0.331), (2, 0.196), (5, 0.013), (10, 0.05), (27, 0.023), (30, 0.021), (47, 0.02), (61, 0.072), (77, 0.018), (79, 0.096), (85, 0.033), (93, 0.017), (94, 0.019)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.98818773 <a title="1096-lda-1" href="../high_scalability-2011/high_scalability-2011-07-18-New_Relic_Architecture_-_Collecting_20%2B_Billion_Metrics_a_Day.html">1082 high scalability-2011-07-18-New Relic Architecture - Collecting 20+ Billion Metrics a Day</a></p>
-<p>Introduction: This is a guest post by Brian Doll, Application Performance Engineer at New
-Relic.New Relic's multitenant, SaaS web application monitoring service
-collects and persists over 100,000 metrics every second on a sustained basis,
-while still delivering an average page load time of 1.5 seconds.  We believe
-that good architecture and good tools can help you handle an extremely large
-amount of data while still providing extremely fast service.  Here we'll show
-you how we do it. New Relic is Application Performance Management (APM) as a
-Service In-app agent instrumentation (bytecode instrumentation, etc.) Support
-for 5 programming languages (Ruby, Java, PHP, .NET, Python) 175,000+ app
-processes monitored globally 10,000+ customersThe Stats 20+ Billion
-application metrics collected every day 1.7+ Billion web page metrics
-collected every week Each "timeslice" metric is about 250 bytes 100k timeslice
-records inserted every second 7 Billion new rows of data every day Data
-collection handled by 9 sh</p><p>2 0.98628771 <a title="1096-lda-2" href="../high_scalability-2010/high_scalability-2010-10-21-What_is_Network-based_Application_Virtualization_and_Why_Do_You_Need_It%3F.html">924 high scalability-2010-10-21-What is Network-based Application Virtualization and Why Do You Need It?</a></p>
-<p>Introduction: With all the attention being paid these days to VDI (virtual desktop
-infrastructure) and application virtualization and server virtualization andvirtualization it's easy to forget about network-based
-application virtualization. But it's the one virtualization technique
-youshouldn'tforget because it is a foundational technology upon which myriad
-other solutions will be enabled.WHAT IS NETWORK-BASED APPLICATION
-VIRTUALIZATION?This term may not be familiar to you but that's because since
-its inception oh, more than a decade ago, it's always just been called "server
-virtualization". After the turn of the century (I love saying that, by the
-way) it was always referred to asservice virtualizationinSOAand XML circles.
-With the rise of the likes of VMware and Citrix and Microsoft server
-virtualization solutions, it's become impossible to just use the term "server
-virtualization" and "service virtualization" is just as ambiguous so it seems
-appropriate to give it a few more modif</p><p>3 0.9842537 <a title="1096-lda-3" href="../high_scalability-2011/high_scalability-2011-09-14-Big_List_of_Scalabilty_Conferences.html">1115 high scalability-2011-09-14-Big List of Scalabilty Conferences</a></p>
-<p>Introduction: Which of the many conferences should you attend? I get this question a lot, so
-I compiled a list. The list isn't life, it's not a top 10, and it won't say if
-a conference is naughty or nice, but they are conferences I know about, have
-attended, or referenced in an article. By no means is this list exhaustive. If
-you know of a conference people should consider attending, please add them in
-the comments. If you have an opinion about a particular conference, please
-comment on that too.Some have a low opinion of conferences. I'm not one of
-them. Sure, some conferences can be a waste of time, and those should fade
-away. And sure, we see a lot more conference-as-monetization strategy these
-days. But it's conferences that help motivate people to do their best work.
-Would we see even half the slide decks, papers, or talks describing how people
-do what they do without conferences as motivation? No we would not. Taking all
-that wisdom and stuffing it into a presentations is surprisingly hard wor</p><p>4 0.98327333 <a title="1096-lda-4" href="../high_scalability-2012/high_scalability-2012-10-17-World_of_Warcraft%27s_Lead_designer_Rob_Pardo_on_the_Role_of_the_Cloud_in_Games.html">1342 high scalability-2012-10-17-World of Warcraft's Lead designer Rob Pardo on the Role of the Cloud in Games</a></p>
-<p>Introduction: In a really far ranging and insightful interview by Steve Peterson: Game
-Industry Legends: Rob Pardo, where the future of gaming is discussed, there
-was a section on how the cloud might be used in games. I know there are a lot
-of game developers in my audience, so I thought it might be useful:Q. If the
-game is free-to-play but I have to download 10 gigabytes to try it out, that
-can keep me from trying it. That's part of what cloud gaming is trying to
-overcome; do you think cloud gaming is going to make some inroads because of
-those technical issues? Rob Pardo: I certainly think there's a lot of
-potential in cloud gaming, it's just picking the right games. There's a lot of
-hurdles for cloud gaming to overcome, one of which is having to have all these
-servers to be able to host all these games, since it's not like you need any
-less computing power to play these games. First of all you need someone with
-the infrastructure that can have all those games up there. Another issue the
-latency o</p><p>5 0.98255324 <a title="1096-lda-5" href="../high_scalability-2009/high_scalability-2009-08-26-Hot_Links_for_2009-8-26.html">688 high scalability-2009-08-26-Hot Links for 2009-8-26</a></p>
-<p>Introduction: I'm Going To Scale My Foot Up Your Ass-Shut up about scalability, no one is
-using your app anyway.Multi-Tenant Data Architecture- Microsoft's take on
-different approaches to multitenancy.Cloud computing rides on spiraling Energy
-costs-A report by US researchers has shown the increasing cost of power and
-cooling in the data centre is a driver towards cloud computing.Interview:
-Apple's Gigantic New Data Center Hints at Cloud Computing-Companies building
-centers this big are getting into cloud computing. Running apps in the cloud
-requires massive infrastructure: Google-size infrastructure.What Does Cloud
-Computing Actually Cost? An Analysis of the Top Vendors-Amazon is currently
-the lowest cost cloud computing option overall. At least for production
-applications that need more than 6.5 hours of CPU/day, otherwise GAE is
-technically cheaper because it's free until this usage level.no:sql(east)-
-October 28-30, 2009, Atlanta, GA. Very cute page playing off of SQL syntax.New
-Products and Upda</p><p>6 0.98221016 <a title="1096-lda-6" href="../high_scalability-2010/high_scalability-2010-03-23-Digg%3A_4000%25_Performance_Increase_by_Sorting_in_PHP_Rather_than_MySQL.html">799 high scalability-2010-03-23-Digg: 4000% Performance Increase by Sorting in PHP Rather than MySQL</a></p>
+<p>Introduction: This is a guest post by  Brian Doll , Application Performance Engineer at New Relic. 
+ 
+New Relic’s multitenant, SaaS web application monitoring service collects and persists over 100,000 metrics every second on a sustained basis, while still delivering an average page load time of 1.5 seconds.  We believe that good architecture and good tools can help you handle an extremely large amount of data while still providing extremely fast service.  Here we'll show you how we do it.
+  
+  New Relic is Application Performance Management (APM) as a Service 
+  In-app agent instrumentation (bytecode instrumentation, etc.) 
+  Support for 5 programming languages (Ruby, Java, PHP, .NET, Python) 
+  175,000+ app processes monitored globally 
+  10,000+ customers 
+   The Stats   
+  20+ Billion application metrics collected every day 
+  1.7+ Billion web page metrics collected every week 
+  Each "timeslice" metric is about 250 bytes 
+  100k timeslice records inserted every second 
+  7 Billion new rows of d</p><p>2 0.98628771 <a title="1096-lda-2" href="../high_scalability-2010/high_scalability-2010-10-21-What_is_Network-based_Application_Virtualization_and_Why_Do_You_Need_It%3F.html">924 high scalability-2010-10-21-What is Network-based Application Virtualization and Why Do You Need It?</a></p>
+<p>Introduction: With all the attention being paid these days to VDI (virtual desktop infrastructure) and application virtualization and server virtualization andvirtualization it’s easy to forget about network-based application virtualization. But it’s the one virtualization technique you  shouldn’t  forget because it is a foundational technology upon which myriad other solutions will be enabled.
+   WHAT IS NETWORK-BASED APPLICATION VIRTUALIZATION?    
+This term may not be familiar to you but that’s because since its inception oh, more than a decade ago, it’s always just been called “server virtualization”. After the turn of the century (I love saying that, by the way) it was always referred to as  service virtualization  in  SOA  and XML circles. With the rise of the likes of VMware and Citrix and Microsoft server virtualization solutions, it’s become impossible to just use the term “server virtualization” and “service virtualization” is just as ambiguous so it seems appropriate to giv</p><p>3 0.9842537 <a title="1096-lda-3" href="../high_scalability-2011/high_scalability-2011-09-14-Big_List_of_Scalabilty_Conferences.html">1115 high scalability-2011-09-14-Big List of Scalabilty Conferences</a></p>
+<p>Introduction: Which of the many conferences should you attend? I get this question a lot, so I compiled a list. The list isn't life, it's not a top 10, and it won't say if a conference is naughty or nice, but they are conferences I know about, have attended, or referenced in an article. By no means is this list exhaustive. If you know of a conference people should consider attending, please add them in the comments. If you have an opinion about a particular conference, please comment on that too.
+ 
+Some have a low opinion of conferences. I'm not one of them. Sure, some conferences can be a waste of time, and those should fade away. And sure, we see a lot more conference-as-monetization strategy these days. But it's conferences that help motivate people to do their best work. Would we see even half the slide decks, papers, or talks describing how people do what they do without conferences as motivation? No we would not. Taking all that wisdom and stuffing it into a presentations is surprisingly hard</p><p>4 0.98327333 <a title="1096-lda-4" href="../high_scalability-2012/high_scalability-2012-10-17-World_of_Warcraft%27s_Lead_designer_Rob_Pardo_on_the_Role_of_the_Cloud_in_Games.html">1342 high scalability-2012-10-17-World of Warcraft's Lead designer Rob Pardo on the Role of the Cloud in Games</a></p>
+<p>Introduction: In a really far ranging and insightful interview by Steve Peterson:  Game Industry Legends: Rob Pardo , where the future of gaming is discussed, there was a section on how the cloud might be used in games. I know there are a lot of game developers in my audience, so I thought it might be useful:
+  Q. If the game is free-to-play but I have to download 10 gigabytes to try it out, that can keep me from trying it. That's part of what cloud gaming is trying to overcome; do you think cloud gaming is going to make some inroads because of those technical issues?
+
+ 
+
+
+ Rob Pardo : I certainly think there's a lot of potential in cloud gaming, it's just picking the right games. There's a lot of hurdles for cloud gaming to overcome, one of which is having to have all these servers to be able to host all these games, since it's not like you need any less computing power to play these games. First of all you need someone with the infrastructure that can have all those games up there. Another issue t</p><p>5 0.98255324 <a title="1096-lda-5" href="../high_scalability-2009/high_scalability-2009-08-26-Hot_Links_for_2009-8-26.html">688 high scalability-2009-08-26-Hot Links for 2009-8-26</a></p>
+<p>Introduction: I'm Going To Scale My Foot Up Your Ass  -  Shut up about scalability, no one is using your app anyway.      Multi-Tenant Data Architecture  - Microsoft's take on different approaches to multitenancy.     Cloud computing rides on spiraling Energy costs  -   A report by US researchers has shown the increasing cost of power and cooling in the data centre is a driver towards cloud computing.      Interview: Apple’s Gigantic New Data Center Hints at Cloud Computing  -  Companies building centers this big are getting into cloud computing. Running apps in the cloud requires massive infrastructure: Google-size infrastructure.      What Does Cloud Computing Actually Cost? An Analysis of the Top Vendors  -  Amazon is currently the lowest cost cloud computing option overall. At least for production applications that need more than 6.5 hours of CPU/day, otherwise GAE is technically cheaper because it's free until this usage level.      no:sql(east)  - October 28–30, 2009, Atlanta, GA. Very cute pa</p><p>6 0.98221016 <a title="1096-lda-6" href="../high_scalability-2010/high_scalability-2010-03-23-Digg%3A_4000%25_Performance_Increase_by_Sorting_in_PHP_Rather_than_MySQL.html">799 high scalability-2010-03-23-Digg: 4000% Performance Increase by Sorting in PHP Rather than MySQL</a></p>
 <p>7 0.98208058 <a title="1096-lda-7" href="../high_scalability-2007/high_scalability-2007-07-15-Book%3A_Building_Scalable_Web_Sites.html">10 high scalability-2007-07-15-Book: Building Scalable Web Sites</a></p>
 <p>8 0.98149574 <a title="1096-lda-8" href="../high_scalability-2009/high_scalability-2009-04-08-Learned_lessons_from_the_largest_player_%28Flickr%2C_YouTube%2C_Google%2C_etc%29.html">560 high scalability-2009-04-08-Learned lessons from the largest player (Flickr, YouTube, Google, etc)</a></p>
 <p>9 0.98094749 <a title="1096-lda-9" href="../high_scalability-2010/high_scalability-2010-05-04-Business_continuity_with_real-time_data_integration.html">822 high scalability-2010-05-04-Business continuity with real-time data integration</a></p>

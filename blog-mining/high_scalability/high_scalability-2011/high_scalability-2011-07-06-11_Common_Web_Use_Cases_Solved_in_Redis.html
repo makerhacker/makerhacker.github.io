@@ -16,25 +16,16 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1074-html" href="http://highscalability.com//blog/2011/7/6/11-common-web-use-cases-solved-in-redis.html">html</a></p><p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
-'antirez' Sanfilippo shows how to solve some common problems in Redis by
-taking advantage of its unique data structure handling capabilities. Common
-Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
-programmers need to get done, but that can be hard or slow in more traditional
-stores. A very useful and practical article. How would you accomplish these
-tasks in your framework?Show latest items listings in your home page. This is
-a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
-the head of the list stored at a key.LTRIMis used to limit the number of items
-in the list to 5000. If the user needs to page beyond this cache only then are
-they sent to the database.Deletion and filtering. If a cached article is
-deleted it can be removed from the cache using LREM.Leaderboards and related
-problems. A leader board is a set sorted by score. TheZADDcommands implements
-th</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. [sent-2, score-0.591]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1074-html" href="http://highscalability.com//blog/2011/7/6/11-common-web-use-cases-solved-in-redis.html">html</a></p><p>Introduction: In  How to take advantage of Redis just adding it to your stack  Salvatore 'antirez' Sanfilippo shows how to solve some common problems in Redis by taking advantage of its unique data structure handling capabilities. Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. A very useful and practical article. How would you accomplish these tasks in your framework?
+  
+  Show latest items listings in your home page . This is a live in-memory cache and is very fast.  LPUSH  is used to insert a content ID at the head of the list stored at a key.  LTRIM  is used to limit the number of items in the list to 5000. If the user needs to page beyond this cache only then are they sent to the database. 
+  Deletion and filtering . If a cached article is deleted it can be removed from the cache using  LREM . 
+  Leaderboards and related problems . A leader board is a set sorted by score.</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. [sent-2, score-0.591]
 </p><p>2 How would you accomplish these tasks in your framework? [sent-4, score-0.216]
-</p><p>3 LPUSHis used to insert a content ID at the head of the list stored at a key. [sent-7, score-0.369]
-</p><p>4 LTRIMis used to limit the number of items in the list to 5000. [sent-8, score-0.543]
-</p><p>5 If a cached article is deleted it can be removed from the cache using LREM. [sent-11, score-0.161]
-</p><p>6 TheZADDcommands implements this directly and theZREVRANGEcommand can be used to get the top 100 users by score andZRANKcan be used to get a users rank. [sent-14, score-0.444]
+</p><p>3 Show latest items listings in your home page . [sent-5, score-0.348]
+</p><p>4 LPUSH  is used to insert a content ID at the head of the list stored at a key. [sent-7, score-0.369]
+</p><p>5 LTRIM  is used to limit the number of items in the list to 5000. [sent-8, score-0.543]
+</p><p>6 The  ZADD  commands implements this directly and the  ZREVRANGE  command can be used to get the top 100 users by score and  ZRANK  can be used to get a users rank. [sent-14, score-0.552]
 </p><p>7 This is a leaderboard like Reddit where the score is formula the changes over time. [sent-17, score-0.336]
 </p><p>8 LPUSH + LTRIM are used to add an article to a list. [sent-18, score-0.239]
 </p><p>9 A background task polls the list and recomputes the order of the list and ZADD is used to populate the list in the new order. [sent-19, score-1.344]
@@ -42,89 +33,50 @@ th</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h
 </p><p>11 To keep a sorted list by time then use unix time as the key. [sent-23, score-0.344]
 </p><p>12 The difficult task of expiring items is implemented by indexing current_time+time_to_live. [sent-24, score-0.393]
 </p><p>13 Another background worker is used to make queries using ZRANGE . [sent-25, score-0.297]
-</p><p>14 TheINCRBY command makes it easy to atomically keep counters;GETSET to atomically clear the counter; theexpireattribute can be used to tell when an key should be deleted. [sent-31, score-0.483]
+</p><p>14 The  INCRBY  command makes it easy to atomically keep counters;  GETSET  to atomically clear the counter; the  expire  attribute can be used to tell when an key should be deleted. [sent-31, score-0.483]
 </p><p>15 Using Redis primitives it's much simpler to implement a spam filtering system or other real-time tracking system. [sent-36, score-0.441]
 </p><p>16 Keeping a map of who is interested in updates to what data is a common task in systems. [sent-38, score-0.24]
-</p><p>17 You can also do interesting things implement a rotating queue of RSS feeds to update. [sent-43, score-0.277]
-</p><p>18 The take home is to not endlessly engage in model wars, but see what can be accomplished by composing powerful and simple primitives together. [sent-46, score-0.574]
-</p><p>19 Certainly you can write specialized code to do all these operations, but Redis makes it much easier to implement and reason about. [sent-47, score-0.176]
-</p><p>20 Related ArticlesResque- Redis-backed library for creating background jobs, placing those jobs on multiple queues, and processing them later. [sent-49, score-0.309]
+</p><p>17 In addition to the push and pop type commands, Redis has  blocking queue  commands so a program can wait on work being added to the queue by another program. [sent-42, score-0.336]
+</p><p>18 You can also do interesting things implement a rotating queue of RSS feeds to update. [sent-43, score-0.277]
+</p><p>19 The take home is to not endlessly engage in model wars, but see what can be accomplished by composing powerful and simple primitives together. [sent-46, score-0.574]
+</p><p>20 Related Articles      Resque  - Redis-backed library for creating background jobs, placing those jobs on multiple queues, and processing them later. [sent-49, score-0.309]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('redis', 0.333), ('primitives', 0.224), ('list', 0.218), ('lpush', 0.213), ('ltrim', 0.201), ('items', 0.174), ('atomically', 0.166), ('used', 0.151), ('background', 0.146), ('score', 0.142), ('accomplish', 0.136), ('task', 0.13), ('sorted', 0.126), ('spam', 0.113), ('common', 0.11), ('commands', 0.108), ('leaderboard', 0.107), ('sanfilippo', 0.107), ('zrange', 0.107), ('implement', 0.104), ('recomputes', 0.1), ('salvatore', 0.1), ('anti', 0.096), ('rotating', 0.096), ('stats', 0.094), ('queues', 0.094), ('endlessly', 0.092), ('votes', 0.092), ('composing', 0.089), ('expiring', 0.089), ('home', 0.089), ('article', 0.088), ('formula', 0.087), ('expires', 0.087), ('timed', 0.085), ('listings', 0.085), ('polls', 0.085), ('placing', 0.083), ('tasks', 0.08), ('engage', 0.08), ('jobs', 0.08), ('populate', 0.078), ('scores', 0.077), ('keeping', 0.077), ('queue', 0.077), ('pop', 0.074), ('cache', 0.073), ('retrieved', 0.073), ('easier', 0.072), ('rss', 0.07)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1074-tfidf-1" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
-<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
-'antirez' Sanfilippo shows how to solve some common problems in Redis by
-taking advantage of its unique data structure handling capabilities. Common
-Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
-programmers need to get done, but that can be hard or slow in more traditional
-stores. A very useful and practical article. How would you accomplish these
-tasks in your framework?Show latest items listings in your home page. This is
-a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
-the head of the list stored at a key.LTRIMis used to limit the number of items
-in the list to 5000. If the user needs to page beyond this cache only then are
-they sent to the database.Deletion and filtering. If a cached article is
-deleted it can be removed from the cache using LREM.Leaderboards and related
-problems. A leader board is a set sorted by score. TheZADDcommands implements
-th</p><p>2 0.24105197 <a title="1074-tfidf-2" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
-<p>Introduction: With the introduction ofRedisyour options in the key-value space just grew and
-your choice of which to pick just got a lot harder. But when you think about
-it, that's not a bad position to be in at all.Redis (REmote DIctionary Server)
--a key-value database. It's similar to memcached but the dataset is not
-volatile, and values can be strings, exactly like in memcached, but also lists
-and sets with atomic operations to push/pop elements.The key points are: open
-source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs,
-per second); persistence, but in an asynchronous way taking everything in
-memory; support for higher level data structures and atomic operations.The
-home page is well organized so I'll spare the excessive-copying-to-make-this-
-post-longer. For a good overview of Redis take a look at Antonio Cangiano's
-article:Introducing Redis: a fast key-value database.If you are looking at a
-way to understand how Redis is different than something like Tokyo
-Cabinet/Ty</p><p>3 0.19904983 <a title="1074-tfidf-3" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
-<p>Introduction: Eric Pickup from Youporn.com posted on anews group that Youporn is now 100%
-Redis based and will soon be revealing more about their architecture at
-theConFoo conference. Some stunning, but not surprising numbers were
-revealed:100 million page views per dayA cluster of Redis slaves are handling
-over 300k queries per second.Some additional nuggets:Additional Redis nodes
-were added because the network cards couldn't keep up with Redis.Impressed
-with Redis' performance.All reads come from Redis;  we are maintaining MySQL
-just to allow us to build new sorted sets as our requirement changeMost data
-is found in hashes with ordered sets used to know what data to show.   A
-typical lookup would be an zInterStore on: videos:filters:released,
-Videos:filters:orientation:straight,Videos:filters:categories:{category_id},
-Videos:ordering:ratingThen perform a zRange to get the pages we want and get
-the list of video_ids back. Then start a pipeline and get all the videos from
-hashes.Do use some key/valu</p><p>4 0.19802274 <a title="1074-tfidf-4" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
-<p>Introduction: Update: Here's thevideo of the talk.Erick Pickup, lead developer at
-YouPorn.com, presented their architecture in a talk titledBuilding a Website
-To Scalegiven at theConFooconference.  As you might expect, YouPorn is a
-beast, streaming three full DVDs of video every second, handing 300K queries
-every second, and generating up to 15GBs of log data per hour.Unfortunately,
-all we have are the slides of the talk, so this article isn't as technical as
-I might like, there's no visibility at all on the video handling for example,
-but we do get some interesting details.The most interesting takeway is that
-YouPorn is a pretty conventional LAMP stack, with a NoSQL twist as Redis now
-replaces MySQL in the live datapath. Reminds me a little ofYouTubein its
-simplicity.The second most interesting takeaway was thegreat switchover.
-Common wisdom says never rewrite, but in 2011 YouPorn rewrote their entire
-site to use PHP + Redis instead of a complex Perl + MySQL based architecture.
-And by all accounts</p><p>5 0.18022531 <a title="1074-tfidf-5" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
-<p>Introduction: It's a truism that we should choose theright tool for the job. Everyone says
-that. And who can disagree? The problem is this is not helpful advice without
-being able to answer more specific questions like: What jobs are the tools
-good at? Will they work on jobs like mine? Is it worth the risk to try
-something new when all my people know something else and we have a deadline to
-meet? How can I make all the tools work together?In the NoSQL space this kind
-of real-world data is still a bit vague. When asked, vendors tend to give very
-general answers like NoSQL is good for BigData or key-value access. What does
-that mean for for the developer in the trenches faced with the task of solving
-a specific problem and there are a dozen confusing choices and no obvious
-winner? Not a lot. It's often hard to take that next step and imagine how
-their specific problems could be solved in a way that's worth taking the
-trouble and risk.Let's change that. What problems are you using NoSQL to
-solve? Which</p><p>6 0.17711756 <a title="1074-tfidf-6" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
+<p>Introduction: In  How to take advantage of Redis just adding it to your stack  Salvatore 'antirez' Sanfilippo shows how to solve some common problems in Redis by taking advantage of its unique data structure handling capabilities. Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. A very useful and practical article. How would you accomplish these tasks in your framework?
+  
+  Show latest items listings in your home page . This is a live in-memory cache and is very fast.  LPUSH  is used to insert a content ID at the head of the list stored at a key.  LTRIM  is used to limit the number of items in the list to 5000. If the user needs to page beyond this cache only then are they sent to the database. 
+  Deletion and filtering . If a cached article is deleted it can be removed from the cache using  LREM . 
+  Leaderboards and related problems . A leader board is a set sorted by score.</p><p>2 0.24105197 <a title="1074-tfidf-2" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
+<p>Introduction: With the introduction of  Redis  your options in the key-value space just grew and your choice of which to pick just got a lot harder. But when you think about it, that's not a bad position to be in at all.  Redis (REmote DIctionary Server) -  a key-value database. It's similar to memcached but the dataset is not volatile, and values can be strings, exactly like in memcached, but also lists and sets with atomic operations to push/pop elements.   The key points are: open source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs, per second); persistence, but in an asynchronous way taking everything in memory; support for higher level data structures and atomic operations.  The home page is well organized so I'll spare the excessive-copying-to-make-this-post-longer. For a good overview of Redis take a look at Antonio Cangiano's article:  Introducing Redis: a fast key-value database .  If you are looking at a way to understand how Redis is different than something like</p><p>3 0.19904983 <a title="1074-tfidf-3" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
+<p>Introduction: Eric Pickup from Youporn.com posted on a  news group  that Youporn is now 100% Redis based and will soon be revealing more about their architecture at the  ConFoo conference . Some stunning, but not surprising numbers were revealed:
+  
+ 
+ 100 million page views per day 
+ A cluster of Redis slaves are handling over 300k queries per second. 
+ 
+  
+Some additional nuggets:
+  
+ Additional Redis nodes were added because the network cards couldn't keep up with Redis. 
+ Impressed with Redis' performance. 
+ All reads come from Redis;  we are maintaining MySQL just to allow us to build new sorted sets as our requirement change 
+ Most data is found in hashes with ordered sets used to know what data to show.   
+ 
+ A typical lookup would be an zInterStore on: videos:filters:released, Videos:filters:orientation:straight,Videos:filters:categories:{category_id}, Videos:ordering:rating 
+ Then perform a zRange to get the pages we want and get the list of video_ids back.  
+ Then start a pipeline and get</p><p>4 0.19802274 <a title="1074-tfidf-4" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
+<p>Introduction: Update : Here's the  video of the talk .
+ 
+  Erick Pickup  , lead developer at YouPorn.com, presented their architecture in a talk titled   Building a Website To Scale   given at the   ConFoo   conference.  As you might expect, YouPorn is a beast, streaming three full DVDs of video every second, handing 300K queries every second, and generating up to 15GBs of log data per hour.  Unfortunately, all we have are the slides of the talk, so this article isn’t as technical as I might like, there’s no visibility at all on the video handling for example, but we do get some interesting details.  The most interesting takeway is that YouPorn is a pretty conventional LAMP stack, with a NoSQL twist as Redis now replaces MySQL in the live datapath. Reminds me a little of   YouTube   in its simplicity.   The second most interesting takeaway was the  great switchover . Common wisdom says never rewrite, but in 2011 YouPorn rewrote their entire site to use PHP + Redis instead of a complex Perl + MySQL b</p><p>5 0.18022531 <a title="1074-tfidf-5" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
+<p>Introduction: It's a truism that we should choose the  right tool for the job . Everyone says that. And who can disagree? The problem is this is not helpful advice without being able to answer more specific questions like: What jobs are the tools good at? Will they work on jobs like mine? Is it worth the risk to try something new when all my people know something else and we have a deadline to meet? How can I make all the tools work together?
+ 
+In the NoSQL space this kind of real-world data is still a bit vague. When asked, vendors tend to give very general answers like NoSQL is good for BigData or key-value access. What does that mean for for the developer in the trenches faced with the task of solving a specific problem and there are a dozen confusing choices and no obvious winner? Not a lot. It's often hard to take that next step and imagine how their specific problems could be solved in a way that's worth taking the trouble and risk.
+ 
+Let's change that. What problems are you using NoSQL to sol</p><p>6 0.17711756 <a title="1074-tfidf-6" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
 <p>7 0.1634842 <a title="1074-tfidf-7" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
 <p>8 0.14216609 <a title="1074-tfidf-8" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>9 0.1286575 <a title="1074-tfidf-9" href="../high_scalability-2012/high_scalability-2012-10-10-Antirez%3A_You_Need_to_Think_in_Terms_of_Organizing_Your_Data_for_Fetching.html">1337 high scalability-2012-10-10-Antirez: You Need to Think in Terms of Organizing Your Data for Fetching</a></p>
@@ -144,75 +96,37 @@ solve? Which</p><p>6 0.17711756 <a title="1074-tfidf-6" href="../high_scalabilit
 <p>[(0, 0.164), (1, 0.113), (2, -0.049), (3, -0.05), (4, 0.046), (5, 0.035), (6, 0.019), (7, 0.048), (8, 0.008), (9, -0.032), (10, 0.002), (11, 0.082), (12, 0.034), (13, -0.02), (14, -0.064), (15, 0.012), (16, -0.066), (17, -0.056), (18, -0.012), (19, -0.092), (20, -0.095), (21, -0.119), (22, -0.01), (23, 0.044), (24, 0.031), (25, -0.007), (26, 0.041), (27, 0.127), (28, -0.019), (29, 0.009), (30, 0.042), (31, 0.013), (32, -0.008), (33, 0.013), (34, 0.018), (35, -0.074), (36, 0.051), (37, -0.0), (38, 0.005), (39, 0.058), (40, -0.049), (41, 0.037), (42, -0.071), (43, 0.082), (44, 0.132), (45, -0.014), (46, -0.078), (47, -0.044), (48, -0.016), (49, -0.041)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97442031 <a title="1074-lsi-1" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
-<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
-'antirez' Sanfilippo shows how to solve some common problems in Redis by
-taking advantage of its unique data structure handling capabilities. Common
-Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
-programmers need to get done, but that can be hard or slow in more traditional
-stores. A very useful and practical article. How would you accomplish these
-tasks in your framework?Show latest items listings in your home page. This is
-a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
-the head of the list stored at a key.LTRIMis used to limit the number of items
-in the list to 5000. If the user needs to page beyond this cache only then are
-they sent to the database.Deletion and filtering. If a cached article is
-deleted it can be removed from the cache using LREM.Leaderboards and related
-problems. A leader board is a set sorted by score. TheZADDcommands implements
-th</p><p>2 0.79837584 <a title="1074-lsi-2" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
-<p>Introduction: With the introduction ofRedisyour options in the key-value space just grew and
-your choice of which to pick just got a lot harder. But when you think about
-it, that's not a bad position to be in at all.Redis (REmote DIctionary Server)
--a key-value database. It's similar to memcached but the dataset is not
-volatile, and values can be strings, exactly like in memcached, but also lists
-and sets with atomic operations to push/pop elements.The key points are: open
-source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs,
-per second); persistence, but in an asynchronous way taking everything in
-memory; support for higher level data structures and atomic operations.The
-home page is well organized so I'll spare the excessive-copying-to-make-this-
-post-longer. For a good overview of Redis take a look at Antonio Cangiano's
-article:Introducing Redis: a fast key-value database.If you are looking at a
-way to understand how Redis is different than something like Tokyo
-Cabinet/Ty</p><p>3 0.78197306 <a title="1074-lsi-3" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
-<p>Introduction: Eric Pickup from Youporn.com posted on anews group that Youporn is now 100%
-Redis based and will soon be revealing more about their architecture at
-theConFoo conference. Some stunning, but not surprising numbers were
-revealed:100 million page views per dayA cluster of Redis slaves are handling
-over 300k queries per second.Some additional nuggets:Additional Redis nodes
-were added because the network cards couldn't keep up with Redis.Impressed
-with Redis' performance.All reads come from Redis;  we are maintaining MySQL
-just to allow us to build new sorted sets as our requirement changeMost data
-is found in hashes with ordered sets used to know what data to show.   A
-typical lookup would be an zInterStore on: videos:filters:released,
-Videos:filters:orientation:straight,Videos:filters:categories:{category_id},
-Videos:ordering:ratingThen perform a zRange to get the pages we want and get
-the list of video_ids back. Then start a pipeline and get all the videos from
-hashes.Do use some key/valu</p><p>4 0.74335945 <a title="1074-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
-<p>Introduction: We just released a social section to our iOS app several days ago and we are
-already facing scaling issues with the users' news feeds.We're basically using
-a Fan-out-on-write (push) model for the users' news feeds (posts of people and
-topics they follow) and we're using Redis for this (backend is Rails on
-Heroku).  However, our current 60,000 news feeds is ballooning our Redis store
-to almost 1GB in a just a few days (it's growing way too fast for our budget).
-Currently we're storing the entire news feed for the user (post id, post text,
-author, icon url, etc) and we cap the entries to 300 per feed.I'm wondering if
-we need to just store the post IDs of each user feed in Redis and then store
-the rest of the post information somewhere else?  Would love some feedback
-here.  In this case, our iOS app would make an api call to our Rails app to
-retrieve a user's news feed.  Rails app would retrieve news feed list (just
-post IDs) from Redis, and then Rails app would need to query to get the r</p><p>5 0.73231703 <a title="1074-lsi-5" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
-<p>Introduction: This is a guest post by Ben Lowry, CEO ofPlaytomic. Playtomic is a game
-analytics service implemented in about 8000 mobile, web and downloadable games
-played by approximately 20 million people daily.Here's a good summary quote by
-Ben Lowry on Hacker News:Just over 20,000,000 people hit my API yesterday
-700,749,252 times, playing the ~8,000 games my analytics platform is
-integrated in for a bit under 600 years in total play time. That's just
-yesterday. There are lots of different bottlenecks waiting for people
-operating at scale. Heroku and NodeJS, for my use case, eventually alleviated
-a whole bunch of them very cheaply.Playtomic began with an almost exclusively
-Microsoft.NET and Windows architecture which held up for 3 years before being
-replaced with a complete rewrite using NodeJS.  During its lifetime the entire
-platform grew from shared space on a single server to a full dedicated, then
-spread to second dedicated, then the API server was offloaded to a VPS
-provider and 4 - 6 fairl</p><p>6 0.71528322 <a title="1074-lsi-6" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
+<p>Introduction: In  How to take advantage of Redis just adding it to your stack  Salvatore 'antirez' Sanfilippo shows how to solve some common problems in Redis by taking advantage of its unique data structure handling capabilities. Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. A very useful and practical article. How would you accomplish these tasks in your framework?
+  
+  Show latest items listings in your home page . This is a live in-memory cache and is very fast.  LPUSH  is used to insert a content ID at the head of the list stored at a key.  LTRIM  is used to limit the number of items in the list to 5000. If the user needs to page beyond this cache only then are they sent to the database. 
+  Deletion and filtering . If a cached article is deleted it can be removed from the cache using  LREM . 
+  Leaderboards and related problems . A leader board is a set sorted by score.</p><p>2 0.79837584 <a title="1074-lsi-2" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
+<p>Introduction: With the introduction of  Redis  your options in the key-value space just grew and your choice of which to pick just got a lot harder. But when you think about it, that's not a bad position to be in at all.  Redis (REmote DIctionary Server) -  a key-value database. It's similar to memcached but the dataset is not volatile, and values can be strings, exactly like in memcached, but also lists and sets with atomic operations to push/pop elements.   The key points are: open source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs, per second); persistence, but in an asynchronous way taking everything in memory; support for higher level data structures and atomic operations.  The home page is well organized so I'll spare the excessive-copying-to-make-this-post-longer. For a good overview of Redis take a look at Antonio Cangiano's article:  Introducing Redis: a fast key-value database .  If you are looking at a way to understand how Redis is different than something like</p><p>3 0.78197306 <a title="1074-lsi-3" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
+<p>Introduction: Eric Pickup from Youporn.com posted on a  news group  that Youporn is now 100% Redis based and will soon be revealing more about their architecture at the  ConFoo conference . Some stunning, but not surprising numbers were revealed:
+  
+ 
+ 100 million page views per day 
+ A cluster of Redis slaves are handling over 300k queries per second. 
+ 
+  
+Some additional nuggets:
+  
+ Additional Redis nodes were added because the network cards couldn't keep up with Redis. 
+ Impressed with Redis' performance. 
+ All reads come from Redis;  we are maintaining MySQL just to allow us to build new sorted sets as our requirement change 
+ Most data is found in hashes with ordered sets used to know what data to show.   
+ 
+ A typical lookup would be an zInterStore on: videos:filters:released, Videos:filters:orientation:straight,Videos:filters:categories:{category_id}, Videos:ordering:rating 
+ Then perform a zRange to get the pages we want and get the list of video_ids back.  
+ Then start a pipeline and get</p><p>4 0.74335945 <a title="1074-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
+<p>Introduction: We just released a social section to our iOS app several days ago and we are already facing scaling issues with the users' news feeds.    We're basically using a Fan-out-on-write (push) model for the users' news feeds (posts of people and topics they follow) and we're using Redis for this (backend is Rails on Heroku).  However, our current 60,000 news feeds is ballooning our Redis store to almost 1GB in a just a few days (it's growing way too fast for our budget). Currently we're storing the entire news feed for the user (post id, post text, author, icon url, etc) and we cap the entries to 300 per feed.    I'm wondering if we need to just store the post IDs of each user feed in Redis and then store the rest of the post information somewhere else?  Would love some feedback here.  In this case, our iOS app would make an api call to our Rails app to retrieve a user's news feed.  Rails app would retrieve news feed list (just post IDs) from Redis, and then Rails app would need to query to g</p><p>5 0.73231703 <a title="1074-lsi-5" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
+<p>Introduction: This is a guest post by Ben Lowry, CEO of  Playtomic . Playtomic is a game analytics service implemented in about 8000 mobile, web and downloadable games played by approximately 20 million people daily. 
+ 
+ Here's a good summary quote by  Ben Lowry on Hacker News : 
+  
+ Just over 20,000,000 people hit my API yesterday 700,749,252 times, playing the ~8,000 games my analytics platform is integrated in for a bit under 600 years in total play time. That's just yesterday. There are lots of different bottlenecks waiting for people operating at scale. Heroku and NodeJS, for my use case, eventually alleviated a whole bunch of them very cheaply. 
+  
+Playtomic began with an almost exclusively Microsoft.NET and Windows architecture which held up for 3 years before being replaced with a complete rewrite using NodeJS.  During its lifetime the entire platform grew from shared space on a single server to a full dedicated, then spread to second dedicated, then the API server was offloaded to a VPS pro</p><p>6 0.71528322 <a title="1074-lsi-6" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
 <p>7 0.64809346 <a title="1074-lsi-7" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
 <p>8 0.64720577 <a title="1074-lsi-8" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
 <p>9 0.61290014 <a title="1074-lsi-9" href="../high_scalability-2012/high_scalability-2012-10-10-Antirez%3A_You_Need_to_Think_in_Terms_of_Organizing_Your_Data_for_Fetching.html">1337 high scalability-2012-10-10-Antirez: You Need to Think in Terms of Organizing Your Data for Fetching</a></p>
@@ -232,76 +146,46 @@ provider and 4 - 6 fairl</p><p>6 0.71528322 <a title="1074-lsi-6" href="../high_
 <p>[(1, 0.097), (2, 0.227), (10, 0.038), (30, 0.03), (47, 0.036), (58, 0.145), (61, 0.122), (79, 0.08), (85, 0.043), (94, 0.066), (96, 0.029)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.93615025 <a title="1074-lda-1" href="../high_scalability-2009/high_scalability-2009-05-01-FastBit%3A_An_Efficient_Compressed_Bitmap_Index_Technology.html">587 high scalability-2009-05-01-FastBit: An Efficient Compressed Bitmap Index Technology</a></p>
-<p>Introduction: Data mining and fast queries are always in that bin of hard to do things where
-doing something smarter can yield big results. Bloom Filters are one such do
-it smarter strategy, compressed bitmap indexes are another. In one application
-"FastBit outruns other search indexes by a factor of 10 to 100 and doesn't
-require much more room than the original data size." The data size is an
-interesting metric. Our old standard b-trees can be two to four times larger
-than the original data. In a test searching an Enron email database FastBit
-outran MySQL by 10 to 1,000 times.FastBit is a software tool for searching
-large read-only datasets. It organizes user data in a column-oriented
-structure which is efficient for on-line analytical processing (OLAP), and
-utilizes compressed bitmap indices to further speed up query processing.
-Analyses have proven the compressed bitmap index used in FastBit to be
-theoretically optimal for one-dimensional queries. Compared with other optimal
-indexing methods, bit</p><p>same-blog 2 0.92759573 <a title="1074-lda-2" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
-<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
-'antirez' Sanfilippo shows how to solve some common problems in Redis by
-taking advantage of its unique data structure handling capabilities. Common
-Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
-programmers need to get done, but that can be hard or slow in more traditional
-stores. A very useful and practical article. How would you accomplish these
-tasks in your framework?Show latest items listings in your home page. This is
-a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
-the head of the list stored at a key.LTRIMis used to limit the number of items
-in the list to 5000. If the user needs to page beyond this cache only then are
-they sent to the database.Deletion and filtering. If a cached article is
-deleted it can be removed from the cache using LREM.Leaderboards and related
-problems. A leader board is a set sorted by score. TheZADDcommands implements
-th</p><p>3 0.91292459 <a title="1074-lda-3" href="../high_scalability-2013/high_scalability-2013-11-20-How_Twitter_Improved_JVM_Performance_by_Reducing_GC_and_Faster_Memory_Allocation.html">1551 high scalability-2013-11-20-How Twitter Improved JVM Performance by Reducing GC and Faster Memory Allocation</a></p>
-<p>Introduction: Nettyis a high-performance NIO(New IO) client server framework for Java that
-Twitter uses internally as a protocol agonostic RPC system. Twitterfound some
-problemswith Netty 3's memory management for buffer allocations beacause it
-generated a lot of garbage during operation. When you send as many messages as
-Twitter it creates a lot of GC pressure and the simple act of zero filling
-newly allocated buffers consumed 50% of memory bandwidth. Netty 4 fixes this
-situation with:Short-lived event objects, methods on long-lived channel
-objects are used to handle I/O events.Secialized buffer allocator that uses
-pool which implementsbuddy memory allocationandslab allocation.The result:5
-times less frequent GC pauses: 45.5 vs. 9.2 times/min5 times less garbage
-production: 207.11 vs 41.81 MiB/sThe buffer pool is much faster than JVM as
-the size of the buffer increases. Some problems with smaller buffers.Given how
-many services use the JVM in their messaging infrastructure and how many
-services hav</p><p>4 0.89536148 <a title="1074-lda-4" href="../high_scalability-2010/high_scalability-2010-11-29-Stuff_the_Internet_Says_on_Scalability_For_November_29th%2C_2010.html">949 high scalability-2010-11-29-Stuff the Internet Says on Scalability For November 29th, 2010</a></p>
-<p>Introduction: Eating turkey all weekend and wondering what you might have missed?James
-Hamilton on why "all you have learned about disks so far is probably wrong" in
-Availability in Globally Distributed Storage. It turns out for the same reason
-our financial systems melt down:black swans. The world is predictably
-unpredictable. Murat Demirbas also has agood poston the same Google research
-paper.Stack OverflowHits10M UniquesVroom...Formula One racecarstreams 27
-gigabytes of telemetrydata during a race weekend! 200 sensors "measuring
-anything and everything that moves or gets warm. Quotable Quotes:@dmalenko:It
-is cool to sit by the ocean, oversee the sunset and think about scalability
-models for a web app@detroitpro: I have to admit; sometimes I think "This
-would be easier with a SQL DB" #NoSQL #NotOften #ComplextRelationships
-#FindingRootObjectsYou may have missed the Google App Enginecage match. First
-GAE sucks and then it's great. Whatever your conclusion it's an informative
-discussion. GAE is like</p><p>5 0.88969916 <a title="1074-lda-5" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
-<p>Introduction: You may have read somewhere that Facebook has introduced a newSocial Inbox
-integrating email, IM, SMS,  text messages, on-site Facebook messages. All-in-
-all they need to store over 135 billion messages a month. Where do they store
-all that stuff? Facebook's Kannan Muthukkaruppan gives the surprise answer
-inThe Underlying Technology of Messages:HBase. HBase beat out MySQL,
-Cassandra, and a few others.Why a surprise? Facebook created Cassandra and it
-was purpose built for an inbox type application, but they found Cassandra's
-eventual consistency model wasn't a good match for their new real-time
-Messages product. Facebook also has an extensiveMySQL infrastructure, but they
-found performance suffered as data set and indexes grew larger. And they could
-have built their own, but they chose HBase.HBase is ascaleout table store
-supporting very high rates of row-level updates over massive amounts of data.
-Exactly what is needed for a Messaging system. HBase is also a column based
-key-value sto</p><p>6 0.88234508 <a title="1074-lda-6" href="../high_scalability-2009/high_scalability-2009-09-12-How_Google_Taught_Me_to_Cache_and_Cash-In.html">703 high scalability-2009-09-12-How Google Taught Me to Cache and Cash-In</a></p>
+<p>Introduction: Data mining and fast queries are always in that bin of hard to do things where doing something smarter can yield big results. Bloom Filters are one such do it smarter strategy, compressed bitmap indexes are another. In one application "FastBit outruns other search indexes by a factor of 10 to 100 and doesnâ&euro;&trade;t require much more room than the original data size." The data size is an interesting metric. Our old standard b-trees can be two to four times larger than the original data. In a test searching an Enron email database FastBit outran MySQL by 10 to 1,000 times.      
+   FastBit is a software tool for searching large read-only datasets. It organizes user data in a column-oriented structure which is efficient for on-line analytical processing (OLAP), and utilizes compressed bitmap indices to further speed up query processing. Analyses have proven the compressed bitmap index used in FastBit to be theoretically optimal for one-dimensional queries. Compared with other optimal indexing me</p><p>same-blog 2 0.92759573 <a title="1074-lda-2" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
+<p>Introduction: In  How to take advantage of Redis just adding it to your stack  Salvatore 'antirez' Sanfilippo shows how to solve some common problems in Redis by taking advantage of its unique data structure handling capabilities. Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. A very useful and practical article. How would you accomplish these tasks in your framework?
+  
+  Show latest items listings in your home page . This is a live in-memory cache and is very fast.  LPUSH  is used to insert a content ID at the head of the list stored at a key.  LTRIM  is used to limit the number of items in the list to 5000. If the user needs to page beyond this cache only then are they sent to the database. 
+  Deletion and filtering . If a cached article is deleted it can be removed from the cache using  LREM . 
+  Leaderboards and related problems . A leader board is a set sorted by score.</p><p>3 0.91292459 <a title="1074-lda-3" href="../high_scalability-2013/high_scalability-2013-11-20-How_Twitter_Improved_JVM_Performance_by_Reducing_GC_and_Faster_Memory_Allocation.html">1551 high scalability-2013-11-20-How Twitter Improved JVM Performance by Reducing GC and Faster Memory Allocation</a></p>
+<p>Introduction: Netty  is a high-performance  NIO  (New IO) client server framework for Java that Twitter uses internally as a protocol agonostic RPC system. Twitter  found some problems  with Netty 3's memory management for buffer allocations beacause it generated a lot of garbage during operation. When you send as many messages as Twitter it creates a lot of GC pressure and the simple act of zero filling newly allocated buffers consumed 50% of memory bandwidth. 
+ 
+Netty 4 fixes this situation with:
+  
+ Short-lived event objects, methods on long-lived channel objects are used to handle I/O events. 
+ Secialized buffer allocator that uses pool which implements  buddy memory allocation  and  slab allocation . 
+  
+The result:
+  
+ 
+ 5 times less frequent GC pauses: 45.5 vs. 9.2 times/min 
+ 5 times less garbage production: 207.11 vs 41.81 MiB/s 
+ The buffer pool is much faster than JVM as the size of the buffer increases. Some problems with smaller buffers. 
+ 
+  
+Given how many services use the JVM in thei</p><p>4 0.89536148 <a title="1074-lda-4" href="../high_scalability-2010/high_scalability-2010-11-29-Stuff_the_Internet_Says_on_Scalability_For_November_29th%2C_2010.html">949 high scalability-2010-11-29-Stuff the Internet Says on Scalability For November 29th, 2010</a></p>
+<p>Introduction: Eating turkey all weekend and wondering what you might have missed?
+  
+ James Hamilton on why “all you have learned about disks so far is probably wrong" in  Availability in Globally Distributed Storage . It turns out for the same reason our financial systems melt down:  black swans . The world is predictably unpredictable. Murat Demirbas also has a  good post  on the same  Google research paper . 
+  Stack Overflow  Hits  10M Uniques  
+ Vroom...Formula One racecar  streams 27 gigabytes of telemetry  data during a race weekend! 200 sensors “measuring anything and everything that moves or gets warm.  
+ Quotable Quotes:          
+ 
+  @dmalenko  :  It is cool to sit by the ocean, oversee the sunset and think about scalability models for a web app 
+  @detroitpro : I have to admit; sometimes I think "This would be easier with a SQL DB" #NoSQL #NotOften #ComplextRelationships #FindingRootObjects 
+ 
+ 
+ You may have missed the Google App Engine  cage match . First GAE  sucks  and then it's  gre</p><p>5 0.88969916 <a title="1074-lda-5" href="../high_scalability-2010/high_scalability-2010-11-16-Facebook%27s_New_Real-time_Messaging_System%3A_HBase_to_Store_135%2B_Billion_Messages_a_Month.html">943 high scalability-2010-11-16-Facebook's New Real-time Messaging System: HBase to Store 135+ Billion Messages a Month</a></p>
+<p>Introduction: You may have read somewhere that Facebook has introduced a new  Social Inbox  integrating email, IM, SMS,  text messages, on-site Facebook messages. All-in-all they need to store over 135 billion messages a month. Where do they store all that stuff? Facebook's Kannan Muthukkaruppan gives the surprise answer in  The Underlying Technology of Messages :  HBase . HBase beat out MySQL, Cassandra, and a few others.
+ 
+Why a surprise? Facebook created Cassandra and it was purpose built for an inbox type application, but they found Cassandra's eventual consistency model wasn't a good match for their new real-time Messages product. Facebook also has an extensive  MySQL infrastructure , but they found performance suffered as data set and indexes grew larger. And they could have built their own, but they chose HBase.
+ 
+HBase is a   scaleout table store supporting very high rates of row-level updates over massive amounts of data  . Exactly what is needed for a Messaging system. HBase is also a colu</p><p>6 0.88234508 <a title="1074-lda-6" href="../high_scalability-2009/high_scalability-2009-09-12-How_Google_Taught_Me_to_Cache_and_Cash-In.html">703 high scalability-2009-09-12-How Google Taught Me to Cache and Cash-In</a></p>
 <p>7 0.88137132 <a title="1074-lda-7" href="../high_scalability-2012/high_scalability-2012-04-16-Instagram_Architecture_Update%3A_What%E2%80%99s_new_with_Instagram%3F.html">1228 high scalability-2012-04-16-Instagram Architecture Update: What’s new with Instagram?</a></p>
 <p>8 0.88055211 <a title="1074-lda-8" href="../high_scalability-2012/high_scalability-2012-06-01-Stuff_The_Internet_Says_On_Scalability_For_June_1%2C_2012.html">1255 high scalability-2012-06-01-Stuff The Internet Says On Scalability For June 1, 2012</a></p>
 <p>9 0.88040566 <a title="1074-lda-9" href="../high_scalability-2010/high_scalability-2010-11-30-NoCAP_%E2%80%93_Part_III_%E2%80%93_GigaSpaces_clustering_explained...html">950 high scalability-2010-11-30-NoCAP – Part III – GigaSpaces clustering explained..</a></p>

@@ -16,38 +16,35 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-968-html" href="http://highscalability.com//blog/2011/1/4/map-reduce-with-ruby-using-hadoop.html">html</a></p><p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop
-cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-
-System), write map-reduce scripts in Ruby and use them to run a map-reduce job
-on your Hadoop cluster. You willnotneed to ssh into the cluster, as all tasks
-are run from your local machine. Below I am using my MacBook Pro as my local
-machine, but the steps I have provided should be reproducible on other
-platforms running bash and Java.Fire-Up Your Hadoop ClusterI choose
-theCloudera distribution of Hadoopwhich is still 100% Apache licensed, but has
-some additional benefits. One of these benefits is that it is released byDoug
-Cutting, who started Hadoop and drove it’s development at Yahoo! He also
-startedLucene, which is another of my favourite Apache Projects, so I have
-good faith that he knows what he is doing. Another benefit, as you will see,
-is that it is simple to fire-up a Hadoop cluster.I am going to use
-Cloudera’sWhirr script, which</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 You willnotneed to ssh into the cluster, as all tasks are run from your local machine. [sent-2, score-0.128]
-</p><p>2 Below I am using my MacBook Pro as my local machine, but the steps I have provided should be reproducible on other platforms running bash and Java. [sent-3, score-0.128]
-</p><p>3 If you are not familiar with Maven, you can install it via Homebrew on Mac OS X using the brew command below. [sent-37, score-0.228]
-</p><p>4 sudo brew update sudo brew install mavenOnce the dependencies are installed we can build the whirr tool. [sent-39, score-0.92]
-</p><p>5 0+23 mvn clean install mvn package -PpackageIn true Maven style, it will download a long list of dependencies the first time you build this. [sent-42, score-0.216]
-</p><p>6 Let’s sanity check the whirr script…bin/whirr versionYou should see something like “Apache Whirr 0. [sent-45, score-0.444]
-</p><p>7 0, device=/dev/sda2, durable=false, isBootDevice=false]], supportsImage=Not(is64Bit())]]] Completed launch of myhadoopcluster Web UI available at http://ec2-72-44-45-199. [sent-120, score-0.171]
-</p><p>8 Everything in this post is done on our local machine)sh ~/. [sent-174, score-0.128]
-</p><p>9 The above will output the hostname that you can access the cluster at. [sent-181, score-0.34]
-</p><p>10 Use this hostname to view the cluster in your web browser. [sent-187, score-0.235]
-</p><p>11 On Amazon EC2 this new hostname will be the internal hostname of data-node server, which is visible because you are tunnelling through the SOCKS proxy. [sent-192, score-0.246]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-968-html" href="http://highscalability.com//blog/2011/1/4/map-reduce-with-ruby-using-hadoop.html">html</a></p><p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-System), write map-reduce scripts in Ruby and use them to run a map-reduce job on your Hadoop cluster. You will  not  need to ssh into the cluster, as all tasks are run from your local machine. Below I am using my MacBook Pro as my local machine, but the steps I have provided should be reproducible on other platforms running bash and Java.
+  
+
+  
+
+ Fire-Up Your Hadoop Cluster 
+
+I choose the  Cloudera distribution of Hadoop  which is still 100% Apache licensed, but has some additional benefits. One of these benefits is that it is released by  Doug Cutting , who started Hadoop and drove it’s development at Yahoo! He also started  Lucene , which is another of my favourite Apache Projects, so I have good faith that he knows what he is doing. Another benefit, as you will see, is that it is simple to fire-up a Hadoop cluster.
+
+
+I am going to use C</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I am going to use Cloudera’s  Whirr script , which will allow me to fire up a production ready Hadoop cluster on  Amazon EC2  directly from my laptop. [sent-8, score-0.165]
+</p><p>2 If you are not familiar with Maven, you can install it via Homebrew on Mac OS X using the brew command below. [sent-37, score-0.228]
+</p><p>3 sudo brew update sudo brew install maven   Once the dependencies are installed we can build the whirr tool. [sent-39, score-0.92]
+</p><p>4 0+23 mvn clean install mvn package -Ppackage   In true Maven style, it will download a long list of dependencies the first time you build this. [sent-42, score-0.216]
+</p><p>5 Let’s sanity check the whirr script…   bin/whirr version   You should see something like “Apache Whirr 0. [sent-45, score-0.444]
+</p><p>6 0, device=/dev/sda2, durable=false, isBootDevice=false]], supportsImage=Not(is64Bit())]]] Completed launch of myhadoopcluster Web UI available at http://ec2-72-44-45-199. [sent-120, score-0.171]
+</p><p>7 sh       Running proxy to Hadoop cluster at    ec2-72-44-45-199. [sent-176, score-0.187]
+</p><p>8 The above will output the hostname that you can access the cluster at. [sent-181, score-0.34]
+</p><p>9 Use this hostname to view the cluster in your web browser. [sent-187, score-0.235]
+</p><p>10 On Amazon EC2 this new hostname will be the internal hostname of data-node server, which is visible because you are tunnelling through the SOCKS proxy. [sent-192, score-0.246]
+</p><p>11 You can interact with Hadoop and HDFS with the  hadoop  command. [sent-198, score-0.394]
 </p><p>12 We do not have Hadoop installed on our local machine. [sent-199, score-0.19]
 </p><p>13 Therefore, we can either log into one of our Hadoop cluster machines and run the hadoop command from there, or install hadoop on our local machine. [sent-200, score-1.178]
 </p><p>14 profile which hadoop # should output "/usr/local/hadoop/bin/hadoop" hadoop version # should output "Hadoop 0. [sent-225, score-0.998]
-</p><p>15 xml /usr/local/hadoop/conf/Now run your first command from your local machine to interact with HDFS. [sent-232, score-0.186]
-</p><p>16 hadoop fs -ls /You should see the following output which lists the root on the Hadoop filesystem. [sent-234, score-0.61]
-</p><p>17 Uploading Your Data To HDFS (Hadoop Distributed FileSystem)hadoop fs -mkdir input hadoop fs -put /usr/share/dict/words input/ hadoop fs -ls inputYou should see output similar to the following, which list thewordsfile on the remote HDFS. [sent-253, score-1.226]
+</p><p>15 xml /usr/local/hadoop/conf/   Now run your first command from your local machine to interact with HDFS. [sent-232, score-0.186]
+</p><p>16 hadoop fs -ls /   You should see the following output which lists the root on the Hadoop filesystem. [sent-234, score-0.61]
+</p><p>17 Uploading Your Data To HDFS (Hadoop Distributed FileSystem)   hadoop fs -mkdir input hadoop fs -put /usr/share/dict/words input/ hadoop fs -ls input   You should see output similar to the following, which list the  words  file on the remote HDFS. [sent-253, score-1.673]
 </p><p>18 Since my local user is “phil”, Hadoop has added the file under /user/phil on HDFS. [sent-254, score-0.181]
-</p><p>19 Found 1 items -rw-r--r-- 3 phil supergroup 2486813 2010-12-30 18:43 /user/phil/input/wordsCongratulations! [sent-255, score-0.171]
+</p><p>19 Found 1 items -rw-r--r--   3 phil supergroup    2486813 2010-12-30 18:43 /user/phil/input/words   Congratulations! [sent-255, score-0.171]
 </p><p>20 You have just uploaded your first file to the Hadoop Distributed File-System on your cluster in the cloud. [sent-256, score-0.165]
 </p>
 <br/>
@@ -55,64 +52,22 @@ Cloudera’sWhirr script, which</p><br/><h2>Summary: the most important sentense
 <p>[('whirr', 0.444), ('hadoop', 0.394), ('null', 0.267), ('hdfs', 0.18), ('myhadoopcluster', 0.171), ('supergroup', 0.171), ('false', 0.153), ('mac', 0.144), ('drwxrwxrwx', 0.136), ('isbootdevice', 0.136), ('providerid', 0.136), ('local', 0.128), ('id', 0.126), ('hostname', 0.123), ('cluster', 0.112), ('fs', 0.111), ('output', 0.105), ('os', 0.095), ('install', 0.092), ('socks', 0.087), ('durable', 0.085), ('sudo', 0.083), ('name', 0.082), ('brew', 0.078), ('proxy', 0.075), ('dn', 0.068), ('imageid', 0.068), ('jt', 0.068), ('paravirtual', 0.068), ('privateaddress', 0.068), ('privateaddresses', 0.068), ('publicaddress', 0.068), ('publicaddresses', 0.068), ('supportsimage', 0.068), ('usermetadata', 0.068), ('ll', 0.068), ('installed', 0.062), ('cdh', 0.062), ('mvn', 0.062), ('tea', 0.062), ('tt', 0.062), ('re', 0.059), ('command', 0.058), ('echo', 0.058), ('terminal', 0.058), ('arch', 0.058), ('directory', 0.054), ('script', 0.053), ('file', 0.053), ('device', 0.052)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="968-tfidf-1" href="../high_scalability-2011/high_scalability-2011-01-04-Map-Reduce_With_Ruby_Using_Hadoop.html">968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</a></p>
-<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop
-cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-
-System), write map-reduce scripts in Ruby and use them to run a map-reduce job
-on your Hadoop cluster. You willnotneed to ssh into the cluster, as all tasks
-are run from your local machine. Below I am using my MacBook Pro as my local
-machine, but the steps I have provided should be reproducible on other
-platforms running bash and Java.Fire-Up Your Hadoop ClusterI choose
-theCloudera distribution of Hadoopwhich is still 100% Apache licensed, but has
-some additional benefits. One of these benefits is that it is released byDoug
-Cutting, who started Hadoop and drove it’s development at Yahoo! He also
-startedLucene, which is another of my favourite Apache Projects, so I have
-good faith that he knows what he is doing. Another benefit, as you will see,
-is that it is simple to fire-up a Hadoop cluster.I am going to use
-Cloudera’sWhirr script, which</p><p>2 0.24283022 <a title="968-tfidf-2" href="../high_scalability-2009/high_scalability-2009-06-11-Yahoo%21_Distribution_of_Hadoop.html">627 high scalability-2009-06-11-Yahoo! Distribution of Hadoop</a></p>
-<p>Introduction: Many people in the Apache Hadoop community have asked Yahoo! to publish the
-version of Apache Hadoop they test and deploy across their large Hadoop
-clusters. As a service to the Hadoop community, Yahoo is releasing the Yahoo!
-Distribution of Hadoop -- a source code distribution that is based entirely on
-code found in the Apache Hadoop project.This source distribution includes code
-patches that they have added to improve the stability and performance of their
-clusters. In all cases, these patches have already been contributed back to
-Apache, but they may not yet be available in an Apache release of Hadoop.Read
-more and get the Hadoop distribution from Yahoo</p><p>3 0.207223 <a title="968-tfidf-3" href="../high_scalability-2008/high_scalability-2008-09-28-Product%3A_Happy_%3D_Hadoop_%2B_Python.html">397 high scalability-2008-09-28-Product: Happy = Hadoop + Python</a></p>
-<p>Introduction: Has a Java only Hadoop been getting you down? Now you can beHappy. Happy is
-aframework for writing map-reduce programs for Hadoop using Jython. It files
-off the sharp edges on Hadoop and makes writing map-reduce programs a breeze.
-There's really no history yet on Happy, but I'm delighted at the idea of being
-able to map-reduce inother languages. The more ways the better.From the
-website:Happy is a framework that allows Hadoop jobs to be written and run in
-Python 2.2 using Jython. It is aneasy way to write map-reduce programs for
-Hadoop, and includes some new useful features as well.The current release
-supports Hadoop 0.17.2.Map-reduce jobs in Happy are defined by sub-classing
-happy.HappyJob and implementing amap(records, task) and reduce(key, values,
-task) function. Then you create an instance of theclass, set the job
-parameters (such as inputs and outputs) and call run().When you call run(),
-Happy serializes your job instance and copies it and all accompanyinglibraries
-out to the Hado</p><p>4 0.19821298 <a title="968-tfidf-4" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
-<p>Introduction: Update 5:Hadoop Sorts a Petabyte in 16.25 Hours and a Terabyte in 62
-Secondsand has itsgreen cred questionedbecause it took 40 times the number of
-machines Greenplum used to do the same work.Update 4:Introduction to Pig. Pig
-allows you to skip programming Hadoop at the low map-reduce level. You don't
-have to know Java. Using the Pig Latin language, which is a scripting data
-flow language, you can think about your problem as a data flow program. 10
-lines of Pig Latin = 200 lines of Java.Update 3: Scaling Hadoop to4000 nodes
-at Yahoo!. 30,000 cores with nearly 16PB of raw disk; sorted 6TB of data
-completed in 37 minutes; 14,000 map tasks writes (reads) 360 MB (about 3
-blocks) of data into a single file with a total of 5.04 TB for the whole
-job.Update 2: HadoopSummit and Data-Intensive Computing Symposium Videos and
-Slides. Topics include: Pig, JAQL, Hbase, Hive, Data-Intensive Scalable
-Computing, Clouds and ManyCore: The Revolution, Simplicity and Complexity in
-Data Systems at Scale, Han</p><p>5 0.16344121 <a title="968-tfidf-5" href="../high_scalability-2008/high_scalability-2008-10-15-Hadoop_-_A_Primer.html">414 high scalability-2008-10-15-Hadoop - A Primer</a></p>
-<p>Introduction: Hadoop is a distributed computing platform written in Java. It incorporates
-features similar to those of theGoogle File System and of MapReduce to process
-vast amounts of data"Hadoop is a Free Java software framework that supports
-data intensive distributed applications running on large clusters of commodity
-computers. It enables applications to easily scale out to thousands of nodes
-and petabytes of data" (Wikipedia)* What platform does Hadoop run on?* Java
-1.5.x or higher, preferably from Sun* Linux* Windows for development* Solaris</p><p>6 0.16111599 <a title="968-tfidf-6" href="../high_scalability-2011/high_scalability-2011-07-27-Making_Hadoop_1000x_Faster_for_Graph_Problems.html">1088 high scalability-2011-07-27-Making Hadoop 1000x Faster for Graph Problems</a></p>
+<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-System), write map-reduce scripts in Ruby and use them to run a map-reduce job on your Hadoop cluster. You will  not  need to ssh into the cluster, as all tasks are run from your local machine. Below I am using my MacBook Pro as my local machine, but the steps I have provided should be reproducible on other platforms running bash and Java.
+  
+
+  
+
+ Fire-Up Your Hadoop Cluster 
+
+I choose the  Cloudera distribution of Hadoop  which is still 100% Apache licensed, but has some additional benefits. One of these benefits is that it is released by  Doug Cutting , who started Hadoop and drove it’s development at Yahoo! He also started  Lucene , which is another of my favourite Apache Projects, so I have good faith that he knows what he is doing. Another benefit, as you will see, is that it is simple to fire-up a Hadoop cluster.
+
+
+I am going to use C</p><p>2 0.24283022 <a title="968-tfidf-2" href="../high_scalability-2009/high_scalability-2009-06-11-Yahoo%21_Distribution_of_Hadoop.html">627 high scalability-2009-06-11-Yahoo! Distribution of Hadoop</a></p>
+<p>Introduction: Many people in the Apache Hadoop community have asked Yahoo! to publish the version of Apache Hadoop they test and deploy across their large Hadoop clusters. As a service to the Hadoop community, Yahoo is releasing the Yahoo! Distribution of Hadoop -- a source code distribution that is based entirely on code found in the Apache Hadoop project.   This source distribution includes code patches that they have added to improve the stability and performance of their clusters. In all cases, these patches have already been contributed back to Apache, but they may not yet be available in an Apache release of Hadoop.    Read more and get the Hadoop distribution from Yahoo</p><p>3 0.207223 <a title="968-tfidf-3" href="../high_scalability-2008/high_scalability-2008-09-28-Product%3A_Happy_%3D_Hadoop_%2B_Python.html">397 high scalability-2008-09-28-Product: Happy = Hadoop + Python</a></p>
+<p>Introduction: Has a Java only Hadoop been getting you down? Now you can be  Happy . Happy is a  framework for writing map-reduce programs for Hadoop using Jython. It files off the sharp edges on Hadoop and makes writing map-reduce programs a breeze . There's really no history yet on Happy, but I'm delighted at the idea of being able to map-reduce in  other languages . The more ways the better.  From the website:
+   Happy is a framework that allows Hadoop jobs to be written and run in Python 2.2 using Jython. It is an  easy way to write map-reduce programs for Hadoop, and includes some new useful features as well.  The current release supports Hadoop 0.17.2.  Map-reduce jobs in Happy are defined by sub-classing happy.HappyJob and implementing a  map(records, task) and reduce(key, values, task) function. Then you create an instance of the  class, set the job parameters (such as inputs and outputs) and call run().  When you call run(), Happy serializes your job instance and copies it and all accompanyi</p><p>4 0.19821298 <a title="968-tfidf-4" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
+<p>Introduction: Update 5:   Hadoop Sorts a Petabyte in 16.25 Hours and a Terabyte in 62 Seconds  and has its  green cred questioned  because it took 40 times the number of machines Greenplum used to do the same work.   Update 4:   Introduction to Pig . Pig allows you to skip programming Hadoop at the low map-reduce level. You don't have to know Java. Using the Pig Latin language, which is a scripting data flow language, you can think about your problem as a data flow program. 10 lines of Pig Latin = 200 lines of Java.   Update 3 : Scaling Hadoop to  4000 nodes at Yahoo! .  30,000 cores with nearly 16PB of raw disk; sorted 6TB of data completed in 37 minutes; 14,000 map tasks writes (reads) 360 MB (about 3 blocks) of data into a single file with a total of 5.04 TB for the whole job.  Update 2 : Hadoop  Summit and Data-Intensive Computing Symposium Videos and Slides . Topics include: Pig, JAQL, Hbase, Hive, Data-Intensive Scalable Computing, Clouds and ManyCore: The Revolution, Simplicity and Complexity</p><p>5 0.16344121 <a title="968-tfidf-5" href="../high_scalability-2008/high_scalability-2008-10-15-Hadoop_-_A_Primer.html">414 high scalability-2008-10-15-Hadoop - A Primer</a></p>
+<p>Introduction: Hadoop is a distributed computing platform written in Java. It incorporates features similar to those of the   Google File System and of MapReduce to process vast amounts of data     "Hadoop is a Free Java software framework that supports data intensive distributed applications running on large clusters of commodity computers. It enables applications to easily scale out to thousands of nodes and petabytes of data" (Wikipedia)         * What platform does Hadoop run on?       * Java 1.5.x or higher, preferably from Sun       * Linux       * Windows for development       * Solaris</p><p>6 0.16111599 <a title="968-tfidf-6" href="../high_scalability-2011/high_scalability-2011-07-27-Making_Hadoop_1000x_Faster_for_Graph_Problems.html">1088 high scalability-2011-07-27-Making Hadoop 1000x Faster for Graph Problems</a></p>
 <p>7 0.15698224 <a title="968-tfidf-7" href="../high_scalability-2010/high_scalability-2010-07-20-Strategy%3A_Consider_When_a_Service_Starts_Billing_in_Your_Algorithm_Cost.html">862 high scalability-2010-07-20-Strategy: Consider When a Service Starts Billing in Your Algorithm Cost</a></p>
 <p>8 0.13439861 <a title="968-tfidf-8" href="../high_scalability-2012/high_scalability-2012-08-28-Making_Hadoop_Run_Faster.html">1313 high scalability-2012-08-28-Making Hadoop Run Faster</a></p>
 <p>9 0.1324828 <a title="968-tfidf-9" href="../high_scalability-2009/high_scalability-2009-07-02-Product%3A_Hbase.html">650 high scalability-2009-07-02-Product: Hbase</a></p>
@@ -132,67 +87,22 @@ and petabytes of data" (Wikipedia)* What platform does Hadoop run on?* Java
 <p>[(0, 0.127), (1, 0.038), (2, 0.007), (3, 0.002), (4, 0.009), (5, 0.049), (6, 0.122), (7, -0.014), (8, 0.118), (9, 0.091), (10, 0.054), (11, -0.016), (12, 0.126), (13, -0.149), (14, 0.054), (15, -0.063), (16, -0.028), (17, -0.017), (18, -0.083), (19, 0.029), (20, -0.012), (21, 0.054), (22, 0.064), (23, 0.054), (24, -0.019), (25, 0.055), (26, 0.093), (27, -0.023), (28, 0.004), (29, 0.004), (30, 0.07), (31, 0.103), (32, -0.025), (33, -0.0), (34, 0.022), (35, 0.045), (36, -0.081), (37, 0.014), (38, -0.014), (39, -0.06), (40, -0.001), (41, 0.044), (42, -0.069), (43, -0.057), (44, 0.015), (45, 0.032), (46, -0.004), (47, 0.059), (48, -0.053), (49, 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.98702008 <a title="968-lsi-1" href="../high_scalability-2011/high_scalability-2011-01-04-Map-Reduce_With_Ruby_Using_Hadoop.html">968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</a></p>
-<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop
-cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-
-System), write map-reduce scripts in Ruby and use them to run a map-reduce job
-on your Hadoop cluster. You willnotneed to ssh into the cluster, as all tasks
-are run from your local machine. Below I am using my MacBook Pro as my local
-machine, but the steps I have provided should be reproducible on other
-platforms running bash and Java.Fire-Up Your Hadoop ClusterI choose
-theCloudera distribution of Hadoopwhich is still 100% Apache licensed, but has
-some additional benefits. One of these benefits is that it is released byDoug
-Cutting, who started Hadoop and drove it’s development at Yahoo! He also
-startedLucene, which is another of my favourite Apache Projects, so I have
-good faith that he knows what he is doing. Another benefit, as you will see,
-is that it is simple to fire-up a Hadoop cluster.I am going to use
-Cloudera’sWhirr script, which</p><p>2 0.9157601 <a title="968-lsi-2" href="../high_scalability-2008/high_scalability-2008-09-28-Product%3A_Happy_%3D_Hadoop_%2B_Python.html">397 high scalability-2008-09-28-Product: Happy = Hadoop + Python</a></p>
-<p>Introduction: Has a Java only Hadoop been getting you down? Now you can beHappy. Happy is
-aframework for writing map-reduce programs for Hadoop using Jython. It files
-off the sharp edges on Hadoop and makes writing map-reduce programs a breeze.
-There's really no history yet on Happy, but I'm delighted at the idea of being
-able to map-reduce inother languages. The more ways the better.From the
-website:Happy is a framework that allows Hadoop jobs to be written and run in
-Python 2.2 using Jython. It is aneasy way to write map-reduce programs for
-Hadoop, and includes some new useful features as well.The current release
-supports Hadoop 0.17.2.Map-reduce jobs in Happy are defined by sub-classing
-happy.HappyJob and implementing amap(records, task) and reduce(key, values,
-task) function. Then you create an instance of theclass, set the job
-parameters (such as inputs and outputs) and call run().When you call run(),
-Happy serializes your job instance and copies it and all accompanyinglibraries
-out to the Hado</p><p>3 0.9101395 <a title="968-lsi-3" href="../high_scalability-2009/high_scalability-2009-06-11-Yahoo%21_Distribution_of_Hadoop.html">627 high scalability-2009-06-11-Yahoo! Distribution of Hadoop</a></p>
-<p>Introduction: Many people in the Apache Hadoop community have asked Yahoo! to publish the
-version of Apache Hadoop they test and deploy across their large Hadoop
-clusters. As a service to the Hadoop community, Yahoo is releasing the Yahoo!
-Distribution of Hadoop -- a source code distribution that is based entirely on
-code found in the Apache Hadoop project.This source distribution includes code
-patches that they have added to improve the stability and performance of their
-clusters. In all cases, these patches have already been contributed back to
-Apache, but they may not yet be available in an Apache release of Hadoop.Read
-more and get the Hadoop distribution from Yahoo</p><p>4 0.88630307 <a title="968-lsi-4" href="../high_scalability-2008/high_scalability-2008-11-14-Paper%3A_Pig_Latin%3A_A_Not-So-Foreign_Language_for_Data_Processing.html">443 high scalability-2008-11-14-Paper: Pig Latin: A Not-So-Foreign Language for Data Processing</a></p>
-<p>Introduction: Yahoo has developed a new language called Pig Latin that fit in a sweet spot
-between high-level declarative querying in the spirit of SQL, and low-level,
-procedural programming `a la map-reduce and combines best of both worlds.The
-accompanying system, Pig, is fully implemented, and compiles Pig Latin into
-physical plans that are executed over Hadoop, an open-source, map-reduce
-implementation. Pig has just graduated from the Apache Incubator and joined
-Hadoop as a subproject.The paper has a few examples of how engineers at Yahoo!
-are using Pig to dramatically reduce the time required for the development and
-execution of their data analysis tasks, compared tousing Hadoop
-directly.References:Apache Pig Wiki</p><p>5 0.7950418 <a title="968-lsi-5" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
-<p>Introduction: Update 5:Hadoop Sorts a Petabyte in 16.25 Hours and a Terabyte in 62
-Secondsand has itsgreen cred questionedbecause it took 40 times the number of
-machines Greenplum used to do the same work.Update 4:Introduction to Pig. Pig
-allows you to skip programming Hadoop at the low map-reduce level. You don't
-have to know Java. Using the Pig Latin language, which is a scripting data
-flow language, you can think about your problem as a data flow program. 10
-lines of Pig Latin = 200 lines of Java.Update 3: Scaling Hadoop to4000 nodes
-at Yahoo!. 30,000 cores with nearly 16PB of raw disk; sorted 6TB of data
-completed in 37 minutes; 14,000 map tasks writes (reads) 360 MB (about 3
-blocks) of data into a single file with a total of 5.04 TB for the whole
-job.Update 2: HadoopSummit and Data-Intensive Computing Symposium Videos and
-Slides. Topics include: Pig, JAQL, Hbase, Hive, Data-Intensive Scalable
-Computing, Clouds and ManyCore: The Revolution, Simplicity and Complexity in
-Data Systems at Scale, Han</p><p>6 0.78724015 <a title="968-lsi-6" href="../high_scalability-2010/high_scalability-2010-07-20-Strategy%3A_Consider_When_a_Service_Starts_Billing_in_Your_Algorithm_Cost.html">862 high scalability-2010-07-20-Strategy: Consider When a Service Starts Billing in Your Algorithm Cost</a></p>
+<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-System), write map-reduce scripts in Ruby and use them to run a map-reduce job on your Hadoop cluster. You will  not  need to ssh into the cluster, as all tasks are run from your local machine. Below I am using my MacBook Pro as my local machine, but the steps I have provided should be reproducible on other platforms running bash and Java.
+  
+
+  
+
+ Fire-Up Your Hadoop Cluster 
+
+I choose the  Cloudera distribution of Hadoop  which is still 100% Apache licensed, but has some additional benefits. One of these benefits is that it is released by  Doug Cutting , who started Hadoop and drove it’s development at Yahoo! He also started  Lucene , which is another of my favourite Apache Projects, so I have good faith that he knows what he is doing. Another benefit, as you will see, is that it is simple to fire-up a Hadoop cluster.
+
+
+I am going to use C</p><p>2 0.9157601 <a title="968-lsi-2" href="../high_scalability-2008/high_scalability-2008-09-28-Product%3A_Happy_%3D_Hadoop_%2B_Python.html">397 high scalability-2008-09-28-Product: Happy = Hadoop + Python</a></p>
+<p>Introduction: Has a Java only Hadoop been getting you down? Now you can be  Happy . Happy is a  framework for writing map-reduce programs for Hadoop using Jython. It files off the sharp edges on Hadoop and makes writing map-reduce programs a breeze . There's really no history yet on Happy, but I'm delighted at the idea of being able to map-reduce in  other languages . The more ways the better.  From the website:
+   Happy is a framework that allows Hadoop jobs to be written and run in Python 2.2 using Jython. It is an  easy way to write map-reduce programs for Hadoop, and includes some new useful features as well.  The current release supports Hadoop 0.17.2.  Map-reduce jobs in Happy are defined by sub-classing happy.HappyJob and implementing a  map(records, task) and reduce(key, values, task) function. Then you create an instance of the  class, set the job parameters (such as inputs and outputs) and call run().  When you call run(), Happy serializes your job instance and copies it and all accompanyi</p><p>3 0.9101395 <a title="968-lsi-3" href="../high_scalability-2009/high_scalability-2009-06-11-Yahoo%21_Distribution_of_Hadoop.html">627 high scalability-2009-06-11-Yahoo! Distribution of Hadoop</a></p>
+<p>Introduction: Many people in the Apache Hadoop community have asked Yahoo! to publish the version of Apache Hadoop they test and deploy across their large Hadoop clusters. As a service to the Hadoop community, Yahoo is releasing the Yahoo! Distribution of Hadoop -- a source code distribution that is based entirely on code found in the Apache Hadoop project.   This source distribution includes code patches that they have added to improve the stability and performance of their clusters. In all cases, these patches have already been contributed back to Apache, but they may not yet be available in an Apache release of Hadoop.    Read more and get the Hadoop distribution from Yahoo</p><p>4 0.88630307 <a title="968-lsi-4" href="../high_scalability-2008/high_scalability-2008-11-14-Paper%3A_Pig_Latin%3A_A_Not-So-Foreign_Language_for_Data_Processing.html">443 high scalability-2008-11-14-Paper: Pig Latin: A Not-So-Foreign Language for Data Processing</a></p>
+<p>Introduction: Yahoo has developed a new language called Pig Latin that fit in a sweet spot between high-level declarative querying in the spirit of SQL, and low-level, procedural programming `a la map-reduce and combines best of both worlds.  The accompanying system, Pig, is fully implemented, and compiles Pig Latin into physical plans that are executed over Hadoop, an open-source, map-reduce implementation. Pig has just graduated from the Apache Incubator and joined Hadoop as a subproject.  The paper has a few examples of how engineers at Yahoo! are using Pig to dramatically reduce the time required for the development and execution of their data analysis tasks, compared to using Hadoop directly.  References:  Apache Pig Wiki</p><p>5 0.7950418 <a title="968-lsi-5" href="../high_scalability-2009/high_scalability-2009-05-17-Product%3A_Hadoop.html">601 high scalability-2009-05-17-Product: Hadoop</a></p>
+<p>Introduction: Update 5:   Hadoop Sorts a Petabyte in 16.25 Hours and a Terabyte in 62 Seconds  and has its  green cred questioned  because it took 40 times the number of machines Greenplum used to do the same work.   Update 4:   Introduction to Pig . Pig allows you to skip programming Hadoop at the low map-reduce level. You don't have to know Java. Using the Pig Latin language, which is a scripting data flow language, you can think about your problem as a data flow program. 10 lines of Pig Latin = 200 lines of Java.   Update 3 : Scaling Hadoop to  4000 nodes at Yahoo! .  30,000 cores with nearly 16PB of raw disk; sorted 6TB of data completed in 37 minutes; 14,000 map tasks writes (reads) 360 MB (about 3 blocks) of data into a single file with a total of 5.04 TB for the whole job.  Update 2 : Hadoop  Summit and Data-Intensive Computing Symposium Videos and Slides . Topics include: Pig, JAQL, Hbase, Hive, Data-Intensive Scalable Computing, Clouds and ManyCore: The Revolution, Simplicity and Complexity</p><p>6 0.78724015 <a title="968-lsi-6" href="../high_scalability-2010/high_scalability-2010-07-20-Strategy%3A_Consider_When_a_Service_Starts_Billing_in_Your_Algorithm_Cost.html">862 high scalability-2010-07-20-Strategy: Consider When a Service Starts Billing in Your Algorithm Cost</a></p>
 <p>7 0.76541978 <a title="968-lsi-7" href="../high_scalability-2008/high_scalability-2008-10-15-Hadoop_-_A_Primer.html">414 high scalability-2008-10-15-Hadoop - A Primer</a></p>
 <p>8 0.74240035 <a title="968-lsi-8" href="../high_scalability-2009/high_scalability-2009-08-03-Building_a_Data_Intensive_Web_Application_with_Cloudera%2C_Hadoop%2C_Hive%2C_Pig%2C_and_EC2.html">669 high scalability-2009-08-03-Building a Data Intensive Web Application with Cloudera, Hadoop, Hive, Pig, and EC2</a></p>
 <p>9 0.71604377 <a title="968-lsi-9" href="../high_scalability-2013/high_scalability-2013-04-24-Strategy%3A_Using_Lots_of_RAM_Often_Cheaper_than_Using_a_Hadoop_Cluster.html">1445 high scalability-2013-04-24-Strategy: Using Lots of RAM Often Cheaper than Using a Hadoop Cluster</a></p>
@@ -212,67 +122,36 @@ Data Systems at Scale, Han</p><p>6 0.78724015 <a title="968-lsi-6" href="../high
 <p>[(1, 0.098), (2, 0.17), (10, 0.037), (23, 0.017), (30, 0.032), (47, 0.025), (57, 0.322), (61, 0.053), (79, 0.048), (85, 0.028), (94, 0.071)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.88060087 <a title="968-lda-1" href="../high_scalability-2007/high_scalability-2007-11-18-Reverse_Proxy.html">159 high scalability-2007-11-18-Reverse Proxy</a></p>
-<p>Introduction: Hi,I saw an year ago that Netapp sold netcache to blu-coat, my site is a heavy
-NetCache user and we cached 83% of our site. We tested with Blue-coat and F5
-WA and we are not getting same performce as NetCache.Any of you guys have the
-same issue? or somebody knows another product can handle much
-traffic?ThanksRodrigo</p><p>same-blog 2 0.81806856 <a title="968-lda-2" href="../high_scalability-2011/high_scalability-2011-01-04-Map-Reduce_With_Ruby_Using_Hadoop.html">968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</a></p>
-<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop
-cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-
-System), write map-reduce scripts in Ruby and use them to run a map-reduce job
-on your Hadoop cluster. You willnotneed to ssh into the cluster, as all tasks
-are run from your local machine. Below I am using my MacBook Pro as my local
-machine, but the steps I have provided should be reproducible on other
-platforms running bash and Java.Fire-Up Your Hadoop ClusterI choose
-theCloudera distribution of Hadoopwhich is still 100% Apache licensed, but has
-some additional benefits. One of these benefits is that it is released byDoug
-Cutting, who started Hadoop and drove it’s development at Yahoo! He also
-startedLucene, which is another of my favourite Apache Projects, so I have
-good faith that he knows what he is doing. Another benefit, as you will see,
-is that it is simple to fire-up a Hadoop cluster.I am going to use
-Cloudera’sWhirr script, which</p><p>3 0.80668461 <a title="968-lda-3" href="../high_scalability-2011/high_scalability-2011-11-17-Five_Misconceptions_on_Cloud_Portability.html">1144 high scalability-2011-11-17-Five Misconceptions on Cloud Portability</a></p>
-<p>Introduction: The term "cloud portability" is often considered a synonym for
-"CloudAPIportability," which implies a series of misconceptions.If we break
-away from dogma, we can find that what we really looking for in cloud
-portability is Application portability between clouds which can be a vastly
-simpler requirement, as we can achieve application portability without
-settling on a common CloudAPI.In this post i'll be covering five common
-misconceptions people haveWRTto cloud portability.Cloud portability = Cloud
-API portability. API portability is easy; cloud API portability is not.The
-main incentive for Cloud Portability is - Avoiding Vendor lock-in.Cloud
-portability is more about business agility than it is about vendor lock-
-in.Cloud portability isn't for startups. Every startup that is expecting rapid
-growth should re-examine their deployments and plan for cloud portability
-rather than wait to be forced to make the switch when you are least prepared
-to do so.Cloud portability = Compromising on t</p><p>4 0.78530818 <a title="968-lda-4" href="../high_scalability-2008/high_scalability-2008-10-29-CTL_-_Distributed_Control_Dispatching_Framework_.html">433 high scalability-2008-10-29-CTL - Distributed Control Dispatching Framework </a></p>
-<p>Introduction: CTLis aflexible distributed control dispatching framework that enables you to
-break management processes into reusable control modules and execute them in
-distributed fashion over the network.From their website:CTL is a flexible
-distributed control dispatching framework that enables you to break management
-processes into reusable control modules and execute them in distributed
-fashion over the network.What does CTL do?CTL helps you leverage your current
-scripts and tools to easily automate any kind of distributed systems
-management or application provisioning task. Its good for simplifiying large-
-scale scripting efforts or as another tool in your toolbox that helps you
-speed through your daily mix of ad-hoc administration tasks.What are CTL's
-features?CTL has many features, but the general highlights are:* Execute
-sophisticated procedures in distributed environments - Aren't you tired of
-writing and then endlessly modifying scripts that loop over nodes and invoke
-remote actions? CTL d</p><p>5 0.75497037 <a title="968-lda-5" href="../high_scalability-2011/high_scalability-2011-11-07-10_Core_Architecture_Pattern_Variations_for_Achieving_Scalability.html">1138 high scalability-2011-11-07-10 Core Architecture Pattern Variations for Achieving Scalability</a></p>
-<p>Introduction: Srinath Perera has put together astrong list of architecture patternsbased on
-three meta patterns:  distribution, caching, and asynchronous processing. He
-contends these three are the primal patterns and the following patterns are
-but different combinations:LB (Load Balancers) + Shared nothing Units. Units
-that do not share anything with each other fronted with a load balancer that
-routes incoming messages to a unit based on some criteria.LB + Stateless Nodes
-+ Scalable Storage. Several stateless nodes talking to a scalable storage, and
-a load balancer distributes load among the nodes.Peer to Peer Architectures
-(Distributed Hash Table (DHT) and Content Addressable Networks (CAN)).
-Algorithm for scaling up logarithmically.Distributed Queues. Queue
-implementation (FIFO delivery) implemented as a network
-service.Publish/Subscribe Paradigm. Network publish subscribe brokers that
-route messages to each other.Gossip and Nature-inspired Architectures. Each
-node randomly pick and exchange info</p><p>6 0.75181746 <a title="968-lda-6" href="../high_scalability-2009/high_scalability-2009-10-28-Need_for_change_in_your_IT_infrastructure_.html">731 high scalability-2009-10-28-Need for change in your IT infrastructure </a></p>
+<p>Introduction: Hi,      I saw an year ago that Netapp sold netcache to blu-coat, my site is a heavy NetCache user and we cached 83% of our site. We tested with Blue-coat and F5 WA and we are not getting same performce as NetCache.      Any of you guys have the same issue? or somebody knows another product can handle much traffic?     Thanks   Rodrigo</p><p>same-blog 2 0.81806856 <a title="968-lda-2" href="../high_scalability-2011/high_scalability-2011-01-04-Map-Reduce_With_Ruby_Using_Hadoop.html">968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</a></p>
+<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-System), write map-reduce scripts in Ruby and use them to run a map-reduce job on your Hadoop cluster. You will  not  need to ssh into the cluster, as all tasks are run from your local machine. Below I am using my MacBook Pro as my local machine, but the steps I have provided should be reproducible on other platforms running bash and Java.
+  
+
+  
+
+ Fire-Up Your Hadoop Cluster 
+
+I choose the  Cloudera distribution of Hadoop  which is still 100% Apache licensed, but has some additional benefits. One of these benefits is that it is released by  Doug Cutting , who started Hadoop and drove it’s development at Yahoo! He also started  Lucene , which is another of my favourite Apache Projects, so I have good faith that he knows what he is doing. Another benefit, as you will see, is that it is simple to fire-up a Hadoop cluster.
+
+
+I am going to use C</p><p>3 0.80668461 <a title="968-lda-3" href="../high_scalability-2011/high_scalability-2011-11-17-Five_Misconceptions_on_Cloud_Portability.html">1144 high scalability-2011-11-17-Five Misconceptions on Cloud Portability</a></p>
+<p>Introduction: The term "cloud portability" is often considered a synonym for "Cloud  API  portability," which implies a series of misconceptions.
+ 
+If we break away from dogma, we can find that what we really looking for in cloud portability is Application portability between clouds which can be a vastly simpler requirement, as we can achieve application portability without settling on a common Cloud  API. 
+ 
+In this post i'll be covering five common misconceptions people have  WRT  to cloud portability.
+  
+  Cloud portability = Cloud API portability . API portability is easy; cloud API portability is not.  
+  The main incentive for Cloud Portability is - Avoiding Vendor lock-in .Cloud portability is more about business agility than it is about vendor lock-in.  
+  Cloud portability isnâ&euro;&trade;t for startups . Every startup that is expecting rapid growth should re-examine their deployments and plan for cloud portability rather than wait to be forced to make the switch when you are least prepared to do so.</p><p>4 0.78530818 <a title="968-lda-4" href="../high_scalability-2008/high_scalability-2008-10-29-CTL_-_Distributed_Control_Dispatching_Framework_.html">433 high scalability-2008-10-29-CTL - Distributed Control Dispatching Framework </a></p>
+<p>Introduction: CTL  is a  flexible distributed control dispatching framework that enables you to break management processes into reusable control modules and execute them in distributed fashion over the network .  From their website:  CTL is a flexible distributed control dispatching framework that enables you to break management processes into reusable control modules and execute them in distributed fashion over the network.  What does CTL do? CTL helps you leverage your current scripts and tools to easily automate any kind of distributed systems management or application provisioning task. Its good for simplifiying large-scale scripting efforts or as another tool in your toolbox that helps you speed through your daily mix of ad-hoc administration tasks.  What are CTL's features? CTL has many features, but the general highlights are:  * Execute sophisticated procedures in distributed environments - Aren't you tired of writing and then endlessly modifying scripts that loop over nodes and invoke remot</p><p>5 0.75497037 <a title="968-lda-5" href="../high_scalability-2011/high_scalability-2011-11-07-10_Core_Architecture_Pattern_Variations_for_Achieving_Scalability.html">1138 high scalability-2011-11-07-10 Core Architecture Pattern Variations for Achieving Scalability</a></p>
+<p>Introduction: Srinath Perera has put together a  strong list of architecture patterns  based on three meta patterns:  distribution, caching, and asynchronous processing. He contends these three are the primal patterns and the following patterns are but different combinations:
+  
+  LB (Load Balancers) + Shared nothing Units . Units that do not share anything with each other fronted with a load balancer that routes incoming messages to a unit based on some criteria. 
+  LB + Stateless Nodes + Scalable Storage . Several stateless nodes talking to a scalable storage, and a load balancer distributes load among the nodes. 
+  Peer to Peer Architectures (Distributed Hash Table (DHT) and Content Addressable Networks (CAN)) . Algorithm for scaling up logarithmically. 
+  Distributed Queues . Queue implementation (FIFO delivery) implemented as a network service. 
+  Publish/Subscribe Paradigm . Network publish subscribe brokers that route messages to each other. 
+  Gossip and Nature-inspired Architectures . Each</p><p>6 0.75181746 <a title="968-lda-6" href="../high_scalability-2009/high_scalability-2009-10-28-Need_for_change_in_your_IT_infrastructure_.html">731 high scalability-2009-10-28-Need for change in your IT infrastructure </a></p>
 <p>7 0.73355138 <a title="968-lda-7" href="../high_scalability-2012/high_scalability-2012-03-19-LinkedIn%3A_Creating_a_Low_Latency_Change_Data_Capture_System_with_Databus.html">1211 high scalability-2012-03-19-LinkedIn: Creating a Low Latency Change Data Capture System with Databus</a></p>
 <p>8 0.73019725 <a title="968-lda-8" href="../high_scalability-2010/high_scalability-2010-04-09-Vagrant_-_Build_and_Deploy_Virtualized_Development_Environments_Using_Ruby.html">807 high scalability-2010-04-09-Vagrant - Build and Deploy Virtualized Development Environments Using Ruby</a></p>
 <p>9 0.67899674 <a title="968-lda-9" href="../high_scalability-2009/high_scalability-2009-04-03-Collectl_interface_to_Ganglia_-_any_interest%3F.html">553 high scalability-2009-04-03-Collectl interface to Ganglia - any interest?</a></p>

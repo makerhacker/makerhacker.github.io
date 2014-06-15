@@ -16,113 +16,58 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1104 high scalability-2011-08-25-Colmux - Finding Memory Leaks, High I-O Wait Times, and Hotness on 3000 Node Clusters</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1104-html" href="http://highscalability.com//blog/2011/8/25/colmux-finding-memory-leaks-high-io-wait-times-and-hotness-o.html">html</a></p><p>Introduction: Todd had originally posted an entry oncollectlhere atCollectl - Performance
-Data Collector. Collectl collects real-time data from a large number of
-subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory,
-network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool
-and in one consistent format.Since then a lot has happened.  It's now part of
-both Fedora and Debian distros, not to mention several others. There has also
-been a pretty good summary written up byJoe Brockmeier. It's also pretty well
-documented (I like to think) onsourceforge. There have also been a few blog
-postings by Martin Bachon his blog.Anyhow, awhile back I released a new
-version of collectl-utils and gave a complete face-lift to one of the
-utilities, colmux, which is a collectl multiplexor.  This tool has the ability
-to run collectl on multiple systems, which in turn send all their output back
-to colmux.  Colmux then sorts the output on a user-specified column and
-reports the 'top-n'</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Collectl collects real-time data from a large number of subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory, network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool and in one consistent format. [sent-2, score-0.148]
-</p><p>2 Anyhow, awhile back I released a new version of collectl-utils and gave a complete face-lift to one of the utilities, colmux, which is a collectl multiplexor. [sent-8, score-0.477]
-</p><p>3 This tool has the ability to run collectl on multiple systems, which in turn send all their output back to colmux. [sent-9, score-0.58]
-</p><p>4 Colmux then sorts the output on a user-specified column and reports the 'top-n' results. [sent-10, score-0.181]
-</p><p>5 I ran collectl on each, comparing virtually everything I could think of from cpu loads, to interrupts, context switches, disks, networks (both ethernet and infiniband) and other subsystems as well. [sent-13, score-0.51]
-</p><p>6 It wasn't until I stumbled on the fact that some machines were using a lot more slab memory that I tried unmounting/remounting lustre on them and sure enough, the slab sizes dropped and their performance immediately improved. [sent-14, score-1.312]
-</p><p>7 Drilling down into the individual slab allocations with collectl I then discovered a single slab called ll_async_page seemed to be the culprit and digging deeper with google I discovered a known problem with lustre memory leaks. [sent-15, score-2.011]
-</p><p>8 With this factoid in mind, I then could use colmux to identify all the top slab memory consumers and sure enough, a small number of them had significantly higher values than the bulk of the nodes. [sent-16, score-1.002]
-</p><p>9 Therefore, it was simply a matter of unmounting/remounting lustre on just those and the problem was resolved. [sent-17, score-0.411]
-</p><p>10 While it didn't fix the memory leak problem, which is a slow one, it at least got the cluster operating at full efficiency for a couple of months when the process had to be repeated. [sent-18, score-0.26]
-</p><p>11 This was an older version of lustre and so maybe the problem has been resolved. [sent-19, score-0.411]
-</p><p>12 Tracking Down High I/O Wait TimesI've also used colmux on a large disk farm to track down disks with high I/O wait times. [sent-20, score-0.624]
-</p><p>13 Finding a Hot Needle in a 2000+ Node HaystackOne other use that was pretty cool was a colleague used this with collectl's ability to monitor temperatures to track down 'hot' system on a 2000+ node cluster during a linpack run. [sent-22, score-0.508]
-</p><p>14 Reliving HistoryYou can also change columns dynamically by typing in the column number or using the arrow keys (if you installed the perl module TermReadKey). [sent-23, score-0.281]
-</p><p>15 Furthermore, if you have historical data you've collected over several days, you can instruct colmux to play it back and sort it. [sent-25, score-0.744]
-</p><p>16 So let's say you had some sort of hang on the cluster yesterday at 2PM. [sent-26, score-0.141]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1104-html" href="http://highscalability.com//blog/2011/8/25/colmux-finding-memory-leaks-high-io-wait-times-and-hotness-o.html">html</a></p><p>Introduction: Todd had originally posted an entry on  collectl  here at  Collectl - Performance Data Collector . Collectl collects real-time data from a large number of subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory, network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool and in one consistent format.
+ 
+Since then a lot has happened.  It's now part of both Fedora and Debian distros, not to mention several others. There has also been a pretty good summary written up by  Joe Brockmeier . It's also pretty well documented (I like to think) on  sourceforge . There have also been a few blog postings by   Martin Bach   on his blog.
+ 
+Anyhow, awhile back I released a new version of collectl-utils and gave a complete face-lift to one of the utilities, colmux, which is a collectl multiplexor.  This tool has the ability to run collectl on multiple systems, which in turn send all their output back to colmux.  Colmux then sorts the output on a user-specified column</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Todd had originally posted an entry on  collectl  here at  Collectl - Performance Data Collector . [sent-1, score-0.414]
+</p><p>2 Collectl collects real-time data from a large number of subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory, network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool and in one consistent format. [sent-2, score-0.148]
+</p><p>3 Anyhow, awhile back I released a new version of collectl-utils and gave a complete face-lift to one of the utilities, colmux, which is a collectl multiplexor. [sent-8, score-0.477]
+</p><p>4 This tool has the ability to run collectl on multiple systems, which in turn send all their output back to colmux. [sent-9, score-0.58]
+</p><p>5 Colmux then sorts the output on a user-specified column and reports the 'top-n' results. [sent-10, score-0.181]
+</p><p>6 I ran collectl on each, comparing virtually everything I could think of from cpu loads, to interrupts, context switches, disks, networks (both ethernet and infiniband) and other subsystems as well. [sent-13, score-0.51]
+</p><p>7 It wasn't until I stumbled on the fact that some machines were using a lot more slab memory that I tried unmounting/remounting lustre on them and sure enough, the slab sizes dropped and their performance immediately improved. [sent-14, score-1.312]
+</p><p>8 Drilling down into the individual slab allocations with collectl I then discovered a single slab called ll_async_page seemed to be the culprit and digging deeper with google I discovered a known problem with lustre memory leaks. [sent-15, score-2.011]
+</p><p>9 With this factoid in mind, I then could use colmux to identify all the top slab memory consumers and sure enough, a small number of them had significantly higher values than the bulk of the nodes. [sent-16, score-1.002]
+</p><p>10 Therefore, it was simply a matter of unmounting/remounting lustre on just those and the problem was resolved. [sent-17, score-0.411]
+</p><p>11 While it didn't fix the memory leak problem, which is a slow one, it at least got the cluster operating at full efficiency for a couple of months when the process had to be repeated. [sent-18, score-0.26]
+</p><p>12 This was an older version of lustre and so maybe the problem has been resolved. [sent-19, score-0.411]
+</p><p>13 Tracking Down High I/O Wait Times   I've also used colmux on a large disk farm to track down disks with high I/O wait times. [sent-20, score-0.624]
+</p><p>14 Finding a Hot Needle in a 2000+ Node Haystack   One other use that was pretty cool was a colleague used this with collectl's ability to monitor temperatures to track down 'hot' system on a 2000+ node cluster during a linpack run. [sent-22, score-0.508]
+</p><p>15 Reliving History   You can also change columns dynamically by typing in the column number or using the arrow keys (if you installed the perl module TermReadKey). [sent-23, score-0.281]
+</p><p>16 Furthermore, if you have historical data you've collected over several days, you can instruct colmux to play it back and sort it. [sent-25, score-0.744]
 </p><p>17 Just play back ALL the data across all the nodes and look at the top processes or maybe the network or anything else that could cause a hang. [sent-27, score-0.172]
 </p><p>18 If you havent' tried collectl yet, perhaps this would be a good reason to do so. [sent-29, score-0.479]
 </p><p>19 There is an alternative output format I call single line, in which a small number of columns are all reported on the same line, making it real easy to spot change. [sent-30, score-0.243]
-</p><p>20 If you look at the bottom of the colmux page, there's a cool picture if monitoring close to 200 systems on a single line, of course it takes 3-30" monitors to see them all. [sent-31, score-0.424]
+</p><p>20 If you look at the bottom of the  colmux  page, there's a cool picture if monitoring close to 200 systems on a single line, of course it takes 3-30" monitors to see them all. [sent-31, score-0.424]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('colmux', 0.424), ('collectl', 0.414), ('slab', 0.376), ('lustre', 0.336), ('output', 0.103), ('subsystems', 0.096), ('leak', 0.096), ('memory', 0.096), ('infiniband', 0.092), ('columns', 0.088), ('node', 0.086), ('track', 0.084), ('column', 0.078), ('discovered', 0.077), ('problem', 0.075), ('sort', 0.073), ('postings', 0.071), ('quadrics', 0.071), ('slabs', 0.071), ('havent', 0.071), ('drilling', 0.071), ('instruct', 0.071), ('aug', 0.071), ('colleague', 0.071), ('distros', 0.071), ('line', 0.069), ('cluster', 0.068), ('pretty', 0.067), ('temperatures', 0.066), ('linpack', 0.066), ('culprit', 0.066), ('tried', 0.065), ('back', 0.063), ('stumbled', 0.063), ('fedora', 0.063), ('inodes', 0.063), ('needle', 0.063), ('arrow', 0.063), ('disks', 0.061), ('digging', 0.059), ('allocations', 0.059), ('several', 0.058), ('play', 0.055), ('wait', 0.055), ('top', 0.054), ('documented', 0.053), ('number', 0.052), ('todd', 0.051), ('utilities', 0.051), ('debian', 0.051)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999988 <a title="1104-tfidf-1" href="../high_scalability-2011/high_scalability-2011-08-25-Colmux_-_Finding_Memory_Leaks%2C_High_I-O_Wait_Times%2C_and_Hotness_on_3000_Node_Clusters.html">1104 high scalability-2011-08-25-Colmux - Finding Memory Leaks, High I-O Wait Times, and Hotness on 3000 Node Clusters</a></p>
-<p>Introduction: Todd had originally posted an entry oncollectlhere atCollectl - Performance
-Data Collector. Collectl collects real-time data from a large number of
-subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory,
-network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool
-and in one consistent format.Since then a lot has happened.  It's now part of
-both Fedora and Debian distros, not to mention several others. There has also
-been a pretty good summary written up byJoe Brockmeier. It's also pretty well
-documented (I like to think) onsourceforge. There have also been a few blog
-postings by Martin Bachon his blog.Anyhow, awhile back I released a new
-version of collectl-utils and gave a complete face-lift to one of the
-utilities, colmux, which is a collectl multiplexor.  This tool has the ability
-to run collectl on multiple systems, which in turn send all their output back
-to colmux.  Colmux then sorts the output on a user-specified column and
-reports the 'top-n'</p><p>2 0.36258495 <a title="1104-tfidf-2" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
-<p>Introduction: From theirwebsite:There are a number of times in which you find yourself
-needing performance data. These can include benchmarking, monitoring a
-system's general heath or trying to determine what your system was doing at
-some time in the past. Sometimes you just want to know what the system is
-doing right now. Depending on what you're doing, you often end up using
-different tools, each designed to for that specific situation. Features
-include:You are be able to run with non-integral sampling
-intervals.Collectluses very little CPU. In fact it has been measured to use
-<0.1% when run as a daemon using the default sampling interval of 60 seconds
-for process and slab data and 10 seconds for everything else.Brief, verbose,
-and plot formats are supported.You can report aggregated performance numbers
-on many devices such as CPUs, Disks, interconnects such as Infiniband or
-Quadrics, Networks or even Lustre file systems.Collectl will align its
-sampling on integral second boundaries.Supports proce</p><p>3 0.29245809 <a title="1104-tfidf-3" href="../high_scalability-2009/high_scalability-2009-10-09-Have_you_collectl%27d_yet%3F__If_not%2C_maybe_collectl-utils_will_make_it_easier_to_do_so.html">719 high scalability-2009-10-09-Have you collectl'd yet?  If not, maybe collectl-utils will make it easier to do so</a></p>
-<p>Introduction: I'm not sure how many people who follow this have even tried collectl but I
-wanted to let you all know that I just released a set of utilities called
-strangely enough collectl-utils, which you can get athttp://collectl-
-utils.sourceforge.net. One web-based utility called colplot gives you the
-ability to very easily plot data from multiple systems in a way that makes
-correlating them over time very easy.Another utility called colmux lets you
-look at multiple systems in real time. In fact if you go the page that
-describes it in more detail you'll see a photo which shows the CPU loads on
-192 systems one a second, one set of data/line! in fact the display so wide it
-takes 3 large monitors side-by-side to see it all and even though you can't
-actually read the displays you can easily see which systems are loaded and
-which aren't.Anyhow give it a look and let me know what you think.-mark</p><p>4 0.27954027 <a title="1104-tfidf-4" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
-<p>Introduction: I had posted a note the other day about collectl and its ganglia interface but
-perhaps I wasn't provocative enough to get any responses so let me ask it a
-different way, specifically how do people monitor their clusters and more
-importantly how often? Do you monitor to get a general sense of what the
-system is doing OR do you monitor with the expectation that when something
-goes wrong you'll have enough data to diagnose the problem? Or both? I suspect
-both...Many cluster-based monitoring tools tend to have a data collection
-daemon running on each target node which periodically sends data to some
-central management station. That machine typically writes the data to some
-database from which it can then extract historical plots. Some even put up
-graphics in real-time.From my experience working with large clusters - and I'm
-talking either many hundreds or even 1000s of nodes, most have to limit both
-the amount of data they manage centrally as well as the frequency that they
-collect it, oth</p><p>5 0.23524357 <a title="1104-tfidf-5" href="../high_scalability-2007/high_scalability-2007-07-15-Lustre_cluster_file_system.html">13 high scalability-2007-07-15-Lustre cluster file system</a></p>
-<p>Introduction: Lustre速is a scalable, secure, robust, highly-available cluster file system. It
-is designed, developed and maintained by Cluster File Systems, Inc.The central
-goal is the development of a next-generation cluster file system which can
-serve clusters with 10,000's of nodes, provide petabytes of storage, and move
-100's of GB/sec with state-of-the-art security and management
-infrastructure.Lustre runs on many of the largest Linux clusters in the world,
-and is included by CFS's partners as a core component of their cluster
-offering (examples include HP StorageWorks SFS, and the Cray XT3 and XD1
-supercomputers). Today's users have also demonstrated that Lustre scales down
-as well as it scales up, and runs in production on clusters as small as 4 and
-as large as 25,000 nodes.The latest version of Lustre is always available from
-Cluster File Systems, Inc. Public Open Source releases of Lustre are available
-under the GNU General Public License. These releases are found here, and are
-used in produ</p><p>6 0.17951819 <a title="1104-tfidf-6" href="../high_scalability-2009/high_scalability-2009-04-03-Collectl_interface_to_Ganglia_-_any_interest%3F.html">553 high scalability-2009-04-03-Collectl interface to Ganglia - any interest?</a></p>
+<p>Introduction: Todd had originally posted an entry on  collectl  here at  Collectl - Performance Data Collector . Collectl collects real-time data from a large number of subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory, network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool and in one consistent format.
+ 
+Since then a lot has happened.  It's now part of both Fedora and Debian distros, not to mention several others. There has also been a pretty good summary written up by  Joe Brockmeier . It's also pretty well documented (I like to think) on  sourceforge . There have also been a few blog postings by   Martin Bach   on his blog.
+ 
+Anyhow, awhile back I released a new version of collectl-utils and gave a complete face-lift to one of the utilities, colmux, which is a collectl multiplexor.  This tool has the ability to run collectl on multiple systems, which in turn send all their output back to colmux.  Colmux then sorts the output on a user-specified column</p><p>2 0.36258495 <a title="1104-tfidf-2" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
+<p>Introduction: From their  website :   There are a number of times in which you find yourself needing performance data. These can include benchmarking, monitoring a system's general heath or trying to determine what your system was doing at some time in the past. Sometimes you just want to know what the system is doing right now. Depending on what you're doing, you often end up using different tools, each designed to for that specific situation. Features include: 
+ 
+ 
+ You are be able to run with non-integral sampling intervals.  
+  Collectl  uses very little CPU. In fact it has been measured to use <0.1% when run as a daemon using the default sampling interval of 60 seconds for process and slab data and 10 seconds for everything else. 
+ Brief, verbose, and plot formats are supported. 
+ You can report aggregated performance numbers on many devices such as CPUs, Disks, interconnects such as Infiniband or Quadrics, Networks or even Lustre file systems. 
+ Collectl will align its sampling on integral sec</p><p>3 0.29245809 <a title="1104-tfidf-3" href="../high_scalability-2009/high_scalability-2009-10-09-Have_you_collectl%27d_yet%3F__If_not%2C_maybe_collectl-utils_will_make_it_easier_to_do_so.html">719 high scalability-2009-10-09-Have you collectl'd yet?  If not, maybe collectl-utils will make it easier to do so</a></p>
+<p>Introduction: I'm not sure how many people who follow this have even tried collectl but I wanted to let you all know that I just released a set of utilities called strangely enough collectl-utils, which you can get at  http://collectl-utils.sourceforge.net . One web-based utility called colplot gives you the ability to very easily plot data from multiple systems in a way that makes correlating them over time very easy.
+ 
+Another utility called colmux lets you look at multiple systems in real time. In fact if you go the page that describes it in more detail you'll see a photo which shows the CPU loads on 192 systems one a second, one set of data/line! in fact the display so wide it takes 3 large monitors side-by-side to see it all and even though you can't actually read the displays you can easily see which systems are loaded and which aren't.
+ 
+Anyhow give it a look and let me know what you think.
+ 
+-mark</p><p>4 0.27954027 <a title="1104-tfidf-4" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
+<p>Introduction: I had posted a note the other day about collectl and its ganglia interface but perhaps I wasn't provocative enough to get any responses so let me ask it a different way, specifically how do people monitor their clusters and more importantly how often?  Do you monitor to get a general sense of what the system is doing OR do you monitor with the expectation that when something goes wrong you'll have enough data to diagnose the problem?  Or both?  I suspect both...     Many cluster-based monitoring tools tend to have a data collection daemon running on each target node which periodically sends data to some central management station.  That machine typically writes the data to some database from which it can then extract historical plots.  Some even put up graphics in real-time.     From my experience working with large clusters - and I'm talking either many hundreds or even 1000s of nodes, most have to limit both the amount of data they manage centrally as well as the frequency that they</p><p>5 0.23524357 <a title="1104-tfidf-5" href="../high_scalability-2007/high_scalability-2007-07-15-Lustre_cluster_file_system.html">13 high scalability-2007-07-15-Lustre cluster file system</a></p>
+<p>Introduction: Lustre速  is a scalable, secure, robust, highly-available cluster file system. It is designed, developed and maintained by Cluster File Systems, Inc.  The central goal is the development of a next-generation cluster file system which can serve clusters with 10,000's of nodes, provide petabytes of storage, and move 100's of GB/sec with state-of-the-art security and management infrastructure.  Lustre runs on many of the largest Linux clusters in the world, and is included by CFS's partners as a core component of their cluster offering (examples include HP StorageWorks SFS, and the Cray XT3 and XD1 supercomputers). Today's users have also demonstrated that Lustre scales down as well as it scales up, and runs in production on clusters as small as 4 and as large as 25,000 nodes.  The latest version of Lustre is always available from Cluster File Systems, Inc. Public Open Source releases of Lustre are available under the GNU General Public License. These releases are found here, and are used</p><p>6 0.17951819 <a title="1104-tfidf-6" href="../high_scalability-2009/high_scalability-2009-04-03-Collectl_interface_to_Ganglia_-_any_interest%3F.html">553 high scalability-2009-04-03-Collectl interface to Ganglia - any interest?</a></p>
 <p>7 0.13999969 <a title="1104-tfidf-7" href="../high_scalability-2008/high_scalability-2008-10-14-Implementing_the_Lustre_File_System_with_Sun_Storage%3A_High_Performance_Storage_for_High_Performance_Computing.html">411 high scalability-2008-10-14-Implementing the Lustre File System with Sun Storage: High Performance Storage for High Performance Computing</a></p>
 <p>8 0.098194718 <a title="1104-tfidf-8" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
 <p>9 0.087148696 <a title="1104-tfidf-9" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
@@ -142,74 +87,28 @@ used in produ</p><p>6 0.17951819 <a title="1104-tfidf-6" href="../high_scalabili
 <p>[(0, 0.128), (1, 0.071), (2, -0.014), (3, -0.014), (4, -0.016), (5, 0.037), (6, 0.08), (7, 0.043), (8, -0.01), (9, -0.002), (10, 0.007), (11, -0.008), (12, 0.051), (13, 0.006), (14, 0.053), (15, -0.01), (16, 0.004), (17, -0.009), (18, -0.057), (19, 0.023), (20, 0.003), (21, -0.034), (22, 0.01), (23, 0.058), (24, -0.005), (25, -0.006), (26, 0.025), (27, -0.024), (28, -0.091), (29, -0.043), (30, -0.03), (31, -0.078), (32, 0.038), (33, -0.01), (34, 0.007), (35, 0.034), (36, -0.004), (37, -0.086), (38, -0.029), (39, 0.043), (40, -0.028), (41, -0.043), (42, 0.026), (43, 0.026), (44, -0.001), (45, 0.137), (46, -0.01), (47, 0.004), (48, 0.025), (49, 0.046)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.91931188 <a title="1104-lsi-1" href="../high_scalability-2011/high_scalability-2011-08-25-Colmux_-_Finding_Memory_Leaks%2C_High_I-O_Wait_Times%2C_and_Hotness_on_3000_Node_Clusters.html">1104 high scalability-2011-08-25-Colmux - Finding Memory Leaks, High I-O Wait Times, and Hotness on 3000 Node Clusters</a></p>
-<p>Introduction: Todd had originally posted an entry oncollectlhere atCollectl - Performance
-Data Collector. Collectl collects real-time data from a large number of
-subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory,
-network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool
-and in one consistent format.Since then a lot has happened.  It's now part of
-both Fedora and Debian distros, not to mention several others. There has also
-been a pretty good summary written up byJoe Brockmeier. It's also pretty well
-documented (I like to think) onsourceforge. There have also been a few blog
-postings by Martin Bachon his blog.Anyhow, awhile back I released a new
-version of collectl-utils and gave a complete face-lift to one of the
-utilities, colmux, which is a collectl multiplexor.  This tool has the ability
-to run collectl on multiple systems, which in turn send all their output back
-to colmux.  Colmux then sorts the output on a user-specified column and
-reports the 'top-n'</p><p>2 0.85396135 <a title="1104-lsi-2" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
-<p>Introduction: From theirwebsite:There are a number of times in which you find yourself
-needing performance data. These can include benchmarking, monitoring a
-system's general heath or trying to determine what your system was doing at
-some time in the past. Sometimes you just want to know what the system is
-doing right now. Depending on what you're doing, you often end up using
-different tools, each designed to for that specific situation. Features
-include:You are be able to run with non-integral sampling
-intervals.Collectluses very little CPU. In fact it has been measured to use
-<0.1% when run as a daemon using the default sampling interval of 60 seconds
-for process and slab data and 10 seconds for everything else.Brief, verbose,
-and plot formats are supported.You can report aggregated performance numbers
-on many devices such as CPUs, Disks, interconnects such as Infiniband or
-Quadrics, Networks or even Lustre file systems.Collectl will align its
-sampling on integral second boundaries.Supports proce</p><p>3 0.71728981 <a title="1104-lsi-3" href="../high_scalability-2007/high_scalability-2007-07-15-Lustre_cluster_file_system.html">13 high scalability-2007-07-15-Lustre cluster file system</a></p>
-<p>Introduction: Lustre速is a scalable, secure, robust, highly-available cluster file system. It
-is designed, developed and maintained by Cluster File Systems, Inc.The central
-goal is the development of a next-generation cluster file system which can
-serve clusters with 10,000's of nodes, provide petabytes of storage, and move
-100's of GB/sec with state-of-the-art security and management
-infrastructure.Lustre runs on many of the largest Linux clusters in the world,
-and is included by CFS's partners as a core component of their cluster
-offering (examples include HP StorageWorks SFS, and the Cray XT3 and XD1
-supercomputers). Today's users have also demonstrated that Lustre scales down
-as well as it scales up, and runs in production on clusters as small as 4 and
-as large as 25,000 nodes.The latest version of Lustre is always available from
-Cluster File Systems, Inc. Public Open Source releases of Lustre are available
-under the GNU General Public License. These releases are found here, and are
-used in produ</p><p>4 0.65886521 <a title="1104-lsi-4" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
-<p>Introduction: I had posted a note the other day about collectl and its ganglia interface but
-perhaps I wasn't provocative enough to get any responses so let me ask it a
-different way, specifically how do people monitor their clusters and more
-importantly how often? Do you monitor to get a general sense of what the
-system is doing OR do you monitor with the expectation that when something
-goes wrong you'll have enough data to diagnose the problem? Or both? I suspect
-both...Many cluster-based monitoring tools tend to have a data collection
-daemon running on each target node which periodically sends data to some
-central management station. That machine typically writes the data to some
-database from which it can then extract historical plots. Some even put up
-graphics in real-time.From my experience working with large clusters - and I'm
-talking either many hundreds or even 1000s of nodes, most have to limit both
-the amount of data they manage centrally as well as the frequency that they
-collect it, oth</p><p>5 0.65382421 <a title="1104-lsi-5" href="../high_scalability-2009/high_scalability-2009-10-09-Have_you_collectl%27d_yet%3F__If_not%2C_maybe_collectl-utils_will_make_it_easier_to_do_so.html">719 high scalability-2009-10-09-Have you collectl'd yet?  If not, maybe collectl-utils will make it easier to do so</a></p>
-<p>Introduction: I'm not sure how many people who follow this have even tried collectl but I
-wanted to let you all know that I just released a set of utilities called
-strangely enough collectl-utils, which you can get athttp://collectl-
-utils.sourceforge.net. One web-based utility called colplot gives you the
-ability to very easily plot data from multiple systems in a way that makes
-correlating them over time very easy.Another utility called colmux lets you
-look at multiple systems in real time. In fact if you go the page that
-describes it in more detail you'll see a photo which shows the CPU loads on
-192 systems one a second, one set of data/line! in fact the display so wide it
-takes 3 large monitors side-by-side to see it all and even though you can't
-actually read the displays you can easily see which systems are loaded and
-which aren't.Anyhow give it a look and let me know what you think.-mark</p><p>6 0.65029407 <a title="1104-lsi-6" href="../high_scalability-2013/high_scalability-2013-04-17-Tachyon__-_Fault_Tolerant_Distributed_File_System_with_300_Times_Higher_Throughput_than_HDFS.html">1442 high scalability-2013-04-17-Tachyon  - Fault Tolerant Distributed File System with 300 Times Higher Throughput than HDFS</a></p>
+<p>Introduction: Todd had originally posted an entry on  collectl  here at  Collectl - Performance Data Collector . Collectl collects real-time data from a large number of subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory, network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool and in one consistent format.
+ 
+Since then a lot has happened.  It's now part of both Fedora and Debian distros, not to mention several others. There has also been a pretty good summary written up by  Joe Brockmeier . It's also pretty well documented (I like to think) on  sourceforge . There have also been a few blog postings by   Martin Bach   on his blog.
+ 
+Anyhow, awhile back I released a new version of collectl-utils and gave a complete face-lift to one of the utilities, colmux, which is a collectl multiplexor.  This tool has the ability to run collectl on multiple systems, which in turn send all their output back to colmux.  Colmux then sorts the output on a user-specified column</p><p>2 0.85396135 <a title="1104-lsi-2" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
+<p>Introduction: From their  website :   There are a number of times in which you find yourself needing performance data. These can include benchmarking, monitoring a system's general heath or trying to determine what your system was doing at some time in the past. Sometimes you just want to know what the system is doing right now. Depending on what you're doing, you often end up using different tools, each designed to for that specific situation. Features include: 
+ 
+ 
+ You are be able to run with non-integral sampling intervals.  
+  Collectl  uses very little CPU. In fact it has been measured to use <0.1% when run as a daemon using the default sampling interval of 60 seconds for process and slab data and 10 seconds for everything else. 
+ Brief, verbose, and plot formats are supported. 
+ You can report aggregated performance numbers on many devices such as CPUs, Disks, interconnects such as Infiniband or Quadrics, Networks or even Lustre file systems. 
+ Collectl will align its sampling on integral sec</p><p>3 0.71728981 <a title="1104-lsi-3" href="../high_scalability-2007/high_scalability-2007-07-15-Lustre_cluster_file_system.html">13 high scalability-2007-07-15-Lustre cluster file system</a></p>
+<p>Introduction: Lustre速  is a scalable, secure, robust, highly-available cluster file system. It is designed, developed and maintained by Cluster File Systems, Inc.  The central goal is the development of a next-generation cluster file system which can serve clusters with 10,000's of nodes, provide petabytes of storage, and move 100's of GB/sec with state-of-the-art security and management infrastructure.  Lustre runs on many of the largest Linux clusters in the world, and is included by CFS's partners as a core component of their cluster offering (examples include HP StorageWorks SFS, and the Cray XT3 and XD1 supercomputers). Today's users have also demonstrated that Lustre scales down as well as it scales up, and runs in production on clusters as small as 4 and as large as 25,000 nodes.  The latest version of Lustre is always available from Cluster File Systems, Inc. Public Open Source releases of Lustre are available under the GNU General Public License. These releases are found here, and are used</p><p>4 0.65886521 <a title="1104-lsi-4" href="../high_scalability-2009/high_scalability-2009-04-06-How_do_you_monitor_the_performance_of_your_cluster%3F.html">558 high scalability-2009-04-06-How do you monitor the performance of your cluster?</a></p>
+<p>Introduction: I had posted a note the other day about collectl and its ganglia interface but perhaps I wasn't provocative enough to get any responses so let me ask it a different way, specifically how do people monitor their clusters and more importantly how often?  Do you monitor to get a general sense of what the system is doing OR do you monitor with the expectation that when something goes wrong you'll have enough data to diagnose the problem?  Or both?  I suspect both...     Many cluster-based monitoring tools tend to have a data collection daemon running on each target node which periodically sends data to some central management station.  That machine typically writes the data to some database from which it can then extract historical plots.  Some even put up graphics in real-time.     From my experience working with large clusters - and I'm talking either many hundreds or even 1000s of nodes, most have to limit both the amount of data they manage centrally as well as the frequency that they</p><p>5 0.65382421 <a title="1104-lsi-5" href="../high_scalability-2009/high_scalability-2009-10-09-Have_you_collectl%27d_yet%3F__If_not%2C_maybe_collectl-utils_will_make_it_easier_to_do_so.html">719 high scalability-2009-10-09-Have you collectl'd yet?  If not, maybe collectl-utils will make it easier to do so</a></p>
+<p>Introduction: I'm not sure how many people who follow this have even tried collectl but I wanted to let you all know that I just released a set of utilities called strangely enough collectl-utils, which you can get at  http://collectl-utils.sourceforge.net . One web-based utility called colplot gives you the ability to very easily plot data from multiple systems in a way that makes correlating them over time very easy.
+ 
+Another utility called colmux lets you look at multiple systems in real time. In fact if you go the page that describes it in more detail you'll see a photo which shows the CPU loads on 192 systems one a second, one set of data/line! in fact the display so wide it takes 3 large monitors side-by-side to see it all and even though you can't actually read the displays you can easily see which systems are loaded and which aren't.
+ 
+Anyhow give it a look and let me know what you think.
+ 
+-mark</p><p>6 0.65029407 <a title="1104-lsi-6" href="../high_scalability-2013/high_scalability-2013-04-17-Tachyon__-_Fault_Tolerant_Distributed_File_System_with_300_Times_Higher_Throughput_than_HDFS.html">1442 high scalability-2013-04-17-Tachyon  - Fault Tolerant Distributed File System with 300 Times Higher Throughput than HDFS</a></p>
 <p>7 0.62754506 <a title="1104-lsi-7" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
 <p>8 0.62088996 <a title="1104-lsi-8" href="../high_scalability-2012/high_scalability-2012-04-18-Ansible_-__A_Simple_Model-Driven_Configuration_Management_and_Command_Execution_Framework.html">1230 high scalability-2012-04-18-Ansible -  A Simple Model-Driven Configuration Management and Command Execution Framework</a></p>
 <p>9 0.61875099 <a title="1104-lsi-9" href="../high_scalability-2008/high_scalability-2008-03-08-Product%3A_FAI_-_Fully_Automatic_Installation.html">272 high scalability-2008-03-08-Product: FAI - Fully Automatic Installation</a></p>
@@ -229,63 +128,25 @@ which aren't.Anyhow give it a look and let me know what you think.-mark</p><p>6 
 <p>[(1, 0.116), (2, 0.159), (10, 0.059), (30, 0.041), (40, 0.012), (50, 0.02), (61, 0.036), (77, 0.019), (79, 0.124), (84, 0.229), (85, 0.044), (91, 0.012), (94, 0.033)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.90914595 <a title="1104-lda-1" href="../high_scalability-2008/high_scalability-2008-01-16-Strategy%3A_Asynchronous_Queued__Virus_Scanning.html">215 high scalability-2008-01-16-Strategy: Asynchronous Queued  Virus Scanning</a></p>
-<p>Introduction: Atif Ghaffarhas a nice strategy to deal with virus checking uploads:Upload
-item into a safe area. If necessary, the uploader blocks waiting for a
-result.Queue a work order into a job system so all the work can be distributed
-throughout your cluster.A service in your cluster performs the virus scan and
-informs the uploader of the result.Move the vetted item into your system.This
-removes the CPU bottleneck from your web servers and distributes it through
-your cluster. Keep your web servers providing prompt service to users. Let
-your cluster do the heavy lifting. This minimizes response time and maximizes
-throughput. A similar system can be used for creating thumbnails, transcoding,
-copyright checks, updating indexes, event notification or any other kind of
-intensive work.</p><p>2 0.89457774 <a title="1104-lda-2" href="../high_scalability-2013/high_scalability-2013-01-09-The_Story_of_How_Turning_Disk_Into_a_Service_Lead_to_a_Deluge_of_Density.html">1384 high scalability-2013-01-09-The Story of How Turning Disk Into a Service Lead to a Deluge of Density</a></p>
-<p>Introduction: We usually think of the wonderful advantages of service oriented
-architectures as a software thing, but it also applies to hardware. InSecurity
-Now 385, that Doyen of Disk,Steve Gibson, tells the fascinating story (@ about
-41:30) of how moving to a service oriented architecture in hard drives,
-modeling a drive as a linear stream of sectors, helped create the amazing high
-density disk drives we enjoy today.When drives switched to use
-theIDE(integrated drive electronics) interface, the controller function moved
-into the drive instead of the computer. No longer were low level drive signals
-moved across cables and into the motherboard. Now we just ask the drive for
-the desired sector and the drive takes care of it.This allowed manufacturers
-to do anything they wanted to behind the IDE interface. The drive stopped
-being dumb, it became smart, providing a sort of sector service. Density sky
-rocketed because there was no dependency on the computer. All the internals
-could completely change as</p><p>3 0.8893258 <a title="1104-lda-3" href="../high_scalability-2009/high_scalability-2009-05-06-DyradLINQ.html">592 high scalability-2009-05-06-DyradLINQ</a></p>
-<p>Introduction: The goal of DryadLINQ is to make distributed computing on large compute
-cluster simple enough for ordinary programmers. DryadLINQ combines two
-important pieces of Microsoft technology: the Dryad distributed execution
-engine and the .NET Language Integrated Query (LINQ).</p><p>same-blog 4 0.86426508 <a title="1104-lda-4" href="../high_scalability-2011/high_scalability-2011-08-25-Colmux_-_Finding_Memory_Leaks%2C_High_I-O_Wait_Times%2C_and_Hotness_on_3000_Node_Clusters.html">1104 high scalability-2011-08-25-Colmux - Finding Memory Leaks, High I-O Wait Times, and Hotness on 3000 Node Clusters</a></p>
-<p>Introduction: Todd had originally posted an entry oncollectlhere atCollectl - Performance
-Data Collector. Collectl collects real-time data from a large number of
-subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory,
-network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool
-and in one consistent format.Since then a lot has happened.  It's now part of
-both Fedora and Debian distros, not to mention several others. There has also
-been a pretty good summary written up byJoe Brockmeier. It's also pretty well
-documented (I like to think) onsourceforge. There have also been a few blog
-postings by Martin Bachon his blog.Anyhow, awhile back I released a new
-version of collectl-utils and gave a complete face-lift to one of the
-utilities, colmux, which is a collectl multiplexor.  This tool has the ability
-to run collectl on multiple systems, which in turn send all their output back
-to colmux.  Colmux then sorts the output on a user-specified column and
-reports the 'top-n'</p><p>5 0.82283777 <a title="1104-lda-5" href="../high_scalability-2011/high_scalability-2011-12-28-Strategy%3A_Guaranteed_Availability_Requires_Reserving_Instances_in_Specific_Zones.html">1165 high scalability-2011-12-28-Strategy: Guaranteed Availability Requires Reserving Instances in Specific Zones</a></p>
-<p>Introduction: When EC2 first started the mental model was of a magic Pez dispenser supplying
-an infinite stream of instances in any desired flavor. If you needed an
-instance, because of a either a failure or traffic spike, it would be there.
-As amazing as EC2 is, this model turned out to be optimistic.  From athread on
-the Amazon discussion forum we learn any dispenser has limits:As Availability
-Zones grow over time, our ability to continue to expand them can become
-constrained. In these scenarios, we will prevent customers from launching in
-the constrained zone if they do not yet have existing resources in that zone.
-We also might remove the constrained zone entirely from the list of options
-for new customers. This means that occasionally, different customers will see
-a different number of Availability Zones in a particular Region. Both
-approaches aim to help customers avoid accidentally starting to build up their
-infrastructure in an Availability Zone where they might have less ability to
-expand.T</p><p>6 0.79371995 <a title="1104-lda-6" href="../high_scalability-2014/high_scalability-2014-04-03-Leslie_Lamport_to_Programmers%3A_You%27re_Doing_it_Wrong.html">1625 high scalability-2014-04-03-Leslie Lamport to Programmers: You're Doing it Wrong</a></p>
+<p>Introduction: Atif Ghaffar  has a nice strategy to deal with virus checking uploads:
+   Upload item into a safe area. If necessary, the uploader blocks waiting for a result.    Queue a work order into a job system so all the work can be distributed throughout your cluster.    A service in your cluster performs the virus scan and informs the uploader of the result.    Move the vetted item into your system.  This removes the CPU bottleneck from your web servers and distributes it through your cluster.  Keep your web servers providing prompt service to users. Let your cluster do the heavy lifting. This minimizes response time and maximizes throughput. A similar system can be used for creating thumbnails, transcoding, copyright checks, updating indexes, event notification or any other kind of intensive work.</p><p>2 0.89457774 <a title="1104-lda-2" href="../high_scalability-2013/high_scalability-2013-01-09-The_Story_of_How_Turning_Disk_Into_a_Service_Lead_to_a_Deluge_of_Density.html">1384 high scalability-2013-01-09-The Story of How Turning Disk Into a Service Lead to a Deluge of Density</a></p>
+<p>Introduction: We usually think of the wonderful advantages of  service oriented architectures  as a software thing, but it also applies to hardware. In  Security Now 385 , that Doyen of Disk,  Steve Gibson , tells the fascinating story (@ about 41:30) of how moving to a service oriented architecture in hard drives, modeling a drive as a linear stream of sectors, helped create the amazing high density disk drives we enjoy today.
+ 
+When drives switched to use the  IDE  (integrated drive electronics) interface, the controller function moved into the drive instead of the computer. No longer were low level drive signals moved across cables and into the motherboard. Now we just ask the drive for the desired sector and the drive takes care of it.
+ 
+This allowed manufacturers to do anything they wanted to behind the IDE interface. The drive stopped being dumb, it became smart, providing a sort of sector service. Density sky rocketed because there was no dependency on the computer. All the internals could co</p><p>3 0.8893258 <a title="1104-lda-3" href="../high_scalability-2009/high_scalability-2009-05-06-DyradLINQ.html">592 high scalability-2009-05-06-DyradLINQ</a></p>
+<p>Introduction: The goal of DryadLINQ is to make distributed computing on large compute cluster simple enough for ordinary programmers. DryadLINQ combines two important pieces of Microsoft technology: the Dryad distributed execution engine and the .NET Language Integrated Query (LINQ).</p><p>same-blog 4 0.86426508 <a title="1104-lda-4" href="../high_scalability-2011/high_scalability-2011-08-25-Colmux_-_Finding_Memory_Leaks%2C_High_I-O_Wait_Times%2C_and_Hotness_on_3000_Node_Clusters.html">1104 high scalability-2011-08-25-Colmux - Finding Memory Leaks, High I-O Wait Times, and Hotness on 3000 Node Clusters</a></p>
+<p>Introduction: Todd had originally posted an entry on  collectl  here at  Collectl - Performance Data Collector . Collectl collects real-time data from a large number of subsystems like buddyinfo, cpu, disk, inodes, infiniband, lustre, memory, network, nfs, processes, quadrics, slabs, sockets and tcp, all using one tool and in one consistent format.
+ 
+Since then a lot has happened.  It's now part of both Fedora and Debian distros, not to mention several others. There has also been a pretty good summary written up by  Joe Brockmeier . It's also pretty well documented (I like to think) on  sourceforge . There have also been a few blog postings by   Martin Bach   on his blog.
+ 
+Anyhow, awhile back I released a new version of collectl-utils and gave a complete face-lift to one of the utilities, colmux, which is a collectl multiplexor.  This tool has the ability to run collectl on multiple systems, which in turn send all their output back to colmux.  Colmux then sorts the output on a user-specified column</p><p>5 0.82283777 <a title="1104-lda-5" href="../high_scalability-2011/high_scalability-2011-12-28-Strategy%3A_Guaranteed_Availability_Requires_Reserving_Instances_in_Specific_Zones.html">1165 high scalability-2011-12-28-Strategy: Guaranteed Availability Requires Reserving Instances in Specific Zones</a></p>
+<p>Introduction: When EC2 first started the mental model was of a magic Pez dispenser supplying an infinite stream of instances in any desired flavor. If you needed an instance, because of a either a failure or traffic spike, it would be there. As amazing as EC2 is, this model turned out to be optimistic.  
+ 
+From a  thread on the Amazon discussion forum  we learn any dispenser has limits:
+  
+
+As Availability Zones grow over time, our ability to continue to expand them can become constrained. In these scenarios, we will prevent customers from launching in the constrained zone if they do not yet have existing resources in that zone. We also might remove the constrained zone entirely from the list of options for new customers. This means that occasionally, different customers will see a different number of Availability Zones in a particular Region. Both approaches aim to help customers avoid accidentally starting to build up their infrastructure in an Availability Zone where they might have less ability</p><p>6 0.79371995 <a title="1104-lda-6" href="../high_scalability-2014/high_scalability-2014-04-03-Leslie_Lamport_to_Programmers%3A_You%27re_Doing_it_Wrong.html">1625 high scalability-2014-04-03-Leslie Lamport to Programmers: You're Doing it Wrong</a></p>
 <p>7 0.77035117 <a title="1104-lda-7" href="../high_scalability-2013/high_scalability-2013-12-09-Site_Moves_from_PHP_to_Facebook%27s_HipHop%2C_Now_Pages_Load_in_.6_Seconds_Instead_of_Five.html">1561 high scalability-2013-12-09-Site Moves from PHP to Facebook's HipHop, Now Pages Load in .6 Seconds Instead of Five</a></p>
 <p>8 0.74582362 <a title="1104-lda-8" href="../high_scalability-2009/high_scalability-2009-10-28-GemFire%3A_Solving_the_hardest_problems_in_data_management.html">730 high scalability-2009-10-28-GemFire: Solving the hardest problems in data management</a></p>
 <p>9 0.73940539 <a title="1104-lda-9" href="../high_scalability-2008/high_scalability-2008-06-09-Apple%27s_iPhone_to_Use_a_Centralized_Push_Based_Notification_Architecture.html">343 high scalability-2008-06-09-Apple's iPhone to Use a Centralized Push Based Notification Architecture</a></p>

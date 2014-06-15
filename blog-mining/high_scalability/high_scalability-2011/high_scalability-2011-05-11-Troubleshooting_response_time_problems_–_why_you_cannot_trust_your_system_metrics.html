@@ -16,115 +16,74 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1038 high scalability-2011-05-11-Troubleshooting response time problems – why you cannot trust your system metrics</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1038-html" href="http://highscalability.com//blog/2011/5/11/troubleshooting-response-time-problems-why-you-cannot-trust.html">html</a></p><p>Introduction: Production Monitoringis about ensuring the stability and health of our system,
-that also includes the application. A lot of times we encounter production
-systems that concentrate on System Monitoring, under the assumption that a
-stable system leads to stable and healthy applications. So let's see what
-System Monitoring can tell us about ourApplication.Let's take a very simple
-two tier Web Application: This is a simple multi-tier eCommerce solution.
-Users are concerned about bad performance when they do a search. Let's see
-what we can find out about it if performance is not satisfactory. We start by
-looking at a couple of simple metrics.CPU UtilizationThe best known operating
-system metric is CPU utilization, but it is also the most misunderstood. This
-metric tells us how much time the CPU spent executing code in the last
-interval and how much more it could execute theoretically. Like all other
-utilization measures it tells us something about the capacity, but not about
-health, stabilit</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This metric tells us how much time the CPU spent executing code in the last interval and how much more it could execute theoretically. [sent-9, score-0.437]
-</p><p>2 Like all other utilization measures it tells us something about the capacity, but not about health, stability or even performance. [sent-10, score-0.57]
-</p><p>3 The CPU charts show no shortage on either tierLet's look at our setup. [sent-12, score-0.502]
-</p><p>4 It does not tell us how well the application itself is performing, but whether the shortage of CPU might impact it negatively. [sent-26, score-0.804]
-</p><p>5 In our case we see that neither the load average nor the CPU usage shines any light on our performance issue. [sent-28, score-0.549]
-</p><p>6 If it were to show high CPU utilization or a high load average we could assume that the shortage in CPU is a problem, but we could not be certain. [sent-29, score-0.827]
-</p><p>7 Memory UsageUsed memory is monitored because the lack of memory will lead to system instability. [sent-30, score-0.499]
-</p><p>8 An important fact to note is that Unix and Linux operating systems will most always show close to 100% memory utilization over time. [sent-31, score-0.43]
-</p><p>9 They fill the memory up with buffers and caches which get discarded, as opposed to swapped out, if that memory is needed otherwise. [sent-32, score-0.498]
-</p><p>10 Memory Usage on the two systems, neither is suffering memory problems If we do not have enough memory we can try to identify which application consumes the most by looking at the resident memory usage of a process. [sent-35, score-0.961]
-</p><p>11 This is especially important because  Java accesses all its memory in a random-access fashion and if a portion were to be swapped out it would have serve performance penalties. [sent-39, score-0.492]
-</p><p>12 So what we can learn here is whether the shortage of memory has a negative impact on application performance. [sent-41, score-0.983]
-</p><p>13 We could look at other measures like network or disk, but in all cases the same thing would be true, the shortage of a resourcemighthave impact, but we cannot say for sure. [sent-43, score-0.539]
-</p><p>14 Let's look at this from an application point of viewLooking at the ApplicationAs users are reporting performance problems the first thing that we do is to look at the response time and its distribution within our system. [sent-50, score-0.798]
-</p><p>15 Looking at the JVM we immediately see that it does execute alot of garbage collection(the red spikes), as you would probably see in every monitoring tool. [sent-59, score-0.57]
-</p><p>16 It is considerable but still amounts to only 10% of the response timeA single transaction is hit bygarbage collectionseveral times and if we do the math we find out that garbage collection contributes 10% to the response time. [sent-62, score-0.678]
-</p><p>17 So while monitoring garbage collection is important, we should always analyze the impact before we jump to conclusions. [sent-65, score-0.525]
-</p><p>18 The detailed response time distribution of the search within the backend shows two main problems: too many EJB calls and a very slow doPost method With the right measure points within our application we immediately see the root causes of the response time problem. [sent-68, score-1.037]
-</p><p>19 That means we have identified a small memory-related issue; although there are no memory problems noticeable if we were to look only at system monitoring. [sent-73, score-0.436]
-</p><p>20 If there is no obvious shortage this does not, however, imply that the application is running smoothly. [sent-78, score-0.468]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1038-html" href="http://highscalability.com//blog/2011/5/11/troubleshooting-response-time-problems-why-you-cannot-trust.html">html</a></p><p>Introduction: Production Monitoring  is about ensuring the stability and health of our system, that also  includes the application. A lot of times we encounter production systems  that concentrate on System Monitoring, under the assumption that a  stable system leads to stable and healthy applications. So let’s see  what System Monitoring can tell us about our  Application .
+ 
+Let’s take a very simple two tier Web Application:
+        
+This is a simple multi-tier eCommerce solution. Users are concerned  about bad performance when they do a search. Let's see what we can find  out about it if performance is not satisfactory. We start by looking at a  couple of simple metrics.
+  CPU Utilization  
+The best known operating system metric is CPU utilization, but it is  also the most misunderstood. This metric tells us how much time the CPU  spent executing code in the last interval and how much more it could  execute theoretically. Like all other utilization measures it tells us  something about the capaci</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This metric tells us how much time the CPU  spent executing code in the last interval and how much more it could  execute theoretically. [sent-9, score-0.437]
+</p><p>2 Like all other utilization measures it tells us  something about the capacity, but not about health, stability or even  performance. [sent-10, score-0.57]
+</p><p>3 The CPU charts show no shortage on either tier     Let's look at our setup. [sent-12, score-0.502]
+</p><p>4 It does not tell us how well the application  itself is performing, but whether the shortage of CPU might impact it  negatively. [sent-26, score-0.804]
+</p><p>5 In our case we see that neither the load average nor the CPU usage  shines any light on our performance issue. [sent-28, score-0.549]
+</p><p>6 If it were to show high CPU  utilization or a high load average we could assume that the shortage in  CPU is a problem, but we could not be certain. [sent-29, score-0.827]
+</p><p>7 Memory Usage   Used memory is monitored because the lack of memory will lead to  system instability. [sent-30, score-0.499]
+</p><p>8 An important fact to note is that Unix and Linux  operating systems will most always show close to 100% memory utilization  over time. [sent-31, score-0.43]
+</p><p>9 They fill the memory up with buffers and caches which get  discarded, as opposed to swapped out, if that memory is needed  otherwise. [sent-32, score-0.498]
+</p><p>10 Memory Usage on the two systems, neither is suffering memory problems         If we do not have enough memory we can try to identify which  application consumes the most by looking at the resident memory usage of  a process. [sent-35, score-0.961]
+</p><p>11 This is especially  important because  Java accesses all its memory in a random-access  fashion and if a portion were to be swapped out it would have serve  performance penalties. [sent-39, score-0.492]
+</p><p>12 So what we can learn here is whether the shortage of  memory has a negative impact on application performance. [sent-41, score-0.983]
+</p><p>13 We could look at other measures like network or disk, but in all cases the same thing would be true, the shortage of a resource  might  have impact, but we cannot say for sure. [sent-43, score-0.539]
+</p><p>14 Let's look at this from an application point of view   Looking at the Application   As users are reporting performance problems the first thing that we  do is to look at the response time and its distribution within our  system. [sent-50, score-0.798]
+</p><p>15 Looking at the JVM we immediately see that it does execute a  lot of garbage collection  (the red spikes), as you would probably see in every monitoring tool. [sent-59, score-0.676]
+</p><p>16 It is  considerable but still amounts to only 10% of the response time     A single transaction is hit by  garbage collection  several times and if we do the math we find out that garbage collection  contributes 10% to the response time. [sent-62, score-0.914]
+</p><p>17 So while monitoring garbage collection is important, we  should always analyze the impact before we jump to conclusions. [sent-65, score-0.525]
+</p><p>18 The  detailed response time distribution of the search within the backend  shows two main problems: too many EJB calls and a very slow doPost  method         With the right measure points within our application we immediately  see the root causes of the response time problem. [sent-68, score-1.037]
+</p><p>19 That means we have identified a small memory-related issue; although  there are no memory problems noticeable if we were to look only at  system monitoring. [sent-73, score-0.436]
+</p><p>20 If there is no obvious  shortage this does not, however, imply that the application is running  smoothly. [sent-78, score-0.468]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('shortage', 0.336), ('cpu', 0.222), ('utilization', 0.184), ('memory', 0.177), ('average', 0.168), ('impact', 0.164), ('ejb', 0.151), ('response', 0.148), ('healthy', 0.144), ('swapped', 0.144), ('application', 0.132), ('garbage', 0.13), ('monitoring', 0.125), ('see', 0.12), ('usage', 0.117), ('health', 0.114), ('statements', 0.111), ('tells', 0.11), ('collection', 0.106), ('measures', 0.106), ('calls', 0.101), ('negative', 0.1), ('stable', 0.099), ('us', 0.098), ('look', 0.097), ('portion', 0.097), ('hotspot', 0.092), ('problems', 0.091), ('suffering', 0.09), ('swapping', 0.085), ('last', 0.085), ('within', 0.081), ('lies', 0.08), ('distribution', 0.078), ('contributes', 0.075), ('shows', 0.075), ('execute', 0.075), ('let', 0.074), ('whether', 0.074), ('monitored', 0.074), ('performance', 0.074), ('backend', 0.073), ('particular', 0.073), ('stability', 0.072), ('considerable', 0.071), ('system', 0.071), ('load', 0.07), ('show', 0.069), ('metric', 0.069), ('consuming', 0.067)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="1038-tfidf-1" href="../high_scalability-2011/high_scalability-2011-05-11-Troubleshooting_response_time_problems_%E2%80%93_why_you_cannot_trust_your_system_metrics.html">1038 high scalability-2011-05-11-Troubleshooting response time problems – why you cannot trust your system metrics</a></p>
-<p>Introduction: Production Monitoringis about ensuring the stability and health of our system,
-that also includes the application. A lot of times we encounter production
-systems that concentrate on System Monitoring, under the assumption that a
-stable system leads to stable and healthy applications. So let's see what
-System Monitoring can tell us about ourApplication.Let's take a very simple
-two tier Web Application: This is a simple multi-tier eCommerce solution.
-Users are concerned about bad performance when they do a search. Let's see
-what we can find out about it if performance is not satisfactory. We start by
-looking at a couple of simple metrics.CPU UtilizationThe best known operating
-system metric is CPU utilization, but it is also the most misunderstood. This
-metric tells us how much time the CPU spent executing code in the last
-interval and how much more it could execute theoretically. Like all other
-utilization measures it tells us something about the capacity, but not about
-health, stabilit</p><p>2 0.17888489 <a title="1038-tfidf-2" href="../high_scalability-2011/high_scalability-2011-09-19-Big_Iron_Returns_with_BigMemory.html">1118 high scalability-2011-09-19-Big Iron Returns with BigMemory</a></p>
-<p>Introduction: This is a guest post by Greg Luck Founder and CTO,EhcacheTerracotta Inc.Note:
-this article contains a bit too much of a product pitch, but the points are
-still generally valid and useful.The legendary Moore's Law, which states that
-the number of transistors that can be placed inexpensively on an integrated
-circuit doubles approximately every two years, has held true since 1965. It
-follows that integrated circuits will continue to get smaller, with chip
-fabrication currently at a minuscule 22nm process (1). Users of big iron
-hardware, or servers that are dense in terms of CPU power and memory capacity,
-benefit from this trend as their hardware becomes cheaper and more powerful
-over time. At some point soon, however, density limits imposed by quantum
-mechanics will preclude further density increases.At the same time, low-cost
-commodity hardware influences enterprise architects to scale their
-applications horizontally, where processing is spread across clusters of low-
-cost commodity serv</p><p>3 0.17100047 <a title="1038-tfidf-3" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
-<p>Introduction: For solutions take a look at:7 Life Saving Scalability Defenses Against Load
-Monster Attacks.This is a look at all the bad things that can happen to your
-carefully crafted program as loads increase: all hell breaks lose. Sure, you
-can scale out or scale up, but you can also choose to program better. Make
-your system handle larger loads. This saves money because fewer boxes are
-needed and it will make the entire application more reliable and have better
-response times. And it can be quite satisfying as a programmer.Large Number Of
-ObjectsWe usually get into scaling problems when the number of objects gets
-larger. Clearly resource usage of all types is stressed as the number of
-objects grow.Continuous Failures Makes An Infinite Event StreamDuring large
-network failure scenarios there is never time for the system recover. We are
-in a continual state of stress.Lots of High Priority WorkFor example,
-rerouting is a high priority activity. If there is a large amount of rerouting
-work that can</p><p>4 0.15969557 <a title="1038-tfidf-4" href="../high_scalability-2010/high_scalability-2010-07-14-DynaTrace%27s_Top_10_Performance_Problems_taken_from_Zappos%2C_Monster%2C_Thomson_and_Co.html">859 high scalability-2010-07-14-DynaTrace's Top 10 Performance Problems taken from Zappos, Monster, Thomson and Co</a></p>
-<p>Introduction: DynaTrace inTop 10 Performance Problems taken from Zappos, Monster, Thomson
-and Co, has provided a useful compilation of performance problems, with
-potential solutions, that they've found while working with their clients. Too
-Many Database Calls- too many database query per
-request/transaction.Synchronized to Death- in a high-load or production
-environment over-synchronization results in severe performance and scalability
-problems.Too chatty on the remoting channels- too many calls across these
-remoting boundaries and in the end causes performance and scalability
-problems.Wrong usage of O/R-Mappers- incorrect usage of the framework itself
-too often results in unexpected performance and scalability problems within
-these frameworks.Memory Leaks- GC does not prevent memory leaks, it is
-important to release object references as soon as they are no longer
-needed.Problematic 3rd Party Code/Components- check of every framework before
-introducing it into your code.Wasteful handling of scarce r</p><p>5 0.15173095 <a title="1038-tfidf-5" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
-<p>Introduction: For everything given something seems to be taken. Caching is a great
-scalability solution, but caching alsocomes with problems.Shardingis a great
-scalability solution, but as Foursquare recently revealed in apost-mortemabout
-their 17 hours of downtime, sharding also has problems. MongoDB, the database
-Foursquare uses, also contributed theirpost-mortemof what went wrong too.Now
-that everyone has shared and resharded, what can we learn to help us skip
-these mistakes and quickly move on to a different set of mistakes?First, like
-forFacebook, huge props to Foursquare and MongoDB for being upfront and honest
-about their problems. This helps everyone get better and is a sign we work in
-a pretty cool industry.Second, overall, the fault didn't flow from evil hearts
-or gross negligence. As usual the cause was more mundane: a key system, that
-could be a little more robust, combined with a very popular application built
-by a small group of people, under immense pressure, trying to get a lot of
-wo</p><p>6 0.15052809 <a title="1038-tfidf-6" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
+<p>Introduction: Production Monitoring  is about ensuring the stability and health of our system, that also  includes the application. A lot of times we encounter production systems  that concentrate on System Monitoring, under the assumption that a  stable system leads to stable and healthy applications. So let’s see  what System Monitoring can tell us about our  Application .
+ 
+Let’s take a very simple two tier Web Application:
+        
+This is a simple multi-tier eCommerce solution. Users are concerned  about bad performance when they do a search. Let's see what we can find  out about it if performance is not satisfactory. We start by looking at a  couple of simple metrics.
+  CPU Utilization  
+The best known operating system metric is CPU utilization, but it is  also the most misunderstood. This metric tells us how much time the CPU  spent executing code in the last interval and how much more it could  execute theoretically. Like all other utilization measures it tells us  something about the capaci</p><p>2 0.17888489 <a title="1038-tfidf-2" href="../high_scalability-2011/high_scalability-2011-09-19-Big_Iron_Returns_with_BigMemory.html">1118 high scalability-2011-09-19-Big Iron Returns with BigMemory</a></p>
+<p>Introduction: This is a guest post by Greg Luck Founder and CTO,  Ehcache  Terracotta Inc.  Note: this article contains a bit too much of a product pitch, but the points are still generally valid and useful.
+ 
+The legendary Moore’s Law, which  states that the number of transistors that can be placed inexpensively  on an integrated circuit doubles approximately every two years, has  held true since 1965. It follows that integrated circuits will continue  to get smaller, with chip fabrication currently at a minuscule 22nm  process (1). Users of big iron hardware, or servers that  are dense in terms of CPU power and memory capacity, benefit from this  trend as their hardware becomes cheaper and more powerful over time.  At some point soon, however, density limits imposed by quantum mechanics  will preclude further density increases.
+ 
+At the same time, low-cost commodity  hardware influences enterprise architects to scale their applications  horizontally, where processing is spread across clusters of l</p><p>3 0.17100047 <a title="1038-tfidf-3" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>
+<p>Introduction: For solutions take a look at:  7 Life Saving Scalability Defenses Against Load Monster Attacks . 
+ 
+This is a look at all the bad things that can happen to your carefully crafted program as loads increase: all hell breaks lose. Sure, you can scale out or scale up, but you can also choose to program better. Make your system handle larger loads. This saves money because fewer boxes are needed and it will make the entire application more reliable and have better response times. And it can be quite satisfying as a programmer.
+  Large Number Of Objects  
+We usually get into scaling problems when the number of objects gets  larger. Clearly resource usage of all types is stressed as the number of objects grow.
+  Continuous Failures Makes An Infinite Event Stream  
+During large network failure scenarios there is never time for the system recover. We are in a continual state of stress.
+  Lots of High Priority Work  
+For example, rerouting is a high priority activity. If there is a large amount</p><p>4 0.15969557 <a title="1038-tfidf-4" href="../high_scalability-2010/high_scalability-2010-07-14-DynaTrace%27s_Top_10_Performance_Problems_taken_from_Zappos%2C_Monster%2C_Thomson_and_Co.html">859 high scalability-2010-07-14-DynaTrace's Top 10 Performance Problems taken from Zappos, Monster, Thomson and Co</a></p>
+<p>Introduction: DynaTrace in  Top 10 Performance Problems taken from Zappos, Monster, Thomson and Co , has provided a useful compilation of performance problems, with potential solutions, that they've found while working with their clients. 
+  
+  Too Many Database Calls  -    too many database query per request/transaction. 
+  Synchronized to Death  - in a high-load or production environment over-synchronization results in severe performance and scalability problems .  
+  Too chatty on the remoting channels  - too many calls across these remoting boundaries and in the end causes performance and scalability problems. 
+  Wrong usage of O/R-Mappers  - incorrect usage of the framework itself too often results in unexpected performance and scalability problems within these frameworks. 
+  Memory Leaks  - GC does not prevent memory leaks, it is important to release object references as soon as they are no longer needed. 
+  Problematic 3rd Party Code/Components  - check of every framework before introducing i</p><p>5 0.15173095 <a title="1038-tfidf-5" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: For everything given something seems to be taken. Caching is a great scalability solution, but caching also  comes with problems .  Sharding  is a great scalability solution, but as Foursquare recently revealed in a  post-mortem  about their 17 hours of downtime, sharding also has problems. MongoDB, the database Foursquare uses, also contributed their  post-mortem  of what went wrong too.
+ 
+Now that everyone has shared and resharded, what can we learn to help us skip these mistakes and quickly move on to a different set of mistakes?
+ 
+First, like for  Facebook , huge props to Foursquare and MongoDB for being upfront and honest about their problems. This helps everyone get better and is a sign we work in a pretty cool industry.
+ 
+Second, overall, the fault didn't flow from evil hearts or gross negligence. As usual the cause was more mundane: a key system, that could be a little more robust, combined with a very popular application built by a small group of people, under immense pressure</p><p>6 0.15052809 <a title="1038-tfidf-6" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
 <p>7 0.13938323 <a title="1038-tfidf-7" href="../high_scalability-2013/high_scalability-2013-09-03-Sponsored_Post%3A_Apple%2C_Couchbase%2C_Evernote%2C_10gen%2C_Stackdriver%2C_BlueStripe%2C_Surge%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1510 high scalability-2013-09-03-Sponsored Post: Apple, Couchbase, Evernote, 10gen, Stackdriver, BlueStripe, Surge, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
 <p>8 0.13923413 <a title="1038-tfidf-8" href="../high_scalability-2014/high_scalability-2014-03-20-Paper%3A_Log-structured_Memory_for_DRAM-based_Storage_-_High_Memory_Utilization_Plus_High_Performance.html">1616 high scalability-2014-03-20-Paper: Log-structured Memory for DRAM-based Storage - High Memory Utilization Plus High Performance</a></p>
 <p>9 0.13914432 <a title="1038-tfidf-9" href="../high_scalability-2013/high_scalability-2013-09-17-Sponsored_Post%3A_Apple%2C_Couchbase%2C_Evernote%2C_MongoDB%2C_Stackdriver%2C_BlueStripe%2C_Surge%2C_Booking%2C_Rackspace%2C_AiCache%2C_Aerospike%2C_New_Relic%2C_LogicMonitor%2C_AppDynamics%2C_ManageEngine%2C_Site24x7.html">1518 high scalability-2013-09-17-Sponsored Post: Apple, Couchbase, Evernote, MongoDB, Stackdriver, BlueStripe, Surge, Booking, Rackspace, AiCache, Aerospike, New Relic, LogicMonitor, AppDynamics, ManageEngine, Site24x7</a></p>
@@ -144,76 +103,37 @@ wo</p><p>6 0.15052809 <a title="1038-tfidf-6" href="../high_scalability-2009/hig
 <p>[(0, 0.261), (1, 0.062), (2, -0.041), (3, -0.041), (4, -0.026), (5, 0.011), (6, 0.114), (7, 0.092), (8, -0.067), (9, -0.049), (10, -0.032), (11, 0.002), (12, 0.038), (13, 0.024), (14, -0.046), (15, -0.084), (16, 0.034), (17, 0.004), (18, 0.004), (19, 0.032), (20, -0.006), (21, -0.01), (22, 0.01), (23, 0.006), (24, 0.033), (25, -0.009), (26, -0.049), (27, -0.08), (28, 0.009), (29, 0.036), (30, 0.051), (31, -0.019), (32, 0.063), (33, 0.011), (34, 0.024), (35, 0.074), (36, -0.043), (37, -0.016), (38, -0.048), (39, 0.043), (40, 0.017), (41, -0.015), (42, 0.062), (43, 0.014), (44, -0.001), (45, 0.025), (46, 0.068), (47, 0.004), (48, 0.075), (49, -0.0)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.98326713 <a title="1038-lsi-1" href="../high_scalability-2011/high_scalability-2011-05-11-Troubleshooting_response_time_problems_%E2%80%93_why_you_cannot_trust_your_system_metrics.html">1038 high scalability-2011-05-11-Troubleshooting response time problems – why you cannot trust your system metrics</a></p>
-<p>Introduction: Production Monitoringis about ensuring the stability and health of our system,
-that also includes the application. A lot of times we encounter production
-systems that concentrate on System Monitoring, under the assumption that a
-stable system leads to stable and healthy applications. So let's see what
-System Monitoring can tell us about ourApplication.Let's take a very simple
-two tier Web Application: This is a simple multi-tier eCommerce solution.
-Users are concerned about bad performance when they do a search. Let's see
-what we can find out about it if performance is not satisfactory. We start by
-looking at a couple of simple metrics.CPU UtilizationThe best known operating
-system metric is CPU utilization, but it is also the most misunderstood. This
-metric tells us how much time the CPU spent executing code in the last
-interval and how much more it could execute theoretically. Like all other
-utilization measures it tells us something about the capacity, but not about
-health, stabilit</p><p>2 0.80833668 <a title="1038-lsi-2" href="../high_scalability-2012/high_scalability-2012-10-09-Batoo_JPA_-_The_new_JPA_Implementation_that_runs_over_15_times_faster....html">1336 high scalability-2012-10-09-Batoo JPA - The new JPA Implementation that runs over 15 times faster...</a></p>
-<p>Introduction: This post is byHasan Ceylan, an Open Source software enthusiast from
-Istanbul.I loved the JPA 1.0 back in early 2000s. I started using it together
-with EJB 3.0 even before the stable releases. I loved it so much that I
-contributed bits and parts for JBoss 3.x implementations.Those were the days
-our company was considerably still small in size. Creating new features and
-applications were more priority than the performance, because there were a lot
-of ideas that we have and we needed to develop and market those as fast as we
-can. Now, we no longer needed to write tedious and error prone xml
-descriptions for the data model and deployment descriptors. Nor we needed to
-use the curse called "XDoclet".On the other side, our company grew steadily,
-our web site has become the top portal in the country for live events and
-ticketing. We now had the performance problems! Although the company grew
-considerably, due to the economics in the industry, we did not make a lot of
-money. The challenge we h</p><p>3 0.804685 <a title="1038-lsi-3" href="../high_scalability-2012/high_scalability-2012-05-02-12_Ways_to_Increase_Throughput_by_32X_and_Reduce_Latency_by__20X.html">1237 high scalability-2012-05-02-12 Ways to Increase Throughput by 32X and Reduce Latency by  20X</a></p>
-<p>Introduction: Martin Thompson, a high-performance technology geek, has written an awesome
-post,Fun with my-Channels Nirvana and Azul Zing. In it Martin shows the
-process and techniques he used to take an existing messaging product, written
-in Java, and increase throughput by 32X and reduce latency by  20X. The
-article is very well written with lots of interesting details that make it
-well worth reading.The TechniquesThe techniques are a good mix of Java
-independent approaches, things you may have heard of before, things you
-probably haven't heard of  before, and Java specific heroics. The obvious
-winning technique is to create a lock free flow through the system. This
-shouldn't be surprising as Martin teaches what sounds like a really goodlock-
-free concurrency course.Do not use locks in the main transaction flow because
-they cause context switches, and therefore latency and unpredictable
-jitter.Never have more threads that need to run than you have cores
-available.Set affinity of threads to cores,</p><p>4 0.79706067 <a title="1038-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
-<p>Introduction: Debugging complex problems is 90% persistence and 50% cool tools. Brendan
-Gregg in10 Performance Wins tells a fascinating story of how a team at Joyent
-solved some weird and challenging performance issues deep in the OS. It took
-lots of effort,DTrace, Flame Graphs,USE Method, and writing custom tools when
-necessary. Here's a quick summary of the solved cases:Monitoring. 1000x
-improvement. An application blocked while paging anonymous memory back in. It
-was also blocked during file system fsync() calls. The application was
-misconfigured and sometimes briefly exceeded available memory, getting page
-out.Riak. 2x improvement. The Erlang VM used half the CPU count it was
-supposed to, so CPUs remained unused.  Fix was a configuration change.MySQL.
-380x improvement. Reads were slow. Cause was correlated writes. Fix was to
-tune the cache flush interval on the storage controller.Various. 2800x
-improvement. Large systems calls to getvmusage() could take a few seconds.
-Cause was a priority invers</p><p>5 0.79134673 <a title="1038-lsi-5" href="../high_scalability-2010/high_scalability-2010-07-14-DynaTrace%27s_Top_10_Performance_Problems_taken_from_Zappos%2C_Monster%2C_Thomson_and_Co.html">859 high scalability-2010-07-14-DynaTrace's Top 10 Performance Problems taken from Zappos, Monster, Thomson and Co</a></p>
-<p>Introduction: DynaTrace inTop 10 Performance Problems taken from Zappos, Monster, Thomson
-and Co, has provided a useful compilation of performance problems, with
-potential solutions, that they've found while working with their clients. Too
-Many Database Calls- too many database query per
-request/transaction.Synchronized to Death- in a high-load or production
-environment over-synchronization results in severe performance and scalability
-problems.Too chatty on the remoting channels- too many calls across these
-remoting boundaries and in the end causes performance and scalability
-problems.Wrong usage of O/R-Mappers- incorrect usage of the framework itself
-too often results in unexpected performance and scalability problems within
-these frameworks.Memory Leaks- GC does not prevent memory leaks, it is
-important to release object references as soon as they are no longer
-needed.Problematic 3rd Party Code/Components- check of every framework before
-introducing it into your code.Wasteful handling of scarce r</p><p>6 0.77814686 <a title="1038-lsi-6" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
+<p>Introduction: Production Monitoring  is about ensuring the stability and health of our system, that also  includes the application. A lot of times we encounter production systems  that concentrate on System Monitoring, under the assumption that a  stable system leads to stable and healthy applications. So let’s see  what System Monitoring can tell us about our  Application .
+ 
+Let’s take a very simple two tier Web Application:
+        
+This is a simple multi-tier eCommerce solution. Users are concerned  about bad performance when they do a search. Let's see what we can find  out about it if performance is not satisfactory. We start by looking at a  couple of simple metrics.
+  CPU Utilization  
+The best known operating system metric is CPU utilization, but it is  also the most misunderstood. This metric tells us how much time the CPU  spent executing code in the last interval and how much more it could  execute theoretically. Like all other utilization measures it tells us  something about the capaci</p><p>2 0.80833668 <a title="1038-lsi-2" href="../high_scalability-2012/high_scalability-2012-10-09-Batoo_JPA_-_The_new_JPA_Implementation_that_runs_over_15_times_faster....html">1336 high scalability-2012-10-09-Batoo JPA - The new JPA Implementation that runs over 15 times faster...</a></p>
+<p>Introduction: This post is by  Hasan Ceylan , an Open Source software enthusiast from Istanbul. 
+ 
+I loved the JPA 1.0 back in early 2000s. I started using it together with EJB 3.0 even before the stable releases. I loved it so much that I contributed bits and parts for JBoss 3.x implementations.
+  Those were the days our company was considerably still small in size. Creating new features and applications were more priority than the performance, because there were a lot of ideas that we have and we needed to develop and market those as fast as we can. Now, we no longer needed to write tedious and error prone xml descriptions for the data model and deployment descriptors. Nor we needed to use the curse called “XDoclet”.  On the other side, our company grew steadily, our web site has become the top portal in the country for live events and ticketing. We now had the performance problems! Although the company grew considerably, due to the economics in the industry, we did not make a lot of money. The ch</p><p>3 0.804685 <a title="1038-lsi-3" href="../high_scalability-2012/high_scalability-2012-05-02-12_Ways_to_Increase_Throughput_by_32X_and_Reduce_Latency_by__20X.html">1237 high scalability-2012-05-02-12 Ways to Increase Throughput by 32X and Reduce Latency by  20X</a></p>
+<p>Introduction: Martin Thompson , a high-performance technology geek, has written an awesome post,   Fun with my-Channels Nirvana and Azul Zing . In it Martin   shows the process and techniques he used to take an existing messaging product, written in Java, and increase throughput by 32X and reduce latency by  20X. The article is very well written with lots of interesting details that make it well worth reading.  
+   The Techniques   
+ The techniques are a good mix of Java independent approaches, things you may have heard of before, things you probably haven’t heard of  before, and Java specific heroics. The obvious winning technique is to create a lock free flow through the system. This shouldn’t be surprising as Martin teaches what sounds like a really good    lock-free concurrency course   .  
+  
+  Do not use locks in the main transaction flow because they cause context switches, and therefore latency and unpredictable jitter.  
+  Never have more threads that need to run than you have cores availab</p><p>4 0.79706067 <a title="1038-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
+<p>Introduction: Debugging complex problems is 90% persistence and 50% cool tools. Brendan Gregg in  10 Performance Wins  tells a fascinating story of how a team at Joyent solved some weird and challenging performance issues deep in the OS. It took lots of effort,  DTrace ,  Flame Graphs ,  USE Method , and writing custom tools when necessary. Here's a quick summary of the solved cases:
+  
+  Monitoring. 1000x improvement . An application blocked while paging anonymous memory back in. It was also blocked during file system fsync() calls. The application was misconfigured and sometimes briefly exceeded available memory, getting page out. 
+  Riak. 2x improvement . The Erlang VM used half the CPU count it was supposed to, so CPUs remained unused.  Fix was a configuration change. 
+  MySQL. 380x improvement . Reads were slow. Cause was correlated writes. Fix was to tune the cache flush interval on the storage controller. 
+  Various. 2800x improvement . Large systems calls to getvmusage() could take a few sec</p><p>5 0.79134673 <a title="1038-lsi-5" href="../high_scalability-2010/high_scalability-2010-07-14-DynaTrace%27s_Top_10_Performance_Problems_taken_from_Zappos%2C_Monster%2C_Thomson_and_Co.html">859 high scalability-2010-07-14-DynaTrace's Top 10 Performance Problems taken from Zappos, Monster, Thomson and Co</a></p>
+<p>Introduction: DynaTrace in  Top 10 Performance Problems taken from Zappos, Monster, Thomson and Co , has provided a useful compilation of performance problems, with potential solutions, that they've found while working with their clients. 
+  
+  Too Many Database Calls  -    too many database query per request/transaction. 
+  Synchronized to Death  - in a high-load or production environment over-synchronization results in severe performance and scalability problems .  
+  Too chatty on the remoting channels  - too many calls across these remoting boundaries and in the end causes performance and scalability problems. 
+  Wrong usage of O/R-Mappers  - incorrect usage of the framework itself too often results in unexpected performance and scalability problems within these frameworks. 
+  Memory Leaks  - GC does not prevent memory leaks, it is important to release object references as soon as they are no longer needed. 
+  Problematic 3rd Party Code/Components  - check of every framework before introducing i</p><p>6 0.77814686 <a title="1038-lsi-6" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
 <p>7 0.77512765 <a title="1038-lsi-7" href="../high_scalability-2014/high_scalability-2014-05-21-9_Principles_of_High_Performance_Programs.html">1652 high scalability-2014-05-21-9 Principles of High Performance Programs</a></p>
 <p>8 0.76818413 <a title="1038-lsi-8" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
 <p>9 0.76817054 <a title="1038-lsi-9" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
@@ -233,74 +153,47 @@ introducing it into your code.Wasteful handling of scarce r</p><p>6 0.77814686 <
 <p>[(1, 0.133), (2, 0.239), (10, 0.041), (27, 0.017), (35, 0.016), (40, 0.049), (51, 0.012), (59, 0.13), (61, 0.088), (77, 0.021), (79, 0.103), (85, 0.026), (94, 0.061)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.97859347 <a title="1038-lda-1" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
-<p>Introduction: This question comes from Ulysses on aninteresting threadfrom the Mechanical
-Sympathy news group, especially given how multiple processors are now the
-norm:Ulysses:On an 8xCPU Linux instance,  is it at all advantageous to use the
-Linux taskset command to pin an 8xJVM process set (co-ordinated as a
-www.infinispan.org distributed cache/data grid) to a specific CPU affinity set
-(i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to
-CPU 7) vs. just letting the Linux OS use its default mechanism for
-provisioning the 8xJVM process set to the available CPUs?In effrort to seek an
-optimal point (in the full event space), what are the conceptual trade-offs in
-considering "searching" each permutation of provisioning an 8xJVM process set
-to an 8xCPU set via taskset?Giventaskset is they key to the question, it would
-help to have a definition:Used to set or retrieve the CPU affinity of a
-running process given its PID or to launch a new COMMAND with a given CPU
-affinity.  CPU affi</p><p>2 0.96759725 <a title="1038-lda-2" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
-<p>Introduction: Martin Thompson wrote a really interestingarticleon the beneficial performance
-impact of taking advantage of Processor Affinity:The interesting thing I've
-observed is that the unpinned test will follow a step function of
-unpredictable performance.  Across many runs I've seen different patterns but
-all similar in this step function nature.  For the pinned tests I get
-consistent throughput with no step pattern and always the greatest
-throughput.The idea is by assigning a thread to a particular CPU that when a
-thread is rescheduled to run on the same CPU, it can take advantage of the
-"accumulated  state in the processor, including instructions and data in the
-cache."  With multi-core chips the norm now, you may want to decide for
-yourself how to assign work to cores and not let the OS do it for you. The
-results are surprisingly strong.</p><p>3 0.96159494 <a title="1038-lda-3" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
-<p>Introduction: Debugging complex problems is 90% persistence and 50% cool tools. Brendan
-Gregg in10 Performance Wins tells a fascinating story of how a team at Joyent
-solved some weird and challenging performance issues deep in the OS. It took
-lots of effort,DTrace, Flame Graphs,USE Method, and writing custom tools when
-necessary. Here's a quick summary of the solved cases:Monitoring. 1000x
-improvement. An application blocked while paging anonymous memory back in. It
-was also blocked during file system fsync() calls. The application was
-misconfigured and sometimes briefly exceeded available memory, getting page
-out.Riak. 2x improvement. The Erlang VM used half the CPU count it was
-supposed to, so CPUs remained unused.  Fix was a configuration change.MySQL.
-380x improvement. Reads were slow. Cause was correlated writes. Fix was to
-tune the cache flush interval on the storage controller.Various. 2800x
-improvement. Large systems calls to getvmusage() could take a few seconds.
-Cause was a priority invers</p><p>4 0.95730358 <a title="1038-lda-4" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
-<p>Introduction: Stardog makes a commercial graph database that is a great example of what can
-be accomplished with a scale-up strategy on BigIron. In a recent article
-StarDog described how they made their new 2.1 release insanely scalable,
-improving query scalability by about 3 orders of magnitude and it can now
-handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It
-can also load 20B datasets at 300,000 triples per second. What did they do
-that you can also do?Avoid locks by using non-blocking algorithms and data
-structures. For example, moving from BitSet to ConcurrentLinkedQueue.Use
-ThreadLocal aggressively to reduce thread contention and avoid
-synchronization.Batch LRU evictions in a single thread. Triggered by several
-LRU caches becoming problematic when evictions were being swamped by
-additions. Downside is batching increases memory pressure and GC times.Move to
-SHA1 for hashing URIs, bnodes, and literal values. Making hash collisions
-nearly impossible enable significant s</p><p>5 0.94891369 <a title="1038-lda-5" href="../high_scalability-2012/high_scalability-2012-09-15-4_Reasons_Facebook_Dumped_HTML5_and_Went_Native.html">1323 high scalability-2012-09-15-4 Reasons Facebook Dumped HTML5 and Went Native</a></p>
-<p>Introduction: Facebook made quite a splash when they released theirnative iOS app, not
-because of their app per se, but because of their conclusion that theirbiggest
-mistake was betting on HTML5, so they had to go native.As you might imagine
-this was a bit like telling a Great White Shark that its bark is worse than
-its bite.  Acommon refrainwas Facebook simply had made a bad HTML5 site, not
-that HTML5 itself is bad, as plenty of other vendors have made slick well
-performing mobile sites.An interesting and relevant conversation given the
-rising butt kickery of mobile. But we were lacking details. Now we aren't. If
-you were wondering just why Facebook ditched HTML5, Tobie Langel inPerf
-Feedback - What's slowing down Mobile Facebook, lists out the reasons:Tooling
-/ Developer APIs. Most importantly, the lack of tooling to track down memory
-problems. Scrolling performance.Scrolling must be fast and smooth and full
-featured. It's not.GPU.A clunky API and black box approach make it an
-unreliable accelerat</p><p>6 0.94590533 <a title="1038-lda-6" href="../high_scalability-2012/high_scalability-2012-07-11-FictionPress%3A_Publishing_6_Million_Works_of_Fiction_on_the_Web.html">1281 high scalability-2012-07-11-FictionPress: Publishing 6 Million Works of Fiction on the Web</a></p>
+<p>Introduction: This question comes from Ulysses on an  interesting thread  from the Mechanical Sympathy news group, especially given how multiple processors are now the norm:
+ 
+Ulysses:
+   
+ On an 8xCPU Linux instance,  is it at all advantageous to use the Linux taskset command to pin an 8xJVM process set (co-ordinated as a www.infinispan.org distributed cache/data grid) to a specific CPU affinity set  (i.e. pin JVM0 process to CPU 0, JVM1 process to CPU1, ...., JVM7process to CPU 7) vs. just letting the Linux OS use its default mechanism for provisioning the 8xJVM process set to the available CPUs? 
+ In effrort to seek an optimal point (in the full event space), what are the conceptual trade-offs in considering "searching" each permutation of provisioning an 8xJVM process set to an 8xCPU set via taskset? 
+   
+Given  taskset  is they key to the question, it would help to have a definition:
+  
+
+Used to set or retrieve the CPU affinity of a running process given its PID or to launch a new COMMAND with</p><p>2 0.96759725 <a title="1038-lda-2" href="../high_scalability-2012/high_scalability-2012-03-29-Strategy%3A_Exploit_Processor_Affinity_for_High_and_Predictable_Performance.html">1218 high scalability-2012-03-29-Strategy: Exploit Processor Affinity for High and Predictable Performance</a></p>
+<p>Introduction: Martin Thompson wrote a really interesting  article  on the beneficial performance impact of taking advantage of  Processor Affinity :
+  
+
+The interesting thing I've observed is that the unpinned test will follow a step function of unpredictable performance.  Across many runs I've seen different patterns but all similar in this step function nature.  For the pinned tests I get consistent throughput with no step pattern and always the greatest throughput.
+
+  
+The idea is by assigning a thread to a particular CPU that when a thread is rescheduled to run on the same CPU, it can take advantage of the "accumulated  state in the processor, including instructions and data in the cache."  With multi-core chips the norm now, you may want to decide for yourself how to assign work to cores and not let the OS do it for you. The results are surprisingly strong.</p><p>3 0.96159494 <a title="1038-lda-3" href="../high_scalability-2012/high_scalability-2012-08-30-Dramatically_Improving_Performance_by_Debugging_Brutally_Complex_Prolems.html">1314 high scalability-2012-08-30-Dramatically Improving Performance by Debugging Brutally Complex Prolems</a></p>
+<p>Introduction: Debugging complex problems is 90% persistence and 50% cool tools. Brendan Gregg in  10 Performance Wins  tells a fascinating story of how a team at Joyent solved some weird and challenging performance issues deep in the OS. It took lots of effort,  DTrace ,  Flame Graphs ,  USE Method , and writing custom tools when necessary. Here's a quick summary of the solved cases:
+  
+  Monitoring. 1000x improvement . An application blocked while paging anonymous memory back in. It was also blocked during file system fsync() calls. The application was misconfigured and sometimes briefly exceeded available memory, getting page out. 
+  Riak. 2x improvement . The Erlang VM used half the CPU count it was supposed to, so CPUs remained unused.  Fix was a configuration change. 
+  MySQL. 380x improvement . Reads were slow. Cause was correlated writes. Fix was to tune the cache flush interval on the storage controller. 
+  Various. 2800x improvement . Large systems calls to getvmusage() could take a few sec</p><p>4 0.95730358 <a title="1038-lda-4" href="../high_scalability-2014/high_scalability-2014-01-20-8_Ways_Stardog_Made_its_Database_Insanely_Scalable.html">1582 high scalability-2014-01-20-8 Ways Stardog Made its Database Insanely Scalable</a></p>
+<p>Introduction: Stardog  makes a commercial graph database that is a great example of what can be accomplished with a scale-up strategy on BigIron. In a  recent article  StarDog described how they made their new 2.1 release insanely scalable, improving query scalability by about 3 orders of magnitude and it can now handle 50 billion triples on a $10,000 server with 32 cores and 256 GB RAM. It can also load 20B datasets at 300,000 triples per second. 
+ 
+What did they do that you can also do?
+  
+  Avoid locks by using non-blocking algorithms and data structures . For example, moving from BitSet to ConcurrentLinkedQueue. 
+  Use ThreadLocal aggressively to reduce thread contention and avoid synchronization . 
+  Batch LRU evictions in a single thread . Triggered by several LRU caches becoming problematic when evictions were being swamped by additions. Downside is batching increases memory pressure and GC times. 
+  Move to SHA1 for hashing URIs, bnodes, and literal values . Making hash collisions nearly imp</p><p>5 0.94891369 <a title="1038-lda-5" href="../high_scalability-2012/high_scalability-2012-09-15-4_Reasons_Facebook_Dumped_HTML5_and_Went_Native.html">1323 high scalability-2012-09-15-4 Reasons Facebook Dumped HTML5 and Went Native</a></p>
+<p>Introduction: Facebook made quite a splash when they released their  native iOS app , not because of their app per se, but because of their conclusion that their  biggest mistake was betting on HTML5 , so they had to go native.
+ 
+As you might imagine this was a bit like telling a Great White Shark that its bark is worse than its bite.  A  common refrain  was Facebook simply had made a bad HTML5 site, not that HTML5 itself is bad, as plenty of other vendors have made slick well performing mobile sites.
+ 
+An interesting and relevant conversation given the rising butt kickery of mobile. But we were lacking details. Now we aren't. If you were wondering just why Facebook ditched HTML5, Tobie Langel in  Perf Feedback - What's slowing down Mobile Facebook , lists out the reasons:
+  
+  Tooling / Developer APIs . Most importantly, the lack of tooling to track down memory problems.  
+  Scrolling performance.  Scrolling must be fast and smooth and full featured. It's not. 
+  GPU.  A clunky API and black box ap</p><p>6 0.94590533 <a title="1038-lda-6" href="../high_scalability-2012/high_scalability-2012-07-11-FictionPress%3A_Publishing_6_Million_Works_of_Fiction_on_the_Web.html">1281 high scalability-2012-07-11-FictionPress: Publishing 6 Million Works of Fiction on the Web</a></p>
 <p>7 0.94582355 <a title="1038-lda-7" href="../high_scalability-2014/high_scalability-2014-04-18-Stuff_The_Internet_Says_On_Scalability_For_April_18th%2C_2014.html">1634 high scalability-2014-04-18-Stuff The Internet Says On Scalability For April 18th, 2014</a></p>
 <p>8 0.94346744 <a title="1038-lda-8" href="../high_scalability-2010/high_scalability-2010-06-30-Paper%3A_GraphLab%3A_A_New_Framework_For_Parallel_Machine_Learning.html">850 high scalability-2010-06-30-Paper: GraphLab: A New Framework For Parallel Machine Learning</a></p>
 <p>same-blog 9 0.93861866 <a title="1038-lda-9" href="../high_scalability-2011/high_scalability-2011-05-11-Troubleshooting_response_time_problems_%E2%80%93_why_you_cannot_trust_your_system_metrics.html">1038 high scalability-2011-05-11-Troubleshooting response time problems – why you cannot trust your system metrics</a></p>

@@ -16,115 +16,74 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1236-html" href="http://highscalability.com//blog/2012/4/30/masstree-much-faster-than-mongodb-voltdb-redis-and-competiti.html">html</a></p><p>Introduction: TheEuroSys 2012system conference has an excellent live blog summary of their
-talks for:Day 1,Day 2,Day 3(thanksHenry at the Paper Trail blog). Summaries
-for each of the accepted papers arehere.One of the more interesting papers
-from a NoSQL perspective wasCache Craftiness for Fast Multicore Key-Value
-Storage, a wonderfully detailed description of the low level techniques used
-to implement Masstree:A storage system specialized for key-value data in which
-all data ﬁts in memory, but must persist across server restarts. It supports
-arbitrary, variable-length keys. It allows range queries over those keys:
-clients can traverse subsets of the database, or the whole database, in sorted
-order by key. On a 16-core machine Masstree achieves six to ten million
-operations per second on parts A-C of the Yahoo! Cloud Serving Benchmark
-benchmark, more than 30 as fast as VoltDB [5] or MongoDB [2].If you are
-looking for innovative detailed high performance design, this paper is for
-you. An example fro</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Any modiﬁcation to a node's keys or values requires holding the node's lock. [sent-11, score-0.199]
-</p><p>2 Some data is protected by other nodes' locks, however. [sent-12, score-0.114]
-</p><p>3 A node's parent pointer is protected by its parent's lock, and a border node's prev pointer is protected by its previous sibling's lock. [sent-13, score-0.559]
-</p><p>4 This minimizes the simultaneous locks required by split operations; when an interior node splits, for example, it can assign its children's parent pointers without obtaining their locks. [sent-14, score-0.416]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1236-html" href="http://highscalability.com//blog/2012/4/30/masstree-much-faster-than-mongodb-voltdb-redis-and-competiti.html">html</a></p><p>Introduction: The  EuroSys 2012  system conference has an excellent live blog summary of their talks for:  Day 1 ,  Day 2 ,  Day 3  (thanks  Henry at the Paper Trail blog ). Summaries for each of the accepted papers are  here .
+ 
+One of the more interesting papers from a NoSQL perspective was  Cache Craftiness for Fast Multicore Key-Value Storage , a wonderfully detailed description of the low level techniques used to implement Masstree:
+  
+
+A storage system specialized for key-value data in which all data ﬁts in memory, but must persist across server restarts. It supports arbitrary, variable-length keys. It allows range queries over those keys: clients can traverse subsets of the database, or the whole database, in sorted order by key. On a 16-core machine Masstree achieves six to ten million operations per second on parts A–C of the Yahoo! Cloud Serving Benchmark benchmark, more than 30 as fast as VoltDB [5] or MongoDB [2].
+
+  
+If you are looking for innovative detailed high performance design, t</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The  EuroSys 2012  system conference has an excellent live blog summary of their talks for:  Day 1 ,  Day 2 ,  Day 3  (thanks  Henry at the Paper Trail blog ). [sent-1, score-0.11]
+</p><p>2 Any modiﬁcation to a node’s keys or values requires holding the node’s lock. [sent-11, score-0.199]
+</p><p>3 A node’s parent pointer is protected by its parent’s lock, and a border node’s prev pointer is protected by its previous sibling’s lock. [sent-13, score-0.331]
+</p><p>4 This minimizes the simultaneous locks required by split operations; when an interior node splits, for example, it can assign its children’s parent pointers without obtaining their locks. [sent-14, score-0.241]
 </p><p>5 Should support range queries, skewed key popularity, small K-V pairs, many puts, and arbitrary keys. [sent-17, score-0.173]
 </p><p>6 Their first attempt was a fast binary tree, achieving 3. [sent-18, score-0.061]
 </p><p>7 In fact, when looking at local performance (without network/disk bottlenecks), cache craftiness results in a 1. [sent-24, score-0.239]
 </p><p>8 To reduce DRAM latency, they constructed a lock-free, unbalanced 4-way tree with the same concurrency properties as a binary tree, but is only half as deep for the same amount of data -- plus each node fits into a cache line. [sent-28, score-0.798]
 </p><p>9 It turns out, however, that the B+tree is 11% slower than the 4-way tree (because of cache line optimization, and since all nodes are full, while for their B+tree, only ~75% are)! [sent-31, score-0.489]
-</p><p>10 However, there are consistency issues with concurrent inserts in the B+tree (not with 4-way, as keys don't move), so pre-pend a "permuter" (index list array) to each node, so we can atomically swap keys around. [sent-33, score-0.468]
+</p><p>10 However, there are consistency issues with concurrent inserts in the B+tree (not with 4-way, as keys don’t move), so pre-pend a “permuter” (index list array) to each node, so we can atomically swap keys around. [sent-33, score-0.468]
 </p><p>11 But there is an issue with long keys -- they require multiple memory accesses, and throughput drops rapidly as keys get longer. [sent-34, score-0.398]
 </p><p>12 So they use a Trie of B+trees, with each level (B+tree) responsible for 8 bytes of key length. [sent-35, score-0.058]
-</p><p>13 "Masstree" is the union of all these optimizations (I think), and despite having a trie of B+trees in it, it is 8% more efficient than a single B+tree with all the other optimizations. [sent-37, score-0.159]
+</p><p>13 “Masstree” is the union of all these optimizations (I think), and despite having a trie of B+trees in it, it is 8% more efficient than a single B+tree with all the other optimizations. [sent-37, score-0.159]
 </p><p>14 Masstree uses a single, shared key that is accessed by all cores (presumably using the OCC+versioning techniques they alluded to). [sent-41, score-0.196]
 </p><p>15 They also find that they scale fairly well to 16 cores (about ⅕ drop in performance over perfect scalability). [sent-43, score-0.086]
-</p><p>16 Its design pays particular attention to concurrency and to efﬁciency for short and simple queries. [sent-45, score-0.106]
-</p><p>17 Masstree keeps all data in memory in a tree, with fanout chosen to minimize total DRAM delay when descending the tree with prefetching. [sent-46, score-0.437]
-</p><p>18 The tree is shared among all cores to preserve load balance when key popularities are skewed. [sent-47, score-0.582]
-</p><p>19 It maintains high concurrency using optimistic concurrency control for lookup and local locking for updates. [sent-48, score-0.275]
-</p><p>20 For good performance for keys with long shared preﬁxes, a Masstree consists of a trie-like concatenation of B+ trees, each of the latter supporting only ﬁxed-length keys for efﬁciency. [sent-49, score-0.501]
+</p><p>16 Its design pays particular attention to concurrency and to efﬁciency for short and simple queries. [sent-45, score-0.106]
+</p><p>17 Masstree keeps all data in memory in a tree, with fanout chosen to minimize total DRAM delay when descending the tree with prefetching. [sent-46, score-0.437]
+</p><p>18 The tree is shared among all cores to preserve load balance when key popularities are skewed. [sent-47, score-0.582]
+</p><p>19 It maintains high concurrency using optimistic concurrency control for lookup and local locking for updates. [sent-48, score-0.275]
+</p><p>20 For good performance for keys with long shared preﬁxes, a Masstree consists of a trie-like concatenation of B+ trees, each of the latter supporting only ﬁxed-length keys for efﬁciency. [sent-49, score-0.251]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('masstree', 0.622), ('tree', 0.386), ('keys', 0.199), ('craftiness', 0.187), ('node', 0.137), ('parent', 0.124), ('protected', 0.114), ('concurrency', 0.106), ('trie', 0.106), ('dram', 0.104), ('trees', 0.099), ('cores', 0.086), ('ef', 0.081), ('pointer', 0.078), ('voltdb', 0.073), ('inserts', 0.07), ('optimistic', 0.063), ('arbitrary', 0.062), ('binary', 0.061), ('however', 0.058), ('key', 0.058), ('papers', 0.057), ('unbalanced', 0.056), ('xes', 0.056), ('occ', 0.056), ('cation', 0.056), ('sibling', 0.056), ('thelive', 0.056), ('locks', 0.055), ('blog', 0.055), ('modi', 0.053), ('skewed', 0.053), ('union', 0.053), ('paper', 0.052), ('shared', 0.052), ('benchmark', 0.052), ('cache', 0.052), ('turns', 0.051), ('trail', 0.051), ('subsequently', 0.051), ('interior', 0.051), ('border', 0.051), ('concatenation', 0.051), ('descending', 0.051), ('lock', 0.049), ('subsets', 0.049), ('obtaining', 0.049), ('summaries', 0.049), ('checkpointing', 0.049), ('presumably', 0.047)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999982 <a title="1236-tfidf-1" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
-<p>Introduction: TheEuroSys 2012system conference has an excellent live blog summary of their
-talks for:Day 1,Day 2,Day 3(thanksHenry at the Paper Trail blog). Summaries
-for each of the accepted papers arehere.One of the more interesting papers
-from a NoSQL perspective wasCache Craftiness for Fast Multicore Key-Value
-Storage, a wonderfully detailed description of the low level techniques used
-to implement Masstree:A storage system specialized for key-value data in which
-all data ﬁts in memory, but must persist across server restarts. It supports
-arbitrary, variable-length keys. It allows range queries over those keys:
-clients can traverse subsets of the database, or the whole database, in sorted
-order by key. On a 16-core machine Masstree achieves six to ten million
-operations per second on parts A-C of the Yahoo! Cloud Serving Benchmark
-benchmark, more than 30 as fast as VoltDB [5] or MongoDB [2].If you are
-looking for innovative detailed high performance design, this paper is for
-you. An example fro</p><p>2 0.18633582 <a title="1236-tfidf-2" href="../high_scalability-2011/high_scalability-2011-02-01-Google_Strategy%3A_Tree_Distribution_of_Requests_and_Responses.html">981 high scalability-2011-02-01-Google Strategy: Tree Distribution of Requests and Responses</a></p>
-<p>Introduction: If a large number of leaf node machines send requests to a central root node
-then that root node can become overwhelmed:The CPU becomes a bottleneck, for
-either processing requests or sending replies, because it can't possibly deal
-with the flood of requests.The network interface becomes a bottleneck because
-a wide fan-in causes TCP drops and retransmissions, which causes latency. Then
-clients start retrying requests which quickly causes a spiral of death in an
-undisciplined system.One solution to this problem is a strategy given by Dr.
-Jeff Dean, Head of Google's School of Infrastructure Wizardry, in this
-Stanford video presentation:Tree Distribution of Requests and
-Responses.Instead of having a root node connected to leaves in a flat
-topology, the idea is to create a tree of nodes. So a root node talks to a
-number of parent nodes and the parent nodes talk to a number of leaf nodes.
-Requests are pushed down the tree through the parents and only hit a subset of
-the leaf nodes.With this</p><p>3 0.18285078 <a title="1236-tfidf-3" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
-<p>Introduction: This is a guest post by Ron Pressler, the founder and CEO ofParallel Universe,
-a Y Combinator company building advanced middleware for real-time
-applications.A little over a month ago, we open-sourced a new in-memory data
-grid calledGalaxy. An in-memory data grid, or IMDG, is a clustered data
-storage and processing middleware that uses RAM as the authoritative and
-primary storage, and distributes data over a cluster for purposes of data and
-processing scalability and high-availability. A common feature of IMDGs is co-
-location of code and data, meaning that application code runs on all cluster
-nodes, each instance processing those data items residing in the local node's
-RAM.While quite a few commercial and open-source IMDGs are available (like
-Terracotta, Gigaspaces, Oracle Coherence, GemFire, Websphere eXtreme Scale,
-Infinispan and Hazelcast), Galaxy has adopted a completely different
-architecture from all other IMDGs, to service some usage scenarios ill-fitted
-to the other solutions.</p><p>4 0.13152705 <a title="1236-tfidf-4" href="../high_scalability-2012/high_scalability-2012-03-07-Scale_Indefinitely_on_S3_With_These_Secrets_of_the_S3_Masters.html">1205 high scalability-2012-03-07-Scale Indefinitely on S3 With These Secrets of the S3 Masters</a></p>
-<p>Introduction: In a great article, Amazon S3 Performance Tips & Tricks, Doug Grismore,
-Director of Storage Operations for AWS, has outed the secret arcana normally
-reserved for Premium Developer Support customers on how to really use S3:Size
-matters. Workloads with less than 50-100 total requests per second don't
-require any special effort. Customers that routinely perform thousands of
-requests per second need a plan.Automated partitioning. Automated systems
-scale S3 horizontally by continuously splitting data into partitions based on
-high request rates and the number of keys in a partition (which leads to slow
-lookups). Lessons you've learned with sharding may also apply to S3.   Avoid
-hot spots. Like most sharding schemes, you want to avoid hot spots by the
-smart selection of key names. S3 objects are stored inbuckets.  Each object is
-identified using a key. Keys are kept in sorted order. Keys in S3 are
-partitioned by prefix. Objects that sort together are stored together, so you
-want to select key</p><p>5 0.12142841 <a title="1236-tfidf-5" href="../high_scalability-2012/high_scalability-2012-07-04-Top_Features_of_a_Scalable_Database.html">1276 high scalability-2012-07-04-Top Features of a Scalable Database</a></p>
-<p>Introduction: This is a guest post by Douglas Wilson, EMEA Field Application Engineer at
-Raima, based on insights from biulding theirRaima Database Manager.Scalability
-and HardwareScalability is the ability to maintain performance as demands on
-the system increase, by adding further resources. Normally those resources
-will be in the form of hardware. Since processor speeds are no longer
-increasing much, scaling up the hardware normally means adding extra
-processors or cores, and more memory.Scalability and SoftwareHowever,
-scalability requires software that can utilize the extra hardware effectively.
-The software must be designed to allow parallel processing. In the context of
-a database engine this means that the server component must be multi-threaded,
-to allow the operating system to schedule parallel tasks on all the cores that
-are available. Not only that, but the database engine must provide an
-efficient way to break its workload into as many parallel tasks as there are
-cores. So, for example,</p><p>6 0.11451588 <a title="1236-tfidf-6" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
+<p>Introduction: The  EuroSys 2012  system conference has an excellent live blog summary of their talks for:  Day 1 ,  Day 2 ,  Day 3  (thanks  Henry at the Paper Trail blog ). Summaries for each of the accepted papers are  here .
+ 
+One of the more interesting papers from a NoSQL perspective was  Cache Craftiness for Fast Multicore Key-Value Storage , a wonderfully detailed description of the low level techniques used to implement Masstree:
+  
+
+A storage system specialized for key-value data in which all data ﬁts in memory, but must persist across server restarts. It supports arbitrary, variable-length keys. It allows range queries over those keys: clients can traverse subsets of the database, or the whole database, in sorted order by key. On a 16-core machine Masstree achieves six to ten million operations per second on parts A–C of the Yahoo! Cloud Serving Benchmark benchmark, more than 30 as fast as VoltDB [5] or MongoDB [2].
+
+  
+If you are looking for innovative detailed high performance design, t</p><p>2 0.18633582 <a title="1236-tfidf-2" href="../high_scalability-2011/high_scalability-2011-02-01-Google_Strategy%3A_Tree_Distribution_of_Requests_and_Responses.html">981 high scalability-2011-02-01-Google Strategy: Tree Distribution of Requests and Responses</a></p>
+<p>Introduction: If a large number of leaf node machines send requests to a central root node then that root node can become overwhelmed:
+  
+ The CPU becomes a bottleneck, for either processing requests or sending replies, because it can't possibly deal with the flood of requests. 
+ The network interface becomes a bottleneck because a wide fan-in causes TCP drops and retransmissions, which causes latency. Then clients start retrying requests which quickly causes a spiral of death in an undisciplined system. 
+  
+One solution to this problem is a strategy given by Dr.  Jeff Dean , Head of Google's School of Infrastructure Wizardry, in this  Stanford video presentation :  Tree Distribution of Requests and Responses .
+ 
+ 
+ 
+Instead of having a root node connected to leaves in a flat topology, the idea is to create a tree of nodes. So a root node talks to a number of parent nodes and the parent nodes talk to a number of leaf nodes. Requests are pushed down the tree through the parents and only hit a subset</p><p>3 0.18285078 <a title="1236-tfidf-3" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
+<p>Introduction: This is a guest post by Ron Pressler, the founder and CEO of  Parallel Universe , a Y Combinator company building advanced middleware for real-time applications. 
+ 
+A little over a month ago, we open-sourced a new in-memory data grid called  Galaxy . An in-memory data grid, or IMDG, is a clustered data storage and processing middleware that uses RAM as the authoritative and primary storage, and distributes data over a cluster for purposes of data and processing scalability and high-availability. A common feature of IMDGs is co-location of code and data, meaning that application code runs on all cluster nodes, each instance processing those data items residing in the local node's RAM.
+ 
+While quite a few commercial and open-source IMDGs are available (like Terracotta, Gigaspaces, Oracle Coherence, GemFire, Websphere eXtreme Scale, Infinispan and Hazelcast), Galaxy has adopted a completely different architecture from all other IMDGs, to service some usage scenarios ill-fitted to the othe</p><p>4 0.13152705 <a title="1236-tfidf-4" href="../high_scalability-2012/high_scalability-2012-03-07-Scale_Indefinitely_on_S3_With_These_Secrets_of_the_S3_Masters.html">1205 high scalability-2012-03-07-Scale Indefinitely on S3 With These Secrets of the S3 Masters</a></p>
+<p>Introduction: In a great article,  Amazon S3 Performance Tips & Tricks , Doug Grismore, Director of Storage Operations for AWS, has outed the secret arcana normally reserved for Premium Developer Support customers on how to really use S3:
+  
+  Size matters . Workloads with less than 50-100 total requests per second don't require any special effort. Customers that routinely perform thousands of requests per second need a plan. 
+  Automated partitioning . Automated systems scale S3 horizontally by continuously splitting data into partitions based on high request rates and the number of keys in a partition (which leads to slow lookups). Lessons you've learned with  sharding  may also apply to S3.    
+  Avoid hot spots . Like most sharding schemes, you want to avoid hot spots by the smart selection of key names. S3 objects are stored in  buckets .  Each object is identified using a key. Keys are kept in sorted order. Keys in S3 are partitioned by prefix. Objects that sort together are stored together, s</p><p>5 0.12142841 <a title="1236-tfidf-5" href="../high_scalability-2012/high_scalability-2012-07-04-Top_Features_of_a_Scalable_Database.html">1276 high scalability-2012-07-04-Top Features of a Scalable Database</a></p>
+<p>Introduction: This is a guest post by Douglas Wilson, EMEA Field Application Engineer at Raima, based on insights from biulding their  Raima Database Manager . 
+   Scalability and Hardware   
+ Scalability is the ability to maintain performance as demands on the system increase, by adding further resources. Normally those resources will be in the form of hardware. Since processor speeds are no longer increasing much, scaling up the hardware normally means adding extra processors or cores, and more memory. 
+   Scalability and Software   
+ However, scalability requires software that can utilize the extra hardware effectively. The software must be designed to allow parallel processing. In the context of a database engine this means that the server component must be   multi-threaded  , to allow the operating system to schedule parallel tasks on all the cores that are available. Not only that, but the database engine must provide an efficient way to break its workload into as many parallel tasks as there</p><p>6 0.11451588 <a title="1236-tfidf-6" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
 <p>7 0.10705574 <a title="1236-tfidf-7" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>
 <p>8 0.1042788 <a title="1236-tfidf-8" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
 <p>9 0.10330007 <a title="1236-tfidf-9" href="../high_scalability-2011/high_scalability-2011-01-10-Riak%27s_Bitcask_-_A_Log-Structured_Hash_Table_for_Fast_Key-Value_Data.html">971 high scalability-2011-01-10-Riak's Bitcask - A Log-Structured Hash Table for Fast Key-Value Data</a></p>
@@ -144,76 +103,41 @@ cores. So, for example,</p><p>6 0.11451588 <a title="1236-tfidf-6" href="../high
 <p>[(0, 0.138), (1, 0.08), (2, -0.024), (3, 0.018), (4, -0.006), (5, 0.113), (6, 0.048), (7, 0.027), (8, -0.069), (9, -0.013), (10, 0.029), (11, -0.042), (12, -0.009), (13, 0.008), (14, -0.031), (15, 0.012), (16, 0.012), (17, -0.002), (18, -0.012), (19, -0.032), (20, 0.016), (21, 0.035), (22, -0.015), (23, 0.02), (24, -0.011), (25, -0.055), (26, -0.006), (27, 0.004), (28, 0.013), (29, -0.015), (30, 0.053), (31, 0.011), (32, -0.014), (33, -0.004), (34, -0.012), (35, -0.005), (36, 0.012), (37, -0.022), (38, -0.007), (39, 0.006), (40, -0.028), (41, -0.008), (42, 0.034), (43, -0.024), (44, -0.01), (45, 0.061), (46, -0.015), (47, 0.006), (48, 0.016), (49, 0.028)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96062517 <a title="1236-lsi-1" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
-<p>Introduction: TheEuroSys 2012system conference has an excellent live blog summary of their
-talks for:Day 1,Day 2,Day 3(thanksHenry at the Paper Trail blog). Summaries
-for each of the accepted papers arehere.One of the more interesting papers
-from a NoSQL perspective wasCache Craftiness for Fast Multicore Key-Value
-Storage, a wonderfully detailed description of the low level techniques used
-to implement Masstree:A storage system specialized for key-value data in which
-all data ﬁts in memory, but must persist across server restarts. It supports
-arbitrary, variable-length keys. It allows range queries over those keys:
-clients can traverse subsets of the database, or the whole database, in sorted
-order by key. On a 16-core machine Masstree achieves six to ten million
-operations per second on parts A-C of the Yahoo! Cloud Serving Benchmark
-benchmark, more than 30 as fast as VoltDB [5] or MongoDB [2].If you are
-looking for innovative detailed high performance design, this paper is for
-you. An example fro</p><p>2 0.7659843 <a title="1236-lsi-2" href="../high_scalability-2012/high_scalability-2012-08-06-Paper%3A_High-Performance_Concurrency_Control_Mechanisms_for_Main-Memory_Databases.html">1299 high scalability-2012-08-06-Paper: High-Performance Concurrency Control Mechanisms for Main-Memory Databases</a></p>
-<p>Introduction: If you stayed up all night watching the life reaffirmingCuriosity landing on
-Mars, then this paper,High-Performance Concurrency Control Mechanisms for
-Main-Memory Databases, has nothing to do with that at all, but it is an
-excellent look at how to use optimistic MVCC schemes to reduce lock overhead
-on in-memory datastructures:A database system optimized for in-memory storage
-can support much higher transaction rates than current systems. However,
-standard concurrency control methods used today do not scale to the high
-transaction rates achievable by such systems. In this paper we introduce two
-efficient concurrency control methods specifically designed for main-memory
-databases. Both use multiversioning to isolate read-only transactions from
-updates but differ in how atomicity is ensured: one is optimistic and one is
-pessimistic. To avoid expensive context switching, transactions never block
-during normal processing but they may have to wait before commit to ensure
-correct serializatio</p><p>3 0.74831271 <a title="1236-lsi-3" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
-<p>Introduction: This is a guest post bySachin Sinha, Founder ofIqlectand developer
-ofBangDB.The goal for the paper is to provide the performances data for
-following embedded databases under various scenarios for random operations
-such as write and read. The data is presented in graphical manner to make the
-data self explanatory to some extent.LevelDB:LevelDB is a fast key-value
-storage library written at Google that provides an ordered mapping from string
-keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and
-uses SSTable and MemTable for the database implementation. It's written in C++
-and availabe under BSD license. LevelDB treats key and value as arbitrary byte
-arrays and stores keys in ordered fashion. It uses snappy compression for the
-data compression. Write and Read are concurrent for the db, but write performs
-best with single thread whereas Read scales with number of
-coresBerkleyDB:BerkleyDB (BDB) is a library that provides high performance
-embedded database for key/va</p><p>4 0.72919762 <a title="1236-lsi-4" href="../high_scalability-2014/high_scalability-2014-04-10-Paper%3A_Scalable_Atomic_Visibility_with_RAMP_Transactions_-_Scale_Linearly_to_100_Servers.html">1629 high scalability-2014-04-10-Paper: Scalable Atomic Visibility with RAMP Transactions - Scale Linearly to 100 Servers</a></p>
-<p>Introduction: We are not yet at the End of History for database theory asPeter Bailisand
-theDatabase Groupat UC Berkeley continue to prove with a greatcompanion blog
-post to their new paper: Scalable Atomic Visibility with RAMP Transactions. I
-like the approach of pairing a blog post with a paper. A paper almost by
-definition is formal, but a blog post can help put a paper in context and give
-it some heart.From the abstract:Databases can provide scalability by
-partitioning data across several servers. However, multi-partition, multi-
-operation transactional access is often expensive, employing coordination-
-intensive locking, validation, or scheduling mechanisms. Accordingly, many
-real-world systems avoid mechanisms that provide useful semantics formulti-
-partition operations. This leads to incorrect behavior for a large class of
-applications including secondary indexing,foreign key enforcement, and
-materialized view maintenance. In this work, we identify a new isolation model
---Read Atomic (RA) iso</p><p>5 0.72435689 <a title="1236-lsi-5" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
-<p>Introduction: This is a guest post by Ron Pressler, the founder and CEO ofParallel Universe,
-a Y Combinator company building advanced middleware for real-time
-applications.A little over a month ago, we open-sourced a new in-memory data
-grid calledGalaxy. An in-memory data grid, or IMDG, is a clustered data
-storage and processing middleware that uses RAM as the authoritative and
-primary storage, and distributes data over a cluster for purposes of data and
-processing scalability and high-availability. A common feature of IMDGs is co-
-location of code and data, meaning that application code runs on all cluster
-nodes, each instance processing those data items residing in the local node's
-RAM.While quite a few commercial and open-source IMDGs are available (like
-Terracotta, Gigaspaces, Oracle Coherence, GemFire, Websphere eXtreme Scale,
-Infinispan and Hazelcast), Galaxy has adopted a completely different
-architecture from all other IMDGs, to service some usage scenarios ill-fitted
-to the other solutions.</p><p>6 0.71992987 <a title="1236-lsi-6" href="../high_scalability-2013/high_scalability-2013-10-31-Paper%3A_Everything_You_Always_Wanted_to_Know_About_Synchronization_but_Were_Afraid_to_Ask.html">1541 high scalability-2013-10-31-Paper: Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a></p>
+<p>Introduction: The  EuroSys 2012  system conference has an excellent live blog summary of their talks for:  Day 1 ,  Day 2 ,  Day 3  (thanks  Henry at the Paper Trail blog ). Summaries for each of the accepted papers are  here .
+ 
+One of the more interesting papers from a NoSQL perspective was  Cache Craftiness for Fast Multicore Key-Value Storage , a wonderfully detailed description of the low level techniques used to implement Masstree:
+  
+
+A storage system specialized for key-value data in which all data ﬁts in memory, but must persist across server restarts. It supports arbitrary, variable-length keys. It allows range queries over those keys: clients can traverse subsets of the database, or the whole database, in sorted order by key. On a 16-core machine Masstree achieves six to ten million operations per second on parts A–C of the Yahoo! Cloud Serving Benchmark benchmark, more than 30 as fast as VoltDB [5] or MongoDB [2].
+
+  
+If you are looking for innovative detailed high performance design, t</p><p>2 0.7659843 <a title="1236-lsi-2" href="../high_scalability-2012/high_scalability-2012-08-06-Paper%3A_High-Performance_Concurrency_Control_Mechanisms_for_Main-Memory_Databases.html">1299 high scalability-2012-08-06-Paper: High-Performance Concurrency Control Mechanisms for Main-Memory Databases</a></p>
+<p>Introduction: If you stayed up all night watching the life reaffirming  Curiosity landing on Mars , then this paper,  High-Performance Concurrency Control Mechanisms for Main-Memory Databases , has nothing to do with that at all, but it is an excellent look at how to use optimistic MVCC schemes to reduce lock overhead on in-memory datastructures:
+  A database system optimized for in-memory storage can support  much higher transaction rates than current systems.  However,  standard concurrency control methods used today do not scale to  the high transaction rates achievable by such systems. In this paper we introduce two efficient concurrency control methods specifically designed for main-memory databases. Both use multiversioning to isolate read-only transactions from updates but differ in  how atomicity is ensured: one is optimistic and one is pessimistic. To avoid expensive context switching, transactions  never block  during normal processing but they may have to wait before commit to ensure corr</p><p>3 0.74831271 <a title="1236-lsi-3" href="../high_scalability-2012/high_scalability-2012-11-29-Performance_data_for_LevelDB%2C_Berkley_DB_and_BangDB_for_Random_Operations.html">1364 high scalability-2012-11-29-Performance data for LevelDB, Berkley DB and BangDB for Random Operations</a></p>
+<p>Introduction: This is a guest post by  Sachin Sinha , Founder of  Iqlect  and developer of  BangDB . 
+ 
+The goal for the paper is to provide the performances data for following embedded databases under various scenarios for random operations such as write and read. The data is presented in graphical manner to make the data self explanatory to some extent.
+  
+  LevelDB :
+
+LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values. Leveldb is based on LSM (Log-Structured Merge-Tree) and uses SSTable and MemTable for the database implementation. It's written in C++ and availabe under BSD license. LevelDB treats key and value as arbitrary byte arrays and stores keys in ordered fashion. It uses snappy compression for the data compression. Write and Read are concurrent for the db, but write performs best with single thread whereas Read scales with number of cores
+
+ 
+   
+  BerkleyDB :
+
+BerkleyDB (BDB) is a library that provides high perf</p><p>4 0.72919762 <a title="1236-lsi-4" href="../high_scalability-2014/high_scalability-2014-04-10-Paper%3A_Scalable_Atomic_Visibility_with_RAMP_Transactions_-_Scale_Linearly_to_100_Servers.html">1629 high scalability-2014-04-10-Paper: Scalable Atomic Visibility with RAMP Transactions - Scale Linearly to 100 Servers</a></p>
+<p>Introduction: We are not yet at the End of History for database theory as  Peter Bailis  and the  Database Group  at UC Berkeley continue to prove with a great  companion blog post  to their new paper:  Scalable Atomic Visibility with RAMP Transactions . I like the approach of pairing a blog post with a paper. A paper almost by definition is formal, but a blog post can help put a paper in context and give it some heart.
+ 
+From the abstract:
+  
+
+Databases can provide scalability by partitioning data across several servers. However, multi-partition, multi-operation transactional access is often expensive, employing coordination-intensive locking, validation, or scheduling mechanisms. Accordingly, many real-world systems avoid mechanisms that provide useful semantics for  multi-partition operations . This leads to incorrect behavior for a large class of applications including secondary indexing,  foreign key enforcement, and materialized view maintenance . In this work, we identify a new isolation mode</p><p>5 0.72435689 <a title="1236-lsi-5" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
+<p>Introduction: This is a guest post by Ron Pressler, the founder and CEO of  Parallel Universe , a Y Combinator company building advanced middleware for real-time applications. 
+ 
+A little over a month ago, we open-sourced a new in-memory data grid called  Galaxy . An in-memory data grid, or IMDG, is a clustered data storage and processing middleware that uses RAM as the authoritative and primary storage, and distributes data over a cluster for purposes of data and processing scalability and high-availability. A common feature of IMDGs is co-location of code and data, meaning that application code runs on all cluster nodes, each instance processing those data items residing in the local node's RAM.
+ 
+While quite a few commercial and open-source IMDGs are available (like Terracotta, Gigaspaces, Oracle Coherence, GemFire, Websphere eXtreme Scale, Infinispan and Hazelcast), Galaxy has adopted a completely different architecture from all other IMDGs, to service some usage scenarios ill-fitted to the othe</p><p>6 0.71992987 <a title="1236-lsi-6" href="../high_scalability-2013/high_scalability-2013-10-31-Paper%3A_Everything_You_Always_Wanted_to_Know_About_Synchronization_but_Were_Afraid_to_Ask.html">1541 high scalability-2013-10-31-Paper: Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a></p>
 <p>7 0.71129388 <a title="1236-lsi-7" href="../high_scalability-2012/high_scalability-2012-10-12-Stuff_The_Internet_Says_On_Scalability_For_October_12%2C_2012.html">1339 high scalability-2012-10-12-Stuff The Internet Says On Scalability For October 12, 2012</a></p>
 <p>8 0.70687926 <a title="1236-lsi-8" href="../high_scalability-2010/high_scalability-2010-10-04-Paper%3A_An_Analysis_of_Linux_Scalability_to_Many_Cores__.html">914 high scalability-2010-10-04-Paper: An Analysis of Linux Scalability to Many Cores  </a></p>
 <p>9 0.70426416 <a title="1236-lsi-9" href="../high_scalability-2012/high_scalability-2012-08-10-Stuff_The_Internet_Says_On_Scalability_For_August_10%2C_2012.html">1302 high scalability-2012-08-10-Stuff The Internet Says On Scalability For August 10, 2012</a></p>
@@ -233,73 +157,24 @@ to the other solutions.</p><p>6 0.71992987 <a title="1236-lsi-6" href="../high_s
 <p>[(1, 0.178), (2, 0.158), (5, 0.012), (10, 0.065), (11, 0.202), (17, 0.012), (30, 0.014), (43, 0.027), (47, 0.013), (61, 0.075), (63, 0.014), (79, 0.077), (85, 0.02), (92, 0.012), (94, 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.9327566 <a title="1236-lda-1" href="../high_scalability-2009/high_scalability-2009-08-01-15_Scalability_and_Performance_Best_Practices.html">668 high scalability-2009-08-01-15 Scalability and Performance Best Practices</a></p>
-<p>Introduction: These are fromLaura Thomson of OmniTi:Profile early, profile often.Pick a
-profiling tool and learn it in and out. Dev-ops cooperation is essential.The
-most critical difference in organizations that handles crises well.Test on
-production data.Code behavior (especially performance) is often data
-driven.Track and trend.Understanding your historical performance
-characteristics is essential for spotting emerging problems.Assumptions will
-burn you.Systems are complex and often break in unexpected
-ways.Decouple.Isolate performance failures.Cache.Caching is the core of most
-optimizations.Federate.Data federation is taking a single data set and
-spreading it across multiple database/application
-servers.Replicate.Replication is making synchronized copies of data available
-in more than one place.Avoid straining hard-to-scale resources.Some resources
-are inherently hard to scale: Uncacheable' data, Data with a very high
-read+write rate, Non-federatable data, Data in a black-boxUse a compiler
-cache.</p><p>2 0.888412 <a title="1236-lda-2" href="../high_scalability-2007/high_scalability-2007-07-25-Paper%3A_Designing_Disaster_Tolerant_High_Availability_Clusters.html">25 high scalability-2007-07-25-Paper: Designing Disaster Tolerant High Availability Clusters</a></p>
-<p>Introduction: A very detailed (339 pages) paper on how to use HP products to create a highly
-available cluster. It's somewhat dated and obviously concentrates on HP
-products, but it is still good information.Table of contents:1. Disaster
-Tolerance and Recovery in a Serviceguard Cluster2. Building an Extended
-Distance Cluster Using ServiceGuard3. Designing a Metropolitan Cluster4.
-Designing a Continental Cluster5. Building Disaster-Tolerant Serviceguard
-Solutions Using Metrocluster with Continuous Access XP6. Building Disaster
-Tolerant Serviceguard Solutions Using Metrocluster with EMC SRDF7. Cascading
-Failover in a Continental Clusterbreak-Evaluating the Need for Disaster
-ToleranceWhat is a Disaster Tolerant Architecture?Types of Disaster Tolerant
-ClustersExtended Distance ClustersMetropolitan ClusterContinental
-ClusterContinental Cluster With Cascading FailoverDisaster Tolerant
-Architecture GuidelinesProtecting Nodes through Geographic
-DispersionProtecting Data through ReplicationUsing Alternative</p><p>3 0.88667923 <a title="1236-lda-3" href="../high_scalability-2008/high_scalability-2008-12-01-Sun_FireTM_X4540_Server_as_Backup_Server_for_Zmanda%27s_Amanda_Enterprise_2.6_Software_.html">457 high scalability-2008-12-01-Sun FireTM X4540 Server as Backup Server for Zmanda's Amanda Enterprise 2.6 Software </a></p>
-<p>Introduction: Sun FireTM X4540 Server as Backup Server for Zmanda's Amanda Enterprise 2.6
-Softwareby Thomas Hanvey (Sun Microsystems) and Dmitri Joukovski and Ken
-Crandall (Zmanda)September, 2008Explosive data growth, combined with demanding
-requirements for data availability, has placed a tremendous burden on IT
-operations staff at businesses of all sizes. Yet, many organizations do not
-have the staff or budget to purchase and manage complex and expensive backup
-and recovery software products.The Sun FireTM X4540 server can deliver massive
-storage capacity and remarkable throughput so it is well-suited as a nearline
-storage platform for backup and restore applications. Combining the power of
-the SolarisTM 10 Operating System with the data integrity and simplified
-administration of ZFS, the Sun Fire X4540 server can be an ideal candidate for
-streamlining and improving backup and restore operations.Amanda Enterprise
-Edition from Zmanda was designed to address these challenges, providing a
-backup and</p><p>4 0.87945813 <a title="1236-lda-4" href="../high_scalability-2012/high_scalability-2012-05-03-Snooze_-_Open-source%2C_Scalable%2C_Autonomic%2C_and_Energy-efficient_VM_Management_for_Private_Clouds.html">1238 high scalability-2012-05-03-Snooze - Open-source, Scalable, Autonomic, and Energy-efficient VM Management for Private Clouds</a></p>
-<p>Introduction: Snoozeis an open-source, scalable, autonomic, and energy-efficient virtual
-machine (VM) management framework for private clouds. Similarly to other VM
-management frameworks such as Nimbus, OpenNebula, Eucalyptus, and OpenStack it
-allows to build compute infrastructures from virtualized resources.
-Particularly, once installed and configured users can submit and control the
-life-cycle of a large number of VMs. However, contrary to existing frameworks
-for scalability and fault tolerance, Snooze employs a self-organizing and
-healing (based on Apache ZooKeeper) hierarchical architecture. Moreover, it
-performs distributed VM management and is designed to be energy efficient.
-Therefore, it implements features to monitor and estimate VM resource (CPU,
-memory, network Rx, network Tx) demands, detect and resolve overload/underload
-situations, perform dynamic VM consolidation through live migration, and
-finally power management to save energy. Last but not least, it integrates a
-generic scheduler</p><p>5 0.86851078 <a title="1236-lda-5" href="../high_scalability-2007/high_scalability-2007-10-26-Paper%3A_Wikipedia%27s_Site_Internals%2C_Configuration%2C_Code_Examples_and_Management_Issues.html">134 high scalability-2007-10-26-Paper: Wikipedia's Site Internals, Configuration, Code Examples and Management Issues</a></p>
-<p>Introduction: Wikipedia andWikimediahave some of the best, most complete real-world
-documentation on how to build highly scalable systems. This paper by Domas
-Mituzas covers a lot of details about how Wikipedia works, including: an
-overview of the different packages used (Linux, PowerDNS, LVS, Squid,
-lighttpd, Apache, PHP5, Lucene, Mono, Memcached), how they use their CDN, how
-caching works, how they profile their code, how they store their media, how
-they structure their database access, how they handle search, how they handle
-load balancing and administration. All with real code examples and examples of
-configuration files. This is a really useful resource.Related
-ArticlesWikimedia ArchitectureDomas Mituzas' Blog</p><p>same-blog 6 0.86667097 <a title="1236-lda-6" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
+<p>Introduction: These are from  Laura Thomson of OmniTi :  
+  Profile early, profile often.  Pick a profiling tool and learn it in and out.  
+  Dev-ops cooperation is essential.  The most critical difference in organizations that handles crises well. 
+  Test on production data.  Code behavior (especially performance) is often data driven. 
+  Track and trend.  Understanding your historical performance characteristics is essential for spotting emerging problems. 
+  Assumptions will burn you.  Systems are complex and often break in unexpected ways. 
+  Decouple.  Isolate performance failures. 
+  Cache.  Caching is the core of most optimizations. 
+  Federate.  Data federation is taking a single data set and spreading it across multiple database/application servers. 
+  Replicate.  Replication is making synchronized copies of data available in more than one place. 
+  Avoid straining hard-to-scale resources.  Some resources are inherently hard to scale: Uncacheable’ data, Data with a very high read+write rate</p><p>2 0.888412 <a title="1236-lda-2" href="../high_scalability-2007/high_scalability-2007-07-25-Paper%3A_Designing_Disaster_Tolerant_High_Availability_Clusters.html">25 high scalability-2007-07-25-Paper: Designing Disaster Tolerant High Availability Clusters</a></p>
+<p>Introduction: A very detailed (339 pages) paper on how to use HP products to create a highly available cluster. It's somewhat dated and obviously concentrates on HP products, but it is still good information.  Table of contents:  1. Disaster Tolerance and Recovery in a Serviceguard Cluster 2. Building an Extended Distance Cluster Using ServiceGuard 3. Designing a Metropolitan Cluster 4. Designing a Continental Cluster 5. Building Disaster-Tolerant Serviceguard Solutions Using Metrocluster with Continuous Access XP 6. Building Disaster Tolerant Serviceguard Solutions Using Metrocluster with EMC SRDF 7. Cascading Failover in a Continental Cluster 
+   
+    Evaluating the Need for Disaster Tolerance  What is a Disaster Tolerant Architecture?  Types of Disaster Tolerant Clusters   Extended Distance Clusters  Metropolitan Cluster  Continental Cluster  Continental Cluster With Cascading Failover   Disaster Tolerant Architecture Guidelines   Protecting Nodes through Geographic Dispersion  Protecting Data th</p><p>3 0.88667923 <a title="1236-lda-3" href="../high_scalability-2008/high_scalability-2008-12-01-Sun_FireTM_X4540_Server_as_Backup_Server_for_Zmanda%27s_Amanda_Enterprise_2.6_Software_.html">457 high scalability-2008-12-01-Sun FireTM X4540 Server as Backup Server for Zmanda's Amanda Enterprise 2.6 Software </a></p>
+<p>Introduction: Sun FireTM X4540 Server as Backup Server for Zmanda's Amanda Enterprise 2.6 Software     by Thomas Hanvey (Sun Microsystems) and Dmitri Joukovski and Ken Crandall (Zmanda)   September, 2008     Explosive data growth, combined with demanding requirements for data availability, has placed a tremendous burden on IT operations staff at businesses of all sizes. Yet, many organizations do not have the staff or budget to purchase and manage complex and expensive backup and recovery software products.     The Sun FireTM X4540 server can deliver massive storage capacity and remarkable throughput so it is well-suited as a nearline storage platform for backup and restore applications. Combining the power of the SolarisTM 10 Operating System with the data integrity and simplified administration of ZFS, the Sun Fire X4540 server can be an ideal candidate for streamlining and improving backup and restore operations.     Amanda Enterprise Edition from Zmanda was designed to address these challenges,</p><p>4 0.87945813 <a title="1236-lda-4" href="../high_scalability-2012/high_scalability-2012-05-03-Snooze_-_Open-source%2C_Scalable%2C_Autonomic%2C_and_Energy-efficient_VM_Management_for_Private_Clouds.html">1238 high scalability-2012-05-03-Snooze - Open-source, Scalable, Autonomic, and Energy-efficient VM Management for Private Clouds</a></p>
+<p>Introduction: Snooze   is an open-source, scalable, autonomic, and energy-efficient  virtual machine (VM) management framework for private clouds. Similarly  to other VM management frameworks such as Nimbus, OpenNebula,  Eucalyptus, and OpenStack it allows to build compute infrastructures  from virtualized resources. Particularly, once installed and configured  users can submit and control the life-cycle of a large number of VMs.  However, contrary to existing frameworks for scalability and fault  tolerance, Snooze employs a self-organizing and healing (based on Apache ZooKeeper) hierarchical  architecture. Moreover, it performs distributed VM management and is  designed to be energy efficient. Therefore, it implements features to  monitor and estimate VM resource (CPU, memory, network Rx, network Tx)  demands, detect and resolve overload/underload situations, perform  dynamic VM consolidation through live migration, and finally power  management to save energy. Last but not least, it integrates a g</p><p>5 0.86851078 <a title="1236-lda-5" href="../high_scalability-2007/high_scalability-2007-10-26-Paper%3A_Wikipedia%27s_Site_Internals%2C_Configuration%2C_Code_Examples_and_Management_Issues.html">134 high scalability-2007-10-26-Paper: Wikipedia's Site Internals, Configuration, Code Examples and Management Issues</a></p>
+<p>Introduction: Wikipedia and  Wikimedia  have some of the best, most complete real-world documentation on how to build highly scalable systems. This paper by Domas Mituzas covers a lot of details about how Wikipedia works, including: an overview of the different packages used (Linux, PowerDNS, LVS, Squid, lighttpd, Apache, PHP5, Lucene, Mono, Memcached), how they use their CDN,   how caching works, how they profile their code, how they store their media, how they structure their database access, how they handle search, how they handle load balancing and administration. All with real code examples and examples of configuration files. This is a really useful resource.
+  Related Articles     Wikimedia Architecture      Domas Mituzas' Blog</p><p>same-blog 6 0.86667097 <a title="1236-lda-6" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
 <p>7 0.85380363 <a title="1236-lda-7" href="../high_scalability-2010/high_scalability-2010-02-04-Hot_Scalability_Links_for_February_4%2C_2010.html">771 high scalability-2010-02-04-Hot Scalability Links for February 4, 2010</a></p>
 <p>8 0.83436322 <a title="1236-lda-8" href="../high_scalability-2011/high_scalability-2011-06-08-Stuff_to_Watch_from_Google_IO_2011.html">1055 high scalability-2011-06-08-Stuff to Watch from Google IO 2011</a></p>
 <p>9 0.83123988 <a title="1236-lda-9" href="../high_scalability-2008/high_scalability-2008-11-13-Plenty_of_Fish_Says_Scaling_for_Free_Doesn%27t_Pay.html">442 high scalability-2008-11-13-Plenty of Fish Says Scaling for Free Doesn't Pay</a></p>

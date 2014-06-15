@@ -16,109 +16,78 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1065-html" href="http://highscalability.com//blog/2011/6/21/running-tpc-c-on-mysqlrds.html">html</a></p><p>Introduction: I recently came across a TPC-C benchmark results held on MySQL based RDS
-databases. You can see ithere. I think the results may bring light to many
-questions concerning MySQL scalability in general and RDS scalability in
-particular. (For disclosure, I'm working forScaleBasewhere we run an internal
-scale out TPC-C benchmark these days, and will publish results soon).TPC-
-CTPC-C is a standard database benchmark, used to measure databases. The
-database vendors invest big bucks in running this test, and showing off which
-database is faster, and can scale better.It is a write intensive test, so it
-doesn't necessarily reflect the behavior of the database in your application.
-But it does give some very important insights on what you can expect from your
-database under heavy load.The Benchmark ProcessFirst of all, I have some
-comments for the benchmark method itself.Generally - the benchmarks were held
-in an orderly fashion and in a rather methodological way - which increases the
-credibility o</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I recently came across a TPC-C benchmark results held on MySQL based RDS databases. [sent-1, score-0.641]
-</p><p>2 (For disclosure, I'm working forScaleBasewhere we run an internal scale out TPC-C benchmark these days, and will publish results soon). [sent-4, score-0.559]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1065-html" href="http://highscalability.com//blog/2011/6/21/running-tpc-c-on-mysqlrds.html">html</a></p><p>Introduction: I recently came across a TPC-C benchmark results held on MySQL based RDS databases. You can see it  here . I think the results may bring light to many questions concerning MySQL scalability in general and RDS scalability in particular. (For disclosure, I'm working for  ScaleBase  where we run an internal scale out TPC-C benchmark these days, and will publish results soon).
+  TPC-C  
+TPC-C is a standard database benchmark, used to measure databases. The database vendors invest big bucks in running this test, and showing off which database is faster, and can scale better.
+ 
+It is a write intensive test, so it doesn’t necessarily reflect the behavior of the database in your application. But it does give some very important insights on what you can expect from your database under heavy load.
+  The Benchmark Process  
+First of all, I have some comments for the benchmark method itself.
+  
+ Generally - the benchmarks were held in an orderly fashion and in a rather methodological way – which i</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I recently came across a TPC-C benchmark results held on MySQL based RDS databases. [sent-1, score-0.641]
+</p><p>2 (For disclosure, I'm working for  ScaleBase  where we run an internal scale out TPC-C benchmark these days, and will publish results soon). [sent-4, score-0.559]
 </p><p>3 The database vendors invest big bucks in running this test, and showing off which database is faster, and can scale better. [sent-6, score-0.521]
-</p><p>4 The Benchmark ProcessFirst of all, I have some comments for the benchmark method itself. [sent-9, score-0.41]
+</p><p>4 The Benchmark Process   First of all, I have some comments for the benchmark method itself. [sent-9, score-0.41]
 </p><p>5 The benchmark generator client was tpcc-mysql which is an open-source implementation provided by Percona. [sent-11, score-0.473]
-</p><p>6 The TPC-C benchmark contains 6 types of transactions ("new order", "delivery", "stock query", etc. [sent-14, score-0.495]
-</p><p>7 That's usually a small database, and I would be interested in seeing how the benchmark ranks with 1000 warehouses (around 100 GB) or even more. [sent-21, score-0.583]
-</p><p>8 With hardly any dependency on the database size, MySQL reaches its optimal throughput at around 64 concurrent users. [sent-25, score-0.76]
-</p><p>9 The sweet spot is around the XL machine, which reaches a throughput of around 7000 tpm. [sent-29, score-0.44]
-</p><p>10 Well we saw that optimal throughput is achieved with around 64 concurrent sessions on the database. [sent-40, score-0.508]
-</p><p>11 While with 1 user the throughput 1,000 transactions per user, with 256 users it drops to 1 transaction per user! [sent-42, score-0.501]
-</p><p>12 For each query, the database needs to parse, optimize, find an execution plan, execute it, and manage transaction logs, transaction isolation and row level locks. [sent-47, score-0.745]
-</p><p>13 A simple update command needs an execution plan to get the qualifying rows to update and then, reading those rows, lock each and every row. [sent-49, score-0.563]
-</p><p>14 Meaning that the user's result must be the snapshot of the query as it was when the query started. [sent-57, score-0.416]
-</p><p>15 Rather, the database should go and find the "old snapshot" of the row, meaning the way the row looked at the beginning of the query. [sent-59, score-0.464]
-</p><p>16 And if we get back to the previous example - here's another task the database has to do - update the rollback segment. [sent-62, score-0.41]
-</p><p>17 We must remember, every command issued to the database, actually generates dozens of recursive commands inside the database engine. [sent-63, score-0.402]
+</p><p>6 The TPC-C benchmark contains 6 types of transactions (“new order”, “delivery”, “stock query”, etc. [sent-14, score-0.495]
+</p><p>7 The benchmark focused on throughput, not latency. [sent-16, score-0.41]
+</p><p>8 That’s usually a small database, and I would be interested in seeing how the benchmark ranks with 1000 warehouses (around 100 GB) or even more. [sent-21, score-0.583]
+</p><p>9 Results Analysis   The benchmark results are surprising. [sent-24, score-0.559]
+</p><p>10 With hardly any dependency on the database size, MySQL reaches its optimal throughput at around 64 concurrent users. [sent-25, score-0.76]
+</p><p>11 The sweet spot is around the XL machine, which reaches a throughput of around 7000 tpm. [sent-29, score-0.44]
+</p><p>12 Well we saw that optimal throughput is achieved with around 64 concurrent sessions on the database. [sent-40, score-0.508]
+</p><p>13 While with 1 user the throughput 1,000 transactions per user, with 256 users it drops to 1 transaction per user! [sent-42, score-0.501]
+</p><p>14 For each query, the database needs to parse, optimize, find an execution plan, execute it, and manage transaction logs, transaction isolation and row level locks. [sent-47, score-0.745]
+</p><p>15 A simple update command needs an execution plan to get the qualifying rows to update and then, reading those rows, lock each and every row. [sent-49, score-0.563]
+</p><p>16 Meaning that the user’s result must be the snapshot of the query as it was when the query started. [sent-57, score-0.416]
+</p><p>17 Rather, the database should go and find the “old snapshot” of the row, meaning the way the row looked at the beginning of the query. [sent-59, score-0.464]
 </p><p>18 When sessions or users concurrency goes up, load inside the database engine increases exponentially. [sent-64, score-0.41]
-</p><p>19 There are allot of possible solutions to this problem - adding a caching layer is a must, to decrease the number of database hits, and any other action that can reduce the number of hits on the database (like NoSQL solutions) is welcomed. [sent-69, score-0.721]
-</p><p>20 Instead of 128 concurrent users or even 256 concurrent users (that according to the TPC-C benchmark bring worst results), we'll have 10 databases with 26 users on each, and each database can reach 64 users (up to 640 concurrent users). [sent-72, score-1.682]
+</p><p>19 There are allot of possible solutions to this problem – adding a caching layer is a must, to decrease the number of database hits, and any other action that can reduce the number of hits on the database (like NoSQL solutions) is welcomed. [sent-69, score-0.721]
+</p><p>20 Instead of 128 concurrent users or even 256 concurrent users (that according to the TPC-C benchmark bring worst results), we’ll have 10 databases with 26 users on each, and each database can reach 64 users (up to 640 concurrent users). [sent-72, score-1.682]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('benchmark', 0.41), ('database', 0.227), ('throughput', 0.186), ('rows', 0.174), ('warehouses', 0.173), ('concurrent', 0.173), ('quadruple', 0.167), ('weights', 0.164), ('results', 0.149), ('row', 0.148), ('query', 0.128), ('rds', 0.121), ('transaction', 0.116), ('users', 0.114), ('doubles', 0.109), ('command', 0.105), ('rollback', 0.104), ('reaches', 0.094), ('snapshot', 0.09), ('meaning', 0.089), ('unlikely', 0.089), ('transactions', 0.085), ('rather', 0.083), ('held', 0.082), ('around', 0.08), ('update', 0.079), ('isolation', 0.076), ('disclosure', 0.074), ('orderly', 0.074), ('crowded', 0.074), ('credibility', 0.074), ('methodological', 0.074), ('xl', 0.074), ('although', 0.073), ('mix', 0.07), ('must', 0.07), ('ranged', 0.07), ('databases', 0.07), ('sessions', 0.069), ('updated', 0.069), ('number', 0.068), ('bucks', 0.067), ('thedatabase', 0.067), ('mbs', 0.067), ('hits', 0.066), ('bottleneck', 0.065), ('solutions', 0.065), ('qualifying', 0.064), ('provided', 0.063), ('execution', 0.062)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="1065-tfidf-1" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
-<p>Introduction: I recently came across a TPC-C benchmark results held on MySQL based RDS
-databases. You can see ithere. I think the results may bring light to many
-questions concerning MySQL scalability in general and RDS scalability in
-particular. (For disclosure, I'm working forScaleBasewhere we run an internal
-scale out TPC-C benchmark these days, and will publish results soon).TPC-
-CTPC-C is a standard database benchmark, used to measure databases. The
-database vendors invest big bucks in running this test, and showing off which
-database is faster, and can scale better.It is a write intensive test, so it
-doesn't necessarily reflect the behavior of the database in your application.
-But it does give some very important insights on what you can expect from your
-database under heavy load.The Benchmark ProcessFirst of all, I have some
-comments for the benchmark method itself.Generally - the benchmarks were held
-in an orderly fashion and in a rather methodological way - which increases the
-credibility o</p><p>2 0.24372731 <a title="1065-tfidf-2" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
-<p>Introduction: Some of us are not aware of the tremendous job databases perform, particularly
-their efforts to maintain the Isolation aspect of ACID. For example, some
-people believe that transactions are only related to data manipulation and not
-to queries, which is an incorrect assumption. Transaction Isolation is all
-about queries, and the consistency and completeness of the data retrieved by
-queries. This is how it works:Isolation gives the querying user the feeling
-that he owns the database. It does not matter that hundreds or thousands of
-concurrent users work with the same database and the same schema (or even the
-same data). These other uses can generate new data, modify existing data or
-perform any other action. The querying user must be able to get a complete,
-consistent picture of the data, unaffected by other users' actions.Let's take
-the following scenario, which is based on an Orders table that has 1,000,000
-rows, with a disk size of 20 GB:8:00: UserA started a query "SELECT * FROM
-orde</p><p>3 0.17672785 <a title="1065-tfidf-3" href="../high_scalability-2008/high_scalability-2008-12-14-Scaling_MySQL_on_a_256-way_T5440_server_using_Solaris_ZFS_and_Java_1.7.html">465 high scalability-2008-12-14-Scaling MySQL on a 256-way T5440 server using Solaris ZFS and Java 1.7</a></p>
-<p>Introduction: How to scale MySQL on a 32 core system with 256 threads? Diagonal scalability
-in a box.An impressive benchmark that achieved more than 79,000 SQL queries
-per second on a single 4 RU server! Is this real? If so what is the role of
-good old horizontal scalability?The goals of the benchmark:Reach a high
-throughput of SQL queries on a 256-way Sun SPARC Enterprise T5440Do it 21st
-century style i.e. with MySQL and ZFS , not 20th century style i.e with
-OraSybInf... and VxFSDo it with minimal tuning i.e as close as possible as
-out-of-the-box</p><p>4 0.16290081 <a title="1065-tfidf-4" href="../high_scalability-2009/high_scalability-2009-06-10-Dealing_with_multi-partition_transactions_in_a_distributed_KV_solution.html">623 high scalability-2009-06-10-Dealing with multi-partition transactions in a distributed KV solution</a></p>
-<p>Introduction: I've been getting asked about this a lot lately so I figured I'd just blog
-about it. Products like WebSphere eXtreme Scale work by taking a dataset,
-partitioning it using a key and then assigning those partitions to a number of
-JVMs. Each partition usually has a primary and a replica. These 'shards' are
-assigned to JVMs. A transactional application typically interacts with the
-data on a single partition at a time. This means the transaction is executed
-in a single JVM. A server box will be able to do M of those transactions per
-second and it scales because N boxes does MN (M multiplied by N) transactions
-per second. Increase N, you get more transactions per second. Availability is
-very good because a transaction only depends on 1 of the N servers that are
-currently online. Any of the other (N-1) servers can go down or fail with no
-impact on the transaction. So, single partition transactions can scale
-indefinitely from a throughput point of view, offer very consistent response
-times and</p><p>5 0.15186086 <a title="1065-tfidf-5" href="../high_scalability-2013/high_scalability-2013-10-08-F1_and_Spanner_Holistically_Compared.html">1529 high scalability-2013-10-08-F1 and Spanner Holistically Compared</a></p>
-<p>Introduction: This aricle,F1: A Distributed SQL Database That Scales bySrihari Srinivasan,
-is republished with permission from a blog you really should follow:Systems We
-Make- Curating Complex Distributed Systems.With both the F1 andSpannerpapers
-out its now possible to understand their interplay a bit holistically. So lets
-start by revisiting the key goals of both systems.Key Goals of F1′s
-designSystem must be able to scale up by adding resourcesAbility to re-shard
-and rebalance data without application changesACID consistency for
-transactionsFull SQL support, support for indexesSpanner's objectivesMain
-focus is on managing cross data center replicated dataAbility to re-shard and
-rebalance dataAutomatically migrates data across machinesF1 - An overviewF1 is
-built on top of Spanner. Spanner offers support for for features such as -
-strong consistency through distributed transactions (2PC), global ordering
-based on timestamps, synchronous replication via Paxos, fault tolerance,
-automatic rebalancing</p><p>6 0.14484012 <a title="1065-tfidf-6" href="../high_scalability-2009/high_scalability-2009-03-12-Paper%3A_Understanding_and_Designing_New_Server_Architectures_for_Emerging_Warehouse-Computing_Environments.html">535 high scalability-2009-03-12-Paper: Understanding and Designing New Server Architectures for Emerging Warehouse-Computing Environments</a></p>
+<p>Introduction: I recently came across a TPC-C benchmark results held on MySQL based RDS databases. You can see it  here . I think the results may bring light to many questions concerning MySQL scalability in general and RDS scalability in particular. (For disclosure, I'm working for  ScaleBase  where we run an internal scale out TPC-C benchmark these days, and will publish results soon).
+  TPC-C  
+TPC-C is a standard database benchmark, used to measure databases. The database vendors invest big bucks in running this test, and showing off which database is faster, and can scale better.
+ 
+It is a write intensive test, so it doesn’t necessarily reflect the behavior of the database in your application. But it does give some very important insights on what you can expect from your database under heavy load.
+  The Benchmark Process  
+First of all, I have some comments for the benchmark method itself.
+  
+ Generally - the benchmarks were held in an orderly fashion and in a rather methodological way – which i</p><p>2 0.24372731 <a title="1065-tfidf-2" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
+<p>Introduction: Some of us are not aware of the tremendous job databases perform, particularly their efforts to maintain the Isolation aspect of ACID. For example, some people believe that transactions are only related to data manipulation and not to queries, which is an incorrect assumption. Transaction Isolation is all about queries, and the consistency and completeness of the data retrieved by queries. This is how it works:
+ 
+Isolation gives the querying user the feeling that he owns the database. It does not matter that hundreds or thousands of concurrent users work with the same database and the same schema (or even the same data). These other uses can generate new data, modify existing data or perform any other action. The querying user must be able to get a complete, consistent picture of the data, unaffected by other users’ actions.
+ 
+Let’s take the following scenario, which is based on an Orders table that has 1,000,000 rows, with a disk size of 20 GB:
+  
+ 8:00: UserA started a query “SELECT</p><p>3 0.17672785 <a title="1065-tfidf-3" href="../high_scalability-2008/high_scalability-2008-12-14-Scaling_MySQL_on_a_256-way_T5440_server_using_Solaris_ZFS_and_Java_1.7.html">465 high scalability-2008-12-14-Scaling MySQL on a 256-way T5440 server using Solaris ZFS and Java 1.7</a></p>
+<p>Introduction: How to scale MySQL on a 32 core system with 256 threads? Diagonal scalability in a box.   An impressive benchmark that achieved more than 79,000 SQL queries per second on a single 4 RU server! Is this real? If so what is the role of good old horizontal scalability?     The goals of the benchmark:     Reach a high throughput of SQL queries on a 256-way Sun SPARC Enterprise T5440   Do it 21st century style i.e. with MySQL and ZFS , not 20th century style i.e with OraSybInf... and VxFS   Do it with minimal tuning i.e as close as possible as out-of-the-box</p><p>4 0.16290081 <a title="1065-tfidf-4" href="../high_scalability-2009/high_scalability-2009-06-10-Dealing_with_multi-partition_transactions_in_a_distributed_KV_solution.html">623 high scalability-2009-06-10-Dealing with multi-partition transactions in a distributed KV solution</a></p>
+<p>Introduction: I've been getting asked about this a lot lately so I figured I'd just blog about it. Products like WebSphere eXtreme Scale work by taking a dataset, partitioning it using a key and then assigning those partitions to a number of JVMs. Each partition usually has a primary and a replica. These 'shards' are assigned to JVMs. A transactional application typically interacts with the data on a single partition at a time. This means the transaction is executed in a single JVM. A server box will be able to do M of those transactions per second and it scales because N boxes does MN (M multiplied by N) transactions per second. Increase N, you get more transactions per second. Availability is very good because a transaction only depends on 1 of the N servers that are currently online. Any of the other (N-1) servers can go down or fail with no impact on the transaction. So, single partition transactions can scale indefinitely from a throughput point of view, offer very consistent response times and</p><p>5 0.15186086 <a title="1065-tfidf-5" href="../high_scalability-2013/high_scalability-2013-10-08-F1_and_Spanner_Holistically_Compared.html">1529 high scalability-2013-10-08-F1 and Spanner Holistically Compared</a></p>
+<p>Introduction: This aricle,  F1: A Distributed SQL Database That Scales  by  Srihari Srinivasan , is republished with permission from a blog you really should follow:  Systems We Make  - Curating Complex Distributed Systems. 
+ 
+With both the F1 and  Spanner  papers out its now possible to understand their interplay a bit holistically. So lets start by revisiting the key goals of both systems.
+   Key Goals of F1′s design    
+ 
+ System must be able to scale up by adding resources 
+ Ability to re-shard and rebalance data without application changes 
+ ACID consistency for transactions 
+ Full SQL support, support for indexes 
+ 
+       Spanner’s objectives    
+ 
+ Main focus is on managing cross data center replicated data 
+ Ability to re-shard and rebalance data 
+ Automatically migrates data across machines 
+ 
+  F1 – An overview  
+ 
+ 
+ F1 is built on top of Spanner. Spanner offers support for for features such as – strong consistency through distributed transactions (2PC), global ordering based on timestam</p><p>6 0.14484012 <a title="1065-tfidf-6" href="../high_scalability-2009/high_scalability-2009-03-12-Paper%3A_Understanding_and_Designing_New_Server_Architectures_for_Emerging_Warehouse-Computing_Environments.html">535 high scalability-2009-03-12-Paper: Understanding and Designing New Server Architectures for Emerging Warehouse-Computing Environments</a></p>
 <p>7 0.1433481 <a title="1065-tfidf-7" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
 <p>8 0.13864812 <a title="1065-tfidf-8" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
 <p>9 0.13653816 <a title="1065-tfidf-9" href="../high_scalability-2010/high_scalability-2010-12-21-SQL_%2B_NoSQL_%3D_Yes_%21.html">961 high scalability-2010-12-21-SQL + NoSQL = Yes !</a></p>
@@ -138,76 +107,32 @@ automatic rebalancing</p><p>6 0.14484012 <a title="1065-tfidf-6" href="../high_s
 <p>[(0, 0.232), (1, 0.122), (2, -0.075), (3, -0.059), (4, 0.024), (5, 0.135), (6, -0.013), (7, -0.051), (8, -0.021), (9, -0.084), (10, 0.048), (11, -0.033), (12, 0.016), (13, 0.036), (14, 0.043), (15, -0.011), (16, -0.059), (17, 0.006), (18, 0.033), (19, -0.011), (20, 0.042), (21, -0.046), (22, 0.019), (23, 0.03), (24, 0.012), (25, -0.029), (26, -0.095), (27, -0.018), (28, 0.07), (29, -0.008), (30, 0.026), (31, 0.032), (32, -0.045), (33, 0.058), (34, -0.013), (35, 0.022), (36, 0.05), (37, -0.021), (38, -0.005), (39, -0.013), (40, -0.014), (41, -0.052), (42, -0.0), (43, -0.072), (44, -0.053), (45, 0.041), (46, 0.028), (47, 0.007), (48, 0.036), (49, 0.03)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96536952 <a title="1065-lsi-1" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
-<p>Introduction: I recently came across a TPC-C benchmark results held on MySQL based RDS
-databases. You can see ithere. I think the results may bring light to many
-questions concerning MySQL scalability in general and RDS scalability in
-particular. (For disclosure, I'm working forScaleBasewhere we run an internal
-scale out TPC-C benchmark these days, and will publish results soon).TPC-
-CTPC-C is a standard database benchmark, used to measure databases. The
-database vendors invest big bucks in running this test, and showing off which
-database is faster, and can scale better.It is a write intensive test, so it
-doesn't necessarily reflect the behavior of the database in your application.
-But it does give some very important insights on what you can expect from your
-database under heavy load.The Benchmark ProcessFirst of all, I have some
-comments for the benchmark method itself.Generally - the benchmarks were held
-in an orderly fashion and in a rather methodological way - which increases the
-credibility o</p><p>2 0.84854871 <a title="1065-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
-<p>Introduction: Some of us are not aware of the tremendous job databases perform, particularly
-their efforts to maintain the Isolation aspect of ACID. For example, some
-people believe that transactions are only related to data manipulation and not
-to queries, which is an incorrect assumption. Transaction Isolation is all
-about queries, and the consistency and completeness of the data retrieved by
-queries. This is how it works:Isolation gives the querying user the feeling
-that he owns the database. It does not matter that hundreds or thousands of
-concurrent users work with the same database and the same schema (or even the
-same data). These other uses can generate new data, modify existing data or
-perform any other action. The querying user must be able to get a complete,
-consistent picture of the data, unaffected by other users' actions.Let's take
-the following scenario, which is based on an Orders table that has 1,000,000
-rows, with a disk size of 20 GB:8:00: UserA started a query "SELECT * FROM
-orde</p><p>3 0.83769923 <a title="1065-lsi-3" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
-<p>Introduction: This is an interview withMemSQLcofounder'sEric FrenkielandNikita Shamgunov, in
-which they try to answer critics by going into more depth about their
-technology.MemSQL ruffled a few feathers with their claim of being the fastest
-database in the world. According to their benchmarks MemSQL can execute 200K
-TPS on an EC2QuadrupleExtra Largeand on a 64 core machine they can push 1.2
-million transactions a second.Benchmarks are always a dark mirror, so make of
-them what you will, but the target market for MemSQL is clear: projects
-looking for something both fast and familiar. Fast as in a novel design using
-a combination of technologies likeMVCC, code generation,lock-free data
-structures,skip lists, andin-memory execution. Familiar as in SQL and nothing
-but SQL. The only interface to MemSQL is SQL.It's right to point out MemSQL
-gets a boost by being a first release. Only a limited subset of SQL is
-supported, neither replication or sharding are implemented yet, and writes
-queue in memory befo</p><p>4 0.76238549 <a title="1065-lsi-4" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>
-<p>Introduction: What do you get when you take a SQL database and start a new implementation
-from scratch, taking advantage of the latest research and modern hardware?
-Mike Stonebraker, the sword wielding Johnny Appleseed of the database world,
-hopes you get something like his new database,VoltDB: a pure SQL, pure ACID,
-pure OLTP, shared nothing, sharded, scalable, lockless, open source, in-memory
-DBMS, purpose-built for running hundreds of thousands of transactions a
-second. VoltDBclaims to be100 times faster than MySQL, up to 13 times faster
-thanCassandra, and 45 times faster than Oracle, with near-linear scaling.Will
-VoltDB kill off the new NoSQL upstarts? Will VoltDB cause a mass extinction of
-ancient databases? Probably no and no to both questions, but it's a product
-with a definite point-of-view and is worth a look as the transaction component
-in your system. But will it be right for you? Let's see...I first heard the
-details about VoltDB at Gluecon, where Mr. Stonebraker presented his highly
-ent</p><p>5 0.75873619 <a title="1065-lsi-5" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
-<p>Introduction: This is a guest post (part 2,part 3) by Greg Lindahl, CTO of blekko, the spam
-free search engine that had over 3.5 million unique visitors in March. Greg
-Lindahl was Founder and Distinguished Engineer at PathScale, at which he was
-the architect of the InfiniPath low-latency InfiniBand HCA, used to build
-tightly-coupled supercomputing clusters.Imagine that you're crazy enough to
-think about building a search engine.  It's a huge task: the minimum index
-size needed to answer most queries is a few billion webpages. Crawling and
-indexing a few billion webpages requires a cluster with several petabytes of
-usable disk -- that's several thousand 1 terabyte disks -- and produces an
-index that's about 100 terabytes in size.Serving query results quickly
-involves having most of the index in RAM or on solid state (flash) disk. If
-you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000
-servers at a capital cost of $3 million, plus about $1 million per year of
-server co-locatio</p><p>6 0.75106663 <a title="1065-lsi-6" href="../high_scalability-2009/high_scalability-2009-06-10-Dealing_with_multi-partition_transactions_in_a_distributed_KV_solution.html">623 high scalability-2009-06-10-Dealing with multi-partition transactions in a distributed KV solution</a></p>
+<p>Introduction: I recently came across a TPC-C benchmark results held on MySQL based RDS databases. You can see it  here . I think the results may bring light to many questions concerning MySQL scalability in general and RDS scalability in particular. (For disclosure, I'm working for  ScaleBase  where we run an internal scale out TPC-C benchmark these days, and will publish results soon).
+  TPC-C  
+TPC-C is a standard database benchmark, used to measure databases. The database vendors invest big bucks in running this test, and showing off which database is faster, and can scale better.
+ 
+It is a write intensive test, so it doesn’t necessarily reflect the behavior of the database in your application. But it does give some very important insights on what you can expect from your database under heavy load.
+  The Benchmark Process  
+First of all, I have some comments for the benchmark method itself.
+  
+ Generally - the benchmarks were held in an orderly fashion and in a rather methodological way – which i</p><p>2 0.84854871 <a title="1065-lsi-2" href="../high_scalability-2011/high_scalability-2011-02-10-Database_Isolation_Levels_And_Their_Effects_on_Performance_and_Scalability.html">986 high scalability-2011-02-10-Database Isolation Levels And Their Effects on Performance and Scalability</a></p>
+<p>Introduction: Some of us are not aware of the tremendous job databases perform, particularly their efforts to maintain the Isolation aspect of ACID. For example, some people believe that transactions are only related to data manipulation and not to queries, which is an incorrect assumption. Transaction Isolation is all about queries, and the consistency and completeness of the data retrieved by queries. This is how it works:
+ 
+Isolation gives the querying user the feeling that he owns the database. It does not matter that hundreds or thousands of concurrent users work with the same database and the same schema (or even the same data). These other uses can generate new data, modify existing data or perform any other action. The querying user must be able to get a complete, consistent picture of the data, unaffected by other users’ actions.
+ 
+Let’s take the following scenario, which is based on an Orders table that has 1,000,000 rows, with a disk size of 20 GB:
+  
+ 8:00: UserA started a query “SELECT</p><p>3 0.83769923 <a title="1065-lsi-3" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
+<p>Introduction: This is an interview with   MemSQL    cofounder’s    Eric Frenkiel    and    Nikita Shamgunov   , in which they try to answer critics by going into more depth about their technology.     MemSQL ruffled a few feathers with their claim of being the fastest database in the world. According to their benchmarks MemSQL can execute 200K TPS on an EC2   Quadruple   Extra Large   and on a 64 core machine they can push 1.2 million transactions a second.     Benchmarks are always a dark mirror, so make of them what you will, but the target market for MemSQL is clear: projects looking for something both fast and familiar. Fast as in a novel design using a combination of technologies like    MVCC   , code generation,    lock-free data structures   ,    skip lists   , and    in-memory execution   . Familiar as in SQL and nothing but SQL. The only interface to MemSQL is SQL.    It’s right to point out MemSQL gets a boost by being a first release. Only a limited subset of SQL is supported, neither rep</p><p>4 0.76238549 <a title="1065-lsi-4" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>
+<p>Introduction: What do you get when you take a SQL database and start a new implementation from scratch, taking advantage of the latest research and modern hardware?  Mike Stonebraker , the sword wielding Johnny Appleseed of the database world, hopes you get something like his new database,  VoltDB : a pure SQL, pure ACID, pure OLTP, shared nothing, sharded, scalable, lockless, open source, in-memory DBMS, purpose-built for running hundreds of thousands of transactions a second. VoltDB  claims to be  100 times faster than MySQL, up to 13 times faster than  Cassandra , and 45 times faster than Oracle, with near-linear scaling.
+  Will VoltDB kill off the new NoSQL upstarts? Will VoltDB cause a mass extinction of ancient databases? Probably no and no to both questions, but it's a product with a definite point-of-view and is worth a look as the transaction component in your system. But will it be right for you? Let's see...
+ 
+I first heard the details about VoltDB at  Gluecon , where Mr. Stonebraker pres</p><p>5 0.75873619 <a title="1065-lsi-5" href="../high_scalability-2012/high_scalability-2012-04-25-The_Anatomy_of_Search_Technology%3A_blekko%E2%80%99s_NoSQL_database.html">1233 high scalability-2012-04-25-The Anatomy of Search Technology: blekko’s NoSQL database</a></p>
+<p>Introduction: This is a guest post ( part 2 ,  part 3 ) by Greg Lindahl, CTO of blekko, the spam free search engine that had over 3.5 million unique visitors in March. Greg Lindahl was Founder and Distinguished Engineer at PathScale, at which he was the architect of the InfiniPath low-latency InfiniBand HCA, used to build tightly-coupled supercomputing clusters. 
+ 
+Imagine that you're crazy enough to think about building a search engine.  It's a huge task: the minimum index size needed to answer most queries is a few billion webpages. Crawling and indexing a few billion webpages requires a cluster with several petabytes of usable disk -- that's several thousand 1 terabyte disks -- and produces an index that's about 100 terabytes in size.
+ 
+Serving query results quickly involves having most of the index in RAM or on solid state (flash) disk. If you can buy a server with 100 gigabytes of RAM for about $3,000, that's 1,000 servers at a capital cost of $3 million, plus about $1 million per year of serve</p><p>6 0.75106663 <a title="1065-lsi-6" href="../high_scalability-2009/high_scalability-2009-06-10-Dealing_with_multi-partition_transactions_in_a_distributed_KV_solution.html">623 high scalability-2009-06-10-Dealing with multi-partition transactions in a distributed KV solution</a></p>
 <p>7 0.74679816 <a title="1065-lsi-7" href="../high_scalability-2012/high_scalability-2012-07-11-FictionPress%3A_Publishing_6_Million_Works_of_Fiction_on_the_Web.html">1281 high scalability-2012-07-11-FictionPress: Publishing 6 Million Works of Fiction on the Web</a></p>
 <p>8 0.74461013 <a title="1065-lsi-8" href="../high_scalability-2008/high_scalability-2008-03-18-Database_Design_101.html">281 high scalability-2008-03-18-Database Design 101</a></p>
 <p>9 0.73847985 <a title="1065-lsi-9" href="../high_scalability-2008/high_scalability-2008-01-25-Application_Database_and_DAL_Architecture.html">222 high scalability-2008-01-25-Application Database and DAL Architecture</a></p>
@@ -227,76 +152,51 @@ server co-locatio</p><p>6 0.75106663 <a title="1065-lsi-6" href="../high_scalabi
 <p>[(1, 0.132), (2, 0.283), (7, 0.118), (10, 0.05), (30, 0.031), (47, 0.041), (61, 0.069), (79, 0.117), (85, 0.038), (94, 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.96453887 <a title="1065-lda-1" href="../high_scalability-2013/high_scalability-2013-02-01-Stuff_The_Internet_Says_On_Scalability_For_February_1%2C_2013.html">1397 high scalability-2013-02-01-Stuff The Internet Says On Scalability For February 1, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:400 milliseconds : modern private wire for
-Natural Gas; 620,000:size of a mobile phone botnet; 1 million cores:jet noise
-modeling supercomputer; 2.2 petabytes per gram:DNA with storage density; 1
-billion:Google's one quarter infrastructure spendQuotable
-Quotes:@StartupLJackson: "Good thing we spent 6mo on scalability pre-launch.
-The thing went hyper-viral day one, just as planned." - nobody ever.@dysinger:
-WELCOME TO DEVOPS ADVENTURE! YOU ARE STANDING INSIDE AWS. NEARBY IS AN ANGRY
-ELB. THERE ARE SOME SSH KEYS ON THE GROUND.~@levie: Well cloud computing was
-fun while it lasted; now we can just store all our data in DNA
-strands.@mtnygard: Debates about "Tech X > tech T" aren't religious wars.
-They're also economic wars.@alfonsol: I do not believe your per load number of
-socks requires scalability.@mikeolson: Latency breeds contempt.@DrQz: GitHub
-looks to me like power-law growth with 4MM users ~ Oct 2013 and 5MM ~ April
-2014 @floodgateintern: It spends onl</p><p>2 0.96270972 <a title="1065-lda-2" href="../high_scalability-2014/high_scalability-2014-04-07-Google_Finds%3A_Centralized_Control%2C_Distributed_Data_Architectures_Work_Better_than_Fully_Decentralized_Architectures.html">1627 high scalability-2014-04-07-Google Finds: Centralized Control, Distributed Data Architectures Work Better than Fully Decentralized Architectures</a></p>
-<p>Introduction: For years a war has been fought in the software architecture trenches between
-the ideal of decentralized services and the power and practicality of
-centralized services. Centralized architectures, at least at themanagement and
-control planelevel, are winning. And Google not only agrees, they are
-enthusiastic adopters of this model, even in places you don't think it should
-work.Here's an excerpt from Google Lifts Veil On "Andromeda" Virtual
-Networking, an excellent article by Timothy Morgan, that includes a money
-quote fromAmin Vahdat, distinguished engineer and technical lead for
-networking at Google:Like many of the massive services that Google has
-created, the Andromeda network has centralized control. By the way, so did the
-Google File System and the MapReduce scheduler that gave rise to Hadoop when
-it was mimicked, so did the BigTable NoSQL data store that has spawned a
-number of quasi-clones, and even the B4 WAN and the Spanner distributed file
-system that have yet to be cloned. "</p><p>3 0.96105456 <a title="1065-lda-3" href="../high_scalability-2007/high_scalability-2007-08-20-TypePad_Architecture.html">68 high scalability-2007-08-20-TypePad Architecture</a></p>
-<p>Introduction: TypePad is considered the largest paid blogging service in the world. After
-experience problems because of their meteoric growth, they eventually
-transitioned to an architecture patterned after their sister company,
-LiveJournal.Site: http://www.typepad.com/The
-PlatformMySQLMemcachedPerlMogileFSApacheLinuxThe StatsAs of 2005 TypePad sends
-250mbps of traffic using multiple network pipes for 3TB of traffic a day. They
-were growing by 10-20% each month. I was unable to find more recent
-statistics.The ArchitectureOriginal Architecture:- Single server running
-Linux, Apache, Postgres, Perl, mod_perl- Storage was NFS on a filer.A
-Devastating Crash Caused a New Direction- A RAID controller failed and spewed
-data across all RAID disks.- The database was corrupted and the backups were
-corrupted.- Their redundant filers suffered from "split brain" syndrome.They
-move toLiveJournal Architecturetype architecture which isn't surprising since
-TypePad and LiveJounral are both owned by Six Apart.- Replic</p><p>4 0.95866716 <a title="1065-lda-4" href="../high_scalability-2010/high_scalability-2010-12-28-Netflix%3A_Continually_Test_by_Failing_Servers_with_Chaos_Monkey.html">964 high scalability-2010-12-28-Netflix: Continually Test by Failing Servers with Chaos Monkey</a></p>
-<p>Introduction: In 5 Lessons We've Learned Using AWS, Netflix's John Ciancutti says the best
-way to avoid failure is to fail constantly. In the cloud it's expected
-instances can fail at any time, so you always have to be prepared. In the real
-world we prepare by running drills. Remember all those exciting fire drills?
-It's not just fire drills of course. The military, football teams, fire
-fighters, beach rescue, virtually any entity that must react quickly and
-efficiently to disaster hones their responsiveness by running drills.Netflix
-aggressively moves this strategy into the cloud by randomly failing servers
-using a tool they built called Chaos Monkey. The idea is:If we aren't
-constantly testing our ability to succeed despite failure, then it isn't
-likely to work when it matters most - in the event of an unexpected
-outage.They respond to failures bydegrading service, but they always
-respond:If the recommendations system is down they'll show popular titles
-instead.If the search system is slow then th</p><p>same-blog 5 0.95631593 <a title="1065-lda-5" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
-<p>Introduction: I recently came across a TPC-C benchmark results held on MySQL based RDS
-databases. You can see ithere. I think the results may bring light to many
-questions concerning MySQL scalability in general and RDS scalability in
-particular. (For disclosure, I'm working forScaleBasewhere we run an internal
-scale out TPC-C benchmark these days, and will publish results soon).TPC-
-CTPC-C is a standard database benchmark, used to measure databases. The
-database vendors invest big bucks in running this test, and showing off which
-database is faster, and can scale better.It is a write intensive test, so it
-doesn't necessarily reflect the behavior of the database in your application.
-But it does give some very important insights on what you can expect from your
-database under heavy load.The Benchmark ProcessFirst of all, I have some
-comments for the benchmark method itself.Generally - the benchmarks were held
-in an orderly fashion and in a rather methodological way - which increases the
-credibility o</p><p>6 0.94263268 <a title="1065-lda-6" href="../high_scalability-2008/high_scalability-2008-03-12-YouTube_Architecture.html">274 high scalability-2008-03-12-YouTube Architecture</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+  
+ 400 milliseconds :  modern private wire for Natural Gas ; 620,000:  size of a mobile phone botnet ; 1 million cores:  jet noise modeling supercomputer ; 2.2 petabytes per gram:  DNA with storage density ; 1 billion:  Google's one quarter infrastructure spend  
+ Quotable Quotes:                                 
+ 
+  @StartupLJackson : "Good thing we spent 6mo on scalability pre-launch. The thing went hyper-viral day one, just as planned." - nobody ever. 
+  @dysinger : WELCOME TO DEVOPS ADVENTURE! YOU ARE STANDING INSIDE AWS. NEARBY IS AN ANGRY ELB. THERE ARE SOME SSH KEYS ON THE GROUND. 
+  ~‏@levie : Well cloud computing was fun while it lasted; now we can just store all our data in DNA strands. 
+  @mtnygard : Debates about “Tech X > tech T” aren’t religious wars. They’re also economic wars. 
+  @alfonsol : I do not believe your per load number of socks requires scalability. 
+  @mikeolson : Latency breeds contempt. 
+  @DrQz : GitHub looks to me like pow</p><p>2 0.96270972 <a title="1065-lda-2" href="../high_scalability-2014/high_scalability-2014-04-07-Google_Finds%3A_Centralized_Control%2C_Distributed_Data_Architectures_Work_Better_than_Fully_Decentralized_Architectures.html">1627 high scalability-2014-04-07-Google Finds: Centralized Control, Distributed Data Architectures Work Better than Fully Decentralized Architectures</a></p>
+<p>Introduction: For years a war has been fought in the software architecture trenches between the ideal of decentralized services and the power and practicality of centralized services. Centralized architectures, at least at the  management and control plane  level, are winning. And Google not only agrees, they are enthusiastic adopters of this model, even in places you don't think it should work.
+ 
+Here's an excerpt from  Google Lifts Veil On “Andromeda” Virtual Networking , an excellent article by Timothy Morgan, that includes a money quote from  Amin Vahdat , distinguished engineer and technical lead for networking at Google:
+  Like many of the massive services that Google has created, the Andromeda network has centralized control. By the way, so did the Google File System and the MapReduce scheduler that gave rise to Hadoop when it was mimicked, so did the BigTable NoSQL data store that has spawned a number of quasi-clones, and even the B4 WAN and the Spanner distributed file system that have yet</p><p>3 0.96105456 <a title="1065-lda-3" href="../high_scalability-2007/high_scalability-2007-08-20-TypePad_Architecture.html">68 high scalability-2007-08-20-TypePad Architecture</a></p>
+<p>Introduction: TypePad is considered the largest paid blogging service in the world.  After experience problems because of their meteoric growth, they eventually transitioned to an architecture patterned after their sister company, LiveJournal.
+ 
+Site: http://www.typepad.com/
+  The Platform    MySQL    Memcached    Perl    MogileFS    Apache    Linux 
+ The Stats 
+    As of 2005 TypePad sends 250mbps of traffic using multiple network pipes for 3TB of traffic a day. They were growing by 10-20% each month. I was unable to find more recent statistics. 
+ The Architecture 
+    Original Architecture: - Single server running Linux, Apache, Postgres, Perl, mod_perl - Storage was NFS on a filer.    A Devastating Crash Caused a New Direction - A RAID controller failed and spewed data across all RAID disks. - The database was corrupted and the backups were corrupted. - Their redundant filers suffered from "split brain" syndrome.    They move to  LiveJournal Architecture  type architecture which isn't surprising</p><p>4 0.95866716 <a title="1065-lda-4" href="../high_scalability-2010/high_scalability-2010-12-28-Netflix%3A_Continually_Test_by_Failing_Servers_with_Chaos_Monkey.html">964 high scalability-2010-12-28-Netflix: Continually Test by Failing Servers with Chaos Monkey</a></p>
+<p>Introduction: In  5 Lessons We’ve Learned Using AWS , Netflix's John Ciancutti says the  best way to avoid failure is to fail constantly . In the cloud it's expected instances can fail at any time, so you always have to be prepared. In the real world we prepare by running drills. Remember all those exciting fire drills? It's not just fire drills of course. The military, football teams, fire fighters, beach rescue, virtually any entity that must react quickly and efficiently to disaster hones their responsiveness by running drills.
+ 
+Netflix aggressively moves this strategy into the cloud by randomly failing servers using a tool they built called Chaos Monkey. The idea is:
+  
+
+If we aren’t constantly testing our ability to succeed despite failure, then it isn’t likely to work when it matters most – in the event of an unexpected outage.
+
+  
+They respond to failures by  degrading service , but they always respond:
+  
+ If the recommendations system is down they'll show popular titles instead. 
+ If the s</p><p>same-blog 5 0.95631593 <a title="1065-lda-5" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
+<p>Introduction: I recently came across a TPC-C benchmark results held on MySQL based RDS databases. You can see it  here . I think the results may bring light to many questions concerning MySQL scalability in general and RDS scalability in particular. (For disclosure, I'm working for  ScaleBase  where we run an internal scale out TPC-C benchmark these days, and will publish results soon).
+  TPC-C  
+TPC-C is a standard database benchmark, used to measure databases. The database vendors invest big bucks in running this test, and showing off which database is faster, and can scale better.
+ 
+It is a write intensive test, so it doesn’t necessarily reflect the behavior of the database in your application. But it does give some very important insights on what you can expect from your database under heavy load.
+  The Benchmark Process  
+First of all, I have some comments for the benchmark method itself.
+  
+ Generally - the benchmarks were held in an orderly fashion and in a rather methodological way – which i</p><p>6 0.94263268 <a title="1065-lda-6" href="../high_scalability-2008/high_scalability-2008-03-12-YouTube_Architecture.html">274 high scalability-2008-03-12-YouTube Architecture</a></p>
 <p>7 0.94138807 <a title="1065-lda-7" href="../high_scalability-2014/high_scalability-2014-05-06-The_Quest_for_Database_Scale%3A_the_1_M_TPS_challenge_-_Three_Design_Points_and_Five_common_Bottlenecks_to_avoid.html">1643 high scalability-2014-05-06-The Quest for Database Scale: the 1 M TPS challenge - Three Design Points and Five common Bottlenecks to avoid</a></p>
 <p>8 0.94101709 <a title="1065-lda-8" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
 <p>9 0.93972468 <a title="1065-lda-9" href="../high_scalability-2010/high_scalability-2010-11-09-Facebook_Uses_Non-Stored_Procedures_to_Update_Social_Graphs.html">936 high scalability-2010-11-09-Facebook Uses Non-Stored Procedures to Update Social Graphs</a></p>

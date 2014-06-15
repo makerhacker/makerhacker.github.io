@@ -16,100 +16,65 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1269-html" href="http://highscalability.com//blog/2012/6/20/idonethis-scaling-an-email-based-app-from-scratch.html">html</a></p><p>Introduction: This is a guest post by Rodrigo Guzman, CTO ofiDoneThis, which makes status
-reporting happen at your company with the lightest possible touch.iDoneThisis
-a simple management application that emails your team at the end of every day
-to ask, "What'd you get done today?" Just reply with a few lines of what you
-got done. The following morning everyone on your team gets a digest with what
-the team accomplished the previous day to keep everyone in the loop and
-kickstart another awesome day.Before we launched, we built iDoneThis over a
-weekend in the most rudimentary way possible. I kid you not, we sent the first
-few batches of daily emails using the BCC field of a Gmail inbox. The upshot
-is that we've had users on the site from Day 3 of its existence on.We've gone
-from launch in January 2011 when we sent hundreds of emails out per day by
-hand to sending out over 1 million emails and handling over 200,000 incoming
-emails per month. In total, customers have recorded over 1.7 million
-dones.Stat</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 iDoneThisis a simple management application that emails your team at the end of every day to ask, "What'd you get done today? [sent-2, score-0.497]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1269-html" href="http://highscalability.com//blog/2012/6/20/idonethis-scaling-an-email-based-app-from-scratch.html">html</a></p><p>Introduction: This is a guest post by Rodrigo Guzman, CTO of  iDoneThis , which makes status reporting happen at your company with the lightest possible touch. 
+ 
+ iDoneThis  is a simple management application that emails your team at the end of every day to ask, "What'd you get done today?"  Just reply with a few lines of what you got done. The following morning everyone on your team gets a digest with what the team accomplished the previous day to keep everyone in the loop and kickstart another awesome day.
+ 
+Before we launched, we built iDoneThis over a weekend in the most rudimentary way possible.  I kid you not, we sent the first few batches of daily emails using the BCC field of a Gmail inbox.  The upshot is that we’ve had users on the site from Day 3 of its existence on.
+ 
+We’ve gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month.  In total, customers have recorded over 1.</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 iDoneThis  is a simple management application that emails your team at the end of every day to ask, "What'd you get done today? [sent-2, score-0.497]
 </p><p>2 I kid you not, we sent the first few batches of daily emails using the BCC field of a Gmail inbox. [sent-6, score-0.445]
-</p><p>3 We've gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month. [sent-8, score-1.428]
-</p><p>4 Mailchimp didn't allow for the amount of variation we wanted in our emails because it was built for traditional email marketing. [sent-16, score-0.667]
+</p><p>3 We’ve gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month. [sent-8, score-1.428]
+</p><p>4 Mailchimp didn’t allow for the amount of variation we wanted in our emails because it was built for traditional email marketing. [sent-16, score-0.667]
 </p><p>5 To achieve this, sendmail went from being a simple for loop to using the database to keep track of the state of each email and having logic to deal with the different state transitions gracefully. [sent-20, score-0.528]
 </p><p>6 It served us well to have it be a simple for loop at first, though -- it was much easier to design the machinery to make it reliable after watching all the common ways in which it failed. [sent-21, score-0.334]
-</p><p>7 To process incoming email, we started with a 200-line script we called "getmail" to access our Gmail inbox over IMAP. [sent-22, score-0.487]
+</p><p>7 To process incoming email, we started with a 200-line script we called “getmail” to access our Gmail inbox over IMAP. [sent-22, score-0.487]
 </p><p>8 We built an incoming parser using the standard library that made our getmail process much more reliable. [sent-25, score-0.709]
 </p><p>9 We moved from getmail to SendGrid's incoming parse API, which basically turns incoming email into HTTP POST requests, so that we only had to worry about writing a web app. [sent-27, score-1.035]
 </p><p>10 We switched because getmail could not process the incoming email fast enough due to rate-limiting from Google. [sent-28, score-0.861]
 </p><p>11 To make matters worse, getmail was not designed to have multiple copies of it running simultaneously which started causing a host of problems when the incoming email rate became too large. [sent-29, score-0.933]
 </p><p>12 This means that performance and scalability are built upon principles of simplicity in code design, thoughtful abstractions and agility. [sent-33, score-0.267]
-</p><p>13 , we addedCeleryto send notification emails asynchronously after that became sufficiently important part of the UX). [sent-37, score-0.379]
+</p><p>13 , we added  Celery  to send notification emails asynchronously after that became sufficiently important part of the UX). [sent-37, score-0.379]
 </p><p>14 As the number of incoming and outgoing emails increased we considered switching to a multi-server architecture. [sent-42, score-0.721]
 </p><p>15 Since iDoneThis is largely email based and later introduced an iPhone app, we ended up with three channels for user data i/o: email, web, and iphone app -- each comes with its own set of nuances. [sent-62, score-0.524]
 </p><p>16 For example, when a user is invited to a team he starts receiving emails from us and can just reply to them like anyone else, but he has never visited the site to set up an account. [sent-64, score-0.601]
 </p><p>17 As we built out the backend to support all this, the code started becoming more and more unruly. [sent-65, score-0.354]
 </p><p>18 js and the iPhone app and a set of simple views and templates in charge of serving the frontend code and html placeholders. [sent-68, score-0.308]
 </p><p>19 Even for an email-based product it makes sense to use sendgrid for both outgoing and incoming email -- that's what we do. [sent-73, score-0.785]
-</p><p>20 This started causing more trouble than it was worth and thus we ended up with asingle EC2 instance. [sent-78, score-0.308]
+</p><p>20 This started causing more trouble than it was worth and thus we ended up with a  single EC2 instance . [sent-78, score-0.258]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('emails', 0.379), ('getmail', 0.292), ('idonethis', 0.234), ('incoming', 0.225), ('email', 0.217), ('sendmail', 0.159), ('sendgrid', 0.159), ('started', 0.137), ('gmail', 0.13), ('django', 0.128), ('bcc', 0.117), ('outgoing', 0.117), ('largely', 0.113), ('reply', 0.103), ('xlarge', 0.095), ('loop', 0.088), ('iphone', 0.081), ('parse', 0.076), ('jquery', 0.076), ('backend', 0.073), ('code', 0.073), ('door', 0.072), ('built', 0.071), ('abstractions', 0.067), ('makes', 0.067), ('lines', 0.066), ('sent', 0.066), ('us', 0.065), ('process', 0.064), ('simple', 0.064), ('switched', 0.063), ('frontend', 0.062), ('iterate', 0.062), ('causing', 0.062), ('python', 0.062), ('script', 0.061), ('watching', 0.06), ('ended', 0.059), ('much', 0.057), ('simplicity', 0.056), ('charge', 0.055), ('team', 0.054), ('app', 0.054), ('simpler', 0.053), ('ruthless', 0.053), ('polish', 0.053), ('cronjob', 0.053), ('searching', 0.053), ('kickstart', 0.05), ('asingle', 0.05)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1269-tfidf-1" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
-<p>Introduction: This is a guest post by Rodrigo Guzman, CTO ofiDoneThis, which makes status
-reporting happen at your company with the lightest possible touch.iDoneThisis
-a simple management application that emails your team at the end of every day
-to ask, "What'd you get done today?" Just reply with a few lines of what you
-got done. The following morning everyone on your team gets a digest with what
-the team accomplished the previous day to keep everyone in the loop and
-kickstart another awesome day.Before we launched, we built iDoneThis over a
-weekend in the most rudimentary way possible. I kid you not, we sent the first
-few batches of daily emails using the BCC field of a Gmail inbox. The upshot
-is that we've had users on the site from Day 3 of its existence on.We've gone
-from launch in January 2011 when we sent hundreds of emails out per day by
-hand to sending out over 1 million emails and handling over 200,000 incoming
-emails per month. In total, customers have recorded over 1.7 million
-dones.Stat</p><p>2 0.29416898 <a title="1269-tfidf-2" href="../high_scalability-2008/high_scalability-2008-02-19-Building_a_email_communication_system.html">253 high scalability-2008-02-19-Building a email communication system</a></p>
-<p>Introduction: hi,the website i work for is looking to build a email system that can handle a
-fair few emails (up to a hundred thousand a day).These comprise emails like
-registration emails, newsletters, lots of user triggered emails and overnight
-emails.At present we queue them in SQL and feed them into an smtp server on
-one of our web servers when the queue drops below a certain level.this has
-caused our mail system to crash as well as hammer our DB server (shared!!!).We
-have got an architecture of what we want to build but thought there might be
-something we could buy off the shelf that allowed us to keep templated emails,
-lists of recipients, schedule sends etc and report on it. We can't find
-anythingWhat do big websites like amazon etc use or people a little smaller
-but who still send loads of mail (flickr, ebuyer, or other ecommerce
-sites)Cheerstarqs</p><p>3 0.28806248 <a title="1269-tfidf-3" href="../high_scalability-2008/high_scalability-2008-01-24-Mailinator_Architecture.html">221 high scalability-2008-01-24-Mailinator Architecture</a></p>
-<p>Introduction: Update:A fun exploration of applied searching inHow to search for the word
-"pen1s" in 185 emails every second. When indexOf doesn't cut it you just trie
-harder.Has a drunken friend ever inspired you to create a first of its kind
-internet service that is loved by millions, deemed subversive by thousands,
-all while handling over 1.2 billion emails a year on onerickityold server?
-That's how Paul Tyma came to build Mailinator.Mailinator is a free no-setup
-web service for thwarting evil spammers by creating throw-away registration
-email addresses. If you don't give web sites you real email address they can't
-spam you. They spam Mailinator instead :-)I love design with a point-of-view
-and Mailinator has a big giant harry one: performance first, second, and last.
-Why? Because Mailinator is free and that allows Paul to showcase his different
-perspective on design. While competitors buy big Iron to handle load, Paul
-uses a big idea instead: pick the right problem and create a design to fit the</p><p>4 0.16783525 <a title="1269-tfidf-4" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
-<p>Introduction: With Lavabitshutting down undermurky circumstances, it seems fitting torepost
-an old(2009), yet still very good post byLadar Levisonon Lavabit's
-architecture. I don't know how much of this information is still current, but
-it should give you a general idea what Lavabit was all about.Getting to Know
-YouWhat is the name of your system and where can we find out more about
-it?Note: these links are no longer valid...Lavabithttp://lavabit.comhttp://lav
-abit.com/network.htmlhttp://lavabit.com/about.htmlWhat is your system
-for?Lavabit is a mid-sized email service provider. We currently have about
-140,000 registered users with more than 260,000 email addresses. While most of
-our accounts belong to individual users, we also provide corporate email
-services to approximately 70 companies.Why did you decide to build this
-system?We built the system to compete against the other large free email
-providers, with an emphasis on serving the privacy conscious and technically
-savvy user. Lavabit was one of</p><p>5 0.13789636 <a title="1269-tfidf-5" href="../high_scalability-2008/high_scalability-2008-01-06-Email_Architecture.html">202 high scalability-2008-01-06-Email Architecture</a></p>
-<p>Introduction: I would like to know email architecture used by large ISPs.. or even used by
-google.Can someone point me to some sites??Thanks..</p><p>6 0.12507564 <a title="1269-tfidf-6" href="../high_scalability-2013/high_scalability-2013-06-18-Scaling_Mailbox_-_From_0_to_One_Million_Users_in_6_Weeks_and_100_Million_Messages_Per_Day.html">1477 high scalability-2013-06-18-Scaling Mailbox - From 0 to One Million Users in 6 Weeks and 100 Million Messages Per Day</a></p>
+<p>Introduction: This is a guest post by Rodrigo Guzman, CTO of  iDoneThis , which makes status reporting happen at your company with the lightest possible touch. 
+ 
+ iDoneThis  is a simple management application that emails your team at the end of every day to ask, "What'd you get done today?"  Just reply with a few lines of what you got done. The following morning everyone on your team gets a digest with what the team accomplished the previous day to keep everyone in the loop and kickstart another awesome day.
+ 
+Before we launched, we built iDoneThis over a weekend in the most rudimentary way possible.  I kid you not, we sent the first few batches of daily emails using the BCC field of a Gmail inbox.  The upshot is that we’ve had users on the site from Day 3 of its existence on.
+ 
+We’ve gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month.  In total, customers have recorded over 1.</p><p>2 0.29416898 <a title="1269-tfidf-2" href="../high_scalability-2008/high_scalability-2008-02-19-Building_a_email_communication_system.html">253 high scalability-2008-02-19-Building a email communication system</a></p>
+<p>Introduction: hi,   the website i work for is looking to build a email system that can handle a fair few emails (up to a hundred thousand a day).     These comprise emails like registration emails, newsletters, lots of user triggered emails and overnight emails.     At present we queue them in SQL and feed them into an smtp server on one of our web servers when the queue drops below a certain level.     this has caused our mail system to crash as well as hammer our DB server (shared!!!).     We have got an architecture of what we want to build but thought there might be something we could buy off the shelf that allowed us to keep templated emails, lists of recipients, schedule sends etc and report on it. We can't find anything     What do big websites like amazon etc use or people a little smaller but who still send loads of mail (flickr, ebuyer, or other ecommerce sites)     Cheers     tarqs</p><p>3 0.28806248 <a title="1269-tfidf-3" href="../high_scalability-2008/high_scalability-2008-01-24-Mailinator_Architecture.html">221 high scalability-2008-01-24-Mailinator Architecture</a></p>
+<p>Introduction: Update:  A fun exploration of applied searching in  How to search for the word "pen1s" in 185 emails every second . When indexOf doesn't cut it you just trie harder.   Has a drunken friend ever inspired you to create a first of its kind internet service that is loved by millions, deemed subversive by thousands, all while handling over 1.2 billion emails a year on one  rickity  old server? That's how Paul Tyma came to build Mailinator.   Mailinator is a free no-setup web service for thwarting evil spammers by creating throw-away registration email addresses. If you don't give web sites you real email address they can't spam you. They spam Mailinator instead :-)   I love design with a point-of-view and Mailinator has a big giant harry one: performance first, second, and last. Why? Because Mailinator is free and that allows Paul to showcase his different perspective on design. While competitors buy big Iron to handle load, Paul uses a big idea instead: pick the right problem and create a</p><p>4 0.16783525 <a title="1269-tfidf-4" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: With Lavabit  shutting down  under  murky circumstances , it seems fitting to  repost an old  (2009), yet still very good post by  Ladar Levison  on Lavabit's architecture. I don't know how much of this information is still current, but it should give you a general idea what Lavabit was all about.
+  
+ Getting to Know You 
+ What is the name of your system and where can we find out more about it? 
+
+ Note: these links are no longer valid... 
+
+
+Lavabit   http://lavabit.com      http://lavabit.com/network.html    http://lavabit.com/about.html 
+
+ What is your system for? 
+
+Lavabit is a mid-sized email service provider. We currently have about 140,000 registered users with more than 260,000 email addresses. While most of our accounts belong to individual users, we also provide corporate email services to approximately 70 companies.
+
+ Why did you decide to build this system? 
+
+We built the system to compete against the other large free email providers, with an emphasis on serving the privacy c</p><p>5 0.13789636 <a title="1269-tfidf-5" href="../high_scalability-2008/high_scalability-2008-01-06-Email_Architecture.html">202 high scalability-2008-01-06-Email Architecture</a></p>
+<p>Introduction: I would like to know email architecture used by large ISPs.. or even used by google.      Can someone point me to some sites??       Thanks..</p><p>6 0.12507564 <a title="1269-tfidf-6" href="../high_scalability-2013/high_scalability-2013-06-18-Scaling_Mailbox_-_From_0_to_One_Million_Users_in_6_Weeks_and_100_Million_Messages_Per_Day.html">1477 high scalability-2013-06-18-Scaling Mailbox - From 0 to One Million Users in 6 Weeks and 100 Million Messages Per Day</a></p>
 <p>7 0.1213342 <a title="1269-tfidf-7" href="../high_scalability-2012/high_scalability-2012-11-15-Gone_Fishin%27%3A_Justin.Tv%27s_Live_Video_Broadcasting_Architecture.html">1359 high scalability-2012-11-15-Gone Fishin': Justin.Tv's Live Video Broadcasting Architecture</a></p>
 <p>8 0.12111563 <a title="1269-tfidf-8" href="../high_scalability-2010/high_scalability-2010-03-16-Justin.tv%27s_Live_Video_Broadcasting_Architecture.html">796 high scalability-2010-03-16-Justin.tv's Live Video Broadcasting Architecture</a></p>
 <p>9 0.11935689 <a title="1269-tfidf-9" href="../high_scalability-2009/high_scalability-2009-05-17-Scaling_Django_Web_Apps_by_Mike_Malone.html">602 high scalability-2009-05-17-Scaling Django Web Apps by Mike Malone</a></p>
@@ -129,75 +94,36 @@ google.Can someone point me to some sites??Thanks..</p><p>6 0.12507564 <a title=
 <p>[(0, 0.214), (1, 0.085), (2, -0.043), (3, -0.046), (4, 0.035), (5, -0.08), (6, 0.001), (7, 0.026), (8, 0.002), (9, -0.039), (10, -0.012), (11, 0.041), (12, 0.033), (13, -0.025), (14, 0.023), (15, -0.033), (16, -0.034), (17, 0.01), (18, 0.01), (19, 0.009), (20, -0.007), (21, -0.052), (22, 0.001), (23, -0.013), (24, 0.025), (25, -0.015), (26, -0.009), (27, -0.009), (28, -0.04), (29, 0.015), (30, -0.034), (31, 0.029), (32, -0.08), (33, -0.011), (34, -0.008), (35, -0.018), (36, -0.049), (37, 0.015), (38, 0.071), (39, 0.038), (40, 0.012), (41, 0.059), (42, 0.039), (43, -0.002), (44, 0.025), (45, 0.025), (46, 0.035), (47, -0.033), (48, -0.019), (49, 0.021)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96927136 <a title="1269-lsi-1" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
-<p>Introduction: This is a guest post by Rodrigo Guzman, CTO ofiDoneThis, which makes status
-reporting happen at your company with the lightest possible touch.iDoneThisis
-a simple management application that emails your team at the end of every day
-to ask, "What'd you get done today?" Just reply with a few lines of what you
-got done. The following morning everyone on your team gets a digest with what
-the team accomplished the previous day to keep everyone in the loop and
-kickstart another awesome day.Before we launched, we built iDoneThis over a
-weekend in the most rudimentary way possible. I kid you not, we sent the first
-few batches of daily emails using the BCC field of a Gmail inbox. The upshot
-is that we've had users on the site from Day 3 of its existence on.We've gone
-from launch in January 2011 when we sent hundreds of emails out per day by
-hand to sending out over 1 million emails and handling over 200,000 incoming
-emails per month. In total, customers have recorded over 1.7 million
-dones.Stat</p><p>2 0.86071754 <a title="1269-lsi-2" href="../high_scalability-2013/high_scalability-2013-06-18-Scaling_Mailbox_-_From_0_to_One_Million_Users_in_6_Weeks_and_100_Million_Messages_Per_Day.html">1477 high scalability-2013-06-18-Scaling Mailbox - From 0 to One Million Users in 6 Weeks and 100 Million Messages Per Day</a></p>
-<p>Introduction: You know your product is doing well when most of yourearly blog postsdeal with
-the status of the waiting list of hundreds of thousands of users eagerly
-waiting to download your product. That's the enviable positionMailbox, a free
-mobile email management app, found themselves early in their release cycle.
-Hasn't email been done already? Apparently not. Mailbox scaled to one million
-users in a paltry six weeks with a team ofabout 14 people. As of April they
-were delivering over100 million messages per day.How did they do it? Mailbox
-engineering lead,Sean Beausoleil, gave an informative interview on
-readwrite.comon how Mailbox planned to scale... Gather signals early. A pre-
-release launch video helped generate interest, but it also allowed them to
-gauge early interest before even releasing. From the overwhelming response
-they knew they would need to have to scale and scale quickly. Have something
-unique. The average person might not think a mailbox app would be a fertile
-product space. T</p><p>3 0.81370497 <a title="1269-lsi-3" href="../high_scalability-2009/high_scalability-2009-03-30-Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">551 high scalability-2009-03-30-Lavabit Architecture - Creating a Scalable Email Service</a></p>
-<p>Introduction: Ladar Levison of Lavabit has written anincredible article on howthey took a
-centralized off-the-shelf email server that could handle only few thousand
-users and built their own custom distributed infrastructure for handling
-hundreds of thousands of email users. Lavabit processes 70 gigabytes of data
-per day, is made up of 26 servers, hosts 260,000 email addresses, and
-processes 600,000 emails a day. That's a lot of email.Lavabit's mission has a
-little edge to it too:Lavabit was founded as a direct reaction to the larger
-free e-mail services available. We felt it was possible to create an e-mail
-service that was fast, reliable, feature rich and didn't achieve profitability
-by prostituting its user base to marketers.What I really like about this
-article is that Lavabit has some challenging elements in dealing with
-different email protocols while being able to scale to a lot of users. There's
-more going on than just trying to scale out a database. Many products contain
-complicated bits li</p><p>4 0.80060405 <a title="1269-lsi-4" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
-<p>Introduction: Here's anUpdate On Disqus: It's Still About Realtime, But Go Demolishes
-Python.How do you add realtime functionality to a web scale application?
-That's whatAdam Hitchcock, a Software Engineer at Disqus talks about in an
-excellent talk: Making DISQUS Realtime (slides).Disqus had to take their
-commenting system and add realtime capabilities to it. Not something that's
-easy to do when at the time of the talk (2013) they had had just hit a billion
-unique visitors a month.What Disqus developed is a realtime commenting system
-called "realertime" that was tested to handle 1.5 million concurrently
-connected users, 45,000 new connections per second, 165,000 messages/second,
-with less than .2 seconds latency end-to-end.The nature of a commenting system
-is that it is IO bound and has a high fanout, that is a comment comes in and
-must be sent out to a lot of readers. It's a problem very similar to
-whatTwitter must solve. Disqus' solution was quite interesting as was the path
-to their solution. The</p><p>5 0.79746646 <a title="1269-lsi-5" href="../high_scalability-2008/high_scalability-2008-01-24-Mailinator_Architecture.html">221 high scalability-2008-01-24-Mailinator Architecture</a></p>
-<p>Introduction: Update:A fun exploration of applied searching inHow to search for the word
-"pen1s" in 185 emails every second. When indexOf doesn't cut it you just trie
-harder.Has a drunken friend ever inspired you to create a first of its kind
-internet service that is loved by millions, deemed subversive by thousands,
-all while handling over 1.2 billion emails a year on onerickityold server?
-That's how Paul Tyma came to build Mailinator.Mailinator is a free no-setup
-web service for thwarting evil spammers by creating throw-away registration
-email addresses. If you don't give web sites you real email address they can't
-spam you. They spam Mailinator instead :-)I love design with a point-of-view
-and Mailinator has a big giant harry one: performance first, second, and last.
-Why? Because Mailinator is free and that allows Paul to showcase his different
-perspective on design. While competitors buy big Iron to handle load, Paul
-uses a big idea instead: pick the right problem and create a design to fit the</p><p>6 0.78439879 <a title="1269-lsi-6" href="../high_scalability-2014/high_scalability-2014-04-21-This_is_why_Microsoft_won._And_why_they_lost..html">1635 high scalability-2014-04-21-This is why Microsoft won. And why they lost.</a></p>
+<p>Introduction: This is a guest post by Rodrigo Guzman, CTO of  iDoneThis , which makes status reporting happen at your company with the lightest possible touch. 
+ 
+ iDoneThis  is a simple management application that emails your team at the end of every day to ask, "What'd you get done today?"  Just reply with a few lines of what you got done. The following morning everyone on your team gets a digest with what the team accomplished the previous day to keep everyone in the loop and kickstart another awesome day.
+ 
+Before we launched, we built iDoneThis over a weekend in the most rudimentary way possible.  I kid you not, we sent the first few batches of daily emails using the BCC field of a Gmail inbox.  The upshot is that we’ve had users on the site from Day 3 of its existence on.
+ 
+We’ve gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month.  In total, customers have recorded over 1.</p><p>2 0.86071754 <a title="1269-lsi-2" href="../high_scalability-2013/high_scalability-2013-06-18-Scaling_Mailbox_-_From_0_to_One_Million_Users_in_6_Weeks_and_100_Million_Messages_Per_Day.html">1477 high scalability-2013-06-18-Scaling Mailbox - From 0 to One Million Users in 6 Weeks and 100 Million Messages Per Day</a></p>
+<p>Introduction: You know your product is doing well when most of your  early blog posts  deal with the status of the waiting list of hundreds of thousands of users eagerly waiting to download your product. That's the enviable position  Mailbox , a free mobile email management app, found themselves early in their release cycle. 
+ 
+Hasn't email been done already? Apparently not. Mailbox scaled to one million users in a paltry six weeks with a team of  about 14 people . As of April they were delivering over  100 million messages per day .
+ 
+How did they do it? Mailbox engineering lead,  Sean Beausoleil , gave an  informative interview on readwrite.com  on how Mailbox planned to scale... 
+  
+  Gather signals early . A pre-release launch video helped generate interest, but it also allowed them to gauge early interest before even releasing. From the overwhelming response they knew they would need to have to scale and scale quickly.  
+  Have something unique . The average person might not think a mailbox app</p><p>3 0.81370497 <a title="1269-lsi-3" href="../high_scalability-2009/high_scalability-2009-03-30-Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">551 high scalability-2009-03-30-Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: Ladar Levison of Lavabit has written an  incredible article on how  they took a centralized off-the-shelf email server that could handle only few thousand users and built their own custom distributed infrastructure for handling hundreds of thousands of email users.  Lavabit processes 70 gigabytes of data per day, is made up of 26 servers, hosts 260,000 email addresses, and processes 600,000 emails a day. That's a lot of email.   Lavabit's mission has a little edge to it too:
+   Lavabit was founded as a direct reaction to the larger free e-mail services available. We felt it was possible to create an e-mail service that was fast, reliable, feature rich and didn't achieve profitability by prostituting its user base to marketers.   
+What I really like about this article is that Lavabit has some challenging elements in dealing with different email protocols while being able to scale to a lot of users. There's more going on than just trying to scale out a database. Many products contain com</p><p>4 0.80060405 <a title="1269-lsi-4" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
+<p>Introduction: Here's an  Update On Disqus: It's Still About Realtime, But Go Demolishes Python . 
+ 
+How do you add realtime functionality to a web scale application? That's what  Adam Hitchcock , a Software Engineer at Disqus talks about in an excellent talk:  Making DISQUS Realtime  ( slides ).
+ 
+Disqus had to take their commenting system and add realtime capabilities to it. Not something that's easy to do when at the time of the talk (2013) they had had just hit a billion unique visitors a month.
+ 
+What Disqus developed is a realtime commenting system called “realertime” that was tested to handle 1.5 million concurrently connected users, 45,000 new connections per second, 165,000 messages/second, with less than .2 seconds latency end-to-end.
+ 
+The nature of a commenting system is that it is IO bound and has a high fanout, that is a comment comes in and must be sent out to a lot of readers. It's a problem very similar to what  Twitter must solve . 
+ 
+Disqus' solution was quite interesting as was th</p><p>5 0.79746646 <a title="1269-lsi-5" href="../high_scalability-2008/high_scalability-2008-01-24-Mailinator_Architecture.html">221 high scalability-2008-01-24-Mailinator Architecture</a></p>
+<p>Introduction: Update:  A fun exploration of applied searching in  How to search for the word "pen1s" in 185 emails every second . When indexOf doesn't cut it you just trie harder.   Has a drunken friend ever inspired you to create a first of its kind internet service that is loved by millions, deemed subversive by thousands, all while handling over 1.2 billion emails a year on one  rickity  old server? That's how Paul Tyma came to build Mailinator.   Mailinator is a free no-setup web service for thwarting evil spammers by creating throw-away registration email addresses. If you don't give web sites you real email address they can't spam you. They spam Mailinator instead :-)   I love design with a point-of-view and Mailinator has a big giant harry one: performance first, second, and last. Why? Because Mailinator is free and that allows Paul to showcase his different perspective on design. While competitors buy big Iron to handle load, Paul uses a big idea instead: pick the right problem and create a</p><p>6 0.78439879 <a title="1269-lsi-6" href="../high_scalability-2014/high_scalability-2014-04-21-This_is_why_Microsoft_won._And_why_they_lost..html">1635 high scalability-2014-04-21-This is why Microsoft won. And why they lost.</a></p>
 <p>7 0.78431624 <a title="1269-lsi-7" href="../high_scalability-2013/high_scalability-2013-04-10-Check_Yourself_Before_You_Wreck_Yourself_-_Avocado%27s_5_Early_Stages_of_Architecture_Evolution.html">1438 high scalability-2013-04-10-Check Yourself Before You Wreck Yourself - Avocado's 5 Early Stages of Architecture Evolution</a></p>
 <p>8 0.77549011 <a title="1269-lsi-8" href="../high_scalability-2013/high_scalability-2013-07-17-How_do_you_create_a_100th_Monkey_software_development_culture%3F.html">1492 high scalability-2013-07-17-How do you create a 100th Monkey software development culture?</a></p>
 <p>9 0.77013904 <a title="1269-lsi-9" href="../high_scalability-2012/high_scalability-2012-01-09-The_Etsy_Saga%3A_From_Silos_to_Happy_to_Billions_of_Pageviews_a_Month.html">1171 high scalability-2012-01-09-The Etsy Saga: From Silos to Happy to Billions of Pageviews a Month</a></p>
@@ -217,72 +143,36 @@ uses a big idea instead: pick the right problem and create a design to fit the</
 <p>[(1, 0.115), (2, 0.224), (8, 0.01), (10, 0.066), (30, 0.036), (40, 0.02), (47, 0.01), (49, 0.018), (61, 0.095), (77, 0.031), (79, 0.07), (85, 0.046), (88, 0.137), (94, 0.043)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.95721954 <a title="1269-lda-1" href="../high_scalability-2013/high_scalability-2013-09-30-Expandability%3A_Steve_Wozniak%27s_Biggest_Success_and_Nolan_Bushnell%27s_Biggest_Regret.html">1524 high scalability-2013-09-30-Expandability: Steve Wozniak's Biggest Success and Nolan Bushnell's Biggest Regret</a></p>
-<p>Introduction: When two titans of the early computing industry, Apple co-founder Steve
-Wozniakand Atari founderNolan Bushnell, had a chance to sit down for a chat at
-the C2SVconference last Friday, we learned how a little foresight and luck can
-decide futures.  Steve Wozniak's Success - Expandability  Steve talked about
-how the Apple II was the primary source of revenue for Apple's first 10 years
-of life. The reason the Apple II could last so long was that it was
-expandable. It hadeight expansion slotsand the RAM was also expandable
-(starting at 4K). No computer at the time had this kind of flexibility
-orexpansion capabilities. Steve Wozniak and Steve Jobs argued over keeping the
-Apple II open. Jobs wanted closed, Wozniak wanted open and fortunately Wozniak
-won.  In fact, the Apple II was completely open (those were the days). They
-published the complete specs before there was anything like a developer
-community. So even though the Apple III, Lisa, and the Macintosh all failed,
-the Apple II kept roll</p><p>2 0.94559026 <a title="1269-lda-2" href="../high_scalability-2008/high_scalability-2008-01-13-A_Note_on_How_to_Create_Teasers_When_Posting_.html">210 high scalability-2008-01-13-A Note on How to Create Teasers When Posting </a></p>
-<p>Introduction: I fully and enthusiastically encourage anyone who wants to share a relevant
-topic to register and post. People have added a lot of good and useful
-content. Don't be shy. It's been asked how a teaser is created when posting so
-the full article doesn't display on the front page. A teaser is a paragraph
-interesting enough to convince readers to click on the "read more" link to get
-the full article.breakCreating a teaser in Drupal is accomplished by inserting
-< ! -- break -- > on a separate line directly after the text you want to be
-the teaser. Only DO NOT include the spaces. So your post looks like:Teaser
-Content< ! -- break -- > (no spaces in real life)Rest of ContentIt's a bit
-kludgey, but it works.</p><p>same-blog 3 0.92811537 <a title="1269-lda-3" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
-<p>Introduction: This is a guest post by Rodrigo Guzman, CTO ofiDoneThis, which makes status
-reporting happen at your company with the lightest possible touch.iDoneThisis
-a simple management application that emails your team at the end of every day
-to ask, "What'd you get done today?" Just reply with a few lines of what you
-got done. The following morning everyone on your team gets a digest with what
-the team accomplished the previous day to keep everyone in the loop and
-kickstart another awesome day.Before we launched, we built iDoneThis over a
-weekend in the most rudimentary way possible. I kid you not, we sent the first
-few batches of daily emails using the BCC field of a Gmail inbox. The upshot
-is that we've had users on the site from Day 3 of its existence on.We've gone
-from launch in January 2011 when we sent hundreds of emails out per day by
-hand to sending out over 1 million emails and handling over 200,000 incoming
-emails per month. In total, customers have recorded over 1.7 million
-dones.Stat</p><p>4 0.92172462 <a title="1269-lda-4" href="../high_scalability-2012/high_scalability-2012-10-12-Stuff_The_Internet_Says_On_Scalability_For_October_12%2C_2012.html">1339 high scalability-2012-10-12-Stuff The Internet Says On Scalability For October 12, 2012</a></p>
-<p>Introduction: It's HighScalability Time:Quotable Quotes:@rodos: With so much manure in the
-room of #BigData the must be a pony in here somewhere!@adron: #ricon2012 OH
-"it isn't cloud, nosql or whatever, it's distributed systems... That is the
-change!" Smartest thing stated at a conf in ages.@justinesherry: First lesson
-watching @eric_brewer's keynote at #ricon2012 -- distributed systems make you
-go bald. (Both audience and speaker!)@adron: OH "What's the hello world of
-distributed systems?" "Twitter."Mikael Ronstrom: A long career on distributed
-systems has learnt me that it is extremely important to do proper partitioning
-of data sets to achieve scalability on network level. But it is still
-extremely important to make each node in the distributed system as large as
-possible. Greg Linden: Surprising: "It can be three to four times the cost for
-the retailer to pick items and pack them from a store versus having a really
-efficient, automated process back in a distribution center."Dan Rayburn: CDNs
-Acc</p><p>5 0.92161149 <a title="1269-lda-5" href="../high_scalability-2013/high_scalability-2013-02-15-Stuff_The_Internet_Says_On_Scalability_For_February_15%2C_2013.html">1407 high scalability-2013-02-15-Stuff The Internet Says On Scalability For February 15, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time: The Herokulypse. A cautionary tale of what can
-happen when scalability is left for later. Rap Genius created quite a stir
-(reddit,Hacker News) when they documentedhigh costs ($20K/month for 15 million
-monthly uniques) and poor performance (6 second average response times) using
-Heroku'srandom routing mesh. The cause was tracked to queuing at the dyno
-level when the expectation was requests are routed to free dynos. Heroku
-admitsthis is a problem. So poor load balancing combined with RoR single
-threading = poor performance, one that adding more dynos and spending more
-money won't necessarily help. While it seems clear Heroku didn't make this
-aspect of their system crystal clear, the incident has generated a lot of
-teaching moments, if you slog through it all. This is a developing story.You
-need money to feed the beast. Fred Wilson has somerevenue ideas for you: Paid
-App Downloads - ex. WhatsApp; In-app purchases - ex. Zynga Poker; In-app
-subscriptions - e</p><p>6 0.90319294 <a title="1269-lda-6" href="../high_scalability-2012/high_scalability-2012-10-26-Stuff_The_Internet_Says_On_Scalability_For_October_26%2C_2012.html">1348 high scalability-2012-10-26-Stuff The Internet Says On Scalability For October 26, 2012</a></p>
+<p>Introduction: When two titans of the early computing industry, Apple co-founder  Steve Wozniak  and Atari founder  Nolan Bushnell , had a chance to sit down for a chat at the  C2SV  conference last Friday, we learned how a little foresight and luck can decide futures.  
+  Steve Wozniak's Success - Expandability       
+ 
+ 
+Steve talked about how the Apple II was the primary source of revenue for Apple's first 10 years of life. The reason the Apple II could last so long was that it was expandable. It had  eight expansion slots  and the RAM was also expandable (starting at 4K). No computer at the time had this kind of flexibility or  expansion capabilities . Steve Wozniak and Steve Jobs argued over keeping the Apple II open. Jobs wanted closed, Wozniak wanted open and fortunately Wozniak won.  In fact, the Apple II was completely open (those were the days). They published the complete specs before there was anything like a developer community. 
+ 
+So even though the Apple III, Lisa, and the Macintosh al</p><p>2 0.94559026 <a title="1269-lda-2" href="../high_scalability-2008/high_scalability-2008-01-13-A_Note_on_How_to_Create_Teasers_When_Posting_.html">210 high scalability-2008-01-13-A Note on How to Create Teasers When Posting </a></p>
+<p>Introduction: I fully and enthusiastically encourage anyone who wants to share a relevant topic  to register and post. People have added a lot of good and useful content.  Don't be shy. It's been asked how a  teaser is created when posting so the full article doesn't display on the front page. A teaser is a paragraph interesting enough to convince readers to click on the "read more" link to get the full article.        Creating a teaser in Drupal is accomplished by inserting < ! -- break -- > on a separate line directly after the text you want to be the teaser. Only DO NOT include the spaces.  So your post looks like:   Teaser Content   < ! -- break -- > (no spaces in real life)   Rest of Content     It's a bit kludgey, but it works.</p><p>same-blog 3 0.92811537 <a title="1269-lda-3" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
+<p>Introduction: This is a guest post by Rodrigo Guzman, CTO of  iDoneThis , which makes status reporting happen at your company with the lightest possible touch. 
+ 
+ iDoneThis  is a simple management application that emails your team at the end of every day to ask, "What'd you get done today?"  Just reply with a few lines of what you got done. The following morning everyone on your team gets a digest with what the team accomplished the previous day to keep everyone in the loop and kickstart another awesome day.
+ 
+Before we launched, we built iDoneThis over a weekend in the most rudimentary way possible.  I kid you not, we sent the first few batches of daily emails using the BCC field of a Gmail inbox.  The upshot is that we’ve had users on the site from Day 3 of its existence on.
+ 
+We’ve gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month.  In total, customers have recorded over 1.</p><p>4 0.92172462 <a title="1269-lda-4" href="../high_scalability-2012/high_scalability-2012-10-12-Stuff_The_Internet_Says_On_Scalability_For_October_12%2C_2012.html">1339 high scalability-2012-10-12-Stuff The Internet Says On Scalability For October 12, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+ Quotable Quotes:                                           
+ 
+  @rodos : With so much manure in the room of #BigData the must be a pony in here somewhere! 
+  @adron : #ricon2012 OH "it isn't cloud, nosql or whatever, it's distributed systems... That is the change!" Smartest thing stated at a conf in ages. 
+  @justinesherry : First lesson watching @eric_brewer's keynote at #ricon2012 -- distributed systems make you go bald. (Both audience and speaker!)  
+  @adron : OH "What's the hello world of distributed systems?" "Twitter." 
+  Mikael Ronstrom : A long career on distributed systems has learnt me that it is extremely important to do proper partitioning of data sets to achieve scalability on network level. But it is still extremely important to make each node in the distributed system as large as possible.  
+  Greg Linden : Surprising: "It can be three to four times the cost for the retailer to pick items and pack them from a store versus having a really e</p><p>5 0.92161149 <a title="1269-lda-5" href="../high_scalability-2013/high_scalability-2013-02-15-Stuff_The_Internet_Says_On_Scalability_For_February_15%2C_2013.html">1407 high scalability-2013-02-15-Stuff The Internet Says On Scalability For February 15, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time: 
+  
+ The Herokulypse. A cautionary tale of what can happen when scalability is left for later. Rap Genius created quite a stir ( reddit ,  Hacker News )  when they documented  high costs ($20K/month for 15 million monthly uniques) and poor performance (6 second average response times) using Heroku's  random routing mesh . The cause was tracked to queuing at the dyno level when the expectation was requests are routed to free dynos. Heroku admits  this is a problem . So poor load balancing combined with RoR single threading = poor performance, one that adding more dynos and spending more money won't necessarily help. While it seems clear Heroku didn't make this aspect of their system crystal clear, the incident has generated a lot of teaching moments, if you slog through it all. This is a developing story. 
+ 
+ You need money to feed the beast. Fred Wilson has some  revenue ideas for you : Paid App Downloads - ex. WhatsApp; In-app purchases - ex. Zynga Poke</p><p>6 0.90319294 <a title="1269-lda-6" href="../high_scalability-2012/high_scalability-2012-10-26-Stuff_The_Internet_Says_On_Scalability_For_October_26%2C_2012.html">1348 high scalability-2012-10-26-Stuff The Internet Says On Scalability For October 26, 2012</a></p>
 <p>7 0.90283972 <a title="1269-lda-7" href="../high_scalability-2013/high_scalability-2013-09-18-If_You%27re_Programming_a_Cell_Phone_Like_a_Server_You%27re_Doing_it_Wrong.html">1519 high scalability-2013-09-18-If You're Programming a Cell Phone Like a Server You're Doing it Wrong</a></p>
 <p>8 0.89686221 <a title="1269-lda-8" href="../high_scalability-2012/high_scalability-2012-10-04-Stuff_The_Internet_Says_On_Scalability_For_October_5%2C_2012.html">1334 high scalability-2012-10-04-Stuff The Internet Says On Scalability For October 5, 2012</a></p>
 <p>9 0.893969 <a title="1269-lda-9" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>

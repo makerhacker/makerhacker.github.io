@@ -16,38 +16,29 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1148-html" href="http://highscalability.com//blog/2011/11/29/datasift-architecture-realtime-datamining-at-120000-tweets-p.html">html</a></p><p>Introduction: I remember the excitement of when Twitter first opened up their firehose. As
-an early adopter of the Twitter API I could easily imagine some of the cool
-things you could do with all that data. I also remember the disappointment of
-learning that in the land of BigData, data has a price, and that price would
-be too high for little fish like me. It was like learning for the first time
-there would be no BigData Santa Clause.For a while though I had the pleasure
-of pondering just how I would handle all that data. It's a fascinating
-problem. You have to be able to reliably consume it, normalize it, merge it
-with other data, apply functions on it, store it, query it, distribute it, and
-oh yah, monetize it. Most of that in realish-time. And if you are trying to
-create a platform for allowing the entire Internet do to the same thing to the
-firehose, the challenge is exponentially harder.DataSift is in the exciting
-position of creating just such a firehose eating, data chomping machine. You
-see,</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 FilteringYou can't pay for the entire firehose so a relatively simple declarative language calledCSDL is used to filter out the Tweets you don't want and keep the Tweets you do want. [sent-94, score-0.601]
-</p><p>2 content contains "orange"All tweets matching a filter form a stream. [sent-97, score-0.538]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2011-1148-html" href="http://highscalability.com//blog/2011/11/29/datasift-architecture-realtime-datamining-at-120000-tweets-p.html">html</a></p><p>Introduction: I remember the excitement of when Twitter first opened up their firehose.  As an early adopter of the Twitter API I could easily imagine some of the cool things you could do with all that data. I also remember the disappointment of learning that in the land of BigData, data has a price, and that price would be too high for little fish like me. It was like learning for the first time there would be no BigData Santa Clause.
+ 
+For a while though I had the pleasure of pondering just how I would handle all that data. It's a fascinating problem. You have to be able to reliably consume it, normalize it, merge it with other data, apply functions on it, store it, query it, distribute it, and oh yah, monetize it. Most of that in realish-time. And if you are trying to create a platform for allowing the entire Internet do to the same thing to the firehose, the challenge is exponentially harder.
+ 
+DataSift is in the exciting position of creating just such a firehose eating, data chomping machine. Y</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Filtering      You can't pay for the entire firehose so a relatively simple declarative language called  CSDL  is used to filter out the Tweets you don't want and keep the Tweets you do want. [sent-94, score-0.601]
+</p><p>2 content contains “orange”    All tweets matching a filter form a stream. [sent-97, score-0.538]
 </p><p>3 A stream is the output of a CSDL filter applied to input. [sent-99, score-0.386]
 </p><p>4 Filters include regular expressions, you can filter out tweets based on text in the profile, for example. [sent-109, score-0.507]
 </p><p>5 Put all Best Buy locations in a rule so you can see tweets from within Best Buy without having to know a tweet was from a Best Buy using a hashtag. [sent-154, score-0.43]
 </p><p>6 It filters out tweets from the firehose to create a highly targeted stream of tweets for you to process in a separate application. [sent-193, score-1.011]
-</p><p>7 If there's a filter that filters only for Lady Gaga references then, to the greatest degree possible, that filter is run on each tweet once and the result is shared between all rules using the same filter. [sent-221, score-1.069]
-</p><p>8 If you want a filter on all of Lady Gaga's followers, then filter scalability must be a core capability. [sent-242, score-0.586]
-</p><p>9 Thus, if a very heavy filter is loaded, that will be balanced by adding more nodes to the shard the heavy rule is loaded into, thus reducing the amount of firehose a single node has to process. [sent-251, score-0.647]
-</p><p>10 So far, no single filter has been too heavy for a single node, but they are considering splitting the filter processing so sub-predicates are processed on mass first, then the resultant filters separately. [sent-252, score-0.89]
-</p><p>11 , given a filter like "Get me all tweets containing 'apple' AND matching rule XYZ", filter XYZ is processed separately). [sent-255, score-0.94]
-</p><p>12 For example, someone could make a dirty word filter that creates a stream. [sent-258, score-0.375]
+</p><p>7 The drivers for a filter only model are:  firehose scale and low latency . [sent-197, score-0.639]
+</p><p>8 If there's a filter that filters only for Lady Gaga references then, to the greatest degree possible, that filter is run on each tweet once and the result is shared between all rules using the same filter. [sent-221, score-1.069]
+</p><p>9 If you want a filter on all of Lady Gaga's followers, then filter scalability must be a core capability. [sent-242, score-0.586]
+</p><p>10 Thus, if a very heavy filter is loaded, that will be balanced by adding more nodes to the shard the heavy rule is loaded into, thus reducing the amount of firehose a single node has to process. [sent-251, score-0.647]
+</p><p>11 So far, no single filter has been too heavy for a single node, but they are considering splitting the filter processing so sub-predicates are processed on mass first, then the resultant filters separately. [sent-252, score-0.858]
+</p><p>12 , given a filter like "Get me all tweets containing 'apple' AND matching rule XYZ", filter XYZ is processed separately). [sent-255, score-0.647]
 </p><p>13 Everyone shares that same stream so if a 1000 users are using the dirty word filter the filter is not getting evaluated 1000 times. [sent-260, score-0.766]
-</p><p>14 If you run 10,000 streams and it ends up being 50% of the firehose that's fine, but they don't just sell 50% of the firehose without data processing as it makes their platform irrelevant. [sent-309, score-0.864]
-</p><p>15 All males would be 50% of the firehose or 125 million tweets as there's a 50-50 male female split on Twitter. [sent-311, score-0.571]
+</p><p>14 If you run 10,000 streams and it ends up being 50% of the firehose that’s fine, but they don’t just sell 50% of the firehose without data processing as it makes their platform irrelevant. [sent-309, score-0.864]
+</p><p>15 All males would be 50% of the firehose or 125 million tweets as there’s a 50-50 male female split on Twitter. [sent-311, score-0.571]
 </p><p>16 Creating a filter for all tweets made by males would not be bright. [sent-312, score-0.622]
 </p><p>17 Out of 250 million tweets a day the question is how do you create a filter to get the two or three that you want. [sent-318, score-0.507]
 </p><p>18 The same tweet could match a gender rule and dirty word rule, for example, and for each case the tweet must be handled differently. [sent-343, score-0.53]
-</p><p>19 There are two major collections of tweets stored in HBase:Filters can have listeners so tweets are directly stored in HBase allowing the data to be downloaded later. [sent-353, score-0.477]
+</p><p>19 There are two major collections of tweets stored in HBase:     Filters can have listeners so tweets are directly stored in HBase allowing the data to be downloaded later. [sent-353, score-0.477]
 </p><p>20 In two months they will let people run their filters over a persistent version of the firehose stored in HBase/Hadoop. [sent-356, score-0.536]
 </p>
 <br/>
@@ -55,61 +46,36 @@ see,</p><br/><h2>Summary: the most important sentenses genereted by tfidf model<
 <p>[('datasift', 0.648), ('filter', 0.293), ('firehose', 0.277), ('tweets', 0.214), ('filters', 0.213), ('tweetmeme', 0.179), ('tweet', 0.139), ('twitter', 0.117), ('stream', 0.093), ('dpu', 0.089), ('rules', 0.085), ('platform', 0.084), ('rule', 0.077), ('klout', 0.074), ('filtering', 0.074), ('streams', 0.072), ('sentiment', 0.064), ('gender', 0.063), ('money', 0.062), ('processing', 0.059), ('augmented', 0.058), ('gaga', 0.055), ('lady', 0.051), ('retweet', 0.051), ('services', 0.051), ('data', 0.049), ('run', 0.046), ('nick', 0.045), ('word', 0.045), ('halstead', 0.045), ('males', 0.045), ('evaluated', 0.042), ('compiler', 0.04), ('moat', 0.038), ('latency', 0.037), ('could', 0.037), ('augmentation', 0.036), ('customers', 0.036), ('made', 0.035), ('geolocation', 0.035), ('would', 0.035), ('engine', 0.033), ('licensed', 0.033), ('processed', 0.032), ('low', 0.032), ('matching', 0.031), ('entire', 0.031), ('match', 0.03), ('follower', 0.03), ('api', 0.03)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999976 <a title="1148-tfidf-1" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
-<p>Introduction: I remember the excitement of when Twitter first opened up their firehose. As
-an early adopter of the Twitter API I could easily imagine some of the cool
-things you could do with all that data. I also remember the disappointment of
-learning that in the land of BigData, data has a price, and that price would
-be too high for little fish like me. It was like learning for the first time
-there would be no BigData Santa Clause.For a while though I had the pleasure
-of pondering just how I would handle all that data. It's a fascinating
-problem. You have to be able to reliably consume it, normalize it, merge it
-with other data, apply functions on it, store it, query it, distribute it, and
-oh yah, monetize it. Most of that in realish-time. And if you are trying to
-create a platform for allowing the entire Internet do to the same thing to the
-firehose, the challenge is exponentially harder.DataSift is in the exciting
-position of creating just such a firehose eating, data chomping machine. You
-see,</p><p>2 0.23850089 <a title="1148-tfidf-2" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
-<p>Introduction: Toy solutions solving Twitter's "problems" are a favorite scalability trope.
-Everybody has this idea that Twitter is easy. With a little architectural hand
-waving we have a scalable Twitter, just that simple. Well, it's not that
-simple asRaffi Krikorian, VP of Engineering at Twitter, describes in his
-superb and very detailed presentation onTimelines at Scale. If you want to
-know how Twitter works - then start here.It happened gradually so you may have
-missed it, but Twitter has grown up. It started as a strugglingthree-tierish
-Ruby on Railswebsite to become a beautifully service driven core that we
-actually go to now to see if other services are down. Quite a change.Twitter
-now has 150M world wide active users, handles 300K QPS to generate timelines,
-and a firehose that churns out 22 MB/sec. 400 million tweets a day flow
-through the system and it can take up to 5 minutes for a tweet to flow from
-Lady Gaga's fingers to her 31 million followers.A couple of points stood
-out:Twitter no lon</p><p>3 0.18218197 <a title="1148-tfidf-3" href="../high_scalability-2012/high_scalability-2012-05-07-Startups_are_Creating_a_New_System_of_the_World_for_IT.html">1240 high scalability-2012-05-07-Startups are Creating a New System of the World for IT</a></p>
-<p>Introduction: It remains that, from the same principles, I now demonstrate the frame of the
-System of the World.-- Isaac NewtonThe practice of IT reminds me a lot of the
-practice of science before Isaac Newton. Aristotelianism was dead, but there
-was nothing to replace it. Then Newton came along, created a scientific
-revolution with hisSystem of the World. And everything changed. That was New
-System of the World number one.New System of the World number two was written
-about by the incomparable Neal Stephenson in his incredible Baroque Cycle
-series. It explores the singular creation of a new way of organizing society
-grounded in new modes of thought in business, religion, politics, and science.
-Our modern world emerged Enlightened as it could from this roiling cauldron of
-forces.In IT we may have had a Leonardo da Vinci or even a Galileo, but we've
-never had our Newton. Maybe we don't need a towering genius to make everything
-clear? For years startups, like the frenetically inventive age of the 17th</p><p>4 0.16849206 <a title="1148-tfidf-4" href="../high_scalability-2013/high_scalability-2013-07-15-Ask_HS%3A_What%27s_Wrong_with_Twitter%2C_Why_Isn%27t_One_Machine_Enough%3F.html">1491 high scalability-2013-07-15-Ask HS: What's Wrong with Twitter, Why Isn't One Machine Enough?</a></p>
-<p>Introduction: Can anyone convincingly explain why properties sporting traffic statistics
-that may seem in-line with with the capabilities of a single big-iron machine
-need so many machines in their architecture?This is a common reaction to
-architecture profiles on High Scalability: I could do all that on a few
-machines so they must be doing something really stupid. Lo and behold this
-same reaction also occurred to the articleThe Architecture Twitter Uses to
-Deal with 150M Active Users. On Hacker Newspapsosouid voiced what a lot of
-people may have been thinking:I really question the current trend of creating
-big, complex, fragile architectures to "be able to scale". These numbers are a
-great example of why, the entire thing could run on a single server, in a very
-straight forward setup. When you are creating a cluster for scalability, and
-it has less CPU, RAM and IO than a single server, what are you gaining? They
-are only doing 6k writes a second for crying out loud.This is a surprisingly
-hard react</p><p>5 0.15777802 <a title="1148-tfidf-5" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
+<p>Introduction: I remember the excitement of when Twitter first opened up their firehose.  As an early adopter of the Twitter API I could easily imagine some of the cool things you could do with all that data. I also remember the disappointment of learning that in the land of BigData, data has a price, and that price would be too high for little fish like me. It was like learning for the first time there would be no BigData Santa Clause.
+ 
+For a while though I had the pleasure of pondering just how I would handle all that data. It's a fascinating problem. You have to be able to reliably consume it, normalize it, merge it with other data, apply functions on it, store it, query it, distribute it, and oh yah, monetize it. Most of that in realish-time. And if you are trying to create a platform for allowing the entire Internet do to the same thing to the firehose, the challenge is exponentially harder.
+ 
+DataSift is in the exciting position of creating just such a firehose eating, data chomping machine. Y</p><p>2 0.23850089 <a title="1148-tfidf-2" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
+<p>Introduction: Toy solutions solving Twitter’s “problems” are a favorite scalability trope. Everybody has this idea that Twitter is easy. With a little architectural hand waving we have a scalable Twitter, just that simple. Well, it’s not that simple as   Raffi Krikorian   , VP of Engineering at Twitter, describes in his superb and very detailed presentation on    Timelines at Scale   . If you want to know how Twitter works - then start here.  
+ 
+It happened gradually so you may have missed it, but Twitter has grown up. It started as a struggling   three-tierish Ruby on Rails    website to become a beautifully service driven core that we actually go to now to see if other services are down. Quite a change.  
+ 
+Twitter now has 150M world wide active users, handles 300K QPS to generate timelines, and a firehose that churns out 22 MB/sec. 400 million tweets a day flow through the system and it can take up to 5 minutes for a tweet to flow from Lady Gaga’s fingers to her 31 million followers.
+ 
+A couple o</p><p>3 0.18218197 <a title="1148-tfidf-3" href="../high_scalability-2012/high_scalability-2012-05-07-Startups_are_Creating_a_New_System_of_the_World_for_IT.html">1240 high scalability-2012-05-07-Startups are Creating a New System of the World for IT</a></p>
+<p>Introduction: It remains that, from the same principles, I now demonstrate the frame of the System of the World.  -- Isaac Newton
+ 
+The practice of IT reminds me a lot of the practice of science before Isaac Newton. Aristotelianism was dead, but there was nothing to replace it. Then Newton came along, created a scientific revolution with his  System of the World . And everything changed. That was New System of the World number one.
+ 
+New System of the World number two was written about by the incomparable Neal Stephenson in his incredible  Baroque Cycle  series. It explores the singular creation of a new way of organizing society grounded in new modes of thought in business, religion, politics, and science. Our modern world emerged Enlightened as it could from this roiling cauldron of forces.
+ 
+In IT we may have had a Leonardo da Vinci or even a Galileo, but we’ve never had our Newton. Maybe we don't need a towering genius to make everything clear? For years startups, like the frenetically inventive</p><p>4 0.16849206 <a title="1148-tfidf-4" href="../high_scalability-2013/high_scalability-2013-07-15-Ask_HS%3A_What%27s_Wrong_with_Twitter%2C_Why_Isn%27t_One_Machine_Enough%3F.html">1491 high scalability-2013-07-15-Ask HS: What's Wrong with Twitter, Why Isn't One Machine Enough?</a></p>
+<p>Introduction: Can anyone convincingly explain why properties sporting traffic statistics that may seem in-line with with the capabilities of a single big-iron machine need so many machines in their architecture?
+ 
+This is a common reaction to architecture profiles on High Scalability: I could do all that on a few machines so they must be doing something really stupid. 
+ 
+Lo and behold this same reaction also occurred to the article  The Architecture Twitter Uses to Deal with 150M Active Users . On Hacker News  papsosouid  voiced what a lot of people may have been thinking:
+  
+
+I really question the current trend of creating big, complex, fragile architectures to "be able to scale". These numbers are a great example of why, the entire thing could run on a single server, in a very straight forward setup. When you are creating a cluster for scalability, and it has less CPU, RAM and IO than a single server, what are you gaining? They are only doing 6k writes a second for crying out loud.
+
+  
+This is a s</p><p>5 0.15777802 <a title="1148-tfidf-5" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
 <p>Introduction: With over 15 billion page views a month Tumblr has become an insanely popular
 blogging platform. Users may like Tumblr for its simplicity, its beauty, its
 strong focus on user experience, or its friendly and engaged community, but
@@ -143,76 +109,40 @@ an</p><p>6 0.15777802 <a title="1148-tfidf-6" href="../high_scalability-2012/hig
 <p>[(0, 0.223), (1, 0.095), (2, -0.003), (3, 0.006), (4, 0.026), (5, -0.036), (6, -0.019), (7, 0.054), (8, 0.039), (9, -0.009), (10, 0.037), (11, 0.098), (12, 0.03), (13, -0.024), (14, 0.007), (15, 0.04), (16, -0.032), (17, -0.04), (18, -0.017), (19, -0.038), (20, -0.055), (21, -0.042), (22, 0.014), (23, 0.007), (24, -0.002), (25, 0.008), (26, 0.018), (27, -0.016), (28, -0.004), (29, 0.048), (30, 0.058), (31, -0.036), (32, -0.05), (33, 0.019), (34, -0.074), (35, 0.001), (36, -0.04), (37, 0.056), (38, -0.083), (39, -0.02), (40, 0.054), (41, -0.0), (42, -0.01), (43, 0.021), (44, 0.015), (45, 0.024), (46, -0.036), (47, -0.034), (48, 0.05), (49, 0.036)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.93624365 <a title="1148-lsi-1" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
-<p>Introduction: I remember the excitement of when Twitter first opened up their firehose. As
-an early adopter of the Twitter API I could easily imagine some of the cool
-things you could do with all that data. I also remember the disappointment of
-learning that in the land of BigData, data has a price, and that price would
-be too high for little fish like me. It was like learning for the first time
-there would be no BigData Santa Clause.For a while though I had the pleasure
-of pondering just how I would handle all that data. It's a fascinating
-problem. You have to be able to reliably consume it, normalize it, merge it
-with other data, apply functions on it, store it, query it, distribute it, and
-oh yah, monetize it. Most of that in realish-time. And if you are trying to
-create a platform for allowing the entire Internet do to the same thing to the
-firehose, the challenge is exponentially harder.DataSift is in the exciting
-position of creating just such a firehose eating, data chomping machine. You
-see,</p><p>2 0.91817135 <a title="1148-lsi-2" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
-<p>Introduction: Toy solutions solving Twitter's "problems" are a favorite scalability trope.
-Everybody has this idea that Twitter is easy. With a little architectural hand
-waving we have a scalable Twitter, just that simple. Well, it's not that
-simple asRaffi Krikorian, VP of Engineering at Twitter, describes in his
-superb and very detailed presentation onTimelines at Scale. If you want to
-know how Twitter works - then start here.It happened gradually so you may have
-missed it, but Twitter has grown up. It started as a strugglingthree-tierish
-Ruby on Railswebsite to become a beautifully service driven core that we
-actually go to now to see if other services are down. Quite a change.Twitter
-now has 150M world wide active users, handles 300K QPS to generate timelines,
-and a firehose that churns out 22 MB/sec. 400 million tweets a day flow
-through the system and it can take up to 5 minutes for a tweet to flow from
-Lady Gaga's fingers to her 31 million followers.A couple of points stood
-out:Twitter no lon</p><p>3 0.82947737 <a title="1148-lsi-3" href="../high_scalability-2011/high_scalability-2011-12-19-How_Twitter_Stores_250_Million_Tweets_a_Day_Using_MySQL.html">1159 high scalability-2011-12-19-How Twitter Stores 250 Million Tweets a Day Using MySQL</a></p>
-<p>Introduction: Jeremy Cole, a DBA Team Lead/Database Architect at Twitter, gave a really good
-talk at the O'Reilly MySQL conference:Big and Small Data at @Twitter, where
-the topic was thinking of Twitter from the data perspective.One of the
-interesting stories he told was of the transition from Twitter's old way of
-storing tweets using temporalsharding, to a more distributed approach using a
-new tweet store called T-bird, which is built on top ofGizzard, which is built
-using MySQL.Twitter's original tweet store:Temporally sharded tweets was a
-good-idea-at-the-time architecture. Temporal sharding simply means tweets from
-the same date range are stored together on the same shard.The problem is
-tweets filled up one machine, then a second, and then a third. You end up
-filling up one machine after another.This is a pretty common approach and one
-that has some real flaws:Load balancing. Most of the old machines didn't get
-any traffic because people are interested in what is happening now, especially
-with T</p><p>4 0.82926679 <a title="1148-lsi-4" href="../high_scalability-2010/high_scalability-2010-02-19-Twitter%E2%80%99s_Plan_to_Analyze_100_Billion_Tweets.html">780 high scalability-2010-02-19-Twitter’s Plan to Analyze 100 Billion Tweets</a></p>
-<p>Introduction: If Twitter is the "nervous system of the web" as some people think, then what
-is the brain that makes sense of all those signals (tweets) from the nervous
-system? That brain is the Twitter Analytics System and Kevin Weil, as
-Analytics Lead at Twitter, is the homunculus within in charge of figuring out
-what those over 100 billion tweets (approximately the number of neurons in the
-human brain) mean.Twitter has only 10% of the expected 100 billion tweets now,
-but a good brain always plans ahead. Kevin gave a talk,Hadoop and Protocol
-Buffers at Twitter, at theHadoop Meetup, explaining how Twitter plans to use
-all that data to an answer key business questions.What type of questions is
-Twitter interested in answering? Questions that help them better understand
-Twitter. Questions like:How many requests do we serve in a day?What is the
-average latency?How many searches happen in day?How many unique queries, how
-many unique users, what is their geographic distribution?What can we tell
-about as</p><p>5 0.82643032 <a title="1148-lsi-5" href="../high_scalability-2010/high_scalability-2010-06-07-Six_Ways_Twitter_May_Reach_its_Big_Hairy_Audacious_Goal_of_One_Billion_Users.html">837 high scalability-2010-06-07-Six Ways Twitter May Reach its Big Hairy Audacious Goal of One Billion Users</a></p>
-<p>Introduction: Twitter has a big hairy audacious goal of reaching one billion users by 2013.
-Three forces stand against Twitter. The world will end in2012. But let's be
-optimistic and assume we'll make it. Next is Facebook. Currently Facebook is
-the user leader with over 400 million users. Will Facebook stumble or will
-they rocket to one billion users before Twitter? And lastly, there's Twitter's
-"low" starting point and "slow" growth rate. Twitter currently has106
-millionregistered users and adds about 300,000 new users a day. That doesn't
-add up to a billion in three years. Twitter needs to triple the number of
-registered users they add per day. How will Twitter reach its goal of over one
-billion users served?From recent infrastructure announcements and information
-gleaned atChirp (videos) and other talks, it has become a little clearer how
-they hope to reach their billion user goal: 1) Make a Big Hairy Audacious Goal
-2) Hire Lots of Quality People 3) Hug Developers and Users 4) Drive the
-Technolog</p><p>6 0.82151943 <a title="1148-lsi-6" href="../high_scalability-2013/high_scalability-2013-07-15-Ask_HS%3A_What%27s_Wrong_with_Twitter%2C_Why_Isn%27t_One_Machine_Enough%3F.html">1491 high scalability-2013-07-15-Ask HS: What's Wrong with Twitter, Why Isn't One Machine Enough?</a></p>
+<p>Introduction: I remember the excitement of when Twitter first opened up their firehose.  As an early adopter of the Twitter API I could easily imagine some of the cool things you could do with all that data. I also remember the disappointment of learning that in the land of BigData, data has a price, and that price would be too high for little fish like me. It was like learning for the first time there would be no BigData Santa Clause.
+ 
+For a while though I had the pleasure of pondering just how I would handle all that data. It's a fascinating problem. You have to be able to reliably consume it, normalize it, merge it with other data, apply functions on it, store it, query it, distribute it, and oh yah, monetize it. Most of that in realish-time. And if you are trying to create a platform for allowing the entire Internet do to the same thing to the firehose, the challenge is exponentially harder.
+ 
+DataSift is in the exciting position of creating just such a firehose eating, data chomping machine. Y</p><p>2 0.91817135 <a title="1148-lsi-2" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
+<p>Introduction: Toy solutions solving Twitter’s “problems” are a favorite scalability trope. Everybody has this idea that Twitter is easy. With a little architectural hand waving we have a scalable Twitter, just that simple. Well, it’s not that simple as   Raffi Krikorian   , VP of Engineering at Twitter, describes in his superb and very detailed presentation on    Timelines at Scale   . If you want to know how Twitter works - then start here.  
+ 
+It happened gradually so you may have missed it, but Twitter has grown up. It started as a struggling   three-tierish Ruby on Rails    website to become a beautifully service driven core that we actually go to now to see if other services are down. Quite a change.  
+ 
+Twitter now has 150M world wide active users, handles 300K QPS to generate timelines, and a firehose that churns out 22 MB/sec. 400 million tweets a day flow through the system and it can take up to 5 minutes for a tweet to flow from Lady Gaga’s fingers to her 31 million followers.
+ 
+A couple o</p><p>3 0.82947737 <a title="1148-lsi-3" href="../high_scalability-2011/high_scalability-2011-12-19-How_Twitter_Stores_250_Million_Tweets_a_Day_Using_MySQL.html">1159 high scalability-2011-12-19-How Twitter Stores 250 Million Tweets a Day Using MySQL</a></p>
+<p>Introduction: Jeremy Cole , a DBA Team Lead/Database Architect at Twitter, gave a really good talk at the O'Reilly MySQL conference:  Big and Small Data at @Twitter , where the topic was thinking of Twitter from the data perspective.
+ 
+One of the interesting stories he told was of the transition from Twitter's old way of storing tweets using temporal  sharding , to a more distributed approach using a new tweet store called T-bird, which is built on top of  Gizzard , which is built using MySQL.
+  Twitter's original tweet store:   
+ Temporally sharded tweets was a good-idea-at-the-time architecture. Temporal sharding simply means tweets from the same date range are stored together on the same shard. 
+ The problem is tweets filled up one machine, then a second, and then a third. You end up filling up one machine after another. 
+ This is a pretty common approach and one that has some real flaws:                         
+ 
+  Load balancing . Most of the old machines didn't get any traffic because people</p><p>4 0.82926679 <a title="1148-lsi-4" href="../high_scalability-2010/high_scalability-2010-02-19-Twitter%E2%80%99s_Plan_to_Analyze_100_Billion_Tweets.html">780 high scalability-2010-02-19-Twitter’s Plan to Analyze 100 Billion Tweets</a></p>
+<p>Introduction: If Twitter is the “nervous system of the web” as some people think, then what is the brain that makes sense of all those signals (tweets) from the nervous system? That brain is the Twitter Analytics System and Kevin Weil,  as Analytics Lead at Twitter,  is the homunculus within in charge of figuring out what those over 100 billion tweets (approximately the number of neurons in the human brain) mean.
+ 
+Twitter has only 10% of the expected 100 billion tweets now, but a good brain always plans ahead. Kevin gave a talk,  Hadoop and Protocol Buffers at Twitter , at the  Hadoop Meetup , explaining how Twitter plans to use all that data to an answer key business questions.
+ 
+What type of questions is Twitter interested in answering? Questions that help them better understand Twitter. Questions like:
+  
+  How many requests do we serve in  a day?  
+  What is the average latency? 
+  How many searches happen in day?  
+  How many unique queries, how many unique users, what is their geographic dist</p><p>5 0.82643032 <a title="1148-lsi-5" href="../high_scalability-2010/high_scalability-2010-06-07-Six_Ways_Twitter_May_Reach_its_Big_Hairy_Audacious_Goal_of_One_Billion_Users.html">837 high scalability-2010-06-07-Six Ways Twitter May Reach its Big Hairy Audacious Goal of One Billion Users</a></p>
+<p>Introduction: Twitter has a big hairy audacious goal of reaching one billion users  by 2013. Three forces stand against Twitter. The world will end in  2012 . But let's be optimistic and assume we'll make it. Next is Facebook. Currently Facebook is the user leader with over  400 million users . Will Facebook stumble or will they rocket to one billion users before Twitter? And lastly, there's Twitter's "low" starting point and "slow" growth rate. Twitter currently has  106 million  registered users and adds about 300,000 new users a day. That doesn't add up to a billion in three years. Twitter needs to triple the number of registered users they add per day. How will Twitter reach its goal of over one billion users served?
+ 
+From recent infrastructure announcements and information gleaned at  Chirp  ( videos ) and other talks, it has become a little clearer how they hope to reach their billion user goal: 1) Make a Big Hairy Audacious Goal 2) Hire Lots of Quality People 3) Hug Developers and Users 4) D</p><p>6 0.82151943 <a title="1148-lsi-6" href="../high_scalability-2013/high_scalability-2013-07-15-Ask_HS%3A_What%27s_Wrong_with_Twitter%2C_Why_Isn%27t_One_Machine_Enough%3F.html">1491 high scalability-2013-07-15-Ask HS: What's Wrong with Twitter, Why Isn't One Machine Enough?</a></p>
 <p>7 0.81103992 <a title="1148-lsi-7" href="../high_scalability-2009/high_scalability-2009-06-27-Scaling_Twitter%3A_Making_Twitter_10000_Percent_Faster.html">639 high scalability-2009-06-27-Scaling Twitter: Making Twitter 10000 Percent Faster</a></p>
 <p>8 0.80129111 <a title="1148-lsi-8" href="../high_scalability-2012/high_scalability-2012-05-24-Build_your_own_twitter_like_real_time_analytics_-_a_step_by_step_guide.html">1251 high scalability-2012-05-24-Build your own twitter like real time analytics - a step by step guide</a></p>
 <p>9 0.78433281 <a title="1148-lsi-9" href="../high_scalability-2009/high_scalability-2009-04-05-At_Some_Point_the_Cost_of_Servers_Outweighs_the_Cost_of_Programmers.html">556 high scalability-2009-04-05-At Some Point the Cost of Servers Outweighs the Cost of Programmers</a></p>
@@ -232,76 +162,39 @@ Technolog</p><p>6 0.82151943 <a title="1148-lsi-6" href="../high_scalability-201
 <p>[(1, 0.112), (2, 0.162), (10, 0.077), (30, 0.022), (39, 0.12), (40, 0.013), (47, 0.02), (61, 0.1), (77, 0.049), (79, 0.11), (85, 0.034), (94, 0.055)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.93802589 <a title="1148-lda-1" href="../high_scalability-2010/high_scalability-2010-09-16-How_Can_the_Large_Hadron_Collider_Withstand_One_Petabyte_of_Data_a_Second%3F.html">901 high scalability-2010-09-16-How Can the Large Hadron Collider Withstand One Petabyte of Data a Second?</a></p>
-<p>Introduction: Why is there something rather than nothing? That's the kind of question
-theLarge Hadron Colliderin CERN is hopefully poised to answer. And what is the
-output of this beautiful 17-mile long,6 billion dollar wabi-sabishproton
-smashing machine? Data. Great heaping torrents of Grand Canyon sized data. 15
-million gigabytes every year. That's 1000 times the information printed in
-books every year. It's so much data 10,000 scientists will use agridof80,000+
-computers, in 300 computer centers , in 50 different countries just to help
-make sense of it all.How will all this data be collected, transported, stored,
-and analyzed? It turns out, using what amounts to sort of Internet of
-Particles instead of an Internet of Things.Two good articles have recently
-shed some electro-magnetic energy in the human visible spectrum on the IT
-aspects of the collider:LHC computing grid pushes petabytes of data, beats
-expectations by John Timmer on Ars Technica and an overview of theBrookhaven's
-RHIC/ATLAS Comput</p><p>same-blog 2 0.92358267 <a title="1148-lda-2" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
-<p>Introduction: I remember the excitement of when Twitter first opened up their firehose. As
-an early adopter of the Twitter API I could easily imagine some of the cool
-things you could do with all that data. I also remember the disappointment of
-learning that in the land of BigData, data has a price, and that price would
-be too high for little fish like me. It was like learning for the first time
-there would be no BigData Santa Clause.For a while though I had the pleasure
-of pondering just how I would handle all that data. It's a fascinating
-problem. You have to be able to reliably consume it, normalize it, merge it
-with other data, apply functions on it, store it, query it, distribute it, and
-oh yah, monetize it. Most of that in realish-time. And if you are trying to
-create a platform for allowing the entire Internet do to the same thing to the
-firehose, the challenge is exponentially harder.DataSift is in the exciting
-position of creating just such a firehose eating, data chomping machine. You
-see,</p><p>3 0.91188794 <a title="1148-lda-3" href="../high_scalability-2011/high_scalability-2011-11-18-Stuff_The_Internet_Says_On_Scalability_For_November_18%2C_2011.html">1145 high scalability-2011-11-18-Stuff The Internet Says On Scalability For November 18, 2011</a></p>
-<p>Introduction: Every kiss begins with HighScalability:Amazon and the secret to life:
-42;10,240 coresMany quatloos worth of quotable quotes:@alesroubicek:  State
-kills scalability@cincura_net : Wrong. *Shared* state kills
-scalability.@kpshea: When I think "cloud" computing, I imagine the gaseous
-Star Trek blob that ate red blood cells (your sensitive data).@kotobuki: I'm
-interested in scalability of personal fabrication. How to 'scale' in batch
-production stages will be a key, but still there are barriers.@simonraikallen:
-The two rules of scalability testing: (1) The bottleneck is always the
-database (2) You can never predict what the bottleneck will be.@mastachand:
-Spot on Post by @storagebod about PetaByte-Scale storage. it's not only about
-scaling. It's about "Simple Scalability"
-(http://www.storagebod.com/wordpress/?p=930)@mschopman: don't forget about
-scalability, better response times due to shorter distances, ability to add
-nodes pretty fast@marksbirch: Photo: newyorker: The way we are producin</p><p>4 0.9111619 <a title="1148-lda-4" href="../high_scalability-2010/high_scalability-2010-06-16-Hot_Scalability_Links_for_June_16%2C_2010.html">842 high scalability-2010-06-16-Hot Scalability Links for June 16, 2010</a></p>
-<p>Introduction: You're Doing it Wrong by Poul-Henning Kamp. Don't look so guilty, he's not
-talking about you know what, he's talking about writing high-performance
-server programs: Not just wrong as in not perfect, but wrong as in wasting
-half, or more, of your performance. What good is an O(log2(n)) algorithm if
-those operations cause page faults and slow disk operations? For most relevant
-datasets an O(n) or even an O(n^2) algorithm, which avoids page faults, will
-run circles around it. A Microsoft Windows Azure primer: the basicsby Peter
-Bright. Nice article explaining the basics of Azure and how it compares to
-Google and Amazon.A call to change the name from NoSQL to Postmodern
-Databases. Interesting idea, but the problem is the same one I have for
-Postmodern Art, when is it? I always feel like I'm in the post-post modern
-period, yet for art it's really in the early 1900s. Let's save future
-developers from this existential time crisis.Constructions from Dots and
-Linesby Marko A. Rodriguez, Peter N</p><p>5 0.90893298 <a title="1148-lda-5" href="../high_scalability-2012/high_scalability-2012-02-07-Hypertable_Routs_HBase_in_Performance_Test_--_HBase_Overwhelmed_by_Garbage_Collection.html">1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</a></p>
-<p>Introduction: This is a guest post byDoug Judd, original creator of Hypertable and the CEO
-of Hypertable, Inc.Hypertable delivers 2X better throughput in most tests --
-HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage
-collection -- Both systems deliver similar results for random read uniform
-testWe recently conducted a test comparing the performance of Hypertable
-(@hypertable) version 0.9.5.5 to that of HBase (@HBase) version 0.90.4
-(CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and
-offer explanations for the discrepancies. For the full test report,
-seeHypertable vs. HBase II.IntroductionHypertable and HBase are both open
-source, scalable databases modeled after Google's proprietary Bigtable
-database.  The primary difference between the two systems is that Hypertable
-is written in C++, while HBase is written in Java.  We modeled this test after
-the one described in section 7 of theBigtable paperand tuned both systems for
-maximum performance.  The t</p><p>6 0.90515107 <a title="1148-lda-6" href="../high_scalability-2009/high_scalability-2009-08-31-Scaling_MySQL_on_Amazon_Web_Services.html">690 high scalability-2009-08-31-Scaling MySQL on Amazon Web Services</a></p>
+<p>Introduction: Why is there something rather than nothing? That's the kind of question the  Large Hadron Collider  in CERN is hopefully poised to answer. And what is the output of this beautiful 17-mile long,  6 billion  dollar  wabi-sabish  proton smashing machine? Data. Great heaping torrents of Grand Canyon sized data. 15 million gigabytes every year. That's 1000 times the information printed in books every year. It's so much data 10,000 scientists will use a  grid  of  80,000+ computers , in 300 computer centers , in 50 different countries just to help make sense of it all.
+ 
+How will all this data be collected, transported, stored, and analyzed? It turns out, using what amounts to sort of Internet of Particles instead of an Internet of Things.
+ 
+Two good articles have recently shed some electro-magnetic energy in the human visible spectrum on the IT aspects of the collider:  LHC computing grid pushes petabytes of data, beats expectations  by John Timmer on Ars Technica and an overview of the  Br</p><p>same-blog 2 0.92358267 <a title="1148-lda-2" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
+<p>Introduction: I remember the excitement of when Twitter first opened up their firehose.  As an early adopter of the Twitter API I could easily imagine some of the cool things you could do with all that data. I also remember the disappointment of learning that in the land of BigData, data has a price, and that price would be too high for little fish like me. It was like learning for the first time there would be no BigData Santa Clause.
+ 
+For a while though I had the pleasure of pondering just how I would handle all that data. It's a fascinating problem. You have to be able to reliably consume it, normalize it, merge it with other data, apply functions on it, store it, query it, distribute it, and oh yah, monetize it. Most of that in realish-time. And if you are trying to create a platform for allowing the entire Internet do to the same thing to the firehose, the challenge is exponentially harder.
+ 
+DataSift is in the exciting position of creating just such a firehose eating, data chomping machine. Y</p><p>3 0.91188794 <a title="1148-lda-3" href="../high_scalability-2011/high_scalability-2011-11-18-Stuff_The_Internet_Says_On_Scalability_For_November_18%2C_2011.html">1145 high scalability-2011-11-18-Stuff The Internet Says On Scalability For November 18, 2011</a></p>
+<p>Introduction: Every kiss begins with HighScalability:
+  
+  Amazon and the secret to life: 42 ;  10,240 cores  
+ Many quatloos worth of quotable quotes:               
+ 
+  @alesroubicek  :  State kills scalability 
+  @cincura_net  : Wrong. *Shared* state kills scalability. 
+  @kpshea  : When I think "cloud" computing, I imagine the gaseous Star Trek blob that ate red blood cells (your sensitive data). 
+  @kotobuki  : I'm interested in scalability of personal fabrication. How to 'scale' in batch production stages will be a key, but still there are barriers. 
+  @simonraikallen  : The two rules of scalability testing: (1) The bottleneck is always the database (2) You can never predict what the bottleneck will be. 
+  @mastachand  : Spot on Post by @storagebod about PetaByte-Scale storage. it's not only about scaling. It's about "Simple Scalability" ( http://www.storagebod.com/wordpress/?p=930 ) 
+  @mschopman  : don't forget about scalability, better response times due to shorter distances, ability to add</p><p>4 0.9111619 <a title="1148-lda-4" href="../high_scalability-2010/high_scalability-2010-06-16-Hot_Scalability_Links_for_June_16%2C_2010.html">842 high scalability-2010-06-16-Hot Scalability Links for June 16, 2010</a></p>
+<p>Introduction: You're Doing it Wrong  by Poul-Henning Kamp. Don't look so guilty, he's not talking about you know what, he's talking about writing high-performance server programs:  Not just wrong as in not perfect, but wrong as in wasting half, or more, of your performance. What good is an  O(log2(n))  algorithm if those operations cause page faults and slow disk operations? For most relevant datasets an  O(n)  or even an  O(n^2)  algorithm, which avoids page faults, will run circles around it.   
+  A Microsoft Windows Azure primer: the basics  by Peter Bright. Nice article explaining the basics of Azure and how it compares to Google and Amazon. 
+ A call to change the name from  NoSQL to Postmodern Databases . Interesting idea, but the problem is the same one I have for Postmodern Art, when is it? I always feel like I'm in the post-post modern period, yet for art it's really in the early 1900s. Let's save future developers from this existential time crisis. 
+  Constructions from Dots and Lines  by M</p><p>5 0.90893298 <a title="1148-lda-5" href="../high_scalability-2012/high_scalability-2012-02-07-Hypertable_Routs_HBase_in_Performance_Test_--_HBase_Overwhelmed_by_Garbage_Collection.html">1189 high scalability-2012-02-07-Hypertable Routs HBase in Performance Test -- HBase Overwhelmed by Garbage Collection</a></p>
+<p>Introduction: This is a guest post by  Doug Judd , original creator of Hypertable and the CEO of Hypertable, Inc. 
+ 
+ Hypertable delivers 2X better throughput in most tests -- HBase fails 41 and 167 billion record insert tests, overwhelmed by garbage collection -- Both systems deliver similar results for random read uniform test 
+ 
+We recently conducted a test comparing the performance of Hypertable ( @hypertable ) version 0.9.5.5 to that of HBase ( @HBase ) version 0.90.4 (CDH3u2) running Zookeeper 3.3.4.  In this post, we summarize the results and offer explanations for the discrepancies. For the full test report, see  Hypertable vs. HBase II .
+  Introduction  
+Hypertable and HBase are both open source, scalable databases modeled after Google's proprietary Bigtable database.  The primary difference between the two systems is that Hypertable is written in C++, while HBase is written in Java.  We modeled this test after the one described in section 7 of the  Bigtable paper  and tuned both systems fo</p><p>6 0.90515107 <a title="1148-lda-6" href="../high_scalability-2009/high_scalability-2009-08-31-Scaling_MySQL_on_Amazon_Web_Services.html">690 high scalability-2009-08-31-Scaling MySQL on Amazon Web Services</a></p>
 <p>7 0.8993386 <a title="1148-lda-7" href="../high_scalability-2013/high_scalability-2013-08-07-RAFT_-_In_Search_of_an_Understandable_Consensus_Algorithm.html">1498 high scalability-2013-08-07-RAFT - In Search of an Understandable Consensus Algorithm</a></p>
 <p>8 0.88699043 <a title="1148-lda-8" href="../high_scalability-2013/high_scalability-2013-01-07-Analyzing_billions_of_credit_card_transactions_and_serving_low-latency_insights_in_the_cloud.html">1382 high scalability-2013-01-07-Analyzing billions of credit card transactions and serving low-latency insights in the cloud</a></p>
 <p>9 0.88625842 <a title="1148-lda-9" href="../high_scalability-2011/high_scalability-2011-09-02-Stuff_The_Internet_Says_On_Scalability_For_September_2%2C_2011.html">1109 high scalability-2011-09-02-Stuff The Internet Says On Scalability For September 2, 2011</a></p>

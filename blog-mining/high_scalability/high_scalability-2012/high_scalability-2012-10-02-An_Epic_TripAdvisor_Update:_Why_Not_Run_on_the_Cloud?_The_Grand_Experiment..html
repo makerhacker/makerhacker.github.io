@@ -16,115 +16,70 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1331-html" href="http://highscalability.com//blog/2012/10/2/an-epic-tripadvisor-update-why-not-run-on-the-cloud-the-gran.html">html</a></p><p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The front ends use Java to handle most of this processing, and may query the memcache or the back ends for additional data. [sent-32, score-1.039]
-</p><p>2 Load Balancers- To take full advantage of the elasticity, we use Amazon's ELBs (Elastic Load Balancers) to manage the front end and back end servers. [sent-37, score-0.944]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1331-html" href="http://highscalability.com//blog/2012/10/2/an-epic-tripadvisor-update-why-not-run-on-the-cloud-the-gran.html">html</a></p><p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The front ends use Java to handle most of this processing, and may query the memcache or the back ends for additional data. [sent-32, score-1.039]
+</p><p>2 Load Balancers  - To take full advantage of the elasticity, we use Amazon’s ELBs (Elastic Load Balancers) to manage the front end and back end servers. [sent-37, score-0.944]
 </p><p>3 All of the front and back end servers are configured to send and receive requests from load balancers, rather than with other instances directly. [sent-42, score-1.359]
 </p><p>4 The load balancer then routes traffic to one of the front end load balancers. [sent-50, score-0.96]
 </p><p>5 The front end server then decides it needs to make a request to a back end service, which is being run by a number of back end servers, also behind an ELB. [sent-53, score-1.469]
 </p><p>6 A back end processes the request, perhaps making a request to other back ends, or a database server (the result of which is stored on a memcache server), and sends information back to the front end, which sends it back through the load balancer to the user. [sent-54, score-1.784]
 </p><p>7 Because all the back ends and front ends are behind load balancers, no one ever needs to address them directly or know what they are. [sent-56, score-1.018]
 </p><p>8 xlarge (high memory extra large) instances for our front end, back end, and memcache instances because they had the right amount of memory and high CPU. [sent-62, score-1.301]
-</p><p>9 How It WorksTACL- Our front end and back end servers are configured via TACL, TripAdvisor Configuration Language, a configuration language that describes how the instances are set up. [sent-65, score-1.332]
+</p><p>9 How It Works    TACL  - Our front end and back end servers are configured via TACL, TripAdvisor Configuration Language, a configuration language that describes how the instances are set up. [sent-65, score-1.332]
 </p><p>10 As explained earlier, each front end pool and back end service group is represented by a load balancer, which we prefix with lbf or lb, respectively. [sent-70, score-1.07]
 </p><p>11 With this load balancer abstraction, it is fairly easy to add new front end and back end instances, as they would be contained by appropriate ELBs. [sent-79, score-1.243]
 </p><p>12 It stores hostname, instance ID and services for each given front end and back end instance. [sent-88, score-1.14]
-</p><p>13 To test this out, we had one front end send traffic to back end directly, rather than through the ELB. [sent-167, score-1.099]
-</p><p>14 We couldn't use Amazon's ELBs on the front end because our front end instances were hidden in the private VPC. [sent-173, score-1.434]
-</p><p>15 We discovered that some companies fixed this by keeping front end instances in the public EC2 network, but this architecture would nullify our VPC setup. [sent-174, score-0.992]
-</p><p>16 At our highest AWS configuration, with 270 front ends and 70 back ends at 2 cores each, we only have 680 cores. [sent-191, score-0.892]
-</p><p>17 Timing and error numbersEach front end server automatically logs timing data for each request that it sends and receives. [sent-195, score-0.872]
-</p><p>18 Predictably, the instance usage for our front and back end servers contributes the most to total cost. [sent-213, score-0.969]
-</p><p>19 General Cost ReductionReserved instances - We calculated that using reserved instances on just a 1-year contract would cut our total annual costs in half. [sent-231, score-0.804]
-</p><p>20 We also don't need to reserve all instances for peak traffic and leverage either on- demand or lower utilization reserved instances to reduce our overall cost. [sent-232, score-0.824]
+</p><p>13 Unequal instances  - At one point, we tried to benchmark the CPU performance of our front and back end servers, all of which were m2. [sent-137, score-1.049]
+</p><p>14 To test this out, we had one front end send traffic to back end directly, rather than through the ELB. [sent-167, score-1.099]
+</p><p>15 We couldn’t use Amazon’s ELBs on the front end because our front end instances were hidden in the private VPC. [sent-173, score-1.434]
+</p><p>16 We discovered that some companies fixed this by keeping front end instances in the public EC2 network, but this architecture would nullify our VPC setup. [sent-174, score-0.992]
+</p><p>17 We named these instances   lod01x   through   lod04x  , which would be responsible for sending HTTP traffic to the six front end ELBs. [sent-178, score-1.029]
+</p><p>18 At our highest AWS configuration, with 270 front ends and 70 back ends at 2 cores each, we only have 680 cores. [sent-191, score-0.892]
+</p><p>19 Timing and error numbers   Each front end server automatically logs timing data for each request that it sends and receives. [sent-195, score-0.872]
+</p><p>20 Predictably, the instance usage for our front and back end servers contributes the most to total cost. [sent-213, score-0.969]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('instances', 0.332), ('front', 0.288), ('end', 0.227), ('back', 0.202), ('ends', 0.201), ('instance', 0.196), ('vpc', 0.178), ('memcache', 0.147), ('timing', 0.126), ('load', 0.126), ('subnet', 0.122), ('amazon', 0.115), ('balancers', 0.114), ('ebs', 0.107), ('traffic', 0.101), ('elbs', 0.097), ('request', 0.096), ('balancer', 0.092), ('ephemeral', 0.086), ('however', 0.084), ('would', 0.081), ('bounce', 0.077), ('logs', 0.074), ('contact', 0.074), ('requests', 0.074), ('private', 0.072), ('tripadvisor', 0.071), ('launch', 0.069), ('bouncing', 0.069), ('site', 0.066), ('earlier', 0.065), ('public', 0.064), ('workstation', 0.063), ('ran', 0.061), ('error', 0.061), ('staging', 0.06), ('launching', 0.06), ('reserved', 0.059), ('found', 0.058), ('hostname', 0.058), ('steal', 0.057), ('servers', 0.056), ('snapshots', 0.055), ('us', 0.055), ('experiment', 0.055), ('vacation', 0.054), ('rather', 0.054), ('interns', 0.054), ('vcider', 0.054), ('vpncubed', 0.054)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000007 <a title="1331-tfidf-1" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
-<p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><p>2 0.25714391 <a title="1331-tfidf-2" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
-<p>Introduction: Vaibhav PuranikinWeb serving in the cloud - our experiences with nginx and
-instance sizesdescribes their experience trying to maximum traffic and minimum
-their web serving costs on EC2. Initially they tested with two m1.small
-instance types and then they the switched to two c1.mediums instance types.
-The m1s are the standard instance types and the c1s are the high CPU instance
-types. Obviously the mediums have greater capability, but the cost difference
-was interesting:In the long term they will save money using the larger
-instances and not autoscaling. With the small instances, traffic bursts caused
-autoscaling to kick in. New instances were started in response to load. The
-instances woud be up for a short period of time and then spin down again. This
-constant churn costs a lot of money. Selecting the larger instance sizes,
-which are capable of handling the load without autoscaling, turn out to save
-money even though they are more expensive. Starting new instances also takes a
-few min</p><p>3 0.25552577 <a title="1331-tfidf-3" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.How do you scale anAWS(Amazon Web Services) infrastructure?
-This article will give you a detailed reply in two parts: the tools you can
-use to make the most of Amazon's dynamic approach, and the architectural model
-you should adopt for a scalable infrastructure.I base my report on my
-experience gained in several AWS production projects in casual gaming
-(Facebook), e-commerce infrastructures and within the mainstream GIS
-(Geographic Information System). It's true that my experience in gaming
-(IsCool, The Game) is currently the most representative in terms of
-scalability, due to the number of users (over 800 thousand DAU - daily active
-users - at peak usage and over 20 million page views every day), however my
-experiences in e-commerce and GIS (currently underway) provide a different
-view of scalability, taking into account the various problems of availability
-and data management. I will therefore</p><p>4 0.25137451 <a title="1331-tfidf-4" href="../high_scalability-2013/high_scalability-2013-11-05-10_Things_You_Should_Know_About_AWS.html">1543 high scalability-2013-11-05-10 Things You Should Know About AWS</a></p>
-<p>Introduction: Authored by Chris Fregly:  Former Netflix Streaming Platform Engineer, AWS
-Certified Solution Architect and Purveyor of fluxcapacitor.com.Ahead of the
-upcoming 2nd annual re:Invent conference, inspired by Simone Brunozzi's
-recentpresentationat an AWS Meetup in San Francisco, and collected from a few
-of my recentFluxcapacitor.com consulting engagements, I've compiled a list of
-10 useful time and clock-tick saving tips about AWS.1) Query AWS resource
-metadata Can't remember the EBS-Optimized IO throughput of your c1.xlarge
-cluster?  How about the size limit of an S3 object on a single PUT?
-awsnow.infois the answer to all of your AWS-resource metadata questions.
-Interested in integrating awsnow.info with your application?  You're in luck.
-There's now aREST API, as well!Note:  These are default soft limits and will
-vary by account.2) Tame your S3 buckets Delete an entire S3 bucket with a
-single CLI command:  aws s3 rb s3://\--forceRecursively copy a
-local directory to S3:aws</p><p>5 0.24486214 <a title="1331-tfidf-5" href="../high_scalability-2012/high_scalability-2012-11-01-Cost_Analysis%3A_TripAdvisor_and_Pinterest_costs_on_the_AWS_cloud.html">1353 high scalability-2012-11-01-Cost Analysis: TripAdvisor and Pinterest costs on the AWS cloud</a></p>
-<p>Introduction: This is a guest post by Ali Khajeh-Hosseini, Technical Lead at
-PlanForCloud.com.  I read a recent blog post about TripAdvisor's experiment
-with AWS where they attempted to process 700K HTTP requests per minute on a
-replica of their live site. There was also an interesting blog post on
-Pinterest's massive growth on AWS. These blogs highlighted exactly the types
-of questions we're interested in, mainly:How much would it cost to deploy
-System X on Cloud Y? e.g. how much would it cost to host TripAdvisor on the
-AWS US-East cloud?Would it be cheaper to use deployment option X or Y? e.g.
-would it be cheaper to use reserved instances, different types of instances,
-different cloud providers...What happens to costs when the system grows? e.g.
-Pinterest has around 410TB of data on S3, what if that keeps growing at a rate
-of 25% every month, like it has been in the last 10 months?I created a couple
-of deployments in PlanForCloud to explore these questions and the results are
-very interesting - th</p><p>6 0.24222369 <a title="1331-tfidf-6" href="../high_scalability-2014/high_scalability-2014-02-17-How_the_AOL.com_Architecture_Evolved_to_99.999%25_Availability%2C_8_Million_Visitors_Per_Day%2C_and_200%2C000_Requests_Per_Second.html">1597 high scalability-2014-02-17-How the AOL.com Architecture Evolved to 99.999% Availability, 8 Million Visitors Per Day, and 200,000 Requests Per Second</a></p>
+<p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><p>2 0.25714391 <a title="1331-tfidf-2" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
+<p>Introduction: Vaibhav Puranik  in  Web  serving in the cloud – our experiences with nginx and instance sizes  describes their experience trying to maximum traffic and minimum their web serving costs on EC2. Initially they tested with two m1.small instance types and then they the switched to two c1.mediums instance types. The m1s are the standard instance types and the c1s are the high CPU instance types. Obviously the mediums have greater capability, but the cost difference was interesting:
+  
+ In the long term they will save money using the larger instances and not autoscaling. With the small instances, traffic bursts caused autoscaling to kick in. New instances were started in response to load. The instances woud be up for a short period of time and then spin down again. This constant churn costs a lot of money. Selecting the larger instance sizes, which are capable of handling the load without autoscaling, turn out to save money even though they are more expensive. Starting new instances also tak</p><p>3 0.25552577 <a title="1331-tfidf-3" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
+<p>Introduction: This is a guest post by    Frédéric Faure    (architect at    Ysance   ), you can follow him on    twitter   . 
+ 
+How do you scale an  AWS  (Amazon Web Services) infrastructure? This article will give you a detailed reply in two parts: the tools you can use to make the most of Amazon’s dynamic approach, and the architectural model you should adopt for a scalable infrastructure.
+ 
+I base my report on my experience gained in several AWS production projects in casual gaming (Facebook), e-commerce infrastructures and within the mainstream GIS (Geographic Information System). It’s true that my experience in gaming ( IsCool, The Game ) is currently the most representative in terms of scalability, due to the number of users (over 800 thousand DAU – daily active users – at peak usage and over 20 million page views every day), however my experiences in e-commerce and GIS (currently underway) provide a different view of scalability, taking into account the various problems of availability and da</p><p>4 0.25137451 <a title="1331-tfidf-4" href="../high_scalability-2013/high_scalability-2013-11-05-10_Things_You_Should_Know_About_AWS.html">1543 high scalability-2013-11-05-10 Things You Should Know About AWS</a></p>
+<p>Introduction: Authored by  Chris Fregly   :  Former Netflix Streaming Platform Engineer, AWS Certified Solution Architect and Purveyor of fluxcapacitor.com.  
+   Ahead of the upcoming 2nd annual re:Invent conference, inspired by Simone Brunozzi’s recent    presentation    at an AWS Meetup in San Francisco, and collected from a few of my recent    Fluxcapacitor.com    consulting engagements, I’ve compiled a list of 10 useful time and clock-tick saving tips about AWS. 
+    1) Query AWS resource metadata  
+      
+   Can’t remember the EBS-Optimized IO throughput of your c1.xlarge cluster?  How about the size limit of an S3 object on a single PUT?     awsnow.info    is the answer to all of your AWS-resource metadata questions.  Interested in integrating awsnow.info with your application?  You’re in luck.  There’s now a    REST API   , as well! 
+   Note:  These are default soft limits and will vary by account. 
+    2) Tame your S3 buckets  
+       
+   Delete an entire S3 bucket with a single CLI command:</p><p>5 0.24486214 <a title="1331-tfidf-5" href="../high_scalability-2012/high_scalability-2012-11-01-Cost_Analysis%3A_TripAdvisor_and_Pinterest_costs_on_the_AWS_cloud.html">1353 high scalability-2012-11-01-Cost Analysis: TripAdvisor and Pinterest costs on the AWS cloud</a></p>
+<p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at PlanForCloud.com.   
+ 
+ I read a recent blog post about   TripAdvisor's experiment with AWS   where they attempted to process 700K HTTP requests per minute on a replica of their live site. There was also an interesting blog post on   Pinterest's massive growth on AWS  . These blogs highlighted exactly the types of questions we're interested in, mainly: 
+    
+  How much would it cost to deploy System X on Cloud Y?   e.g. how much would it cost to host TripAdvisor on the AWS US-East cloud?  
+  Would it be cheaper to use deployment option X or Y?   e.g. would it be cheaper to use reserved instances, different types of instances, different cloud providers...  
+  What happens to costs when the system grows?   e.g. Pinterest has around 410TB of data on S3, what if that keeps growing at a rate of 25% every month, like it has been in the last 10 months?  
+      I created a couple of deployments in PlanForCloud to explore these qu</p><p>6 0.24222369 <a title="1331-tfidf-6" href="../high_scalability-2014/high_scalability-2014-02-17-How_the_AOL.com_Architecture_Evolved_to_99.999%25_Availability%2C_8_Million_Visitors_Per_Day%2C_and_200%2C000_Requests_Per_Second.html">1597 high scalability-2014-02-17-How the AOL.com Architecture Evolved to 99.999% Availability, 8 Million Visitors Per Day, and 200,000 Requests Per Second</a></p>
 <p>7 0.2288985 <a title="1331-tfidf-7" href="../high_scalability-2010/high_scalability-2010-07-08-Cloud_AWS_Infrastructure_vs._Physical_Infrastructure.html">853 high scalability-2010-07-08-Cloud AWS Infrastructure vs. Physical Infrastructure</a></p>
 <p>8 0.22211975 <a title="1331-tfidf-8" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
 <p>9 0.22025657 <a title="1331-tfidf-9" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
@@ -144,76 +99,39 @@ very interesting - th</p><p>6 0.24222369 <a title="1331-tfidf-6" href="../high_s
 <p>[(0, 0.335), (1, 0.123), (2, -0.078), (3, -0.07), (4, -0.11), (5, -0.143), (6, 0.121), (7, -0.154), (8, 0.046), (9, -0.18), (10, -0.029), (11, -0.033), (12, 0.102), (13, -0.118), (14, -0.058), (15, -0.011), (16, 0.026), (17, 0.043), (18, 0.042), (19, 0.034), (20, -0.027), (21, -0.011), (22, 0.026), (23, -0.044), (24, -0.019), (25, -0.071), (26, -0.076), (27, -0.006), (28, -0.029), (29, -0.079), (30, 0.021), (31, 0.048), (32, -0.054), (33, 0.113), (34, -0.044), (35, -0.008), (36, -0.018), (37, -0.121), (38, 0.009), (39, -0.0), (40, 0.04), (41, 0.089), (42, -0.009), (43, -0.026), (44, -0.056), (45, 0.016), (46, 0.023), (47, -0.007), (48, -0.003), (49, 0.044)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97713649 <a title="1331-lsi-1" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
-<p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><p>2 0.9023813 <a title="1331-lsi-2" href="../high_scalability-2013/high_scalability-2013-11-05-10_Things_You_Should_Know_About_AWS.html">1543 high scalability-2013-11-05-10 Things You Should Know About AWS</a></p>
-<p>Introduction: Authored by Chris Fregly:  Former Netflix Streaming Platform Engineer, AWS
-Certified Solution Architect and Purveyor of fluxcapacitor.com.Ahead of the
-upcoming 2nd annual re:Invent conference, inspired by Simone Brunozzi's
-recentpresentationat an AWS Meetup in San Francisco, and collected from a few
-of my recentFluxcapacitor.com consulting engagements, I've compiled a list of
-10 useful time and clock-tick saving tips about AWS.1) Query AWS resource
-metadata Can't remember the EBS-Optimized IO throughput of your c1.xlarge
-cluster?  How about the size limit of an S3 object on a single PUT?
-awsnow.infois the answer to all of your AWS-resource metadata questions.
-Interested in integrating awsnow.info with your application?  You're in luck.
-There's now aREST API, as well!Note:  These are default soft limits and will
-vary by account.2) Tame your S3 buckets Delete an entire S3 bucket with a
-single CLI command:  aws s3 rb s3://\--forceRecursively copy a
-local directory to S3:aws</p><p>3 0.88144547 <a title="1331-lsi-3" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
-<p>Introduction: Vaibhav PuranikinWeb serving in the cloud - our experiences with nginx and
-instance sizesdescribes their experience trying to maximum traffic and minimum
-their web serving costs on EC2. Initially they tested with two m1.small
-instance types and then they the switched to two c1.mediums instance types.
-The m1s are the standard instance types and the c1s are the high CPU instance
-types. Obviously the mediums have greater capability, but the cost difference
-was interesting:In the long term they will save money using the larger
-instances and not autoscaling. With the small instances, traffic bursts caused
-autoscaling to kick in. New instances were started in response to load. The
-instances woud be up for a short period of time and then spin down again. This
-constant churn costs a lot of money. Selecting the larger instance sizes,
-which are capable of handling the load without autoscaling, turn out to save
-money even though they are more expensive. Starting new instances also takes a
-few min</p><p>4 0.85933656 <a title="1331-lsi-4" href="../high_scalability-2011/high_scalability-2011-12-28-Strategy%3A_Guaranteed_Availability_Requires_Reserving_Instances_in_Specific_Zones.html">1165 high scalability-2011-12-28-Strategy: Guaranteed Availability Requires Reserving Instances in Specific Zones</a></p>
-<p>Introduction: When EC2 first started the mental model was of a magic Pez dispenser supplying
-an infinite stream of instances in any desired flavor. If you needed an
-instance, because of a either a failure or traffic spike, it would be there.
-As amazing as EC2 is, this model turned out to be optimistic.  From athread on
-the Amazon discussion forum we learn any dispenser has limits:As Availability
-Zones grow over time, our ability to continue to expand them can become
-constrained. In these scenarios, we will prevent customers from launching in
-the constrained zone if they do not yet have existing resources in that zone.
-We also might remove the constrained zone entirely from the list of options
-for new customers. This means that occasionally, different customers will see
-a different number of Availability Zones in a particular Region. Both
-approaches aim to help customers avoid accidentally starting to build up their
-infrastructure in an Availability Zone where they might have less ability to
-expand.T</p><p>5 0.85773802 <a title="1331-lsi-5" href="../high_scalability-2012/high_scalability-2012-12-12-Pinterest_Cut_Costs_from_%2454_to_%2420_Per_Hour_by_Automatically_Shutting_Down_Systems.html">1371 high scalability-2012-12-12-Pinterest Cut Costs from $54 to $20 Per Hour by Automatically Shutting Down Systems</a></p>
-<p>Introduction: We've long known one of the virtues of the cloud is, through the magic of
-services and automation, that systems can be shut or tuned down when not in
-use. What may be surprising is how much money can be saved. This aspect of
-cloudiness got a lot of pub atAWS re:Invent and is being rebranded under the
-term Cost-Aware Architecture. Aninteresting examplewas given by Ryan Park,
-Pinterest's technical operations lead:20% of their systems are shutdown after
-hours in response to traffic loadsReserved instances are used for standard
-traffic On-demand and spot instances are used to handle the elastic load
-throughout the day. When more servers are needed for an auto-scaled service,
-spot requests are opened and on-demand instances are started at the same time.
-Most services are targeted to run at about 50% on-demand and 50% spot.Watchdog
-processes continually check what's running. More instances are launched when
-needed and terminated when not needed. If spot prices spike and spot instances
-are sh</p><p>6 0.85647929 <a title="1331-lsi-6" href="../high_scalability-2012/high_scalability-2012-10-25-Not_All_Regions_are_Created_Equal_-_South_America_Es_Bueno.html">1347 high scalability-2012-10-25-Not All Regions are Created Equal - South America Es Bueno</a></p>
+<p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><p>2 0.9023813 <a title="1331-lsi-2" href="../high_scalability-2013/high_scalability-2013-11-05-10_Things_You_Should_Know_About_AWS.html">1543 high scalability-2013-11-05-10 Things You Should Know About AWS</a></p>
+<p>Introduction: Authored by  Chris Fregly   :  Former Netflix Streaming Platform Engineer, AWS Certified Solution Architect and Purveyor of fluxcapacitor.com.  
+   Ahead of the upcoming 2nd annual re:Invent conference, inspired by Simone Brunozzi’s recent    presentation    at an AWS Meetup in San Francisco, and collected from a few of my recent    Fluxcapacitor.com    consulting engagements, I’ve compiled a list of 10 useful time and clock-tick saving tips about AWS. 
+    1) Query AWS resource metadata  
+      
+   Can’t remember the EBS-Optimized IO throughput of your c1.xlarge cluster?  How about the size limit of an S3 object on a single PUT?     awsnow.info    is the answer to all of your AWS-resource metadata questions.  Interested in integrating awsnow.info with your application?  You’re in luck.  There’s now a    REST API   , as well! 
+   Note:  These are default soft limits and will vary by account. 
+    2) Tame your S3 buckets  
+       
+   Delete an entire S3 bucket with a single CLI command:</p><p>3 0.88144547 <a title="1331-lsi-3" href="../high_scalability-2010/high_scalability-2010-04-19-Strategy%3A_Order_Two_Mediums_Instead_of_Two_Smalls_and_the_EC2_Buffet.html">812 high scalability-2010-04-19-Strategy: Order Two Mediums Instead of Two Smalls and the EC2 Buffet</a></p>
+<p>Introduction: Vaibhav Puranik  in  Web  serving in the cloud – our experiences with nginx and instance sizes  describes their experience trying to maximum traffic and minimum their web serving costs on EC2. Initially they tested with two m1.small instance types and then they the switched to two c1.mediums instance types. The m1s are the standard instance types and the c1s are the high CPU instance types. Obviously the mediums have greater capability, but the cost difference was interesting:
+  
+ In the long term they will save money using the larger instances and not autoscaling. With the small instances, traffic bursts caused autoscaling to kick in. New instances were started in response to load. The instances woud be up for a short period of time and then spin down again. This constant churn costs a lot of money. Selecting the larger instance sizes, which are capable of handling the load without autoscaling, turn out to save money even though they are more expensive. Starting new instances also tak</p><p>4 0.85933656 <a title="1331-lsi-4" href="../high_scalability-2011/high_scalability-2011-12-28-Strategy%3A_Guaranteed_Availability_Requires_Reserving_Instances_in_Specific_Zones.html">1165 high scalability-2011-12-28-Strategy: Guaranteed Availability Requires Reserving Instances in Specific Zones</a></p>
+<p>Introduction: When EC2 first started the mental model was of a magic Pez dispenser supplying an infinite stream of instances in any desired flavor. If you needed an instance, because of a either a failure or traffic spike, it would be there. As amazing as EC2 is, this model turned out to be optimistic.  
+ 
+From a  thread on the Amazon discussion forum  we learn any dispenser has limits:
+  
+
+As Availability Zones grow over time, our ability to continue to expand them can become constrained. In these scenarios, we will prevent customers from launching in the constrained zone if they do not yet have existing resources in that zone. We also might remove the constrained zone entirely from the list of options for new customers. This means that occasionally, different customers will see a different number of Availability Zones in a particular Region. Both approaches aim to help customers avoid accidentally starting to build up their infrastructure in an Availability Zone where they might have less ability</p><p>5 0.85773802 <a title="1331-lsi-5" href="../high_scalability-2012/high_scalability-2012-12-12-Pinterest_Cut_Costs_from_%2454_to_%2420_Per_Hour_by_Automatically_Shutting_Down_Systems.html">1371 high scalability-2012-12-12-Pinterest Cut Costs from $54 to $20 Per Hour by Automatically Shutting Down Systems</a></p>
+<p>Introduction: We've long known one of the virtues of the cloud is, through the magic of services and automation, that systems can be shut or tuned down when not in use. What may be surprising is how much money can be saved. 
+ 
+This aspect of cloudiness got a lot of pub at  AWS re:Invent  and is being rebranded under the term  Cost-Aware Architecture . An  interesting example  was given by Ryan Park, Pinterest’s technical operations lead:
+  
+ 20% of their systems are shutdown after hours in response to traffic loads 
+ Reserved instances are used for standard traffic  
+ On-demand and spot instances are used to handle the elastic load throughout the day. When more servers are needed for an auto-scaled service,  spot requests are opened and on-demand instances are started at the same time. Most services are targeted to run at about 50% on-demand and 50% spot. 
+ Watchdog processes continually check what's running. More instances are launched when needed and terminated when not needed. If spot prices spik</p><p>6 0.85647929 <a title="1331-lsi-6" href="../high_scalability-2012/high_scalability-2012-10-25-Not_All_Regions_are_Created_Equal_-_South_America_Es_Bueno.html">1347 high scalability-2012-10-25-Not All Regions are Created Equal - South America Es Bueno</a></p>
 <p>7 0.85364026 <a title="1331-lsi-7" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
 <p>8 0.8406477 <a title="1331-lsi-8" href="../high_scalability-2012/high_scalability-2012-07-18-Strategy%3A_Kill_Off_Multi-tenant_Instances_with_High_CPU_Stolen_Time.html">1286 high scalability-2012-07-18-Strategy: Kill Off Multi-tenant Instances with High CPU Stolen Time</a></p>
 <p>9 0.83300966 <a title="1331-lsi-9" href="../high_scalability-2012/high_scalability-2012-05-21-Pinterest_Architecture_Update_-_18_Million_Visitors%2C_10x_Growth%2C12_Employees%2C_410_TB_of_Data.html">1248 high scalability-2012-05-21-Pinterest Architecture Update - 18 Million Visitors, 10x Growth,12 Employees, 410 TB of Data</a></p>
@@ -233,76 +151,44 @@ are sh</p><p>6 0.85647929 <a title="1331-lsi-6" href="../high_scalability-2012/h
 <p>[(1, 0.125), (2, 0.215), (10, 0.259), (30, 0.035), (40, 0.022), (57, 0.018), (61, 0.075), (77, 0.013), (79, 0.069), (85, 0.03), (94, 0.034)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.98769188 <a title="1331-lda-1" href="../high_scalability-2014/high_scalability-2014-04-21-This_is_why_Microsoft_won._And_why_they_lost..html">1635 high scalability-2014-04-21-This is why Microsoft won. And why they lost.</a></p>
-<p>Introduction: My favorite kind of histories are those told from an insider's perspective.
-The story of Richard the Lionheart is full of great battles and dynastic
-intrigue. The story of one of his soldiers, not so much. Yet the soldiers'
-story, as someone who has experienced the real consequences of decisions made
-and actions taken, is more revealing.We get such a history in Chat Wars, a
-wonderful article written by David Auerbach, who in 1998 worked at Microsoft
-on MSN Messenger Service, Microsoft's instant messaging app (for a related
-story see The Rise and Fall of AIM, the Breakthrough AOL Never Wanted).It's as
-if Herodotus visited Microsoft and wrote down his experiences. It has that
-same sort of conversational tone, insightful on-the-ground observations, and
-facts no outsider might ever believe.Much of the article is a play-by-play
-account of the cat and mouse game David plays changing Messenger to track
-AOL's Instant Messenger protocol changes. AOL repeatedly tried to make it so
-Messenger coul</p><p>2 0.98206294 <a title="1331-lda-2" href="../high_scalability-2010/high_scalability-2010-03-10-How_FarmVille_Scales_-_The_Follow-up.html">792 high scalability-2010-03-10-How FarmVille Scales - The Follow-up</a></p>
-<p>Introduction: Several readers had follow-up questions in response toHow FarmVille Scales to
-Harvest 75 Million Players a Month. Here are Luke's response to those
-questions (and a few of mine).How does social networking makes things easier
-or harder?The primary interesting aspect of social networking games is how you
-wind up with a graph of connected users who need to be access each other's
-data on a frequent basis. This makes the overall dataset difficult if not
-impossible to partition.What are examples of the Facebook calls you try to
-avoid and how they impact game play?We can make a call for facebook friend
-data to retrieve information about your friends playing the game. Normally, we
-show a friend ladder at the bottom of the game that shows friend information,
-including name and facebook photo. Can you say where your cache is, what form
-it takes, and how much cached there is? Do you have a peering relationship
-with Facebook, as one might expect at that bandwidth?We use memcache as our
-caching tec</p><p>3 0.98061937 <a title="1331-lda-3" href="../high_scalability-2011/high_scalability-2011-05-23-Evernote_Architecture_-_9_Million_Users_and_150_Million_Requests_a_Day.html">1046 high scalability-2011-05-23-Evernote Architecture - 9 Million Users and 150 Million Requests a Day</a></p>
-<p>Introduction: The folks atEvernote were kind enough to write up an overview of their
-architecture in a post titled Architectural Digest. Dave Engberg describes
-their approach to networking, sharding, user storage, search, and some other
-custom services.Evernote is a cool application, partially realizingVannevar
-Bush's amazing visionof a memex. Wikipedia describes Evernote's features
-succinctly: Evernote is a suite of software and services designed for
-notetaking and archiving. A "note" can be a piece of formattable text, a full
-webpage or webpage excerpt, a photograph, a voice memo, or a handwritten "ink"
-note. Notes can also have file attachments. Notes can then be sorted into
-folders, tagged, annotated, edited, given comments, and searched. Evernote
-supports a number of operating system platforms (including Android, Mac OS X,
-iOS, Microsoft Windows and WebOS), and also offers online synchronization and
-backup services.Key here is that Evernote stores a lot of data, that must be
-searched, and synce</p><p>4 0.97729605 <a title="1331-lda-4" href="../high_scalability-2014/high_scalability-2014-01-24-Stuff_The_Internet_Says_On_Scalability_For_January_24th%2C_2014.html">1585 high scalability-2014-01-24-Stuff The Internet Says On Scalability For January 24th, 2014</a></p>
-<p>Introduction: Hey, it's HighScalability time:Gorgeous image from Scientific American'sYour
-Brain by the NumbersQuotable Quotes: @jezhumble: Google does everything off
-trunk despite 10k devs across 40 offices. @KentLangley: "in 2016. When it goes
-online, the SKA is expected to produce 700 terabytes of data each day"
-Jonathan Marks: It's actually a talk about how NOT to be creative. And what he
-[John Cleese] describes is the way most international broadcasters operated
-for most of their existence. They were content factories, slave to an
-artificial transmission schedule. Because they didn't take time to be
-creative, then ended up sounding like a tape machine. They were run by a
-computer algorithm. Not a human soul. There was never room for a creative
-pause. Routine was the solution. And that's creativities biggest enemy.40%
-better single-threaded performance in MariaDB. Using perf, cache misses were
-found and the fix was using the right gcc flags. But the big hairy key idea
-is: modern high-performance</p><p>5 0.97547346 <a title="1331-lda-5" href="../high_scalability-2013/high_scalability-2013-06-24-Update_on_How_29_Cloud_Price_Drops_Changed_the_Bottom_Line_of_TripAdvisor_and_Pinterest_-_Results_Mixed.html">1480 high scalability-2013-06-24-Update on How 29 Cloud Price Drops Changed the Bottom Line of TripAdvisor and Pinterest - Results Mixed</a></p>
-<p>Introduction: This is a guest post byAli Khajeh-Hosseini, Technical Lead atPlanForCloud. The
-original article was publishedon their site. With 29 cloud price reductions I
-thought it would be interesting to see how the bottom line would change
-compared to an articlewe published last year. The result is surprisingly
-little for TripAdvisor because prices for On Demand instances havenot dropped
-as fastas for other other instances types.Over the last year and a half,we
-counted 29 price reductionsin cloud services provided by AWS, Google Compute
-Engine, Windows Azure, and Rackspace Cloud. Price reductions have a direct
-effect on cloud users, but given the usual tiny reductions, how significant is
-that effect on the bottom line?Last year I wrote aboutcloud cost forecasts for
-TripAdvisor and Pinterest.TripAdvisor was experimenting with AWSand attempted
-to process 700K HTTP requests per minute on a replica of its live site,
-andPinterest was growing massively on AWS. In the wake of the cloud providers'
-price</p><p>6 0.96862984 <a title="1331-lda-6" href="../high_scalability-2011/high_scalability-2011-06-22-It%27s_the_Fraking_IOPS_-_1_SSD_is_44%2C000_IOPS%2C_Hard_Drive_is_180.html">1066 high scalability-2011-06-22-It's the Fraking IOPS - 1 SSD is 44,000 IOPS, Hard Drive is 180</a></p>
+<p>Introduction: My favorite kind of histories are those told from an insider's perspective. The story of Richard the Lionheart is full of great battles and dynastic intrigue. The story of one of his soldiers, not so much. Yet the soldiers' story, as someone who has experienced the real consequences of decisions made and actions taken, is more revealing.
+ 
+We get such a history in  Chat Wars , a wonderful article written by David Auerbach, who in 1998 worked at Microsoft on MSN Messenger Service, Microsoft’s instant messaging app (for a related story see  The Rise and Fall of AIM, the Breakthrough AOL Never Wanted ).
+ 
+It's as if Herodotus visited Microsoft and wrote down his experiences. It has that same sort of conversational tone, insightful on-the-ground observations, and facts no outsider might ever believe.
+ 
+Much of the article is a play-by-play account of the cat and mouse game David plays changing Messenger to track AOL's Instant Messenger protocol changes. AOL repeatedly tried to make it so M</p><p>2 0.98206294 <a title="1331-lda-2" href="../high_scalability-2010/high_scalability-2010-03-10-How_FarmVille_Scales_-_The_Follow-up.html">792 high scalability-2010-03-10-How FarmVille Scales - The Follow-up</a></p>
+<p>Introduction: Several readers had follow-up questions in response to  How FarmVille Scales to Harvest 75 Million Players a Month . Here are Luke's response to those questions (and a few of mine).
+   How does social networking makes things easier or harder?    
+ The primary interesting aspect of social networking games is how you wind up with a graph of connected users who need to be access each other's data on a frequent basis. This makes the overall dataset difficult if not impossible to partition. 
+   What are examples of the Facebook calls you try to avoid and how they impact game play?   
+ We can make a call for facebook friend data to retrieve information about your friends playing the game. Normally, we show a friend ladder at the bottom of the game that shows friend information, including name and facebook photo.   
+   Can you say where your cache is, what form it takes, and how much cached there is? Do you have a peering relationship with Facebook, as one might expect at that bandwidth?</p><p>3 0.98061937 <a title="1331-lda-3" href="../high_scalability-2011/high_scalability-2011-05-23-Evernote_Architecture_-_9_Million_Users_and_150_Million_Requests_a_Day.html">1046 high scalability-2011-05-23-Evernote Architecture - 9 Million Users and 150 Million Requests a Day</a></p>
+<p>Introduction: The folks at  Evernote  were kind enough to write up an overview of their architecture in a post titled  Architectural Digest . Dave Engberg describes their approach to networking, sharding, user storage, search, and some other custom services.
+ 
+Evernote is a cool application, partially realizing  Vannevar Bush 's amazing  vision  of a  memex . Wikipedia describes Evernote's features succinctly: 
+  
+
+Evernote is a suite of software and services designed for notetaking and archiving. A "note" can be a piece of formattable text, a full webpage or webpage excerpt, a photograph, a voice memo, or a handwritten "ink" note. Notes can also have file attachments. Notes can then be sorted into folders, tagged, annotated, edited, given comments, and searched. Evernote supports a number of operating system platforms (including Android, Mac OS X, iOS, Microsoft Windows and WebOS), and also offers online synchronization and backup services.
+
+  
+Key here is that Evernote stores a lot of data, that m</p><p>4 0.97729605 <a title="1331-lda-4" href="../high_scalability-2014/high_scalability-2014-01-24-Stuff_The_Internet_Says_On_Scalability_For_January_24th%2C_2014.html">1585 high scalability-2014-01-24-Stuff The Internet Says On Scalability For January 24th, 2014</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+     Gorgeous image from Scientific American's  Your Brain by the Numbers    
+ Quotable Quotes:                           
+ 
+  @jezhumble : Google does everything off trunk despite 10k devs across 40 offices.  
+  @KentLangley : "in 2016. When it goes online, the SKA is expected to produce 700 terabytes of data each day"  
+  Jonathan Marks : It's actually a talk about how NOT to be creative. And what he [John Cleese] describes is the way most international broadcasters operated for most of their existence. They were content factories, slave to an artificial transmission schedule. Because they didn't take time to be creative, then ended up sounding like a tape machine. They were run by a computer algorithm. Not a human soul. There was never room for a creative pause. Routine was the solution. And that's creativities biggest enemy. 
+ 
+ 
+ 
+  40% better single-threaded performance in MariaDB . Using perf, cache misses were found and the fix was using the righ</p><p>5 0.97547346 <a title="1331-lda-5" href="../high_scalability-2013/high_scalability-2013-06-24-Update_on_How_29_Cloud_Price_Drops_Changed_the_Bottom_Line_of_TripAdvisor_and_Pinterest_-_Results_Mixed.html">1480 high scalability-2013-06-24-Update on How 29 Cloud Price Drops Changed the Bottom Line of TripAdvisor and Pinterest - Results Mixed</a></p>
+<p>Introduction: This is a guest post by  Ali Khajeh-Hosseini , Technical Lead at  PlanForCloud . The original article was published  on their site . With 29 cloud price reductions I thought it would be interesting to see how the bottom line would change compared to an article  we published last year . The result is surprisingly little for TripAdvisor because prices for On Demand instances have  not dropped as fast  as for other other instances types. 
+ 
+Over the last year and a half,  we counted 29 price reductions  in cloud services provided by AWS, Google Compute Engine, Windows Azure, and Rackspace Cloud. Price reductions have a direct effect on cloud users, but given the usual tiny reductions, how significant is that effect on the bottom line?
+ 
+Last year I wrote about  cloud cost forecasts for TripAdvisor and Pinterest .  TripAdvisor was experimenting with AWS  and attempted to process 700K HTTP requests per minute on a replica of its live site, and  Pinterest was growing massively on AWS . In th</p><p>6 0.96862984 <a title="1331-lda-6" href="../high_scalability-2011/high_scalability-2011-06-22-It%27s_the_Fraking_IOPS_-_1_SSD_is_44%2C000_IOPS%2C_Hard_Drive_is_180.html">1066 high scalability-2011-06-22-It's the Fraking IOPS - 1 SSD is 44,000 IOPS, Hard Drive is 180</a></p>
 <p>7 0.96773237 <a title="1331-lda-7" href="../high_scalability-2014/high_scalability-2014-04-14-How_do_you_even_do_anything_without_using_EBS%3F.html">1631 high scalability-2014-04-14-How do you even do anything without using EBS?</a></p>
 <p>8 0.96099848 <a title="1331-lda-8" href="../high_scalability-2009/high_scalability-2009-04-27-Some_Questions_from_a_newbie.html">584 high scalability-2009-04-27-Some Questions from a newbie</a></p>
 <p>9 0.95999736 <a title="1331-lda-9" href="../high_scalability-2009/high_scalability-2009-08-28-Strategy%3A_Solve_Only_80_Percent_of_the_Problem.html">689 high scalability-2009-08-28-Strategy: Solve Only 80 Percent of the Problem</a></p>

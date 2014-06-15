@@ -16,38 +16,25 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1293 high scalability-2012-07-30-Prismatic Architecture - Using Machine Learning on Social Networks to Figure Out What You Should Read on the Web </h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1293-html" href="http://highscalability.com//blog/2012/7/30/prismatic-architecture-using-machine-learning-on-social-netw.html">html</a></p><p>Introduction: This post onPrismatic's Architecture is adapted from an email conversation
-with Prismatic programmerJason Wolfe.What should you read on the web today?
-Any thoroughly modern person must solve this dilemma every day, usually using
-some occult process to divine what's important in their many feeds: Twitter,
-RSS, Facebook, Pinterest, G+, email, Techmeme, and an uncountable numbers of
-other information sources.Jason Wolfe from Prismatic has generously agreed to
-describe their thoroughly modern solution for answering the "what to read
-question" using lots of sexy words like Machine Learning, Social Graphs,
-BigData, functional programming, and in-memory real-time feed processing. The
-result is possibly even more occult, but this or something very much like it
-will be how we meet the challenge of finding interesting topics and stories
-hidden inside infinitely deep pools of information.A couple of things stand
-out about Prismatic. They want you to know that Prismatic is being built by a
-small t</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Within seconds of a user signing up for Prismatic enough of their historical activity is fetched and analyzed to make pretty solid topic and publisher suggestions. [sent-30, score-0.551]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1293-html" href="http://highscalability.com//blog/2012/7/30/prismatic-architecture-using-machine-learning-on-social-netw.html">html</a></p><p>Introduction: This post on  Prismatic ’s Architecture is adapted from an email conversation with Prismatic programmer  Jason Wolfe  .  What should you read on the web today? Any thoroughly modern person must solve this dilemma every day, usually using some occult process to divine what’s important in their many feeds: Twitter, RSS, Facebook, Pinterest, G+, email, Techmeme, and an uncountable numbers of other information sources.  Jason Wolfe from Prismatic has generously agreed to describe their thoroughly modern solution for answering the “what to read question” using lots of sexy words like Machine Learning, Social Graphs, BigData, functional programming, and in-memory real-time feed processing. The result is possibly even more occult, but this or something very much like it will be how we meet the challenge of finding interesting topics and stories hidden inside infinitely deep pools of information.  A couple of things stand out about Prismatic. They want you to know that Prismatic is being built</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Within seconds of a user signing up for Prismatic enough of their historical activity is fetched and analyzed to make pretty solid topic and publisher suggestions. [sent-30, score-0.551]
 </p><p>2 Most of data flows through a backend pipeline from one service to the next without any round-trips to disk. [sent-40, score-0.283]
 </p><p>3 For each piece of content it must be known who is sharing it and what they are saying about it so relevant commentary can be shown alongside an article and so a user can be shown content shared by their friends or people with similar tastes. [sent-50, score-0.283]
-</p><p>4 At the top of the ingest pipeline are pollers:A RSS poller loops through feeds looking for new articlesTwitter and Facebook pollers connect to the corresponding APIs and fetch comments/tweets from users and their friends. [sent-52, score-0.561]
+</p><p>4 At the top of the ingest pipeline are pollers:         A RSS poller loops through feeds looking for new articles   Twitter and Facebook pollers connect to the corresponding APIs and fetch comments/tweets from users and their friends. [sent-52, score-0.66]
 </p><p>5 A queue of URLs is kept, each of which runs through a 'graph' that successively elaborates the URL, fetching its HTML, applying machine learning algorithms to extract the text of the article, identify the best images, extract the publisher, label with applicable topics, and so on. [sent-61, score-0.291]
-</p><p>6 Onboarding - BackendOnboarding is ingesting data about new users so they can be provided with a great personalized experience within seconds of signing up for the app. [sent-65, score-0.367]
-</p><p>7 This has two major components:Figuring out suggested topics and publishers for a user based on their activity on Twitter, Facebook, or Google Reader, Analyzing the social graph of a user to try to deduce which friends' shares are the most powerful signals that they will like an article. [sent-66, score-0.624]
-</p><p>8 This is fast enough that suggestions can start being computed after users OAuth in, and usually be ready with personalized suggestions by the time the user has finished creating their account (selecting a handle and password) and reached in walkthrough. [sent-69, score-0.329]
-</p><p>9 This fingerprint is quite large, and constantly changes as the user views and interacts with content on the site. [sent-79, score-0.285]
-</p><p>10 The doc-master also publishes commands for index changes (document/comment additions and deletions, story clustering changes, etc) in real-time to all of the live API machinesWhen a new machine comes up, it replays the history of the last few minutes of changes to bring its index up to the present. [sent-83, score-0.344]
-</p><p>11 The remaining problem is how to efficiently serve up feeds for a user without incurring the IO cost and latency of fetching and updating the fingerprint on each request. [sent-85, score-0.463]
-</p><p>12 A high IO hit is paid for reading the user's fingerprint only once throughout the course of their session, which is amortized across the (typically) relatively large number of feed clicks, pages, article clicks, shares, and so on the user takes, and limit the number of writes back of this data. [sent-87, score-0.447]
-</p><p>13 When a machine comes down the data is flushed and the user is moved to another machine -- in the worst case a few minutes of non-critical data will be lost for some users, which is consider worth it for the benefits in simplicity and scalability. [sent-88, score-0.527]
-</p><p>14 Other services - Client facingThere are a few other separate client-facing services:Public-feeds - which does smart caching of topic and publisher feeds for non-logged in users, fetching them from the regular API on demand and allowing multiple ages of each feed to be paged through. [sent-90, score-0.514]
-</p><p>15 Mostly a thin layer in front of the SQL database, which stores critical user data that needs to be periodically snapshotted and backed up. [sent-92, score-0.356]
-</p><p>16 MongoDB is used to store server metrics and user analytics, largely because it supports a nice low-hassle story for sending raw events of different shapes, maintaining the right indices, and keeping online roll-ups for counts. [sent-94, score-0.297]
-</p><p>17 , identifying topics for a document depends on having already extracted its text); the newsfeed generation process is a graph composed of many query and ranking steps; and each of the production services is itself a graph, where each resource (e. [sent-99, score-0.338]
-</p><p>18 If a user removes 5 articles from a given publisher in a row, then stop showing them articles from that publisher right now, not tomorrow. [sent-118, score-0.659]
-</p><p>19 This allows rerruning later the user interest ML over the raw events, in case any data is lost through slightly loose write-back caches on this data when a machine goes down or something like that. [sent-121, score-0.479]
+</p><p>6 Onboarding - Backend     Onboarding is ingesting data about new users so they can be provided with a great personalized experience within seconds of signing up for the app. [sent-65, score-0.367]
+</p><p>7 This is fast enough that suggestions can start being computed after users OAuth in, and usually be ready with personalized suggestions by the time the user has finished creating their account (selecting a handle and password) and reached in walkthrough. [sent-69, score-0.329]
+</p><p>8 This fingerprint is quite large, and constantly changes as the user views and interacts with content on the site. [sent-79, score-0.285]
+</p><p>9 The remaining problem is how to efficiently serve up feeds for a user without incurring the IO cost and latency of fetching and updating the fingerprint on each request. [sent-85, score-0.463]
+</p><p>10 When a machine comes down the data is flushed and the user is moved to another machine -- in the worst case a few minutes of non-critical data will be lost for some users, which is consider worth it for the benefits in simplicity and scalability. [sent-88, score-0.527]
+</p><p>11 Other services - Client facing   There are a few other separate client-facing services:     Public-feeds - which does smart caching of topic and publisher feeds for non-logged in users, fetching them from the regular API on demand and allowing multiple ages of each feed to be paged through. [sent-90, score-0.514]
+</p><p>12 Mostly a thin layer in front of the SQL database, which stores critical user data that needs to be periodically snapshotted and backed up. [sent-92, score-0.356]
+</p><p>13 An URL-shortener     Batch and other services     Other services for machine language training, data archival, and event tracking/analytics. [sent-93, score-0.35]
+</p><p>14 MongoDB is used to store server metrics and user analytics, largely because it supports a nice low-hassle story for sending raw events of different shapes, maintaining the right indices, and keeping online roll-ups for counts. [sent-94, score-0.297]
+</p><p>15 It is used all over the place; for instance, the doc-analysis pipeline is a graph, where each elaboration of a document may depend on the previous (e. [sent-97, score-0.283]
+</p><p>16 , identifying topics for a document depends on having already extracted its text); the newsfeed generation process is a graph composed of many query and ranking steps; and each of the production services is itself a graph, where each resource (e. [sent-99, score-0.338]
+</p><p>17 If a user removes 5 articles from a given publisher in a row, then stop showing them articles from that publisher right now, not tomorrow. [sent-118, score-0.659]
+</p><p>18 This allows rerruning later the user interest ML over the raw events, in case any data is lost through slightly loose write-back caches on this data when a machine goes down or something like that. [sent-121, score-0.479]
+</p><p>19 Think very carefully about the entire pipeline and all of the data that flows through it. [sent-124, score-0.283]
 </p><p>20 The onboarding process, for example, ingests data about new users so they can be provided with a great personalized experience within seconds of signing up for the app. [sent-130, score-0.443]
 </p>
 <br/>
@@ -55,76 +42,40 @@ small t</p><br/><h2>Summary: the most important sentenses genereted by tfidf mod
 <p>[('prismatic', 0.421), ('ml', 0.184), ('user', 0.163), ('pipeline', 0.156), ('publisher', 0.149), ('ingest', 0.145), ('machine', 0.123), ('fingerprint', 0.122), ('feeds', 0.115), ('social', 0.11), ('clojure', 0.108), ('graph', 0.107), ('learning', 0.105), ('feed', 0.103), ('api', 0.102), ('articles', 0.099), ('fetched', 0.097), ('embarrassingly', 0.091), ('urls', 0.088), ('personalized', 0.088), ('services', 0.084), ('topics', 0.081), ('index', 0.081), ('users', 0.078), ('onboarding', 0.076), ('raw', 0.075), ('periodically', 0.073), ('seconds', 0.071), ('signing', 0.071), ('compiles', 0.071), ('pipelined', 0.07), ('flows', 0.068), ('occult', 0.067), ('pollers', 0.067), ('document', 0.066), ('functional', 0.066), ('reader', 0.065), ('fetching', 0.063), ('describe', 0.061), ('snapshotted', 0.061), ('elaborated', 0.061), ('elaboration', 0.061), ('phds', 0.061), ('subgraphs', 0.061), ('friends', 0.061), ('rss', 0.06), ('data', 0.059), ('article', 0.059), ('story', 0.059), ('abstractions', 0.058)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999899 <a title="1293-tfidf-1" href="../high_scalability-2012/high_scalability-2012-07-30-Prismatic_Architecture_-_Using_Machine_Learning_on_Social_Networks_to_Figure_Out_What_You_Should_Read_on_the_Web_.html">1293 high scalability-2012-07-30-Prismatic Architecture - Using Machine Learning on Social Networks to Figure Out What You Should Read on the Web </a></p>
-<p>Introduction: This post onPrismatic's Architecture is adapted from an email conversation
-with Prismatic programmerJason Wolfe.What should you read on the web today?
-Any thoroughly modern person must solve this dilemma every day, usually using
-some occult process to divine what's important in their many feeds: Twitter,
-RSS, Facebook, Pinterest, G+, email, Techmeme, and an uncountable numbers of
-other information sources.Jason Wolfe from Prismatic has generously agreed to
-describe their thoroughly modern solution for answering the "what to read
-question" using lots of sexy words like Machine Learning, Social Graphs,
-BigData, functional programming, and in-memory real-time feed processing. The
-result is possibly even more occult, but this or something very much like it
-will be how we meet the challenge of finding interesting topics and stories
-hidden inside infinitely deep pools of information.A couple of things stand
-out about Prismatic. They want you to know that Prismatic is being built by a
-small t</p><p>2 0.54815334 <a title="1293-tfidf-2" href="../high_scalability-2012/high_scalability-2012-08-01-Prismatic_Update%3A_Machine_Learning_on_Documents_and_Users.html">1294 high scalability-2012-08-01-Prismatic Update: Machine Learning on Documents and Users</a></p>
-<p>Introduction: In update toPrismatic Architecture - Using Machine Learning on Social Networks
-to Figure Out What You Should Read on the Web, Jason Wolfe, even in the face
-of deadening fatigue from long nights spent getting their iPhone app out, has
-gallantly agreed to talk a little more about Primatic's approach to Machine
-Learning.Documents and users are two areas where Prismatic applies ML (machine
-learning):ML on DocumentsGiven an HTML document: learn how to extract the main
-text of the page (rather than the sidebar, footer, comments, etc), its title,
-author, best images, etcdetermine features for relevance (e.g., what the
-article is about, topics, etc.)The setup for most of these tasks is pretty
-typical. Models are trained using big batch jobs on other machines that read
-data from s3, save the learned parameter files to s3, and then read (and
-periodically refresh) the models from s3 in the ingest pipeline.All of the
-data that flows out of the system can be fed back into this pipeline, which
-helps</p><p>3 0.39699006 <a title="1293-tfidf-3" href="../high_scalability-2013/high_scalability-2013-02-14-When_all_the_Program%27s_a_Graph_-_Prismatic%27s_Plumbing_Library.html">1406 high scalability-2013-02-14-When all the Program's a Graph - Prismatic's Plumbing Library</a></p>
-<p>Introduction: At some point as a programmer you might have the insight/fear that all
-programming is just doing stuff to other stuff.Then you may observe after
-coding the same stuff over again that stuff in a program often takes the form
-of interacting patterns of flows.Then you may think hey, a program isn't only
-useful for coding datastructures, but a program is a kind of datastructure and
-that with a meta level jump you could program a program in terms of flows over
-data and flow over other flows.That's the kind of stuff Prismatic is making
-available in the Graph extension to their plumbing package (code examples),
-which is described in an excellent post:Graph: Abstractions for Structured
-Computation.You may remember Prismatic from previous profile we did on
-HighScalability: Prismatic Architecture - Using Machine Learning On Social
-Networks To Figure Out What You Should Read On The Web. We learned how
-Prismatic, an interest driven content suggestion service, builds programs in
-terms of graph stuff</p><p>4 0.17756839 <a title="1293-tfidf-4" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
-<p>Introduction: Facebook did it again. They've built another system capable of doing something
-useful with ginormous streams of realtime data. Last time we saw Facebook
-release their New Real-Time Messaging System: HBase To Store 135+ Billion
-Messages A Month. This time it's a realtime analytics system handlingover 20
-billion events per day (200,000 events per second) with a lag of less than 30
-seconds. Alex Himel, Engineering Manager at Facebook, explains what they've
-built (video) and the scale required:Social plugins have become an important
-and growing source of traffic for millions of websites over the past year. We
-released a new version of Insights for Websites last week to give site owners
-better analytics on how people interact with their content and to help them
-optimize their websites in real time. To accomplish this, we had to engineer a
-system that could process over 20 billion events per day (200,000 events per
-second) with a lag of less than 30 seconds. Alex does an excellent job with
-t</p><p>5 0.16764602 <a title="1293-tfidf-5" href="../high_scalability-2010/high_scalability-2010-03-30-Running_Large_Graph_Algorithms_-_Evaluation_of_Current_State-of-the-Art_and_Lessons_Learned.html">801 high scalability-2010-03-30-Running Large Graph Algorithms - Evaluation of Current State-of-the-Art and Lessons Learned</a></p>
-<p>Introduction: On the surface nothing appears more different than soft data and hard raw
-materials like iron. Then isn't itironic, in theAlanis Morissettesense, that
-in this Age of Information, great wealth still lies hidden deep beneath piles
-of stuff? It's so strange how directly digging for dollars in data parallels
-the great wealth producing models of the Industrial Revolution.The piles of
-stuff is the Internet. It takes lots of prospecting to find the right stuff.
-Mighty web crawling machines tirelessly collect stuff, bringing it into their
-huge maws, then depositing load after load into rack after rack of distributed
-file system machines. Then armies of still other machines take this stuff and
-strip out the valuable raw materials, which in the Information Age, are
-endless bytes of raw data. Link clicks, likes, page views, content, head
-lines, searches, inbound links, outbound links, search clicks, hashtags,
-friends, purchases: anything and everything you do on the Internet is a
-valuable raw mat</p><p>6 0.16317932 <a title="1293-tfidf-6" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
+<p>Introduction: This post on  Prismatic ’s Architecture is adapted from an email conversation with Prismatic programmer  Jason Wolfe  .  What should you read on the web today? Any thoroughly modern person must solve this dilemma every day, usually using some occult process to divine what’s important in their many feeds: Twitter, RSS, Facebook, Pinterest, G+, email, Techmeme, and an uncountable numbers of other information sources.  Jason Wolfe from Prismatic has generously agreed to describe their thoroughly modern solution for answering the “what to read question” using lots of sexy words like Machine Learning, Social Graphs, BigData, functional programming, and in-memory real-time feed processing. The result is possibly even more occult, but this or something very much like it will be how we meet the challenge of finding interesting topics and stories hidden inside infinitely deep pools of information.  A couple of things stand out about Prismatic. They want you to know that Prismatic is being built</p><p>2 0.54815334 <a title="1293-tfidf-2" href="../high_scalability-2012/high_scalability-2012-08-01-Prismatic_Update%3A_Machine_Learning_on_Documents_and_Users.html">1294 high scalability-2012-08-01-Prismatic Update: Machine Learning on Documents and Users</a></p>
+<p>Introduction: In update to  Prismatic Architecture - Using Machine Learning on Social Networks to Figure Out What You Should Read on the Web , Jason Wolfe, even in the face of deadening fatigue from long nights spent getting their iPhone app out, has gallantly agreed to talk a little more about Primatic's approach to Machine Learning.
+ 
+Documents and users are two areas where Prismatic applies ML (machine learning):
+  ML on Documents   
+ Given an HTML document:Â         
+ 
+ learn how to extract the main text of the page (rather than the sidebar, footer, comments, etc), its title, author, best images, etc 
+ determine features for relevance (e.g., what the article is about, topics, etc.) 
+ 
+ 
+ The setup for most of these tasks is pretty typical. Models are trained using big batch jobs on other machines that read data from s3, save the learned parameter files to s3, and then read (and periodically refresh) the models from s3 in the ingest pipeline.  
+ All of the data that flows out of the system can be</p><p>3 0.39699006 <a title="1293-tfidf-3" href="../high_scalability-2013/high_scalability-2013-02-14-When_all_the_Program%27s_a_Graph_-_Prismatic%27s_Plumbing_Library.html">1406 high scalability-2013-02-14-When all the Program's a Graph - Prismatic's Plumbing Library</a></p>
+<p>Introduction: At some point as a programmer you might have the insight/fear that all programming is just doing stuff to other stuff.
+ 
+Then you may observe after coding the same stuff over again that stuff in a program often takes the form of interacting patterns of flows.
+ 
+Then you may think hey, a program isn't only useful for coding datastructures, but a program is a kind of datastructure and that with a meta level jump you could program a program in terms of flows over data and flow over other flows.
+ 
+That's the kind of stuff Prismatic is making available in the Graph extension to their  plumbing  package ( code examples ), which is described in an excellent post:  Graph: Abstractions for Structured Computation .
+ 
+You may remember Prismatic from previous profile we did on HighScalability:  Prismatic Architecture - Using Machine Learning On Social Networks To Figure Out What You Should Read On The Web . We learned how Prismatic, an interest driven content suggestion service, builds programs in</p><p>4 0.17756839 <a title="1293-tfidf-4" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
+<p>Introduction: Facebook did it again. They've built another system capable of doing something useful with ginormous streams of realtime data. Last time we saw Facebook release their  New Real-Time Messaging System: HBase To Store 135+ Billion Messages A Month . This time it's a realtime analytics system handling  over 20 billion events per day (200,000 events per second) with a lag of less than 30 seconds . 
+ 
+Alex Himel, Engineering Manager at Facebook,  explains what they've built  ( video ) and the scale required:
+  
+
+Social plugins have become an important and growing source of traffic for millions of websites over the past year. We released a new version of Insights for Websites last week to give site owners better analytics on how people interact with their content and to help them optimize their websites in real time. To accomplish this, we had to engineer a system that could process over 20 billion events per day (200,000 events per second) with a lag of less than 30 seconds. 
+
+  
+Alex does a</p><p>5 0.16764602 <a title="1293-tfidf-5" href="../high_scalability-2010/high_scalability-2010-03-30-Running_Large_Graph_Algorithms_-_Evaluation_of_Current_State-of-the-Art_and_Lessons_Learned.html">801 high scalability-2010-03-30-Running Large Graph Algorithms - Evaluation of Current State-of-the-Art and Lessons Learned</a></p>
+<p>Introduction: On the surface nothing appears more different than soft data and hard raw materials like iron. Then isn’t it  ironic , in the  Alanis Morissette  sense,  that in this Age of Information, great wealth still lies hidden deep beneath piles of stuff?  It's so strange how directly digging for dollars in data parallels the great wealth producing models of the Industrial Revolution.
+ 
+The piles of stuff is the Internet. It takes lots of prospecting to find the right stuff. Mighty web crawling machines tirelessly collect stuff, bringing it into their huge maws, then depositing load after load into rack after rack of distributed file system machines. Then armies of still other machines take this stuff and strip out the valuable raw materials, which in the Information Age, are endless bytes of raw data. Link clicks, likes, page views, content, head lines, searches, inbound links, outbound links, search clicks, hashtags, friends, purchases: anything and everything you do on the Internet is a valu</p><p>6 0.16317932 <a title="1293-tfidf-6" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
 <p>7 0.16157004 <a title="1293-tfidf-7" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
 <p>8 0.15851131 <a title="1293-tfidf-8" href="../high_scalability-2010/high_scalability-2010-06-30-Paper%3A_GraphLab%3A_A_New_Framework_For_Parallel_Machine_Learning.html">850 high scalability-2010-06-30-Paper: GraphLab: A New Framework For Parallel Machine Learning</a></p>
 <p>9 0.15713511 <a title="1293-tfidf-9" href="../high_scalability-2012/high_scalability-2012-02-13-Tumblr_Architecture_-_15_Billion_Page_Views_a_Month_and_Harder_to_Scale_than_Twitter.html">1191 high scalability-2012-02-13-Tumblr Architecture - 15 Billion Page Views a Month and Harder to Scale than Twitter</a></p>
@@ -144,75 +95,49 @@ valuable raw mat</p><p>6 0.16317932 <a title="1293-tfidf-6" href="../high_scalab
 <p>[(0, 0.311), (1, 0.143), (2, -0.002), (3, -0.02), (4, 0.071), (5, 0.005), (6, -0.023), (7, 0.073), (8, 0.027), (9, 0.063), (10, 0.087), (11, 0.079), (12, 0.032), (13, -0.1), (14, -0.01), (15, 0.006), (16, -0.041), (17, 0.041), (18, 0.083), (19, 0.036), (20, -0.114), (21, -0.074), (22, 0.021), (23, 0.022), (24, -0.044), (25, 0.031), (26, 0.002), (27, -0.03), (28, -0.035), (29, 0.012), (30, 0.024), (31, -0.022), (32, -0.014), (33, 0.031), (34, -0.007), (35, -0.03), (36, 0.088), (37, -0.033), (38, 0.016), (39, 0.001), (40, -0.03), (41, -0.02), (42, -0.012), (43, 0.017), (44, -0.017), (45, 0.034), (46, -0.014), (47, -0.084), (48, -0.066), (49, -0.04)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96804726 <a title="1293-lsi-1" href="../high_scalability-2012/high_scalability-2012-07-30-Prismatic_Architecture_-_Using_Machine_Learning_on_Social_Networks_to_Figure_Out_What_You_Should_Read_on_the_Web_.html">1293 high scalability-2012-07-30-Prismatic Architecture - Using Machine Learning on Social Networks to Figure Out What You Should Read on the Web </a></p>
-<p>Introduction: This post onPrismatic's Architecture is adapted from an email conversation
-with Prismatic programmerJason Wolfe.What should you read on the web today?
-Any thoroughly modern person must solve this dilemma every day, usually using
-some occult process to divine what's important in their many feeds: Twitter,
-RSS, Facebook, Pinterest, G+, email, Techmeme, and an uncountable numbers of
-other information sources.Jason Wolfe from Prismatic has generously agreed to
-describe their thoroughly modern solution for answering the "what to read
-question" using lots of sexy words like Machine Learning, Social Graphs,
-BigData, functional programming, and in-memory real-time feed processing. The
-result is possibly even more occult, but this or something very much like it
-will be how we meet the challenge of finding interesting topics and stories
-hidden inside infinitely deep pools of information.A couple of things stand
-out about Prismatic. They want you to know that Prismatic is being built by a
-small t</p><p>2 0.91424406 <a title="1293-lsi-2" href="../high_scalability-2012/high_scalability-2012-08-01-Prismatic_Update%3A_Machine_Learning_on_Documents_and_Users.html">1294 high scalability-2012-08-01-Prismatic Update: Machine Learning on Documents and Users</a></p>
-<p>Introduction: In update toPrismatic Architecture - Using Machine Learning on Social Networks
-to Figure Out What You Should Read on the Web, Jason Wolfe, even in the face
-of deadening fatigue from long nights spent getting their iPhone app out, has
-gallantly agreed to talk a little more about Primatic's approach to Machine
-Learning.Documents and users are two areas where Prismatic applies ML (machine
-learning):ML on DocumentsGiven an HTML document: learn how to extract the main
-text of the page (rather than the sidebar, footer, comments, etc), its title,
-author, best images, etcdetermine features for relevance (e.g., what the
-article is about, topics, etc.)The setup for most of these tasks is pretty
-typical. Models are trained using big batch jobs on other machines that read
-data from s3, save the learned parameter files to s3, and then read (and
-periodically refresh) the models from s3 in the ingest pipeline.All of the
-data that flows out of the system can be fed back into this pipeline, which
-helps</p><p>3 0.79643202 <a title="1293-lsi-3" href="../high_scalability-2013/high_scalability-2013-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_30%2C_2013.html">1509 high scalability-2013-08-30-Stuff The Internet Says On Scalability For August 30, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(Nerd Power: Paul Kasemir software engineer AND
-American Ninja Warrior)Two billion documents, 30 terabytes: Github source code
-indexedQuotable Quotes:David Krakauer: We fail to make intelligent machines
-because engineering is about putting together stupid components to make smart
-objects. Evolution is about putting together smart components into intelligent
-aggregates. Your brain is like an ecosystem of organisms. It's not like a
-circuit of gates.@spyced: At this point if you depend on EBS for critical
-services you're living in denial and I can't help you. @skilpat: TIL Friedrich
-Engels, not Leslie Lamport, invented logical clocks in a 1844 letter to Karl
-MarxDan Geer: Risk is a necessary consequence of dependence.@postwait: OS Rule
-1. The version of /usr/bin/X you want today will never be what your OS ships.
-Use /keep/your/shit/to/yourself/X instead.@antirez: the moral is: "Hey, that's
-a completely harmless commit about error reporting! It will never aff</p><p>4 0.77283722 <a title="1293-lsi-4" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
-<p>Introduction: This is aguest repostbyRotem Hermon, former Chief Architect forserendip.me, on
-the architecture and scaling considerations behind making a startup music
-service.serendip.meis a social music service that helps people discover great
-music shared by their friends, and also introduces them to their "music
-soulmates" \- people outside their immediate social circle that shares a
-similar taste in music.Serendip is running on AWS and is built on the
-following stack:scala(and some Java),akka(for handling concurrency),Play
-framework(for the web and API front-ends),MongoDBandElasticsearch.Choosing the
-stackOne of the challenges of building serendip was the need to handle a large
-amount of data from day one, since a main feature of serendip is that it
-collectsevery piece of music being shared on Twitterfrom public music
-services. So when we approached the question of choosing the language and
-technologies to use, an important consideration was the ability to scale.The
-JVM seemed the right basis fo</p><p>5 0.76838171 <a title="1293-lsi-5" href="../high_scalability-2013/high_scalability-2013-06-14-Stuff_The_Internet_Says_On_Scalability_For_June_14%2C_2013.html">1476 high scalability-2013-06-14-Stuff The Internet Says On Scalability For June 14, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(Steve Gibson on Security Now with a plausible
-analysis of the tech behind PRISM)27 billion:WhatsApp messages per dayQuotable
-Quotes:Richard Feinman: If Bill Gates walks into a bar, on average, everybody
-in the bar is a millionaire.@giltene: Financial Programmers get paid by the
-CPU cycle. Web developers get paid by the developer cycle.@johndmitchell:
-"It's the I/O, stupid." @PatrickMcFadin: More people registering at
-#cassandra13 No worries. Adding more nodes at the reg desk. Google does it
-with science. Here's a list ofExcellent Papers for 2012 from Googlers and
-friends. Most relevant for HS readers is a wildly inspiring Spanner: Google's
-Globally-Distributed Database. But you'll also see the influence of extracting
-knowledge from data to do subtle and interesting things. On that theme
-isImproving Photo Search: A Step Across the Semantic Gap. Google is doing hard
-hard things with seemingly small paybacks, but taken as whole it's clear what
-is being crea</p><p>6 0.75720537 <a title="1293-lsi-6" href="../high_scalability-2014/high_scalability-2014-03-07-Stuff_The_Internet_Says_On_Scalability_For_March_7th%2C_2014.html">1607 high scalability-2014-03-07-Stuff The Internet Says On Scalability For March 7th, 2014</a></p>
+<p>Introduction: This post on  Prismatic ’s Architecture is adapted from an email conversation with Prismatic programmer  Jason Wolfe  .  What should you read on the web today? Any thoroughly modern person must solve this dilemma every day, usually using some occult process to divine what’s important in their many feeds: Twitter, RSS, Facebook, Pinterest, G+, email, Techmeme, and an uncountable numbers of other information sources.  Jason Wolfe from Prismatic has generously agreed to describe their thoroughly modern solution for answering the “what to read question” using lots of sexy words like Machine Learning, Social Graphs, BigData, functional programming, and in-memory real-time feed processing. The result is possibly even more occult, but this or something very much like it will be how we meet the challenge of finding interesting topics and stories hidden inside infinitely deep pools of information.  A couple of things stand out about Prismatic. They want you to know that Prismatic is being built</p><p>2 0.91424406 <a title="1293-lsi-2" href="../high_scalability-2012/high_scalability-2012-08-01-Prismatic_Update%3A_Machine_Learning_on_Documents_and_Users.html">1294 high scalability-2012-08-01-Prismatic Update: Machine Learning on Documents and Users</a></p>
+<p>Introduction: In update to  Prismatic Architecture - Using Machine Learning on Social Networks to Figure Out What You Should Read on the Web , Jason Wolfe, even in the face of deadening fatigue from long nights spent getting their iPhone app out, has gallantly agreed to talk a little more about Primatic's approach to Machine Learning.
+ 
+Documents and users are two areas where Prismatic applies ML (machine learning):
+  ML on Documents   
+ Given an HTML document:Â         
+ 
+ learn how to extract the main text of the page (rather than the sidebar, footer, comments, etc), its title, author, best images, etc 
+ determine features for relevance (e.g., what the article is about, topics, etc.) 
+ 
+ 
+ The setup for most of these tasks is pretty typical. Models are trained using big batch jobs on other machines that read data from s3, save the learned parameter files to s3, and then read (and periodically refresh) the models from s3 in the ingest pipeline.  
+ All of the data that flows out of the system can be</p><p>3 0.79643202 <a title="1293-lsi-3" href="../high_scalability-2013/high_scalability-2013-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_30%2C_2013.html">1509 high scalability-2013-08-30-Stuff The Internet Says On Scalability For August 30, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+     ( Nerd Power: Paul Kasemir software engineer AND American Ninja Warrior )   
+  Two billion documents, 30 terabytes : Github source code indexed 
+ Quotable Quotes:                                                                                                          
+ 
+  David Krakauer : We fail to make intelligent machines because engineering is about putting together stupid components to make smart objects. Evolution is about putting together smart components into intelligent aggregates. Your brain is like an ecosystem of organisms. It's not like a circuit of gates. 
+  @spyced : At this point if you depend on EBS for critical services you're living in denial and I can't help you.  
+  @skilpat : TIL Friedrich Engels, not Leslie Lamport, invented logical clocks in a 1844 letter to Karl Marx 
+  Dan Geer : Risk is a necessary consequence of dependence. 
+  @postwait : OS Rule 1. The version of /usr/bin/X you want today will never be what your OS ships</p><p>4 0.77283722 <a title="1293-lsi-4" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
+<p>Introduction: This is a  guest repost  by  Rotem Hermon , former Chief Architect for  serendip.me , on the architecture and scaling considerations behind making a startup music service. 
+ 
+ serendip.me  is a social music service that helps people discover great music shared by their friends, and also introduces them to their “music soulmates” - people outside their immediate social circle that shares a similar taste in music.
+ 
+Serendip is running on AWS and is built on the following stack:  scala  (and some Java),  akka  (for handling concurrency),  Play framework  (for the web and API front-ends),  MongoDB  and  Elasticsearch .
+  Choosing the stack  
+One of the challenges of building serendip was the need to handle a large amount of data from day one, since a main feature of serendip is that it collects  every piece of music being shared on Twitter  from public music services. So when we approached the question of choosing the language and technologies to use, an important consideration was the ab</p><p>5 0.76838171 <a title="1293-lsi-5" href="../high_scalability-2013/high_scalability-2013-06-14-Stuff_The_Internet_Says_On_Scalability_For_June_14%2C_2013.html">1476 high scalability-2013-06-14-Stuff The Internet Says On Scalability For June 14, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    ( Steve Gibson on Security Now with a plausible analysis of the tech behind PRISM)    
+ 27 billion:  WhatsApp messages per day  
+ Quotable Quotes:                                         
+ 
+  Richard Feinman : If Bill Gates walks into a bar, on average, everybody in the bar is a millionaire. 
+  @giltene : Financial Programmers get paid by the CPU cycle. Web developers get paid by the developer cycle. 
+  @johndmitchell : “It’s the I/O, stupid.”  
+  @PatrickMcFadin : More people registering at #cassandra13 No worries. Adding more nodes at the reg desk.  
+ 
+ 
+ 
+ Google does it with science. Here's a list of  Excellent Papers for 2012  from Googlers and friends. Most relevant for HS readers is a wildly inspiring  Spanner: Google's Globally-Distributed Database . But you'll also see the influence of extracting knowledge from data to do subtle and interesting things. On that theme is  Improving Photo Search: A Step Across the Semantic Gap . Google is doing</p><p>6 0.75720537 <a title="1293-lsi-6" href="../high_scalability-2014/high_scalability-2014-03-07-Stuff_The_Internet_Says_On_Scalability_For_March_7th%2C_2014.html">1607 high scalability-2014-03-07-Stuff The Internet Says On Scalability For March 7th, 2014</a></p>
 <p>7 0.75518078 <a title="1293-lsi-7" href="../high_scalability-2013/high_scalability-2013-06-28-Stuff_The_Internet_Says_On_Scalability_For_June_28%2C_2013.html">1484 high scalability-2013-06-28-Stuff The Internet Says On Scalability For June 28, 2013</a></p>
 <p>8 0.75318825 <a title="1293-lsi-8" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
 <p>9 0.74710983 <a title="1293-lsi-9" href="../high_scalability-2014/high_scalability-2014-01-28-How_Next_Big_Sound_Tracks_Over_a_Trillion_Song_Plays%2C_Likes%2C_and_More_Using_a_Version_Control_System_for_Hadoop_Data.html">1586 high scalability-2014-01-28-How Next Big Sound Tracks Over a Trillion Song Plays, Likes, and More Using a Version Control System for Hadoop Data</a></p>
@@ -232,76 +157,48 @@ is being crea</p><p>6 0.75720537 <a title="1293-lsi-6" href="../high_scalability
 <p>[(1, 0.127), (2, 0.227), (10, 0.051), (22, 0.062), (28, 0.056), (30, 0.019), (40, 0.017), (43, 0.01), (52, 0.043), (56, 0.015), (61, 0.09), (77, 0.019), (79, 0.091), (85, 0.044), (94, 0.059)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96574825 <a title="1293-lda-1" href="../high_scalability-2012/high_scalability-2012-07-30-Prismatic_Architecture_-_Using_Machine_Learning_on_Social_Networks_to_Figure_Out_What_You_Should_Read_on_the_Web_.html">1293 high scalability-2012-07-30-Prismatic Architecture - Using Machine Learning on Social Networks to Figure Out What You Should Read on the Web </a></p>
-<p>Introduction: This post onPrismatic's Architecture is adapted from an email conversation
-with Prismatic programmerJason Wolfe.What should you read on the web today?
-Any thoroughly modern person must solve this dilemma every day, usually using
-some occult process to divine what's important in their many feeds: Twitter,
-RSS, Facebook, Pinterest, G+, email, Techmeme, and an uncountable numbers of
-other information sources.Jason Wolfe from Prismatic has generously agreed to
-describe their thoroughly modern solution for answering the "what to read
-question" using lots of sexy words like Machine Learning, Social Graphs,
-BigData, functional programming, and in-memory real-time feed processing. The
-result is possibly even more occult, but this or something very much like it
-will be how we meet the challenge of finding interesting topics and stories
-hidden inside infinitely deep pools of information.A couple of things stand
-out about Prismatic. They want you to know that Prismatic is being built by a
-small t</p><p>2 0.96000874 <a title="1293-lda-2" href="../high_scalability-2014/high_scalability-2014-03-28-Stuff_The_Internet_Says_On_Scalability_For_March_28th%2C_2014.html">1621 high scalability-2014-03-28-Stuff The Internet Says On Scalability For March 28th, 2014</a></p>
-<p>Introduction: Hey, it's HighScalability time:Looks like amultiverse, if you can keep
-it.Quotable Quotes:@abt_programming: "I am a Unix Creationist. I believe the
-world was created on January 1, 1970 and as prophesized, will end on January
-19, 2038" - @teropa@demisbellot: Cloud prices are hitting attractive price
-points, one more 40-50% drop and there'd be little reason to go it
-alone.@scott4arrows: Dentist "Do you floss regularly?" Me "Do you back up your
-computer data regularly?"@avestal: "I Kickstarted the Oculus Rift, what do I
-get?" You get a lesson in how capitalism works.@mtabini: "$20 charger that
-cost $2 to make." Not pictured here: the $14 you pay for the 10,000 charger
-iterations that never made it to production.@strlen: "I built the original
-assembler in JS, because it's what I prefer to use when I need to get down to
-bare metal." - Adm. Grace Hoppertedchs: I'd like to propose a new rule for
-Hacker News: only if you have built the thing you're saying someone should
-save money by building</p><p>3 0.9565475 <a title="1293-lda-3" href="../high_scalability-2011/high_scalability-2011-09-16-Stuff_The_Internet_Says_On_Scalability_For_September_16%2C_2011.html">1117 high scalability-2011-09-16-Stuff The Internet Says On Scalability For September 16, 2011</a></p>
-<p>Introduction: Between love and madness lies HighScalability:Google now 10x better: MapReduce
-sorts 1 petabyte of data using 8000 computers in 33 minutes; 1 Billion on
-Social Networks;Tumblr at 10 Billion Posts;Twitter at 100 Million
-Users;Testing at Google Scale: 1800 builds, 120 million test suites, 60
-million tests run daily.From theDash Memoon Google's Plan:Go is a very
-promising systems-programming language in the vein of C++. We fully hope and
-expect that Go becomes the standard back-end language at Google over the next
-few years.On GAE Go can load from a cold start in 100ms and the typical
-instance size is 4MB. Is it any wonder Go is a go? Should we expect to see
-Java and Python deprecated because Go is so much cheaper to run at
-scale?Potent Quotables:@caciufo: 30x more scalability w/ many-core. So perf
-doesn't have to level out or vex programmers. #IDF2011@joerglew: Evaluating
-divide&conquer; vs. master-slave architecture for workflows scalability in
-#vCO. I wonder what fits better to cust. ne</p><p>4 0.95479918 <a title="1293-lda-4" href="../high_scalability-2013/high_scalability-2013-05-03-Stuff_The_Internet_Says_On_Scalability_For_May_3%2C_2013.html">1451 high scalability-2013-05-03-Stuff The Internet Says On Scalability For May 3, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(Giant Hurricane on Saturn, here's onein New
-Orleans) 1,966,080 cores: Time Warp synchronization protocol using up to 7.8M
-MPI tasks on 1,966,080 cores of the {Sequoia} Blue Gene/Q supercomputer
-system. 33 trillion events processed in 65 seconds yielding a peak event-rate
-in excess of 504 billion events/second using 120 racks of Sequoia.Quotable
-Quotes:Thad Starner: the longer accessing a device exceeds 2s, the more its
-actually usage would decrease exponentially. Thus, he made a claim that wrist
-watch interface always sitting on one's wrist ready to use should be more
-successful than mobile phones which have to pulled out of the pocket.
-@joedevon: We came for scalability but we stayed for agility #NoSQL@jahmailay:
-"Our user base is exploding. I really wish we spent more time on scalability
-instead of features customers don't use." - Everybody, always.@bsletten: I
-don't think it is a coincidence that the words eval() and evil are so
-close.@RCSecure: Maybe</p><p>5 0.95360839 <a title="1293-lda-5" href="../high_scalability-2013/high_scalability-2013-08-23-Stuff_The_Internet_Says_On_Scalability_For_August_23%2C_2013.html">1506 high scalability-2013-08-23-Stuff The Internet Says On Scalability For August 23, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(Parkour is to terrain as programming is to
-frameworks)5x: AWS vs combined size of other cloud vendors;Every Second on The
-Internet: Why we need so many servers.Quotable Quotes:@chaliy: Today I learned
-that I do not understand how #azure scaling works, instance scale does not
-affect requests/sec I can load.@Lariar: Note how crazy this is. An
-international launch would have been a huge deal. Now it's just another thing
-you do.smacktoward: The problem with relying on donations is that people don't
-make donations.@toddhoffious: Programming is a tool built by logical
-positivists to solve the problems of idealists and pragmatists. We have a
-fundamental mismatch here.@etherealmind: Me: "Weird, my phone data isn't
-working" Them: "They turned the 3G off at the tower because it  interferes
-with the particle accelerator"John Carmack: In com­puter sci­ence, just about
-the only thing that's really sci­ence is when you're talk­ing about
-algo­rithms. And opti­miza­tion</p><p>6 0.95344877 <a title="1293-lda-6" href="../high_scalability-2014/high_scalability-2014-05-09-Stuff_The_Internet_Says_On_Scalability_For_May_9th%2C_2014.html">1645 high scalability-2014-05-09-Stuff The Internet Says On Scalability For May 9th, 2014</a></p>
+<p>Introduction: This post on  Prismatic ’s Architecture is adapted from an email conversation with Prismatic programmer  Jason Wolfe  .  What should you read on the web today? Any thoroughly modern person must solve this dilemma every day, usually using some occult process to divine what’s important in their many feeds: Twitter, RSS, Facebook, Pinterest, G+, email, Techmeme, and an uncountable numbers of other information sources.  Jason Wolfe from Prismatic has generously agreed to describe their thoroughly modern solution for answering the “what to read question” using lots of sexy words like Machine Learning, Social Graphs, BigData, functional programming, and in-memory real-time feed processing. The result is possibly even more occult, but this or something very much like it will be how we meet the challenge of finding interesting topics and stories hidden inside infinitely deep pools of information.  A couple of things stand out about Prismatic. They want you to know that Prismatic is being built</p><p>2 0.96000874 <a title="1293-lda-2" href="../high_scalability-2014/high_scalability-2014-03-28-Stuff_The_Internet_Says_On_Scalability_For_March_28th%2C_2014.html">1621 high scalability-2014-03-28-Stuff The Internet Says On Scalability For March 28th, 2014</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    Looks like a  multiverse , if you can keep it.   
+ Quotable Quotes:                  
+ 
+  @abt_programming : "I am a Unix Creationist. I believe the world was created on January 1, 1970 and as prophesized, will end on January 19, 2038" - @teropa 
+  @demisbellot : Cloud prices are hitting attractive price points, one more 40-50% drop and there'd be little reason to go it alone. 
+  @scott4arrows : Dentist "Do you floss regularly?" Me "Do you back up your computer data regularly?" 
+  @avestal : "I Kickstarted the Oculus Rift, what do I get?" You get a lesson in how capitalism works. 
+  @mtabini : “$20 charger that cost $2 to make.” Not pictured here: the $14 you pay for the 10,000 charger iterations that never made it to production. 
+  @strlen : "I built the original assembler in JS, because it's what I prefer to use when I need to get down to bare metal." - Adm. Grace Hopper 
+  tedchs : I'd like to propose a new rule for Hacker News: only if you have b</p><p>3 0.9565475 <a title="1293-lda-3" href="../high_scalability-2011/high_scalability-2011-09-16-Stuff_The_Internet_Says_On_Scalability_For_September_16%2C_2011.html">1117 high scalability-2011-09-16-Stuff The Internet Says On Scalability For September 16, 2011</a></p>
+<p>Introduction: Between love and madness lies  HighScalability : 
+  
+  Google now 10x better : MapReduce sorts 1 petabyte of data using 8000 computers in 33 minutes;  1 Billion on Social Networks ;  Tumblr at 10 Billion Posts ;  Twitter at 100 Million Users ;  Testing at Google Scale : 1800 builds, 120 million test suites, 60 million tests run daily. 
+ From the  Dash Memo  on Google's Plan:  Go is a very promising systems-programming language in the vein of C++. We fully hope and expect that Go becomes the standard back-end language at Google over the next few years.  On GAE  Go can load from  a cold start in 100ms and the typical instance size is 4MB. Is it any wonder Go is a go? Should we expect to see Java and Python deprecated because Go is so much cheaper to run at scale? 
+ Potent Quotables:               
+ 
+  @caciufo  : 30x more scalability w/ many-core. So perf doesn't have to level out or vex programmers. #IDF2011 
+  @joerglew  : Evaluating divide&conquer; vs. master-slave architecture for wor</p><p>4 0.95479918 <a title="1293-lda-4" href="../high_scalability-2013/high_scalability-2013-05-03-Stuff_The_Internet_Says_On_Scalability_For_May_3%2C_2013.html">1451 high scalability-2013-05-03-Stuff The Internet Says On Scalability For May 3, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    ( Giant Hurricane on Saturn , here's one  in New Orleans )  
+ 
+  
+  1,966,080 cores : Time Warp synchronization protocol using up to 7.8M MPI tasks on 1,966,080 cores of the {Sequoia} Blue Gene/Q supercomputer system. 33 trillion events processed in 65 seconds yielding a peak event-rate in excess of 504 billion events/second using 120 racks of Sequoia. 
+ Quotable Quotes:                             
+ 
+  Thad Starner : the longer accessing a device exceeds 2s, the more its actually usage would decrease exponentially. Thus, he made a claim that wrist watch interface always sitting on one's wrist ready to use should be more successful than mobile phones which have to pulled out of the pocket.  
+  @joedevon : We came for scalability but we stayed for agility #NoSQL 
+  @jahmailay : "Our user base is exploding. I really wish we spent more time on scalability instead of features customers don't use." - Everybody, always. 
+  @bsletten : I don’t think it is a</p><p>5 0.95360839 <a title="1293-lda-5" href="../high_scalability-2013/high_scalability-2013-08-23-Stuff_The_Internet_Says_On_Scalability_For_August_23%2C_2013.html">1506 high scalability-2013-08-23-Stuff The Internet Says On Scalability For August 23, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+     ( Parkour is to terrain as programming is to frameworks )   
+  5x : AWS vs combined size of other cloud vendors;  Every Second on The Internet : Why we need so many servers. 
+ Quotable Quotes:                                              
+ 
+  @chaliy : Today I learned that I do not understand how #azure scaling works, instance scale does not affect requests/sec I can load. 
+  @Lariar : Note how crazy this is. An international launch would have been a huge deal. Now it's just another thing you do. 
+  smacktoward : The problem with relying on donations is that people don't make donations. 
+  @toddhoffious : Programming is a tool built by logical positivists to solve the problems of idealists and pragmatists. We have a fundamental mismatch here. 
+  @etherealmind : Me: "Weird, my phone data isn't working" Them: "They turned the 3G off at the tower because it  interferes with the particle accelerator" 
+  John Carmack : In com­puter sci­ence, just about t</p><p>6 0.95344877 <a title="1293-lda-6" href="../high_scalability-2014/high_scalability-2014-05-09-Stuff_The_Internet_Says_On_Scalability_For_May_9th%2C_2014.html">1645 high scalability-2014-05-09-Stuff The Internet Says On Scalability For May 9th, 2014</a></p>
 <p>7 0.95342267 <a title="1293-lda-7" href="../high_scalability-2010/high_scalability-2010-09-17-Hot_Scalability_Links_For_Sep_17%2C_2010.html">903 high scalability-2010-09-17-Hot Scalability Links For Sep 17, 2010</a></p>
 <p>8 0.95281672 <a title="1293-lda-8" href="../high_scalability-2012/high_scalability-2012-06-08-Stuff_The_Internet_Says_On_Scalability_For_June_8%2C_2012.html">1261 high scalability-2012-06-08-Stuff The Internet Says On Scalability For June 8, 2012</a></p>
 <p>9 0.95058525 <a title="1293-lda-9" href="../high_scalability-2013/high_scalability-2013-04-01-Khan_Academy_Checkbook_Scaling_to_6_Million_Users_a_Month_on_GAE.html">1432 high scalability-2013-04-01-Khan Academy Checkbook Scaling to 6 Million Users a Month on GAE</a></p>

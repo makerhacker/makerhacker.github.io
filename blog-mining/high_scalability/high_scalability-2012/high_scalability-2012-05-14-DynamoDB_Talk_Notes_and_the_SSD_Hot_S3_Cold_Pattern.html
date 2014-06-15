@@ -16,38 +16,27 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1245-html" href="http://highscalability.com//blog/2012/5/14/dynamodb-talk-notes-and-the-ssd-hot-s3-cold-pattern.html">html</a></p><p>Introduction: My impression of DynamoDB before attending aAmazon DynamoDB for Developerstalk
-is that it's the usual quality service produced by Amazon: simple, fast,
-scalable, geographically redundant, expensive enough to make you think twice
-about using it, and delightfully NoOp.After the talk my impression has become
-more nuanced. The quality impression still stands. Look at theforumsand you'll
-see the typical issues every product has, but no real surprises. And as a
-SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced
-a more elegant design.What was surprising is how un-cloudy DynamoDB appears to
-be. The cloud pillars of pay for what you use and quick elastic response to
-bursty traffic have been abandoned, for some understandable reasons, but the
-result is you really have to consider your use cases before making DynamoDB
-the default choice.Here are some of my impressions from the talk...DynamoDB is
-a clean well lighted place for key-value data. The interface is simple,
-co</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 My impression of DynamoDB before attending aAmazon DynamoDB for Developerstalk is that it's the usual quality service produced by Amazon: simple, fast, scalable, geographically redundant, expensive enough to make you think twice about using it, and delightfully NoOp. [sent-1, score-0.279]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1245-html" href="http://highscalability.com//blog/2012/5/14/dynamodb-talk-notes-and-the-ssd-hot-s3-cold-pattern.html">html</a></p><p>Introduction: My impression of DynamoDB before attending a   Amazon DynamoDB for Developers    talk is that it’s the usual quality service produced by Amazon: simple, fast, scalable, geographically redundant, expensive enough to make you think twice about using it, and delightfully NoOp.     After the talk my impression has become more nuanced. The quality impression still stands. Look at the    forums    and you’ll see the typical issues every product has, but no real surprises. And as a SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced a more elegant design.     What was surprising is how un-cloudy DynamoDB appears to be. The cloud pillars of pay for what you use and quick elastic response to bursty traffic have been abandoned, for some understandable reasons, but the result is you really have to consider your use cases before making DynamoDB the default choice.    Here are some of my impressions from the talk... 
+  
+   DynamoDB is a clean well lighted place for key-va</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 My impression of DynamoDB before attending a   Amazon DynamoDB for Developers    talk is that it’s the usual quality service produced by Amazon: simple, fast, scalable, geographically redundant, expensive enough to make you think twice about using it, and delightfully NoOp. [sent-1, score-0.279]
 </p><p>2 And as a SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced a more elegant design. [sent-5, score-0.126]
 </p><p>3 The cloud pillars of pay for what you use and quick elastic response to bursty traffic have been abandoned, for some understandable reasons, but the result is you really have to consider your use cases before making DynamoDB the default choice. [sent-7, score-0.31]
 </p><p>4 Reads can be consistent, or inconsistent, writes are always consistent, consistent reads cost 2x more. [sent-18, score-0.118]
-</p><p>5 5 msecs for the database component, depending on the size of your data. [sent-22, score-0.172]
-</p><p>6 A problem with the cloud is noisy neighbors can ruin the performance of other neighbors. [sent-33, score-0.147]
-</p><p>7 To ensure DynamoDB can meet SLAs in a multi-tenancy environment, a maximum size restriction of 64KB is put on values. [sent-34, score-0.115]
+</p><p>5 Operations are usually under 10 msecs, typically 3-4 msecs   . [sent-19, score-0.122]
+</p><p>6 5 msecs for the database component, depending on the size of your data. [sent-22, score-0.172]
+</p><p>7 A problem with the cloud is noisy neighbors can ruin the performance of other neighbors. [sent-33, score-0.147]
 </p><p>8 By fixing the data sizes and requiring the specification for a guaranteed throughput rate, DynamoDB has all the information it needs to schedule workloads in such a way as they can meet their SLAs with a high degree of confidence. [sent-36, score-0.263]
 </p><p>9 A downside of the provisioned throughput model is you pay for the throughput you have reserved, not the traffic you have actually generated. [sent-38, score-0.361]
-</p><p>10 From Amazon's perspective they are reserving the capacity so in a sense you are using the capacity, but this is the same capacity planning issue that made the elastic nature of the cloud so attractive to begin with. [sent-39, score-0.248]
+</p><p>10 From Amazon’s perspective they are reserving the capacity so in a sense you are using the capacity, but this is the same capacity planning issue that made the elastic nature of the cloud so attractive to begin with. [sent-39, score-0.248]
 </p><p>11 And if your traffic is at all bursty you technically would have to reserve the peak usage, which is fiscal insanity. [sent-43, score-0.152]
-</p><p>12 You can adjust your throughput reservation, but you can't do it fast enough to meet a burst, and the drop notification mechanisms are clumsy, you get an email alert and then have to do the adjustment by hand. [sent-44, score-0.244]
-</p><p>13 A lack of transactionsmeans developers have to implement idempotency, garbage collection, and pay for all the accesses needed to implement features that DynamoDB should be supporting. [sent-50, score-0.223]
-</p><p>14 The provisioning model is not really automatic as hot keys are not automatically load balanced. [sent-53, score-0.145]
-</p><p>15 Eventually more functionality will be built into the dashboard, but it's a powerful way to look at your data, just factor this kind of management traffic into your throughput requirements. [sent-71, score-0.181]
-</p><p>16 Store Hot Data in DynamoDB, Cold Data in S3, and use Hadoop/Hive to Make them Look the SameOne of the most interesting ideas of the talk is how a new Hadoop/Hive ecosystem is being used to act as a unifying bridge between DynamoDB and S3. [sent-72, score-0.13]
-</p><p>17 The idea is that data stored in DynamoDB costs 10 times as much as data in S3, so what you want to do is move historical or cold data to S3 as soon possible and just keep the hot data in DynamoDB. [sent-73, score-0.511]
-</p><p>18 For example, time series data is often stored by day, week, or month, so rather than keep all that historical time series data in DynamoDB, move it to S3 and save some money. [sent-74, score-0.208]
-</p><p>19 The problem is now you have two very different ways to access data. [sent-75, score-0.1]
+</p><p>12 You can adjust your throughput reservation, but you can’t do it fast enough to meet a burst, and the drop notification mechanisms are clumsy, you get an email alert and then have to do the adjustment by hand. [sent-44, score-0.244]
+</p><p>13 A lack of transactions    means developers have to implement idempotency, garbage collection, and pay for all the accesses needed to implement features that DynamoDB should be supporting. [sent-50, score-0.223]
+</p><p>14 Hot keys / Hot partitions are not supported   . [sent-52, score-0.129]
+</p><p>15 The provisioning model is not really automatic as hot keys are not automatically load balanced. [sent-53, score-0.145]
+</p><p>16 Eventually more functionality will be built into the dashboard, but it’s a powerful way to look at your data, just factor this kind of management traffic into your throughput requirements. [sent-71, score-0.181]
+</p><p>17 Store Hot Data in DynamoDB, Cold Data in S3, and use Hadoop/Hive to Make them Look the Same     One of the most interesting ideas of the talk is how a new Hadoop/Hive ecosystem is being used to act as a unifying bridge between DynamoDB and S3. [sent-72, score-0.13]
+</p><p>18 The idea is that data stored in DynamoDB costs 10 times as much as data in S3, so what you want to do is move historical or cold data to S3 as soon possible and just keep the hot data in DynamoDB. [sent-73, score-0.511]
+</p><p>19 For example, time series data is often stored by day, week, or month, so rather than keep all that historical time series data in DynamoDB, move it to S3 and save some money. [sent-74, score-0.208]
 </p><p>20 Using EMR and Hive sophisticated queries can be run against data in DynamoDB and S3, allowing a common data access layer against the cheapest storage option. [sent-78, score-0.195]
 </p>
 <br/>
@@ -55,76 +44,52 @@ co</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h
 <p>[('dynamodb', 0.755), ('throughput', 0.125), ('msecs', 0.122), ('impression', 0.105), ('bursty', 0.096), ('noisy', 0.096), ('hot', 0.094), ('slas', 0.086), ('supported', 0.078), ('bridge', 0.074), ('capacity', 0.074), ('data', 0.073), ('produced', 0.069), ('hive', 0.066), ('meet', 0.065), ('cold', 0.063), ('historical', 0.062), ('specify', 0.062), ('amazon', 0.062), ('consistent', 0.061), ('syndrome', 0.057), ('reads', 0.057), ('traffic', 0.056), ('ecosystem', 0.056), ('implement', 0.056), ('garbage', 0.056), ('pay', 0.055), ('rightly', 0.054), ('hinted', 0.054), ('noop', 0.054), ('attending', 0.054), ('adjustment', 0.054), ('idempotency', 0.054), ('pillars', 0.054), ('lose', 0.052), ('programmatic', 0.051), ('handoff', 0.051), ('aesthetic', 0.051), ('reserving', 0.051), ('delightfully', 0.051), ('problem', 0.051), ('keys', 0.051), ('size', 0.05), ('access', 0.049), ('elastic', 0.049), ('ip', 0.049), ('ssd', 0.048), ('example', 0.048), ('clumsy', 0.048), ('specifying', 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="1245-tfidf-1" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
-<p>Introduction: My impression of DynamoDB before attending aAmazon DynamoDB for Developerstalk
-is that it's the usual quality service produced by Amazon: simple, fast,
-scalable, geographically redundant, expensive enough to make you think twice
-about using it, and delightfully NoOp.After the talk my impression has become
-more nuanced. The quality impression still stands. Look at theforumsand you'll
-see the typical issues every product has, but no real surprises. And as a
-SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced
-a more elegant design.What was surprising is how un-cloudy DynamoDB appears to
-be. The cloud pillars of pay for what you use and quick elastic response to
-bursty traffic have been abandoned, for some understandable reasons, but the
-result is you really have to consider your use cases before making DynamoDB
-the default choice.Here are some of my impressions from the talk...DynamoDB is
-a clean well lighted place for key-value data. The interface is simple,
-co</p><p>2 0.32639268 <a title="1245-tfidf-2" href="../high_scalability-2013/high_scalability-2013-04-03-5_Steps_to_Benchmarking_Managed_NoSQL_-_DynamoDB_vs_Cassandra.html">1434 high scalability-2013-04-03-5 Steps to Benchmarking Managed NoSQL - DynamoDB vs Cassandra</a></p>
-<p>Introduction: This is a guest post byBen BromheadfromInstaclustrDeciding to use a managed
-NoSQL datastore is a great step in ensuring you run a fast, scalable and
-resilient application without needing to be an expert in highly available
-architecture. How do you know which technology is the best for your
-application? How do you know whether the provider's performance claims are
-true? You are putting your application on someone else’s infrastructure and
-that requires some hard answers about their claims.To determine the
-suitability of a provider, your first port of call is to benchmark. Choosing a
-service provider is often done in a number of stages. First is to shortlist
-providers based on capabilities and claimed performance, ruling out those that
-do not meet your application requirements. Second is to look for benchmarks
-conducted by third parties, if any. The final stage is to benchmark the
-service yourself.In this article we will show you how to run some preliminary
-benchmarks against two managed</p><p>3 0.1766143 <a title="1245-tfidf-3" href="../high_scalability-2012/high_scalability-2012-08-24-Stuff_The_Internet_Says_On_Scalability_For_August_24%2C_2012.html">1311 high scalability-2012-08-24-Stuff The Internet Says On Scalability For August 24, 2012</a></p>
-<p>Introduction: It's HighScalability Time:500 TB/day:Facebook data Quotable Quotes:Tumblr
-mobocracy: This is what migrating a billion cache objects into a new cache
-pool looks like#hotiit is possible to build all to all wdm networks where
-there is a wavelength per core.A Generation Lost in the Bazaar. The problem is
-Cathedrals are multi-generation projects, built by master craftsman, using an
-empirical process, not engineering principles. There is no complete
-specification, it's iterative and adaptive.  How Bazaar. Here's a unique look
-at how the new Digg 4structured their architecture and development processes
-to scale down to 14 engineers from a high of 40 engineers for the old Digg. As
-the team shrunk very few new unit tests were written and the system tests were
-dumped. Using Thrift between components helped coordinate the team. A dark
-rollout mechanism allowed them to rollout and test features on a subset of
-users.  Development team used four horizontal teams (frontend, API, platform
-and infrastr</p><p>4 0.14437684 <a title="1245-tfidf-4" href="../high_scalability-2012/high_scalability-2012-10-26-Stuff_The_Internet_Says_On_Scalability_For_October_26%2C_2012.html">1348 high scalability-2012-10-26-Stuff The Internet Says On Scalability For October 26, 2012</a></p>
-<p>Introduction: It's HighScalability Time:1.5 Billion Pageviews: Etsy in September; 200
-dedicated database servers: TumblrQuotable Quotes:@rbranson: Datadog stays
-availablewhere it counts (metrics injest) by using Cassandra, combined with an
-RDBMS for queries. Nice. @jmhodges: Few engineers know what modern hw is
-capable of, in part, because the only people that see the numbers are in orgs
-that had to care or die.@tinagroves: Storing the brain in the cloud might cost
-$38/month asserts Jim Adelius at #strataconf in talk on #bigdata and thought
-crimes.Why is it hard to scale a database, in layman's terms? on Quora. Some
-really good answers. My answer would involve a cookie jar filled with all
-different kinds of cookies and a motley crew of kindergartners all trying to
-get cookies at the same time while keebler elves are trying to fill up the
-jar, all at the same time.Rackspace now has their own cloud block storage
-product, competing with Amazon's EBS. It looks like they are positioning their
-offering ag</p><p>5 0.12481628 <a title="1245-tfidf-5" href="../high_scalability-2013/high_scalability-2013-07-19-Stuff_The_Internet_Says_On_Scalability_For_July_19%2C_2013.html">1494 high scalability-2013-07-19-Stuff The Internet Says On Scalability For July 19, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(Still not a transporter:Looping at 685 mph)898
-exabytes: US storage, 1/3 global total; 1 Kb/s: data transmit rate from
-harvestable energy from human motionCreate your own trust nobody point-to-
-point private cloud. Dan Brown shows how step-by-step in How I Created My Own
-Personal Cloud Using BitTorrent Sync, Owncloud, and Raspberry Pi. BitTorrent
-Sync is used to copy large files around. Raspberry Pi is a cheap low power
-always on device with BitTorrent Sync installed. Owncloud is an open source
-cloud that provides a web interface for file access files from anywhere.This
-is different. Funding astartup using Airbnb as a source of start-up capital.
-It beats getting a part-time job and one of your guests might even be a
-VC.This is not different. Old industries clawing and digging in, using the
-tools of power to beat back competition. Steve Blank details a familiar story
-in Strangling Innovation: Tesla versus "Rent Seekers". The thing is nobody
-really wants t</p><p>6 0.12314308 <a title="1245-tfidf-6" href="../high_scalability-2012/high_scalability-2012-03-09-Stuff_The_Internet_Says_On_Scalability_For_March_9%2C_2012.html">1206 high scalability-2012-03-09-Stuff The Internet Says On Scalability For March 9, 2012</a></p>
+<p>Introduction: My impression of DynamoDB before attending a   Amazon DynamoDB for Developers    talk is that it’s the usual quality service produced by Amazon: simple, fast, scalable, geographically redundant, expensive enough to make you think twice about using it, and delightfully NoOp.     After the talk my impression has become more nuanced. The quality impression still stands. Look at the    forums    and you’ll see the typical issues every product has, but no real surprises. And as a SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced a more elegant design.     What was surprising is how un-cloudy DynamoDB appears to be. The cloud pillars of pay for what you use and quick elastic response to bursty traffic have been abandoned, for some understandable reasons, but the result is you really have to consider your use cases before making DynamoDB the default choice.    Here are some of my impressions from the talk... 
+  
+   DynamoDB is a clean well lighted place for key-va</p><p>2 0.32639268 <a title="1245-tfidf-2" href="../high_scalability-2013/high_scalability-2013-04-03-5_Steps_to_Benchmarking_Managed_NoSQL_-_DynamoDB_vs_Cassandra.html">1434 high scalability-2013-04-03-5 Steps to Benchmarking Managed NoSQL - DynamoDB vs Cassandra</a></p>
+<p>Introduction: This is a guest post by  Ben Bromhead  from  Instaclustr  
+ 
+ 
+ 
+Deciding to use a managed NoSQL datastore is a great step in ensuring you run a fast, scalable and resilient application without needing to be an expert in highly available architecture. How do you know which technology is the best for your application? How do you know whether the provider's performance claims are true? You are putting your application on someone else’s infrastructure and that requires some hard answers about their claims.
+ 
+To determine the suitability of a provider, your first port of call is to benchmark. Choosing a service provider is often done in a number of stages. First is to shortlist providers based on capabilities and claimed performance, ruling out those that do not meet your application requirements. Second is to look for benchmarks conducted by third parties, if any. The final stage is to benchmark the service yourself.
+ 
+In this article we will show you how to run some preliminary benchmark</p><p>3 0.1766143 <a title="1245-tfidf-3" href="../high_scalability-2012/high_scalability-2012-08-24-Stuff_The_Internet_Says_On_Scalability_For_August_24%2C_2012.html">1311 high scalability-2012-08-24-Stuff The Internet Says On Scalability For August 24, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+ 500 TB/day:  Facebook data   
+ Quotable Quotes:                      
+ 
+  Tumblr mobocracy : This is what migrating a billion cache objects into a new cache pool looks like 
+  #hoti  it is possible to build all to all wdm networks where there is a wavelength per core. 
+ 
+ 
+  A Generation Lost in the Bazaar . The problem is Cathedrals are multi-generation projects, built by master craftsman, using an empirical process, not engineering principles. There is no complete specification, it's iterative and adaptive.  How Bazaar.  
+ Here's a unique look at how the new Digg 4  structured their architecture and development processes  to scale down to 14 engineers from a high of 40 engineers for the old Digg. As the team shrunk very few new unit tests were written and the system tests were dumped. Using Thrift between components helped coordinate the team. A dark rollout mechanism allowed them to rollout and test features on a subset of users.  Development team used</p><p>4 0.14437684 <a title="1245-tfidf-4" href="../high_scalability-2012/high_scalability-2012-10-26-Stuff_The_Internet_Says_On_Scalability_For_October_26%2C_2012.html">1348 high scalability-2012-10-26-Stuff The Internet Says On Scalability For October 26, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+  1.5 Billion Pageviews : Etsy in September;  200 dedicated database servers : Tumblr 
+ Quotable Quotes:                                  
+ 
+  @rbranson  :  Datadog stays available  where it counts (metrics injest) by using Cassandra, combined with an RDBMS for queries. Nice.  
+  @jmhodges  : Few engineers know what modern hw is capable of, in part, because the only people that see the numbers are in orgs that had to care or die. 
+  @tinagroves  : Storing the brain in the cloud might cost $38/month asserts Jim Adelius at #strataconf in talk on #bigdata and thought crimes. 
+ 
+ 
+ 
+  Why is it hard to scale a database, in layman’s terms?  on Quora. Some really good answers. My answer would involve a cookie jar filled with all different kinds of cookies and a motley crew of kindergartners all trying to get cookies at the same time while keebler elves are trying to fill up the jar, all at the same time. 
+ 
+ Rackspace now has their own  cloud block storage  prod</p><p>5 0.12481628 <a title="1245-tfidf-5" href="../high_scalability-2013/high_scalability-2013-07-19-Stuff_The_Internet_Says_On_Scalability_For_July_19%2C_2013.html">1494 high scalability-2013-07-19-Stuff The Internet Says On Scalability For July 19, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    (Still not a transporter:  Looping at 685 mph )   
+  898 exabytes : US storage, 1/3 global total;  1 Kb/s : data transmit rate from harvestable energy from human motion 
+ 
+  Create your own trust nobody point-to-point private cloud. Dan Brown shows how step-by-step in  How I Created My Own Personal Cloud Using BitTorrent Sync, Owncloud, and Raspberry Pi . BitTorrent Sync is used to copy large files around. Raspberry Pi is a cheap low power always on device with BitTorrent Sync installed. Owncloud is an open source cloud that provides a web interface for file access files from anywhere. 
+ 
+ This is different. Funding a  startup using Airbnb  as a source of start-up capital. It beats getting a part-time job and one of your guests might even be a VC. 
+ 
+ This is not different. Old industries clawing and digging in, using the tools of power to beat back competition. Steve Blank details a familiar story in  Strangling Innovation: Tesla versus “Rent Seeker</p><p>6 0.12314308 <a title="1245-tfidf-6" href="../high_scalability-2012/high_scalability-2012-03-09-Stuff_The_Internet_Says_On_Scalability_For_March_9%2C_2012.html">1206 high scalability-2012-03-09-Stuff The Internet Says On Scalability For March 9, 2012</a></p>
 <p>7 0.12158997 <a title="1245-tfidf-7" href="../high_scalability-2012/high_scalability-2012-04-06-Stuff_The_Internet_Says_On_Scalability_For_April_6%2C_2012.html">1223 high scalability-2012-04-06-Stuff The Internet Says On Scalability For April 6, 2012</a></p>
 <p>8 0.11898178 <a title="1245-tfidf-8" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
 <p>9 0.11789697 <a title="1245-tfidf-9" href="../high_scalability-2012/high_scalability-2012-01-24-The_State_of_NoSQL_in_2012.html">1180 high scalability-2012-01-24-The State of NoSQL in 2012</a></p>
@@ -144,76 +109,55 @@ really wants t</p><p>6 0.12314308 <a title="1245-tfidf-6" href="../high_scalabil
 <p>[(0, 0.179), (1, 0.09), (2, -0.012), (3, 0.02), (4, -0.03), (5, 0.027), (6, 0.033), (7, -0.029), (8, 0.033), (9, -0.075), (10, 0.012), (11, 0.013), (12, -0.012), (13, -0.009), (14, -0.005), (15, 0.027), (16, -0.001), (17, -0.006), (18, -0.016), (19, -0.019), (20, 0.019), (21, -0.007), (22, 0.031), (23, 0.008), (24, -0.025), (25, -0.037), (26, -0.03), (27, 0.01), (28, 0.021), (29, -0.033), (30, 0.009), (31, 0.001), (32, -0.007), (33, 0.009), (34, 0.022), (35, 0.037), (36, -0.002), (37, 0.031), (38, -0.028), (39, -0.033), (40, -0.045), (41, 0.025), (42, 0.072), (43, -0.01), (44, 0.039), (45, -0.022), (46, 0.0), (47, -0.008), (48, 0.035), (49, -0.001)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.93340153 <a title="1245-lsi-1" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
-<p>Introduction: My impression of DynamoDB before attending aAmazon DynamoDB for Developerstalk
-is that it's the usual quality service produced by Amazon: simple, fast,
-scalable, geographically redundant, expensive enough to make you think twice
-about using it, and delightfully NoOp.After the talk my impression has become
-more nuanced. The quality impression still stands. Look at theforumsand you'll
-see the typical issues every product has, but no real surprises. And as a
-SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced
-a more elegant design.What was surprising is how un-cloudy DynamoDB appears to
-be. The cloud pillars of pay for what you use and quick elastic response to
-bursty traffic have been abandoned, for some understandable reasons, but the
-result is you really have to consider your use cases before making DynamoDB
-the default choice.Here are some of my impressions from the talk...DynamoDB is
-a clean well lighted place for key-value data. The interface is simple,
-co</p><p>2 0.78513503 <a title="1245-lsi-2" href="../high_scalability-2013/high_scalability-2013-12-13-Stuff_The_Internet_Says_On_Scalability_For_December_13th%2C_2013.html">1564 high scalability-2013-12-13-Stuff The Internet Says On Scalability For December 13th, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:Test your sense of scale. Is this image of
-something microscopic or macroscopic?Find out.80 billion: Netflix logging
-events per day;10 petabytes: Ancestry.com data;six million: Foursquare
-checkins per day; Quotable Quotes:George Lakoff: What can't all your thoughts
-be conscious? Because consciousness is linear and your brain is parallel. The
-linear structure of consciousness could never keep up.@peakscale: "Engineers
-like to solve problems. If there are no problems handily available, they will
-create their own problems" - Scott Adams@kiwipom:  "Immutability is magic
-pixie dust that makes distributed systems work" \- Adrian Cockcroft @LachM:
-Netflix: SPEED at SCALE = breaks EVERYTHING. #yow13Joe Landman: … you get
-really annoyed at the performance of grep on file IO (seriously folks? 32k or
-page size sized IO? What is this … 1992?) so you rewrite it in 20 minute in
-Perl, and increase the performance by 5-8x or so.@rjrogers87: "Goldman Sacs
-has 36,000 emplo</p><p>3 0.78163224 <a title="1245-lsi-3" href="../high_scalability-2013/high_scalability-2013-04-03-5_Steps_to_Benchmarking_Managed_NoSQL_-_DynamoDB_vs_Cassandra.html">1434 high scalability-2013-04-03-5 Steps to Benchmarking Managed NoSQL - DynamoDB vs Cassandra</a></p>
-<p>Introduction: This is a guest post byBen BromheadfromInstaclustrDeciding to use a managed
-NoSQL datastore is a great step in ensuring you run a fast, scalable and
-resilient application without needing to be an expert in highly available
-architecture. How do you know which technology is the best for your
-application? How do you know whether the provider's performance claims are
-true? You are putting your application on someone else’s infrastructure and
-that requires some hard answers about their claims.To determine the
-suitability of a provider, your first port of call is to benchmark. Choosing a
-service provider is often done in a number of stages. First is to shortlist
-providers based on capabilities and claimed performance, ruling out those that
-do not meet your application requirements. Second is to look for benchmarks
-conducted by third parties, if any. The final stage is to benchmark the
-service yourself.In this article we will show you how to run some preliminary
-benchmarks against two managed</p><p>4 0.77496237 <a title="1245-lsi-4" href="../high_scalability-2013/high_scalability-2013-03-22-Stuff_The_Internet_Says_On_Scalability_For_March_22%2C_2013.html">1428 high scalability-2013-03-22-Stuff The Internet Says On Scalability For March 22, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time: 1 Billion/Month: Active Mostly Mobile YouTube
-UsersQuotable Quotes:@NeckbeardHacker: "Wait...he reimplemented swatch and
-rsync in chef, node and mongo?""Yup." "......Why?""Go easy on him...he's a
-Ninjipsterstar."@b6n: Scale myth #1: Your service is a unique
-snowflake.@polotek: If you don't care about bugs, design or scalability, it
-only takes 2 days to build anything.@NasHope: Even with the rapid scalability
-of Rackspace, I've still waited for over an hour for Dominos to actually
-deliver my pizza.George Dyson: Computers may turn out to be less important as
-an end product of technological evolution and more important as catalysts
-facilitating evolutionary processes through the incubation and propagation of
-self-replicating filaments of code.George Dyson: Von Neumann believed that all
-fields of science, including pure mathematics, derive their sustenance through
-contact with real problems in the physical world.For those of us on the
-outside looking in, Seb</p><p>5 0.77018231 <a title="1245-lsi-5" href="../high_scalability-2012/high_scalability-2012-07-20-Stuff_The_Internet_Says_On_Scalability_For_July_20%2C_2012.html">1287 high scalability-2012-07-20-Stuff The Internet Says On Scalability For July 20, 2012</a></p>
-<p>Introduction: It's HighScalability Time:4 Trillion Objects:Windows Azure StorageQuotable
-Quotes:@benjchristensen: "What if we could make the data dense and cheap
-instead of sparse and expensive?" James Gosling @liquidrinc@sinetpd360: People
-trying new things and sharing is what helps create scalability. Jim Rickabaugh
-#siis2012@rbranson: This h1.4xlarge running 160GB PostgreSQL database pushing
-~17,200 index scan rows/sec. r_await is 0.79ms, box is 92% idle.@sturadnidge:
-faster net and disk greatly reduces repair time and impact so we can load up
-the instances with far more datWith Amazonannouncing 2TB SSD instancesthe age
-of SSD has almost arrived. Netflix has alreadypublished a very thorough poston
-the wonderfulness of SSD for both performance and taming thelong latency tail.
-They see100K IOPS or 1GByte/secon a untuned system. Netflix projects: The
-hi1.4xlarge configuration is about half the system cost for the same
-throughput; The mean read request latency was reduced from 10ms to 2.2ms; The
-99th</p><p>6 0.76479441 <a title="1245-lsi-6" href="../high_scalability-2010/high_scalability-2010-10-22-Paper%3A_Netflix%E2%80%99s_Transition_to_High-Availability_Storage_Systems_.html">925 high scalability-2010-10-22-Paper: Netflix’s Transition to High-Availability Storage Systems </a></p>
+<p>Introduction: My impression of DynamoDB before attending a   Amazon DynamoDB for Developers    talk is that it’s the usual quality service produced by Amazon: simple, fast, scalable, geographically redundant, expensive enough to make you think twice about using it, and delightfully NoOp.     After the talk my impression has become more nuanced. The quality impression still stands. Look at the    forums    and you’ll see the typical issues every product has, but no real surprises. And as a SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced a more elegant design.     What was surprising is how un-cloudy DynamoDB appears to be. The cloud pillars of pay for what you use and quick elastic response to bursty traffic have been abandoned, for some understandable reasons, but the result is you really have to consider your use cases before making DynamoDB the default choice.    Here are some of my impressions from the talk... 
+  
+   DynamoDB is a clean well lighted place for key-va</p><p>2 0.78513503 <a title="1245-lsi-2" href="../high_scalability-2013/high_scalability-2013-12-13-Stuff_The_Internet_Says_On_Scalability_For_December_13th%2C_2013.html">1564 high scalability-2013-12-13-Stuff The Internet Says On Scalability For December 13th, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+   
+
+Test your sense of scale. Is this image of something microscopic or macroscopic?  Find out .
+
+   
+  80 billion : Netflix logging events per day;  10 petabytes : Ancestry.com data;  six million : Foursquare checkins per day;  
+ Quotable Quotes:                                              
+ 
+  George Lakoff : What can't all your thoughts be conscious? Because consciousness is linear and your brain is parallel. The linear structure of consciousness could never keep up. 
+  @peakscale : "Engineers like to solve problems. If there are no problems handily available, they will create their own problems" - Scott Adams 
+  @kiwipom :  “Immutability is magic pixie dust that makes distributed systems work” - Adrian Cockcroft  
+  @LachM : Netflix: SPEED at SCALE = breaks EVERYTHING. #yow13 
+  Joe Landman : … you get really annoyed at the performance of grep on file IO (seriously folks? 32k or page size sized IO? What is this … 1992?) so you rewrite it in 20 minu</p><p>3 0.78163224 <a title="1245-lsi-3" href="../high_scalability-2013/high_scalability-2013-04-03-5_Steps_to_Benchmarking_Managed_NoSQL_-_DynamoDB_vs_Cassandra.html">1434 high scalability-2013-04-03-5 Steps to Benchmarking Managed NoSQL - DynamoDB vs Cassandra</a></p>
+<p>Introduction: This is a guest post by  Ben Bromhead  from  Instaclustr  
+ 
+ 
+ 
+Deciding to use a managed NoSQL datastore is a great step in ensuring you run a fast, scalable and resilient application without needing to be an expert in highly available architecture. How do you know which technology is the best for your application? How do you know whether the provider's performance claims are true? You are putting your application on someone else’s infrastructure and that requires some hard answers about their claims.
+ 
+To determine the suitability of a provider, your first port of call is to benchmark. Choosing a service provider is often done in a number of stages. First is to shortlist providers based on capabilities and claimed performance, ruling out those that do not meet your application requirements. Second is to look for benchmarks conducted by third parties, if any. The final stage is to benchmark the service yourself.
+ 
+In this article we will show you how to run some preliminary benchmark</p><p>4 0.77496237 <a title="1245-lsi-4" href="../high_scalability-2013/high_scalability-2013-03-22-Stuff_The_Internet_Says_On_Scalability_For_March_22%2C_2013.html">1428 high scalability-2013-03-22-Stuff The Internet Says On Scalability For March 22, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time: 
+  
+  1 Billion/Month  : Active Mostly Mobile YouTube Users 
+ Quotable Quotes:                                           
+ 
+  @NeckbeardHacker : "Wait...he reimplemented swatch and rsync in chef, node and mongo?""Yup." "......Why?""Go easy on him...he's a Ninjipsterstar." 
+  @b6n : Scale myth #1: Your service is a unique snowflake. 
+  @polotek : If you don't care about bugs, design or scalability, it only takes 2 days to build anything. 
+  @NasHope : Even with the rapid scalability of Rackspace, I've still waited for over an hour for Dominos to actually deliver my pizza. 
+  George Dyson : Computers may turn out to be less important as an end product of technological evolution and more important as catalysts facilitating evolutionary processes through the incubation and propagation of self-replicating filaments of code. 
+  George Dyson : Von Neumann believed that all fields of science, including pure mathematics, derive their sustenance through contact wi</p><p>5 0.77018231 <a title="1245-lsi-5" href="../high_scalability-2012/high_scalability-2012-07-20-Stuff_The_Internet_Says_On_Scalability_For_July_20%2C_2012.html">1287 high scalability-2012-07-20-Stuff The Internet Says On Scalability For July 20, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+ 4 Trillion Objects:  Windows Azure Storage  
+ Quotable Quotes:         
+ 
+  @benjchristensen : “What if we could make the data dense and cheap instead of sparse and expensive?” James Gosling @liquidrinc 
+  @sinetpd360 : People trying new things and sharing is what helps create scalability. Jim Rickabaugh #siis2012 
+  @rbranson : This h1.4xlarge running 160GB PostgreSQL database pushing ~17,200 index scan rows/sec. r_await is 0.79ms, box is 92% idle. 
+  @sturadnidge : faster net and disk greatly reduces repair time and impact so we can load up the instances with far more dat 
+ 
+ 
+ With Amazon  announcing 2TB SSD instances  the age of SSD has almost arrived. Netflix has already  published a very thorough post  on the wonderfulness of SSD for both performance and taming the  long latency tail . They see  100K IOPS or 1GByte/sec  on a untuned system. Netflix projects: The hi1.4xlarge configuration is about half the system cost for the same throughput; The mea</p><p>6 0.76479441 <a title="1245-lsi-6" href="../high_scalability-2010/high_scalability-2010-10-22-Paper%3A_Netflix%E2%80%99s_Transition_to_High-Availability_Storage_Systems_.html">925 high scalability-2010-10-22-Paper: Netflix’s Transition to High-Availability Storage Systems </a></p>
 <p>7 0.75133246 <a title="1245-lsi-7" href="../high_scalability-2012/high_scalability-2012-03-07-Scale_Indefinitely_on_S3_With_These_Secrets_of_the_S3_Masters.html">1205 high scalability-2012-03-07-Scale Indefinitely on S3 With These Secrets of the S3 Masters</a></p>
 <p>8 0.73603517 <a title="1245-lsi-8" href="../high_scalability-2012/high_scalability-2012-11-30-Stuff_The_Internet_Says_On_Scalability_For_November_30%2C_2012.html">1365 high scalability-2012-11-30-Stuff The Internet Says On Scalability For November 30, 2012</a></p>
 <p>9 0.73405415 <a title="1245-lsi-9" href="../high_scalability-2013/high_scalability-2013-07-19-Stuff_The_Internet_Says_On_Scalability_For_July_19%2C_2013.html">1494 high scalability-2013-07-19-Stuff The Internet Says On Scalability For July 19, 2013</a></p>
@@ -233,75 +177,31 @@ throughput; The mean read request latency was reduced from 10ms to 2.2ms; The
 <p>[(1, 0.137), (2, 0.218), (10, 0.046), (30, 0.039), (35, 0.095), (40, 0.018), (43, 0.024), (47, 0.015), (61, 0.077), (79, 0.088), (85, 0.055), (94, 0.098)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.94572866 <a title="1245-lda-1" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
-<p>Introduction: My impression of DynamoDB before attending aAmazon DynamoDB for Developerstalk
-is that it's the usual quality service produced by Amazon: simple, fast,
-scalable, geographically redundant, expensive enough to make you think twice
-about using it, and delightfully NoOp.After the talk my impression has become
-more nuanced. The quality impression still stands. Look at theforumsand you'll
-see the typical issues every product has, but no real surprises. And as a
-SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced
-a more elegant design.What was surprising is how un-cloudy DynamoDB appears to
-be. The cloud pillars of pay for what you use and quick elastic response to
-bursty traffic have been abandoned, for some understandable reasons, but the
-result is you really have to consider your use cases before making DynamoDB
-the default choice.Here are some of my impressions from the talk...DynamoDB is
-a clean well lighted place for key-value data. The interface is simple,
-co</p><p>2 0.94394124 <a title="1245-lda-2" href="../high_scalability-2008/high_scalability-2008-08-14-Product%3A_Terracotta_-_Open_Source_Network-Attached_Memory.html">364 high scalability-2008-08-14-Product: Terracotta - Open Source Network-Attached Memory</a></p>
-<p>Introduction: Update:Evaluating Terracottaby Piotr Woloszyn. Nice writeup that covers
-resilience, failover, DB persistence, Distributed caching implementation,
-OS/Platform restrictions, Ease of implementation, Hardware requirements,
-Performance, Support package, Code stability, partitioning, Transactional,
-Replication and consistency.Terracottais Network Attached Memory (NAM) for
-Java VMs. It provides up to a terabyte of virtual heap for Java applications
-that spans hundreds of connected JVMs.NAM is best suited for storing what they
-call scratch data. Scratch data is defined as object oriented data that is
-critical to the execution of a series of Java operations inside the JVM, but
-may not be critical once a business transaction is complete.The Terracotta
-Architecture has three components:Client Nodes - Each client node corresponds
-to a client node in the cluster which runs on a standard JVMServer Cluster -
-java process that provides the clustering intelligence. The current Terracotta
-implementation</p><p>3 0.93775421 <a title="1245-lda-3" href="../high_scalability-2012/high_scalability-2012-05-23-Averages%2C_web_performance_data%2C_and_how_your_analytics_product_is_lying_to_you__.html">1250 high scalability-2012-05-23-Averages, web performance data, and how your analytics product is lying to you  </a></p>
-<p>Introduction: This guest post is written byJosh Fraser, co-founder and CEO ofTorbit. Torbit
-creates tools for measuring, analyzing and optimizing web performance.  Did
-you know that 5% of the pageviews on Walmart.com take over 20 seconds to load?
-Walmart discovered this recently after adding real user measurement (RUM) to
-analyze their web performance for every single visitor to their site. Walmart
-used JavaScript to measure their median load time as well as key metrics like
-their 95th percentile. While 20 seconds is a long time to wait for a website
-to load,the Walmart storyis actually not that uncommon. Remember, this is the
-worst 5% of their pageviews, not the typical experience.Walmart's median load
-time was reported at around 4 seconds, meaning half of their visitors loaded
-Walmart.com faster than 4 seconds and the other half took longer than 4
-seconds to load. Using this knowledge, Walmart was prepared to act. By
-reducing page load times by even one second, Walmart found that they would
-increa</p><p>4 0.93468308 <a title="1245-lda-4" href="../high_scalability-2013/high_scalability-2013-09-13-Stuff_The_Internet_Says_On_Scalability_For_September_13%2C_2013.html">1516 high scalability-2013-09-13-Stuff The Internet Says On Scalability For September 13, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time (this week is a fall harvest basket overflowing
-with good nutritious wisdom):(Voyager: 36 yrs & 11B miles has reached
-interstellar space. So it begins...)170 million: metrics Twitter collects
-every minute;350 million: Snapchat daily photo sharesQuotable
-Quotes:@blowmage: OH: "Guys, databases don't know how to sort things. That's
-why NoSQL uses JavaScript."Nokia insider: I look back and I think Nokia was
-just a very big company that started to maintain its position more than
-innovate for new opportunities.Paulo Siqueira: Ignoring scalability is not as
-bad as it sounds--if you use the proper tools.David Rosenthal: The
-relationship between diversity and risk is very complex.Jaime Teevan: the
-exact same result list will seem more relevant to you if it is returned just a
-fraction of a second faster.@aphyr: I use Redis as a queue #leaveDBaloneHey,
-I've always thought this about security, it's just too damn complex. But I
-always thought much smarter people than</p><p>5 0.93465376 <a title="1245-lda-5" href="../high_scalability-2009/high_scalability-2009-06-30-Hot_New_Trend%3A_Linking_Clouds_Through_Cheap_IP_VPNs_Instead_of_Private_Lines_.html">645 high scalability-2009-06-30-Hot New Trend: Linking Clouds Through Cheap IP VPNs Instead of Private Lines </a></p>
-<p>Introduction: You might think major Internet companies have a latency, availability, and
-bandwidth advantage because they can afford expensive dedicated point-to-point
-private line networks between their data centers. And you would be right. It's
-a great advantage. Or it at least it was a great advantage. Cost is the great
-equalizer and companies are now scrambling for ways to cut costs. Many of the
-most recognizable Internet companies are moving to IP VPNs (Virtual Private
-Networks) as a much cheaper alternative to private lines. This is a strategy
-you can effectively use too.This trend has historical precedent in the data
-center. In the same way leading edge companies moved early to virtualize their
-data centers, leading edge companies are now virtualizing their networks using
-IP VPNs to build inexpensive private networks over a shared public network. In
-kindergarten we learned sharing was polite, it turns out sharing can also save
-a lot of money in both the data center and on the network.The line</p><p>6 0.93053639 <a title="1245-lda-6" href="../high_scalability-2013/high_scalability-2013-02-15-Stuff_The_Internet_Says_On_Scalability_For_February_15%2C_2013.html">1407 high scalability-2013-02-15-Stuff The Internet Says On Scalability For February 15, 2013</a></p>
+<p>Introduction: My impression of DynamoDB before attending a   Amazon DynamoDB for Developers    talk is that it’s the usual quality service produced by Amazon: simple, fast, scalable, geographically redundant, expensive enough to make you think twice about using it, and delightfully NoOp.     After the talk my impression has become more nuanced. The quality impression still stands. Look at the    forums    and you’ll see the typical issues every product has, but no real surprises. And as a SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced a more elegant design.     What was surprising is how un-cloudy DynamoDB appears to be. The cloud pillars of pay for what you use and quick elastic response to bursty traffic have been abandoned, for some understandable reasons, but the result is you really have to consider your use cases before making DynamoDB the default choice.    Here are some of my impressions from the talk... 
+  
+   DynamoDB is a clean well lighted place for key-va</p><p>2 0.94394124 <a title="1245-lda-2" href="../high_scalability-2008/high_scalability-2008-08-14-Product%3A_Terracotta_-_Open_Source_Network-Attached_Memory.html">364 high scalability-2008-08-14-Product: Terracotta - Open Source Network-Attached Memory</a></p>
+<p>Introduction: Update:     Evaluating Terracotta   by Piotr Woloszyn. Nice writeup that covers resilience, failover, DB persistence, Distributed caching implementation, OS/Platform restrictions, Ease of implementation, Hardware requirements, Performance, Support package, Code stability, partitioning, Transactional, Replication and consistency.      Terracotta   is Network Attached Memory (NAM) for Java VMs. It provides up to a terabyte of virtual heap for Java applications that spans hundreds of connected JVMs.     NAM is best suited for storing what they call scratch data. Scratch data is defined as object oriented data that is critical to the execution of a series of Java operations inside the JVM, but may not be critical once a business transaction is complete.     The Terracotta Architecture has three components:     Client Nodes - Each client node corresponds to a client node in the cluster which runs on a standard JVM   Server Cluster - java process that provides the clustering intelligence. Th</p><p>3 0.93775421 <a title="1245-lda-3" href="../high_scalability-2012/high_scalability-2012-05-23-Averages%2C_web_performance_data%2C_and_how_your_analytics_product_is_lying_to_you__.html">1250 high scalability-2012-05-23-Averages, web performance data, and how your analytics product is lying to you  </a></p>
+<p>Introduction: This guest post is written by  Josh Fraser , co-founder and CEO of  Torbit .  Torbit creates tools for measuring, analyzing and optimizing web performance. Â  
+ 
+Did you know that 5% of the pageviews on Walmart.com take over 20 seconds to load? Walmart discovered this recently after adding real user measurement (RUM) to analyze their web performance for every single visitor to their site. Walmart used JavaScript to measure their median load time as well as key metrics like their 95th percentile. While 20 seconds is a long time to wait for a website to load,  the Walmart story  is actually not that uncommon. Remember, this is the worst 5% of their pageviews, not the typical experience.
+ 
+Walmart's median load time was reported at around 4 seconds, meaning half of their visitors loaded Walmart.com faster than 4 seconds and the other half took longer than 4 seconds to load. Using this knowledge, Walmart was prepared to act. By reducing page load times by even one second, Walmart found that</p><p>4 0.93468308 <a title="1245-lda-4" href="../high_scalability-2013/high_scalability-2013-09-13-Stuff_The_Internet_Says_On_Scalability_For_September_13%2C_2013.html">1516 high scalability-2013-09-13-Stuff The Internet Says On Scalability For September 13, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time (this week is a fall harvest basket overflowing with good nutritious wisdom):
+     ( Voyager: 36 yrs & 11B miles has reached interstellar space. So it begins... )   
+  170 million : metrics Twitter collects every minute;  350 million : Snapchat daily photo shares 
+ Quotable Quotes:                                                  
+ 
+  @blowmage : OH: “Guys, databases don't know how to sort things. That's why NoSQL uses JavaScript.” 
+  Nokia insider : I look back and I think Nokia was just a very big company that started to maintain its position more than innovate for new opportunities. 
+  Paulo Siqueira : Ignoring scalability is not as bad as it sounds—if you use the proper tools. 
+  David Rosenthal : The relationship between diversity and risk is very complex. 
+  Jaime Teevan : the exact same result list will seem more relevant to you if it is returned just a fraction of a second faster. 
+  @aphyr : I use Redis as a queue #leaveDBalone 
+ 
+ 
+ 
+ Hey, I've</p><p>5 0.93465376 <a title="1245-lda-5" href="../high_scalability-2009/high_scalability-2009-06-30-Hot_New_Trend%3A_Linking_Clouds_Through_Cheap_IP_VPNs_Instead_of_Private_Lines_.html">645 high scalability-2009-06-30-Hot New Trend: Linking Clouds Through Cheap IP VPNs Instead of Private Lines </a></p>
+<p>Introduction: You might think major Internet companies have a latency, availability, and bandwidth advantage because they can afford expensive dedicated point-to-point private line networks between their data centers. And you would be right. It's a great advantage. Or it at least it was a great advantage. Cost is the great equalizer and companies are now scrambling for ways to cut costs. Many of the most recognizable Internet companies are moving to IP VPNs (Virtual Private Networks) as a much cheaper alternative to private lines. This is a strategy you can effectively use too.  This trend has historical precedent in the data center. In the same way leading edge companies moved early to virtualize their data centers, leading edge companies are now virtualizing their networks using IP VPNs to build inexpensive private networks over a shared public network. In kindergarten we learned sharing was polite, it turns out sharing can also save a lot of money in both the data center and on the network.   The</p><p>6 0.93053639 <a title="1245-lda-6" href="../high_scalability-2013/high_scalability-2013-02-15-Stuff_The_Internet_Says_On_Scalability_For_February_15%2C_2013.html">1407 high scalability-2013-02-15-Stuff The Internet Says On Scalability For February 15, 2013</a></p>
 <p>7 0.92844778 <a title="1245-lda-7" href="../high_scalability-2008/high_scalability-2008-07-26-Google%27s_Paxos_Made_Live_%E2%80%93_An_Engineering_Perspective.html">357 high scalability-2008-07-26-Google's Paxos Made Live – An Engineering Perspective</a></p>
 <p>8 0.9278388 <a title="1245-lda-8" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
 <p>9 0.92743945 <a title="1245-lda-9" href="../high_scalability-2011/high_scalability-2011-09-23-The_Real_News_is_Not_that_Facebook_Serves_Up_1_Trillion_Pages_a_Month%E2%80%A6.html">1123 high scalability-2011-09-23-The Real News is Not that Facebook Serves Up 1 Trillion Pages a Month…</a></p>

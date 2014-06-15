@@ -16,114 +16,55 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1340-html" href="http://highscalability.com//blog/2012/10/15/simpler-cheaper-faster-playtomics-move-from-net-to-node-and.html">html</a></p><p>Introduction: This is a guest post by Ben Lowry, CEO ofPlaytomic. Playtomic is a game
-analytics service implemented in about 8000 mobile, web and downloadable games
-played by approximately 20 million people daily.Here's a good summary quote by
-Ben Lowry on Hacker News:Just over 20,000,000 people hit my API yesterday
-700,749,252 times, playing the ~8,000 games my analytics platform is
-integrated in for a bit under 600 years in total play time. That's just
-yesterday. There are lots of different bottlenecks waiting for people
-operating at scale. Heroku and NodeJS, for my use case, eventually alleviated
-a whole bunch of them very cheaply.Playtomic began with an almost exclusively
-Microsoft.NET and Windows architecture which held up for 3 years before being
-replaced with a complete rewrite using NodeJS.  During its lifetime the entire
-platform grew from shared space on a single server to a full dedicated, then
-spread to second dedicated, then the API server was offloaded to a VPS
-provider and 4 - 6 fairl</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Eventually the API server settled on 8 dedicated servers at Hivelocity, each a quad core with hyperthreading + 8gb of ram + dual 500gb disks running 3 or 4 instances of the API stack. [sent-10, score-0.228]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1340-html" href="http://highscalability.com//blog/2012/10/15/simpler-cheaper-faster-playtomics-move-from-net-to-node-and.html">html</a></p><p>Introduction: This is a guest post by Ben Lowry, CEO of  Playtomic . Playtomic is a game analytics service implemented in about 8000 mobile, web and downloadable games played by approximately 20 million people daily. 
+ 
+ Here's a good summary quote by  Ben Lowry on Hacker News : 
+  
+ Just over 20,000,000 people hit my API yesterday 700,749,252 times, playing the ~8,000 games my analytics platform is integrated in for a bit under 600 years in total play time. That's just yesterday. There are lots of different bottlenecks waiting for people operating at scale. Heroku and NodeJS, for my use case, eventually alleviated a whole bunch of them very cheaply. 
+  
+Playtomic began with an almost exclusively Microsoft.NET and Windows architecture which held up for 3 years before being replaced with a complete rewrite using NodeJS.  During its lifetime the entire platform grew from shared space on a single server to a full dedicated, then spread to second dedicated, then the API server was offloaded to a VPS pro</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Eventually the API server settled on 8 dedicated servers at Hivelocity, each a quad core with hyperthreading + 8gb of ram + dual 500gb disks running 3 or 4 instances of the API stack. [sent-10, score-0.228]
 </p><p>2 These servers routinely serviced 30,000 to 60,000 concurrent game players and received up to 1500 requests per second, with load balancing done via DNS round robin. [sent-11, score-0.259]
 </p><p>3 NET / C# with local MongoDB instances and a service preprocessing event data locally and sending it to centralized server to be completed; to NodeJS on Heroku + Redis and preprocessing on SoftLayer (see Catalyst program). [sent-17, score-0.218]
-</p><p>4 Each ran a small suite of software including:MongoDB instancelog pre-processing servicemonitoring serviceIIS with api sitesDeploying was done via an FTP script that uploaded new api site versions to all servers. [sent-19, score-0.196]
-</p><p>5 We eventually settled on a large server at Softlayer running a dozen purpose-specfic Redis instances and some middleware rather than background workers. [sent-26, score-0.186]
-</p><p>6 At Playtomic we typically have several hundred thousand concurrent game players that are sending event data which needs to be pushed back to our Redis instances in a different datacenter which with . [sent-45, score-0.271]
-</p><p>7 exports = function(request, response) {   var eventdata = "etc";   redisclient. [sent-51, score-0.217]
-</p><p>8 0%] Mem[||||||||||||||| 2009/24020MB] Swp[ 0/1023MB] PID USER     PRI  NI  VIRT   RES   SHR S CPU% MEM%   TIME+ Command12518 redis     20   0 40048  7000   640 S  0. [sent-118, score-0.291]
-</p><p>9 conf12513 redis     20   0 72816 35776   736 S  3. [sent-122, score-0.291]
-</p><p>10 conf12508 redis     20   0 72816 35776   736 S  2. [sent-125, score-0.291]
-</p><p>11 conf12488 redis     20   0 72816 33728   736 S  2. [sent-131, score-0.291]
-</p><p>12 conf12475 redis     20   0 72816 27588   736 S  2. [sent-137, score-0.291]
-</p><p>13 conf12440 redis     20   0 72816 33236   736 S  3. [sent-143, score-0.291]
-</p><p>14 conf12429 redis     20   0  395M  115M   736 S 33. [sent-150, score-0.291]
-</p><p>15 conf12422 redis     20   0 40048  7096   728 S  0. [sent-153, score-0.291]
-</p><p>16 conf12409 redis     20   0 40048  6912   560 S  0. [sent-157, score-0.291]
-</p><p>17 confand very light MongoDB loads for 1800 - 2500 crud operations a minute:insert  query update delete getmore command flushes mapped vsize    res faults locked % idx miss %     qr|qw   ar|aw  netIn netOut  conn time    2      9      5      2       0       8       0  6. [sent-161, score-1.586]
-</p><p>18 1          0       0|0     0|0     3k     2k   111 01:11:21insert  query update delete getmore command flushes mapped  vsize res faults locked % idx miss %     qr|qw   ar|aw  netIn netOut  conn time    2      9      8      2       0       8       0  6. [sent-201, score-1.586]
-</p><p>19 2          0       0|0     0|0     3k    12k   114 01:11:31insert  query update delete getmore command flushes mapped  vsize res faults locked % idx miss %     qr|qw   ar|aw  netIn netOut  conn time    0     12      6      2       0       9       0  6. [sent-241, score-1.586]
-</p><p>20 1          0       0|0     0|0    21k    14k   112 01:11:41insert  query update delete getmore command flushes mapped  vsize res faults locked % idx miss %     qr|qw   ar|aw  netIn netOut  conn time    1     11      5      2       0      12       0  6. [sent-281, score-1.586]
+</p><p>4 At Playtomic we typically have several hundred thousand concurrent game players that are sending event data which needs to be pushed back to our Redis instances in a different datacenter which with . [sent-45, score-0.271]
+</p><p>5 conf   12513 redis     20   0 72816 35776   736 S  3. [sent-122, score-0.291]
+</p><p>6 conf   12508 redis     20   0 72816 35776   736 S  2. [sent-125, score-0.291]
+</p><p>7 conf   12494 redis     20   0 72816 37824   736 S  1. [sent-128, score-0.291]
+</p><p>8 conf   12488 redis     20   0 72816 33728   736 S  2. [sent-131, score-0.291]
+</p><p>9 conf   12481 redis     20   0 72816 35776   736 S  2. [sent-134, score-0.291]
+</p><p>10 conf   12475 redis     20   0 72816 27588   736 S  2. [sent-137, score-0.291]
+</p><p>11 conf   12460 redis     20   0 72816 31680   736 S  2. [sent-140, score-0.291]
+</p><p>12 conf   12440 redis     20   0 72816 33236   736 S  3. [sent-143, score-0.291]
+</p><p>13 conf   12435 redis     20   0 40048  7044   684 S  0. [sent-146, score-0.291]
+</p><p>14 conf   12429 redis     20   0  395M  115M   736 S 33. [sent-150, score-0.291]
+</p><p>15 conf   12422 redis     20   0 40048  7096   728 S  0. [sent-153, score-0.291]
+</p><p>16 conf   12409 redis     20   0 40048  6912   560 S  0. [sent-157, score-0.291]
+</p><p>17 conf    and very light MongoDB loads for 1800 – 2500 crud operations a minute:    insert  query update delete getmore command flushes mapped  vsize    res faults locked % idx miss %     qr|qw   ar|aw  netIn netOut  conn       time         2      9      5      2       0       8       0  6. [sent-161, score-1.027]
+</p><p>18 1          0       0|0     0|0     3k     2k   111   01:11:21    insert  query update delete getmore command flushes mapped  vsize    res faults locked % idx miss %     qr|qw   ar|aw  netIn netOut  conn       time         2      9      8      2       0       8       0  6. [sent-201, score-1.027]
+</p><p>19 2          0       0|0     0|0     3k    12k   114   01:11:31    insert  query update delete getmore command flushes mapped  vsize    res faults locked % idx miss %     qr|qw   ar|aw  netIn netOut  conn       time         0     12      6      2       0       9       0  6. [sent-241, score-1.027]
+</p><p>20 1          0       0|0     0|0    21k    14k   112   01:11:41    insert  query update delete getmore command flushes mapped  vsize    res faults locked % idx miss %     qr|qw   ar|aw  netIn netOut  conn       time         1     11      5      2       0      12       0  6. [sent-281, score-1.027]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('nodejs', 0.352), ('redis', 0.291), ('res', 0.184), ('aw', 0.173), ('getmore', 0.173), ('idx', 0.173), ('netin', 0.173), ('netout', 0.173), ('qr', 0.173), ('qw', 0.173), ('vsize', 0.173), ('conn', 0.157), ('mongodb', 0.148), ('ar', 0.147), ('flushes', 0.135), ('var', 0.13), ('heroku', 0.13), ('dedicated', 0.113), ('playtomic', 0.111), ('locked', 0.1), ('game', 0.099), ('softlayer', 0.098), ('api', 0.098), ('mapped', 0.096), ('faults', 0.095), ('miss', 0.093), ('delete', 0.088), ('eventdata', 0.087), ('lowry', 0.087), ('mem', 0.087), ('connection', 0.08), ('preprocessing', 0.078), ('command', 0.074), ('refresh', 0.073), ('background', 0.071), ('dyno', 0.07), ('advantages', 0.068), ('players', 0.064), ('instances', 0.062), ('paas', 0.056), ('ben', 0.055), ('settled', 0.053), ('requests', 0.05), ('windows', 0.05), ('function', 0.05), ('significant', 0.049), ('request', 0.047), ('concurrent', 0.046), ('query', 0.045), ('cache', 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9999994 <a title="1340-tfidf-1" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
-<p>Introduction: This is a guest post by Ben Lowry, CEO ofPlaytomic. Playtomic is a game
-analytics service implemented in about 8000 mobile, web and downloadable games
-played by approximately 20 million people daily.Here's a good summary quote by
-Ben Lowry on Hacker News:Just over 20,000,000 people hit my API yesterday
-700,749,252 times, playing the ~8,000 games my analytics platform is
-integrated in for a bit under 600 years in total play time. That's just
-yesterday. There are lots of different bottlenecks waiting for people
-operating at scale. Heroku and NodeJS, for my use case, eventually alleviated
-a whole bunch of them very cheaply.Playtomic began with an almost exclusively
-Microsoft.NET and Windows architecture which held up for 3 years before being
-replaced with a complete rewrite using NodeJS.  During its lifetime the entire
-platform grew from shared space on a single server to a full dedicated, then
-spread to second dedicated, then the API server was offloaded to a VPS
-provider and 4 - 6 fairl</p><p>2 0.18001126 <a title="1340-tfidf-2" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
-<p>Introduction: We just released a social section to our iOS app several days ago and we are
-already facing scaling issues with the users' news feeds.We're basically using
-a Fan-out-on-write (push) model for the users' news feeds (posts of people and
-topics they follow) and we're using Redis for this (backend is Rails on
-Heroku).  However, our current 60,000 news feeds is ballooning our Redis store
-to almost 1GB in a just a few days (it's growing way too fast for our budget).
-Currently we're storing the entire news feed for the user (post id, post text,
-author, icon url, etc) and we cap the entries to 300 per feed.I'm wondering if
-we need to just store the post IDs of each user feed in Redis and then store
-the rest of the post information somewhere else?  Would love some feedback
-here.  In this case, our iOS app would make an api call to our Rails app to
-retrieve a user's news feed.  Rails app would retrieve news feed list (just
-post IDs) from Redis, and then Rails app would need to query to get the r</p><p>3 0.1634842 <a title="1340-tfidf-3" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
-<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
-'antirez' Sanfilippo shows how to solve some common problems in Redis by
-taking advantage of its unique data structure handling capabilities. Common
-Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
-programmers need to get done, but that can be hard or slow in more traditional
-stores. A very useful and practical article. How would you accomplish these
-tasks in your framework?Show latest items listings in your home page. This is
-a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
-the head of the list stored at a key.LTRIMis used to limit the number of items
-in the list to 5000. If the user needs to page beyond this cache only then are
-they sent to the database.Deletion and filtering. If a cached article is
-deleted it can be removed from the cache using LREM.Leaderboards and related
-problems. A leader board is a set sorted by score. TheZADDcommands implements
-th</p><p>4 0.15694107 <a title="1340-tfidf-4" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
-<p>Introduction: Update: Here's thevideo of the talk.Erick Pickup, lead developer at
-YouPorn.com, presented their architecture in a talk titledBuilding a Website
-To Scalegiven at theConFooconference.  As you might expect, YouPorn is a
-beast, streaming three full DVDs of video every second, handing 300K queries
-every second, and generating up to 15GBs of log data per hour.Unfortunately,
-all we have are the slides of the talk, so this article isn't as technical as
-I might like, there's no visibility at all on the video handling for example,
-but we do get some interesting details.The most interesting takeway is that
-YouPorn is a pretty conventional LAMP stack, with a NoSQL twist as Redis now
-replaces MySQL in the live datapath. Reminds me a little ofYouTubein its
-simplicity.The second most interesting takeaway was thegreat switchover.
-Common wisdom says never rewrite, but in 2011 YouPorn rewrote their entire
-site to use PHP + Redis instead of a complex Perl + MySQL based architecture.
-And by all accounts</p><p>5 0.14644715 <a title="1340-tfidf-5" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
-<p>Introduction: With the introduction ofRedisyour options in the key-value space just grew and
-your choice of which to pick just got a lot harder. But when you think about
-it, that's not a bad position to be in at all.Redis (REmote DIctionary Server)
--a key-value database. It's similar to memcached but the dataset is not
-volatile, and values can be strings, exactly like in memcached, but also lists
-and sets with atomic operations to push/pop elements.The key points are: open
-source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs,
-per second); persistence, but in an asynchronous way taking everything in
-memory; support for higher level data structures and atomic operations.The
-home page is well organized so I'll spare the excessive-copying-to-make-this-
-post-longer. For a good overview of Redis take a look at Antonio Cangiano's
-article:Introducing Redis: a fast key-value database.If you are looking at a
-way to understand how Redis is different than something like Tokyo
-Cabinet/Ty</p><p>6 0.12971395 <a title="1340-tfidf-6" href="../high_scalability-2013/high_scalability-2013-12-13-Stuff_The_Internet_Says_On_Scalability_For_December_13th%2C_2013.html">1564 high scalability-2013-12-13-Stuff The Internet Says On Scalability For December 13th, 2013</a></p>
+<p>Introduction: This is a guest post by Ben Lowry, CEO of  Playtomic . Playtomic is a game analytics service implemented in about 8000 mobile, web and downloadable games played by approximately 20 million people daily. 
+ 
+ Here's a good summary quote by  Ben Lowry on Hacker News : 
+  
+ Just over 20,000,000 people hit my API yesterday 700,749,252 times, playing the ~8,000 games my analytics platform is integrated in for a bit under 600 years in total play time. That's just yesterday. There are lots of different bottlenecks waiting for people operating at scale. Heroku and NodeJS, for my use case, eventually alleviated a whole bunch of them very cheaply. 
+  
+Playtomic began with an almost exclusively Microsoft.NET and Windows architecture which held up for 3 years before being replaced with a complete rewrite using NodeJS.  During its lifetime the entire platform grew from shared space on a single server to a full dedicated, then spread to second dedicated, then the API server was offloaded to a VPS pro</p><p>2 0.18001126 <a title="1340-tfidf-2" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
+<p>Introduction: We just released a social section to our iOS app several days ago and we are already facing scaling issues with the users' news feeds.    We're basically using a Fan-out-on-write (push) model for the users' news feeds (posts of people and topics they follow) and we're using Redis for this (backend is Rails on Heroku).  However, our current 60,000 news feeds is ballooning our Redis store to almost 1GB in a just a few days (it's growing way too fast for our budget). Currently we're storing the entire news feed for the user (post id, post text, author, icon url, etc) and we cap the entries to 300 per feed.    I'm wondering if we need to just store the post IDs of each user feed in Redis and then store the rest of the post information somewhere else?  Would love some feedback here.  In this case, our iOS app would make an api call to our Rails app to retrieve a user's news feed.  Rails app would retrieve news feed list (just post IDs) from Redis, and then Rails app would need to query to g</p><p>3 0.1634842 <a title="1340-tfidf-3" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
+<p>Introduction: In  How to take advantage of Redis just adding it to your stack  Salvatore 'antirez' Sanfilippo shows how to solve some common problems in Redis by taking advantage of its unique data structure handling capabilities. Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. A very useful and practical article. How would you accomplish these tasks in your framework?
+  
+  Show latest items listings in your home page . This is a live in-memory cache and is very fast.  LPUSH  is used to insert a content ID at the head of the list stored at a key.  LTRIM  is used to limit the number of items in the list to 5000. If the user needs to page beyond this cache only then are they sent to the database. 
+  Deletion and filtering . If a cached article is deleted it can be removed from the cache using  LREM . 
+  Leaderboards and related problems . A leader board is a set sorted by score.</p><p>4 0.15694107 <a title="1340-tfidf-4" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
+<p>Introduction: Update : Here's the  video of the talk .
+ 
+  Erick Pickup  , lead developer at YouPorn.com, presented their architecture in a talk titled   Building a Website To Scale   given at the   ConFoo   conference.  As you might expect, YouPorn is a beast, streaming three full DVDs of video every second, handing 300K queries every second, and generating up to 15GBs of log data per hour.  Unfortunately, all we have are the slides of the talk, so this article isn’t as technical as I might like, there’s no visibility at all on the video handling for example, but we do get some interesting details.  The most interesting takeway is that YouPorn is a pretty conventional LAMP stack, with a NoSQL twist as Redis now replaces MySQL in the live datapath. Reminds me a little of   YouTube   in its simplicity.   The second most interesting takeaway was the  great switchover . Common wisdom says never rewrite, but in 2011 YouPorn rewrote their entire site to use PHP + Redis instead of a complex Perl + MySQL b</p><p>5 0.14644715 <a title="1340-tfidf-5" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
+<p>Introduction: With the introduction of  Redis  your options in the key-value space just grew and your choice of which to pick just got a lot harder. But when you think about it, that's not a bad position to be in at all.  Redis (REmote DIctionary Server) -  a key-value database. It's similar to memcached but the dataset is not volatile, and values can be strings, exactly like in memcached, but also lists and sets with atomic operations to push/pop elements.   The key points are: open source; speed (benchmarked performing 110,000 SET operations, and 81,000 GETs, per second); persistence, but in an asynchronous way taking everything in memory; support for higher level data structures and atomic operations.  The home page is well organized so I'll spare the excessive-copying-to-make-this-post-longer. For a good overview of Redis take a look at Antonio Cangiano's article:  Introducing Redis: a fast key-value database .  If you are looking at a way to understand how Redis is different than something like</p><p>6 0.12971395 <a title="1340-tfidf-6" href="../high_scalability-2013/high_scalability-2013-12-13-Stuff_The_Internet_Says_On_Scalability_For_December_13th%2C_2013.html">1564 high scalability-2013-12-13-Stuff The Internet Says On Scalability For December 13th, 2013</a></p>
 <p>7 0.12519623 <a title="1340-tfidf-7" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
 <p>8 0.12182021 <a title="1340-tfidf-8" href="../high_scalability-2012/high_scalability-2012-10-10-Antirez%3A_You_Need_to_Think_in_Terms_of_Organizing_Your_Data_for_Fetching.html">1337 high scalability-2012-10-10-Antirez: You Need to Think in Terms of Organizing Your Data for Fetching</a></p>
 <p>9 0.11340047 <a title="1340-tfidf-9" href="../high_scalability-2009/high_scalability-2009-04-24-Heroku_-_Simultaneously_Develop_and_Deploy_Automatically_Scalable_Rails_Applications_in_the_Cloud.html">579 high scalability-2009-04-24-Heroku - Simultaneously Develop and Deploy Automatically Scalable Rails Applications in the Cloud</a></p>
@@ -143,75 +84,43 @@ Cabinet/Ty</p><p>6 0.12971395 <a title="1340-tfidf-6" href="../high_scalability-
 <p>[(0, 0.17), (1, 0.081), (2, -0.028), (3, -0.049), (4, 0.028), (5, 0.007), (6, 0.053), (7, -0.003), (8, 0.017), (9, -0.043), (10, 0.041), (11, 0.011), (12, 0.048), (13, 0.005), (14, -0.092), (15, 0.023), (16, 0.016), (17, -0.029), (18, -0.013), (19, -0.072), (20, -0.039), (21, -0.074), (22, -0.046), (23, -0.002), (24, 0.06), (25, 0.007), (26, -0.024), (27, 0.025), (28, -0.038), (29, -0.015), (30, 0.061), (31, 0.006), (32, -0.018), (33, -0.042), (34, 0.037), (35, -0.028), (36, 0.047), (37, -0.068), (38, 0.029), (39, 0.035), (40, -0.024), (41, -0.027), (42, -0.02), (43, 0.054), (44, 0.094), (45, 0.01), (46, -0.047), (47, -0.036), (48, -0.003), (49, -0.013)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.93905771 <a title="1340-lsi-1" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
-<p>Introduction: This is a guest post by Ben Lowry, CEO ofPlaytomic. Playtomic is a game
-analytics service implemented in about 8000 mobile, web and downloadable games
-played by approximately 20 million people daily.Here's a good summary quote by
-Ben Lowry on Hacker News:Just over 20,000,000 people hit my API yesterday
-700,749,252 times, playing the ~8,000 games my analytics platform is
-integrated in for a bit under 600 years in total play time. That's just
-yesterday. There are lots of different bottlenecks waiting for people
-operating at scale. Heroku and NodeJS, for my use case, eventually alleviated
-a whole bunch of them very cheaply.Playtomic began with an almost exclusively
-Microsoft.NET and Windows architecture which held up for 3 years before being
-replaced with a complete rewrite using NodeJS.  During its lifetime the entire
-platform grew from shared space on a single server to a full dedicated, then
-spread to second dedicated, then the API server was offloaded to a VPS
-provider and 4 - 6 fairl</p><p>2 0.76756608 <a title="1340-lsi-2" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
-<p>Introduction: In How to take advantage of Redis just adding it to your stack Salvatore
-'antirez' Sanfilippo shows how to solve some common problems in Redis by
-taking advantage of its unique data structure handling capabilities. Common
-Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks
-programmers need to get done, but that can be hard or slow in more traditional
-stores. A very useful and practical article. How would you accomplish these
-tasks in your framework?Show latest items listings in your home page. This is
-a live in-memory cache and is very fast.LPUSHis used to insert a content ID at
-the head of the list stored at a key.LTRIMis used to limit the number of items
-in the list to 5000. If the user needs to page beyond this cache only then are
-they sent to the database.Deletion and filtering. If a cached article is
-deleted it can be removed from the cache using LREM.Leaderboards and related
-problems. A leader board is a set sorted by score. TheZADDcommands implements
-th</p><p>3 0.75763339 <a title="1340-lsi-3" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
-<p>Introduction: Eric Pickup from Youporn.com posted on anews group that Youporn is now 100%
-Redis based and will soon be revealing more about their architecture at
-theConFoo conference. Some stunning, but not surprising numbers were
-revealed:100 million page views per dayA cluster of Redis slaves are handling
-over 300k queries per second.Some additional nuggets:Additional Redis nodes
-were added because the network cards couldn't keep up with Redis.Impressed
-with Redis' performance.All reads come from Redis;  we are maintaining MySQL
-just to allow us to build new sorted sets as our requirement changeMost data
-is found in hashes with ordered sets used to know what data to show.   A
-typical lookup would be an zInterStore on: videos:filters:released,
-Videos:filters:orientation:straight,Videos:filters:categories:{category_id},
-Videos:ordering:ratingThen perform a zRange to get the pages we want and get
-the list of video_ids back. Then start a pipeline and get all the videos from
-hashes.Do use some key/valu</p><p>4 0.74029154 <a title="1340-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
-<p>Introduction: We just released a social section to our iOS app several days ago and we are
-already facing scaling issues with the users' news feeds.We're basically using
-a Fan-out-on-write (push) model for the users' news feeds (posts of people and
-topics they follow) and we're using Redis for this (backend is Rails on
-Heroku).  However, our current 60,000 news feeds is ballooning our Redis store
-to almost 1GB in a just a few days (it's growing way too fast for our budget).
-Currently we're storing the entire news feed for the user (post id, post text,
-author, icon url, etc) and we cap the entries to 300 per feed.I'm wondering if
-we need to just store the post IDs of each user feed in Redis and then store
-the rest of the post information somewhere else?  Would love some feedback
-here.  In this case, our iOS app would make an api call to our Rails app to
-retrieve a user's news feed.  Rails app would retrieve news feed list (just
-post IDs) from Redis, and then Rails app would need to query to get the r</p><p>5 0.72832203 <a title="1340-lsi-5" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
-<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow
-@tschellenbach on Twitter and GithubFashiolistastarted out as a hobby project
-which we built on the side. We had absolutely no idea it would grow into one
-of the largest online fashion communities. The entire first version took about
-two weeks to develop and our feed implementation was dead simple. We've come a
-long way since then and I'd like to share our experience with scaling feed
-systems.Feeds are a core component of many large startups such as Pinterest,
-Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers
-theflat feed,aggregated feedand thenotification system. This article will
-explain the troubles we ran into when scaling our feeds and the design
-decisions involved with building your own solution. Understanding the basics
-of how these feed systems work is essential as more and more applications rely
-on them.Furthermore we've open sourcedFeedly, the Python module powering our
-feeds. Wh</p><p>6 0.72420919 <a title="1340-lsi-6" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
+<p>Introduction: This is a guest post by Ben Lowry, CEO of  Playtomic . Playtomic is a game analytics service implemented in about 8000 mobile, web and downloadable games played by approximately 20 million people daily. 
+ 
+ Here's a good summary quote by  Ben Lowry on Hacker News : 
+  
+ Just over 20,000,000 people hit my API yesterday 700,749,252 times, playing the ~8,000 games my analytics platform is integrated in for a bit under 600 years in total play time. That's just yesterday. There are lots of different bottlenecks waiting for people operating at scale. Heroku and NodeJS, for my use case, eventually alleviated a whole bunch of them very cheaply. 
+  
+Playtomic began with an almost exclusively Microsoft.NET and Windows architecture which held up for 3 years before being replaced with a complete rewrite using NodeJS.  During its lifetime the entire platform grew from shared space on a single server to a full dedicated, then spread to second dedicated, then the API server was offloaded to a VPS pro</p><p>2 0.76756608 <a title="1340-lsi-2" href="../high_scalability-2011/high_scalability-2011-07-06-11_Common_Web_Use_Cases_Solved_in_Redis.html">1074 high scalability-2011-07-06-11 Common Web Use Cases Solved in Redis</a></p>
+<p>Introduction: In  How to take advantage of Redis just adding it to your stack  Salvatore 'antirez' Sanfilippo shows how to solve some common problems in Redis by taking advantage of its unique data structure handling capabilities. Common Redis primitives like LPUSH, and LTRIM, and LREM are used to accomplish tasks programmers need to get done, but that can be hard or slow in more traditional stores. A very useful and practical article. How would you accomplish these tasks in your framework?
+  
+  Show latest items listings in your home page . This is a live in-memory cache and is very fast.  LPUSH  is used to insert a content ID at the head of the list stored at a key.  LTRIM  is used to limit the number of items in the list to 5000. If the user needs to page beyond this cache only then are they sent to the database. 
+  Deletion and filtering . If a cached article is deleted it can be removed from the cache using  LREM . 
+  Leaderboards and related problems . A leader board is a set sorted by score.</p><p>3 0.75763339 <a title="1340-lsi-3" href="../high_scalability-2012/high_scalability-2012-02-16-A_Super_Short_on_the_Youporn_Stack_-_300K_QPS_and_100_Million_Page_Views_Per_Day.html">1194 high scalability-2012-02-16-A Super Short on the Youporn Stack - 300K QPS and 100 Million Page Views Per Day</a></p>
+<p>Introduction: Eric Pickup from Youporn.com posted on a  news group  that Youporn is now 100% Redis based and will soon be revealing more about their architecture at the  ConFoo conference . Some stunning, but not surprising numbers were revealed:
+  
+ 
+ 100 million page views per day 
+ A cluster of Redis slaves are handling over 300k queries per second. 
+ 
+  
+Some additional nuggets:
+  
+ Additional Redis nodes were added because the network cards couldn't keep up with Redis. 
+ Impressed with Redis' performance. 
+ All reads come from Redis;  we are maintaining MySQL just to allow us to build new sorted sets as our requirement change 
+ Most data is found in hashes with ordered sets used to know what data to show.   
+ 
+ A typical lookup would be an zInterStore on: videos:filters:released, Videos:filters:orientation:straight,Videos:filters:categories:{category_id}, Videos:ordering:rating 
+ Then perform a zRange to get the pages we want and get the list of video_ids back.  
+ Then start a pipeline and get</p><p>4 0.74029154 <a title="1340-lsi-4" href="../high_scalability-2012/high_scalability-2012-08-13-Ask_HighScalability%3A_Facing_scaling_issues_with_news_feeds_on_Redis.__Any_advice%3F.html">1303 high scalability-2012-08-13-Ask HighScalability: Facing scaling issues with news feeds on Redis.  Any advice?</a></p>
+<p>Introduction: We just released a social section to our iOS app several days ago and we are already facing scaling issues with the users' news feeds.    We're basically using a Fan-out-on-write (push) model for the users' news feeds (posts of people and topics they follow) and we're using Redis for this (backend is Rails on Heroku).  However, our current 60,000 news feeds is ballooning our Redis store to almost 1GB in a just a few days (it's growing way too fast for our budget). Currently we're storing the entire news feed for the user (post id, post text, author, icon url, etc) and we cap the entries to 300 per feed.    I'm wondering if we need to just store the post IDs of each user feed in Redis and then store the rest of the post information somewhere else?  Would love some feedback here.  In this case, our iOS app would make an api call to our Rails app to retrieve a user's news feed.  Rails app would retrieve news feed list (just post IDs) from Redis, and then Rails app would need to query to g</p><p>5 0.72832203 <a title="1340-lsi-5" href="../high_scalability-2013/high_scalability-2013-10-28-Design_Decisions_for_Scaling_Your_High_Traffic_Feeds.html">1538 high scalability-2013-10-28-Design Decisions for Scaling Your High Traffic Feeds</a></p>
+<p>Introduction: Guest post by Thierry Schellenbach, Founder/CTO of Fashiolista.com, follow @tschellenbach on Twitter and Github 
+ 
+ Fashiolista  started out as a hobby project which we built on the side. We had absolutely no idea it would grow into one of the largest online fashion communities. The entire first version took about two weeks to develop and our feed implementation was dead simple. We’ve come a long way since then and I’d like to share our experience with scaling feed systems.
+ 
+Feeds are a core component of many large startups such as Pinterest, Instagram, Wanelo and Fashiolista. At Fashiolista the feed system powers the  flat feed ,  aggregated feed  and the  notification  system. This article will explain the troubles we ran into when scaling our feeds and the design decisions involved with building your own solution. Understanding the basics of how these feed systems work is essential as more and more applications rely on them.
+  
+ Furthermore we’ve open sourced  Feedly , the Python m</p><p>6 0.72420919 <a title="1340-lsi-6" href="../high_scalability-2009/high_scalability-2009-03-19-Product%3A_Redis_-_Not_Just_Another_Key-Value_Store.html">545 high scalability-2009-03-19-Product: Redis - Not Just Another Key-Value Store</a></p>
 <p>7 0.70545816 <a title="1340-lsi-7" href="../high_scalability-2012/high_scalability-2012-04-02-YouPorn_-_Targeting_200_Million_Views_a_Day_and_Beyond.html">1220 high scalability-2012-04-02-YouPorn - Targeting 200 Million Views a Day and Beyond</a></p>
 <p>8 0.67625856 <a title="1340-lsi-8" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
 <p>9 0.64740533 <a title="1340-lsi-9" href="../high_scalability-2007/high_scalability-2007-07-12-FeedBurner_Architecture.html">7 high scalability-2007-07-12-FeedBurner Architecture</a></p>
@@ -231,60 +140,20 @@ feeds. Wh</p><p>6 0.72420919 <a title="1340-lsi-6" href="../high_scalability-200
 <p>[(1, 0.136), (2, 0.172), (10, 0.071), (30, 0.014), (47, 0.024), (61, 0.099), (79, 0.057), (93, 0.016), (94, 0.04), (95, 0.28)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.88385266 <a title="1340-lda-1" href="../high_scalability-2008/high_scalability-2008-03-08-DNS-Record_TTL_on_worst_case_scenarios.html">270 high scalability-2008-03-08-DNS-Record TTL on worst case scenarios</a></p>
-<p>Introduction: i didnt find a nearly good solution for this problem yet:imagine, you're
-responsible for a small CDN network (static images), with two different
-datacenter. the balancing for the two DC is done with a anycast nameservice (a
-nameserver in every DC, user gets on nearest location). so, one of the
-scenario is that one of the datacenters goes down completly. you can do a
-monitoring on the nameserver and only route to the dc which is still alive, no
-problem. But what about the TTL from the DNS-Records? Tiny TTLs like 2 min.
-are often ignored by several ISP (e.g. AOL). so, the client doesn't get the IP
-from the other Datacenter. what could be a solution in this scenario?</p><p>same-blog 2 0.84290612 <a title="1340-lda-2" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
-<p>Introduction: This is a guest post by Ben Lowry, CEO ofPlaytomic. Playtomic is a game
-analytics service implemented in about 8000 mobile, web and downloadable games
-played by approximately 20 million people daily.Here's a good summary quote by
-Ben Lowry on Hacker News:Just over 20,000,000 people hit my API yesterday
-700,749,252 times, playing the ~8,000 games my analytics platform is
-integrated in for a bit under 600 years in total play time. That's just
-yesterday. There are lots of different bottlenecks waiting for people
-operating at scale. Heroku and NodeJS, for my use case, eventually alleviated
-a whole bunch of them very cheaply.Playtomic began with an almost exclusively
-Microsoft.NET and Windows architecture which held up for 3 years before being
-replaced with a complete rewrite using NodeJS.  During its lifetime the entire
-platform grew from shared space on a single server to a full dedicated, then
-spread to second dedicated, then the API server was offloaded to a VPS
-provider and 4 - 6 fairl</p><p>3 0.79451448 <a title="1340-lda-3" href="../high_scalability-2007/high_scalability-2007-08-07-What_qps_should_we_design_for_in_making_a_MySpace_like_site%3F.html">61 high scalability-2007-08-07-What qps should we design for in making a MySpace like site?</a></p>
-<p>Introduction: We are currently building a high traffic portal like myspace. What is theqps
-that we have to keep in mind and develop the site so that it can bescalable as
-the traffic grows?</p><p>4 0.78688061 <a title="1340-lda-4" href="../high_scalability-2007/high_scalability-2007-11-09-Paper%3A_Container-based_Operating_System_Virtualization%3A_A_Scalable%2C_High-performance_Alternative_to_Hypervisors.html">147 high scalability-2007-11-09-Paper: Container-based Operating System Virtualization: A Scalable, High-performance Alternative to Hypervisors</a></p>
-<p>Introduction: One stumbling block of the the great march towards virtualization is the
-relatively poor performance of resource hungry applications like databases. We
-are told to develop and test using VMs, but deploy without them. Which kind of
-sucks IMHO. Maybe better virtualization technology can remove this split. This
-paper talks about a different approach to virtualization called "container-
-based" virtualization that can reportedly double the performance of
-traditional hypervisor systems like Xen. It does this by trading isolation for
-efficiency. Rather than maintaining complete isolation between VMs the
-container approach shares resources between VMs and thus gives higher
-performance while still guaranteeing strong fault, resource, and security
-isolation. It's yet another battle in computing's endless war of creating and
-destroying abstraction layers. I learned a lot from from this paper because of
-how it compared and contrasted traditional hypervisor and container based
-virtualization strate</p><p>5 0.75657177 <a title="1340-lda-5" href="../high_scalability-2010/high_scalability-2010-03-19-Hot_Scalability_Links_for_March_19%2C_2010.html">797 high scalability-2010-03-19-Hot Scalability Links for March 19, 2010</a></p>
-<p>Introduction: The Changelog Episode 0.1.8 - NoSQL Smackdown!This podcast was recorded at
-SXSW and features some energetic trash talking by: Stu Hood from Cassandra,
-Jan Lehnardt from CouchDB, Wynn Netherland from The Changelog, subbing for
-MongoDB, Werner Vogels CTO at Amazon. It's fun hearing these guys step out of
-their sober advocacy roles and let loose a little with why they are great and
-the other products suck, hard.Algorithmic Graph Theory. It's FREE!A GNU-FDL
-book on algorithmic graph theory by David Joyner, Minh Van Nguyen, and Nathann
-Cohen. This is an introductory book on algorithmic graph theory.HBase vs
-Cassandra: why we movedby Dominic Williams.Benchmarking Cloud Serving Systems
-with YCSBby lots of people from Yahoo! Research.We present the Yahoo! Cloud
-Serving Benchmark (YCSB) framework, with the goal of facilitating performance
-comparisons of the new generation of cloud data serving systems. We deďŹ ne a
-core set of benchmarks and report re- sults for four widely used systems:
-Cassandr</p><p>6 0.72948921 <a title="1340-lda-6" href="../high_scalability-2013/high_scalability-2013-05-31-Stuff_The_Internet_Says_On_Scalability_For_May_31%2C_2013.html">1468 high scalability-2013-05-31-Stuff The Internet Says On Scalability For May 31, 2013</a></p>
+<p>Introduction: i didnt find a nearly good solution for this problem yet:     imagine, you're responsible for a small CDN network (static images), with two different datacenter. the balancing for the two DC is done with a anycast nameservice (a nameserver in every DC, user gets on nearest location). so, one of the scenario is that one of the datacenters goes down completly. you can do a monitoring on the nameserver and only route to the dc which is still alive, no problem. But what about the TTL from the DNS-Records? Tiny TTLs like 2 min. are often ignored by several ISP (e.g. AOL). so, the client doesn't get the IP from the other Datacenter. what could be a solution in this scenario?</p><p>same-blog 2 0.84290612 <a title="1340-lda-2" href="../high_scalability-2012/high_scalability-2012-10-15-Simpler%2C_Cheaper%2C_Faster%3A_Playtomic%27s_Move_from_.NET_to_Node_and_Heroku.html">1340 high scalability-2012-10-15-Simpler, Cheaper, Faster: Playtomic's Move from .NET to Node and Heroku</a></p>
+<p>Introduction: This is a guest post by Ben Lowry, CEO of  Playtomic . Playtomic is a game analytics service implemented in about 8000 mobile, web and downloadable games played by approximately 20 million people daily. 
+ 
+ Here's a good summary quote by  Ben Lowry on Hacker News : 
+  
+ Just over 20,000,000 people hit my API yesterday 700,749,252 times, playing the ~8,000 games my analytics platform is integrated in for a bit under 600 years in total play time. That's just yesterday. There are lots of different bottlenecks waiting for people operating at scale. Heroku and NodeJS, for my use case, eventually alleviated a whole bunch of them very cheaply. 
+  
+Playtomic began with an almost exclusively Microsoft.NET and Windows architecture which held up for 3 years before being replaced with a complete rewrite using NodeJS.  During its lifetime the entire platform grew from shared space on a single server to a full dedicated, then spread to second dedicated, then the API server was offloaded to a VPS pro</p><p>3 0.79451448 <a title="1340-lda-3" href="../high_scalability-2007/high_scalability-2007-08-07-What_qps_should_we_design_for_in_making_a_MySpace_like_site%3F.html">61 high scalability-2007-08-07-What qps should we design for in making a MySpace like site?</a></p>
+<p>Introduction: We are currently building a high traffic portal like myspace. What is the   qps that we have to keep in mind and develop the site so that it can be   scalable as the traffic grows?</p><p>4 0.78688061 <a title="1340-lda-4" href="../high_scalability-2007/high_scalability-2007-11-09-Paper%3A_Container-based_Operating_System_Virtualization%3A_A_Scalable%2C_High-performance_Alternative_to_Hypervisors.html">147 high scalability-2007-11-09-Paper: Container-based Operating System Virtualization: A Scalable, High-performance Alternative to Hypervisors</a></p>
+<p>Introduction: One stumbling block of the the great march towards virtualization is the relatively poor performance of resource hungry applications like databases. We are told to develop and test using VMs, but deploy without them. Which kind of sucks IMHO. Maybe better virtualization technology can remove this split. This paper talks about a different approach to virtualization called "container-based" virtualization that can reportedly double the performance of traditional hypervisor systems like Xen. It does this by trading isolation for efficiency. Rather than maintaining complete isolation between VMs the container approach shares resources between VMs and thus gives higher performance while still guaranteeing strong fault, resource, and security isolation. It's yet another battle in computing's endless war of creating and destroying abstraction layers. I learned a lot from from this paper because of how it compared and contrasted traditional hypervisor and container based virtualization strateg</p><p>5 0.75657177 <a title="1340-lda-5" href="../high_scalability-2010/high_scalability-2010-03-19-Hot_Scalability_Links_for_March_19%2C_2010.html">797 high scalability-2010-03-19-Hot Scalability Links for March 19, 2010</a></p>
+<p>Introduction: The Changelog Episode 0.1.8 - NoSQL Smackdown!  This podcast was recorded at SXSW and features some energetic trash talking by: Stu Hood from Cassandra, Jan Lehnardt from CouchDB, Wynn Netherland from The Changelog, subbing for MongoDB, Werner Vogels CTO at Amazon. It's fun hearing these guys step out of their sober advocacy roles and let loose a little with why they are great and the other products suck, hard.  
+   Algorithmic Graph Theory  . It's FREE!  A GNU-FDL  book on algorithmic graph theory by David Joyner, Minh Van Nguyen, and Nathann Cohen. This is an introductory book on algorithmic graph theory.   
+  HBase vs Cassandra: why we moved  by Dominic Williams. 
+  Benchmarking Cloud Serving Systems with YCSB  by lots of people from Yahoo! Research.  We present the Yahoo! Cloud Serving Benchmark (YCSB) framework, with the goal of facilitating performance comparisons of the new generation of cloud data serving systems. We deﬁne a core set of benchmarks and report re-  sults for four</p><p>6 0.72948921 <a title="1340-lda-6" href="../high_scalability-2013/high_scalability-2013-05-31-Stuff_The_Internet_Says_On_Scalability_For_May_31%2C_2013.html">1468 high scalability-2013-05-31-Stuff The Internet Says On Scalability For May 31, 2013</a></p>
 <p>7 0.71394181 <a title="1340-lda-7" href="../high_scalability-2013/high_scalability-2013-06-21-Stuff_The_Internet_Says_On_Scalability_For_June_21%2C_2013.html">1479 high scalability-2013-06-21-Stuff The Internet Says On Scalability For June 21, 2013</a></p>
 <p>8 0.675933 <a title="1340-lda-8" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
 <p>9 0.66720027 <a title="1340-lda-9" href="../high_scalability-2012/high_scalability-2012-09-26-WordPress.com_Serves_70%2C000_req-sec_and_over_15_Gbit-sec_of_Traffic_using_NGINX.html">1329 high scalability-2012-09-26-WordPress.com Serves 70,000 req-sec and over 15 Gbit-sec of Traffic using NGINX</a></p>

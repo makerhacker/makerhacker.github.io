@@ -16,36 +16,27 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>1260 high scalability-2012-06-07-Case Study on Scaling PaaS infrastructure </h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1260-html" href="http://highscalability.com//blog/2012/6/7/case-study-on-scaling-paas-infrastructure.html">html</a></p><p>Introduction: In his blog post,Scaling WSO2 Stratos, Srinath Perera explains the scaling
-architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure.
-It is explained as a series of solutions where every solution adds a new
-concept to solve a specific problem found in the earlier solution.Overall,
-WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading
-to scale up the architecture. More details about Stratos can be found from the
-paper WSO2 Stratos: An Industrial Stack to Support Cloud Computing.
-ProblemStratos is multi-tenanted. In other words, there are many tenants. Each
-tenant generally represents an organization and isolated from other tenants,
-where each tenant has his own users, resources, and permissions. Stratos
-supports multiple PaaS services. Each PaaS service is actually a WSO2 Products
-(e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants
-may deploy their own Web Services, Mediation logic, Workflows, and Gadgets
-etc. WSO2 Str</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Overall, WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading to scale up the architecture. [sent-3, score-0.393]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2012-1260-html" href="http://highscalability.com//blog/2012/6/7/case-study-on-scaling-paas-infrastructure.html">html</a></p><p>Introduction: In his blog post,  Scaling WSO2 Stratos , Srinath Perera explains the scaling architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure. It is explained as a series of solutions where every solution adds a new concept to solve a specific problem found in the earlier solution.
+ 
+Overall, WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading to scale up the architecture. More details about Stratos can be found from the paper     WSO2 Stratos: An Industrial Stack to Support Cloud Computing .   
+  Problem  
+ Stratos is   multi-tenanted  . In other words, there are many tenants. Each tenant generally represents an organization and isolated from other tenants, where each tenant has his own users, resources, and permissions. Stratos supports multiple PaaS services. Each PaaS service is actually a WSO2 Products (e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants may deploy their own Web Services, Mediation logic, Workflows, a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Overall, WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading to scale up the architecture. [sent-3, score-0.393]
 </p><p>2 Each tenant generally represents an organization and isolated from other tenants, where each tenant has his own users, resources, and permissions. [sent-7, score-0.42]
 </p><p>3 Using those services, tenants may deploy their own Web Services, Mediation logic, Workflows, and Gadgets etc. [sent-13, score-0.57]
 </p><p>4 WSO2 Stratos runtime provides servers where each can support multiple tenants and provide a PaaS service. [sent-14, score-0.605]
 </p><p>5 Each server loads all tenants at the startup and can support any tenant when they receive a request. [sent-26, score-0.841]
 </p><p>6 So we started running multiple instances of each server and put a load balancer (LB). [sent-28, score-0.206]
 </p><p>7 When load on the server instances are high, LB starts new server instances and when the load is low, LB shuts down some instances. [sent-30, score-0.303]
-</p><p>8 Solution 3When Stratos had several hundred tenants and many tenants with tens of services, it took a long time to load all tenants at the startup. [sent-32, score-1.77]
-</p><p>9 Furthermore, most tenants stays inactive most of the time. [sent-34, score-0.636]
-</p><p>10 However, since each node has to hold all tenants, Stratos spends resources for inactive tenants as well. [sent-35, score-0.676]
+</p><p>8 Solution 3    When Stratos had several hundred tenants and many tenants with tens of services, it took a long time to load all tenants at the startup. [sent-32, score-1.77]
+</p><p>9 However, since each node has to hold all tenants, Stratos spends resources for inactive tenants as well. [sent-35, score-0.676]
+</p><p>10 To avoid above problems, solution 3 added lazy loading. [sent-36, score-0.289]
 </p><p>11 All information about tenants is stored in a central registry. [sent-37, score-0.608]
-</p><p>12 You can find more information about Lazy loading from Azzez's blog entry "Lazy Loading Deployment Artifacts in a PaaS Deployment". [sent-40, score-0.325]
-</p><p>13 Solution 4When tenants have several artifacts, loading them takes time. [sent-41, score-0.749]
+</p><p>12 You can find more information about Lazy loading from Azzez’s blog entry   “Lazy Loading Deployment Artifacts in a PaaS Deployment”. [sent-40, score-0.265]
+</p><p>13 Solution 4    When tenants have several artifacts, loading them takes time. [sent-41, score-0.749]
 </p><p>14 So if the tenant is accessed while it has not been loaded in solution 3, first request or two to the tenant will timeout. [sent-42, score-0.582]
 </p><p>15 As a result, loading a tenant has become a much simpler in Solution 4. [sent-46, score-0.389]
 </p><p>16 So this avoids requests from timing out while loading the tenant. [sent-47, score-0.216]
-</p><p>17 You can also find more information about Lazy loading from Azzez's blog entry "Lazy Loading Deployment Artifacts in a PaaS Deployment". [sent-48, score-0.325]
+</p><p>17 You can also find more information about Lazy loading from Azzez’s blog entry   “Lazy Loading Deployment Artifacts in a PaaS Deployment”. [sent-48, score-0.265]
 </p><p>18 Due to lazy loading, all requests will work even through LBs route messages arbiterly. [sent-58, score-0.22]
 </p><p>19 To avoid this, in the solution 6, LBs are aware of tenants and allocate only a subset of tenants to each LB. [sent-60, score-1.302]
 </p><p>20 However, the next potential problem is that Registry which holds the configurations and resources of all tenants could not scale to handle a large number of tenants. [sent-63, score-0.641]
@@ -55,69 +46,43 @@ etc. WSO2 Str</p><br/><h2>Summary: the most important sentenses genereted by tfi
 <p>[('tenants', 0.57), ('stratos', 0.529), ('lb', 0.265), ('tenant', 0.21), ('lazy', 0.183), ('loading', 0.179), ('lbs', 0.173), ('artifacts', 0.139), ('bps', 0.122), ('solution', 0.106), ('paas', 0.105), ('esb', 0.099), ('azzez', 0.081), ('registry', 0.074), ('deployer', 0.074), ('inactive', 0.066), ('decision', 0.064), ('ghost', 0.064), ('load', 0.06), ('entry', 0.06), ('aware', 0.056), ('loaded', 0.056), ('deployment', 0.05), ('blog', 0.048), ('instances', 0.047), ('resources', 0.04), ('however', 0.038), ('metadata', 0.038), ('information', 0.038), ('requests', 0.037), ('perera', 0.037), ('srinath', 0.037), ('gadgets', 0.037), ('unloaded', 0.037), ('balancer', 0.035), ('rationale', 0.035), ('multiple', 0.035), ('explains', 0.034), ('solve', 0.033), ('adds', 0.033), ('service', 0.032), ('loads', 0.032), ('scale', 0.031), ('token', 0.031), ('shuts', 0.031), ('server', 0.029), ('placing', 0.029), ('balances', 0.028), ('industrial', 0.028), ('workflows', 0.028)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="1260-tfidf-1" href="../high_scalability-2012/high_scalability-2012-06-07-Case_Study_on_Scaling_PaaS_infrastructure_.html">1260 high scalability-2012-06-07-Case Study on Scaling PaaS infrastructure </a></p>
-<p>Introduction: In his blog post,Scaling WSO2 Stratos, Srinath Perera explains the scaling
-architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure.
-It is explained as a series of solutions where every solution adds a new
-concept to solve a specific problem found in the earlier solution.Overall,
-WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading
-to scale up the architecture. More details about Stratos can be found from the
-paper WSO2 Stratos: An Industrial Stack to Support Cloud Computing.
-ProblemStratos is multi-tenanted. In other words, there are many tenants. Each
-tenant generally represents an organization and isolated from other tenants,
-where each tenant has his own users, resources, and permissions. Stratos
-supports multiple PaaS services. Each PaaS service is actually a WSO2 Products
-(e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants
-may deploy their own Web Services, Mediation logic, Workflows, and Gadgets
-etc. WSO2 Str</p><p>2 0.086634494 <a title="1260-tfidf-2" href="../high_scalability-2011/high_scalability-2011-11-07-10_Core_Architecture_Pattern_Variations_for_Achieving_Scalability.html">1138 high scalability-2011-11-07-10 Core Architecture Pattern Variations for Achieving Scalability</a></p>
-<p>Introduction: Srinath Perera has put together astrong list of architecture patternsbased on
-three meta patterns:  distribution, caching, and asynchronous processing. He
-contends these three are the primal patterns and the following patterns are
-but different combinations:LB (Load Balancers) + Shared nothing Units. Units
-that do not share anything with each other fronted with a load balancer that
-routes incoming messages to a unit based on some criteria.LB + Stateless Nodes
-+ Scalable Storage. Several stateless nodes talking to a scalable storage, and
-a load balancer distributes load among the nodes.Peer to Peer Architectures
-(Distributed Hash Table (DHT) and Content Addressable Networks (CAN)).
-Algorithm for scaling up logarithmically.Distributed Queues. Queue
-implementation (FIFO delivery) implemented as a network
-service.Publish/Subscribe Paradigm. Network publish subscribe brokers that
-route messages to each other.Gossip and Nature-inspired Architectures. Each
-node randomly pick and exchange info</p><p>3 0.076468199 <a title="1260-tfidf-3" href="../high_scalability-2009/high_scalability-2009-08-09-Writing_about_cisco_loadbalancer%3F.html">678 high scalability-2009-08-09-Writing about cisco loadbalancer?</a></p>
-<p>Introduction: Guys,At one of my jobs I have to administer a CISCO ACE (application control
-engine) hardware load-balancer.I don't particularly love this beast, but it's
-very very powerful.There appears to be little real-world info out there, so it
-could be interesting writing an article on that.But I don't have other HW LB's
-to compare it to and I don't want to rehash the product page.What would
-interest you in a 'product review' of a loadbalancer?No replies means it's not
-an interesting topic, so no article then ;-)</p><p>4 0.069815159 <a title="1260-tfidf-4" href="../high_scalability-2014/high_scalability-2014-01-31-Stuff_The_Internet_Says_On_Scalability_For_January_31st%2C_2014.html">1588 high scalability-2014-01-31-Stuff The Internet Says On Scalability For January 31st, 2014</a></p>
-<p>Introduction: Hey, it'sHighScalabilitytime:Largestbattleever on Eve Online. 2,000 players.
-$200K in damage.Awesomepics. teaspoon of soil: hosts up to a billion bacteria
-spread among a million species.Quotable Quotes: VivekPrakash: The problem of
-scaling always takes a toll on you.@jcsalterego: See This One Weird
-TrickHypervisorsDon't Want You To KnowUpgrades are the great killer of
-software systems. Do you really want apill that would supply materialswith
-instructions fornanobotsto form new neurons and place them near existing cells
-to be replaced so you have a new brain within six months? Scary as hell. But
-there's annanoappfor that.Ted Nelson has a fascinating series of Computers for
-Cynicsvidcasts on YouTube. I'd ony really known of Mr. Nelson from his
-writings on hypertext, but he has a broad and penetrating insight into the
-early days of the computer industry. He's not really cynical, but I've always
-had a hard time differentiation realism from cynicism. Suffice it to say he
-thinks there have b</p><p>5 0.068929486 <a title="1260-tfidf-5" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
-<p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><p>6 0.068201348 <a title="1260-tfidf-6" href="../high_scalability-2013/high_scalability-2013-09-06-Stuff_The_Internet_Says_On_Scalability_For_September_6%2C_2013.html">1513 high scalability-2013-09-06-Stuff The Internet Says On Scalability For September 6, 2013</a></p>
+<p>Introduction: In his blog post,  Scaling WSO2 Stratos , Srinath Perera explains the scaling architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure. It is explained as a series of solutions where every solution adds a new concept to solve a specific problem found in the earlier solution.
+ 
+Overall, WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading to scale up the architecture. More details about Stratos can be found from the paper     WSO2 Stratos: An Industrial Stack to Support Cloud Computing .   
+  Problem  
+ Stratos is   multi-tenanted  . In other words, there are many tenants. Each tenant generally represents an organization and isolated from other tenants, where each tenant has his own users, resources, and permissions. Stratos supports multiple PaaS services. Each PaaS service is actually a WSO2 Products (e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants may deploy their own Web Services, Mediation logic, Workflows, a</p><p>2 0.086634494 <a title="1260-tfidf-2" href="../high_scalability-2011/high_scalability-2011-11-07-10_Core_Architecture_Pattern_Variations_for_Achieving_Scalability.html">1138 high scalability-2011-11-07-10 Core Architecture Pattern Variations for Achieving Scalability</a></p>
+<p>Introduction: Srinath Perera has put together a  strong list of architecture patterns  based on three meta patterns:  distribution, caching, and asynchronous processing. He contends these three are the primal patterns and the following patterns are but different combinations:
+  
+  LB (Load Balancers) + Shared nothing Units . Units that do not share anything with each other fronted with a load balancer that routes incoming messages to a unit based on some criteria. 
+  LB + Stateless Nodes + Scalable Storage . Several stateless nodes talking to a scalable storage, and a load balancer distributes load among the nodes. 
+  Peer to Peer Architectures (Distributed Hash Table (DHT) and Content Addressable Networks (CAN)) . Algorithm for scaling up logarithmically. 
+  Distributed Queues . Queue implementation (FIFO delivery) implemented as a network service. 
+  Publish/Subscribe Paradigm . Network publish subscribe brokers that route messages to each other. 
+  Gossip and Nature-inspired Architectures . Each</p><p>3 0.076468199 <a title="1260-tfidf-3" href="../high_scalability-2009/high_scalability-2009-08-09-Writing_about_cisco_loadbalancer%3F.html">678 high scalability-2009-08-09-Writing about cisco loadbalancer?</a></p>
+<p>Introduction: Guys,  At one of my jobs I have to administer a CISCO ACE (application control engine) hardware load-balancer. I don't particularly love this beast, but it's very very powerful.  There appears to be little real-world info out there, so it could be interesting writing an article on that.  But I don't have other HW LB's to compare it to and I don't want to rehash the product page.   What would interest you in a 'product review' of a loadbalancer? No replies means it's not an interesting topic, so no article then ;-)</p><p>4 0.069815159 <a title="1260-tfidf-4" href="../high_scalability-2014/high_scalability-2014-01-31-Stuff_The_Internet_Says_On_Scalability_For_January_31st%2C_2014.html">1588 high scalability-2014-01-31-Stuff The Internet Says On Scalability For January 31st, 2014</a></p>
+<p>Introduction: Hey, it's   HighScalability   time:
+    Largest  battle  ever on Eve Online. 2,000 players. $200K in damage.  Awesome   pics   .  
+ 
+  
+  teaspoon of soil : hosts up to a billion bacteria spread among a million species. 
+ 
+ Quotable Quotes:                  
+ 
+    Vivek     Prakash   : The problem of scaling always takes a toll on you. 
+  @  jcsalterego   : See This One Weird Trick   Hypervisors   Don't Want You To Know 
+ 
+ 
+ 
+ Upgrades are the great killer of software systems. Do you really want a  pill that would supply materials  with instructions for   nanobots   to form new neurons and place them near existing cells to be replaced so you have a new brain within six months? Scary as hell. But there's an   nanoapp   for that. 
+ 
+  Ted Nelson  has a fascinating  series of Computers for Cynics  vidcasts on YouTube. I'd ony really known of Mr. Nelson from his writings on hypertext, but he has a broad and penetrating insight into the early days of the computer industry. He's not really</p><p>5 0.068929486 <a title="1260-tfidf-5" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
+<p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><p>6 0.068201348 <a title="1260-tfidf-6" href="../high_scalability-2013/high_scalability-2013-09-06-Stuff_The_Internet_Says_On_Scalability_For_September_6%2C_2013.html">1513 high scalability-2013-09-06-Stuff The Internet Says On Scalability For September 6, 2013</a></p>
 <p>7 0.062749408 <a title="1260-tfidf-7" href="../high_scalability-2013/high_scalability-2013-11-05-10_Things_You_Should_Know_About_AWS.html">1543 high scalability-2013-11-05-10 Things You Should Know About AWS</a></p>
 <p>8 0.062032655 <a title="1260-tfidf-8" href="../high_scalability-2012/high_scalability-2012-03-27-Big_Data_In_the_Cloud_Using_Cloudify.html">1216 high scalability-2012-03-27-Big Data In the Cloud Using Cloudify</a></p>
 <p>9 0.059238601 <a title="1260-tfidf-9" href="../high_scalability-2011/high_scalability-2011-03-09-Productivity_vs._Control_tradeoffs_in_PaaS.html">1002 high scalability-2011-03-09-Productivity vs. Control tradeoffs in PaaS</a></p>
@@ -137,74 +102,58 @@ engineers.One recurri</p><p>6 0.068201348 <a title="1260-tfidf-6" href="../high_
 <p>[(0, 0.079), (1, 0.04), (2, 0.001), (3, -0.022), (4, -0.011), (5, -0.016), (6, 0.033), (7, -0.041), (8, -0.024), (9, -0.012), (10, 0.014), (11, 0.016), (12, 0.004), (13, -0.026), (14, -0.003), (15, -0.005), (16, 0.018), (17, -0.023), (18, 0.024), (19, 0.017), (20, 0.004), (21, 0.001), (22, -0.009), (23, 0.005), (24, 0.017), (25, 0.011), (26, -0.011), (27, 0.015), (28, -0.007), (29, -0.012), (30, 0.013), (31, 0.0), (32, -0.003), (33, 0.021), (34, -0.037), (35, 0.011), (36, 0.002), (37, -0.048), (38, -0.006), (39, -0.026), (40, 0.003), (41, 0.04), (42, -0.003), (43, -0.004), (44, 0.015), (45, 0.012), (46, 0.027), (47, 0.025), (48, 0.007), (49, -0.022)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.93848222 <a title="1260-lsi-1" href="../high_scalability-2012/high_scalability-2012-06-07-Case_Study_on_Scaling_PaaS_infrastructure_.html">1260 high scalability-2012-06-07-Case Study on Scaling PaaS infrastructure </a></p>
-<p>Introduction: In his blog post,Scaling WSO2 Stratos, Srinath Perera explains the scaling
-architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure.
-It is explained as a series of solutions where every solution adds a new
-concept to solve a specific problem found in the earlier solution.Overall,
-WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading
-to scale up the architecture. More details about Stratos can be found from the
-paper WSO2 Stratos: An Industrial Stack to Support Cloud Computing.
-ProblemStratos is multi-tenanted. In other words, there are many tenants. Each
-tenant generally represents an organization and isolated from other tenants,
-where each tenant has his own users, resources, and permissions. Stratos
-supports multiple PaaS services. Each PaaS service is actually a WSO2 Products
-(e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants
-may deploy their own Web Services, Mediation logic, Workflows, and Gadgets
-etc. WSO2 Str</p><p>2 0.71252292 <a title="1260-lsi-2" href="../high_scalability-2008/high_scalability-2008-08-27-Updating_distributed_web_applications.html">372 high scalability-2008-08-27-Updating distributed web applications</a></p>
-<p>Introduction: Hi,we've got a web application, which runs without the common standalone
-application servers like tomcat or jboss, rather it runs with an embedded
-jetty server. Now we are planing to run instances of this application on
-multiple machines, with a load balancer serving the requests.The big question
-is: is there a common scenario on how to update these applications? Lets think
-of 10 instances on 10 machines (one instance per machine), where we want to
-update each of these applications version. The brute force approach would be,
-to stop all instances, update and then restart it. This is a lot of manual
-work ;) Another problem is down-time: so someone must only shutdown one server
-after another, but then there are multiple application versions around.Can
-someone please provide us with a hint for this problem? Perhaps papers, tools
-or something like that?Thanks a lot :)</p><p>3 0.71134692 <a title="1260-lsi-3" href="../high_scalability-2010/high_scalability-2010-09-22-Applying_Scalability_Patterns_to_Infrastructure_Architecture.html">906 high scalability-2010-09-22-Applying Scalability Patterns to Infrastructure Architecture</a></p>
-<p>Introduction: Too often software design patterns are overlooked by network and application
-delivery network architects but these patterns are often equally applicable to
-addressing a broad range of architectural challenges in the application
-delivery tier of the data center. By Lori Mac Vittie, F5 Networks The "High
-Scalability" blog is fast becoming one of my favorite reads. Last week did not
-disappoint with a posthighlighting a set of scalability design patternsthat
-was, apparently, inspired by yet another High Scalability post on "6 Ways to
-Kill Your Servers: Learning to Scale the Hard Way." Credit:Michael
-Chow/azcentral.com  This particular post caught my attention primarily because
-although I've touched on many of these patterns in the past, I've never
-thought to call them what they are: scalability patterns. That's probably a
-side-effect of forgetting thatbuilding an architecture of any kind is at its
-core computer scienceand thus algorithms and design patterns are applicable to
-both micro- an</p><p>4 0.70691693 <a title="1260-lsi-4" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
-<p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><p>5 0.69349682 <a title="1260-lsi-5" href="../high_scalability-2012/high_scalability-2012-09-19-The_4_Building_Blocks_of_Architecting_Systems_for_Scale.html">1325 high scalability-2012-09-19-The 4 Building Blocks of Architecting Systems for Scale</a></p>
-<p>Introduction: If you are looking for an excellent overview of general architecture
-principles then take a look at Will Larson's Introduction to Architecting
-Systems for Scale. Based on his experiences at Yahoo! and Digg, Will covers
-key concepts in some depth. A quick gloss on the building blocks:Load
-Balancing: Scalability & Redundancy.Horizontal scalability and redundancy are
-usually achieved via load balancing, the spreading of requests across multiple
-resources.Smart Clients.The client has a list of hosts and load balances
-across that list of hosts. Upside is simple for programmers. Downside is it's
-hard to update and change.Hardware Load Balancers.Targeted at larger
-companies, this is dedicated load balancing hardware. Upside is performance.
-Downside is cost and complexity.Software Load Balancers.The recommended
-approach, it's  software that handles load balancing, health checks,
-etc.Caching.Make better use of resources you already have. Precalculate
-results for later use. Application Versus Da</p><p>6 0.68716371 <a title="1260-lsi-6" href="../high_scalability-2007/high_scalability-2007-10-30-Feedblendr_Architecture_-_Using_EC2_to_Scale.html">138 high scalability-2007-10-30-Feedblendr Architecture - Using EC2 to Scale</a></p>
+<p>Introduction: In his blog post,  Scaling WSO2 Stratos , Srinath Perera explains the scaling architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure. It is explained as a series of solutions where every solution adds a new concept to solve a specific problem found in the earlier solution.
+ 
+Overall, WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading to scale up the architecture. More details about Stratos can be found from the paper     WSO2 Stratos: An Industrial Stack to Support Cloud Computing .   
+  Problem  
+ Stratos is   multi-tenanted  . In other words, there are many tenants. Each tenant generally represents an organization and isolated from other tenants, where each tenant has his own users, resources, and permissions. Stratos supports multiple PaaS services. Each PaaS service is actually a WSO2 Products (e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants may deploy their own Web Services, Mediation logic, Workflows, a</p><p>2 0.71252292 <a title="1260-lsi-2" href="../high_scalability-2008/high_scalability-2008-08-27-Updating_distributed_web_applications.html">372 high scalability-2008-08-27-Updating distributed web applications</a></p>
+<p>Introduction: Hi,     we've got a web application, which runs without the common standalone application servers like tomcat or jboss, rather it runs with an embedded jetty server. Now we are planing to run instances of this application on multiple machines, with a load balancer serving the requests.     The big question is: is there a common scenario on how to update these applications? Lets think of 10 instances on 10 machines (one instance per machine), where we want to update each of these applications version. The brute force approach would be, to stop all instances, update and then restart it. This is a lot of manual work ;) Another problem is down-time: so someone must only shutdown one server after another, but then there are multiple application versions around.     Can someone please provide us with a hint for this problem? Perhaps papers, tools or something like that?     Thanks  a lot :)</p><p>3 0.71134692 <a title="1260-lsi-3" href="../high_scalability-2010/high_scalability-2010-09-22-Applying_Scalability_Patterns_to_Infrastructure_Architecture.html">906 high scalability-2010-09-22-Applying Scalability Patterns to Infrastructure Architecture</a></p>
+<p>Introduction: Too often software design patterns are overlooked by network and application delivery network architects but these patterns are often equally applicable to addressing a broad range of architectural challenges in the application delivery tier of the data center.  
+
+ 
+ By Lori Mac Vittie, F5 Networks 
+ 
+
+
+ 
+The “ High Scalability ” blog is fast becoming one of my favorite reads. Last week did not disappoint with a post  highlighting a set of scalability design patterns  that was, apparently, inspired by yet another High Scalability post on “ 6 Ways to Kill Your Servers: Learning to Scale the Hard Way. ”
+
+ 
+ 
+ 
+ 
+ 
+ 
+      Credit:Michael Chow/azcentral.com 
+
+ 
+ 
+ 
+ 
+ 
+This particular post caught my attention primarily because although I’ve touched on many of these patterns in the past, I’ve never thought to call them
+
+ 
+ 
+ 
+what they are: scalability patterns. That’s probably a side-effect of forgetting that  building an architecture of any kind is at its core computer science  and thus</p><p>4 0.70691693 <a title="1260-lsi-4" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
+<p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><p>5 0.69349682 <a title="1260-lsi-5" href="../high_scalability-2012/high_scalability-2012-09-19-The_4_Building_Blocks_of_Architecting_Systems_for_Scale.html">1325 high scalability-2012-09-19-The 4 Building Blocks of Architecting Systems for Scale</a></p>
+<p>Introduction: If you are looking for an excellent overview of general architecture principles then take a look at Will Larson's  Introduction to Architecting Systems for Scale . Based on his experiences at Yahoo! and Digg, Will covers key concepts in some depth. A quick gloss on the building blocks:
+  
+    Load Balancing: Scalability & Redundancy . Horizontal scalability and redundancy are usually achieved via load balancing, the spreading of requests across multiple resources.    
+ 
+    Smart Clients . The   client has a list of hosts and load balances across that list of hosts. Upside is simple for programmers. Downside is it's hard to update and change. 
+    Hardware Load Balancers . Targeted at larger companies, this is dedicated load balancing hardware. Upside is performance. Downside is cost and complexity. 
+    Software Load Balancers . The recommended approach, it's  software that handles load balancing, health checks, etc. 
+ 
+ 
+    Caching . Make better use of resources you already have. Pr</p><p>6 0.68716371 <a title="1260-lsi-6" href="../high_scalability-2007/high_scalability-2007-10-30-Feedblendr_Architecture_-_Using_EC2_to_Scale.html">138 high scalability-2007-10-30-Feedblendr Architecture - Using EC2 to Scale</a></p>
 <p>7 0.68240833 <a title="1260-lsi-7" href="../high_scalability-2012/high_scalability-2012-02-06-The_Design_of_99designs_-_A_Clean_Tens_of_Millions_Pageviews_Architecture.html">1188 high scalability-2012-02-06-The Design of 99designs - A Clean Tens of Millions Pageviews Architecture</a></p>
 <p>8 0.67360115 <a title="1260-lsi-8" href="../high_scalability-2009/high_scalability-2009-09-11-The_interactive_cloud.html">702 high scalability-2009-09-11-The interactive cloud</a></p>
 <p>9 0.66528225 <a title="1260-lsi-9" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
@@ -225,56 +174,14 @@ results for later use. Application Versus Da</p><p>6 0.68716371 <a title="1260-l
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.87150049 <a title="1260-lda-1" href="../high_scalability-2007/high_scalability-2007-07-30-allowed_contributed.html">49 high scalability-2007-07-30-allowed contributed</a></p>
 <p>Introduction: buy cleocin</p><p>2 0.87060136 <a title="1260-lda-2" href="../high_scalability-2009/high_scalability-2009-06-05-Google_Wave_Architecture.html">618 high scalability-2009-06-05-Google Wave Architecture</a></p>
-<p>Introduction: Update:Good Vibrationsby Radovan SemanÄ?ik. Lot's of interesting questions
-about how Wave works, scalability, security, RESTyness, and so on.Google
-Waveis a new communication and collaboration platform based on hosted XML
-documents (called waves) supporting concurrent modifications and low-latency
-updates. This platform enables people to communicate and work together in new,
-convenient and effective ways. We will offer these benefits to users ofGoogle
-Waveand we also want to share them with everyone else by making waves an open
-platform that everybody can share. We welcome others to run wave servers and
-become wave providers, for themselves or as services for their users, and to
-"federate" waves, that is, to share waves with each other and with Google
-Wave. In this way users from different wave providers can communicate and
-collaborate using shared waves. We are introducing the Google Wave Federation
-Protocol for federating waves between wave providers on the Internet.Hereare
-the initia</p><p>3 0.82118863 <a title="1260-lda-3" href="../high_scalability-2009/high_scalability-2009-09-10-Building_Scalable_Databases%3A_Denormalization%2C_the_NoSQL_Movement_and_Digg.html">698 high scalability-2009-09-10-Building Scalable Databases: Denormalization, the NoSQL Movement and Digg</a></p>
-<p>Introduction: Database normalization is a technique for designing relational database
-schemas that ensures that the data is optimal for ad-hoc querying and that
-modifications such as deletion or insertion of data does not lead to data
-inconsistency. Database denormalization is the process of optimizing your
-database for reads by creating redundant data. A consequence of
-denormalization is that insertions or deletions could cause data inconsistency
-if not uniformly applied to all redundant copies of the data within the
-database.Read more on Carnage4life blog...</p><p>same-blog 4 0.80899245 <a title="1260-lda-4" href="../high_scalability-2012/high_scalability-2012-06-07-Case_Study_on_Scaling_PaaS_infrastructure_.html">1260 high scalability-2012-06-07-Case Study on Scaling PaaS infrastructure </a></p>
-<p>Introduction: In his blog post,Scaling WSO2 Stratos, Srinath Perera explains the scaling
-architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure.
-It is explained as a series of solutions where every solution adds a new
-concept to solve a specific problem found in the earlier solution.Overall,
-WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading
-to scale up the architecture. More details about Stratos can be found from the
-paper WSO2 Stratos: An Industrial Stack to Support Cloud Computing.
-ProblemStratos is multi-tenanted. In other words, there are many tenants. Each
-tenant generally represents an organization and isolated from other tenants,
-where each tenant has his own users, resources, and permissions. Stratos
-supports multiple PaaS services. Each PaaS service is actually a WSO2 Products
-(e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants
-may deploy their own Web Services, Mediation logic, Workflows, and Gadgets
-etc. WSO2 Str</p><p>5 0.72103918 <a title="1260-lda-5" href="../high_scalability-2008/high_scalability-2008-02-16-S3_Failed_Because_of_Authentication_Overload.html">249 high scalability-2008-02-16-S3 Failed Because of Authentication Overload</a></p>
-<p>Introduction: Being an authentic human being is difficult and apparently authenticating all
-those S3 requests can be a bit overwhelming as well. Amazon fingered a lot of
-processor heavy authentication requests as the reason for their
-downtime:breakEarly this morning, at 3:30am PST, we started seeing elevated
-levels of authenticated requests from multiple users in one of our locations.
-While we carefully monitor our overall request volumes and these remained
-within normal ranges, we had not been monitoring the proportion of
-authenticated requests. Importantly, these cryptographic requests consume more
-resources per call than other request types.Shortly before 4:00am PST, we
-began to see several other users significantly increase their volume of
-authenticated calls. The last of these pushed the authentication service over
-its maximum capacity before we could complete putting new capacity in place.
-In addition to processing authenticated requests, the authentication service
-also performs account valida</p><p>6 0.63555324 <a title="1260-lda-6" href="../high_scalability-2009/high_scalability-2009-07-12-SPHiveDB%3A_A_mixture_of_the_Key-Value_Store_and_the_Relational_Database..html">655 high scalability-2009-07-12-SPHiveDB: A mixture of the Key-Value Store and the Relational Database.</a></p>
+<p>Introduction: Update:   Good Vibrations  by Radovan Semančík. Lot's of interesting questions about how Wave works, scalability, security, RESTyness, and so on.   Google Wave  is a new communication and collaboration platform based on hosted XML documents (called waves) supporting concurrent modifications and low-latency updates. This platform enables people to communicate and work together in new, convenient and effective ways. We will offer these benefits to users of  Google Wave  and we also want to share them with everyone else by making waves an open platform that everybody can share. We welcome others to run wave servers and become wave providers, for themselves or as services for their users, and to "federate" waves, that is, to share waves with each other and with Google Wave. In this way users from different wave providers can communicate and collaborate using shared waves. We are introducing the Google Wave Federation Protocol for federating waves between wave providers on the Internet.   H</p><p>3 0.82118863 <a title="1260-lda-3" href="../high_scalability-2009/high_scalability-2009-09-10-Building_Scalable_Databases%3A_Denormalization%2C_the_NoSQL_Movement_and_Digg.html">698 high scalability-2009-09-10-Building Scalable Databases: Denormalization, the NoSQL Movement and Digg</a></p>
+<p>Introduction: Database normalization is a technique for designing relational database schemas that ensures that the data is optimal for ad-hoc querying and that modifications such as deletion or insertion of data does not lead to data inconsistency. Database denormalization is the process of optimizing your database for reads by creating redundant data. A consequence of denormalization is that insertions or deletions could cause data inconsistency if not uniformly applied to all redundant copies of the data within the database.    Read more on Carnage4life blog...</p><p>same-blog 4 0.80899245 <a title="1260-lda-4" href="../high_scalability-2012/high_scalability-2012-06-07-Case_Study_on_Scaling_PaaS_infrastructure_.html">1260 high scalability-2012-06-07-Case Study on Scaling PaaS infrastructure </a></p>
+<p>Introduction: In his blog post,  Scaling WSO2 Stratos , Srinath Perera explains the scaling architecture of the WSO2 Stratos Platform as a Service (PaaS) infrastructure. It is explained as a series of solutions where every solution adds a new concept to solve a specific problem found in the earlier solution.
+ 
+Overall, WSO2 Stratos uses a combination of intelligent Load balancing and lazy loading to scale up the architecture. More details about Stratos can be found from the paper     WSO2 Stratos: An Industrial Stack to Support Cloud Computing .   
+  Problem  
+ Stratos is   multi-tenanted  . In other words, there are many tenants. Each tenant generally represents an organization and isolated from other tenants, where each tenant has his own users, resources, and permissions. Stratos supports multiple PaaS services. Each PaaS service is actually a WSO2 Products (e.g. AS, BPS, ESB etc.) offered as a service. Using those services, tenants may deploy their own Web Services, Mediation logic, Workflows, a</p><p>5 0.72103918 <a title="1260-lda-5" href="../high_scalability-2008/high_scalability-2008-02-16-S3_Failed_Because_of_Authentication_Overload.html">249 high scalability-2008-02-16-S3 Failed Because of Authentication Overload</a></p>
+<p>Introduction: Being an authentic human being is difficult and apparently authenticating all those S3 requests can be a bit overwhelming as well. Amazon fingered a lot of processor heavy authentication requests as the reason for their downtime:        Early this morning, at 3:30am PST, we started seeing elevated levels of authenticated requests from multiple users in one of our locations.  While we carefully monitor our overall request volumes and these remained within normal ranges, we had not been monitoring the proportion of authenticated requests.  Importantly, these cryptographic requests consume more resources per call than other request types.  Shortly before 4:00am PST, we began to see several other users significantly increase their volume of authenticated calls.  The last of these pushed the authentication service over its maximum capacity before we could complete putting new capacity in place.  In addition to processing authenticated requests, the authentication service also performs accou</p><p>6 0.63555324 <a title="1260-lda-6" href="../high_scalability-2009/high_scalability-2009-07-12-SPHiveDB%3A_A_mixture_of_the_Key-Value_Store_and_the_Relational_Database..html">655 high scalability-2009-07-12-SPHiveDB: A mixture of the Key-Value Store and the Relational Database.</a></p>
 <p>7 0.63228792 <a title="1260-lda-7" href="../high_scalability-2014/high_scalability-2014-03-21-Stuff_The_Internet_Says_On_Scalability_For_March_21st%2C_2014.html">1617 high scalability-2014-03-21-Stuff The Internet Says On Scalability For March 21st, 2014</a></p>
 <p>8 0.60446239 <a title="1260-lda-8" href="../high_scalability-2014/high_scalability-2014-01-03-Stuff_The_Internet_Says_On_Scalability_For_January_3rd%2C_2014.html">1572 high scalability-2014-01-03-Stuff The Internet Says On Scalability For January 3rd, 2014</a></p>
 <p>9 0.59557498 <a title="1260-lda-9" href="../high_scalability-2008/high_scalability-2008-04-07-Rumors_of_Signs_and_Portents_Concerning_Freeish_Google_Cloud.html">299 high scalability-2008-04-07-Rumors of Signs and Portents Concerning Freeish Google Cloud</a></p>
