@@ -16,35 +16,24 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-233-html" href="http://highscalability.com//blog/2008/1/30/how-rackspace-now-uses-mapreduce-and-hadoop-to-query-terabyt.html">html</a></p><p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from
-over 600 hyperactive servers? If you think this sounds like the perfect battle
-ground for a head-to-head skirmish in the greatMapReduce Versus Database War,
-you would be correct.Bill Boebel, CTO of Mailtrust (Rackspace's mail
-division), has generously provided a fascinating account of how they evolved
-their log processing system from an early amoeba'ic text file stored on each
-machine approach, to a Neandertholic relational database solution that just
-couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that
-works wisely for them and has virtually unlimited scalability
-potential.Rackspace faced a now familiar problem. Lots and lots of data
-streaming in. Where do you store all that data? How do you do anything useful
-with it? In the first version of their system logs were stored in flat text
-files and had to be manually searched by engineers logging into each
-individual machine. Then came a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine. [sent-8, score-0.768]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-233-html" href="http://highscalability.com//blog/2008/1/30/how-rackspace-now-uses-mapreduce-and-hadoop-to-query-terabyt.html">html</a></p><p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from over 600 hyperactive servers? If you think this sounds like the perfect battle ground for a head-to-head skirmish in the great  MapReduce Versus Database War , you would be correct.   Bill Boebel, CTO of Mailtrust (Rackspace's mail division), has generously provided a fascinating account of how they evolved their log processing system from an early amoeba'ic text file stored on each machine approach,  to a Neandertholic relational database solution that just couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that works wisely for them and has virtually unlimited scalability potential.
+ 
+Rackspace faced a now familiar problem. Lots and lots of data streaming in. Where do you store all that data? How do you do anything useful with it? In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine.  T</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine. [sent-8, score-0.768]
 </p><p>2 The mail system and logging servers are currently in 3 of the Rackspace data centers. [sent-29, score-0.694]
-</p><p>3 The ArchitectureThe way the current Hadoop based system works is:Raw logs get streamed from hundreds of mail servers to the Hadoop Distributed File System ("HDFS") in real time. [sent-40, score-0.707]
+</p><p>3 The Architecture  The way the current Hadoop based system works is:    Raw logs get streamed from hundreds of mail servers to the Hadoop Distributed File System (”HDFS”) in real time. [sent-40, score-0.707]
 </p><p>4 It is extremely important for our support techs to be able to examine mail logs in order to troubleshoot problems for our customers. [sent-45, score-0.825]
 </p><p>5 Our support techs need to search the logs hundreds of times per day, so the tools that provide this functionality must be fast and accurate. [sent-46, score-0.676]
 </p><p>6 With over 600 mail servers, and hundreds of gigabytes of raw log data produced each day, this can be tricky to manage. [sent-47, score-0.802]
 </p><p>7 Our support techs did not have login access to the servers, so in order to search the logs they would have to escalate a ticket to our engineers. [sent-53, score-0.83]
-</p><p>8 1Sped up the search process by writing a script that would search multiple servers via one command run from a centralized server. [sent-57, score-0.678]
+</p><p>8 1  Sped up the search process by writing a script that would search multiple servers via one command run from a centralized server. [sent-57, score-0.678]
 </p><p>9 An engineer could tell the script what type of mail server to search (inbound smtp, outbound smtp, backend mailbox). [sent-58, score-0.649]
-</p><p>10 0We released a log search tool that the support techs could use directly, without involving the engineers. [sent-66, score-0.874]
+</p><p>10 0  We released a log search tool that the support techs could use directly, without involving the engineers. [sent-66, score-0.874]
 </p><p>11 To get the logs into the database, each mail server initially wrote its log data to a local 16MB tempfs partition. [sent-76, score-1.099]
 </p><p>12 Logrotate was called via cron every 60 seconds to rotate the temporary log file and then preprocess the data before sending it on to the centralized log server. [sent-77, score-0.959]
 </p><p>13 This preprocessing step reduced the volume of data that had to be transmitted over the network to the log server, and this also distributed the processing workload to avoid creating bottleneck on the log server. [sent-78, score-0.964]
 </p><p>14 After the data was processed locally, the script would send comma delimited log data back to syslog-ng on the local server, and syslog-ng would then send it over the network to the centralized log server. [sent-79, score-1.393]
 </p><p>15 The log server was configured to receive data on 6 different ports, one for each type of log data. [sent-80, score-0.891]
-</p><p>16 1Fixed the MySQL INSERT bottleneck by queuing up the log entries in local text files on the centralized log server and periodically bulk loading them into the database. [sent-91, score-1.187]
+</p><p>16 1  Fixed the MySQL INSERT bottleneck by queuing up the log entries in local text files on the centralized log server and periodically bulk loading them into the database. [sent-91, score-1.187]
 </p><p>17 With this version, every 10 minutes our script would create a new database table and then load the text logs into the empty table. [sent-99, score-0.628]
 </p><p>18 Since our raw logs were deleted from the local mail servers every 60 seconds, we'd have no way to recover the missing logs when this occurred. [sent-112, score-0.896]
 </p><p>19 Additionally, the log search tool was becoming ever more critical to our support team's daily operations; however, the logging system had no redundancy. [sent-113, score-0.922]
@@ -55,70 +44,33 @@ individual machine. Then came a</p><br/><h2>Summary: the most important sentense
 <p>[('log', 0.372), ('mail', 0.284), ('logs', 0.238), ('techs', 0.2), ('script', 0.167), ('hadoop', 0.158), ('logging', 0.141), ('search', 0.135), ('text', 0.13), ('smtp', 0.127), ('boebel', 0.12), ('mailtrust', 0.12), ('noteworthy', 0.12), ('merge', 0.116), ('tables', 0.111), ('system', 0.107), ('support', 0.103), ('imap', 0.094), ('grep', 0.094), ('mapreduce', 0.094), ('would', 0.093), ('began', 0.091), ('mysql', 0.087), ('data', 0.084), ('bill', 0.083), ('past', 0.08), ('version', 0.08), ('servers', 0.078), ('rackspace', 0.074), ('preprocessing', 0.073), ('engineers', 0.072), ('centralized', 0.07), ('lucene', 0.069), ('solr', 0.065), ('customers', 0.065), ('tool', 0.064), ('bottleneck', 0.063), ('server', 0.063), ('grew', 0.062), ('gigabytes', 0.062), ('escalate', 0.061), ('rotate', 0.061), ('inserting', 0.059), ('cleanup', 0.059), ('progressively', 0.059), ('loading', 0.059), ('local', 0.058), ('indexes', 0.057), ('team', 0.056), ('blackberry', 0.055)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000008 <a title="233-tfidf-1" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
-<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from
-over 600 hyperactive servers? If you think this sounds like the perfect battle
-ground for a head-to-head skirmish in the greatMapReduce Versus Database War,
-you would be correct.Bill Boebel, CTO of Mailtrust (Rackspace's mail
-division), has generously provided a fascinating account of how they evolved
-their log processing system from an early amoeba'ic text file stored on each
-machine approach, to a Neandertholic relational database solution that just
-couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that
-works wisely for them and has virtually unlimited scalability
-potential.Rackspace faced a now familiar problem. Lots and lots of data
-streaming in. Where do you store all that data? How do you do anything useful
-with it? In the first version of their system logs were stored in flat text
-files and had to be manually searched by engineers logging into each
-individual machine. Then came a</p><p>2 0.33573663 <a title="233-tfidf-2" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
-<p>Introduction: AWStatsis a free powerful and featureful tool that generates advanced web,
-streaming, ftp or mail server statistics, graphically. This log analyzer works
-as a CGI or from command line and shows you all possible information your log
-contains, in few graphical web pages. It uses a partial information file to be
-able to process large log files, often and quickly. It can analyze log files
-from all major server tools like Apache log files (NCSA combined/XLF/ELF log
-format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of
-other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>3 0.31008002 <a title="233-tfidf-3" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
-<p>Introduction: This is a guest post byGordon Worley, a Software Engineer atKorrelate, where
-they correlate (see what they did there) online purchases to offline
-purchases.Several weeks ago, we came into the office one morning to find every
-server alarm going off. Pixel log processing was behind by 8 hours and not
-making headway. Checking the logs, we discovered that a big client had come
-online during the night and was giving us 10 times more traffic than we were
-originally told to expect. I wouldn't say we panicked, but the office was
-certainly more jittery than usual. Over the next several hours, though, thanks
-both to foresight and quick thinking, we were able to scale up to handle the
-added load and clear the backlog to return log processing to a steady state.At
-Korrelate, we deploytracking pixels, also known beacons or web bugs, that our
-partners use to send us information about their users. These tiny web objects
-contain no visible content, but may include transparent 1 by 1 gifs or
-Javascript,</p><p>4 0.3008886 <a title="233-tfidf-4" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
-<p>Introduction: With Lavabitshutting down undermurky circumstances, it seems fitting torepost
-an old(2009), yet still very good post byLadar Levisonon Lavabit's
-architecture. I don't know how much of this information is still current, but
-it should give you a general idea what Lavabit was all about.Getting to Know
-YouWhat is the name of your system and where can we find out more about
-it?Note: these links are no longer valid...Lavabithttp://lavabit.comhttp://lav
-abit.com/network.htmlhttp://lavabit.com/about.htmlWhat is your system
-for?Lavabit is a mid-sized email service provider. We currently have about
-140,000 registered users with more than 260,000 email addresses. While most of
-our accounts belong to individual users, we also provide corporate email
-services to approximately 70 companies.Why did you decide to build this
-system?We built the system to compete against the other large free email
-providers, with an emphasis on serving the privacy conscious and technically
-savvy user. Lavabit was one of</p><p>5 0.29765046 <a title="233-tfidf-5" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
-<p>Introduction: breakThis JoelOnSoftwarethreadasks the age old question of what and how to
-log. The usual trace/error/warning/info advice is totally useless in a large
-scale distributed system. Instead, you need tolog everything all the timeso
-you can solve problems that have already happened across a potentially huge
-range of servers. Yes, it can be done.To see why the typical logging approach
-is broken, imagine this scenario: Your site has been up and running great for
-weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some
-users can no longer add comments to threads. Then you hear the debugging
-deathknell: it's an intermittent problem and customers are pissed. Fix it.
-Now.So how are you going to debug this? The monitoring system doesn't show any
-obvious problems or errors. You quickly post a comment and it works fine. This
-won't be easy. So you think. Commenting involves a bunch of servers and
-networks. There's the load balancer, spam filter, web server, database server,
-caching s</p><p>6 0.18046129 <a title="233-tfidf-6" href="../high_scalability-2007/high_scalability-2007-07-28-Product%3A_Web_Log_Storming.html">37 high scalability-2007-07-28-Product: Web Log Storming</a></p>
+<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from over 600 hyperactive servers? If you think this sounds like the perfect battle ground for a head-to-head skirmish in the great  MapReduce Versus Database War , you would be correct.   Bill Boebel, CTO of Mailtrust (Rackspace's mail division), has generously provided a fascinating account of how they evolved their log processing system from an early amoeba'ic text file stored on each machine approach,  to a Neandertholic relational database solution that just couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that works wisely for them and has virtually unlimited scalability potential.
+ 
+Rackspace faced a now familiar problem. Lots and lots of data streaming in. Where do you store all that data? How do you do anything useful with it? In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine.  T</p><p>2 0.33573663 <a title="233-tfidf-2" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
+<p>Introduction: AWStats  is a free powerful and featureful tool that generates advanced web, streaming, ftp or mail server statistics, graphically. This log analyzer works as a CGI or from command line and shows you all possible information your log contains, in few graphical web pages. It uses a partial information file to be able to process large log files, often and quickly. It can analyze log files from all major server tools like Apache log files (NCSA combined/XLF/ELF log format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>3 0.31008002 <a title="233-tfidf-3" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
+<p>Introduction: This is a guest post by  Gordon Worley , a Software Engineer at  Korrelate , where they correlate (see what they did there) online purchases to offline purchases. 
+ 
+Several weeks ago, we came into the office one morning to find every server alarm going off. Pixel log processing was behind by 8 hours and not making headway. Checking the logs, we discovered that a big client had come online during the night and was giving us 10 times more traffic than we were originally told to expect. I wouldn’t say we panicked, but the office was certainly more jittery than usual. Over the next several hours, though, thanks both to foresight and quick thinking, we were able to scale up to handle the added load and clear the backlog to return log processing to a steady state.
+ 
+At Korrelate, we deploy  tracking pixels , also known beacons or web bugs, that our partners use to send us information about their users. These tiny web objects contain no visible content, but may include transparent 1 by 1 gif</p><p>4 0.3008886 <a title="233-tfidf-4" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: With Lavabit  shutting down  under  murky circumstances , it seems fitting to  repost an old  (2009), yet still very good post by  Ladar Levison  on Lavabit's architecture. I don't know how much of this information is still current, but it should give you a general idea what Lavabit was all about.
+  
+ Getting to Know You 
+ What is the name of your system and where can we find out more about it? 
+
+ Note: these links are no longer valid... 
+
+
+Lavabit   http://lavabit.com      http://lavabit.com/network.html    http://lavabit.com/about.html 
+
+ What is your system for? 
+
+Lavabit is a mid-sized email service provider. We currently have about 140,000 registered users with more than 260,000 email addresses. While most of our accounts belong to individual users, we also provide corporate email services to approximately 70 companies.
+
+ Why did you decide to build this system? 
+
+We built the system to compete against the other large free email providers, with an emphasis on serving the privacy c</p><p>5 0.29765046 <a title="233-tfidf-5" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
+<p>Introduction: This JoelOnSoftware  thread  asks the age old question of what and how to log. The usual trace/error/warning/info advice is totally useless in a large scale distributed system. Instead, you need to  log everything all the time  so you can solve problems that have already happened across a potentially huge range of servers. Yes, it can be done.  To see why the typical logging approach is broken,  imagine this scenario: Your site has been up and running great for weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some users can no longer add comments to threads. Then you hear the debugging deathknell: it's an intermittent problem and customers are pissed. Fix it. Now.  So how are you going to debug this? The monitoring system doesn't show any obvious problems or errors. You quickly post a comment and it works fine. This won't be easy. So you think. Commenting involves a bunch of servers and networks. There's the load balancer, spam filter,  web server, database server,</p><p>6 0.18046129 <a title="233-tfidf-6" href="../high_scalability-2007/high_scalability-2007-07-28-Product%3A_Web_Log_Storming.html">37 high scalability-2007-07-28-Product: Web Log Storming</a></p>
 <p>7 0.17834891 <a title="233-tfidf-7" href="../high_scalability-2009/high_scalability-2009-03-16-Product%3A_Smart_Inspect.html">541 high scalability-2009-03-16-Product: Smart Inspect</a></p>
 <p>8 0.17584313 <a title="233-tfidf-8" href="../high_scalability-2013/high_scalability-2013-08-28-Sean_Hull%27s_20_Biggest_Bottlenecks_that_Reduce_and_Slow_Down_Scalability.html">1508 high scalability-2013-08-28-Sean Hull's 20 Biggest Bottlenecks that Reduce and Slow Down Scalability</a></p>
 <p>9 0.17094821 <a title="233-tfidf-9" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
@@ -138,70 +90,27 @@ caching s</p><p>6 0.18046129 <a title="233-tfidf-6" href="../high_scalability-20
 <p>[(0, 0.278), (1, 0.106), (2, -0.051), (3, -0.088), (4, 0.058), (5, 0.063), (6, 0.118), (7, -0.015), (8, 0.115), (9, 0.058), (10, 0.024), (11, -0.018), (12, 0.102), (13, -0.122), (14, 0.163), (15, 0.048), (16, -0.059), (17, 0.015), (18, -0.029), (19, 0.049), (20, 0.081), (21, -0.106), (22, -0.065), (23, 0.199), (24, 0.147), (25, -0.003), (26, -0.104), (27, 0.056), (28, -0.017), (29, 0.03), (30, -0.053), (31, -0.021), (32, -0.041), (33, -0.032), (34, -0.022), (35, 0.019), (36, -0.117), (37, 0.039), (38, 0.114), (39, -0.054), (40, 0.094), (41, 0.081), (42, 0.024), (43, -0.056), (44, -0.055), (45, -0.044), (46, 0.043), (47, 0.041), (48, -0.022), (49, -0.073)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95376229 <a title="233-lsi-1" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
-<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from
-over 600 hyperactive servers? If you think this sounds like the perfect battle
-ground for a head-to-head skirmish in the greatMapReduce Versus Database War,
-you would be correct.Bill Boebel, CTO of Mailtrust (Rackspace's mail
-division), has generously provided a fascinating account of how they evolved
-their log processing system from an early amoeba'ic text file stored on each
-machine approach, to a Neandertholic relational database solution that just
-couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that
-works wisely for them and has virtually unlimited scalability
-potential.Rackspace faced a now familiar problem. Lots and lots of data
-streaming in. Where do you store all that data? How do you do anything useful
-with it? In the first version of their system logs were stored in flat text
-files and had to be manually searched by engineers logging into each
-individual machine. Then came a</p><p>2 0.90368652 <a title="233-lsi-2" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
-<p>Introduction: This is a guest post byGordon Worley, a Software Engineer atKorrelate, where
-they correlate (see what they did there) online purchases to offline
-purchases.Several weeks ago, we came into the office one morning to find every
-server alarm going off. Pixel log processing was behind by 8 hours and not
-making headway. Checking the logs, we discovered that a big client had come
-online during the night and was giving us 10 times more traffic than we were
-originally told to expect. I wouldn't say we panicked, but the office was
-certainly more jittery than usual. Over the next several hours, though, thanks
-both to foresight and quick thinking, we were able to scale up to handle the
-added load and clear the backlog to return log processing to a steady state.At
-Korrelate, we deploytracking pixels, also known beacons or web bugs, that our
-partners use to send us information about their users. These tiny web objects
-contain no visible content, but may include transparent 1 by 1 gifs or
-Javascript,</p><p>3 0.82087499 <a title="233-lsi-3" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
-<p>Introduction: InLog Everything All the TimeI advocate applications shouldn't bother logging
-at all. Why waste all that time and code? No, wait, that's not right. I preach
-logging everything all the time. Doh. Facebook obviously feels similarly which
-is why they opened sourcedScribe, their internal logging system, capable of
-logging 10s of billions of messages per day. These messages include access
-logs, performance statistics, actions that went to News Feed, and many
-others.Imagine hundreds of thousands of machines across many geographical
-dispersed datacenters just aching to send their precious log payload to the
-central repository off all knowledge. Because really, when you combine all the
-meta data with all the events you pretty much have a complete picture of your
-operations. Once in the central repository logs can be scanned, indexed,
-summarized, aggregated, refactored, diced, data cubed, and mined for every
-scrap of potentially useful information.Just imagine the log stream from all
-of Faceboo</p><p>4 0.82019997 <a title="233-lsi-4" href="../high_scalability-2010/high_scalability-2010-11-09-Paper%3A_Hyder_-_Scaling_Out_without_Partitioning_.html">937 high scalability-2010-11-09-Paper: Hyder - Scaling Out without Partitioning </a></p>
-<p>Introduction: Partitioning is what differentiates scaling-out from scaling-up, isn't it? I
-thought so too until I readPat Helland's blog post on Hyder, a research
-database at Microsoft, in whichthe database is the log, no partitioning is
-required, and the database is multi-versioned. Not much is available on Hyder.
-There's the excellent summary post from Mr. Helland and these documents:
-Scaling Out without Partitioning andScaling Out without Partitioning  \- Hyder
-Update by Phil Bernstein and Colin Reid of Microsoft.The idea behind Hyder as
-summarized by Pat Helland (see his blog for the full post):Hyder is a software
-stack for transactional record management. It can offer full database
-functionality and is designed to take advantage of flash in a novel way. Most
-approaches to scale-out use partitioning and spread the data across multiple
-machines leaving the application responsible for consistency. In Hyder, the
-database is the log, no partitioning is required, and the database is multi-
-versioned.</p><p>5 0.81320214 <a title="233-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
-<p>Introduction: AWStatsis a free powerful and featureful tool that generates advanced web,
-streaming, ftp or mail server statistics, graphically. This log analyzer works
-as a CGI or from command line and shows you all possible information your log
-contains, in few graphical web pages. It uses a partial information file to be
-able to process large log files, often and quickly. It can analyze log files
-from all major server tools like Apache log files (NCSA combined/XLF/ELF log
-format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of
-other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>6 0.80725604 <a title="233-lsi-6" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
+<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from over 600 hyperactive servers? If you think this sounds like the perfect battle ground for a head-to-head skirmish in the great  MapReduce Versus Database War , you would be correct.   Bill Boebel, CTO of Mailtrust (Rackspace's mail division), has generously provided a fascinating account of how they evolved their log processing system from an early amoeba'ic text file stored on each machine approach,  to a Neandertholic relational database solution that just couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that works wisely for them and has virtually unlimited scalability potential.
+ 
+Rackspace faced a now familiar problem. Lots and lots of data streaming in. Where do you store all that data? How do you do anything useful with it? In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine.  T</p><p>2 0.90368652 <a title="233-lsi-2" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
+<p>Introduction: This is a guest post by  Gordon Worley , a Software Engineer at  Korrelate , where they correlate (see what they did there) online purchases to offline purchases. 
+ 
+Several weeks ago, we came into the office one morning to find every server alarm going off. Pixel log processing was behind by 8 hours and not making headway. Checking the logs, we discovered that a big client had come online during the night and was giving us 10 times more traffic than we were originally told to expect. I wouldn’t say we panicked, but the office was certainly more jittery than usual. Over the next several hours, though, thanks both to foresight and quick thinking, we were able to scale up to handle the added load and clear the backlog to return log processing to a steady state.
+ 
+At Korrelate, we deploy  tracking pixels , also known beacons or web bugs, that our partners use to send us information about their users. These tiny web objects contain no visible content, but may include transparent 1 by 1 gif</p><p>3 0.82087499 <a title="233-lsi-3" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
+<p>Introduction: In  Log Everything All the Time  I advocate applications shouldn't bother logging at all. Why waste all that time and code? No, wait, that's not right. I preach logging everything all the time. Doh. Facebook obviously feels similarly which is why they opened sourced  Scribe , their internal logging system, capable of logging 10s of billions of messages per day. These messages include access logs, performance statistics, actions that went to News Feed, and many others.   Imagine hundreds of thousands of machines across many geographical dispersed datacenters just aching to send their precious log payload to the central repository off all knowledge. Because really, when you combine all the meta data with all the events you pretty much have a complete picture of your operations. Once in the central repository logs can be scanned, indexed, summarized, aggregated, refactored, diced, data cubed, and mined for every scrap of potentially useful information.   Just imagine the log stream from a</p><p>4 0.82019997 <a title="233-lsi-4" href="../high_scalability-2010/high_scalability-2010-11-09-Paper%3A_Hyder_-_Scaling_Out_without_Partitioning_.html">937 high scalability-2010-11-09-Paper: Hyder - Scaling Out without Partitioning </a></p>
+<p>Introduction: Partitioning is what differentiates scaling-out from scaling-up, isn't it? I thought so too until I read  Pat Helland's blog post on Hyder , a research database at Microsoft, in which  the database is the log, no partitioning is required, and the database is multi-versioned . Not much is available on Hyder. There's the excellent summary post from Mr. Helland and these documents:  Scaling Out without Partitioning  and  Scaling Out without Partitioning  - Hyder Update  by Phil Bernstein and Colin Reid of Microsoft.
+ 
+ 
+ 
+The idea behind Hyder as summarized by Pat Helland (see his blog for the full post):
+  Hyder is a software stack for transactional record management. It can offer full database functionality and is designed to take advantage of flash in a novel way. Most approaches to scale-out use partitioning and spread the data across multiple machines leaving the application responsible for consistency.
+
+ 
+
+
+In Hyder, the database is the log, no partitioning is required, and the data</p><p>5 0.81320214 <a title="233-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
+<p>Introduction: AWStats  is a free powerful and featureful tool that generates advanced web, streaming, ftp or mail server statistics, graphically. This log analyzer works as a CGI or from command line and shows you all possible information your log contains, in few graphical web pages. It uses a partial information file to be able to process large log files, often and quickly. It can analyze log files from all major server tools like Apache log files (NCSA combined/XLF/ELF log format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>6 0.80725604 <a title="233-lsi-6" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
 <p>7 0.78185433 <a title="233-lsi-7" href="../high_scalability-2009/high_scalability-2009-03-16-Product%3A_Smart_Inspect.html">541 high scalability-2009-03-16-Product: Smart Inspect</a></p>
 <p>8 0.72291642 <a title="233-lsi-8" href="../high_scalability-2009/high_scalability-2009-04-03-Collectl_interface_to_Ganglia_-_any_interest%3F.html">553 high scalability-2009-04-03-Collectl interface to Ganglia - any interest?</a></p>
 <p>9 0.72101927 <a title="233-lsi-9" href="../high_scalability-2008/high_scalability-2008-04-19-How_to_build_a_real-time_analytics_system%3F.html">304 high scalability-2008-04-19-How to build a real-time analytics system?</a></p>
@@ -221,76 +130,33 @@ other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p>
 <p>[(1, 0.187), (2, 0.185), (3, 0.012), (10, 0.072), (15, 0.016), (30, 0.044), (40, 0.013), (47, 0.032), (57, 0.012), (61, 0.078), (68, 0.075), (77, 0.034), (79, 0.077), (85, 0.021), (94, 0.051), (99, 0.017)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95835799 <a title="233-lda-1" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
-<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from
-over 600 hyperactive servers? If you think this sounds like the perfect battle
-ground for a head-to-head skirmish in the greatMapReduce Versus Database War,
-you would be correct.Bill Boebel, CTO of Mailtrust (Rackspace's mail
-division), has generously provided a fascinating account of how they evolved
-their log processing system from an early amoeba'ic text file stored on each
-machine approach, to a Neandertholic relational database solution that just
-couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that
-works wisely for them and has virtually unlimited scalability
-potential.Rackspace faced a now familiar problem. Lots and lots of data
-streaming in. Where do you store all that data? How do you do anything useful
-with it? In the first version of their system logs were stored in flat text
-files and had to be manually searched by engineers logging into each
-individual machine. Then came a</p><p>2 0.94667196 <a title="233-lda-2" href="../high_scalability-2013/high_scalability-2013-12-02-Evolution_of_Bazaarvoice%E2%80%99s_Architecture_to_500M_Unique_Users_Per_Month.html">1557 high scalability-2013-12-02-Evolution of Bazaarvoice’s Architecture to 500M Unique Users Per Month</a></p>
-<p>Introduction: This is a guest post written byVictor Trac, Cloud Architect
-atBazaarvoice.Bazaarvoice is a company that people interact with on a regular
-basis but have probably never heard of. If you read customer reviews on sites
-like bestbuy.com, nike.com, or walmart.com, you are using Bazaarvoice
-services. These sites, along with thousands of others, rely on Bazaarvoice to
-supply the software and technology to collect and display user conversations
-about products and services. All of this means that Bazaarvoice processes a
-lot of sentiment data on most of the products we all use daily.Bazaarvoice
-helps our clients make better products by using a combination of machine
-learning and natural language processing to extract useful information and
-user sentiments from the millions of free-text reviews that go through our
-platform. This data gets boiled down into reports that clients can use to
-improve their products and services. We are also starting to look at how to
-show personalized sortings of revie</p><p>3 0.9463625 <a title="233-lda-3" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.How do you scale anAWS(Amazon Web Services) infrastructure?
-This article will give you a detailed reply in two parts: the tools you can
-use to make the most of Amazon's dynamic approach, and the architectural model
-you should adopt for a scalable infrastructure.I base my report on my
-experience gained in several AWS production projects in casual gaming
-(Facebook), e-commerce infrastructures and within the mainstream GIS
-(Geographic Information System). It's true that my experience in gaming
-(IsCool, The Game) is currently the most representative in terms of
-scalability, due to the number of users (over 800 thousand DAU - daily active
-users - at peak usage and over 20 million page views every day), however my
-experiences in e-commerce and GIS (currently underway) provide a different
-view of scalability, taking into account the various problems of availability
-and data management. I will therefore</p><p>4 0.94610345 <a title="233-lda-4" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
-<p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><p>5 0.94505274 <a title="233-lda-5" href="../high_scalability-2011/high_scalability-2011-11-04-Stuff_The_Internet_Says_On_Scalability_For_November_4%2C_2011.html">1137 high scalability-2011-11-04-Stuff The Internet Says On Scalability For November 4, 2011</a></p>
-<p>Introduction: You're in good hands with HighScalability: Netflix - Cassandra, AWS, 288
-instances, 3.3 million writes per second.Quotable quotes:@bretlowery: "A #DBA
-walks into a #NoSQL bar, but turns and leaves because he couldn't find a
-table."@AdanVali: HP to DeployMemristorPowered SSD Replacement Within 18
-Months@eden: Ori Lahav: "When planning scalability, think x100, design x5 and
-deploy x1.5 of current traffic"@jkalucki: If you are IO bound, start with your
-checkbook!Everything I Ever Learned About JVM Performance Tuning @Twitter.
-Learn how to tune your Hotspot and other Javasutra secrets.By moving off the
-cloud Mixipanel may have lost their angel status. Why would they do such a
-thing? ReadWhy We Moved Off The Cloud for the details. The reason for the
-fall:  highly variable performance.Highly variable performance is incredibly
-hard to code or design around (think a server that normally does 300 queries
-per second with low I/O wait suddenly dropping to 50 queries second at 100%
-disk utilizatio</p><p>6 0.94403708 <a title="233-lda-6" href="../high_scalability-2013/high_scalability-2013-06-26-Leveraging_Cloud_Computing_at_Yelp_-_102_Million_Monthly_Vistors_and_39_Million_Reviews.html">1482 high scalability-2013-06-26-Leveraging Cloud Computing at Yelp - 102 Million Monthly Vistors and 39 Million Reviews</a></p>
+<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from over 600 hyperactive servers? If you think this sounds like the perfect battle ground for a head-to-head skirmish in the great  MapReduce Versus Database War , you would be correct.   Bill Boebel, CTO of Mailtrust (Rackspace's mail division), has generously provided a fascinating account of how they evolved their log processing system from an early amoeba'ic text file stored on each machine approach,  to a Neandertholic relational database solution that just couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that works wisely for them and has virtually unlimited scalability potential.
+ 
+Rackspace faced a now familiar problem. Lots and lots of data streaming in. Where do you store all that data? How do you do anything useful with it? In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine.  T</p><p>2 0.94667196 <a title="233-lda-2" href="../high_scalability-2013/high_scalability-2013-12-02-Evolution_of_Bazaarvoice%E2%80%99s_Architecture_to_500M_Unique_Users_Per_Month.html">1557 high scalability-2013-12-02-Evolution of Bazaarvoice’s Architecture to 500M Unique Users Per Month</a></p>
+<p>Introduction: This is a guest post written by    Victor Trac   , Cloud Architect at    Bazaarvoice   .  
+   Bazaarvoice is a company that people interact with on a regular basis but have probably never heard of. If you read customer reviews on sites like bestbuy.com, nike.com, or walmart.com, you are using Bazaarvoice services. These sites, along with thousands of others, rely on Bazaarvoice to supply the software and technology to collect and display user conversations about products and services. All of this means that Bazaarvoice processes a lot of sentiment data on most of the products we all use daily. 
+     Bazaarvoice helps our clients make better products by using a combination of machine learning and natural language processing to extract useful information and user sentiments from the millions of free-text reviews that go through our platform. This data gets boiled down into reports that clients can use to improve their products and services. We are also starting to look at how to show per</p><p>3 0.9463625 <a title="233-lda-3" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
+<p>Introduction: This is a guest post by    Frédéric Faure    (architect at    Ysance   ), you can follow him on    twitter   . 
+ 
+How do you scale an  AWS  (Amazon Web Services) infrastructure? This article will give you a detailed reply in two parts: the tools you can use to make the most of Amazon’s dynamic approach, and the architectural model you should adopt for a scalable infrastructure.
+ 
+I base my report on my experience gained in several AWS production projects in casual gaming (Facebook), e-commerce infrastructures and within the mainstream GIS (Geographic Information System). It’s true that my experience in gaming ( IsCool, The Game ) is currently the most representative in terms of scalability, due to the number of users (over 800 thousand DAU – daily active users – at peak usage and over 20 million page views every day), however my experiences in e-commerce and GIS (currently underway) provide a different view of scalability, taking into account the various problems of availability and da</p><p>4 0.94610345 <a title="233-lda-4" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
+<p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><p>5 0.94505274 <a title="233-lda-5" href="../high_scalability-2011/high_scalability-2011-11-04-Stuff_The_Internet_Says_On_Scalability_For_November_4%2C_2011.html">1137 high scalability-2011-11-04-Stuff The Internet Says On Scalability For November 4, 2011</a></p>
+<p>Introduction: You're in good hands with  HighScalability : 
+  
+  Netflix - Cassandra, AWS, 288 instances, 3.3 million writes per second . 
+ Quotable quotes:           
+ 
+  @bretlowery  : "A #DBA walks into a #NoSQL bar, but turns and leaves because he couldn't find a table." 
+  @AdanVali  : HP to Deploy  Memristor  Powered SSD Replacement Within 18 Months 
+  @eden  : Ori Lahav: "When planning scalability, think x100, design x5 and deploy x1.5 of current traffic" 
+  @jkalucki  : If you are IO bound, start with your checkbook! 
+ 
+ 
+  Everything I Ever Learned About JVM Performance Tuning @Twitter . Learn how to tune your Hotspot and other Javasutra secrets. 
+ By moving off the cloud Mixipanel may have lost their angel status. Why would they do such a thing? Read  Why We Moved Off The Cloud  for the details. The reason for the fall:  highly variable performance.  Highly variable performance is incredibly hard to code or design around (think a server that normally does 300 queries per second with low I/</p><p>6 0.94403708 <a title="233-lda-6" href="../high_scalability-2013/high_scalability-2013-06-26-Leveraging_Cloud_Computing_at_Yelp_-_102_Million_Monthly_Vistors_and_39_Million_Reviews.html">1482 high scalability-2013-06-26-Leveraging Cloud Computing at Yelp - 102 Million Monthly Vistors and 39 Million Reviews</a></p>
 <p>7 0.94393361 <a title="233-lda-7" href="../high_scalability-2007/high_scalability-2007-08-02-Product%3A_Mashery.html">55 high scalability-2007-08-02-Product: Mashery</a></p>
 <p>8 0.94388884 <a title="233-lda-8" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
 <p>9 0.94371915 <a title="233-lda-9" href="../high_scalability-2012/high_scalability-2012-02-21-Pixable_Architecture_-_Crawling%2C_Analyzing%2C_and_Ranking_20_Million_Photos_a_Day.html">1197 high scalability-2012-02-21-Pixable Architecture - Crawling, Analyzing, and Ranking 20 Million Photos a Day</a></p>

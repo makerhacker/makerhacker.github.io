@@ -16,31 +16,25 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>5 high scalability-2007-07-10-mixi.jp  Architecture</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2007-5-html" href="http://highscalability.com//blog/2007/7/10/mixijp-architecture.html">html</a></p><p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services
-like: diary, community, message, review, and photo album. Having a lot in
-common with LiveJournal they also developed many of the same approaches. Their
-write up on how they scaled their system is easily one of the best out
-there.Site: http://mixi.jpInformation Sourcesmixi.jp- scaling out with open
-sourcePlatformLinuxApacheMySQLPerlMemcachedSquidShardWhat's Inside?They grew
-to approximately 4 million users in two years and add over 15,000 new
-users/day.Ranks 35th on Alexa and 3rd in Japan.More than 100 MySQL serversAdd
-more than 10 servers/monthUse non-persistent connections.Diary traffic is 85%
-read and 15% write.Message traffic is is 75% read and 25% write.Ran into
-replication performance problems so they had to split the database.Considered
-splitting vertically by user or splitting horizontally by table type.The ended
-up partitioning by table type and user. So all the messages for a group of
-users would be</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Mixi is a fast growing social networking site in Japan. [sent-1, score-0.116]
-</p><p>2 They provide services like: diary, community, message, review, and photo album. [sent-2, score-0.098]
-</p><p>3 Their write up on how they scaled their system is easily one of the best out there. [sent-4, score-0.079]
-</p><p>4 They grew to approximately 4 million users in two years and add over 15,000 new users/day. [sent-8, score-0.395]
-</p><p>5 Considered splitting vertically by user or splitting horizontally by table type. [sent-14, score-0.665]
-</p><p>6 So all the messages for a group of users would be assigned to a particular database. [sent-16, score-0.327]
-</p><p>7 Partitioning key is used to decide in which database data should be stored. [sent-17, score-0.151]
-</p><p>8 For caching they use memcached with 39 machines x 2 GB memory. [sent-18, score-0.115]
-</p><p>9 Stores more than 8 TB of images with about 23 GB added per day. [sent-19, score-0.334]
-</p><p>10 MySQL is only used to store metadata about the images, not the images themselves. [sent-20, score-0.419]
-</p><p>11 Frequently accessed images are cached using Squid on multiple machines. [sent-22, score-0.557]
-</p><p>12 Lessons LearnedWhen using dynamic partitioning it's difficult to pick keys and algorithms for where data should be stored. [sent-25, score-0.527]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2007-5-html" href="http://highscalability.com//blog/2007/7/10/mixijp-architecture.html">html</a></p><p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services like: diary, community, message, review, and photo album. Having a lot in common with LiveJournal they also developed many of the same approaches. Their write up on how they scaled their system is easily one of the best out there.
+ 
+Site: http://mixi.jp
+  Information Sources     mixi.jp  - scaling out with open source 
+ Platform 
+    Linux    Apache    MySQL    Perl    Memcached    Squid    Shard 
+ What's Inside? 
+   They grew to approximately 4 million users in two years and add over 15,000 new users/day.     Ranks 35th on Alexa and 3rd in Japan.    More than 100 MySQL servers    Add more than 10 servers/month    Use non-persistent connections.    Diary traffic is 85% read and 15% write.    Message traffic is is 75% read and 25% write.    Ran into replication performance problems so they had to split the database.    Considered splitting vertically by user or splitting horizontally by table type.    The ende</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Mixi is a fast growing social networking site in Japan. [sent-1, score-0.116]
+</p><p>2 They grew to approximately 4 million users in two years and add over 15,000 new users/day. [sent-8, score-0.395]
+</p><p>3 Considered splitting vertically by user or splitting horizontally by table type. [sent-14, score-0.665]
+</p><p>4 The ended up partitioning by table type and user. [sent-15, score-0.619]
+</p><p>5 So all the messages for a group of users would be assigned to a particular database. [sent-16, score-0.327]
+</p><p>6 Partitioning key is used to decide in which database data should be stored. [sent-17, score-0.151]
+</p><p>7 Stores more than 8 TB of images with about 23 GB added per day. [sent-19, score-0.334]
+</p><p>8 MySQL is only used to store metadata about the images, not the images themselves. [sent-20, score-0.419]
+</p><p>9 Images are either frequently accessed or rarely accessed. [sent-21, score-0.484]
+</p><p>10 Frequently accessed images are cached using Squid on multiple machines. [sent-22, score-0.557]
+</p><p>11 Rarely accessed images are served from the file system. [sent-23, score-0.557]
+</p><p>12 Lessons Learned      When using dynamic partitioning it's difficult to pick keys and algorithms for where data should be stored. [sent-25, score-0.527]
 </p><p>13 Once you partition data you can no longer do joins and you have to open a lot of connections to different databases to merge the data back together. [sent-26, score-0.452]
 </p><p>14 It's hard to add new hosts and rearrange data when you partition. [sent-27, score-0.404]
 </p><p>15 For example, let's say your partitioning algorithm stores all the messages for users 1-N on host 1. [sent-28, score-0.703]
@@ -55,76 +49,35 @@ users would be</p><br/><h2>Summary: the most important sentenses genereted by tf
 <p>[('images', 0.334), ('partitioning', 0.265), ('accessed', 0.223), ('rarely', 0.183), ('splitting', 0.177), ('diary', 0.166), ('overburdened', 0.166), ('rearrange', 0.156), ('type', 0.148), ('gb', 0.144), ('partition', 0.139), ('repartition', 0.138), ('alexa', 0.135), ('livejournal', 0.126), ('messages', 0.121), ('host', 0.119), ('networking', 0.116), ('caching', 0.115), ('vertically', 0.114), ('table', 0.114), ('difficult', 0.113), ('users', 0.112), ('squid', 0.108), ('treated', 0.105), ('approximately', 0.099), ('photo', 0.098), ('grew', 0.095), ('assigned', 0.094), ('profit', 0.094), ('ended', 0.092), ('review', 0.091), ('differently', 0.089), ('add', 0.089), ('merge', 0.088), ('say', 0.086), ('tb', 0.086), ('hosts', 0.085), ('metadata', 0.085), ('horizontally', 0.083), ('traffic', 0.081), ('scaled', 0.079), ('associated', 0.079), ('frequently', 0.078), ('joins', 0.077), ('decide', 0.077), ('oriented', 0.077), ('let', 0.076), ('pick', 0.075), ('data', 0.074), ('text', 0.074)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="5-tfidf-1" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
-<p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services
-like: diary, community, message, review, and photo album. Having a lot in
-common with LiveJournal they also developed many of the same approaches. Their
-write up on how they scaled their system is easily one of the best out
-there.Site: http://mixi.jpInformation Sourcesmixi.jp- scaling out with open
-sourcePlatformLinuxApacheMySQLPerlMemcachedSquidShardWhat's Inside?They grew
-to approximately 4 million users in two years and add over 15,000 new
-users/day.Ranks 35th on Alexa and 3rd in Japan.More than 100 MySQL serversAdd
-more than 10 servers/monthUse non-persistent connections.Diary traffic is 85%
-read and 15% write.Message traffic is is 75% read and 25% write.Ran into
-replication performance problems so they had to split the database.Considered
-splitting vertically by user or splitting horizontally by table type.The ended
-up partitioning by table type and user. So all the messages for a group of
-users would be</p><p>2 0.20525019 <a title="5-tfidf-2" href="../high_scalability-2008/high_scalability-2008-05-14-Scaling_an_image_upload_service.html">319 high scalability-2008-05-14-Scaling an image upload service</a></p>
-<p>Introduction: Hi,First of all I want to to say that this is an extremely interesting and
-informative website. i have enjoyed reading the various posts on how the big
-sites scale to meet the needs of their customers.The service we are developing
-is a webcam service. The client application sends images to the server via
-HTTP POST and they are saved in folder specified by the users id. When a new
-image is sent to the server it will overwrite the current image.Users can then
-view the images via our web server.Ideally we want the images to upload as
-quickly as possible and allow users to view them as quickly as possible.Would
-I be correct to assume that when the number of uploading clients exceeds the
-capability of the server the only way to scale is to add more hardware.Also I
-assume that to use HTTP accelerator caches will not speed up viewing the
-images as the new images will invalidate the cache.I appreciate any input on
-the subject.</p><p>3 0.18157046 <a title="5-tfidf-3" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
-<p>Introduction: Wikimedia is the platform on which Wikipedia, Wiktionary, and the other seven
-wiki dwarfs are built on. This document is just excellent for the student
-trying to scale the heights of giant websites. It is full of details and
-innovative ideas that have been proven on some of the most used websites on
-the internet.Site: http://wikimedia.org/Information SourcesWikimedia
-architecturehttp://meta.wikimedia.org/wiki/Wikimedia_serversscale-out vs
-scale-upin thefrom Oracle to
-MySQLblog.PlatformApacheLinuxMySQLPHPSquidLVSLucene for SearchMemcached for
-Distributed Object CacheLighttpd Image ServerThe Stats8 million articles
-spread over hundreds of language projects (english, dutch, ...)10th busiest
-site in the world (source: Alexa)Exponential growth: doubling every 4-6 months
-in terms of visitors / traffic / servers30 000 HTTP requests/s during peak-
-time3 Gbit/s of data traffic3 data centers: Tampa, Amsterdam, Seoul350
-servers, ranging between 1x P4 to 2x Xeon Quad-Core, 0.5 - 16 GB of
-memoryman</p><p>4 0.18123859 <a title="5-tfidf-4" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
-<p>Introduction: Real-time social graphs (connectivity between people, places, and things).
-That's why scaling Facebook is hardsays Jeff Rothschild, Vice President of
-Technology at Facebook. Social networking sites like Facebook, Digg, and
-Twitter are simply harder than traditional websites to scale. Why is that? Why
-would social networking sites be any more difficult to scale than traditional
-web sites? Let's find out.Traditional websites are easier to scale than social
-networking sites for two reasons:They usually access only their own data and
-common cached data.Only 1-2% of users are active on the site at one
-time.Imagine a huge site like Yahoo. When you come to Yahoo they can get your
-profile record with one get and that's enough to build your view of the
-website for you. It's relatively straightforward to scale systems based around
-single records usingdistributed hashing schemes. And since only a few percent
-of the people are on the site at once it takes comparatively little RAM cache
-to handle a</p><p>5 0.17481293 <a title="5-tfidf-5" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
-<p>Introduction: Fotolog, a social blogging site centered around photos, grew from about 300
-thousand users in 2004 to over 11 million users in 2007. Though they initially
-experienced the inevitable pains of rapid growth, they overcame their problems
-and now manage over 300 million photos and 800,000 new photos are added each
-day. Generating all that fabulous content are 20 million unique monthly
-visitors and a volunteer army of 30,000 new users each day. They did so well a
-very impressed suitor bought them out for a cool $90 million. That's scale
-meets success by anyone standards. How did they do it?Site:
-http://www.fotolog.comInformation SourcesScaling the World's Largest Photo
-Blogging CommunityCongrats to Fotolog on $90mm sale to Hi-MediaFotolog
-overtaking Flickr?Fotolog Hits 11 Million Members and 300 Million Photos
-PostedSite of the Week: Fotolog.comby PC MagazineCEO John Borthwick's Blog.DBA
-Frank Mash's BlogFotolog, lessons learntby John BorthwickThe
-PlatformJavaPHPSunSolaris 10MySQLApacheHiber</p><p>6 0.163634 <a title="5-tfidf-6" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_MySQL_Scale-Out_by_application_partitioning.html">18 high scalability-2007-07-16-Paper: MySQL Scale-Out by application partitioning</a></p>
+<p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services like: diary, community, message, review, and photo album. Having a lot in common with LiveJournal they also developed many of the same approaches. Their write up on how they scaled their system is easily one of the best out there.
+ 
+Site: http://mixi.jp
+  Information Sources     mixi.jp  - scaling out with open source 
+ Platform 
+    Linux    Apache    MySQL    Perl    Memcached    Squid    Shard 
+ What's Inside? 
+   They grew to approximately 4 million users in two years and add over 15,000 new users/day.     Ranks 35th on Alexa and 3rd in Japan.    More than 100 MySQL servers    Add more than 10 servers/month    Use non-persistent connections.    Diary traffic is 85% read and 15% write.    Message traffic is is 75% read and 25% write.    Ran into replication performance problems so they had to split the database.    Considered splitting vertically by user or splitting horizontally by table type.    The ende</p><p>2 0.20525019 <a title="5-tfidf-2" href="../high_scalability-2008/high_scalability-2008-05-14-Scaling_an_image_upload_service.html">319 high scalability-2008-05-14-Scaling an image upload service</a></p>
+<p>Introduction: Hi,     First of all I want to to say that this is an extremely interesting and informative website. i have enjoyed reading the various posts on how the big sites scale to meet the needs of their customers.     The service we are developing is a webcam service. The client application sends images to the server via HTTP POST and they are saved in folder specified by the users id. When a new image is sent to the server it will overwrite the current image.   Users can then view the images via our web server.   Ideally we want the images to upload as quickly as possible and allow users to view them as quickly as possible.     Would I be correct to assume that when the number of uploading clients exceeds the capability of the server the only way to scale is to add more hardware.     Also I assume that to use HTTP accelerator caches will not speed up viewing the images as the new images will invalidate the cache.     I appreciate any input on the subject.</p><p>3 0.18157046 <a title="5-tfidf-3" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
+<p>Introduction: Wikimedia is the platform on which Wikipedia, Wiktionary, and the other seven wiki dwarfs are built on. This document is just excellent for the student trying to scale the heights of giant websites. It is full of details and innovative ideas that have been proven on some of the most used websites on the internet.
+ 
+Site: http://wikimedia.org/
+  Information Sources     Wikimedia architecture     http://meta.wikimedia.org/wiki/Wikimedia_servers     scale-out vs scale-up  in the  from Oracle to MySQL  blog. 
+ Platform 
+    Apache    Linux    MySQL    PHP    Squid    LVS    Lucene for Search    Memcached for Distributed Object Cache    Lighttpd Image Server 
+ The Stats 
+    8 million articles spread over hundreds of language projects (english, dutch, ...)    10th busiest site in the world (source: Alexa)    Exponential growth: doubling every 4-6 months in terms of visitors / traffic / servers    30 000 HTTP requests/s during peak-time    3 Gbit/s of data traffic    3 data centers: Tampa, A</p><p>4 0.18123859 <a title="5-tfidf-4" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
+<p>Introduction: Real-time social graphs (connectivity between people, places, and things). That's why scaling Facebook is hard  says Jeff Rothschild , Vice President of Technology at Facebook. Social networking sites like Facebook, Digg, and Twitter are simply harder than traditional websites to scale. Why is that? Why would social networking sites be any more difficult to scale than traditional web sites? Let's find out.
+ 
+Traditional websites are easier to scale than social networking sites for two reasons:
+  
+ They usually access only their own data and common cached data. 
+ Only 1-2% of users are active on the site at one time. 
+  
+Imagine a huge site like Yahoo. When you come to Yahoo they can get your profile record with one get and that's enough to build your view of the website for you. It's relatively straightforward to scale systems based around single records using  distributed hashing schemes . And since only a few percent of the people are on the site at once it takes comparatively little</p><p>5 0.17481293 <a title="5-tfidf-5" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
+<p>Introduction: Fotolog, a social blogging site centered around photos, grew from about 300 thousand users in 2004 to over 11 million users in 2007. Though they initially experienced the inevitable pains of rapid growth, they overcame their problems and now manage over 300 million photos and 800,000 new photos are added each day. Generating all that fabulous content are 20 million unique monthly visitors and a volunteer army of 30,000 new users each day. They did so well a very impressed suitor bought them out for a cool $90 million. That's scale meets success by anyone standards. How did they do it?
+ 
+Site: http://www.fotolog.com
+  Information Sources     Scaling the World's Largest Photo Blogging Community      Congrats to Fotolog on $90mm sale to Hi-Media      Fotolog overtaking Flickr?      Fotolog Hits 11 Million Members and 300 Million Photos Posted      Site of the Week: Fotolog.com   by PC Magazine     CEO John Borthwick's Blog .     DBA Frank Mash's Blog     Fotolog, lessons learnt  by John B</p><p>6 0.163634 <a title="5-tfidf-6" href="../high_scalability-2007/high_scalability-2007-07-16-Paper%3A_MySQL_Scale-Out_by_application_partitioning.html">18 high scalability-2007-07-16-Paper: MySQL Scale-Out by application partitioning</a></p>
 <p>7 0.15751454 <a title="5-tfidf-7" href="../high_scalability-2009/high_scalability-2009-02-12-MySpace_Architecture.html">511 high scalability-2009-02-12-MySpace Architecture</a></p>
 <p>8 0.15079604 <a title="5-tfidf-8" href="../high_scalability-2012/high_scalability-2012-06-20-Ask_HighScalability%3A_How_do_I_organize_millions_of_images%3F.html">1268 high scalability-2012-06-20-Ask HighScalability: How do I organize millions of images?</a></p>
 <p>9 0.14973879 <a title="5-tfidf-9" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
@@ -144,76 +97,36 @@ PlatformJavaPHPSunSolaris 10MySQLApacheHiber</p><p>6 0.163634 <a title="5-tfidf-
 <p>[(0, 0.202), (1, 0.134), (2, -0.051), (3, -0.167), (4, 0.036), (5, 0.046), (6, -0.017), (7, -0.057), (8, -0.0), (9, 0.034), (10, 0.015), (11, 0.016), (12, -0.007), (13, 0.05), (14, 0.008), (15, 0.047), (16, -0.055), (17, 0.004), (18, 0.046), (19, 0.036), (20, -0.024), (21, 0.08), (22, -0.029), (23, -0.008), (24, -0.015), (25, -0.02), (26, 0.007), (27, 0.01), (28, 0.016), (29, -0.02), (30, 0.071), (31, -0.044), (32, -0.033), (33, 0.015), (34, 0.006), (35, -0.045), (36, 0.007), (37, 0.045), (38, 0.066), (39, -0.015), (40, 0.004), (41, -0.009), (42, 0.025), (43, -0.009), (44, -0.057), (45, 0.016), (46, 0.019), (47, -0.01), (48, -0.076), (49, 0.076)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95907038 <a title="5-lsi-1" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
-<p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services
-like: diary, community, message, review, and photo album. Having a lot in
-common with LiveJournal they also developed many of the same approaches. Their
-write up on how they scaled their system is easily one of the best out
-there.Site: http://mixi.jpInformation Sourcesmixi.jp- scaling out with open
-sourcePlatformLinuxApacheMySQLPerlMemcachedSquidShardWhat's Inside?They grew
-to approximately 4 million users in two years and add over 15,000 new
-users/day.Ranks 35th on Alexa and 3rd in Japan.More than 100 MySQL serversAdd
-more than 10 servers/monthUse non-persistent connections.Diary traffic is 85%
-read and 15% write.Message traffic is is 75% read and 25% write.Ran into
-replication performance problems so they had to split the database.Considered
-splitting vertically by user or splitting horizontally by table type.The ended
-up partitioning by table type and user. So all the messages for a group of
-users would be</p><p>2 0.77803528 <a title="5-lsi-2" href="../high_scalability-2008/high_scalability-2008-09-23-The_7_Stages_of_Scaling_Web_Apps.html">391 high scalability-2008-09-23-The 7 Stages of Scaling Web Apps</a></p>
-<p>Introduction: By John Engales CTO, Rackspace. Good presentation of the stages a typical
-successful website goes through:Stage 1 - The Beginning: Simple architecture,
-low complexity. no redundancy. Firewall, load balancer, a pair of web servers,
-database server, and internal storage.Stage 2 - More of the same, just
-bigger.Stage 3 - The Pain Begins: publicity hits. Use reverse proxy, cache
-static content, load balancers, more databases, re-coding.Stage 4 - The Pain
-Intensifies: caching with memcached, writes overload and replication takes too
-long, start database partitioning, shared storage makes sense for content,
-significant re-architecting for DB.Stage 5 - This Really Hurts!: rethink
-entire application, partition on geography user ID, etc, create user clusters,
-using hashing scheme for locating which user belongs to which cluster.Stage 6
-- Getting a little less painful: scalable application and database
-architecture, acceptable performance, starting to add ne features again,
-optimizing some code,</p><p>3 0.77492523 <a title="5-lsi-3" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
-<p>Introduction: Fotolog, a social blogging site centered around photos, grew from about 300
-thousand users in 2004 to over 11 million users in 2007. Though they initially
-experienced the inevitable pains of rapid growth, they overcame their problems
-and now manage over 300 million photos and 800,000 new photos are added each
-day. Generating all that fabulous content are 20 million unique monthly
-visitors and a volunteer army of 30,000 new users each day. They did so well a
-very impressed suitor bought them out for a cool $90 million. That's scale
-meets success by anyone standards. How did they do it?Site:
-http://www.fotolog.comInformation SourcesScaling the World's Largest Photo
-Blogging CommunityCongrats to Fotolog on $90mm sale to Hi-MediaFotolog
-overtaking Flickr?Fotolog Hits 11 Million Members and 300 Million Photos
-PostedSite of the Week: Fotolog.comby PC MagazineCEO John Borthwick's Blog.DBA
-Frank Mash's BlogFotolog, lessons learntby John BorthwickThe
-PlatformJavaPHPSunSolaris 10MySQLApacheHiber</p><p>4 0.76939559 <a title="5-lsi-4" href="../high_scalability-2009/high_scalability-2009-02-12-MySpace_Architecture.html">511 high scalability-2009-02-12-MySpace Architecture</a></p>
-<p>Introduction: Update:Presentation: Behind the Scenes at MySpace.com. Dan Farino, Chief
-Systems Architect at MySpace shares details of some of MySpace's cool internal
-operations tools.MySpace.com is one of the fastest growing site on the
-Internet with 65 million subscribers and 260,000 new users registering each
-day. Often criticized for poor performance, MySpace has had to tackle
-scalability issues few other sites have faced. How did they do it?Site:
-http://myspace.comInformation SourcesPresentation: Behind the Scenes at
-MySpace.comInside MySpace.comPlatformASP.NET 2.0WindowsIISSQL ServerWhat's
-Inside?300 million users.Pushes 100 gigabits/second to the internet. 10Gb/sec
-is HTML content.4,500+ web servers windows 2003/IIS 6.0/APS.NET.1,200+ cache
-servers running 64-bit Windows 2003. 16GB of objects cached in RAM.500+
-database servers running 64-bit Windows and SQL Server 2005.MySpace processes
-1.5 Billion page views per day and handles 2.3 million concurrent users during
-the dayMembership Milestones</p><p>5 0.76718915 <a title="5-lsi-5" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
-<p>Introduction: Skypeuses PostgreSQL as their backend database. PostgreSQL doesn't get enough
-run in the database world so I was excited to see how PostgreSQL is used "as
-the main DB for most of [Skype's] business needs." Their approach is to use a
-traditional stored procedure interface for accessing data and on top of that
-layer proxy servers which hash SQL requests to a set of database servers that
-actually carry out queries. The result is a horizontally partitioned system
-that they think will scale to handle 1 billion users.Skype's goal is an
-architecture that can handle 1 billion plus users. This level of scale isn't
-practically solvable with one really big computer, so our masked superhero
-horizontal scaling comes to the rescue.Hardware is dual or quad Opterons with
-SCSI RAID.Followed common database progression: Start with one DB. Add new
-databases partitioned by functionality. Replicate read-mostly data for better
-read access. Then horizontally partition data across multiple nodes..In a
-first f</p><p>6 0.75469035 <a title="5-lsi-6" href="../high_scalability-2009/high_scalability-2009-02-14-Scaling_Digg_and_Other_Web_Applications.html">512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</a></p>
+<p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services like: diary, community, message, review, and photo album. Having a lot in common with LiveJournal they also developed many of the same approaches. Their write up on how they scaled their system is easily one of the best out there.
+ 
+Site: http://mixi.jp
+  Information Sources     mixi.jp  - scaling out with open source 
+ Platform 
+    Linux    Apache    MySQL    Perl    Memcached    Squid    Shard 
+ What's Inside? 
+   They grew to approximately 4 million users in two years and add over 15,000 new users/day.     Ranks 35th on Alexa and 3rd in Japan.    More than 100 MySQL servers    Add more than 10 servers/month    Use non-persistent connections.    Diary traffic is 85% read and 15% write.    Message traffic is is 75% read and 25% write.    Ran into replication performance problems so they had to split the database.    Considered splitting vertically by user or splitting horizontally by table type.    The ende</p><p>2 0.77803528 <a title="5-lsi-2" href="../high_scalability-2008/high_scalability-2008-09-23-The_7_Stages_of_Scaling_Web_Apps.html">391 high scalability-2008-09-23-The 7 Stages of Scaling Web Apps</a></p>
+<p>Introduction: By John Engales CTO, Rackspace. Good presentation of the stages a typical successful website goes through: 
+ 
+ Stage 1 - The Beginning: Simple architecture, low complexity. no redundancy. Firewall, load balancer, a pair of web servers, database server, and internal storage. 
+ Stage 2 - More of the same, just bigger. 
+ Stage 3 - The Pain Begins: publicity hits. Use reverse proxy, cache static content, load balancers, more databases, re-coding. 
+ Stage 4 - The Pain Intensifies: caching with memcached, writes overload and replication takes too long, start database partitioning, shared storage makes sense for content, significant re-architecting for DB. 
+ Stage 5 - This Really Hurts!: rethink entire application, partition on geography user ID, etc, create user clusters, using hashing scheme for locating which user belongs to which cluster. 
+ Stage 6 - Getting a little less painful: scalable application and database architecture, acceptable performance, starting to add ne features again, op</p><p>3 0.77492523 <a title="5-lsi-3" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
+<p>Introduction: Fotolog, a social blogging site centered around photos, grew from about 300 thousand users in 2004 to over 11 million users in 2007. Though they initially experienced the inevitable pains of rapid growth, they overcame their problems and now manage over 300 million photos and 800,000 new photos are added each day. Generating all that fabulous content are 20 million unique monthly visitors and a volunteer army of 30,000 new users each day. They did so well a very impressed suitor bought them out for a cool $90 million. That's scale meets success by anyone standards. How did they do it?
+ 
+Site: http://www.fotolog.com
+  Information Sources     Scaling the World's Largest Photo Blogging Community      Congrats to Fotolog on $90mm sale to Hi-Media      Fotolog overtaking Flickr?      Fotolog Hits 11 Million Members and 300 Million Photos Posted      Site of the Week: Fotolog.com   by PC Magazine     CEO John Borthwick's Blog .     DBA Frank Mash's Blog     Fotolog, lessons learnt  by John B</p><p>4 0.76939559 <a title="5-lsi-4" href="../high_scalability-2009/high_scalability-2009-02-12-MySpace_Architecture.html">511 high scalability-2009-02-12-MySpace Architecture</a></p>
+<p>Introduction: Update:  Presentation: Behind the Scenes at MySpace.com . Dan Farino, Chief Systems Architect at MySpace shares details of some of MySpace's cool internal operations tools.   MySpace.com  is one of the fastest growing site on the Internet with 65 million subscribers and 260,000 new users registering each day. Often criticized for poor performance, MySpace has had to tackle scalability issues few other sites have faced. How did they do it?
+ 
+Site: http://myspace.com
+  Information Sources    Presentation: Behind the Scenes at MySpace.com      Inside MySpace.com  
+ Platform 
+    ASP.NET 2.0     Windows    IIS    SQL Server 
+ What's Inside? 
+   300 million users.   Pushes 100 gigabits/second to the internet. 10Gb/sec is HTML content.   4,500+ web servers windows 2003/IIS 6.0/APS.NET.   1,200+ cache servers running 64-bit Windows 2003. 16GB of objects cached in RAM.   500+ database servers running 64-bit Windows and SQL Server 2005.      MySpace processes 1.5 Billion page views per day and</p><p>5 0.76718915 <a title="5-lsi-5" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
+<p>Introduction: Skype  uses PostgreSQL as their backend database . PostgreSQL doesn't get enough run in the database world so I was excited to see how PostgreSQL is used "as the main DB for most of [Skype's] business needs." Their approach is to use a traditional stored procedure interface for accessing data and on top of that layer proxy servers which hash SQL requests to a set of database servers that actually carry out queries. The result is a horizontally partitioned system that they think will scale to handle 1 billion users.
+   Skype's goal is an architecture that can handle 1 billion plus users. This level of scale isn't practically solvable with one really big computer,  so our masked superhero horizontal scaling comes to the rescue.    Hardware is dual or quad Opterons with SCSI RAID.    Followed common database progression: Start with one DB. Add new databases partitioned by functionality. Replicate read-mostly data for better read access. Then horizontally partition data across multiple nod</p><p>6 0.75469035 <a title="5-lsi-6" href="../high_scalability-2009/high_scalability-2009-02-14-Scaling_Digg_and_Other_Web_Applications.html">512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</a></p>
 <p>7 0.7532804 <a title="5-lsi-7" href="../high_scalability-2007/high_scalability-2007-08-20-TypePad_Architecture.html">68 high scalability-2007-08-20-TypePad Architecture</a></p>
 <p>8 0.75113595 <a title="5-lsi-8" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
 <p>9 0.7417497 <a title="5-lsi-9" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
@@ -233,76 +146,34 @@ first f</p><p>6 0.75469035 <a title="5-lsi-6" href="../high_scalability-2009/hig
 <p>[(1, 0.16), (2, 0.278), (10, 0.049), (11, 0.111), (30, 0.077), (47, 0.039), (61, 0.066), (77, 0.01), (79, 0.064), (94, 0.061)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.97078288 <a title="5-lda-1" href="../high_scalability-2010/high_scalability-2010-09-28-6_Strategies_for_Scaling_BBC_iPlayer.html">908 high scalability-2010-09-28-6 Strategies for Scaling BBC iPlayer</a></p>
-<p>Introduction: The BBC's iPlayer site averages 8 million page views a day for 1.3 million
-users. Technical Architect Simon Frost describes how they scaled their site
-inScaling the BBC iPlayer to handle demand:Use frameworks. Frameworks support
-component based development which makes it convenient for team development,
-but can introduce delays that have to be minimized. Zend/PHP is used because
-it supports components and is easy to recruit for.  MySQL is used for program
-metadata. CouchDB is used for key-value access for fast read/write of user-
-focused data.Prove architecture before building it. Eliminate guesswork by
-coming up with alternate architectures and create prototypes to determine
-which option works best. Balance performance with factors like ease of
-development.Cache a lot. Data is cached in memcached for a few seconds to
-minutes. Short cache invalidation periods keep the data up to date for the
-users, but even these short periods make a huge difference in performance.
-Caching doesn't have</p><p>2 0.96329439 <a title="5-lda-2" href="../high_scalability-2007/high_scalability-2007-10-28-Scaling_Early_Stage_Startups.html">136 high scalability-2007-10-28-Scaling Early Stage Startups</a></p>
-<p>Introduction: Mark Maunder ofNo VC Required--who advocates not taking VC money lest you be
-turned into a frog instead of the prince (or princess) you were dreaming of--
-has an excellentslide deckon how to scale an early stage startup. His blog
-also has some good SEO tips and a very spooky widget showing the geographical
-location of his readers. Perfect for Halloween! What is Mark's other worldly
-scaling strategies for startups?Site: http://novcrequired.com/Information
-SourcesSlides from Seattle Tech Startup Talk.Scaling Early Stage Startupsblog
-post by Mark Maunder.The PlatformLinxuxAn ISAM type data store.PerlHttperfis
-used for benchmarking.Websitepulse.comis used for perf monitoring.The
-ArchitecturePerformance matters because being slow could cost you 20% of your
-revenue. The UIE guys disagree saying this ain't necessarily so. They explain
-their reasoning inUsability Tools Podcast: The Truth About Page Download Time.
-The idea is: "There was still another surprising finding from our study: a
-strong</p><p>same-blog 3 0.958103 <a title="5-lda-3" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
-<p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services
-like: diary, community, message, review, and photo album. Having a lot in
-common with LiveJournal they also developed many of the same approaches. Their
-write up on how they scaled their system is easily one of the best out
-there.Site: http://mixi.jpInformation Sourcesmixi.jp- scaling out with open
-sourcePlatformLinuxApacheMySQLPerlMemcachedSquidShardWhat's Inside?They grew
-to approximately 4 million users in two years and add over 15,000 new
-users/day.Ranks 35th on Alexa and 3rd in Japan.More than 100 MySQL serversAdd
-more than 10 servers/monthUse non-persistent connections.Diary traffic is 85%
-read and 15% write.Message traffic is is 75% read and 25% write.Ran into
-replication performance problems so they had to split the database.Considered
-splitting vertically by user or splitting horizontally by table type.The ended
-up partitioning by table type and user. So all the messages for a group of
-users would be</p><p>4 0.95082295 <a title="5-lda-4" href="../high_scalability-2012/high_scalability-2012-05-03-Snooze_-_Open-source%2C_Scalable%2C_Autonomic%2C_and_Energy-efficient_VM_Management_for_Private_Clouds.html">1238 high scalability-2012-05-03-Snooze - Open-source, Scalable, Autonomic, and Energy-efficient VM Management for Private Clouds</a></p>
-<p>Introduction: Snoozeis an open-source, scalable, autonomic, and energy-efficient virtual
-machine (VM) management framework for private clouds. Similarly to other VM
-management frameworks such as Nimbus, OpenNebula, Eucalyptus, and OpenStack it
-allows to build compute infrastructures from virtualized resources.
-Particularly, once installed and configured users can submit and control the
-life-cycle of a large number of VMs. However, contrary to existing frameworks
-for scalability and fault tolerance, Snooze employs a self-organizing and
-healing (based on Apache ZooKeeper) hierarchical architecture. Moreover, it
-performs distributed VM management and is designed to be energy efficient.
-Therefore, it implements features to monitor and estimate VM resource (CPU,
-memory, network Rx, network Tx) demands, detect and resolve overload/underload
-situations, perform dynamic VM consolidation through live migration, and
-finally power management to save energy. Last but not least, it integrates a
-generic scheduler</p><p>5 0.94617116 <a title="5-lda-5" href="../high_scalability-2010/high_scalability-2010-02-04-Hot_Scalability_Links_for_February_4%2C_2010.html">771 high scalability-2010-02-04-Hot Scalability Links for February 4, 2010</a></p>
-<p>Introduction: Lots of cool stuff happening this week...Voldemort gets rebalancing.It's one
-thing to shard data to scale, it's a completely different level of
-functionality to manage those shards intelligently. Voldemort has stepped up
-by adding advanced rebalancing functionality: Dynamic addition of new nodes to
-the cluster; Deletion of nodes from cluster; Load balancing of data inside a
-cluster.Microsoft Finally Opens Azure for Business.Out of the blue Microsoft
-opens up their platform as a service service. Good to have more competition
-and we'll keep an eye out for experience reports.New details on LinkedIn
-architectureby Greg Linden.LinkedIn appears to only use caching minimally,
-preferring to spend their efforts and machine resources on making sure they
-can recompute computations quickly than on hiding poor performance behind
-caching layers.The end of SQL and relational databases?  byDavid
-Intersimone.For new projects, I believe, we have genuine non-relational
-alternatives on the table (pun inte</p><p>6 0.94271678 <a title="5-lda-6" href="../high_scalability-2008/high_scalability-2008-02-21-Tracking_usage_of_public_resources_-_throttling_accesses_per_hour.html">256 high scalability-2008-02-21-Tracking usage of public resources - throttling accesses per hour</a></p>
+<p>Introduction: The BBC's iPlayer site averages 8 million page views a day for 1.3 million users. Technical Architect Simon Frost describes how they scaled their site in   Scaling the BBC iPlayer to handle demand :
+  
+  Use frameworks . Frameworks support component based development which makes it convenient for team development, but can introduce delays that have to be minimized. Zend/PHP is used because it supports components and is easy to recruit for.Â  MySQL is used for program metadata. CouchDB is used for key-value access for fast read/write of user-focused data. 
+  Prove architecture before building it . Eliminate guesswork by coming up with alternate architectures and create prototypes to determine which option works best. Balance performance with factors like ease of development.  
+  Cache a lot . Data is cached in memcached for a few seconds to minutes. Short cache invalidation periods keep the data up to date for the users, but even these short periods make a huge difference in performance.</p><p>2 0.96329439 <a title="5-lda-2" href="../high_scalability-2007/high_scalability-2007-10-28-Scaling_Early_Stage_Startups.html">136 high scalability-2007-10-28-Scaling Early Stage Startups</a></p>
+<p>Introduction: Mark Maunder of  No VC Required --who advocates not taking VC money lest you be turned into a frog instead of the prince (or princess) you were dreaming of--has an excellent  slide deck  on how to scale an early stage startup.  His blog also has some good SEO tips and a very spooky widget showing the geographical location of his readers. Perfect for Halloween! What is Mark's other worldly scaling strategies for startups?
+ 
+Site: http://novcrequired.com/
+  Information Sources     Slides from Seattle Tech Startup Talk .     Scaling Early Stage Startups  blog post by Mark Maunder. 
+ The Platform 
+    Linxux    An ISAM type data store.    Perl     Httperf  is used for benchmarking.      Websitepulse.com  is used for perf monitoring. 
+ The Architecture 
+    Performance matters because being slow could cost you 20% of your revenue. The UIE guys disagree saying this ain't necessarily so. They explain their reasoning in   Usability Tools Podcast: The Truth About Page Download Time . The idea i</p><p>same-blog 3 0.958103 <a title="5-lda-3" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
+<p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services like: diary, community, message, review, and photo album. Having a lot in common with LiveJournal they also developed many of the same approaches. Their write up on how they scaled their system is easily one of the best out there.
+ 
+Site: http://mixi.jp
+  Information Sources     mixi.jp  - scaling out with open source 
+ Platform 
+    Linux    Apache    MySQL    Perl    Memcached    Squid    Shard 
+ What's Inside? 
+   They grew to approximately 4 million users in two years and add over 15,000 new users/day.     Ranks 35th on Alexa and 3rd in Japan.    More than 100 MySQL servers    Add more than 10 servers/month    Use non-persistent connections.    Diary traffic is 85% read and 15% write.    Message traffic is is 75% read and 25% write.    Ran into replication performance problems so they had to split the database.    Considered splitting vertically by user or splitting horizontally by table type.    The ende</p><p>4 0.95082295 <a title="5-lda-4" href="../high_scalability-2012/high_scalability-2012-05-03-Snooze_-_Open-source%2C_Scalable%2C_Autonomic%2C_and_Energy-efficient_VM_Management_for_Private_Clouds.html">1238 high scalability-2012-05-03-Snooze - Open-source, Scalable, Autonomic, and Energy-efficient VM Management for Private Clouds</a></p>
+<p>Introduction: Snooze   is an open-source, scalable, autonomic, and energy-efficient  virtual machine (VM) management framework for private clouds. Similarly  to other VM management frameworks such as Nimbus, OpenNebula,  Eucalyptus, and OpenStack it allows to build compute infrastructures  from virtualized resources. Particularly, once installed and configured  users can submit and control the life-cycle of a large number of VMs.  However, contrary to existing frameworks for scalability and fault  tolerance, Snooze employs a self-organizing and healing (based on Apache ZooKeeper) hierarchical  architecture. Moreover, it performs distributed VM management and is  designed to be energy efficient. Therefore, it implements features to  monitor and estimate VM resource (CPU, memory, network Rx, network Tx)  demands, detect and resolve overload/underload situations, perform  dynamic VM consolidation through live migration, and finally power  management to save energy. Last but not least, it integrates a g</p><p>5 0.94617116 <a title="5-lda-5" href="../high_scalability-2010/high_scalability-2010-02-04-Hot_Scalability_Links_for_February_4%2C_2010.html">771 high scalability-2010-02-04-Hot Scalability Links for February 4, 2010</a></p>
+<p>Introduction: Lots of cool stuff happening this week...
+  
+  Voldemort gets rebalancing.  It's one thing to shard data to scale, it's a completely different level of functionality to manage those shards intelligently. Voldemort has stepped up by adding advanced rebalancing functionality: Dynamic addition of new nodes to the cluster; Deletion of nodes from cluster; Load balancing of data inside a cluster. 
+  Microsoft Finally Opens Azure for Business.   Out of the blue Microsoft opens up their platform as a service service. Good to have more competition and we'll keep an eye out for experience reports. 
+  New details on LinkedIn architecture  by Greg Linden.  LinkedIn appears to only use caching minimally, preferring to spend their efforts and machine resources on making sure they can recompute computations quickly than on hiding poor performance behind caching layers . 
+  The end of SQL and relational databases?   by  David Intersimone .  For new projects, I believe, we have genuine non-relational a</p><p>6 0.94271678 <a title="5-lda-6" href="../high_scalability-2008/high_scalability-2008-02-21-Tracking_usage_of_public_resources_-_throttling_accesses_per_hour.html">256 high scalability-2008-02-21-Tracking usage of public resources - throttling accesses per hour</a></p>
 <p>7 0.9375301 <a title="5-lda-7" href="../high_scalability-2007/high_scalability-2007-10-01-Statistics_Logging_Scalability.html">105 high scalability-2007-10-01-Statistics Logging Scalability</a></p>
 <p>8 0.9346323 <a title="5-lda-8" href="../high_scalability-2012/high_scalability-2012-04-30-Masstree_-_Much_Faster_than_MongoDB%2C_VoltDB%2C_Redis%2C_and_Competitive_with_Memcached.html">1236 high scalability-2012-04-30-Masstree - Much Faster than MongoDB, VoltDB, Redis, and Competitive with Memcached</a></p>
 <p>9 0.9326781 <a title="5-lda-9" href="../high_scalability-2012/high_scalability-2012-09-12-Using_Varnish_for_Paywalls%3A_Moving_Logic_to_the_Edge.html">1321 high scalability-2012-09-12-Using Varnish for Paywalls: Moving Logic to the Edge</a></p>

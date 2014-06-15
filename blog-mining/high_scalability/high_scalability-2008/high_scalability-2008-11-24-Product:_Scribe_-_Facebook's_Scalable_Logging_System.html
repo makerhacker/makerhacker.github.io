@@ -16,38 +16,25 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-449-html" href="http://highscalability.com//blog/2008/11/24/product-scribe-facebooks-scalable-logging-system.html">html</a></p><p>Introduction: InLog Everything All the TimeI advocate applications shouldn't bother logging
-at all. Why waste all that time and code? No, wait, that's not right. I preach
-logging everything all the time. Doh. Facebook obviously feels similarly which
-is why they opened sourcedScribe, their internal logging system, capable of
-logging 10s of billions of messages per day. These messages include access
-logs, performance statistics, actions that went to News Feed, and many
-others.Imagine hundreds of thousands of machines across many geographical
-dispersed datacenters just aching to send their precious log payload to the
-central repository off all knowledge. Because really, when you combine all the
-meta data with all the events you pretty much have a complete picture of your
-operations. Once in the central repository logs can be scanned, indexed,
-summarized, aggregated, refactored, diced, data cubed, and mined for every
-scrap of potentially useful information.Just imagine the log stream from all
-of Faceboo</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Facebook obviously feels similarly which is why they opened sourcedScribe, their internal logging system, capable of logging 10s of billions of messages per day. [sent-6, score-0.562]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-449-html" href="http://highscalability.com//blog/2008/11/24/product-scribe-facebooks-scalable-logging-system.html">html</a></p><p>Introduction: In  Log Everything All the Time  I advocate applications shouldn't bother logging at all. Why waste all that time and code? No, wait, that's not right. I preach logging everything all the time. Doh. Facebook obviously feels similarly which is why they opened sourced  Scribe , their internal logging system, capable of logging 10s of billions of messages per day. These messages include access logs, performance statistics, actions that went to News Feed, and many others.   Imagine hundreds of thousands of machines across many geographical dispersed datacenters just aching to send their precious log payload to the central repository off all knowledge. Because really, when you combine all the meta data with all the events you pretty much have a complete picture of your operations. Once in the central repository logs can be scanned, indexed, summarized, aggregated, refactored, diced, data cubed, and mined for every scrap of potentially useful information.   Just imagine the log stream from a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Facebook obviously feels similarly which is why they opened sourced  Scribe , their internal logging system, capable of logging 10s of billions of messages per day. [sent-6, score-0.562]
 </p><p>2 Imagine hundreds of thousands of machines across many geographical dispersed datacenters just aching to send their precious log payload to the central repository off all knowledge. [sent-8, score-0.5]
 </p><p>3 I browsed around the source and it's a well crafted, straightforward socket server that forwards messages to other servers and can write messages to disk. [sent-30, score-0.736]
 </p><p>4 There is a scribe server running on every node in the system, configured to aggregate messages and send them to a central scribe server (or servers) in larger groups. [sent-34, score-1.609]
 </p><p>5 If the central scribe server isn't available the local scribe server writes the messages to a file on local disk and sends them when the central server recovers. [sent-35, score-2.008]
 </p><p>6 The central scribe server(s) can write the messages to the files that are their final destination, typically on an nfs filer or a distributed file system, or send them to another layer of scribe servers. [sent-36, score-1.59]
-</p><p>7 Client Code InterfaceHere's what the Thrift interface looks like:enum ResultCode{OK,TRY_LATER}struct LogEntry{1: string category,2: string message}service scribe extends fb303. [sent-43, score-0.564]
+</p><p>7 Client Code Interface  Here's what the Thrift interface looks like:     enum ResultCode {  OK,  TRY_LATER }   struct LogEntry {  1:  string category,  2:  string message }   service scribe extends fb303. [sent-43, score-0.653]
 </p><p>8 NOTE(const char* name, const char* reason, const char* what, Module* module, msg) - something to take note of. [sent-54, score-0.939]
 </p><p>9 WARN(const char* name, const char* reason, const char* what, Module* module, msg) - a warning. [sent-55, score-0.902]
 </p><p>10 ERR(const char* name, const char* reason, const char* what, Module* module, msg) - an error occured. [sent-56, score-0.936]
-</p><p>11 CRIT(const char* name, const char* reason, const char* what, Module* module, msg) - a critical error occurred. [sent-57, score-0.936]
+</p><p>11 CRIT(const char* name, const char* reason, const char* what,  Module* module, msg) - a critical error occurred. [sent-57, score-0.936]
 </p><p>12 EMERG(const char* name, const char* reason, const char* what, Module* module, msg) - an emergency occurred. [sent-58, score-0.902]
 </p><p>13 The category is a high level description of the intended destination of the message and can have a specific configuration in the scribe server, which allows data stores to be moved by changing the scribe configuration instead of client code. [sent-64, score-1.397]
 </p><p>14 The server also allows for configurations based on category prefix, and a default configuration that can insert the category name in the file path. [sent-65, score-0.473]
-</p><p>15 You could imagine have a log server on each server that has file store to handle upstream server failures. [sent-83, score-0.601]
-</p><p>16 This log server forwards messages onto a centralized server for a datacenter. [sent-84, score-0.719]
-</p><p>17 Do Something UsefullizerYou may not have over 1 million log messages a second to process, but you are likely to have your own tanker trunk full of log messages. [sent-87, score-0.668]
-</p><p>18 Log messages stored in log files are next to useless. [sent-89, score-0.469]
-</p><p>19 You may have a sharded datawarehouse you can pump log messages into and do reasonably effective job of querying. [sent-91, score-0.469]
+</p><p>15 network - sends messages to another scribe server. [sent-73, score-0.8]
+</p><p>16 You could imagine have a log server on each server that has file store to handle upstream server failures. [sent-83, score-0.601]
+</p><p>17 This log server forwards messages onto a centralized server for a datacenter. [sent-84, score-0.719]
+</p><p>18 Do Something Usefullizer  You may not have over 1 million log messages a second to process, but you are likely to have your own tanker trunk full of log messages. [sent-87, score-0.668]
+</p><p>19 Log messages stored in log files are next to useless. [sent-89, score-0.469]
 </p><p>20 Ideally log messages never hit the file system until HDFS is writing them to their final destination. [sent-106, score-0.619]
 </p>
 <br/>
@@ -55,70 +42,21 @@ of Faceboo</p><br/><h2>Summary: the most important sentenses genereted by tfidf 
 <p>[('scribe', 0.5), ('const', 0.451), ('char', 0.384), ('messages', 0.27), ('log', 0.199), ('msg', 0.191), ('module', 0.157), ('central', 0.155), ('logging', 0.146), ('category', 0.105), ('file', 0.087), ('store', 0.078), ('forwards', 0.073), ('stores', 0.071), ('server', 0.069), ('payload', 0.065), ('name', 0.062), ('message', 0.062), ('logentry', 0.06), ('resultcode', 0.06), ('logs', 0.06), ('reason', 0.057), ('thrift', 0.056), ('local', 0.052), ('idl', 0.047), ('conditions', 0.047), ('send', 0.046), ('configuration', 0.045), ('centralized', 0.039), ('strings', 0.038), ('something', 0.037), ('destination', 0.037), ('repository', 0.035), ('error', 0.034), ('hierarchy', 0.033), ('stream', 0.033), ('useful', 0.033), ('string', 0.032), ('client', 0.032), ('final', 0.032), ('system', 0.031), ('primary', 0.031), ('sends', 0.03), ('handle', 0.03), ('entry', 0.029), ('servers', 0.027), ('marshalling', 0.027), ('browsed', 0.027), ('discards', 0.027), ('enum', 0.027)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="449-tfidf-1" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
-<p>Introduction: InLog Everything All the TimeI advocate applications shouldn't bother logging
-at all. Why waste all that time and code? No, wait, that's not right. I preach
-logging everything all the time. Doh. Facebook obviously feels similarly which
-is why they opened sourcedScribe, their internal logging system, capable of
-logging 10s of billions of messages per day. These messages include access
-logs, performance statistics, actions that went to News Feed, and many
-others.Imagine hundreds of thousands of machines across many geographical
-dispersed datacenters just aching to send their precious log payload to the
-central repository off all knowledge. Because really, when you combine all the
-meta data with all the events you pretty much have a complete picture of your
-operations. Once in the central repository logs can be scanned, indexed,
-summarized, aggregated, refactored, diced, data cubed, and mined for every
-scrap of potentially useful information.Just imagine the log stream from all
-of Faceboo</p><p>2 0.23185658 <a title="449-tfidf-2" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
-<p>Introduction: breakThis JoelOnSoftwarethreadasks the age old question of what and how to
-log. The usual trace/error/warning/info advice is totally useless in a large
-scale distributed system. Instead, you need tolog everything all the timeso
-you can solve problems that have already happened across a potentially huge
-range of servers. Yes, it can be done.To see why the typical logging approach
-is broken, imagine this scenario: Your site has been up and running great for
-weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some
-users can no longer add comments to threads. Then you hear the debugging
-deathknell: it's an intermittent problem and customers are pissed. Fix it.
-Now.So how are you going to debug this? The monitoring system doesn't show any
-obvious problems or errors. You quickly post a comment and it works fine. This
-won't be easy. So you think. Commenting involves a bunch of servers and
-networks. There's the load balancer, spam filter, web server, database server,
-caching s</p><p>3 0.15953289 <a title="449-tfidf-3" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
-<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from
-over 600 hyperactive servers? If you think this sounds like the perfect battle
-ground for a head-to-head skirmish in the greatMapReduce Versus Database War,
-you would be correct.Bill Boebel, CTO of Mailtrust (Rackspace's mail
-division), has generously provided a fascinating account of how they evolved
-their log processing system from an early amoeba'ic text file stored on each
-machine approach, to a Neandertholic relational database solution that just
-couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that
-works wisely for them and has virtually unlimited scalability
-potential.Rackspace faced a now familiar problem. Lots and lots of data
-streaming in. Where do you store all that data? How do you do anything useful
-with it? In the first version of their system logs were stored in flat text
-files and had to be manually searched by engineers logging into each
-individual machine. Then came a</p><p>4 0.14828289 <a title="449-tfidf-4" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
-<p>Introduction: Facebook did it again. They've built another system capable of doing something
-useful with ginormous streams of realtime data. Last time we saw Facebook
-release their New Real-Time Messaging System: HBase To Store 135+ Billion
-Messages A Month. This time it's a realtime analytics system handlingover 20
-billion events per day (200,000 events per second) with a lag of less than 30
-seconds. Alex Himel, Engineering Manager at Facebook, explains what they've
-built (video) and the scale required:Social plugins have become an important
-and growing source of traffic for millions of websites over the past year. We
-released a new version of Insights for Websites last week to give site owners
-better analytics on how people interact with their content and to help them
-optimize their websites in real time. To accomplish this, we had to engineer a
-system that could process over 20 billion events per day (200,000 events per
-second) with a lag of less than 30 seconds. Alex does an excellent job with
-t</p><p>5 0.13979743 <a title="449-tfidf-5" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
-<p>Introduction: AWStatsis a free powerful and featureful tool that generates advanced web,
-streaming, ftp or mail server statistics, graphically. This log analyzer works
-as a CGI or from command line and shows you all possible information your log
-contains, in few graphical web pages. It uses a partial information file to be
-able to process large log files, often and quickly. It can analyze log files
-from all major server tools like Apache log files (NCSA combined/XLF/ELF log
-format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of
-other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>6 0.13075462 <a title="449-tfidf-6" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
+<p>Introduction: In  Log Everything All the Time  I advocate applications shouldn't bother logging at all. Why waste all that time and code? No, wait, that's not right. I preach logging everything all the time. Doh. Facebook obviously feels similarly which is why they opened sourced  Scribe , their internal logging system, capable of logging 10s of billions of messages per day. These messages include access logs, performance statistics, actions that went to News Feed, and many others.   Imagine hundreds of thousands of machines across many geographical dispersed datacenters just aching to send their precious log payload to the central repository off all knowledge. Because really, when you combine all the meta data with all the events you pretty much have a complete picture of your operations. Once in the central repository logs can be scanned, indexed, summarized, aggregated, refactored, diced, data cubed, and mined for every scrap of potentially useful information.   Just imagine the log stream from a</p><p>2 0.23185658 <a title="449-tfidf-2" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
+<p>Introduction: This JoelOnSoftware  thread  asks the age old question of what and how to log. The usual trace/error/warning/info advice is totally useless in a large scale distributed system. Instead, you need to  log everything all the time  so you can solve problems that have already happened across a potentially huge range of servers. Yes, it can be done.  To see why the typical logging approach is broken,  imagine this scenario: Your site has been up and running great for weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some users can no longer add comments to threads. Then you hear the debugging deathknell: it's an intermittent problem and customers are pissed. Fix it. Now.  So how are you going to debug this? The monitoring system doesn't show any obvious problems or errors. You quickly post a comment and it works fine. This won't be easy. So you think. Commenting involves a bunch of servers and networks. There's the load balancer, spam filter,  web server, database server,</p><p>3 0.15953289 <a title="449-tfidf-3" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
+<p>Introduction: How do you query hundreds of gigabytes of new data each day streaming in from over 600 hyperactive servers? If you think this sounds like the perfect battle ground for a head-to-head skirmish in the great  MapReduce Versus Database War , you would be correct.   Bill Boebel, CTO of Mailtrust (Rackspace's mail division), has generously provided a fascinating account of how they evolved their log processing system from an early amoeba'ic text file stored on each machine approach,  to a Neandertholic relational database solution that just couldn't compete, and finally to a Homo sapien'ic Hadoop based solution that works wisely for them and has virtually unlimited scalability potential.
+ 
+Rackspace faced a now familiar problem. Lots and lots of data streaming in. Where do you store all that data? How do you do anything useful with it? In the first version of their system logs were stored in flat text files and had to be manually searched by engineers logging into each individual machine.  T</p><p>4 0.14828289 <a title="449-tfidf-4" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
+<p>Introduction: Facebook did it again. They've built another system capable of doing something useful with ginormous streams of realtime data. Last time we saw Facebook release their  New Real-Time Messaging System: HBase To Store 135+ Billion Messages A Month . This time it's a realtime analytics system handling  over 20 billion events per day (200,000 events per second) with a lag of less than 30 seconds . 
+ 
+Alex Himel, Engineering Manager at Facebook,  explains what they've built  ( video ) and the scale required:
+  
+
+Social plugins have become an important and growing source of traffic for millions of websites over the past year. We released a new version of Insights for Websites last week to give site owners better analytics on how people interact with their content and to help them optimize their websites in real time. To accomplish this, we had to engineer a system that could process over 20 billion events per day (200,000 events per second) with a lag of less than 30 seconds. 
+
+  
+Alex does a</p><p>5 0.13979743 <a title="449-tfidf-5" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
+<p>Introduction: AWStats  is a free powerful and featureful tool that generates advanced web, streaming, ftp or mail server statistics, graphically. This log analyzer works as a CGI or from command line and shows you all possible information your log contains, in few graphical web pages. It uses a partial information file to be able to process large log files, often and quickly. It can analyze log files from all major server tools like Apache log files (NCSA combined/XLF/ELF log format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>6 0.13075462 <a title="449-tfidf-6" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
 <p>7 0.12649527 <a title="449-tfidf-7" href="../high_scalability-2009/high_scalability-2009-03-16-Product%3A_Smart_Inspect.html">541 high scalability-2009-03-16-Product: Smart Inspect</a></p>
 <p>8 0.11893268 <a title="449-tfidf-8" href="../high_scalability-2011/high_scalability-2011-05-17-Facebook%3A_An_Example_Canonical_Architecture_for_Scaling_Billions_of_Messages.html">1042 high scalability-2011-05-17-Facebook: An Example Canonical Architecture for Scaling Billions of Messages</a></p>
 <p>9 0.11147735 <a title="449-tfidf-9" href="../high_scalability-2010/high_scalability-2010-04-12-Poppen.de_Architecture.html">808 high scalability-2010-04-12-Poppen.de Architecture</a></p>
@@ -138,63 +76,15 @@ other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p>
 <p>[(0, 0.126), (1, 0.083), (2, -0.031), (3, -0.055), (4, 0.018), (5, 0.014), (6, 0.076), (7, 0.024), (8, -0.004), (9, 0.019), (10, 0.024), (11, 0.057), (12, 0.046), (13, -0.076), (14, 0.045), (15, 0.052), (16, 0.004), (17, 0.002), (18, -0.035), (19, 0.002), (20, 0.037), (21, -0.068), (22, -0.051), (23, 0.109), (24, 0.098), (25, -0.052), (26, -0.004), (27, 0.051), (28, -0.002), (29, -0.036), (30, -0.056), (31, -0.089), (32, 0.032), (33, -0.042), (34, -0.014), (35, 0.009), (36, -0.039), (37, 0.004), (38, 0.06), (39, -0.035), (40, 0.02), (41, 0.015), (42, 0.025), (43, -0.005), (44, -0.058), (45, -0.073), (46, 0.001), (47, 0.043), (48, -0.034), (49, -0.037)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95925635 <a title="449-lsi-1" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
-<p>Introduction: InLog Everything All the TimeI advocate applications shouldn't bother logging
-at all. Why waste all that time and code? No, wait, that's not right. I preach
-logging everything all the time. Doh. Facebook obviously feels similarly which
-is why they opened sourcedScribe, their internal logging system, capable of
-logging 10s of billions of messages per day. These messages include access
-logs, performance statistics, actions that went to News Feed, and many
-others.Imagine hundreds of thousands of machines across many geographical
-dispersed datacenters just aching to send their precious log payload to the
-central repository off all knowledge. Because really, when you combine all the
-meta data with all the events you pretty much have a complete picture of your
-operations. Once in the central repository logs can be scanned, indexed,
-summarized, aggregated, refactored, diced, data cubed, and mined for every
-scrap of potentially useful information.Just imagine the log stream from all
-of Faceboo</p><p>2 0.86708575 <a title="449-lsi-2" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
-<p>Introduction: breakThis JoelOnSoftwarethreadasks the age old question of what and how to
-log. The usual trace/error/warning/info advice is totally useless in a large
-scale distributed system. Instead, you need tolog everything all the timeso
-you can solve problems that have already happened across a potentially huge
-range of servers. Yes, it can be done.To see why the typical logging approach
-is broken, imagine this scenario: Your site has been up and running great for
-weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some
-users can no longer add comments to threads. Then you hear the debugging
-deathknell: it's an intermittent problem and customers are pissed. Fix it.
-Now.So how are you going to debug this? The monitoring system doesn't show any
-obvious problems or errors. You quickly post a comment and it works fine. This
-won't be easy. So you think. Commenting involves a bunch of servers and
-networks. There's the load balancer, spam filter, web server, database server,
-caching s</p><p>3 0.83356267 <a title="449-lsi-3" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
-<p>Introduction: This is a guest post byGordon Worley, a Software Engineer atKorrelate, where
-they correlate (see what they did there) online purchases to offline
-purchases.Several weeks ago, we came into the office one morning to find every
-server alarm going off. Pixel log processing was behind by 8 hours and not
-making headway. Checking the logs, we discovered that a big client had come
-online during the night and was giving us 10 times more traffic than we were
-originally told to expect. I wouldn't say we panicked, but the office was
-certainly more jittery than usual. Over the next several hours, though, thanks
-both to foresight and quick thinking, we were able to scale up to handle the
-added load and clear the backlog to return log processing to a steady state.At
-Korrelate, we deploytracking pixels, also known beacons or web bugs, that our
-partners use to send us information about their users. These tiny web objects
-contain no visible content, but may include transparent 1 by 1 gifs or
-Javascript,</p><p>4 0.82412571 <a title="449-lsi-4" href="../high_scalability-2009/high_scalability-2009-03-16-Product%3A_Smart_Inspect.html">541 high scalability-2009-03-16-Product: Smart Inspect</a></p>
-<p>Introduction: Smart Inspecthas added quite a few features specifically tailored to
-highscalability and high performance environments to our tool over the
-years.This includes the ability to log to memory and dump log files on
-demand(when a crash occurs for example), special backlog queue features, a
-logservice application for central log storage and a lot more.
-Additionally,our SmartInspect Console (the viewer application) makes viewing,
-filteringand inspecting large amounts of logging data a lot easier/practical.</p><p>5 0.80890733 <a title="449-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
-<p>Introduction: AWStatsis a free powerful and featureful tool that generates advanced web,
-streaming, ftp or mail server statistics, graphically. This log analyzer works
-as a CGI or from command line and shows you all possible information your log
-contains, in few graphical web pages. It uses a partial information file to be
-able to process large log files, often and quickly. It can analyze log files
-from all major server tools like Apache log files (NCSA combined/XLF/ELF log
-format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of
-other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>6 0.76642132 <a title="449-lsi-6" href="../high_scalability-2010/high_scalability-2010-11-09-Paper%3A_Hyder_-_Scaling_Out_without_Partitioning_.html">937 high scalability-2010-11-09-Paper: Hyder - Scaling Out without Partitioning </a></p>
+<p>Introduction: In  Log Everything All the Time  I advocate applications shouldn't bother logging at all. Why waste all that time and code? No, wait, that's not right. I preach logging everything all the time. Doh. Facebook obviously feels similarly which is why they opened sourced  Scribe , their internal logging system, capable of logging 10s of billions of messages per day. These messages include access logs, performance statistics, actions that went to News Feed, and many others.   Imagine hundreds of thousands of machines across many geographical dispersed datacenters just aching to send their precious log payload to the central repository off all knowledge. Because really, when you combine all the meta data with all the events you pretty much have a complete picture of your operations. Once in the central repository logs can be scanned, indexed, summarized, aggregated, refactored, diced, data cubed, and mined for every scrap of potentially useful information.   Just imagine the log stream from a</p><p>2 0.86708575 <a title="449-lsi-2" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
+<p>Introduction: This JoelOnSoftware  thread  asks the age old question of what and how to log. The usual trace/error/warning/info advice is totally useless in a large scale distributed system. Instead, you need to  log everything all the time  so you can solve problems that have already happened across a potentially huge range of servers. Yes, it can be done.  To see why the typical logging approach is broken,  imagine this scenario: Your site has been up and running great for weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some users can no longer add comments to threads. Then you hear the debugging deathknell: it's an intermittent problem and customers are pissed. Fix it. Now.  So how are you going to debug this? The monitoring system doesn't show any obvious problems or errors. You quickly post a comment and it works fine. This won't be easy. So you think. Commenting involves a bunch of servers and networks. There's the load balancer, spam filter,  web server, database server,</p><p>3 0.83356267 <a title="449-lsi-3" href="../high_scalability-2013/high_scalability-2013-01-21-Processing_100_Million_Pixels_a_Day_-_Small_Amounts_of_Contention_Cause_Big_Problems_at_Scale.html">1390 high scalability-2013-01-21-Processing 100 Million Pixels a Day - Small Amounts of Contention Cause Big Problems at Scale</a></p>
+<p>Introduction: This is a guest post by  Gordon Worley , a Software Engineer at  Korrelate , where they correlate (see what they did there) online purchases to offline purchases. 
+ 
+Several weeks ago, we came into the office one morning to find every server alarm going off. Pixel log processing was behind by 8 hours and not making headway. Checking the logs, we discovered that a big client had come online during the night and was giving us 10 times more traffic than we were originally told to expect. I wouldn’t say we panicked, but the office was certainly more jittery than usual. Over the next several hours, though, thanks both to foresight and quick thinking, we were able to scale up to handle the added load and clear the backlog to return log processing to a steady state.
+ 
+At Korrelate, we deploy  tracking pixels , also known beacons or web bugs, that our partners use to send us information about their users. These tiny web objects contain no visible content, but may include transparent 1 by 1 gif</p><p>4 0.82412571 <a title="449-lsi-4" href="../high_scalability-2009/high_scalability-2009-03-16-Product%3A_Smart_Inspect.html">541 high scalability-2009-03-16-Product: Smart Inspect</a></p>
+<p>Introduction: Smart Inspect  has added quite a few features specifically tailored to high scalability and high performance environments to our tool over the years. This includes the ability to log to memory and dump log files on demand (when a crash occurs for example), special backlog queue features, a log service application for central log storage and a lot more. Additionally, our SmartInspect Console (the viewer application) makes viewing, filtering and inspecting large amounts of logging data a lot easier/practical.</p><p>5 0.80890733 <a title="449-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-26-Product%3A_AWStats_a_Log_Analyzer.html">30 high scalability-2007-07-26-Product: AWStats a Log Analyzer</a></p>
+<p>Introduction: AWStats  is a free powerful and featureful tool that generates advanced web, streaming, ftp or mail server statistics, graphically. This log analyzer works as a CGI or from command line and shows you all possible information your log contains, in few graphical web pages. It uses a partial information file to be able to process large log files, often and quickly. It can analyze log files from all major server tools like Apache log files (NCSA combined/XLF/ELF log format or common/CLF log format), WebStar, IIS (W3C log format) and a lot of other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p><p>6 0.76642132 <a title="449-lsi-6" href="../high_scalability-2010/high_scalability-2010-11-09-Paper%3A_Hyder_-_Scaling_Out_without_Partitioning_.html">937 high scalability-2010-11-09-Paper: Hyder - Scaling Out without Partitioning </a></p>
 <p>7 0.75566375 <a title="449-lsi-7" href="../high_scalability-2008/high_scalability-2008-01-30-How_Rackspace_Now_Uses_MapReduce_and_Hadoop_to_Query_Terabytes_of_Data.html">233 high scalability-2008-01-30-How Rackspace Now Uses MapReduce and Hadoop to Query Terabytes of Data</a></p>
 <p>8 0.69706941 <a title="449-lsi-8" href="../high_scalability-2009/high_scalability-2009-04-03-Collectl_interface_to_Ganglia_-_any_interest%3F.html">553 high scalability-2009-04-03-Collectl interface to Ganglia - any interest?</a></p>
 <p>9 0.66013283 <a title="449-lsi-9" href="../high_scalability-2007/high_scalability-2007-10-01-Statistics_Logging_Scalability.html">105 high scalability-2007-10-01-Statistics Logging Scalability</a></p>
@@ -214,50 +104,17 @@ other web, proxy, wap, streaming servers, mail servers and some ftp servers.</p>
 <p>[(1, 0.146), (2, 0.208), (10, 0.041), (22, 0.014), (30, 0.021), (43, 0.012), (47, 0.012), (61, 0.033), (72, 0.216), (79, 0.107), (85, 0.044), (94, 0.029)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.92390364 <a title="449-lda-1" href="../high_scalability-2008/high_scalability-2008-12-19-How_to_measure_memory_required_for_a_user_session.html">472 high scalability-2008-12-19-How to measure memory required for a user session</a></p>
-<p>Introduction: hi,What are the practices followed, tools used to measure session memory
-requirement per user?Thanks,Unmesh</p><p>same-blog 2 0.89198178 <a title="449-lda-2" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
-<p>Introduction: InLog Everything All the TimeI advocate applications shouldn't bother logging
-at all. Why waste all that time and code? No, wait, that's not right. I preach
-logging everything all the time. Doh. Facebook obviously feels similarly which
-is why they opened sourcedScribe, their internal logging system, capable of
-logging 10s of billions of messages per day. These messages include access
-logs, performance statistics, actions that went to News Feed, and many
-others.Imagine hundreds of thousands of machines across many geographical
-dispersed datacenters just aching to send their precious log payload to the
-central repository off all knowledge. Because really, when you combine all the
-meta data with all the events you pretty much have a complete picture of your
-operations. Once in the central repository logs can be scanned, indexed,
-summarized, aggregated, refactored, diced, data cubed, and mined for every
-scrap of potentially useful information.Just imagine the log stream from all
-of Faceboo</p><p>3 0.87502378 <a title="449-lda-3" href="../high_scalability-2008/high_scalability-2008-12-05-Scalability_Perspectives_%234%3A_Kevin_Kelly_%E2%80%93_One_Machine.html">460 high scalability-2008-12-05-Scalability Perspectives #4: Kevin Kelly – One Machine</a></p>
-<p>Introduction: Scalability Perspectivesis a series of posts that highlights the ideas that
-will shape the next decade of IT architecture. Each post is dedicated to a
-thought leader of the information age and his vision of the future. Be warned
-though – the journey into the minds and perspectives of these people requires
-an open mind. Warning #2: this post is wild.Kevin KellyKevin Kelly is Senior
-Maverick at Wired magazine. He helped launch Wired in 1993, and served as its
-Executive Editor until January 1999. He co-founded the ongoing Hackers'
-Conference, and was involved with the launch of the WELL, a pioneering online
-service started in 1985. He authored the best-sellingNew Rules for the New
-Economyand the classic book on decentralized emergent systems,Out of
-ControlOne MachineThere is only one time in the history of each planet when
-its inhabitants first wire up its innumerable parts to make one large Machine.
-Later that Machine may run faster, but there is only one time when it is
-born.You and I a</p><p>4 0.86717695 <a title="449-lda-4" href="../high_scalability-2010/high_scalability-2010-11-09-The_Tera-Scale_Effect_.html">939 high scalability-2010-11-09-The Tera-Scale Effect </a></p>
-<p>Introduction: In the past year, Intel issued a series of powerful chips under the new
-Nehalem microarchitecture, with large numbers of cores and extensive memory
-capacity. This new class of chips is is part of a bigger Intel initiative
-referred to as Tera-Scale Computing. Cisco has released their Unified
-Computing System (UCS) equipped with a unique extended memory and high speed
-network within the box, which is specifically geared to take advantage of this
-type of CPU architecture .This new class of hardware has the potential to
-revolutionize the IT landscape as we know it.In  this post, I want to focus
-primarily on the potential implications on application architecture, more
-specifically on the application platform landscape.  more...</p><p>5 0.84834015 <a title="449-lda-5" href="../high_scalability-2009/high_scalability-2009-04-10-Facebook_Chat_Architecture.html">563 high scalability-2009-04-10-Facebook Chat Architecture</a></p>
-<p>Introduction: For those interested in building scalable systems, todayI will speak about the
-FacebookChar architecture. Starting keynote:''When your feature's userbase
-will go from 0 to 70 million practically overnight, scalability has to be
-baked in from the start.''Eugene Lutuchy, lead engineer on Facebook Chat</p><p>6 0.84722579 <a title="449-lda-6" href="../high_scalability-2009/high_scalability-2009-07-02-Product%3A_Facebook%27s_Cassandra_-_A_Massive_Distributed_Store.html">649 high scalability-2009-07-02-Product: Facebook's Cassandra - A Massive Distributed Store</a></p>
+<p>Introduction: hi,     What are the practices followed, tools used to measure session memory requirement per user?     Thanks,   Unmesh</p><p>same-blog 2 0.89198178 <a title="449-lda-2" href="../high_scalability-2008/high_scalability-2008-11-24-Product%3A_Scribe_-_Facebook%27s_Scalable_Logging_System.html">449 high scalability-2008-11-24-Product: Scribe - Facebook's Scalable Logging System</a></p>
+<p>Introduction: In  Log Everything All the Time  I advocate applications shouldn't bother logging at all. Why waste all that time and code? No, wait, that's not right. I preach logging everything all the time. Doh. Facebook obviously feels similarly which is why they opened sourced  Scribe , their internal logging system, capable of logging 10s of billions of messages per day. These messages include access logs, performance statistics, actions that went to News Feed, and many others.   Imagine hundreds of thousands of machines across many geographical dispersed datacenters just aching to send their precious log payload to the central repository off all knowledge. Because really, when you combine all the meta data with all the events you pretty much have a complete picture of your operations. Once in the central repository logs can be scanned, indexed, summarized, aggregated, refactored, diced, data cubed, and mined for every scrap of potentially useful information.   Just imagine the log stream from a</p><p>3 0.87502378 <a title="449-lda-3" href="../high_scalability-2008/high_scalability-2008-12-05-Scalability_Perspectives_%234%3A_Kevin_Kelly_%E2%80%93_One_Machine.html">460 high scalability-2008-12-05-Scalability Perspectives #4: Kevin Kelly – One Machine</a></p>
+<p>Introduction: Scalability Perspectives  is a series of posts that highlights the ideas that will shape the next decade of IT architecture. Each post is dedicated to a thought leader of the information age and his vision of the future. Be warned though – the journey into the minds and perspectives of these people requires an open mind. Warning #2: this post is wild.     Kevin Kelly    Kevin Kelly is Senior Maverick at Wired magazine. He helped launch Wired in 1993, and served as its Executive Editor until January 1999. He co-founded the ongoing Hackers' Conference, and was involved with the launch of the WELL, a pioneering online service started in 1985. He authored the best-selling   New Rules for the New Economy     and the classic book on decentralized emergent systems,   Out of Control       One Machine     There is only one time in the history of each planet when its inhabitants first wire up its innumerable parts to make one large Machine. Later that Machine may run faster, but there is only on</p><p>4 0.86717695 <a title="449-lda-4" href="../high_scalability-2010/high_scalability-2010-11-09-The_Tera-Scale_Effect_.html">939 high scalability-2010-11-09-The Tera-Scale Effect </a></p>
+<p>Introduction: In the past year, Intel issued a series of powerful chips under the new  Nehalem microarchitecture  , with large numbers of cores and extensive memory capacity. This new class of chips is is part of a bigger Intel initiative referred to as  Tera-Scale Computing  . Cisco has released their  Unified Computing System   (UCS) equipped with a unique extended memory and high speed network within the box, which is specifically geared to take advantage of this type of CPU architecture .
+ 
+This new class of hardware has the potential to revolutionize the IT landscape as we know it.
+ 
+In  this post, I want to focus primarily on the potential implications on application architecture, more specifically on the application platform landscape.   more...</p><p>5 0.84834015 <a title="449-lda-5" href="../high_scalability-2009/high_scalability-2009-04-10-Facebook_Chat_Architecture.html">563 high scalability-2009-04-10-Facebook Chat Architecture</a></p>
+<p>Introduction: For those interested in building scalable systems, today  I will speak about the Facebook  Char architecture. Starting keynote:
+  ''When your featureâ&euro;&trade;s userbase will go from 0 to 70 million practically overnight, scalability has to be baked in from the start.''  
+Eugene Lutuchy, lead engineer on Facebook Chat</p><p>6 0.84722579 <a title="449-lda-6" href="../high_scalability-2009/high_scalability-2009-07-02-Product%3A_Facebook%27s_Cassandra_-_A_Massive_Distributed_Store.html">649 high scalability-2009-07-02-Product: Facebook's Cassandra - A Massive Distributed Store</a></p>
 <p>7 0.84512508 <a title="449-lda-7" href="../high_scalability-2013/high_scalability-2013-04-26-Stuff_The_Internet_Says_On_Scalability_For_April_26%2C_2013.html">1447 high scalability-2013-04-26-Stuff The Internet Says On Scalability For April 26, 2013</a></p>
 <p>8 0.83179158 <a title="449-lda-8" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
 <p>9 0.82878101 <a title="449-lda-9" href="../high_scalability-2010/high_scalability-2010-07-27-A_Metric_A%24%24-Ton_of_Joe_Stump%3A_The_Cloud_is_Cheaper_than_Bare_Metal.html">865 high scalability-2010-07-27-A Metric A$$-Ton of Joe Stump: The Cloud is Cheaper than Bare Metal</a></p>

@@ -16,38 +16,25 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>360 high scalability-2008-08-04-A Bunch of Great Strategies for Using Memcached and MySQL Better Together</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-360-html" href="http://highscalability.com//blog/a-bunch-of-great-strategies-for-using-memcached-and-mysql-be.html">html</a></p><p>Introduction: The primero recommendation for speeding up a website is almost always to add
-cache and more cache. And after that add a little more cache just in case.
-Memcached is almost always given as the recommended cache to use. What we
-don't often hear is how to effectively use a cache in our own products. MySQL
-hosted two excellent webinars (referenced below) on the subject of how to
-deploy and use memcached. The star of the show, other than MySQL of course, is
-Farhan Mashraqi of Fotolog. You may recall we did an earlier article on
-Fotolog inSecrets to Fotolog's Scaling Success, which was one of my personal
-favorites.Fotolog, as they themselves point out, is probably the largest site
-nobody has ever heard of, pulling in more page views than even Flickr. Fotolog
-has 51 instances of memcached on 21 servers with 175G in use and 254G
-available. As a large successful photo-blogging site they have very demanding
-performance and scaling requirements. To meet those requirements they've
-developed a soph</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In the last half of the second seminar Farhan gives a number of excellent code examples showing how memcached is installed, used, and managed. [sent-25, score-0.586]
-</p><p>2 However, the recommended approach for using memcached and MySQL is:Write scale the database by sharding. [sent-28, score-0.669]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-360-html" href="http://highscalability.com//blog/a-bunch-of-great-strategies-for-using-memcached-and-mysql-be.html">html</a></p><p>Introduction: The primero recommendation for speeding up a website is almost always to add cache and more cache. And after that add a little more cache just in case. Memcached is almost always given as the recommended cache to use. What we don't often hear is how to effectively use a cache in our own products. MySQL hosted two excellent webinars (referenced below) on the subject of how to deploy and use memcached. The star of the show, other than MySQL of course, is Farhan Mashraqi of Fotolog. You may recall we did an earlier article on Fotolog in  Secrets to Fotolog's Scaling Success , which was one of my personal favorites.  Fotolog, as they themselves point out, is probably the largest site nobody has ever heard of, pulling in more page views than even Flickr. Fotolog has 51 instances of memcached on 21 servers with 175G in use and 254G available. As a large successful photo-blogging site they have very demanding performance and scaling requirements. To meet those requirements they've developed a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In the last half of the second seminar Farhan gives a number of excellent code examples showing how memcached is installed, used, and managed. [sent-25, score-0.586]
+</p><p>2 However, the recommended approach for using memcached and MySQL is:     Write scale the database by sharding . [sent-28, score-0.669]
 </p><p>3 Applications access memcached first for data and if the data is not in memcached then the application tries the database. [sent-32, score-1.11]
 </p><p>4 Your cache may not be much of a cache at all depending on usage patterns. [sent-45, score-0.804]
 </p><p>5 Memcached can cache any type of data you want and it isn't limited to caching database rows. [sent-47, score-0.723]
 </p><p>6 Memcached can cache complex complex objects that are directly usable without a join. [sent-48, score-0.562]
-</p><p>7 Fotolog's Caching TypologyFotolog has come up with an interesting typology of their different caching strategies:Non-Deterministic Cache- the classic memcached model of reading through the cache and writing to the database. [sent-53, score-0.966]
-</p><p>8 Partial Page Cache- cache displayable page elements, not just data. [sent-57, score-0.577]
-</p><p>9 Good replacement for MySQL query cacheCaching relationships and other listsSlow data that's used across many pagesDon't cache if its more taxing to cache than you'll saveTag clouds and auto-suggest listsFor example, when a photo is uploaded the photo is uploaded on the page of every friend. [sent-65, score-1.34]
-</p><p>10 Stats45 memcached instances dedicated to nondeterministic cacheEach instance (on average):* ~440 gets per second* ~40 sets per second* ~11 gets/setFotolog likes to characterize their caching policy in terms of the ratio of gets to sets. [sent-70, score-0.662]
-</p><p>11 Potential ProblemsWhile memcached is usually a light CPU user, Fotolog ran their cache on their application servers and found some problems:* 90% CPU usage* Memory garbage collected nearly once a minute* Experienced blocking on memcached on app serversOperations are not transactional. [sent-71, score-1.352]
-</p><p>12 An application always assumes that the data they need is in the cache (deterministic), applications never go to the database for data. [sent-83, score-0.66]
-</p><p>13 The data will exist in the cache because the database is essentially loaded into the cache and is always kept in sync. [sent-85, score-1.064]
+</p><p>7 Fotolog's Caching Typology    Fotolog has come up with an interesting typology of their different caching strategies:    Non-Deterministic Cache  - the classic memcached model of reading through the cache and writing to the database. [sent-53, score-0.966]
+</p><p>8 Partial Page Cache  - cache displayable page elements, not just data. [sent-57, score-0.577]
+</p><p>9 Stats       45 memcached instances dedicated to nondeterministic cache    Each instance (on average): * ~440 gets per second * ~40 sets per second * ~11 gets/set  Fotolog likes to characterize their caching policy in terms of the ratio of gets to sets. [sent-70, score-1.17]
+</p><p>10 An application always assumes that the data they need is in the cache (deterministic), applications never go to the database for data. [sent-83, score-0.66]
+</p><p>11 The data will exist in the cache because the database is essentially loaded into the cache and is always kept in sync. [sent-85, score-1.064]
+</p><p>12 When the site starts after a shutdown then when it comes up the deterministic cache is populated before the site is up. [sent-101, score-0.546]
+</p><p>13 Stats        ~ 90,000 gets / second across cache cluster    ~ 300 sets / second    get/set ratio of ~ 300    Potential Problems        Must have enough memory to hold everything. [sent-104, score-0.602]
 </p><p>14 As updates happen to the database the cache is populated based on the database change. [sent-113, score-0.72]
 </p><p>15 Since the cache is updated as the database is updated the chances of data being in cache are high. [sent-114, score-1.152]
-</p><p>16 Useful ForPre-Populating Cache: Keeping memcached updated minimizes calls to database if object not present. [sent-116, score-0.701]
+</p><p>16 Useful For        Pre-Populating Cache: Keeping memcached updated minimizes calls to database if object not present. [sent-116, score-0.701]
 </p><p>17 The other caching strategies cache data used to create pages, but some things are still compute intensive and require a lot of work. [sent-136, score-0.687]
 </p><p>18 So instead of just caching objects, prepare and cache entire page elements for reuse. [sent-137, score-0.693]
-</p><p>19 The API hides implementation details like:An application writes to one memcached client which writes to multiple memcached instances. [sent-142, score-1.17]
+</p><p>19 The API hides implementation details like:   An application writes to one memcached client which writes to multiple memcached instances. [sent-142, score-1.17]
 </p><p>20 Don't run memcached on your database server, give your database all the memory it can get. [sent-158, score-0.746]
 </p>
 <br/>
@@ -55,75 +42,24 @@ developed a soph</p><br/><h2>Summary: the most important sentenses genereted by 
 <p>[('memcached', 0.449), ('cache', 0.402), ('fotolog', 0.33), ('farhan', 0.191), ('pools', 0.142), ('mysql', 0.134), ('blackhole', 0.126), ('database', 0.126), ('caching', 0.115), ('pool', 0.114), ('photo', 0.113), ('mashraqi', 0.108), ('page', 0.091), ('strategies', 0.09), ('elements', 0.085), ('displayable', 0.084), ('seminar', 0.084), ('taxing', 0.084), ('webinar', 0.083), ('data', 0.08), ('deterministic', 0.078), ('multiple', 0.072), ('updated', 0.071), ('objects', 0.068), ('populated', 0.066), ('update', 0.061), ('slab', 0.058), ('logins', 0.056), ('populate', 0.056), ('client', 0.056), ('object', 0.055), ('query', 0.055), ('exist', 0.054), ('second', 0.053), ('application', 0.052), ('speeding', 0.052), ('caches', 0.051), ('brian', 0.05), ('warm', 0.05), ('files', 0.05), ('gets', 0.049), ('recommended', 0.049), ('replicated', 0.048), ('overhead', 0.047), ('writes', 0.046), ('complex', 0.046), ('nfs', 0.046), ('calculate', 0.045), ('approach', 0.045), ('memory', 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000005 <a title="360-tfidf-1" href="../high_scalability-2008/high_scalability-2008-08-04-A_Bunch_of_Great_Strategies_for_Using_Memcached_and_MySQL_Better_Together.html">360 high scalability-2008-08-04-A Bunch of Great Strategies for Using Memcached and MySQL Better Together</a></p>
-<p>Introduction: The primero recommendation for speeding up a website is almost always to add
-cache and more cache. And after that add a little more cache just in case.
-Memcached is almost always given as the recommended cache to use. What we
-don't often hear is how to effectively use a cache in our own products. MySQL
-hosted two excellent webinars (referenced below) on the subject of how to
-deploy and use memcached. The star of the show, other than MySQL of course, is
-Farhan Mashraqi of Fotolog. You may recall we did an earlier article on
-Fotolog inSecrets to Fotolog's Scaling Success, which was one of my personal
-favorites.Fotolog, as they themselves point out, is probably the largest site
-nobody has ever heard of, pulling in more page views than even Flickr. Fotolog
-has 51 instances of memcached on 21 servers with 175G in use and 254G
-available. As a large successful photo-blogging site they have very demanding
-performance and scaling requirements. To meet those requirements they've
-developed a soph</p><p>2 0.30146194 <a title="360-tfidf-2" href="../high_scalability-2009/high_scalability-2009-10-28-And_the_winner_is%3A_MySQL_or_Memcached_or_Tokyo_Tyrant%3F.html">729 high scalability-2009-10-28-And the winner is: MySQL or Memcached or Tokyo Tyrant?</a></p>
-<p>Introduction: Matt, from the ever excellentMySQL Performance Blog, decided to run a test
-using a simple scenario drawn from his client experience in the gaming space.
-The scenario: read a row based on a primary key, update the row, write it to
-disk, and use the row to lookup another row. Matt ran three different tests
-explained in a series of three different articles:MySQL and MySQL + Memcached,
-Memcached Only, andTokyo Tyrant.The lovingly compiled details along with many
-cool graphs are in the articles, but in general the lessons learned are:When
-memcached hasenough memory(so records being accessed are in RAM), memcached +
-MySQL can provide a10x performance boostover MySQL alone. When the RAM is too
-small and hot records, those being accessed a lot, aren't in RAM, or perhaps
-applications are doing a sequential scan of a table and the entire table isn't
-cached, then memcached won't be the big bang improvement you may be hoping
-for.When the database is removed and memcached serves both reads and writ</p><p>3 0.27932578 <a title="360-tfidf-3" href="../high_scalability-2010/high_scalability-2010-10-26-Marrying_memcached_and_NoSQL.html">927 high scalability-2010-10-26-Marrying memcached and NoSQL</a></p>
-<p>Introduction: Memcached is one of the most common In-Memory cache implementation.  It was
-originally developed by Danga Interactive for LiveJournal, but is now used by
-many other sites as a side cache to speed up read mostly operations. It gained
-popularity in the non-Java world, too, especially since it's a language-
-neutral side cache for which few alternatives existed.  As a side-cache,
-Memcache clients relies on the database as the system of record, The database
-is still used for write,update and complex query operations.  Since the
-memcached specification includes no query operations, memcached is not a
-database alternative, unlike most of the NoSQL offerings. It also exclude
-memcache from being a real solution for write scalability. As a result of that
-many of the heavy sites started to move away from Memcache and replace it with
-other NoSQL alternatives as noted in a recent highscalability post MySQL And
-Memcached: End Of An Era?The transition away from memcached to NoSQL could
-represent a la</p><p>4 0.2584821 <a title="360-tfidf-4" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
-<p>Introduction: Fotolog, a social blogging site centered around photos, grew from about 300
-thousand users in 2004 to over 11 million users in 2007. Though they initially
-experienced the inevitable pains of rapid growth, they overcame their problems
-and now manage over 300 million photos and 800,000 new photos are added each
-day. Generating all that fabulous content are 20 million unique monthly
-visitors and a volunteer army of 30,000 new users each day. They did so well a
-very impressed suitor bought them out for a cool $90 million. That's scale
-meets success by anyone standards. How did they do it?Site:
-http://www.fotolog.comInformation SourcesScaling the World's Largest Photo
-Blogging CommunityCongrats to Fotolog on $90mm sale to Hi-MediaFotolog
-overtaking Flickr?Fotolog Hits 11 Million Members and 300 Million Photos
-PostedSite of the Week: Fotolog.comby PC MagazineCEO John Borthwick's Blog.DBA
-Frank Mash's BlogFotolog, lessons learntby John BorthwickThe
-PlatformJavaPHPSunSolaris 10MySQLApacheHiber</p><p>5 0.24934022 <a title="360-tfidf-5" href="../high_scalability-2008/high_scalability-2008-08-17-Strategy%3A_Drop_Memcached%2C_Add_More_MySQL_Servers.html">367 high scalability-2008-08-17-Strategy: Drop Memcached, Add More MySQL Servers</a></p>
-<p>Introduction: Update 2: Michael Galpin inCache MoneyandCache Discussionslikes memcached for
-it's expiry policy, complex graph data, process data, but says MySQL has many
-advantages: SQL, Uniform Data Access, Write-through, Read-through,
-Replication, Management, Cold starts, LRU eviction.Update:Dormando asksShould
-you use memcached? Should you just shard mysql more?. The idea of caching is
-the most important part of caching as it transports you beyond a simple CRUD
-worldview. Plan for caching and sharding by properly abstracting data access
-methods.Brace for change. Be ready to shard, be ready to cache. React and
-change to what you push out which is actually popular, vs over planning and
-wasting valuable time.Feedster's Franรงois Schiettecatte wondersifFotolog's 21
-memcached serverswouldn't be better used to further shard data by adding more
-MySQL servers? He mentions Feedster was able to drop memcached once they
-partitioned their data across more servers. The algorithm: partition until all
-data resid</p><p>6 0.24467488 <a title="360-tfidf-6" href="../high_scalability-2009/high_scalability-2009-08-07-Strategy%3A_Break_Up_the_Memcache_Dog_Pile_.html">673 high scalability-2009-08-07-Strategy: Break Up the Memcache Dog Pile </a></p>
+<p>Introduction: The primero recommendation for speeding up a website is almost always to add cache and more cache. And after that add a little more cache just in case. Memcached is almost always given as the recommended cache to use. What we don't often hear is how to effectively use a cache in our own products. MySQL hosted two excellent webinars (referenced below) on the subject of how to deploy and use memcached. The star of the show, other than MySQL of course, is Farhan Mashraqi of Fotolog. You may recall we did an earlier article on Fotolog in  Secrets to Fotolog's Scaling Success , which was one of my personal favorites.  Fotolog, as they themselves point out, is probably the largest site nobody has ever heard of, pulling in more page views than even Flickr. Fotolog has 51 instances of memcached on 21 servers with 175G in use and 254G available. As a large successful photo-blogging site they have very demanding performance and scaling requirements. To meet those requirements they've developed a</p><p>2 0.30146194 <a title="360-tfidf-2" href="../high_scalability-2009/high_scalability-2009-10-28-And_the_winner_is%3A_MySQL_or_Memcached_or_Tokyo_Tyrant%3F.html">729 high scalability-2009-10-28-And the winner is: MySQL or Memcached or Tokyo Tyrant?</a></p>
+<p>Introduction: Matt, from the ever excellent  MySQL Performance Blog , decided to run a test using a simple scenario drawn from his client experience in the gaming space. The scenario: read a row based on a primary key, update the row, write it to disk, and use the row to lookup another row. Matt ran three different tests explained in a series of three different articles:  MySQL and MySQL + Memcached,   Memcached Only , and  Tokyo Tyrant .
+ 
+The lovingly compiled details along with many cool graphs are in the articles, but in general the lessons learned are:
+  
+ When memcached has  enough memory  (so records being accessed are in RAM), memcached + MySQL can provide a  10x performance boost  over MySQL alone. When the RAM is too small and hot records, those being accessed a lot, aren't in RAM, or perhaps applications are doing a sequential scan of a table and the entire table isn't cached, then memcached won't be the big bang improvement you may be hoping for. 
+ When the database is removed and memcac</p><p>3 0.27932578 <a title="360-tfidf-3" href="../high_scalability-2010/high_scalability-2010-10-26-Marrying_memcached_and_NoSQL.html">927 high scalability-2010-10-26-Marrying memcached and NoSQL</a></p>
+<p>Introduction: Memcached   is one of the most common In-Memory cache implementation.  It was originally developed by  Danga Interactive   for  LiveJournal  , but is now used by many other sites as a  side cache   to speed up read mostly operations. It gained popularity in the non-Java world, too, especially since it’s a language-neutral side cache for which few alternatives existed.    
+
+As a side-cache, Memcache clients relies on the database as the system of record, The database is still used for write,update and complex query operations.  Since the  memcached specification includes no query operations, memcached is not a database alternative, unlike most of the NoSQL offerings. It also exclude memcache from being a real solution for write scalability. As a result of that many of the heavy sites started to move away from Memcache and replace it with other NoSQL alternatives as noted in a recent highscalability post  MySQL And Memcached: End Of An Era?  
+
+
+The transition away from memcached to NoSQL</p><p>4 0.2584821 <a title="360-tfidf-4" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
+<p>Introduction: Fotolog, a social blogging site centered around photos, grew from about 300 thousand users in 2004 to over 11 million users in 2007. Though they initially experienced the inevitable pains of rapid growth, they overcame their problems and now manage over 300 million photos and 800,000 new photos are added each day. Generating all that fabulous content are 20 million unique monthly visitors and a volunteer army of 30,000 new users each day. They did so well a very impressed suitor bought them out for a cool $90 million. That's scale meets success by anyone standards. How did they do it?
+ 
+Site: http://www.fotolog.com
+  Information Sources     Scaling the World's Largest Photo Blogging Community      Congrats to Fotolog on $90mm sale to Hi-Media      Fotolog overtaking Flickr?      Fotolog Hits 11 Million Members and 300 Million Photos Posted      Site of the Week: Fotolog.com   by PC Magazine     CEO John Borthwick's Blog .     DBA Frank Mash's Blog     Fotolog, lessons learnt  by John B</p><p>5 0.24934022 <a title="360-tfidf-5" href="../high_scalability-2008/high_scalability-2008-08-17-Strategy%3A_Drop_Memcached%2C_Add_More_MySQL_Servers.html">367 high scalability-2008-08-17-Strategy: Drop Memcached, Add More MySQL Servers</a></p>
+<p>Introduction: Update 2 : Michael Galpin in  Cache Money  and  Cache Discussions  likes memcached for it's expiry policy, complex graph data, process data, but says MySQL has many advantages: SQL, Uniform Data Access, Write-through, Read-through, Replication, Management, Cold starts, LRU eviction.  Update:  Dormando asks  Should you use memcached? Should you just shard mysql more? . The idea of caching is the most important part of caching as it transports you beyond a simple CRUD worldview. Plan for caching and sharding by properly abstracting data access methods.  Brace for change. Be ready to shard, be ready to cache. React and change to what you push out which is actually popular, vs over planning and wasting valuable time.      Feedster's François Schiettecatte wonders  if  Fotolog's 21 memcached servers  wouldn't be better used to further shard data by adding more MySQL servers? He mentions Feedster was able to drop memcached once they partitioned their data across more servers. The algorithm:</p><p>6 0.24467488 <a title="360-tfidf-6" href="../high_scalability-2009/high_scalability-2009-08-07-Strategy%3A_Break_Up_the_Memcache_Dog_Pile_.html">673 high scalability-2009-08-07-Strategy: Break Up the Memcache Dog Pile </a></p>
 <p>7 0.24204041 <a title="360-tfidf-7" href="../high_scalability-2008/high_scalability-2008-05-28-Webinar%3A_Designing_and_Implementing_Scalable_Applications_with_Memcached_and_MySQL.html">333 high scalability-2008-05-28-Webinar: Designing and Implementing Scalable Applications with Memcached and MySQL</a></p>
 <p>8 0.24133775 <a title="360-tfidf-8" href="../high_scalability-2008/high_scalability-2008-08-29-Product%3A_ScaleOut_StateServer_is_Memcached_on_Steroids.html">373 high scalability-2008-08-29-Product: ScaleOut StateServer is Memcached on Steroids</a></p>
 <p>9 0.23321685 <a title="360-tfidf-9" href="../high_scalability-2008/high_scalability-2008-11-02-Strategy%3A_How_to_Manage_Sessions_Using_Memcached.html">436 high scalability-2008-11-02-Strategy: How to Manage Sessions Using Memcached</a></p>
@@ -143,74 +79,23 @@ data resid</p><p>6 0.24467488 <a title="360-tfidf-6" href="../high_scalability-2
 <p>[(0, 0.283), (1, 0.153), (2, -0.092), (3, -0.233), (4, 0.025), (5, 0.159), (6, -0.007), (7, -0.083), (8, -0.087), (9, -0.037), (10, -0.014), (11, -0.056), (12, 0.024), (13, 0.205), (14, -0.121), (15, -0.066), (16, -0.091), (17, -0.062), (18, 0.056), (19, -0.008), (20, -0.075), (21, 0.082), (22, 0.103), (23, 0.107), (24, -0.023), (25, 0.082), (26, 0.071), (27, 0.116), (28, 0.015), (29, -0.067), (30, -0.071), (31, 0.021), (32, -0.037), (33, -0.026), (34, -0.055), (35, 0.022), (36, 0.023), (37, 0.005), (38, 0.072), (39, 0.03), (40, 0.053), (41, 0.065), (42, -0.089), (43, -0.017), (44, -0.025), (45, -0.033), (46, -0.022), (47, 0.025), (48, -0.03), (49, -0.029)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.98202354 <a title="360-lsi-1" href="../high_scalability-2008/high_scalability-2008-08-04-A_Bunch_of_Great_Strategies_for_Using_Memcached_and_MySQL_Better_Together.html">360 high scalability-2008-08-04-A Bunch of Great Strategies for Using Memcached and MySQL Better Together</a></p>
-<p>Introduction: The primero recommendation for speeding up a website is almost always to add
-cache and more cache. And after that add a little more cache just in case.
-Memcached is almost always given as the recommended cache to use. What we
-don't often hear is how to effectively use a cache in our own products. MySQL
-hosted two excellent webinars (referenced below) on the subject of how to
-deploy and use memcached. The star of the show, other than MySQL of course, is
-Farhan Mashraqi of Fotolog. You may recall we did an earlier article on
-Fotolog inSecrets to Fotolog's Scaling Success, which was one of my personal
-favorites.Fotolog, as they themselves point out, is probably the largest site
-nobody has ever heard of, pulling in more page views than even Flickr. Fotolog
-has 51 instances of memcached on 21 servers with 175G in use and 254G
-available. As a large successful photo-blogging site they have very demanding
-performance and scaling requirements. To meet those requirements they've
-developed a soph</p><p>2 0.90344375 <a title="360-lsi-2" href="../high_scalability-2008/high_scalability-2008-11-02-Strategy%3A_How_to_Manage_Sessions_Using_Memcached.html">436 high scalability-2008-11-02-Strategy: How to Manage Sessions Using Memcached</a></p>
-<p>Introduction: Dormandoshows an enlightened middle wayfor storing sessions in cache and the
-database. Sessions are a perfect cache candidate because they are transient,
-smallish, and since they are usually accessed on every page access removing
-all that load from the database is a good thing. But as Dormando points out
-session caches have problems. If you remove expiration times from the cache
-and you run out of memory then no more logins. If a cache server fails or
-needs to be upgrade then you just logged out a bunch of potentially angry
-users.The middle ground Dormando proposes is using both the cache and the
-database:Reads: read from the cache first, then the database. Typical cache
-logic.Writes: write to memcached every time, write to the database every N
-seconds (assuming the data has changed).There's a small chance of data loss,
-but you've still greatly reduced the database load while providing
-reliability. Nice solution.</p><p>3 0.90125918 <a title="360-lsi-3" href="../high_scalability-2009/high_scalability-2009-08-07-Strategy%3A_Break_Up_the_Memcache_Dog_Pile_.html">673 high scalability-2009-08-07-Strategy: Break Up the Memcache Dog Pile </a></p>
-<p>Introduction: Update:AsynchronousHTTP cache validations. A proposed HTTP caching
-extension:if your application can afford to show slightly out of date content,
-then stale-while-revalidate can guarantee that the user will always be served
-directly from the cache, hence guaranteeing a consistent response-time user-
-experience.Caching is like aspirin for headaches. Head hurts: pop a 'sprin.
-Slow site: add caching.Facebookmust have a lot of headaches because they
-popped 805 memcached servers between 10,000 web servers and 1,800 MySQL
-servers and they reportedly have a 99% cache hit rate. But what's the best way
-for you to cache for your application? It's a remarkably complex and rich
-topic. Alexey Kovyrin talks about one common caching problem called theDog
-PileEffectinDog-pile Effect and How to Avoid it with Ruby on Rails. Glenn
-Franxman also has a Django solution inMintCache.Data is usually cached because
-it's too expensive to calculate for every hit. Maybe it's a gnarly SQL query
-you want to avoid an</p><p>4 0.8933959 <a title="360-lsi-4" href="../high_scalability-2010/high_scalability-2010-09-30-More_Troubles_with_Caching.html">911 high scalability-2010-09-30-More Troubles with Caching</a></p>
-<p>Introduction: As a tasty pairing withFacebook And Site Failures Caused By Complex, Weakly
-Interacting, Layered Systems, is another excellent tale of caching gone wrong
-by Peter Zaitsev, in an exciting twin billing:Cache Miss Stormand More on
-dangers of the caches. This is fascinating case where the cause turned out to
-be software upgrade that ran long because it had to be rolled back. During the
-long recovery time many of the cache entries timed out. When the database came
-back, slam, all the clients queried the database to repopulate the cache and
-bad things happened to the database. The solution was equally interesting: So
-the immediate solution to bring the system up was surprisingly simple. We just
-had to get traffic on the system in stages allowing Memcache to be warmed up.
-There were no code which would allow to do it on application side so we did it
-on MySQL side instead. "SET GLOBAL max_connections=20" to limit number of
-connections to MySQL and so let application to err when it tries to put</p><p>5 0.86018741 <a title="360-lsi-5" href="../high_scalability-2007/high_scalability-2007-12-05-Product%3A_Tugela_Cache.html">174 high scalability-2007-12-05-Product: Tugela Cache</a></p>
-<p>Introduction: Tugela Cacheis a cache system like memecached, but instead of storing data
-just in RAM, it stores data in the file system using a b-tree. You trade
-latency in order to have a very large cache. It's useful for sites that have
-caching requirements that exceed their available memory. It uses the same wire
-protocol asmemcachedso it can be dropped in without a hassle. From the
-website:As large MediaWiki deployments may gain performance using Memcached,
-at some level cost of RAM to store all objects becomes too high. In order to
-balance resource usage and make more use of our Apache server disks, Tugela,
-the distributed cached on-disk hash database, has arrived.Tugela Cache is
-derived from Memcached. Much of the code remains the same, but notably, these
-changes:Internal slab allocator replaced by BerkeleyDB B-Tree database.Expiry
-policy management moved to external program tugela-expireMuch statistics code
-made obsolete.An interesting point brought up in the comments is using
-memcached with</p><p>6 0.85008425 <a title="360-lsi-6" href="../high_scalability-2010/high_scalability-2010-10-26-Marrying_memcached_and_NoSQL.html">927 high scalability-2010-10-26-Marrying memcached and NoSQL</a></p>
+<p>Introduction: The primero recommendation for speeding up a website is almost always to add cache and more cache. And after that add a little more cache just in case. Memcached is almost always given as the recommended cache to use. What we don't often hear is how to effectively use a cache in our own products. MySQL hosted two excellent webinars (referenced below) on the subject of how to deploy and use memcached. The star of the show, other than MySQL of course, is Farhan Mashraqi of Fotolog. You may recall we did an earlier article on Fotolog in  Secrets to Fotolog's Scaling Success , which was one of my personal favorites.  Fotolog, as they themselves point out, is probably the largest site nobody has ever heard of, pulling in more page views than even Flickr. Fotolog has 51 instances of memcached on 21 servers with 175G in use and 254G available. As a large successful photo-blogging site they have very demanding performance and scaling requirements. To meet those requirements they've developed a</p><p>2 0.90344375 <a title="360-lsi-2" href="../high_scalability-2008/high_scalability-2008-11-02-Strategy%3A_How_to_Manage_Sessions_Using_Memcached.html">436 high scalability-2008-11-02-Strategy: How to Manage Sessions Using Memcached</a></p>
+<p>Introduction: Dormando  shows an enlightened middle way  for storing sessions in cache and the database. Sessions are a perfect cache candidate because they are transient, smallish, and since they are usually accessed on every page access removing all that load from the database is a good thing. But as Dormando points out session caches have problems. If you remove expiration times from the cache and you run out of memory then no more logins. If a cache server fails or needs to be upgrade then you just logged out a bunch of potentially angry users.  The middle ground Dormando proposes is using both the cache and the database:
+    Reads : read from the cache first, then the database. Typical cache logic.     Writes :  write to memcached every time, write to the database every N seconds (assuming the data has changed).   There's a small chance of data loss, but you've still greatly reduced the database load while providing reliability. Nice solution.</p><p>3 0.90125918 <a title="360-lsi-3" href="../high_scalability-2009/high_scalability-2009-08-07-Strategy%3A_Break_Up_the_Memcache_Dog_Pile_.html">673 high scalability-2009-08-07-Strategy: Break Up the Memcache Dog Pile </a></p>
+<p>Introduction: Update:  Asynchronous  HTTP cache validations . A proposed HTTP caching extension:  if your application can afford to show slightly out of date content, then stale-while-revalidate can guarantee that the user will always be served directly from the cache, hence guaranteeing a consistent response-time user-experience.   Caching is like aspirin for headaches. Head hurts: pop a 'sprin. Slow site: add caching.  Facebook  must have a lot of headaches because they popped 805 memcached servers between 10,000 web servers and 1,800 MySQL servers and they reportedly have a 99% cache hit rate. But what's the best way for you to cache for your application? It's a remarkably complex and rich topic. Alexey Kovyrin talks about one common caching problem called the   Dog Pile  Effect  in  Dog-pile Effect and How to Avoid it with Ruby on Rails . Glenn Franxman also has a Django solution in  MintCache .
+ 
+Data is usually cached because it's too expensive to calculate for every hit. Maybe it's a gnarly S</p><p>4 0.8933959 <a title="360-lsi-4" href="../high_scalability-2010/high_scalability-2010-09-30-More_Troubles_with_Caching.html">911 high scalability-2010-09-30-More Troubles with Caching</a></p>
+<p>Introduction: As a tasty pairing with  Facebook And Site Failures Caused By Complex, Weakly Interacting, Layered Systems , is another excellent tale of caching gone wrong by Peter Zaitsev, in an exciting twin billing:  Cache Miss Storm  and  More on dangers of the caches . This is fascinating case where the cause turned out to be software upgrade that ran long because it had to be rolled back. During the long recovery time many of the cache entries timed out. When the database came back, slam, all the clients queried the database to repopulate the cache and bad things happened to the database. The solution was equally interesting: 
+  
+
+So the immediate solution to bring the system up was surprisingly simple. We just had to get traffic on the system in stages allowing Memcache to be warmed up. There were no code which would allow to do it on application side so we did it on MySQL side instead. “SET GLOBAL max_connections=20” to limit number of connections to MySQL and so let application to err when i</p><p>5 0.86018741 <a title="360-lsi-5" href="../high_scalability-2007/high_scalability-2007-12-05-Product%3A_Tugela_Cache.html">174 high scalability-2007-12-05-Product: Tugela Cache</a></p>
+<p>Introduction: Tugela Cache  is a cache system like memecached, but instead of storing data just in RAM, it stores data in the file system using a b-tree. You trade latency in order to have a very large cache. It's useful for sites that have caching requirements that exceed their available memory.  It uses the same wire protocol as  memcached  so it can be dropped in without a hassle. From the website:   As large MediaWiki deployments may gain performance using Memcached, at some level cost of RAM to store all objects becomes too high. In order to balance resource usage and make more use of our Apache server disks, Tugela, the distributed cached on-disk hash database, has arrived.  Tugela Cache is derived from Memcached. Much of the code remains the same, but notably, these changes: 
+ 
+ Internal slab allocator replaced by BerkeleyDB B-Tree database. 
+ Expiry policy management moved to external program tugela-expire 
+ Much statistics code made obsolete. 
+ 
+ An interesting point brought up in the comme</p><p>6 0.85008425 <a title="360-lsi-6" href="../high_scalability-2010/high_scalability-2010-10-26-Marrying_memcached_and_NoSQL.html">927 high scalability-2010-10-26-Marrying memcached and NoSQL</a></p>
 <p>7 0.84575051 <a title="360-lsi-7" href="../high_scalability-2008/high_scalability-2008-08-17-Strategy%3A_Drop_Memcached%2C_Add_More_MySQL_Servers.html">367 high scalability-2008-08-17-Strategy: Drop Memcached, Add More MySQL Servers</a></p>
 <p>8 0.82800424 <a title="360-lsi-8" href="../high_scalability-2012/high_scalability-2012-10-24-Saving_Cash_Using_Less_Cache_-__90%25_Savings_in_the_Caching_Tier.html">1346 high scalability-2012-10-24-Saving Cash Using Less Cache -  90% Savings in the Caching Tier</a></p>
 <p>9 0.82671714 <a title="360-lsi-9" href="../high_scalability-2008/high_scalability-2008-07-29-Ehcache_-_A_Java_Distributed_Cache_.html">359 high scalability-2008-07-29-Ehcache - A Java Distributed Cache </a></p>
@@ -230,73 +115,33 @@ memcached with</p><p>6 0.85008425 <a title="360-lsi-6" href="../high_scalability
 <p>[(1, 0.147), (2, 0.271), (10, 0.05), (30, 0.043), (40, 0.12), (52, 0.01), (61, 0.073), (73, 0.029), (77, 0.015), (79, 0.089), (85, 0.042), (94, 0.038)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.97696698 <a title="360-lda-1" href="../high_scalability-2013/high_scalability-2013-07-17-How_do_you_create_a_100th_Monkey_software_development_culture%3F.html">1492 high scalability-2013-07-17-How do you create a 100th Monkey software development culture?</a></p>
-<p>Introduction: Someone reading my now ancientC++ coding standardrecommendation for using
-doxygen to automatically generate documentation from source code, asked a
-great question:I've often considered using doxygen, I always ask myself - is
-this really useful? Would I use it if I were new to a project? Would
-programmers working on the project use it?I'll rephrase their question to more
-conveniently express a point I've thought a lot about: Why do companies put so
-little effort into automating their own development process to make
-development easier?It's like the hair stylist whose own hair looks like
-someone cut it using a late night infomercial vacuum cleaner attachment. Or
-it's like the interior decorator whose own house looks like a monk's
-cell.Software organizations rarely build software to make developing software
-easier. Why is that?Because there are three ways changes are made in an
-organization:Top Dog- Someone so high up in the org chart you would need a
-telescope to see him decided because h</p><p>2 0.97028112 <a title="360-lda-2" href="../high_scalability-2010/high_scalability-2010-01-04-11_Strategies_to_Rock_Your_Startup%E2%80%99s_Scalability_in_2010.html">757 high scalability-2010-01-04-11 Strategies to Rock Your Startup’s Scalability in 2010</a></p>
-<p>Introduction: This is a guest posting by Marty Abbott and Michael Fisher, authors ofThe Art
-of Scalability. I'm still reading their book and will have an interview with
-them a little later.  If 2010 is the year that you've decided to kickoff your
-startup or if you've already got something off the ground and are expecting
-double or triple digit growth, this list is for you.  We all
-wanttheattentionof usersto achieve viral growth but as manycan attest, too
-much attention can bring a startup to its knees. If you've used Twitter for
-any amount of time you're sure to have seen the "Fail Whale", which is so
-often seen that it has its ownfan club. Take a look at the graph below from
-Compete.com showing Twitter's unique visitors. One can argue that limitations
-in the product offering have as much to do with the flattening of growthover
-the past six monthsas does the availability,butit's hard to believe the
-inability of users to actually use the service has not hindered growth. What
-should you do if you want</p><p>3 0.96698689 <a title="360-lda-3" href="../high_scalability-2009/high_scalability-2009-01-04-Alternative_Memcache_Usage%3A_A_Highly_Scalable%2C_Highly_Available%2C_In-Memory_Shard_Index.html">482 high scalability-2009-01-04-Alternative Memcache Usage: A Highly Scalable, Highly Available, In-Memory Shard Index</a></p>
-<p>Introduction: While working with Memcache the other night, it dawned on me that it’s usage
-as a distributed caching mechanism was really just one of many ways to use it.
-That there are in fact many alternative usages that one could find for
-Memcache if they could just realize what Memcache really is at its core – a
-simple distributed hash-table – is an important point worthy of further
-discussion.To be clear, when I say “simple”, by no means am I implying that
-Memcache’s implementation is simple, just that the ideas behind it are such.
-Think about that for a minute. What else could we use a simple distributed
-hash-table for, besides caching? How about using it as an alternative to the
-traditional shard lookup method we used in our Master Index Lookup scalability
-strategy, discussed previously here.</p><p>4 0.96484739 <a title="360-lda-4" href="../high_scalability-2008/high_scalability-2008-03-17-Paper%3A_Consistent_Hashing_and_Random_Trees%3A_Distributed_Caching_Protocols_for_Relieving_Hot_Spots_on_the_World_Wide_Web.html">280 high scalability-2008-03-17-Paper: Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web</a></p>
-<p>Introduction: Consistent hashing is one of those ideas that really puts the science in
-computer science and reminds us why all those really smart people spend years
-slaving over algorithms. Consistent hashing is "a scheme that provides hash
-table functionality in a way that the addition or removal of one slot does not
-significantly change the mapping of keys to slots" and was originally a way of
-distributing requests among a changing population of web servers. My first
-reaction to the idea was "wow, that's really smart" and I sadly realized I
-would never come up with something so elegant. I then immediately saw
-applications for it everywhere. And consistent hashing is used everywhere:
-distributed hash tables, overlay networks, P2P, IM, caching, and CDNs. Here's
-the abstract from the original paper and after the abstract are some links to
-a few very good articles with accessible explanations of consistent hashing
-and its applications in the real world.breakAbstract:We describe a family of
-caching pro</p><p>5 0.95982027 <a title="360-lda-5" href="../high_scalability-2010/high_scalability-2010-02-01-What_Will_Kill_the_Cloud%3F.html">768 high scalability-2010-02-01-What Will Kill the Cloud?</a></p>
-<p>Introduction: This is an excerpt from my articleBuilding Super Scalable Systems: Blade
-Runner Meets Autonomic Computing in the Ambient Cloud.If datacenters are the
-new castles, then what will be the new gunpowder? As soon asgunpowdercame on
-the scene, castles, which are defensive structures, quickly became the
-future's cold, drafty hotels. Gunpowder fueled cannon balls make short work of
-castle walls.There's a long history of "gunpowder" type inventions in the tech
-industry. PCs took out the timeshare model. The cloud is taking out the PC
-model. There must be something that will take out the cloud.Right now it's
-hard to believe the cloud will one day be no more. They seem so much the
-future, but something will transcend the cloud. We even have a law that says
-so:Bell's Law of Computer Classeswhich holds thatroughly every decade a new,
-lower priced computer class forms based on a new programming platform,
-network, and interface resulting in new usage and the establishment of a new
-industry.Acomputer</p><p>6 0.95786965 <a title="360-lda-6" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
+<p>Introduction: Someone reading my now ancient  C++ coding standard  recommendation for using doxygen to automatically generate documentation from source code, asked a great question:      I've often considered using doxygen, I always ask myself - is this really useful? Would I use it if I were new to a project? Would programmers working on the project use it?  
+I'll rephrase their question to more conveniently express a point I've thought a lot about:  Why do companies put so little effort into automating their own development process to make development easier? 
+ 
+It's like the hair stylist whose own hair looks like someone cut it using a late night infomercial vacuum cleaner attachment. Or it's like the interior decorator whose own house looks like a monk's cell.
+ 
+Software organizations rarely build software to make developing software easier. Why is that?
+        Because there are three ways changes are made in an organization:   
+ 
+  Top Dog  - Someone so high up in the org chart you would need</p><p>2 0.97028112 <a title="360-lda-2" href="../high_scalability-2010/high_scalability-2010-01-04-11_Strategies_to_Rock_Your_Startup%E2%80%99s_Scalability_in_2010.html">757 high scalability-2010-01-04-11 Strategies to Rock Your Startup’s Scalability in 2010</a></p>
+<p>Introduction: This is a guest posting by Marty Abbott and Michael Fisher, authors of  The Art of Scalability . I'm still reading their book and will have an interview with them a little later.     
+
+    
+
+      
+
+   If 2010 is the year that you’ve decided to kickoff your startup or if you’ve already got something off the ground and are expecting double or triple digit growth, this list is for you.  We all want     the     attention     of user    s     to achieve viral growth but as many     can attest    , too much attention can bring a startup to its knees.      If you’ve used Twitter for any amount of time you’re sure to have seen the “Fail Whale”, which is so often seen that it has its own       fan club      .      Take a look at the graph below from Compete.com showing Twitter’s unique visitors.      One can argue that limitations in the product offering have as much to do with the flattening of growth     over the past six months     as does the availability    ,     but     it’s hard to beli</p><p>3 0.96698689 <a title="360-lda-3" href="../high_scalability-2009/high_scalability-2009-01-04-Alternative_Memcache_Usage%3A_A_Highly_Scalable%2C_Highly_Available%2C_In-Memory_Shard_Index.html">482 high scalability-2009-01-04-Alternative Memcache Usage: A Highly Scalable, Highly Available, In-Memory Shard Index</a></p>
+<p>Introduction: While working with Memcache the other night, it dawned on me that it’s usage as a distributed caching mechanism was really just one of many ways to use it. That there are in fact many alternative usages that one could find for Memcache if they could just realize what Memcache really is at its core – a simple distributed hash-table – is an important point worthy of further discussion.     To be clear, when I say “simple”, by no means am I implying that Memcache’s implementation is simple, just that the ideas behind it are such. Think about that for a minute. What else could we use a simple distributed hash-table for, besides caching? How about using it as an alternative to the traditional shard lookup method we used in our Master Index Lookup scalability strategy, discussed previously here.</p><p>4 0.96484739 <a title="360-lda-4" href="../high_scalability-2008/high_scalability-2008-03-17-Paper%3A_Consistent_Hashing_and_Random_Trees%3A_Distributed_Caching_Protocols_for_Relieving_Hot_Spots_on_the_World_Wide_Web.html">280 high scalability-2008-03-17-Paper: Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web</a></p>
+<p>Introduction: Consistent hashing is one of those ideas that really puts the science in computer science and reminds us why all those really smart people spend years slaving over algorithms. Consistent hashing is "a scheme that provides hash table functionality in a way that the addition or removal of one slot does not significantly change the mapping of keys to slots" and was originally a way of distributing requests among a changing population of web servers. My first reaction to the idea was "wow, that's really smart" and I sadly realized I would never come up with something so elegant. I then immediately saw applications for it everywhere. And consistent hashing is used everywhere: distributed hash tables, overlay networks, P2P, IM, caching, and CDNs. Here's the abstract from the original paper and after the abstract are some links to a few very good articles with accessible explanations of consistent hashing and its applications in the real world.
+   
+ Abstract:   We describe a family of caching</p><p>5 0.95982027 <a title="360-lda-5" href="../high_scalability-2010/high_scalability-2010-02-01-What_Will_Kill_the_Cloud%3F.html">768 high scalability-2010-02-01-What Will Kill the Cloud?</a></p>
+<p>Introduction: This is an excerpt from my article  Building Super Scalable Systems: Blade Runner Meets Autonomic Computing in the Ambient Cloud.   
+ 
+If datacenters are the new castles, then what will be the new gunpowder? As soon as  gunpowder  came on the scene, castles, which are defensive structures, quickly became the future's cold, drafty hotels. Gunpowder fueled cannon balls make short work of castle walls.
+ 
+There's a long history of "gunpowder" type inventions in the tech industry.  PCs took out the timeshare model. The cloud is taking out the PC model. There must be something that will take out the cloud.
+ 
+Right now it's hard to believe the cloud will one day be no more. They seem so much the future, but something will transcend the cloud. We even have a law that says so:  Bell's Law of Computer Classes  which holds that  roughly every decade a new, lower priced computer class forms based on a new programming platform, network, and interface resulting in new usage and the establishment of</p><p>6 0.95786965 <a title="360-lda-6" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
 <p>7 0.95672035 <a title="360-lda-7" href="../high_scalability-2008/high_scalability-2008-05-27-Should_Twitter_be_an_All-You-Can-Eat_Buffet_or_a_Vending_Machine%3F.html">330 high scalability-2008-05-27-Should Twitter be an All-You-Can-Eat Buffet or a Vending Machine?</a></p>
 <p>same-blog 8 0.95566422 <a title="360-lda-8" href="../high_scalability-2008/high_scalability-2008-08-04-A_Bunch_of_Great_Strategies_for_Using_Memcached_and_MySQL_Better_Together.html">360 high scalability-2008-08-04-A Bunch of Great Strategies for Using Memcached and MySQL Better Together</a></p>
 <p>9 0.95531237 <a title="360-lda-9" href="../high_scalability-2007/high_scalability-2007-09-18-Session_management_in_highly_scalable_web_sites.html">97 high scalability-2007-09-18-Session management in highly scalable web sites</a></p>

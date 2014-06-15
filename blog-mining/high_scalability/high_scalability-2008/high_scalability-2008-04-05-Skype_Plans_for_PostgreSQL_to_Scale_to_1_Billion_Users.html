@@ -16,115 +16,41 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-297-html" href="http://highscalability.com//blog/2008/4/5/skype-plans-for-postgresql-to-scale-to-1-billion-users.html">html</a></p><p>Introduction: Skypeuses PostgreSQL as their backend database. PostgreSQL doesn't get enough
-run in the database world so I was excited to see how PostgreSQL is used "as
-the main DB for most of [Skype's] business needs." Their approach is to use a
-traditional stored procedure interface for accessing data and on top of that
-layer proxy servers which hash SQL requests to a set of database servers that
-actually carry out queries. The result is a horizontally partitioned system
-that they think will scale to handle 1 billion users.Skype's goal is an
-architecture that can handle 1 billion plus users. This level of scale isn't
-practically solvable with one really big computer, so our masked superhero
-horizontal scaling comes to the rescue.Hardware is dual or quad Opterons with
-SCSI RAID.Followed common database progression: Start with one DB. Add new
-databases partitioned by functionality. Replicate read-mostly data for better
-read access. Then horizontally partition data across multiple nodes..In a
-first f</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 PostgreSQL doesn't get enough run in the database world so I was excited to see how PostgreSQL is used "as the main DB for most of [Skype's] business needs. [sent-2, score-0.202]
-</p><p>2 " Their approach is to use a traditional stored procedure interface for accessing data and on top of that layer proxy servers which hash SQL requests to a set of database servers that actually carry out queries. [sent-3, score-0.828]
-</p><p>3 The result is a horizontally partitioned system that they think will scale to handle 1 billion users. [sent-4, score-0.217]
-</p><p>4 This level of scale isn't practically solvable with one really big computer, so our masked superhero horizontal scaling comes to the rescue. [sent-6, score-0.201]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-297-html" href="http://highscalability.com//blog/2008/4/5/skype-plans-for-postgresql-to-scale-to-1-billion-users.html">html</a></p><p>Introduction: Skype  uses PostgreSQL as their backend database . PostgreSQL doesn't get enough run in the database world so I was excited to see how PostgreSQL is used "as the main DB for most of [Skype's] business needs." Their approach is to use a traditional stored procedure interface for accessing data and on top of that layer proxy servers which hash SQL requests to a set of database servers that actually carry out queries. The result is a horizontally partitioned system that they think will scale to handle 1 billion users.
+   Skype's goal is an architecture that can handle 1 billion plus users. This level of scale isn't practically solvable with one really big computer,  so our masked superhero horizontal scaling comes to the rescue.    Hardware is dual or quad Opterons with SCSI RAID.    Followed common database progression: Start with one DB. Add new databases partitioned by functionality. Replicate read-mostly data for better read access. Then horizontally partition data across multiple nod</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Skype  uses PostgreSQL as their backend database . [sent-1, score-0.208]
+</p><p>2 PostgreSQL doesn't get enough run in the database world so I was excited to see how PostgreSQL is used "as the main DB for most of [Skype's] business needs. [sent-2, score-0.202]
+</p><p>3 " Their approach is to use a traditional stored procedure interface for accessing data and on top of that layer proxy servers which hash SQL requests to a set of database servers that actually carry out queries. [sent-3, score-0.828]
+</p><p>4 The result is a horizontally partitioned system that they think will scale to handle 1 billion users. [sent-4, score-0.217]
 </p><p>5 In a first for this blog anyway, Skype uses a traditional database architecture where all database access is encapsulated in stored procedures. [sent-13, score-0.468]
-</p><p>6 PL/Proxyis used to scale theOLTPportion of their system by creating a horizontally partitioned cluster:break- Database queries are routed by a proxy across a set of database servers. [sent-16, score-0.881]
+</p><p>6 PL/Proxy  is used to scale the  OLTP  portion of their system by creating a horizontally partitioned cluster:   - Database queries are routed by a proxy across a set of database servers. [sent-16, score-0.881]
 </p><p>7 The proxy creates partitions based on a field value, typically a primary key. [sent-17, score-0.517]
 </p><p>8 - For example, you could partition users across a cluster by hashing based on user name. [sent-18, score-0.35]
 </p><p>9 - Remote database calls are executed using a new PostgreSQL database language called plproxy. [sent-20, score-0.426]
 </p><p>10 And if the proxy tier becomes slow you can add more proxies and load balance between them. [sent-25, score-0.499]
-</p><p>11 - Only data on a failed partition is unavailable during a failover. [sent-27, score-0.19]
-</p><p>12 PL/Proxy "somewhat wastes connections as it opens connection to each partition from each backend process" so the pooler helps reduce the number of connections . [sent-30, score-0.462]
-</p><p>13 More sophisticated organizations often uses an OLTP database system to handle high performance transaction needs and then create seperate systems for more non- transactional needs. [sent-33, score-0.334]
+</p><p>11 PgBouncer  is used as a connection pooler for PostgreSQL. [sent-29, score-0.275]
+</p><p>12 PL/Proxy "somewhat wastes connections as it opens connection to each partition from each backend process" so the pooler helps reduce the number of connections. [sent-30, score-0.462]
+</p><p>13 More sophisticated organizations often uses an OLTP database system to handle high performance transaction needs and then create seperate systems for more non-transactional needs. [sent-33, score-0.334]
 </p><p>14 Skype also uses seperate systems for the presentation layer of web applications, sending email, and prining invoices. [sent-36, score-0.267]
-</p><p>15 - InitiallySlony1was used to move data to the other systems, but "as the complexity and loads grew Slony1 started to cause us greater and greater pains. [sent-38, score-0.194]
-</p><p>16 The proxy approach is interesting and is an architecture we haven't seen previously. [sent-40, score-0.489]
-</p><p>17 Added administration complexity of dealing with proxy configuration and HA for the proxy servers. [sent-48, score-0.8]
-</p><p>18 Without changing your application you can slip in a proxy layer and get a lot of very cool features for what seems like a low cost. [sent-50, score-0.536]
-</p><p>19 If you are a MySQL user and this approach interests you then take a look atMySQL Proxy, which accomplishes something similar in a different sort of way. [sent-51, score-0.223]
-</p><p>20 MySQL ProxyPostgreSQL cluster: partitioning with plproxy (part I)by Kristo Kaiv'. [sent-53, score-0.339]
+</p><p>15 The proxy approach is interesting and is an architecture we haven't seen previously. [sent-40, score-0.489]
+</p><p>16 Added administration complexity of dealing with proxy configuration and HA for the proxy servers. [sent-48, score-0.8]
+</p><p>17 Without changing your application you can slip in a proxy layer and get a lot of very cool features for what seems like a low cost. [sent-50, score-0.536]
+</p><p>18 If you are a MySQL user and this approach interests you then take a look at  MySQL Proxy , which accomplishes something similar in a different sort of way. [sent-51, score-0.223]
+</p><p>19 MySQL Proxy      PostgreSQL cluster: partitioning with plproxy (part I)  by Kristo Kaiv'. [sent-53, score-0.339]
+</p><p>20 PostgreSQL cluster: partitioning with plproxy (part II)  by Kristo Kaiv'. [sent-54, score-0.339]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('proxy', 0.4), ('kristo', 0.249), ('plproxy', 0.249), ('partition', 0.19), ('skype', 0.19), ('username', 0.179), ('oltp', 0.164), ('postgresql', 0.155), ('pooler', 0.15), ('database', 0.138), ('text', 0.135), ('seperate', 0.126), ('encapsulated', 0.122), ('partitions', 0.117), ('horizontally', 0.113), ('partitioned', 0.104), ('proxies', 0.099), ('returns', 0.095), ('cluster', 0.091), ('partitioning', 0.09), ('approach', 0.089), ('insert', 0.081), ('executed', 0.079), ('dual', 0.077), ('opterons', 0.075), ('parition', 0.075), ('replace', 0.072), ('language', 0.071), ('layer', 0.071), ('superhero', 0.071), ('uses', 0.07), ('user', 0.069), ('masked', 0.067), ('articlesan', 0.067), ('accomplishes', 0.065), ('slip', 0.065), ('advantages', 0.065), ('greater', 0.065), ('servers', 0.065), ('used', 0.064), ('remote', 0.063), ('function', 0.063), ('outweigh', 0.063), ('solvable', 0.063), ('queries', 0.062), ('wastes', 0.061), ('connection', 0.061), ('lighter', 0.06), ('parsed', 0.06), ('tweaks', 0.06)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999976 <a title="297-tfidf-1" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
-<p>Introduction: Skypeuses PostgreSQL as their backend database. PostgreSQL doesn't get enough
-run in the database world so I was excited to see how PostgreSQL is used "as
-the main DB for most of [Skype's] business needs." Their approach is to use a
-traditional stored procedure interface for accessing data and on top of that
-layer proxy servers which hash SQL requests to a set of database servers that
-actually carry out queries. The result is a horizontally partitioned system
-that they think will scale to handle 1 billion users.Skype's goal is an
-architecture that can handle 1 billion plus users. This level of scale isn't
-practically solvable with one really big computer, so our masked superhero
-horizontal scaling comes to the rescue.Hardware is dual or quad Opterons with
-SCSI RAID.Followed common database progression: Start with one DB. Add new
-databases partitioned by functionality. Replicate read-mostly data for better
-read access. Then horizontally partition data across multiple nodes..In a
-first f</p><p>2 0.33271989 <a title="297-tfidf-2" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
-<p>Introduction: Update 2:AHSCALE benchmarkfinds HSCALE "adds a maximum overhead of about 0.24
-ms per query (against a partitioned table)."Future releasespromise much
-improved results.Update:A new presentation atAn Introduction to HSCALE.After
-writingSkype Plans for PostgreSQL to Scale to 1 Billion Users, which shows how
-Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL
-Proxy articles all over the place. It's like those "get rich quick" books that
-say all you have to do is visualize a giraffe with a big yellow dot
-superimposed over it and by sympathetic magic giraffes will suddenly stampede
-into your life. Without realizing it I must have visualized transparent
-proxies smothered in yellow dots.One of the brightest images is a wonderful
-series of articles by Peter Romianowski describing the evolution of their
-proxy architecture. Their application is an OLTP system executing 200 million
-transaction per month, tables with more than 1.5 billion rows, and a 600 GB
-total database size</p><p>3 0.18651712 <a title="297-tfidf-3" href="../high_scalability-2008/high_scalability-2008-12-01-Sun%27s_High-Performance_and_Reliable_Web_Proxy_Solution.html">456 high scalability-2008-12-01-Sun's High-Performance and Reliable Web Proxy Solution</a></p>
-<p>Introduction: As individuals and businesses depend on the Web more than ever to conduct
-business, rapid and reliable content retrieval is critical. Reducing wait time
-improves productivity and increases user satisfaction. Web proxy technology
-has emerged as an effective solution to improve performance, help ensure
-content availability and enhance network security by caching and filtering Web
-content. The combination of Sun SPARC Enterprise servers with CoolThreads
-technology and the Sun Java System Web Proxy Server software provides a
-compelling foundation for a robust Web proxy solution. Sun SPARC Enterprise
-T1000 and T2000 servers include the UltraSPARC T1 processor with CoolThreads
-technology, offering six or eight cores with four threads per core. The Sun
-Java System Web Proxy Server software is highly threaded and takes advantage
-of the large number of threads supported by Sun UltraSPARC T1 processors with
-CoolThreads technology. Together, these products provide a highly scalable
-solution that</p><p>4 0.1646736 <a title="297-tfidf-4" href="../high_scalability-2009/high_scalability-2009-06-10-Dealing_with_multi-partition_transactions_in_a_distributed_KV_solution.html">623 high scalability-2009-06-10-Dealing with multi-partition transactions in a distributed KV solution</a></p>
-<p>Introduction: I've been getting asked about this a lot lately so I figured I'd just blog
-about it. Products like WebSphere eXtreme Scale work by taking a dataset,
-partitioning it using a key and then assigning those partitions to a number of
-JVMs. Each partition usually has a primary and a replica. These 'shards' are
-assigned to JVMs. A transactional application typically interacts with the
-data on a single partition at a time. This means the transaction is executed
-in a single JVM. A server box will be able to do M of those transactions per
-second and it scales because N boxes does MN (M multiplied by N) transactions
-per second. Increase N, you get more transactions per second. Availability is
-very good because a transaction only depends on 1 of the N servers that are
-currently online. Any of the other (N-1) servers can go down or fail with no
-impact on the transaction. So, single partition transactions can scale
-indefinitely from a throughput point of view, offer very consistent response
-times and</p><p>5 0.16260307 <a title="297-tfidf-5" href="../high_scalability-2008/high_scalability-2008-07-20-Strategy%3A_Front_S3_with_a_Caching_Proxy.html">353 high scalability-2008-07-20-Strategy: Front S3 with a Caching Proxy</a></p>
-<p>Introduction: Given S3'srecent failure(Cloud Statustells the tale)Kevin Burtonmakes
-theexcellent suggestion of fronting S3with acaching proxy server.A caching
-proxy servercan reply to service requests without contacting the specified
-server, by retrieving content saved from a previous request, made by the same
-client or even other clients. This is called caching. Caching proxies keep
-local copies of frequently requested resources.In normal operation when an
-asset (a user's avatar, for example) is requested the cache is tried first. If
-the asset is found in the cache then it's returned. If the asset is not in the
-cache it's retrieved from S3 (or wherever) and cached. So when S3 goes down
-it's likely you can ride out the down time by serving assets out of the
-cache.This strategy only works when using S3 as aCDN. If you are using S3 for
-its "real" purpose, as a storage service, then a caching proxy can't help
-you...breakAmazon doesn't used S3 as a CDN eitherAmazon Not Building Out AWS
-To Compete With C</p><p>6 0.14045875 <a title="297-tfidf-6" href="../high_scalability-2008/high_scalability-2008-09-23-How_to_Scale_with_Ruby_on_Rails.html">389 high scalability-2008-09-23-How to Scale with Ruby on Rails</a></p>
+<p>Introduction: Skype  uses PostgreSQL as their backend database . PostgreSQL doesn't get enough run in the database world so I was excited to see how PostgreSQL is used "as the main DB for most of [Skype's] business needs." Their approach is to use a traditional stored procedure interface for accessing data and on top of that layer proxy servers which hash SQL requests to a set of database servers that actually carry out queries. The result is a horizontally partitioned system that they think will scale to handle 1 billion users.
+   Skype's goal is an architecture that can handle 1 billion plus users. This level of scale isn't practically solvable with one really big computer,  so our masked superhero horizontal scaling comes to the rescue.    Hardware is dual or quad Opterons with SCSI RAID.    Followed common database progression: Start with one DB. Add new databases partitioned by functionality. Replicate read-mostly data for better read access. Then horizontally partition data across multiple nod</p><p>2 0.33271989 <a title="297-tfidf-2" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
+<p>Introduction: Update 2:  A  HSCALE benchmark  finds HSCALE "adds a maximum overhead of about 0.24 ms per query (against a partitioned table)."  Future releases  promise much improved results.  Update:  A new presentation at  An Introduction to HSCALE .   After writing  Skype Plans for PostgreSQL to Scale to 1 Billion Users , which shows how Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL Proxy articles all over the place. It's like those "get rich quick" books that say all you have to do is visualize a giraffe with a big yellow dot superimposed over it and by sympathetic magic giraffes will suddenly stampede into your life. Without realizing it I must have visualized transparent proxies smothered in yellow dots.  One of the brightest images is a wonderful series of articles by Peter Romianowski describing the evolution of their proxy architecture. Their application is an OLTP system executing 200 million transaction per month, tables with more than 1.5 billion rows, and a 6</p><p>3 0.18651712 <a title="297-tfidf-3" href="../high_scalability-2008/high_scalability-2008-12-01-Sun%27s_High-Performance_and_Reliable_Web_Proxy_Solution.html">456 high scalability-2008-12-01-Sun's High-Performance and Reliable Web Proxy Solution</a></p>
+<p>Introduction: As individuals and businesses depend on the Web more than ever to conduct business, rapid and reliable content retrieval is critical. Reducing wait time improves productivity and increases user satisfaction. Web proxy technology has emerged as an effective solution to improve performance, help ensure content availability and enhance network security by caching and filtering Web content. The combination of Sun SPARC Enterprise servers with CoolThreads technology and the Sun Java System Web Proxy Server software provides a compelling foundation for a robust Web proxy solution. Sun SPARC Enterprise T1000 and T2000 servers include the UltraSPARC T1 processor with CoolThreads technology, offering six or eight cores with four threads per core. The Sun Java System Web Proxy Server software is highly threaded and takes advantage of the large number of threads supported by Sun UltraSPARC T1 processors with CoolThreads technology. Together, these products provide a highly scalable solution that</p><p>4 0.1646736 <a title="297-tfidf-4" href="../high_scalability-2009/high_scalability-2009-06-10-Dealing_with_multi-partition_transactions_in_a_distributed_KV_solution.html">623 high scalability-2009-06-10-Dealing with multi-partition transactions in a distributed KV solution</a></p>
+<p>Introduction: I've been getting asked about this a lot lately so I figured I'd just blog about it. Products like WebSphere eXtreme Scale work by taking a dataset, partitioning it using a key and then assigning those partitions to a number of JVMs. Each partition usually has a primary and a replica. These 'shards' are assigned to JVMs. A transactional application typically interacts with the data on a single partition at a time. This means the transaction is executed in a single JVM. A server box will be able to do M of those transactions per second and it scales because N boxes does MN (M multiplied by N) transactions per second. Increase N, you get more transactions per second. Availability is very good because a transaction only depends on 1 of the N servers that are currently online. Any of the other (N-1) servers can go down or fail with no impact on the transaction. So, single partition transactions can scale indefinitely from a throughput point of view, offer very consistent response times and</p><p>5 0.16260307 <a title="297-tfidf-5" href="../high_scalability-2008/high_scalability-2008-07-20-Strategy%3A_Front_S3_with_a_Caching_Proxy.html">353 high scalability-2008-07-20-Strategy: Front S3 with a Caching Proxy</a></p>
+<p>Introduction: Given S3's  recent failure  ( Cloud Status  tells the tale)  Kevin Burton  makes the  excellent suggestion of  fronting S3  with a  caching proxy server .   A caching proxy server  can reply to service requests without contacting the specified server, by retrieving content saved from a previous request, made by the same client or even other clients. This is called caching. Caching proxies keep local copies of frequently requested resources.  In normal operation when an asset (a user's avatar, for example) is requested the cache is tried first. If the asset is found in the cache then it's returned. If the asset is not in the cache it's retrieved from S3 (or wherever) and cached. So when S3 goes down it's likely you can ride out the down time by serving assets out of the cache.   This strategy only works when using S3 as a  CDN . If you are using S3 for its "real" purpose, as a storage service, then a caching proxy can't help you...
+   
+ Amazon doesn't used S3 as a CDN either  Amazon Not</p><p>6 0.14045875 <a title="297-tfidf-6" href="../high_scalability-2008/high_scalability-2008-09-23-How_to_Scale_with_Ruby_on_Rails.html">389 high scalability-2008-09-23-How to Scale with Ruby on Rails</a></p>
 <p>7 0.13344066 <a title="297-tfidf-7" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
 <p>8 0.13173673 <a title="297-tfidf-8" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
 <p>9 0.13114065 <a title="297-tfidf-9" href="../high_scalability-2007/high_scalability-2007-12-02-nginx%3A_high_performance_smpt-pop-imap_proxy.html">172 high scalability-2007-12-02-nginx: high performance smpt-pop-imap proxy</a></p>
@@ -144,73 +70,23 @@ To Compete With C</p><p>6 0.14045875 <a title="297-tfidf-6" href="../high_scalab
 <p>[(0, 0.207), (1, 0.114), (2, -0.035), (3, -0.098), (4, 0.033), (5, 0.102), (6, 0.02), (7, -0.097), (8, -0.032), (9, -0.003), (10, 0.011), (11, 0.077), (12, -0.046), (13, 0.023), (14, 0.023), (15, 0.033), (16, -0.036), (17, -0.007), (18, 0.016), (19, 0.063), (20, 0.043), (21, 0.008), (22, -0.04), (23, -0.031), (24, 0.023), (25, 0.067), (26, -0.014), (27, 0.006), (28, 0.026), (29, 0.07), (30, 0.018), (31, -0.036), (32, -0.104), (33, 0.018), (34, 0.011), (35, -0.032), (36, -0.057), (37, 0.014), (38, -0.001), (39, 0.04), (40, 0.021), (41, -0.031), (42, 0.018), (43, -0.079), (44, -0.037), (45, -0.004), (46, 0.052), (47, -0.044), (48, -0.062), (49, 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95914775 <a title="297-lsi-1" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
-<p>Introduction: Skypeuses PostgreSQL as their backend database. PostgreSQL doesn't get enough
-run in the database world so I was excited to see how PostgreSQL is used "as
-the main DB for most of [Skype's] business needs." Their approach is to use a
-traditional stored procedure interface for accessing data and on top of that
-layer proxy servers which hash SQL requests to a set of database servers that
-actually carry out queries. The result is a horizontally partitioned system
-that they think will scale to handle 1 billion users.Skype's goal is an
-architecture that can handle 1 billion plus users. This level of scale isn't
-practically solvable with one really big computer, so our masked superhero
-horizontal scaling comes to the rescue.Hardware is dual or quad Opterons with
-SCSI RAID.Followed common database progression: Start with one DB. Add new
-databases partitioned by functionality. Replicate read-mostly data for better
-read access. Then horizontally partition data across multiple nodes..In a
-first f</p><p>2 0.80122513 <a title="297-lsi-2" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
-<p>Introduction: Update 2:AHSCALE benchmarkfinds HSCALE "adds a maximum overhead of about 0.24
-ms per query (against a partitioned table)."Future releasespromise much
-improved results.Update:A new presentation atAn Introduction to HSCALE.After
-writingSkype Plans for PostgreSQL to Scale to 1 Billion Users, which shows how
-Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL
-Proxy articles all over the place. It's like those "get rich quick" books that
-say all you have to do is visualize a giraffe with a big yellow dot
-superimposed over it and by sympathetic magic giraffes will suddenly stampede
-into your life. Without realizing it I must have visualized transparent
-proxies smothered in yellow dots.One of the brightest images is a wonderful
-series of articles by Peter Romianowski describing the evolution of their
-proxy architecture. Their application is an OLTP system executing 200 million
-transaction per month, tables with more than 1.5 billion rows, and a 600 GB
-total database size</p><p>3 0.7774871 <a title="297-lsi-3" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
-<p>Introduction: I met the CodeFutures folks, makers ofdbShards, atGluecon. They occupy an
-interesting niche in the database space, somewhere betweenNoSQL, which
-jettisons everything SQL, and high end analytics platformsthat completely
-rewrite the backend while keeping a SQL facade.High concept: I think of
-dbShards as a sort of commercial OLTP mashup of features from HSCALE
-(partitioning) +MySQL Proxy (transparent intermediate layer) +Memcached
-(client side sharding) +Gigaspaces(parallel query) + MySQL (transactions).You
-may find dbShards interesting if you are looking to keep SQL, need scale out
-writes and reads, need out of the box parallel query capabilities, and would
-prefer to use a standard platform like MySQL as a base. To learn more about
-dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult
-questions (not really).Who are you, what is dbShards, and what problem was
-dbShards created to solve?I'm Cory Isaacson, CEO/CTO of CodeFutures
-Corporation, the makers of dbShards. dbSha</p><p>4 0.77577049 <a title="297-lsi-4" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
-<p>Introduction: This is a follow up article byCory Isaacson to the first article on DbShards,
-Product: dbShards - Share Nothing. Shard Everything, describing some of the
-details about how DbShards works on the inside.The dbShards architecture is a
-true "shared nothing" implementation of Database Sharding. The high-level view
-of dbShards is shown here:The above diagram shows how dbShards works for
-achieving massive database scalability across multiple database servers, using
-native DBMS engines and our dbShards components. The important components
-are:dbS/Client: A design goal of dbShards is to make database sharding as
-seamless as possible to an application, so that application developers can
-write the same type of code they always have. A key component to making this
-possible is the dbShards Client. The dbShards Client is our intelligent driver
-that is an exact API emulation of a given vendor's database driver. For
-example, with MySQL we have full support for JDBC, and the the MySQL C driver
-(used in</p><p>5 0.76263601 <a title="297-lsi-5" href="../high_scalability-2007/high_scalability-2007-09-06-Product%3A_Perdition_Mail_Retrieval_Proxy.html">80 high scalability-2007-09-06-Product: Perdition Mail Retrieval Proxy</a></p>
-<p>Introduction: Perditionis a fully featured POP3 and IMAP4 proxy server. It is able to handle
-both SSL and non-SSL connections and redirect users to a real-server based on
-a database lookup. Perdition supports modular based database access. ODBC,
-MySQL, PostgreSQL, GDBM, POSIX Regular Expression and NIS modules ship with
-the distribution. The API for modules is open allowing arbitrary modules to be
-written to allow access to any data store.Perdition has many uses. Including,
-creating large mail systems where an end-user's mailbox may be stored on one
-of several hosts, integrating different mail systems together, migrating
-between different email infrastructures, and bridging plain-text, SSL and TLS
-services. It can also be used as part of a firewall. The use of perditon to
-scale mail services beyond a single box is discussed in high capacity email.</p><p>6 0.75070673 <a title="297-lsi-6" href="../high_scalability-2007/high_scalability-2007-11-12-a8cjdbc_-_Database_Clustering_via_JDBC.html">151 high scalability-2007-11-12-a8cjdbc - Database Clustering via JDBC</a></p>
+<p>Introduction: Skype  uses PostgreSQL as their backend database . PostgreSQL doesn't get enough run in the database world so I was excited to see how PostgreSQL is used "as the main DB for most of [Skype's] business needs." Their approach is to use a traditional stored procedure interface for accessing data and on top of that layer proxy servers which hash SQL requests to a set of database servers that actually carry out queries. The result is a horizontally partitioned system that they think will scale to handle 1 billion users.
+   Skype's goal is an architecture that can handle 1 billion plus users. This level of scale isn't practically solvable with one really big computer,  so our masked superhero horizontal scaling comes to the rescue.    Hardware is dual or quad Opterons with SCSI RAID.    Followed common database progression: Start with one DB. Add new databases partitioned by functionality. Replicate read-mostly data for better read access. Then horizontally partition data across multiple nod</p><p>2 0.80122513 <a title="297-lsi-2" href="../high_scalability-2008/high_scalability-2008-05-05-HSCALE_-__Handling_200_Million_Transactions_Per_Month_Using_Transparent_Partitioning_With_MySQL_Proxy.html">315 high scalability-2008-05-05-HSCALE -  Handling 200 Million Transactions Per Month Using Transparent Partitioning With MySQL Proxy</a></p>
+<p>Introduction: Update 2:  A  HSCALE benchmark  finds HSCALE "adds a maximum overhead of about 0.24 ms per query (against a partitioned table)."  Future releases  promise much improved results.  Update:  A new presentation at  An Introduction to HSCALE .   After writing  Skype Plans for PostgreSQL to Scale to 1 Billion Users , which shows how Skype smartly uses a proxy architecture for scaling, I'm now seeing MySQL Proxy articles all over the place. It's like those "get rich quick" books that say all you have to do is visualize a giraffe with a big yellow dot superimposed over it and by sympathetic magic giraffes will suddenly stampede into your life. Without realizing it I must have visualized transparent proxies smothered in yellow dots.  One of the brightest images is a wonderful series of articles by Peter Romianowski describing the evolution of their proxy architecture. Their application is an OLTP system executing 200 million transaction per month, tables with more than 1.5 billion rows, and a 6</p><p>3 0.7774871 <a title="297-lsi-3" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>Introduction: I met the CodeFutures folks, makers of  dbShards , at  Gluecon . They occupy an interesting niche in the database space, somewhere between  NoSQL , which jettisons everything SQL, and  high end analytics platforms  that completely rewrite the backend while keeping a SQL facade.
+ 
+High concept: I think of dbShards as a sort of commercial OLTP mashup of features from  HSCALE  (partitioning) +  MySQL Proxy  (transparent intermediate layer) +  Memcached  (client side sharding) +  Gigaspaces  (parallel query) + MySQL (transactions).
+ 
+You may find dbShards interesting if you are looking to keep SQL, need scale out writes and reads, need out of the box parallel query capabilities, and would prefer to use a standard platform like MySQL as a base. To learn more about dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult questions (not really).
+  Who are you, what is dbShards, and what problem was dbShards created to solve?   
+
+I’m Cory Isaacson, CEO/CTO of CodeFutures Corp</p><p>4 0.77577049 <a title="297-lsi-4" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
+<p>Introduction: This is a follow up article by   Cory Isaacson  to the first article on DbShards,   Product: dbShards - Share Nothing. Shard Everything   , describing some of the details about how DbShards works on the inside. 
+ 
+The dbShards architecture is a true “shared nothing” implementation of Database Sharding. The high-level view of dbShards is shown here:    The above diagram shows how dbShards works for achieving massive database scalability across multiple database servers, using native DBMS engines and our dbShards components. The important components are:
+  
+  dbS/Client : A design goal of dbShards is to make database sharding as seamless as possible to an application, so that application developers can write the same type of code they always have. A key component to making this possible is the dbShards Client. The dbShards Client is our intelligent driver that is an exact API emulation of a given vendor’s database driver. For example, with MySQL we have full support for JDBC, and the the</p><p>5 0.76263601 <a title="297-lsi-5" href="../high_scalability-2007/high_scalability-2007-09-06-Product%3A_Perdition_Mail_Retrieval_Proxy.html">80 high scalability-2007-09-06-Product: Perdition Mail Retrieval Proxy</a></p>
+<p>Introduction: Perdition  is a fully featured POP3 and IMAP4 proxy server. It is able to handle both SSL and non-SSL connections and redirect users to a real-server based on a database lookup. Perdition supports modular based database access. ODBC, MySQL, PostgreSQL, GDBM, POSIX Regular Expression and NIS modules ship with the distribution. The API for modules is open allowing arbitrary modules to be written to allow access to any data store.  Perdition has many uses. Including, creating large mail systems where an end-user's mailbox may be stored on one of several hosts, integrating different mail systems together, migrating between different email infrastructures, and bridging plain-text, SSL and TLS services. It can also be used as part of a firewall. The use of perditon to scale mail services beyond a single box is discussed in high capacity email.</p><p>6 0.75070673 <a title="297-lsi-6" href="../high_scalability-2007/high_scalability-2007-11-12-a8cjdbc_-_Database_Clustering_via_JDBC.html">151 high scalability-2007-11-12-a8cjdbc - Database Clustering via JDBC</a></p>
 <p>7 0.74905539 <a title="297-lsi-7" href="../high_scalability-2008/high_scalability-2008-09-05-Product%3A_Tungsten_Replicator.html">380 high scalability-2008-09-05-Product: Tungsten Replicator</a></p>
 <p>8 0.74408251 <a title="297-lsi-8" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
 <p>9 0.7334004 <a title="297-lsi-9" href="../high_scalability-2008/high_scalability-2008-12-20-Second_Life_Architecture_-_The_Grid.html">473 high scalability-2008-12-20-Second Life Architecture - The Grid</a></p>
@@ -230,64 +106,24 @@ scale mail services beyond a single box is discussed in high capacity email.</p>
 <p>[(1, 0.149), (2, 0.244), (10, 0.088), (17, 0.019), (30, 0.011), (52, 0.145), (61, 0.112), (77, 0.011), (79, 0.086), (85, 0.012), (94, 0.03)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.96640301 <a title="297-lda-1" href="../high_scalability-2007/high_scalability-2007-11-16-Mogulus_Doesn%27t_Own_a_Single_Server_and_has_%241.2_million_in_funding%2C_15%2C000_People_Creating_Channels.html">156 high scalability-2007-11-16-Mogulus Doesn't Own a Single Server and has $1.2 million in funding, 15,000 People Creating Channels</a></p>
-<p>Introduction: Scoblethe Ubiquitous has a fascinating post on how Mogulus, a live video
-channel startup, uses S3/EC2 and doesn't own a single server. The trends that
-have been happening for a while now are going mainstream. To do great things
-you no longer need to start by creating a huge war chest. You can forage off
-the land, like any good mobile, light weight fighting unit.For a strategy hit
-he mentions the same needed change in perspective as Beau Lebens talked about
-when makingFeedBlendr:One tip he gave us is that when using Amazon’s services
-you have to design your systems with the assumption that they will never be up
-and running. What he means by that is services are “volatile” and can go up
-and down without notice. So, he’s designed his systems to survive that. He
-told me that it meant his engineering teams had to be quite disciplined in
-designing their architecture.</p><p>2 0.96561182 <a title="297-lda-2" href="../high_scalability-2010/high_scalability-2010-08-05-Pairing_NoSQL_and_Relational_Data_Storage%3A_MySQL_with_MongoDB.html">872 high scalability-2010-08-05-Pairing NoSQL and Relational Data Storage: MySQL with MongoDB</a></p>
-<p>Introduction: I've largely steered clear of publicly commenting on the "NoSQL vs.
-Relational" conflict. Keeping in mind that this argument is more about
-currently available solutions and the features their developers have chosen to
-build in, I'd like to dig into this and provide a decidedly neutral viewpoint.
-In fact, by erring on the side of caution, I've inadvertently given myself
-plenty of time to consider the pros and cons of both data storage approaches,
-and although my mind was initially swaying toward the NoSQL camp, I can say
-with a fair amount of certainty, that I've found a good compromise. You can
-read the full storehere.</p><p>3 0.95479649 <a title="297-lda-3" href="../high_scalability-2007/high_scalability-2007-07-30-Product%3A_Yslow_to_speed_up_your_web_pages.html">47 high scalability-2007-07-30-Product: Yslow to speed up your web pages</a></p>
-<p>Introduction: Update:Speed up Apache - how I went from F to A in YSlow.Good example of using
-YSlow to speed up a website with solid code examples.Every layer in the multi-
-layer cake that is your website contributes to how long a page takes to
-display.YSlow, from Yahoo, is a cool tool for discovering how the ingredients
-of your site's top layer contribute to performance.YSlow analyzes web pages
-and tells you why they're slow based on the rules for high performance web
-sites. YSlow is a Firefox add-on integrated with the popular Firebug web
-development tool.YSlow gives you:Performance report cardHTTP/HTML summaryList
-of components in the pageTools including JSLint</p><p>4 0.94036245 <a title="297-lda-4" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
-<p>Introduction: This article is from an interview withZuhaib Siddique, a production engineer
-atHipChat, makers ofgroup chat and IM for teams.HipChat started in an unusual
-space, one you might not think would have much promise, enterprise group
-messaging, but as we are learning there is gold in them thereenterprise hills.
-Which is why Atlassian, makers of well thought of tools like JIRA and
-Confluence,acquired HipChat in 2012.And in a tale not often heard, the
-resources and connections of a larger parent have actually helped HipChat
-enter anexponential growth cycle. Having reached the 1.2 billion message
-storage mark they are now doubling the number of messages sent, stored, and
-indexed every few months.That kind of growth puts a lot of pressure on a once
-adequate infrastructure. HipChat exhibited a common scaling pattern. Start
-simple, experience traffic spikes, and then think what do we do now? Using
-bigger computers is usually the first and best answer. And they did that. That
-gave them some breathi</p><p>same-blog 5 0.94018084 <a title="297-lda-5" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
-<p>Introduction: Skypeuses PostgreSQL as their backend database. PostgreSQL doesn't get enough
-run in the database world so I was excited to see how PostgreSQL is used "as
-the main DB for most of [Skype's] business needs." Their approach is to use a
-traditional stored procedure interface for accessing data and on top of that
-layer proxy servers which hash SQL requests to a set of database servers that
-actually carry out queries. The result is a horizontally partitioned system
-that they think will scale to handle 1 billion users.Skype's goal is an
-architecture that can handle 1 billion plus users. This level of scale isn't
-practically solvable with one really big computer, so our masked superhero
-horizontal scaling comes to the rescue.Hardware is dual or quad Opterons with
-SCSI RAID.Followed common database progression: Start with one DB. Add new
-databases partitioned by functionality. Replicate read-mostly data for better
-read access. Then horizontally partition data across multiple nodes..In a
-first f</p><p>6 0.93440181 <a title="297-lda-6" href="../high_scalability-2013/high_scalability-2013-04-01-Khan_Academy_Checkbook_Scaling_to_6_Million_Users_a_Month_on_GAE.html">1432 high scalability-2013-04-01-Khan Academy Checkbook Scaling to 6 Million Users a Month on GAE</a></p>
+<p>Introduction: Scoble   the Ubiquitous has a fascinating post on how Mogulus, a live video channel startup, uses S3/EC2 and doesn't own a single server. The trends that have been happening for a while now are going mainstream. To do great things you no longer need to start by creating a huge war chest. You can forage off the land, like any good mobile, light weight fighting unit.     For a strategy hit he mentions the same needed change in perspective as Beau Lebens talked about when making   FeedBlendr  :     One tip he gave us is that when using Amazon’s services you have to design your systems with the assumption that they will never be up and running. What he means by that is services are “volatile” and can go up and down without notice. So, he’s designed his systems to survive that. He told me that it meant his engineering teams had to be quite disciplined in designing their architecture.</p><p>2 0.96561182 <a title="297-lda-2" href="../high_scalability-2010/high_scalability-2010-08-05-Pairing_NoSQL_and_Relational_Data_Storage%3A_MySQL_with_MongoDB.html">872 high scalability-2010-08-05-Pairing NoSQL and Relational Data Storage: MySQL with MongoDB</a></p>
+<p>Introduction: I’ve largely steered clear of publicly commenting on the “NoSQL vs. Relational” conflict. Keeping in mind that this argument is more about currently available solutions and the features their developers have chosen to build in, I’d like to dig into this and provide a decidedly neutral viewpoint. In fact, by erring on the side of caution, I’ve inadvertently given myself plenty of time to consider the pros and cons of both data storage approaches, and although my mind was initially swaying toward the NoSQL camp, I can say with a fair amount of certainty, that I’ve found a good compromise. 
+ 
+You can read the full store  here .</p><p>3 0.95479649 <a title="297-lda-3" href="../high_scalability-2007/high_scalability-2007-07-30-Product%3A_Yslow_to_speed_up_your_web_pages.html">47 high scalability-2007-07-30-Product: Yslow to speed up your web pages</a></p>
+<p>Introduction: Update :   Speed up Apache - how I went from F to A in YSlow .  Good example of using YSlow to speed up a website with solid code examples.  Every layer in the multi-layer cake that is your website contributes to how long a page takes to display.  YSlow , from Yahoo, is a cool tool for discovering how the ingredients of your site's top layer contribute to performance.
+ 
+YSlow analyzes web pages and tells you why they're slow based on the rules for high performance web sites. YSlow is a Firefox add-on integrated with the popular Firebug web development tool.   YSlow gives you: 
+ 
+ Performance report card 
+ HTTP/HTML summary 
+ List of components in the page 
+ Tools including JSLint</p><p>4 0.94036245 <a title="297-lda-4" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
+<p>Introduction: This article is from an interview with    Zuhaib Siddique   , a production engineer at    HipChat   , makers of     group chat and IM for teams.  
+   HipChat started in an unusual space, one you might not think would have much promise, enterprise group messaging, but as we are learning there is gold in them there    enterprise hills   . Which is why Atlassian, makers of well thought of tools like JIRA and Confluence,    acquired HipChat in 2012   . 
+   And in a tale not often heard, the resources and connections of a larger parent have actually helped HipChat enter an    exponential growth cycle   . Having reached the 1.2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. 
+   That kind of growth puts a lot of pressure on a once adequate infrastructure. HipChat exhibited a common scaling pattern. Start simple, experience traffic spikes, and then think what do we do now? Using bigger computers is usually the first and bes</p><p>same-blog 5 0.94018084 <a title="297-lda-5" href="../high_scalability-2008/high_scalability-2008-04-05-Skype_Plans_for_PostgreSQL_to_Scale_to_1_Billion_Users.html">297 high scalability-2008-04-05-Skype Plans for PostgreSQL to Scale to 1 Billion Users</a></p>
+<p>Introduction: Skype  uses PostgreSQL as their backend database . PostgreSQL doesn't get enough run in the database world so I was excited to see how PostgreSQL is used "as the main DB for most of [Skype's] business needs." Their approach is to use a traditional stored procedure interface for accessing data and on top of that layer proxy servers which hash SQL requests to a set of database servers that actually carry out queries. The result is a horizontally partitioned system that they think will scale to handle 1 billion users.
+   Skype's goal is an architecture that can handle 1 billion plus users. This level of scale isn't practically solvable with one really big computer,  so our masked superhero horizontal scaling comes to the rescue.    Hardware is dual or quad Opterons with SCSI RAID.    Followed common database progression: Start with one DB. Add new databases partitioned by functionality. Replicate read-mostly data for better read access. Then horizontally partition data across multiple nod</p><p>6 0.93440181 <a title="297-lda-6" href="../high_scalability-2013/high_scalability-2013-04-01-Khan_Academy_Checkbook_Scaling_to_6_Million_Users_a_Month_on_GAE.html">1432 high scalability-2013-04-01-Khan Academy Checkbook Scaling to 6 Million Users a Month on GAE</a></p>
 <p>7 0.93407393 <a title="297-lda-7" href="../high_scalability-2011/high_scalability-2011-07-01-TripAdvisor_Strategy%3A_No_Architects%2C_Engineers_Work_Across_the_Entire_Stack.html">1072 high scalability-2011-07-01-TripAdvisor Strategy: No Architects, Engineers Work Across the Entire Stack</a></p>
 <p>8 0.93170124 <a title="297-lda-8" href="../high_scalability-2011/high_scalability-2011-09-16-Stuff_The_Internet_Says_On_Scalability_For_September_16%2C_2011.html">1117 high scalability-2011-09-16-Stuff The Internet Says On Scalability For September 16, 2011</a></p>
 <p>9 0.93013608 <a title="297-lda-9" href="../high_scalability-2013/high_scalability-2013-05-03-Stuff_The_Internet_Says_On_Scalability_For_May_3%2C_2013.html">1451 high scalability-2013-05-03-Stuff The Internet Says On Scalability For May 3, 2013</a></p>

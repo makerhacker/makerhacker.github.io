@@ -16,23 +16,10 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>383 high scalability-2008-09-10-Shard servers -- go big or small?</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-383-html" href="http://highscalability.com//blog/2008/9/10/shard-servers-go-big-or-small.html">html</a></p><p>Introduction: Hello everyone,I'm designing a website/widget that my business partner and I
-expect to serve millions of hits daily. As such we must shard our database
-(and we're designing with shards in mind right from the beginning). However,
-the one thing I haven't been able to figure out from Googling is the best
-hardware to go with for shards. I'm using exclusively InnoDB tables.We'll
-(eventually) be running 3 groups of database servers:a) Session servers for
-php sessions. These will have a very high write volume.b) ID servers. These
-will match a couple primary indices (such as user ID) to a given shard. These
-will have an intense read load, plus a moderate amount of writes.c) Shard
-servers. These will hold the bulk of the data. These will have a high read
-load and a lowish write load.Group A is done as a database instead of using
-memcached so users aren't logged out if a memcached server goes down. As the
-write load is high, a pair of high performance master-master servers seems
-obvious. What's</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Hello everyone,I'm designing a website/widget that my business partner and I expect to serve millions of hits daily. [sent-1, score-0.193]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-383-html" href="http://highscalability.com//blog/2008/9/10/shard-servers-go-big-or-small.html">html</a></p><p>Introduction: Hello everyone,     I'm designing a website/widget that my business partner and I expect to serve millions of hits daily. As such we must shard our database (and we're designing with shards in mind right from the beginning). However, the one thing I haven't been able to figure out from Googling is the best hardware to go with for shards. I'm using exclusively InnoDB tables.     We'll (eventually) be running 3 groups of database servers:   a) Session servers for php sessions. These will have a very high write volume.   b) ID servers. These will match a couple primary indices (such as user ID) to a given shard. These will have an intense read load, plus a moderate amount of writes.   c) Shard servers. These will hold the bulk of the data. These will have a high read load and a lowish write load.       Group A is done as a database instead of using memcached so users aren't logged out if a memcached server goes down. As the write load is high, a pair of high performance master-master serv</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Hello everyone,     I'm designing a website/widget that my business partner and I expect to serve millions of hits daily. [sent-1, score-0.193]
 </p><p>2 As such we must shard our database (and we're designing with shards in mind right from the beginning). [sent-2, score-0.49]
 </p><p>3 However, the one thing I haven't been able to figure out from Googling is the best hardware to go with for shards. [sent-3, score-0.094]
-</p><p>4 We'll (eventually) be running 3 groups of database servers:a) Session servers for php sessions. [sent-5, score-0.269]
+</p><p>4 We'll (eventually) be running 3 groups of database servers:   a) Session servers for php sessions. [sent-5, score-0.269]
 </p><p>5 These will match a couple primary indices (such as user ID) to a given shard. [sent-8, score-0.108]
 </p><p>6 These will have an intense read load, plus a moderate amount of writes. [sent-9, score-0.218]
 </p><p>7 These will have a high read load and a lowish write load. [sent-12, score-0.306]
@@ -44,9 +31,9 @@ obvious. What's</p><br/><h2>Summary: the most important sentenses genereted by t
 </p><p>13 Again, it looks like maxed RAM is recommended here. [sent-20, score-0.312]
 </p><p>14 Should I think about slaves to a master-master setup? [sent-25, score-0.077]
 </p><p>15 It seems to me these machines can be of any capacity because the data they hold is easily spread between shards. [sent-27, score-0.393]
-</p><p>16 What is the query-per- second per dollar sweet spot when it comes to cores and number of disks? [sent-28, score-0.345]
+</p><p>16 What is the query-per-second per dollar sweet spot when it comes to cores and number of disks? [sent-28, score-0.345]
 </p><p>17 Should I beef these machines up, or stick with low end hardware? [sent-29, score-0.37]
-</p><p>18 We're also starting this on a minimal budget (of course), so where in the above is it best spent? [sent-34, score-0.077]
+</p><p>18 I have some other thoughts on system setup, too. [sent-31, score-0.157]
 </p><p>19 Keep in mind that I can recycle machines used in Group A & B in Group C as times goes on. [sent-35, score-0.49]
 </p><p>20 Anyway, I'd love to hear from the expertise of the forum. [sent-36, score-0.137]
 </p>
@@ -55,77 +42,39 @@ obvious. What's</p><br/><h2>Summary: the most important sentenses genereted by t
 <p>[('group', 0.232), ('setup', 0.222), ('maxed', 0.22), ('disks', 0.186), ('shard', 0.185), ('innodb', 0.18), ('cores', 0.165), ('thoughts', 0.157), ('machines', 0.155), ('hold', 0.15), ('recycle', 0.145), ('googling', 0.145), ('hear', 0.137), ('okay', 0.136), ('beef', 0.136), ('raid', 0.135), ('lowish', 0.13), ('memcached', 0.124), ('ram', 0.118), ('moderate', 0.112), ('designing', 0.111), ('evolves', 0.11), ('exclusively', 0.108), ('indices', 0.108), ('id', 0.107), ('intense', 0.106), ('mind', 0.106), ('hello', 0.103), ('php', 0.098), ('write', 0.096), ('hardware', 0.094), ('dollar', 0.094), ('recommended', 0.092), ('bother', 0.092), ('seems', 0.088), ('database', 0.088), ('logged', 0.088), ('pair', 0.087), ('sweet', 0.086), ('max', 0.086), ('stored', 0.085), ('goes', 0.084), ('servers', 0.083), ('partner', 0.082), ('remain', 0.082), ('high', 0.08), ('stick', 0.079), ('budget', 0.077), ('slaves', 0.077), ('variable', 0.077)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999952 <a title="383-tfidf-1" href="../high_scalability-2008/high_scalability-2008-09-10-Shard_servers_--_go_big_or_small%3F.html">383 high scalability-2008-09-10-Shard servers -- go big or small?</a></p>
-<p>Introduction: Hello everyone,I'm designing a website/widget that my business partner and I
-expect to serve millions of hits daily. As such we must shard our database
-(and we're designing with shards in mind right from the beginning). However,
-the one thing I haven't been able to figure out from Googling is the best
-hardware to go with for shards. I'm using exclusively InnoDB tables.We'll
-(eventually) be running 3 groups of database servers:a) Session servers for
-php sessions. These will have a very high write volume.b) ID servers. These
-will match a couple primary indices (such as user ID) to a given shard. These
-will have an intense read load, plus a moderate amount of writes.c) Shard
-servers. These will hold the bulk of the data. These will have a high read
-load and a lowish write load.Group A is done as a database instead of using
-memcached so users aren't logged out if a memcached server goes down. As the
-write load is high, a pair of high performance master-master servers seems
-obvious. What's</p><p>2 0.19569561 <a title="383-tfidf-2" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
-<p>Introduction: Update 4:Why you don't want to shard.by Morgon on the MySQL Performance
-Blog.Optimize everything else first, and then if performance still isn't good
-enough, it's time to take a very bitter medicine.Update 3:Building Scalable
-Databases: Pros and Cons of Various Database Sharding Schemesby Dare Obasanjo.
-Excellent discussion of why and when you would choose a sharding architecture,
-how to shard, and problems with sharding.Update 2:Mr. Moore gets to punt on
-shardingby Alan Rimm-Kaufman of 37signals. Insightful article on design
-tradeoffs and the evils of premature optimization. With more memory, more CPU,
-and new tech like SSD, problems can be avoided before more exotic
-architectures like sharding are needed. Add features not infrastructure.Jeremy
-Zawodnysays he's wrong wrong wrong. we're running multi-core CPUs at slower
-clock speeds. Moore won't save you.Update:Dan Pritchett shares some
-excellentSharding Lessons: Size Your Shards, Use Math on Shard Counts,
-Carefully Consider the Spread</p><p>3 0.16424613 <a title="383-tfidf-3" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
-<p>Introduction: For everything given something seems to be taken. Caching is a great
-scalability solution, but caching alsocomes with problems.Shardingis a great
-scalability solution, but as Foursquare recently revealed in apost-mortemabout
-their 17 hours of downtime, sharding also has problems. MongoDB, the database
-Foursquare uses, also contributed theirpost-mortemof what went wrong too.Now
-that everyone has shared and resharded, what can we learn to help us skip
-these mistakes and quickly move on to a different set of mistakes?First, like
-forFacebook, huge props to Foursquare and MongoDB for being upfront and honest
-about their problems. This helps everyone get better and is a sign we work in
-a pretty cool industry.Second, overall, the fault didn't flow from evil hearts
-or gross negligence. As usual the cause was more mundane: a key system, that
-could be a little more robust, combined with a very popular application built
-by a small group of people, under immense pressure, trying to get a lot of
-wo</p><p>4 0.16239734 <a title="383-tfidf-4" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
-<p>Introduction: Update:Flickr hits2 Billion photosserved. That's a lot of hamburgers.Flickr is
-both my favoritebirdand the web's leading photo sharing site. Flickr has an
-amazing challenge, they must handle a vast sea of ever expanding new content,
-ever increasing legions of users, and a constant stream of new features, all
-while providing excellent performance. How do they do it?Site:
-http://www.flickr.comInformation SourcesFlickr and PHP(an early
-document)Capacity Planning for LAMPFederation at Flickr: Doing Billions of
-Queries a Dayby Dathan Pattishall.Building Scalable Web Sitesby Cal Henderson
-from Flickr.Database War Stories #3: Flickrby Tim O'ReillyCal Henderson's
-Talks. A lot of useful PowerPoint
-presentations.PlatformPHPMySQLShardsMemcached for a caching layer.Squid in
-reverse-proxy for html and images.Linux (RedHat)Smarty for templatingPerlPEAR
-for XML and Email parsingImageMagick, for image processingJava, for the node
-serviceApacheSystemImager for deploymentGanglia for distributed system
-m</p><p>5 0.14258049 <a title="383-tfidf-5" href="../high_scalability-2012/high_scalability-2012-10-24-Saving_Cash_Using_Less_Cache_-__90%25_Savings_in_the_Caching_Tier.html">1346 high scalability-2012-10-24-Saving Cash Using Less Cache -  90% Savings in the Caching Tier</a></p>
-<p>Introduction: In a paper delivered at HotCloud '12 by a group from CMU and Intel Labs,
-Saving Cash by Using Less Cache (slides,  pdf), they show it may be possible
-to use less DRAM under low load conditions to save on operational costs. There
-are some issues with this idea, but in a give me more cache era, it could be
-an interesting source of cost savings for your product. Caching is used
-to:Reduce load on the database.Reduce latency.Problem:RAM in the cloud is
-quite expensive. A third of costs can come from the caching tier.Solution:
-Shrink your cache when the load is lower. Their work shows when the load drops
-below a certain point you can throw away 50% of your cache while still
-maintaining performance.A few popular items often account for most of your
-hits, implying can remove the cache for the long tail. Use two tiers of
-servers, the Retiring Group, which is the group of servers you want to get rid
-of. The Primary Group is the group of servers you are keeping. A cache request
-goes to both serve</p><p>6 0.1409115 <a title="383-tfidf-6" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
+<p>Introduction: Hello everyone,     I'm designing a website/widget that my business partner and I expect to serve millions of hits daily. As such we must shard our database (and we're designing with shards in mind right from the beginning). However, the one thing I haven't been able to figure out from Googling is the best hardware to go with for shards. I'm using exclusively InnoDB tables.     We'll (eventually) be running 3 groups of database servers:   a) Session servers for php sessions. These will have a very high write volume.   b) ID servers. These will match a couple primary indices (such as user ID) to a given shard. These will have an intense read load, plus a moderate amount of writes.   c) Shard servers. These will hold the bulk of the data. These will have a high read load and a lowish write load.       Group A is done as a database instead of using memcached so users aren't logged out if a memcached server goes down. As the write load is high, a pair of high performance master-master serv</p><p>2 0.19569561 <a title="383-tfidf-2" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
+<p>Introduction: Update 4:   Why you don’t want to shard.  by Morgon on the MySQL Performance Blog.  Optimize everything else first, and then if performance still isn’t good enough, it’s time to take a very bitter medicine.    Update 3:   Building Scalable Databases: Pros and Cons of Various Database Sharding Schemes  by Dare Obasanjo. Excellent discussion of why and when you would choose a sharding architecture, how to shard, and problems with sharding.  Update 2:   Mr. Moore gets to punt on sharding  by Alan Rimm-Kaufman of 37signals. Insightful article on design tradeoffs and the evils of premature optimization. With more memory, more CPU, and new tech like SSD,  problems can be avoided before more exotic architectures like sharding are needed.  Add features not infrastructure.  Jeremy Zawodny  says he's wrong wrong wrong. we're running multi-core CPUs at slower clock speeds. Moore won't save you.  Update:  Dan Pritchett shares some excellent  Sharding Lessons : Size Your Shards, Use Math on Shard C</p><p>3 0.16424613 <a title="383-tfidf-3" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: For everything given something seems to be taken. Caching is a great scalability solution, but caching also  comes with problems .  Sharding  is a great scalability solution, but as Foursquare recently revealed in a  post-mortem  about their 17 hours of downtime, sharding also has problems. MongoDB, the database Foursquare uses, also contributed their  post-mortem  of what went wrong too.
+ 
+Now that everyone has shared and resharded, what can we learn to help us skip these mistakes and quickly move on to a different set of mistakes?
+ 
+First, like for  Facebook , huge props to Foursquare and MongoDB for being upfront and honest about their problems. This helps everyone get better and is a sign we work in a pretty cool industry.
+ 
+Second, overall, the fault didn't flow from evil hearts or gross negligence. As usual the cause was more mundane: a key system, that could be a little more robust, combined with a very popular application built by a small group of people, under immense pressure</p><p>4 0.16239734 <a title="383-tfidf-4" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
+<p>Introduction: Update:  Flickr hits  2 Billion photos  served. That's a lot of hamburgers.   Flickr is both my favorite  bird  and the web's leading photo sharing site. Flickr has an amazing challenge, they must handle a vast sea of ever expanding new content, ever increasing legions of  users, and a constant stream of new features, all while providing excellent performance.  How do they do it?
+ 
+Site: http://www.flickr.com
+  Information Sources     Flickr and PHP  (an early document)     Capacity Planning for LAMP      Federation at Flickr: Doing Billions of Queries a Day  by Dathan Pattishall.     Building Scalable Web Sites  by Cal Henderson from Flickr.    Database War Stories #3: Flickr  by Tim O'Reilly    Cal Henderson's Talks . A lot of useful PowerPoint presentations. 
+ Platform 
+    PHP    MySQL    Shards    Memcached for a caching layer.    Squid in reverse-proxy for html and images.    Linux (RedHat)    Smarty for templating    Perl    PEAR for XML and Email parsing    ImageMagick, for ima</p><p>5 0.14258049 <a title="383-tfidf-5" href="../high_scalability-2012/high_scalability-2012-10-24-Saving_Cash_Using_Less_Cache_-__90%25_Savings_in_the_Caching_Tier.html">1346 high scalability-2012-10-24-Saving Cash Using Less Cache -  90% Savings in the Caching Tier</a></p>
+<p>Introduction: In a paper delivered at HotCloud '12 by a group from CMU and Intel Labs,  Saving Cash by Using Less Cache  ( slides ,   pdf ), they show it may be possible to use less DRAM under low load conditions to save on operational costs. There are some issues with this idea, but in a give me more cache era, it could be an interesting source of cost savings for your product. 
+ 
+ 
+ 
+Caching is used to:
+  
+ Reduce load on the database. 
+ Reduce latency. 
+  
+Problem:
+  
+ RAM in the cloud is quite expensive. A third of costs can come from the caching tier. 
+  
+Solution: 
+  
+ Shrink your cache when the load is lower. Their work shows when the load drops below a certain point you can throw away 50% of your cache while still maintaining performance. 
+ A few popular items often account for most of your hits, implying can remove the cache for the long tail.  
+ Use two tiers of servers, the Retiring Group, which is the group of servers you want to get rid of. The Primary Group is the group of servers you</p><p>6 0.1409115 <a title="383-tfidf-6" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>7 0.1398648 <a title="383-tfidf-7" href="../high_scalability-2012/high_scalability-2012-07-09-Data_Replication_in_NoSQL_Databases.html">1279 high scalability-2012-07-09-Data Replication in NoSQL Databases</a></p>
 <p>8 0.13539915 <a title="383-tfidf-8" href="../high_scalability-2011/high_scalability-2011-09-13-Must_see%3A_5_Steps_to_Scaling_MongoDB_%28Or_Any_DB%29_in_8_Minutes.html">1114 high scalability-2011-09-13-Must see: 5 Steps to Scaling MongoDB (Or Any DB) in 8 Minutes</a></p>
 <p>9 0.1313477 <a title="383-tfidf-9" href="../high_scalability-2008/high_scalability-2008-08-04-A_Bunch_of_Great_Strategies_for_Using_Memcached_and_MySQL_Better_Together.html">360 high scalability-2008-08-04-A Bunch of Great Strategies for Using Memcached and MySQL Better Together</a></p>
@@ -145,77 +94,26 @@ goes to both serve</p><p>6 0.1409115 <a title="383-tfidf-6" href="../high_scalab
 <p>[(0, 0.183), (1, 0.088), (2, -0.053), (3, -0.12), (4, 0.01), (5, 0.054), (6, 0.024), (7, -0.064), (8, 0.033), (9, -0.037), (10, -0.03), (11, -0.038), (12, -0.029), (13, 0.092), (14, 0.007), (15, 0.028), (16, -0.049), (17, 0.017), (18, -0.046), (19, 0.103), (20, -0.016), (21, 0.003), (22, -0.054), (23, -0.012), (24, -0.053), (25, 0.004), (26, 0.067), (27, -0.055), (28, -0.056), (29, 0.043), (30, 0.016), (31, 0.016), (32, 0.042), (33, -0.001), (34, 0.023), (35, -0.027), (36, 0.068), (37, 0.016), (38, -0.049), (39, -0.012), (40, -0.043), (41, 0.08), (42, -0.063), (43, -0.047), (44, 0.007), (45, -0.015), (46, 0.065), (47, -0.017), (48, 0.02), (49, -0.041)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9542141 <a title="383-lsi-1" href="../high_scalability-2008/high_scalability-2008-09-10-Shard_servers_--_go_big_or_small%3F.html">383 high scalability-2008-09-10-Shard servers -- go big or small?</a></p>
-<p>Introduction: Hello everyone,I'm designing a website/widget that my business partner and I
-expect to serve millions of hits daily. As such we must shard our database
-(and we're designing with shards in mind right from the beginning). However,
-the one thing I haven't been able to figure out from Googling is the best
-hardware to go with for shards. I'm using exclusively InnoDB tables.We'll
-(eventually) be running 3 groups of database servers:a) Session servers for
-php sessions. These will have a very high write volume.b) ID servers. These
-will match a couple primary indices (such as user ID) to a given shard. These
-will have an intense read load, plus a moderate amount of writes.c) Shard
-servers. These will hold the bulk of the data. These will have a high read
-load and a lowish write load.Group A is done as a database instead of using
-memcached so users aren't logged out if a memcached server goes down. As the
-write load is high, a pair of high performance master-master servers seems
-obvious. What's</p><p>2 0.79154754 <a title="383-lsi-2" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
-<p>Introduction: Update 4:Why you don't want to shard.by Morgon on the MySQL Performance
-Blog.Optimize everything else first, and then if performance still isn't good
-enough, it's time to take a very bitter medicine.Update 3:Building Scalable
-Databases: Pros and Cons of Various Database Sharding Schemesby Dare Obasanjo.
-Excellent discussion of why and when you would choose a sharding architecture,
-how to shard, and problems with sharding.Update 2:Mr. Moore gets to punt on
-shardingby Alan Rimm-Kaufman of 37signals. Insightful article on design
-tradeoffs and the evils of premature optimization. With more memory, more CPU,
-and new tech like SSD, problems can be avoided before more exotic
-architectures like sharding are needed. Add features not infrastructure.Jeremy
-Zawodnysays he's wrong wrong wrong. we're running multi-core CPUs at slower
-clock speeds. Moore won't save you.Update:Dan Pritchett shares some
-excellentSharding Lessons: Size Your Shards, Use Math on Shard Counts,
-Carefully Consider the Spread</p><p>3 0.78655636 <a title="383-lsi-3" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
-<p>Introduction: Update:Flickr hits2 Billion photosserved. That's a lot of hamburgers.Flickr is
-both my favoritebirdand the web's leading photo sharing site. Flickr has an
-amazing challenge, they must handle a vast sea of ever expanding new content,
-ever increasing legions of users, and a constant stream of new features, all
-while providing excellent performance. How do they do it?Site:
-http://www.flickr.comInformation SourcesFlickr and PHP(an early
-document)Capacity Planning for LAMPFederation at Flickr: Doing Billions of
-Queries a Dayby Dathan Pattishall.Building Scalable Web Sitesby Cal Henderson
-from Flickr.Database War Stories #3: Flickrby Tim O'ReillyCal Henderson's
-Talks. A lot of useful PowerPoint
-presentations.PlatformPHPMySQLShardsMemcached for a caching layer.Squid in
-reverse-proxy for html and images.Linux (RedHat)Smarty for templatingPerlPEAR
-for XML and Email parsingImageMagick, for image processingJava, for the node
-serviceApacheSystemImager for deploymentGanglia for distributed system
-m</p><p>4 0.70409542 <a title="383-lsi-4" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
-<p>Introduction: I met the CodeFutures folks, makers ofdbShards, atGluecon. They occupy an
-interesting niche in the database space, somewhere betweenNoSQL, which
-jettisons everything SQL, and high end analytics platformsthat completely
-rewrite the backend while keeping a SQL facade.High concept: I think of
-dbShards as a sort of commercial OLTP mashup of features from HSCALE
-(partitioning) +MySQL Proxy (transparent intermediate layer) +Memcached
-(client side sharding) +Gigaspaces(parallel query) + MySQL (transactions).You
-may find dbShards interesting if you are looking to keep SQL, need scale out
-writes and reads, need out of the box parallel query capabilities, and would
-prefer to use a standard platform like MySQL as a base. To learn more about
-dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult
-questions (not really).Who are you, what is dbShards, and what problem was
-dbShards created to solve?I'm Cory Isaacson, CEO/CTO of CodeFutures
-Corporation, the makers of dbShards. dbSha</p><p>5 0.69191682 <a title="383-lsi-5" href="../high_scalability-2011/high_scalability-2011-09-13-Must_see%3A_5_Steps_to_Scaling_MongoDB_%28Or_Any_DB%29_in_8_Minutes.html">1114 high scalability-2011-09-13-Must see: 5 Steps to Scaling MongoDB (Or Any DB) in 8 Minutes</a></p>
-<p>Introduction: Jared Rosoffconcisely, effectively, entertainingly, and convincingly gives an
-8 minute MongoDB tutorialon scaling MongoDB at Scale Out Camp. The ideas
-aren't just limited to MongoDB, they work for most any database: Optimize your
-queries; Know your working set size; Tune your file system; Choose the right
-disks; Shard. Here's an explanation of all 5 strategies:Optimize your queries.
-Computer science works. Complexity analysis works. A btree search is faster
-than a table scan. So analyze your queries. Use explain to see what your query
-is doing. If it is saying it's using a cursor then it's doing a table scan.
-That's slow. Look at the number of documents it looks at to satisfy a query.
-Look at how long it takes. Fix: add indexes. It doesn't matter if you are
-running on 1 or 100 servers.Know your working set size. Sticking memcache in
-front of your database is silly. You have lots of RAM, use it. Embed your
-cache in the database, which is how MongoDB works. Working set = Active
-Documents</p><p>6 0.69065195 <a title="383-lsi-6" href="../high_scalability-2012/high_scalability-2012-01-30-37signals_Still_Happily_Scaling_on_Moore_RAM_and_SSDs.html">1183 high scalability-2012-01-30-37signals Still Happily Scaling on Moore RAM and SSDs</a></p>
+<p>Introduction: Hello everyone,     I'm designing a website/widget that my business partner and I expect to serve millions of hits daily. As such we must shard our database (and we're designing with shards in mind right from the beginning). However, the one thing I haven't been able to figure out from Googling is the best hardware to go with for shards. I'm using exclusively InnoDB tables.     We'll (eventually) be running 3 groups of database servers:   a) Session servers for php sessions. These will have a very high write volume.   b) ID servers. These will match a couple primary indices (such as user ID) to a given shard. These will have an intense read load, plus a moderate amount of writes.   c) Shard servers. These will hold the bulk of the data. These will have a high read load and a lowish write load.       Group A is done as a database instead of using memcached so users aren't logged out if a memcached server goes down. As the write load is high, a pair of high performance master-master serv</p><p>2 0.79154754 <a title="383-lsi-2" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
+<p>Introduction: Update 4:   Why you don’t want to shard.  by Morgon on the MySQL Performance Blog.  Optimize everything else first, and then if performance still isn’t good enough, it’s time to take a very bitter medicine.    Update 3:   Building Scalable Databases: Pros and Cons of Various Database Sharding Schemes  by Dare Obasanjo. Excellent discussion of why and when you would choose a sharding architecture, how to shard, and problems with sharding.  Update 2:   Mr. Moore gets to punt on sharding  by Alan Rimm-Kaufman of 37signals. Insightful article on design tradeoffs and the evils of premature optimization. With more memory, more CPU, and new tech like SSD,  problems can be avoided before more exotic architectures like sharding are needed.  Add features not infrastructure.  Jeremy Zawodny  says he's wrong wrong wrong. we're running multi-core CPUs at slower clock speeds. Moore won't save you.  Update:  Dan Pritchett shares some excellent  Sharding Lessons : Size Your Shards, Use Math on Shard C</p><p>3 0.78655636 <a title="383-lsi-3" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
+<p>Introduction: Update:  Flickr hits  2 Billion photos  served. That's a lot of hamburgers.   Flickr is both my favorite  bird  and the web's leading photo sharing site. Flickr has an amazing challenge, they must handle a vast sea of ever expanding new content, ever increasing legions of  users, and a constant stream of new features, all while providing excellent performance.  How do they do it?
+ 
+Site: http://www.flickr.com
+  Information Sources     Flickr and PHP  (an early document)     Capacity Planning for LAMP      Federation at Flickr: Doing Billions of Queries a Day  by Dathan Pattishall.     Building Scalable Web Sites  by Cal Henderson from Flickr.    Database War Stories #3: Flickr  by Tim O'Reilly    Cal Henderson's Talks . A lot of useful PowerPoint presentations. 
+ Platform 
+    PHP    MySQL    Shards    Memcached for a caching layer.    Squid in reverse-proxy for html and images.    Linux (RedHat)    Smarty for templating    Perl    PEAR for XML and Email parsing    ImageMagick, for ima</p><p>4 0.70409542 <a title="383-lsi-4" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>Introduction: I met the CodeFutures folks, makers of  dbShards , at  Gluecon . They occupy an interesting niche in the database space, somewhere between  NoSQL , which jettisons everything SQL, and  high end analytics platforms  that completely rewrite the backend while keeping a SQL facade.
+ 
+High concept: I think of dbShards as a sort of commercial OLTP mashup of features from  HSCALE  (partitioning) +  MySQL Proxy  (transparent intermediate layer) +  Memcached  (client side sharding) +  Gigaspaces  (parallel query) + MySQL (transactions).
+ 
+You may find dbShards interesting if you are looking to keep SQL, need scale out writes and reads, need out of the box parallel query capabilities, and would prefer to use a standard platform like MySQL as a base. To learn more about dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult questions (not really).
+  Who are you, what is dbShards, and what problem was dbShards created to solve?   
+
+I’m Cory Isaacson, CEO/CTO of CodeFutures Corp</p><p>5 0.69191682 <a title="383-lsi-5" href="../high_scalability-2011/high_scalability-2011-09-13-Must_see%3A_5_Steps_to_Scaling_MongoDB_%28Or_Any_DB%29_in_8_Minutes.html">1114 high scalability-2011-09-13-Must see: 5 Steps to Scaling MongoDB (Or Any DB) in 8 Minutes</a></p>
+<p>Introduction: Jared Rosoff  concisely, effectively, entertainingly, and convincingly gives an  8 minute MongoDB tutorial  on scaling MongoDB at  Scale Out Camp . The ideas aren't just limited to MongoDB, they work for most any database: Optimize your queries; Know your working set size; Tune your file system; Choose the right disks; Shard. Here's an explanation of all 5 strategies:
+  
+  Optimize your queries . Computer science works. Complexity analysis works. A btree search is faster than a table scan. So analyze your queries. Use explain to see what your query is doing. If it is saying it's using a cursor then it's doing a table scan. That's slow. Look at the number of documents it looks at to satisfy a query. Look at how long it takes. Fix: add indexes. It doesn't matter if you are running on 1 or 100 servers. 
+  Know your working set size . Sticking memcache in front of your database is silly. You have lots of RAM, use it. Embed your cache in the database, which is how MongoDB works. Working set</p><p>6 0.69065195 <a title="383-lsi-6" href="../high_scalability-2012/high_scalability-2012-01-30-37signals_Still_Happily_Scaling_on_Moore_RAM_and_SSDs.html">1183 high scalability-2012-01-30-37signals Still Happily Scaling on Moore RAM and SSDs</a></p>
 <p>7 0.68603069 <a title="383-lsi-7" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>8 0.68454969 <a title="383-lsi-8" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
 <p>9 0.67527658 <a title="383-lsi-9" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
@@ -235,75 +133,33 @@ Documents</p><p>6 0.69065195 <a title="383-lsi-6" href="../high_scalability-2012
 <p>[(1, 0.143), (2, 0.161), (10, 0.108), (30, 0.014), (40, 0.013), (47, 0.014), (61, 0.206), (66, 0.122), (79, 0.083), (85, 0.025), (94, 0.023)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9366073 <a title="383-lda-1" href="../high_scalability-2008/high_scalability-2008-09-10-Shard_servers_--_go_big_or_small%3F.html">383 high scalability-2008-09-10-Shard servers -- go big or small?</a></p>
-<p>Introduction: Hello everyone,I'm designing a website/widget that my business partner and I
-expect to serve millions of hits daily. As such we must shard our database
-(and we're designing with shards in mind right from the beginning). However,
-the one thing I haven't been able to figure out from Googling is the best
-hardware to go with for shards. I'm using exclusively InnoDB tables.We'll
-(eventually) be running 3 groups of database servers:a) Session servers for
-php sessions. These will have a very high write volume.b) ID servers. These
-will match a couple primary indices (such as user ID) to a given shard. These
-will have an intense read load, plus a moderate amount of writes.c) Shard
-servers. These will hold the bulk of the data. These will have a high read
-load and a lowish write load.Group A is done as a database instead of using
-memcached so users aren't logged out if a memcached server goes down. As the
-write load is high, a pair of high performance master-master servers seems
-obvious. What's</p><p>2 0.9054215 <a title="383-lda-2" href="../high_scalability-2011/high_scalability-2011-04-28-PaaS_on_OpenStack_-_Run_Applications_on_Any_Cloud%2C_Any_Time_Using_Any_Thing.html">1031 high scalability-2011-04-28-PaaS on OpenStack - Run Applications on Any Cloud, Any Time Using Any Thing</a></p>
-<p>Introduction: Yesterday, I had a session during the OpenStack Summit where I tried to
-present a more general view on how we should be thinking about PaaS in the
-context of OpenStack.The key takeaway :The main goal of PaaS is to drive
-productivity into the process by which we can deliver new applications.Most of
-the existing PaaS solutions take a fairly extreme approach with their
-abstraction of the underlying infrastructure and therefore fit a fairly small
-number of extremely simple applications and thus miss the real promise of
-PaaS.Amazon's Elastic Beanstalk took a more bottom up approach giving us
-better set of tradeoffs between the abstraction and control which makes it
-more broadly applicable to a larger set of applications.The fact that
-OpenStack is opensource allows us to think differently on the things we can do
-at the platform layer. We can create a tighter integration between the PaaS
-and IaaS layers and thus come up with better set of tradeoffs into the way we
-drive productivity without g</p><p>3 0.90050519 <a title="383-lda-3" href="../high_scalability-2007/high_scalability-2007-11-12-Slashdot_Architecture_-_How_the_Old_Man_of_the_Internet_Learned_to_Scale.html">150 high scalability-2007-11-12-Slashdot Architecture - How the Old Man of the Internet Learned to Scale</a></p>
-<p>Introduction: Slashdot effect: overwhelming unprepared sites with an avalanche of reader's
-clicks after being mentioned on Slashdot. Sure, we now have the "Digg effect"
-and other hot new stars, but Slashdot was the original. And like many stars
-from generations past, Slashdot plays the elder statesman's role with with
-class, dignity, and restraint. Yet with millions and millions of users
-Slashdot is still box office gold and more than keeps up with the young'ins.
-And with age comes the wisdom of learning how to handle all those users. Just
-how does Slashdot scale and what can you learn by going old school?breakSite:
-http://slashdot.orgInformation SourcesSlashdot's Setup, Part 1-
-HardwareSlashdot's Setup, Part 2- SoftwareHistory of Slashdot Part 3- Going
-CorporateThe History of Slashdot Part 4 - Yesterday, Today, TomorrowThe
-PlatformMySQLLinux (CentOS/RHEL)PoundApachePerlMemcachedLVSThe StatsStarted
-building the system in 1999.5.5 million user visits per month.7,000 comments
-are added every day.Over</p><p>4 0.89620942 <a title="383-lda-4" href="../high_scalability-2007/high_scalability-2007-12-11-Hosting_and_CDN_for_startup_video_sharing_site.html">181 high scalability-2007-12-11-Hosting and CDN for startup video sharing site</a></p>
-<p>Introduction: This question is for all the gurus here. Please help this novicexI am starting
-a video sharing site like YouTube in India. I want to offer the best quality
-possible, at minimum cost. Nothing new about it, right? :).I have done some
-research on the dedicated hosting services and CDN services available and I
-have some basic knowledge on these.Following are my requirements1) My budget
-is $500 to $1000 per month for hosting (including CDN if and as applicable).2)
-I will need around 500GB of storage and 1TB per month of bandwidth in first
-2-3 months and then about 10TB of storage and 5TB per month of bandwidth. And
-more ... depending on how big it gets (I can afford more when it gets big)3)
-90% of my viewers are in India. Other 10% are in US and UK.Based on the above,
-could you please answer my following questions?1) Can I go with just a good
-dedicated server to start with and get a CDN service later on when the site
-gets big? Or do you think its wise to start with a CDN service?2) Should I</p><p>5 0.89560902 <a title="383-lda-5" href="../high_scalability-2013/high_scalability-2013-02-22-Stuff_The_Internet_Says_On_Scalability_For_February_22%2C_2013.html">1411 high scalability-2013-02-22-Stuff The Internet Says On Scalability For February 22, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time: Quotable Quotes:@p337er: I have committed some
-truly horrendous crimes against scalability today.@ErrataRob: doubling
-performance doesn't double scalability.@rsingel: In 2008 when Yahoo.com
-linked out, I had a Wired story get 1M visitors in an hour from their
-homepage.@philiph: Lets solve this scalability problem with a queuing
-system@jaykreps: Transferring data across data centers? Read this page and go
-tune your TCP buffer sizes...@gwestr: In which the node community showers
-schadenfreude upon the rails community for "scalability is not my problem"
-architectures@pbailis:  Makes sense, though I think there's a tradeoff re:
-coordination and scalability (always homogeneous vs dynamically
-heterogenous)@pembleton: To summarize Yoav's philosophy: we started as quick
-as we can and then we accelerated #operationgrandma in #reversim@surfichris:
-"We chose Heroku because we believed we could just `heroku scale web=X` when
-needed." \- Yeah, because scalability is</p><p>6 0.89519644 <a title="383-lda-6" href="../high_scalability-2011/high_scalability-2011-07-29-Stuff_The_Internet_Says_On_Scalability_For_July_29%2C_2011.html">1089 high scalability-2011-07-29-Stuff The Internet Says On Scalability For July 29, 2011</a></p>
+<p>Introduction: Hello everyone,     I'm designing a website/widget that my business partner and I expect to serve millions of hits daily. As such we must shard our database (and we're designing with shards in mind right from the beginning). However, the one thing I haven't been able to figure out from Googling is the best hardware to go with for shards. I'm using exclusively InnoDB tables.     We'll (eventually) be running 3 groups of database servers:   a) Session servers for php sessions. These will have a very high write volume.   b) ID servers. These will match a couple primary indices (such as user ID) to a given shard. These will have an intense read load, plus a moderate amount of writes.   c) Shard servers. These will hold the bulk of the data. These will have a high read load and a lowish write load.       Group A is done as a database instead of using memcached so users aren't logged out if a memcached server goes down. As the write load is high, a pair of high performance master-master serv</p><p>2 0.9054215 <a title="383-lda-2" href="../high_scalability-2011/high_scalability-2011-04-28-PaaS_on_OpenStack_-_Run_Applications_on_Any_Cloud%2C_Any_Time_Using_Any_Thing.html">1031 high scalability-2011-04-28-PaaS on OpenStack - Run Applications on Any Cloud, Any Time Using Any Thing</a></p>
+<p>Introduction: Yesterday, I had a session during the  OpenStack Summit   where I tried to present a more general view on how we should be thinking about PaaS in the context of OpenStack.
+ 
+The key takeaway :
+ 
+The main goal of PaaS is to drive productivity into the  process  by which we can deliver new applications.
+ 
+Most of the existing PaaS solutions take a fairly extreme approach with their abstraction of the underlying infrastructure and therefore fit a fairly small number of extremely simple applications and thus miss the real promise of PaaS.
+ 
+Amazon's Elastic Beanstalk took a more bottom up approach giving us better set of tradeoffs between the abstraction and control which makes it more broadly applicable to a larger set of applications.
+ 
+ The fact that OpenStack is opensource allows us to think differently on the things we can do at the platform layer.  We can create a tighter integration between the PaaS and IaaS layers and thus come up with better set of tradeoffs into the way we drive</p><p>3 0.90050519 <a title="383-lda-3" href="../high_scalability-2007/high_scalability-2007-11-12-Slashdot_Architecture_-_How_the_Old_Man_of_the_Internet_Learned_to_Scale.html">150 high scalability-2007-11-12-Slashdot Architecture - How the Old Man of the Internet Learned to Scale</a></p>
+<p>Introduction: Slashdot effect  : overwhelming unprepared sites with an avalanche of reader's clicks after being mentioned on Slashdot. Sure, we now have the "Digg effect" and other hot new stars, but Slashdot was the original. And like many stars from generations past, Slashdot plays the elder statesman's role with with class, dignity, and restraint. Yet with millions and millions of users Slashdot is still box office gold and more than keeps up with the young'ins. And with age comes the wisdom of learning how to handle all those users. Just how does Slashdot scale and what can you learn by going old school?       Site: http://slashdot.org       Information Sources          Slashdot's Setup, Part 1- Hardware     Slashdot's Setup, Part 2- Software     History of Slashdot Part 3- Going Corporate     The History of Slashdot Part 4 - Yesterday, Today, Tomorrow     The Platform      MySQL   Linux (CentOS/RHEL)   Pound   Apache   Perl   Memcached   LVS    The Stats      Started building the system in 1999</p><p>4 0.89620942 <a title="383-lda-4" href="../high_scalability-2007/high_scalability-2007-12-11-Hosting_and_CDN_for_startup_video_sharing_site.html">181 high scalability-2007-12-11-Hosting and CDN for startup video sharing site</a></p>
+<p>Introduction: This question is for all the gurus here. Please help this novice   x   I am starting a video sharing site like YouTube in India. I want to offer the best quality possible, at minimum cost. Nothing new about it, right? :).      I have done some research on the dedicated hosting services and CDN services available and I have some basic knowledge on these.     Following are my requirements     1) My budget is $500 to $1000 per month for hosting (including CDN if and as applicable).   2) I will need around 500GB of storage and 1TB per month of bandwidth in first 2-3 months and then about 10TB of storage and 5TB per month of bandwidth. And more ... depending on how big it gets (I can afford more when it gets big)   3) 90% of my viewers are in India. Other 10% are in US and UK.     Based on the above, could you please answer my following questions?       1) Can I go with just a good dedicated server to start with and get a CDN service later on when the site gets big? Or do you think its wise</p><p>5 0.89560902 <a title="383-lda-5" href="../high_scalability-2013/high_scalability-2013-02-22-Stuff_The_Internet_Says_On_Scalability_For_February_22%2C_2013.html">1411 high scalability-2013-02-22-Stuff The Internet Says On Scalability For February 22, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time: 
+  
+ Quotable Quotes:                                    
+ 
+  @p337er : I have committed some truly horrendous crimes against scalability today. 
+  @ErrataRob : doubling performance doesn't double scalability. 
+  @rsingel : In 2008 when Yahoo.com  linked out, I had a Wired story get 1M visitors in an hour from their homepage. 
+  @philiph : Lets solve this scalability problem with a queuing system 
+  @jaykreps : Transferring data across data centers? Read this page and go tune your TCP buffer sizes... 
+  @gwestr : In which the node community showers schadenfreude upon the rails community for "scalability is not my problem" architectures 
+  @pbailis :  Makes sense, though I think there's a tradeoff re: coordination and scalability (always homogeneous vs dynamically heterogenous) 
+  @pembleton : To summarize Yoav's philosophy: we started as quick as we can and then we accelerated #operationgrandma in #reversim 
+  @surfichris : “We chose Heroku because we be</p><p>6 0.89519644 <a title="383-lda-6" href="../high_scalability-2011/high_scalability-2011-07-29-Stuff_The_Internet_Says_On_Scalability_For_July_29%2C_2011.html">1089 high scalability-2011-07-29-Stuff The Internet Says On Scalability For July 29, 2011</a></p>
 <p>7 0.89414942 <a title="383-lda-7" href="../high_scalability-2010/high_scalability-2010-02-10-ElasticSearch_-_Open_Source%2C_Distributed%2C_RESTful_Search_Engine.html">775 high scalability-2010-02-10-ElasticSearch - Open Source, Distributed, RESTful Search Engine</a></p>
 <p>8 0.89193457 <a title="383-lda-8" href="../high_scalability-2012/high_scalability-2012-07-23-State_of_the_CDN%3A_More_Traffic%2C_Stable_Prices%2C_More_Products%2C_Profits_-_Not_So_Much.html">1289 high scalability-2012-07-23-State of the CDN: More Traffic, Stable Prices, More Products, Profits - Not So Much</a></p>
 <p>9 0.89023358 <a title="383-lda-9" href="../high_scalability-2012/high_scalability-2012-01-31-Performance_in_the_Cloud%3A_Business_Jitter_is_Bad.html">1184 high scalability-2012-01-31-Performance in the Cloud: Business Jitter is Bad</a></p>

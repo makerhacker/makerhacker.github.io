@@ -16,36 +16,24 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-327-html" href="http://highscalability.com//blog/2008/5/27/how-i-learned-to-stop-worrying-and-love-using-a-lot-of-disk.html">html</a></p><p>Introduction: Update 3: ReadWriteWeb saysGoogle App Engine Announces New Pricing Plans,
-APIs, Open Access. Pricing is specified but I'm not sure what to make of it
-yet. An image manipulation library is added (thus the need to pay for more CPU
-:-) and memcached support has been added. Memcached will help resolve the
-can't write for every read problem that pops up when keeping counters.Update
-2: onGWT.com threw a GAE load party and a lot of people came. The results
-atLoad test : Google App Engine = 1, Community = 0. GAE handled a peak of 35
-requests/second and a sustained 10 requests/second. Some think performance was
-good, others not so good. My GMT watch broke and I was late to arrive. Maybe
-next time. Also added a few new design rules from the post.Update: Added a few
-new rules gleaned from theGAE Meetup: Design By Explicit Cost Model and Puts
-are Precious.How do you structure your database using a distributed hash table
-likeBigTable? The answer isn't what you might expect. If you were thinking of</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In a relational world duplication is removed in order to prevent update anomalies. [sent-34, score-0.368]
-</p><p>2 Every get of an entity could be from adifferent disk block on a different machinein a cluster. [sent-55, score-0.374]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-327-html" href="http://highscalability.com//blog/2008/5/27/how-i-learned-to-stop-worrying-and-love-using-a-lot-of-disk.html">html</a></p><p>Introduction: Update 3 : ReadWriteWeb says  Google App Engine Announces New Pricing Plans, APIs, Open Access . Pricing is specified but I'm not sure what to make of it yet. An image manipulation library is added (thus the need to pay for more CPU :-) and memcached support has been added. Memcached will help resolve the can't write for every read problem that pops up when keeping counters.  Update 2 : onGWT.com threw a GAE load party and a lot of people came. The results at  Load test : Google App Engine = 1, Community = 0 . GAE handled a peak of 35 requests/second and a sustained 10 requests/second. Some think performance was good, others not so good. My GMT watch broke and I was late to arrive. Maybe next time. Also added a few new design rules from the post.   Update : Added a few new rules gleaned from the  GAE Meetup : Design By Explicit Cost Model and Puts are Precious.  How do you structure your database using a distributed hash table like  BigTable ? The answer isn't what you might expect. If</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In a relational world duplication is removed in order to prevent update anomalies. [sent-34, score-0.368]
+</p><p>2 Every get of an entity could be from a  different disk block on a different machine  in a cluster. [sent-55, score-0.374]
 </p><p>3 Store data in the same entity based on what data needs to be read concurrently. [sent-66, score-0.667]
 </p><p>4 Store entities so they can be read in one access rather than performing a join requiring multiple reads. [sent-69, score-0.445]
 </p><p>5 Instead of storing attributes in separate entities in order to remove duplication, duplicate the attributes and store them where they need to be used. [sent-70, score-0.693]
-</p><p>6 This isn't the same as an object oriented database because the behavior is provided by applications, behavior is not bound to the entity so multiple applications can read the same entities yet implement very different behaviors. [sent-85, score-0.831]
+</p><p>6 This isn’t the same as an object oriented database because the behavior is provided by applications, behavior is not bound to the entity so multiple applications can read the same entities yet implement very different behaviors. [sent-85, score-0.831]
 </p><p>7 Since looping over large columns of data is inefficient with BigTable the idea is to calculate values at write time instead of read time. [sent-87, score-0.403]
 </p><p>8 For example, instead of calculating an average by reading an entire column at read time, track the total number and the total value at write time so the average can be calculated with one read on page display. [sent-88, score-0.638]
-</p><p>9 Instead, create larger entities with optional parts so you can do one read and then determine what's present at run time. [sent-95, score-0.386]
+</p><p>9 Instead, create larger entities with optional parts so you can do one read and then determine what’s present at run time. [sent-95, score-0.386]
 </p><p>10 Place a many-to-many relation in the entity with the fewest number of elements. [sent-118, score-0.519]
 </p><p>11 A Company entity, for example, could contain a list of keys to Contact entities or a Contact entity could contain a list of keys to Company entities. [sent-120, score-0.863]
 </p><p>12 If every request to your app reads or writes a particular entity, latency will increase as your traffic goes up because reads and writes on a given entity are sequential. [sent-127, score-0.887]
 </p><p>13 an entity that keeps track of a count and is updated or read on every request. [sent-130, score-0.562]
 </p><p>14 Any two entities that share a common ancestor belong to the same entity group. [sent-132, score-0.726]
 </p><p>15 All writes to an entity group are sequential, so large entity groups can bog down popular apps quickly if there are a lot of writes to that group. [sent-133, score-0.985]
-</p><p>16 To recreate the original purchase order a join on purchases, produce and customer is needed. [sent-142, score-0.362]
-</p><p>17 Notice how the entity looks more like an original purchase order. [sent-147, score-0.54]
-</p><p>18 But what if you want to update a product name or a customer name? [sent-149, score-0.34]
+</p><p>16 Take this nicely normalized schema:    Customer:   - Name   - Country  Product:  - Code  - Name  - Description  Purchases:  - Reference to Product Entity  - Reference to Customer Entity  - Date of order     Anyone from a relational background would look at this schema and give it a big thumbs up. [sent-140, score-0.378]
+</p><p>17 To recreate the original purchase order a join on purchases, produce and customer is needed. [sent-142, score-0.362]
+</p><p>18 Notice how the entity looks more like an original purchase order. [sent-147, score-0.54]
 </p><p>19 Only one entity needs updating in a normalized model. [sent-152, score-0.46]
 </p><p>20 In BigTable you have to remember everywhere a customer name and product name and change every instance to new values. [sent-153, score-0.424]
 </p>
@@ -54,75 +42,42 @@ likeBigTable? The answer isn't what you might expect. If you were thinking of</p
 <p>[('bigtable', 0.378), ('entity', 0.374), ('entities', 0.253), ('gae', 0.179), ('relational', 0.151), ('read', 0.133), ('attributes', 0.128), ('customer', 0.113), ('reads', 0.112), ('explicit', 0.106), ('duplicate', 0.101), ('belong', 0.099), ('purchase', 0.097), ('name', 0.097), ('rules', 0.096), ('ethics', 0.094), ('relation', 0.09), ('writes', 0.09), ('normalized', 0.086), ('batches', 0.085), ('order', 0.083), ('data', 0.08), ('updates', 0.077), ('ethical', 0.073), ('instead', 0.072), ('applications', 0.071), ('column', 0.07), ('comments', 0.069), ('original', 0.069), ('update', 0.068), ('duplication', 0.066), ('contact', 0.065), ('list', 0.062), ('product', 0.062), ('inefficient', 0.061), ('iterating', 0.06), ('rather', 0.059), ('average', 0.059), ('schema', 0.058), ('model', 0.057), ('comment', 0.057), ('write', 0.057), ('groups', 0.057), ('keys', 0.056), ('every', 0.055), ('minimize', 0.055), ('number', 0.055), ('app', 0.054), ('example', 0.054), ('reasoning', 0.054)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999982 <a title="327-tfidf-1" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
-<p>Introduction: Update 3: ReadWriteWeb saysGoogle App Engine Announces New Pricing Plans,
-APIs, Open Access. Pricing is specified but I'm not sure what to make of it
-yet. An image manipulation library is added (thus the need to pay for more CPU
-:-) and memcached support has been added. Memcached will help resolve the
-can't write for every read problem that pops up when keeping counters.Update
-2: onGWT.com threw a GAE load party and a lot of people came. The results
-atLoad test : Google App Engine = 1, Community = 0. GAE handled a peak of 35
-requests/second and a sustained 10 requests/second. Some think performance was
-good, others not so good. My GMT watch broke and I was late to arrive. Maybe
-next time. Also added a few new design rules from the post.Update: Added a few
-new rules gleaned from theGAE Meetup: Design By Explicit Cost Model and Puts
-are Precious.How do you structure your database using a distributed hash table
-likeBigTable? The answer isn't what you might expect. If you were thinking of</p><p>2 0.34303439 <a title="327-tfidf-2" href="../high_scalability-2009/high_scalability-2009-02-21-Google_AppEngine_-_A_Second_Look.html">517 high scalability-2009-02-21-Google AppEngine - A Second Look</a></p>
-<p>Introduction: Update 6::Back to the Future for Data Storage.We are in the middle of a
-renaissance in data storage with the application of many new ideas and
-techniques; there's huge potential for breaking out of thinking about data
-storage in just one way.Update 5:Building Scalable Web Applications with
-Google App Engineby Brett Slatkin.Update 4:Why Google App Engine is broken and
-what Google must do to fix itby Aral Balkan.We don't care that it can scale.
-We care that it does scale. And that it scales when you need it the
-most.Issues: 1MB limit on data structures; 1MB limit on data structures; the
-short-term high CPU quota; quotas in general; Admin? What's that?Update 3:
-BigTableBlues. Catherine Devlin couldn't port an application to GAE because it
-can't do basic filtering and can't search 5,000 records without timing out:
-"Querying from 5000 records - too much for the mighty BigTable, apparently."
-Followup:not the future database. "90% of the work of this project has been
-trying to figure out work</p><p>3 0.30648389 <a title="327-tfidf-3" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
-<p>Introduction: Google AppEngine NumbersThis group of numbers is from Brett Slatkin inBuilding
-Scalable Web Apps with Google App Engine.Writes are expensive!Datastore is
-transactional: writes require disk accessDisk access means disk seeksRule of
-thumb: 10ms for a disk seekSimple math: 1s / 10ms = 100 seeks/sec
-maximumDepends on:* The size and shape of your data* Doing work in batches
-(batch puts and gets)Reads are cheap!Reads do not need to be transactional,
-just consistentData is read from disk once, then it's easily cachedAll
-subsequent reads come straight from memoryRule of thumb: 250usec for 1MB of
-data from memorySimple math: 1s / 250usec = 4GB/sec maximum* For a 1MB entity,
-that's 4000 fetches/secNumbers MiscellaneousThis group of numbers is from a
-presentationJeff Deangave at a Engineering All-Hands Meeting at Google.L1
-cache reference 0.5 nsBranch mispredict 5 nsL2 cache reference 7 nsMutex
-lock/unlock 100 nsMain memory reference 100 nsCompress 1K bytes with Zippy
-10,000 nsSend 2K bytes over</p><p>4 0.24346367 <a title="327-tfidf-4" href="../high_scalability-2011/high_scalability-2011-06-20-35%2B_Use_Cases_for_Choosing_Your_Next_NoSQL_Database.html">1064 high scalability-2011-06-20-35+ Use Cases for Choosing Your Next NoSQL Database</a></p>
-<p>Introduction: We've asked What The Heck Are You Actually Using NoSQL For?. We've asked 101
-Questions To Ask When Considering A NoSQL Database. We've even had a webinar
-What Should I Do? Choosing SQL, NoSQL or Both for Scalable Web
-Applications.Now we get to the point of considering use cases and which
-systems might be appropriate for those use cases.What are your options?First,
-let's cover what are the various data models. These have been adapted fromEmil
-EifremandNoSQL databases. Document DatabasesLineage: Inspired by Lotus
-Notes.Data model: Collections of documents, which contain key-value
-collections.Example: CouchDB, MongoDB Good at: Natural data modeling.
-Programmer friendly. Rapid development. Web friendly, CRUD.Graph
-DatabasesLineage: Euler and graph theory.Data model: Nodes & relationships,
-both which can hold key-value pairsExample: AllegroGraph, InfoGrid, Neo4jGood
-at:  Rock complicated graph problems. Fast.Relational DatabasesLineage: E. F.
-Codd in A Relational Model of Data for Large Sha</p><p>5 0.24278088 <a title="327-tfidf-5" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
-<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as
-a child: but when I became a man, I put away childish things. --
-CorinthiansWith this new pricing, developments will be driven by the costs.I
-like to optimize my apps to make them better or faster, but to optimize them
-just to make them cheaper is a waste of time.-- Sylvain onGoogle GroupsThe
-dream is dead. Google App Engine's boldpay for what you usedream dies as it
-leaves childish things behind and becomes areal product.Pricing will change.
-Architectures will change. Customers will change. Hearts and minds will
-change. But Google App Engine will survive. Google isshutting downmany of
-itsprojects. GAE is not among them. Do we have GAE's pricing change to thank
-for it surving the more wood behindmore deadly arrows push? Without a radical
-and quick shift towards profitably GAE would no doubt be a historical footnote
-in the long scroll of good ideas. The urgency involved is clearly reflected in
-GAE's offering a</p><p>6 0.23045926 <a title="327-tfidf-6" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
+<p>Introduction: Update 3 : ReadWriteWeb says  Google App Engine Announces New Pricing Plans, APIs, Open Access . Pricing is specified but I'm not sure what to make of it yet. An image manipulation library is added (thus the need to pay for more CPU :-) and memcached support has been added. Memcached will help resolve the can't write for every read problem that pops up when keeping counters.  Update 2 : onGWT.com threw a GAE load party and a lot of people came. The results at  Load test : Google App Engine = 1, Community = 0 . GAE handled a peak of 35 requests/second and a sustained 10 requests/second. Some think performance was good, others not so good. My GMT watch broke and I was late to arrive. Maybe next time. Also added a few new design rules from the post.   Update : Added a few new rules gleaned from the  GAE Meetup : Design By Explicit Cost Model and Puts are Precious.  How do you structure your database using a distributed hash table like  BigTable ? The answer isn't what you might expect. If</p><p>2 0.34303439 <a title="327-tfidf-2" href="../high_scalability-2009/high_scalability-2009-02-21-Google_AppEngine_-_A_Second_Look.html">517 high scalability-2009-02-21-Google AppEngine - A Second Look</a></p>
+<p>Introduction: Update 6: :  Back to the Future for Data Storage .  We are in the middle of a renaissance in data storage with the application of many new ideas and techniques; there's huge potential for breaking out of thinking about data storage in just one way.   Update 5 :  Building Scalable Web Applications with Google App Engine  by Brett Slatkin.
+ 
+ Update 4 :  Why Google App Engine is broken and what Google must do to fix it  by Aral Balkan.  We don't care that it can scale. We care that it does scale. And that it scales when you need it the most.   Issues: 1MB limit on data structures; 1MB limit on data structures; the short-term high CPU quota; quotas in general; Admin? What's that?  Update 3 : BigTable  Blues . Catherine Devlin couldn't port an application to GAE because it can't do basic filtering and can't search 5,000 records without timing out: "Querying from 5000 records - too much for the mighty BigTable, apparently." Followup:  not the future database . "90% of the work of this proje</p><p>3 0.30648389 <a title="327-tfidf-3" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
+<p>Introduction: Google AppEngine Numbers  
+This group of numbers is from Brett Slatkin in  Building Scalable Web Apps with Google App Engine .
+  Writes are expensive!   Datastore is transactional: writes require disk access   Disk access means disk seeks   Rule of thumb: 10ms for a disk seek   Simple math: 1s / 10ms = 100 seeks/sec maximum   Depends on: * The size and shape of your data * Doing work in batches (batch puts and gets) 
+ Reads are cheap! 
+   Reads do not need to be transactional, just consistent   Data is read from disk once, then it's easily cached   All subsequent reads come straight from memory   Rule of thumb: 250usec for 1MB of data from memory   Simple math: 1s / 250usec = 4GB/sec maximum * For a 1MB entity, that's 4000 fetches/sec 
+ Numbers Miscellaneous 
+This group of numbers is from a presentation  Jeff Dean  gave at a Engineering All-Hands Meeting at Google.      L1 cache reference 0.5 ns    Branch mispredict 5 ns    L2 cache reference 7 ns    Mutex lock/unlock 100 ns    Main me</p><p>4 0.24346367 <a title="327-tfidf-4" href="../high_scalability-2011/high_scalability-2011-06-20-35%2B_Use_Cases_for_Choosing_Your_Next_NoSQL_Database.html">1064 high scalability-2011-06-20-35+ Use Cases for Choosing Your Next NoSQL Database</a></p>
+<p>Introduction: We've asked  What The Heck Are You Actually Using NoSQL For? . We've asked  101 Questions To Ask When Considering A NoSQL Database . We've even had a  webinar   What Should I Do? Choosing SQL, NoSQL or Both for Scalable Web Applications .
+ 
+Now we get to the point of considering use cases and which systems might be appropriate for those use cases.
+  What are your options?  
+First, let's cover what are the various data models. These have been adapted from  Emil Eifrem  and  NoSQL databases . 
+ 
+ Document Databases 
+  
+ Lineage: Inspired by Lotus Notes. 
+ Data model: Collections of documents, which contain key-value collections. 
+ Example: CouchDB, MongoDB  
+ Good at: Natural data modeling. Programmer friendly. Rapid development. Web friendly, CRUD. 
+             Graph Databases    
+ 
+ Lineage: Euler and graph theory. 
+ Data model: Nodes & relationships, both which can hold key-value pairs 
+ Example: AllegroGraph, InfoGrid, Neo4j 
+ Good at:  Rock complicated graph problems. Fast.</p><p>5 0.24278088 <a title="327-tfidf-5" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
+<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as a child: but when I became a man, I put away childish things . -- Corinthians
+ 
+ With this new pricing, developments will be driven by the costs .  I like to optimize my apps to make them better or faster, but to optimize them just to make them cheaper is a waste of time.  -- Sylvain on  Google Groups 
+ 
+The dream is dead. Google App Engine's bold  pay for what you use  dream dies as it leaves childish things behind and becomes a  real product .  Pricing will change . Architectures will change. Customers will change. Hearts and minds will change. But Google App Engine  will survive.   
+ 
+Google is  shutting down  many of its  projects . GAE is not among them. Do we have GAE's pricing change to thank for it surving the  more wood behind  more deadly arrows push? Without a radical and quick shift towards profitably GAE would no doubt be a historical footnote in the long scroll of good ideas. The urgency involve</p><p>6 0.23045926 <a title="327-tfidf-6" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
 <p>7 0.21467371 <a title="327-tfidf-7" href="../high_scalability-2008/high_scalability-2008-03-17-Microsoft%27s_New_Database_Cloud_Ready_to_Rumble_with_Amazon.html">279 high scalability-2008-03-17-Microsoft's New Database Cloud Ready to Rumble with Amazon</a></p>
 <p>8 0.20474012 <a title="327-tfidf-8" href="../high_scalability-2009/high_scalability-2009-05-05-Drop_ACID_and_Think_About_Data.html">589 high scalability-2009-05-05-Drop ACID and Think About Data</a></p>
 <p>9 0.19811383 <a title="327-tfidf-9" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
@@ -142,75 +97,27 @@ GAE's offering a</p><p>6 0.23045926 <a title="327-tfidf-6" href="../high_scalabi
 <p>[(0, 0.277), (1, 0.144), (2, -0.005), (3, 0.0), (4, 0.027), (5, 0.117), (6, -0.003), (7, -0.011), (8, 0.017), (9, -0.108), (10, 0.019), (11, 0.004), (12, -0.117), (13, 0.031), (14, 0.091), (15, -0.054), (16, -0.151), (17, -0.039), (18, 0.11), (19, -0.05), (20, 0.025), (21, -0.034), (22, 0.094), (23, -0.078), (24, 0.04), (25, -0.034), (26, 0.032), (27, -0.023), (28, 0.029), (29, -0.02), (30, -0.005), (31, -0.082), (32, 0.079), (33, 0.025), (34, -0.069), (35, 0.014), (36, 0.006), (37, 0.0), (38, 0.035), (39, -0.075), (40, -0.093), (41, 0.04), (42, -0.053), (43, 0.042), (44, 0.103), (45, 0.009), (46, 0.005), (47, -0.002), (48, -0.003), (49, 0.06)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95559269 <a title="327-lsi-1" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
-<p>Introduction: Update 3: ReadWriteWeb saysGoogle App Engine Announces New Pricing Plans,
-APIs, Open Access. Pricing is specified but I'm not sure what to make of it
-yet. An image manipulation library is added (thus the need to pay for more CPU
-:-) and memcached support has been added. Memcached will help resolve the
-can't write for every read problem that pops up when keeping counters.Update
-2: onGWT.com threw a GAE load party and a lot of people came. The results
-atLoad test : Google App Engine = 1, Community = 0. GAE handled a peak of 35
-requests/second and a sustained 10 requests/second. Some think performance was
-good, others not so good. My GMT watch broke and I was late to arrive. Maybe
-next time. Also added a few new design rules from the post.Update: Added a few
-new rules gleaned from theGAE Meetup: Design By Explicit Cost Model and Puts
-are Precious.How do you structure your database using a distributed hash table
-likeBigTable? The answer isn't what you might expect. If you were thinking of</p><p>2 0.87214941 <a title="327-lsi-2" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
-<p>Introduction: Google AppEngine NumbersThis group of numbers is from Brett Slatkin inBuilding
-Scalable Web Apps with Google App Engine.Writes are expensive!Datastore is
-transactional: writes require disk accessDisk access means disk seeksRule of
-thumb: 10ms for a disk seekSimple math: 1s / 10ms = 100 seeks/sec
-maximumDepends on:* The size and shape of your data* Doing work in batches
-(batch puts and gets)Reads are cheap!Reads do not need to be transactional,
-just consistentData is read from disk once, then it's easily cachedAll
-subsequent reads come straight from memoryRule of thumb: 250usec for 1MB of
-data from memorySimple math: 1s / 250usec = 4GB/sec maximum* For a 1MB entity,
-that's 4000 fetches/secNumbers MiscellaneousThis group of numbers is from a
-presentationJeff Deangave at a Engineering All-Hands Meeting at Google.L1
-cache reference 0.5 nsBranch mispredict 5 nsL2 cache reference 7 nsMutex
-lock/unlock 100 nsMain memory reference 100 nsCompress 1K bytes with Zippy
-10,000 nsSend 2K bytes over</p><p>3 0.8287425 <a title="327-lsi-3" href="../high_scalability-2009/high_scalability-2009-02-21-Google_AppEngine_-_A_Second_Look.html">517 high scalability-2009-02-21-Google AppEngine - A Second Look</a></p>
-<p>Introduction: Update 6::Back to the Future for Data Storage.We are in the middle of a
-renaissance in data storage with the application of many new ideas and
-techniques; there's huge potential for breaking out of thinking about data
-storage in just one way.Update 5:Building Scalable Web Applications with
-Google App Engineby Brett Slatkin.Update 4:Why Google App Engine is broken and
-what Google must do to fix itby Aral Balkan.We don't care that it can scale.
-We care that it does scale. And that it scales when you need it the
-most.Issues: 1MB limit on data structures; 1MB limit on data structures; the
-short-term high CPU quota; quotas in general; Admin? What's that?Update 3:
-BigTableBlues. Catherine Devlin couldn't port an application to GAE because it
-can't do basic filtering and can't search 5,000 records without timing out:
-"Querying from 5000 records - too much for the mighty BigTable, apparently."
-Followup:not the future database. "90% of the work of this project has been
-trying to figure out work</p><p>4 0.80603516 <a title="327-lsi-4" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
-<p>Introduction: A giant step into the fully distributed future has been taken by the Google
-App Engine team with the release of theirHigh Replication Datastore. The HRD
-is targeted at mission critical applications that require data replicated to
-at least three datacenters, full ACID semantics forentity groups, and lower
-consistency guarantees across entity groups.This is a major accomplishment.
-Few organizations can implement a true multi-datacenter datastore. Other than
-SimpleDB, how many other publicly accessible database services can operate out
-of multiple datacenters? Now that capability can be had by anyone. But there
-is a price, literally and otherwise. Because the HRD uses three times the
-resources as Google App Engine's Master/Slave datastatore, it will cost three
-times as much. And because it is a distributed database, with all that implies
-in the CAP sense, developers will have to be very careful in how they
-architect their applications because as costs increased, reliability
-increased, com</p><p>5 0.75735414 <a title="327-lsi-5" href="../high_scalability-2011/high_scalability-2011-10-31-15_Ways_to_Make_Your_Application_Feel_More_Responsive_under_Google_App_Engine.html">1135 high scalability-2011-10-31-15 Ways to Make Your Application Feel More Responsive under Google App Engine</a></p>
-<p>Introduction: Small Imrovements, makers of a hosted, lightweight feedback platform, have
-written an excellent article on Performance issues on GAE, and how we resolved
-them. They show how they trimmed most of their requests to between 300ms and
-800ms, some still take 2 seconds when memcache is stale, and others clock in
-at 150ms. Notzippy overall, but acceptable, especially if you really like
-GAE's PaaS promise.What's tricky with PaaS is if your performance is poor,
-there's often not a lot you can do about it. But the folks at Small
-Improvements have been clever and diligent, giving many specific details and
-timings. Though their advice is specifically for GAE, it will apply to a lot
-of different situations as well.Here are the 15 ways they made small
-performance improvements: Understand App Engine has bad days. App Engine can
-have bad days where performance can degrade. Your design needs to take this
-potential for high latency variability into account. Don't always assume the
-best case.Always prefe</p><p>6 0.75390542 <a title="327-lsi-6" href="../high_scalability-2010/high_scalability-2010-01-22-How_BuddyPoke_Scales_on_Facebook_Using_Google_App_Engine.html">763 high scalability-2010-01-22-How BuddyPoke Scales on Facebook Using Google App Engine</a></p>
+<p>Introduction: Update 3 : ReadWriteWeb says  Google App Engine Announces New Pricing Plans, APIs, Open Access . Pricing is specified but I'm not sure what to make of it yet. An image manipulation library is added (thus the need to pay for more CPU :-) and memcached support has been added. Memcached will help resolve the can't write for every read problem that pops up when keeping counters.  Update 2 : onGWT.com threw a GAE load party and a lot of people came. The results at  Load test : Google App Engine = 1, Community = 0 . GAE handled a peak of 35 requests/second and a sustained 10 requests/second. Some think performance was good, others not so good. My GMT watch broke and I was late to arrive. Maybe next time. Also added a few new design rules from the post.   Update : Added a few new rules gleaned from the  GAE Meetup : Design By Explicit Cost Model and Puts are Precious.  How do you structure your database using a distributed hash table like  BigTable ? The answer isn't what you might expect. If</p><p>2 0.87214941 <a title="327-lsi-2" href="../high_scalability-2009/high_scalability-2009-02-18-Numbers_Everyone_Should_Know.html">514 high scalability-2009-02-18-Numbers Everyone Should Know</a></p>
+<p>Introduction: Google AppEngine Numbers  
+This group of numbers is from Brett Slatkin in  Building Scalable Web Apps with Google App Engine .
+  Writes are expensive!   Datastore is transactional: writes require disk access   Disk access means disk seeks   Rule of thumb: 10ms for a disk seek   Simple math: 1s / 10ms = 100 seeks/sec maximum   Depends on: * The size and shape of your data * Doing work in batches (batch puts and gets) 
+ Reads are cheap! 
+   Reads do not need to be transactional, just consistent   Data is read from disk once, then it's easily cached   All subsequent reads come straight from memory   Rule of thumb: 250usec for 1MB of data from memory   Simple math: 1s / 250usec = 4GB/sec maximum * For a 1MB entity, that's 4000 fetches/sec 
+ Numbers Miscellaneous 
+This group of numbers is from a presentation  Jeff Dean  gave at a Engineering All-Hands Meeting at Google.      L1 cache reference 0.5 ns    Branch mispredict 5 ns    L2 cache reference 7 ns    Mutex lock/unlock 100 ns    Main me</p><p>3 0.8287425 <a title="327-lsi-3" href="../high_scalability-2009/high_scalability-2009-02-21-Google_AppEngine_-_A_Second_Look.html">517 high scalability-2009-02-21-Google AppEngine - A Second Look</a></p>
+<p>Introduction: Update 6: :  Back to the Future for Data Storage .  We are in the middle of a renaissance in data storage with the application of many new ideas and techniques; there's huge potential for breaking out of thinking about data storage in just one way.   Update 5 :  Building Scalable Web Applications with Google App Engine  by Brett Slatkin.
+ 
+ Update 4 :  Why Google App Engine is broken and what Google must do to fix it  by Aral Balkan.  We don't care that it can scale. We care that it does scale. And that it scales when you need it the most.   Issues: 1MB limit on data structures; 1MB limit on data structures; the short-term high CPU quota; quotas in general; Admin? What's that?  Update 3 : BigTable  Blues . Catherine Devlin couldn't port an application to GAE because it can't do basic filtering and can't search 5,000 records without timing out: "Querying from 5000 records - too much for the mighty BigTable, apparently." Followup:  not the future database . "90% of the work of this proje</p><p>4 0.80603516 <a title="327-lsi-4" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
+<p>Introduction: A giant step into the fully distributed future has been taken by the Google App Engine team with the release of their  High Replication Datastore . The HRD is targeted at mission critical applications that require data replicated to at least three datacenters, full ACID semantics for  entity groups , and lower consistency guarantees across entity groups.
+ 
+This is a major accomplishment. Few organizations can implement a true multi-datacenter datastore. Other than SimpleDB, how many other publicly accessible database services can operate out of multiple datacenters? Now that capability can be had by anyone. But there is a price, literally and otherwise. Because the HRD uses three times the resources as Google App Engine's Master/Slave datastatore, it will cost three times as much. And because it is a distributed database, with all that implies in the CAP sense, developers will have to be very careful in how they architect their applications because as costs increased, reliability incre</p><p>5 0.75735414 <a title="327-lsi-5" href="../high_scalability-2011/high_scalability-2011-10-31-15_Ways_to_Make_Your_Application_Feel_More_Responsive_under_Google_App_Engine.html">1135 high scalability-2011-10-31-15 Ways to Make Your Application Feel More Responsive under Google App Engine</a></p>
+<p>Introduction: Small Imrovements , makers of a hosted, lightweight feedback platform, have written an excellent article on  Performance issues on GAE, and how we resolved them . They show how they trimmed most of their requests to between 300ms and 800ms, some still take 2 seconds when memcache is stale, and others clock in at 150ms. Not  zippy  overall, but acceptable, especially if you really like GAE's PaaS promise.
+ 
+What's tricky with PaaS is if your performance is poor, there's often not a lot you can do about it. But the folks at Small Improvements have been clever and diligent, giving many specific details and timings. Though their advice is specifically for GAE, it will apply to a lot of different situations as well.
+ 
+Here are the 15 ways they made small performance improvements: 
+  
+  Understand App Engine has bad days . App Engine can have bad days where performance can degrade. Your design needs to take this potential for high latency variability into account. Don't always assume the bes</p><p>6 0.75390542 <a title="327-lsi-6" href="../high_scalability-2010/high_scalability-2010-01-22-How_BuddyPoke_Scales_on_Facebook_Using_Google_App_Engine.html">763 high scalability-2010-01-22-How BuddyPoke Scales on Facebook Using Google App Engine</a></p>
 <p>7 0.75355428 <a title="327-lsi-7" href="../high_scalability-2008/high_scalability-2008-07-16-The_Mother_of_All_Database_Normalization_Debates_on_Coding_Horror.html">351 high scalability-2008-07-16-The Mother of All Database Normalization Debates on Coding Horror</a></p>
 <p>8 0.72514284 <a title="327-lsi-8" href="../high_scalability-2008/high_scalability-2008-04-08-Google_AppEngine_-_A_First_Look.html">301 high scalability-2008-04-08-Google AppEngine - A First Look</a></p>
 <p>9 0.72464025 <a title="327-lsi-9" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
@@ -230,76 +137,36 @@ best case.Always prefe</p><p>6 0.75390542 <a title="327-lsi-6" href="../high_sca
 <p>[(1, 0.164), (2, 0.214), (10, 0.05), (30, 0.033), (40, 0.014), (41, 0.077), (45, 0.011), (47, 0.035), (61, 0.069), (79, 0.158), (85, 0.028), (94, 0.063), (96, 0.015)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.98386264 <a title="327-lda-1" href="../high_scalability-2011/high_scalability-2011-07-12-Google%2B_is_Built_Using_Tools_You_Can_Use_Too%3A_Closure%2C_Java_Servlets%2C_JavaScript%2C_BigTable%2C_Colossus%2C_Quick_Turnaround.html">1078 high scalability-2011-07-12-Google+ is Built Using Tools You Can Use Too: Closure, Java Servlets, JavaScript, BigTable, Colossus, Quick Turnaround</a></p>
-<p>Introduction: Joseph Smarr, former CTO of Plaxo (which explains why I recognized his
-picture), in I'm a technical lead on the Google+ team. Ask me anything,
-reveals the stack used for building Google+:Our stack is pretty standard fare
-for Google apps these days: we use Java servlets for our server code and
-JavaScript for the browser-side of the UI, largely built with the (open-
-source) Closure framework, including Closure's JavaScript compiler and
-template system. A couple nifty tricks we do: we use the HTML5 History API to
-maintain pretty-looking URLs even though it's an AJAX app (falling back on
-hash-fragments for older browsers); and we often render our Closure templates
-server-side so the page renders before any JavaScript is loaded, then the
-JavaScript finds the right DOM nodes and hooks up event handlers, etc. to make
-it responsive (as a result, if you're on a slow connection and you click on
-stuff really fast, you may notice a lag before it does anything, but luckily
-most people don't run int</p><p>2 0.96582162 <a title="327-lda-2" href="../high_scalability-2011/high_scalability-2011-03-18-Stuff_The_Internet_Says_On_Scalability_For_March_18%2C_2011.html">1007 high scalability-2011-03-18-Stuff The Internet Says On Scalability For March 18, 2011</a></p>
-<p>Introduction: Submitted for your reading pleasure on this day of wind and rain...The cloud
-is falling. Or at least shared networked storage as Reddit has a couple of
-long periods of downtime.Good write up at Why reddit was down for 6 of the
-last 24 hours. Upshot: Reddit is moving off EBS to local disks.Quotable
-Quotes:@thomleggett: 32 or so joins - the sweet-spot of suck for MySQL -
-@emileifrem #nosql #neo4j #qconlondon@jkalucki: The [Twitter] Streaming API
-pushes 100MB in less than a second.@LusciousPear: Finding the true test of a
-DB is recovery when things go wrong, not "who's most web-scale" on paper
-#nosql@TimelessP: Functionality, scalability, security... pick two.@beaknit:
-#ccevent #nosql @adrianco: A year from oracle to simpledb. A week from
-simpledb to cassandra. Mental shift biggest hurdle.Heather Willems captured
-this very cool Ogilvy Note, which is a visual representation of a panel talk
-on Scalability: Covering Your Rear with a Good Backend at SXSWi. It captures
-in cartoon like drawing</p><p>3 0.96474195 <a title="327-lda-3" href="../high_scalability-2011/high_scalability-2011-04-08-Stuff_The_Internet_Says_On_Scalability_For_April_8%2C_2011.html">1019 high scalability-2011-04-08-Stuff The Internet Says On Scalability For April 8, 2011</a></p>
-<p>Introduction: Submitted for your reading pleasure on this tomato killing frosty morn...Now
-we really know why vampires feed on blood...they are elastically acquiring
-more compute power. Your Next Computer May Be Made of...Blood! It's
-thosememristorsagain. Ancient vamps are really just giant super
-computers.Twitter now at 155 million tweets a day, up from 55 million a year
-ago.10,000-core Linux supercomputer built in Amazon cloud By Jon Brodkin. The
-10,000 cores were composed of 1,250 instances with eight cores each, as well
-as 8.75TB of RAM and 2PB disk space. The cluster ran for eight hours at a cost
-of $8,500.Quotable Quotes for $273 Alex:@davidklemke: Holy balls Windows Azure
-Tables is awesome. Man am I regretting not getting into this cloud stuff
-sooner, it's scalability heaven.@nik: The volume of tweets we are flowing into
-HBase is truly staggering #bigdata #datasift@wattersjames: One of the key
-points I mentioned before: Scalability is being able to deploy on the smallest
-systems that meets yo</p><p>4 0.96427852 <a title="327-lda-4" href="../high_scalability-2013/high_scalability-2013-01-16-What_if_Cars_Were_Rented_Like_We_Hire_Programmers%3F.html">1388 high scalability-2013-01-16-What if Cars Were Rented Like We Hire Programmers?</a></p>
-<p>Introduction: Imagine if you will that car rental agencies rented cars like programmers are
-hired at many software companies...Agency: So sorry you had to wait in the
-reception area for an hour. Nobody knew you were coming to today. I finally
-found 8 people to interview before we can rent you a car. If we like you you
-may have to come in for another round of interviews tomorrow because our
-manager isn't in today. I didn't have a chance to read your application, so
-I'll just start with a question. What car do you drive today?Applicant: I
-drive a 2008 Subaru.Agency: That's a shame. We don't have a Subaru to rent
-you.Applicant: That's OK. Any car will do.Agency: No, we can only take on
-clients who know how to drive the cars we stock. We find it's safer that way.
-There are so many little differences between cars, we just don't want to take
-a chance.Applicant: I have a drivers license. I know how to drive. I've been
-driving all kinds of cars for 15 years, I am sure I can adapt. Agency: We
-appreciate your</p><p>5 0.96293175 <a title="327-lda-5" href="../high_scalability-2012/high_scalability-2012-07-02-C_is_for_Compute_-_Google_Compute_Engine_%28GCE%29.html">1275 high scalability-2012-07-02-C is for Compute - Google Compute Engine (GCE)</a></p>
-<p>Introduction: After poking around theGoogle Compute Engine(GCE) documentation I had some
-trouble creating a mental model of how GCE works. Is it like AWS, GAE,
-Rackspace, just what is it? After watchingGoogle I/O 2012 - Introducing Google
-Compute EngineandGoogle Compute Engine -- Technical Details, it turns out my
-initial impression, that GCE is disarmingly straightforward, turns out to be
-the point.The focus of GCE is on the C, which stands for Compute, and that's
-what GCE is all about: deploying lots of servers to solve computationally hard
-problems. What you get with GCE is a Super Datacenter on Google Steroids.If
-you are wondering how you will run the next Instagram on GCE then that would
-be missing the point. GAE is targeted at applications. GCE is targeted
-at:Delivering a proven, pure, high performance, high scale compute
-infrastructure using a utility pricing model, on top of an open, secure,
-extensible Infrastructure-as-a-Service.Delivering an experience that feels
-like you are in a datacent</p><p>6 0.9625603 <a title="327-lda-6" href="../high_scalability-2014/high_scalability-2014-06-05-Cloud_Architecture_Revolution.html">1654 high scalability-2014-06-05-Cloud Architecture Revolution</a></p>
+<p>Introduction: Joseph Smarr, former CTO of Plaxo (which explains why I recognized his picture), in  I'm a technical lead on the Google+ team. Ask me anything , reveals the stack used for building Google+:
+  Our stack is pretty standard fare for Google apps these days: we use Java servlets for our server code and JavaScript for the browser-side of the UI, largely built with the (open-source) Closure framework, including Closure's JavaScript compiler and template system. A couple nifty tricks we do: we use the HTML5 History API to maintain pretty-looking URLs even though it's an AJAX app (falling back on hash-fragments for older browsers); and we often render our Closure templates server-side so the page renders before any JavaScript is loaded, then the JavaScript finds the right DOM nodes and hooks up event handlers, etc. to make it responsive (as a result, if you're on a slow connection and you click on stuff really fast, you may notice a lag before it does anything, but luckily most people don't run</p><p>2 0.96582162 <a title="327-lda-2" href="../high_scalability-2011/high_scalability-2011-03-18-Stuff_The_Internet_Says_On_Scalability_For_March_18%2C_2011.html">1007 high scalability-2011-03-18-Stuff The Internet Says On Scalability For March 18, 2011</a></p>
+<p>Introduction: Submitted for your reading pleasure on this day of wind and rain...
+  
+ The cloud is falling. Or at least shared networked storage as Reddit has a couple of long periods of downtime.  Good write up at Why reddit was down for 6 of the last 24 hours.  Upshot: Reddit is moving off EBS to local disks. 
+ Quotable Quotes:        
+ 
+  @thomleggett : 32 or so joins - the sweet-spot of suck for MySQL - @emileifrem #nosql #neo4j #qconlondon 
+  @jkalucki : The [Twitter] Streaming API pushes 100MB in less than a second. 
+  @LusciousPear : Finding the true test of a DB is recovery when things go wrong, not "who's most web-scale" on paper #nosql 
+  @TimelessP : Functionality, scalability, security... pick two. 
+  @beaknit : #ccevent #nosql @adrianco: A year from oracle to simpledb. A week from simpledb to cassandra. Mental shift biggest hurdle. 
+ 
+ 
+ Heather Willems captured this very cool  Ogilvy Note , which is a visual representation of a panel talk on  Scalability: Covering Your Rear with a Good</p><p>3 0.96474195 <a title="327-lda-3" href="../high_scalability-2011/high_scalability-2011-04-08-Stuff_The_Internet_Says_On_Scalability_For_April_8%2C_2011.html">1019 high scalability-2011-04-08-Stuff The Internet Says On Scalability For April 8, 2011</a></p>
+<p>Introduction: Submitted for your reading pleasure on this tomato killing frosty morn...
+  
+ Now we really know why vampires feed on blood...they are elastically acquiring more compute power.  Your Next Computer May Be Made of...Blood!  It's those  memristors  again. Ancient vamps are really just giant super computers. 
+  Twitter now at 155 million tweets a day , up from 55 million a year ago. 
+   10,000-core Linux supercomputer built in Amazon cloud  By Jon Brodkin. T he 10,000 cores were composed of 1,250 instances with eight cores each, as well as 8.75TB of RAM and 2PB disk space. The cluster ran for eight hours at a cost of $8,500 . 
+ Quotable Quotes for $273 Alex:      
+ 
+  @davidklemke : Holy balls Windows Azure Tables is awesome. Man am I regretting not getting into this cloud stuff sooner, it's scalability heaven. 
+  @nik : The volume of tweets we are flowing into HBase is truly staggering #bigdata #datasift 
+  @wattersjames : One of the key points I mentioned before: Scalability is being abl</p><p>4 0.96427852 <a title="327-lda-4" href="../high_scalability-2013/high_scalability-2013-01-16-What_if_Cars_Were_Rented_Like_We_Hire_Programmers%3F.html">1388 high scalability-2013-01-16-What if Cars Were Rented Like We Hire Programmers?</a></p>
+<p>Introduction: Imagine if you will that car rental agencies rented cars like programmers are hired at many software companies...   Agency  : So sorry you had to wait in the reception area for an hour. Nobody knew you were coming to today. I finally found 8 people to interview before we can rent you a car. If we like you you may have to come in for another round of interviews tomorrow because our manager isn't in today. I didn't have a chance to read your application, so I'll just start with a question. What car do you drive today?  Applicant  : I drive a 2008 Subaru.  Agency  : That's a shame. We don't have a Subaru to rent you.  Applicant  : That's OK. Any car will do.  Agency  : No, we can only take on clients who know how to drive the cars we stock. We find it's safer that way. There are so many little differences between cars, we just don't want to take a chance.  Applicant  : I have a drivers license. I know how to drive. I've been driving all kinds of cars for 15 years, I am sure I can adapt.</p><p>5 0.96293175 <a title="327-lda-5" href="../high_scalability-2012/high_scalability-2012-07-02-C_is_for_Compute_-_Google_Compute_Engine_%28GCE%29.html">1275 high scalability-2012-07-02-C is for Compute - Google Compute Engine (GCE)</a></p>
+<p>Introduction: After poking around the   Google Compute Engine    (GCE) documentation I had some trouble creating a mental model of how GCE works. Is it like AWS, GAE, Rackspace, just what is it? After watching    Google I/O 2012 - Introducing Google Compute Engine    and    Google Compute Engine -- Technical Details   , it turns out my initial impression, that GCE is disarmingly straightforward, turns out to be the point.     The focus of GCE is on the C, which stands for Compute, and that’s what GCE is all about: deploying lots of servers to solve computationally hard problems. What you get with GCE is a Super Datacenter on Google Steroids.     If you are wondering how you will run the next Instagram on GCE then that would be missing the point. GAE is targeted at applications. GCE is targeted at: 
+  
+  Delivering a proven, pure, high performance, high scale compute infrastructure using a utility pricing model, on top of an open, secure, extensible Infrastructure-as-a-Service.  
+  Delivering an expe</p><p>6 0.9625603 <a title="327-lda-6" href="../high_scalability-2014/high_scalability-2014-06-05-Cloud_Architecture_Revolution.html">1654 high scalability-2014-06-05-Cloud Architecture Revolution</a></p>
 <p>7 0.96045202 <a title="327-lda-7" href="../high_scalability-2009/high_scalability-2009-12-16-Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_in_the_Ambient_Cloud.html">750 high scalability-2009-12-16-Building Super Scalable Systems: Blade Runner Meets Autonomic Computing in the Ambient Cloud</a></p>
 <p>8 0.96034437 <a title="327-lda-8" href="../high_scalability-2012/high_scalability-2012-11-05-Gone_Fishin%27%3A_Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_In_The_Ambient_Cloud.html">1355 high scalability-2012-11-05-Gone Fishin': Building Super Scalable Systems: Blade Runner Meets Autonomic Computing In The Ambient Cloud</a></p>
 <p>same-blog 9 0.95949143 <a title="327-lda-9" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>

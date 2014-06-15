@@ -16,32 +16,20 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>221 high scalability-2008-01-24-Mailinator Architecture</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-221-html" href="http://highscalability.com//blog/2008/1/24/mailinator-architecture.html">html</a></p><p>Introduction: Update:A fun exploration of applied searching inHow to search for the word
-"pen1s" in 185 emails every second. When indexOf doesn't cut it you just trie
-harder.Has a drunken friend ever inspired you to create a first of its kind
-internet service that is loved by millions, deemed subversive by thousands,
-all while handling over 1.2 billion emails a year on onerickityold server?
-That's how Paul Tyma came to build Mailinator.Mailinator is a free no-setup
-web service for thwarting evil spammers by creating throw-away registration
-email addresses. If you don't give web sites you real email address they can't
-spam you. They spam Mailinator instead :-)I love design with a point-of-view
-and Mailinator has a big giant harry one: performance first, second, and last.
-Why? Because Mailinator is free and that allows Paul to showcase his different
-perspective on design. While competitors buy big Iron to handle load, Paul
-uses a big idea instead: pick the right problem and create a design to fit the</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 If you don't give web sites you real email address they can't spam you. [sent-7, score-0.603]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-221-html" href="http://highscalability.com//blog/2008/1/24/mailinator-architecture.html">html</a></p><p>Introduction: Update:  A fun exploration of applied searching in  How to search for the word "pen1s" in 185 emails every second . When indexOf doesn't cut it you just trie harder.   Has a drunken friend ever inspired you to create a first of its kind internet service that is loved by millions, deemed subversive by thousands, all while handling over 1.2 billion emails a year on one  rickity  old server? That's how Paul Tyma came to build Mailinator.   Mailinator is a free no-setup web service for thwarting evil spammers by creating throw-away registration email addresses. If you don't give web sites you real email address they can't spam you. They spam Mailinator instead :-)   I love design with a point-of-view and Mailinator has a big giant harry one: performance first, second, and last. Why? Because Mailinator is free and that allows Paul to showcase his different perspective on design. While competitors buy big Iron to handle load, Paul uses a big idea instead: pick the right problem and create a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 If you don't give web sites you real email address they can't spam you. [sent-7, score-0.603]
 </p><p>2 Mailinator runs for months unattended and very few emails are lost, even under constant spam attacks and high peak loads. [sent-27, score-0.649]
-</p><p>3 The original flow of email handling was:- Sendmail received email in a single on-disk mailbox. [sent-39, score-0.785]
-</p><p>4 The system broke down because of disk contention between Mailinator and the email subsystem. [sent-46, score-0.52]
+</p><p>3 The original flow of email handling was: - Sendmail received email in a single on-disk mailbox. [sent-39, score-0.785]
+</p><p>4 The system broke down  because of disk contention between Mailinator and the email subsystem. [sent-46, score-0.52]
 </p><p>5 - The web application, the email server, and all email storage run in one JVM. [sent-48, score-0.75]
 </p><p>6 - On arrival each email passes through a filter system and is stored in RAM if all filters are passed. [sent-68, score-0.525]
-</p><p>7 Emails are compressed in RAM:- Since 99% of emails are never looked at, compressed email saves RAM. [sent-73, score-0.893]
+</p><p>7 Emails are compressed in RAM: - Since 99% of emails are never looked at, compressed email saves RAM. [sent-73, score-0.893]
 </p><p>8 - Mailinator can store about 80,000 emails in RAM, using under 300MB of RAM compared to the 20,000 emails which were stored in 1GB RAM in the original design. [sent-75, score-0.781]
 </p><p>9 When a web site asks you for an email address you can just enter an mailinator address. [sent-84, score-1.04]
 </p><p>10 Typing in the email address effectively creates the mailinator account. [sent-86, score-1.04]
-</p><p>11 To be accepted an email must pass the following filter chain:- Bounce: all bounced emails are dropped. [sent-92, score-0.839]
-</p><p>12 - IP: too much email from a single IP are dropped- Subject: too much email on the same subject is dropped- Potty: subjects containing words that indicate hate or crimes or just downright nastiness are dropped. [sent-93, score-1.004]
+</p><p>11 To be accepted an email must pass the following filter chain: - Bounce: all bounced emails are dropped. [sent-92, score-0.839]
+</p><p>12 - IP: too much email from a single IP are dropped - Subject: too much email on the same subject is dropped - Potty: subjects containing words that indicate hate or crimes or just downright nastiness are dropped. [sent-93, score-1.004]
 </p><p>13 - When a sender reaches a threshold email count the sender is blocked. [sent-97, score-0.505]
-</p><p>14 - This filtering is a little more complex than IP blocking because you have to parse enoughof the email to get the subject line and matching subject strings is a little more resource intensive. [sent-103, score-0.669]
+</p><p>14 - This filtering is a little more complex than IP blocking because you have to parse enough of the email to get the subject line and matching subject strings is a little more resource intensive. [sent-103, score-0.669]
 </p><p>15 - When something like 20 emails with the same subject within 2 minutes, all emails with that subject are then banned for 1 hour. [sent-104, score-0.996]
 </p><p>16 - Interestingly, subjects are not banned forever because that would mean Mailinator would have to track subjects forever and the system design is inherently transient. [sent-105, score-0.491]
 </p><p>17 At the cost of a few "bad" emails getting through the system is much simpler because no persistent list must be managed and that list surely would become a bottleneck. [sent-107, score-0.565]
@@ -54,61 +42,33 @@ uses a big idea instead: pick the right problem and create a design to fit the</
 <p>[('mailinator', 0.62), ('email', 0.375), ('emails', 0.373), ('spam', 0.183), ('ip', 0.147), ('subject', 0.098), ('attacks', 0.093), ('disk', 0.081), ('smtp', 0.08), ('ram', 0.078), ('spammers', 0.07), ('design', 0.069), ('subjects', 0.068), ('paul', 0.067), ('reject', 0.067), ('resource', 0.066), ('sender', 0.065), ('system', 0.064), ('inbox', 0.059), ('sendmail', 0.057), ('banned', 0.054), ('period', 0.052), ('uptime', 0.051), ('filter', 0.051), ('zombie', 0.048), ('looked', 0.047), ('usage', 0.045), ('address', 0.045), ('goals', 0.045), ('would', 0.044), ('much', 0.044), ('compression', 0.044), ('addresses', 0.042), ('create', 0.042), ('survival', 0.041), ('must', 0.04), ('blocked', 0.04), ('forever', 0.04), ('resources', 0.039), ('robust', 0.038), ('original', 0.035), ('body', 0.035), ('filters', 0.035), ('memory', 0.033), ('compressed', 0.033), ('saves', 0.032), ('constraints', 0.032), ('accept', 0.032), ('filtering', 0.032), ('limited', 0.031)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999946 <a title="221-tfidf-1" href="../high_scalability-2008/high_scalability-2008-01-24-Mailinator_Architecture.html">221 high scalability-2008-01-24-Mailinator Architecture</a></p>
-<p>Introduction: Update:A fun exploration of applied searching inHow to search for the word
-"pen1s" in 185 emails every second. When indexOf doesn't cut it you just trie
-harder.Has a drunken friend ever inspired you to create a first of its kind
-internet service that is loved by millions, deemed subversive by thousands,
-all while handling over 1.2 billion emails a year on onerickityold server?
-That's how Paul Tyma came to build Mailinator.Mailinator is a free no-setup
-web service for thwarting evil spammers by creating throw-away registration
-email addresses. If you don't give web sites you real email address they can't
-spam you. They spam Mailinator instead :-)I love design with a point-of-view
-and Mailinator has a big giant harry one: performance first, second, and last.
-Why? Because Mailinator is free and that allows Paul to showcase his different
-perspective on design. While competitors buy big Iron to handle load, Paul
-uses a big idea instead: pick the right problem and create a design to fit the</p><p>2 0.31646752 <a title="221-tfidf-2" href="../high_scalability-2008/high_scalability-2008-02-19-Building_a_email_communication_system.html">253 high scalability-2008-02-19-Building a email communication system</a></p>
-<p>Introduction: hi,the website i work for is looking to build a email system that can handle a
-fair few emails (up to a hundred thousand a day).These comprise emails like
-registration emails, newsletters, lots of user triggered emails and overnight
-emails.At present we queue them in SQL and feed them into an smtp server on
-one of our web servers when the queue drops below a certain level.this has
-caused our mail system to crash as well as hammer our DB server (shared!!!).We
-have got an architecture of what we want to build but thought there might be
-something we could buy off the shelf that allowed us to keep templated emails,
-lists of recipients, schedule sends etc and report on it. We can't find
-anythingWhat do big websites like amazon etc use or people a little smaller
-but who still send loads of mail (flickr, ebuyer, or other ecommerce
-sites)Cheerstarqs</p><p>3 0.28806248 <a title="221-tfidf-3" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
-<p>Introduction: This is a guest post by Rodrigo Guzman, CTO ofiDoneThis, which makes status
-reporting happen at your company with the lightest possible touch.iDoneThisis
-a simple management application that emails your team at the end of every day
-to ask, "What'd you get done today?" Just reply with a few lines of what you
-got done. The following morning everyone on your team gets a digest with what
-the team accomplished the previous day to keep everyone in the loop and
-kickstart another awesome day.Before we launched, we built iDoneThis over a
-weekend in the most rudimentary way possible. I kid you not, we sent the first
-few batches of daily emails using the BCC field of a Gmail inbox. The upshot
-is that we've had users on the site from Day 3 of its existence on.We've gone
-from launch in January 2011 when we sent hundreds of emails out per day by
-hand to sending out over 1 million emails and handling over 200,000 incoming
-emails per month. In total, customers have recorded over 1.7 million
-dones.Stat</p><p>4 0.2192596 <a title="221-tfidf-4" href="../high_scalability-2008/high_scalability-2008-01-06-Email_Architecture.html">202 high scalability-2008-01-06-Email Architecture</a></p>
-<p>Introduction: I would like to know email architecture used by large ISPs.. or even used by
-google.Can someone point me to some sites??Thanks..</p><p>5 0.19068463 <a title="221-tfidf-5" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
-<p>Introduction: With Lavabitshutting down undermurky circumstances, it seems fitting torepost
-an old(2009), yet still very good post byLadar Levisonon Lavabit's
-architecture. I don't know how much of this information is still current, but
-it should give you a general idea what Lavabit was all about.Getting to Know
-YouWhat is the name of your system and where can we find out more about
-it?Note: these links are no longer valid...Lavabithttp://lavabit.comhttp://lav
-abit.com/network.htmlhttp://lavabit.com/about.htmlWhat is your system
-for?Lavabit is a mid-sized email service provider. We currently have about
-140,000 registered users with more than 260,000 email addresses. While most of
-our accounts belong to individual users, we also provide corporate email
-services to approximately 70 companies.Why did you decide to build this
-system?We built the system to compete against the other large free email
-providers, with an emphasis on serving the privacy conscious and technically
-savvy user. Lavabit was one of</p><p>6 0.13241188 <a title="221-tfidf-6" href="../high_scalability-2008/high_scalability-2008-12-29-Paper%3A_Spamalytics%3A_An_Empirical_Analysisof_Spam_Marketing_Conversion.html">478 high scalability-2008-12-29-Paper: Spamalytics: An Empirical Analysisof Spam Marketing Conversion</a></p>
+<p>Introduction: Update:  A fun exploration of applied searching in  How to search for the word "pen1s" in 185 emails every second . When indexOf doesn't cut it you just trie harder.   Has a drunken friend ever inspired you to create a first of its kind internet service that is loved by millions, deemed subversive by thousands, all while handling over 1.2 billion emails a year on one  rickity  old server? That's how Paul Tyma came to build Mailinator.   Mailinator is a free no-setup web service for thwarting evil spammers by creating throw-away registration email addresses. If you don't give web sites you real email address they can't spam you. They spam Mailinator instead :-)   I love design with a point-of-view and Mailinator has a big giant harry one: performance first, second, and last. Why? Because Mailinator is free and that allows Paul to showcase his different perspective on design. While competitors buy big Iron to handle load, Paul uses a big idea instead: pick the right problem and create a</p><p>2 0.31646752 <a title="221-tfidf-2" href="../high_scalability-2008/high_scalability-2008-02-19-Building_a_email_communication_system.html">253 high scalability-2008-02-19-Building a email communication system</a></p>
+<p>Introduction: hi,   the website i work for is looking to build a email system that can handle a fair few emails (up to a hundred thousand a day).     These comprise emails like registration emails, newsletters, lots of user triggered emails and overnight emails.     At present we queue them in SQL and feed them into an smtp server on one of our web servers when the queue drops below a certain level.     this has caused our mail system to crash as well as hammer our DB server (shared!!!).     We have got an architecture of what we want to build but thought there might be something we could buy off the shelf that allowed us to keep templated emails, lists of recipients, schedule sends etc and report on it. We can't find anything     What do big websites like amazon etc use or people a little smaller but who still send loads of mail (flickr, ebuyer, or other ecommerce sites)     Cheers     tarqs</p><p>3 0.28806248 <a title="221-tfidf-3" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
+<p>Introduction: This is a guest post by Rodrigo Guzman, CTO of  iDoneThis , which makes status reporting happen at your company with the lightest possible touch. 
+ 
+ iDoneThis  is a simple management application that emails your team at the end of every day to ask, "What'd you get done today?"  Just reply with a few lines of what you got done. The following morning everyone on your team gets a digest with what the team accomplished the previous day to keep everyone in the loop and kickstart another awesome day.
+ 
+Before we launched, we built iDoneThis over a weekend in the most rudimentary way possible.  I kid you not, we sent the first few batches of daily emails using the BCC field of a Gmail inbox.  The upshot is that we’ve had users on the site from Day 3 of its existence on.
+ 
+We’ve gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month.  In total, customers have recorded over 1.</p><p>4 0.2192596 <a title="221-tfidf-4" href="../high_scalability-2008/high_scalability-2008-01-06-Email_Architecture.html">202 high scalability-2008-01-06-Email Architecture</a></p>
+<p>Introduction: I would like to know email architecture used by large ISPs.. or even used by google.      Can someone point me to some sites??       Thanks..</p><p>5 0.19068463 <a title="221-tfidf-5" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: With Lavabit  shutting down  under  murky circumstances , it seems fitting to  repost an old  (2009), yet still very good post by  Ladar Levison  on Lavabit's architecture. I don't know how much of this information is still current, but it should give you a general idea what Lavabit was all about.
+  
+ Getting to Know You 
+ What is the name of your system and where can we find out more about it? 
+
+ Note: these links are no longer valid... 
+
+
+Lavabit   http://lavabit.com      http://lavabit.com/network.html    http://lavabit.com/about.html 
+
+ What is your system for? 
+
+Lavabit is a mid-sized email service provider. We currently have about 140,000 registered users with more than 260,000 email addresses. While most of our accounts belong to individual users, we also provide corporate email services to approximately 70 companies.
+
+ Why did you decide to build this system? 
+
+We built the system to compete against the other large free email providers, with an emphasis on serving the privacy c</p><p>6 0.13241188 <a title="221-tfidf-6" href="../high_scalability-2008/high_scalability-2008-12-29-Paper%3A_Spamalytics%3A_An_Empirical_Analysisof_Spam_Marketing_Conversion.html">478 high scalability-2008-12-29-Paper: Spamalytics: An Empirical Analysisof Spam Marketing Conversion</a></p>
 <p>7 0.13068821 <a title="221-tfidf-7" href="../high_scalability-2009/high_scalability-2009-03-30-Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">551 high scalability-2009-03-30-Lavabit Architecture - Creating a Scalable Email Service</a></p>
 <p>8 0.12902343 <a title="221-tfidf-8" href="../high_scalability-2013/high_scalability-2013-06-18-Scaling_Mailbox_-_From_0_to_One_Million_Users_in_6_Weeks_and_100_Million_Messages_Per_Day.html">1477 high scalability-2013-06-18-Scaling Mailbox - From 0 to One Million Users in 6 Weeks and 100 Million Messages Per Day</a></p>
 <p>9 0.1195717 <a title="221-tfidf-9" href="../high_scalability-2012/high_scalability-2012-02-24-Stuff_The_Internet_Says_On_Scalability_For_February_24%2C_2012.html">1198 high scalability-2012-02-24-Stuff The Internet Says On Scalability For February 24, 2012</a></p>
@@ -128,73 +88,26 @@ savvy user. Lavabit was one of</p><p>6 0.13241188 <a title="221-tfidf-6" href=".
 <p>[(0, 0.167), (1, 0.091), (2, -0.014), (3, -0.034), (4, -0.001), (5, -0.041), (6, 0.025), (7, 0.039), (8, -0.027), (9, -0.026), (10, -0.015), (11, 0.044), (12, 0.014), (13, 0.024), (14, 0.067), (15, -0.036), (16, -0.031), (17, 0.031), (18, -0.02), (19, 0.037), (20, -0.019), (21, -0.035), (22, -0.019), (23, 0.033), (24, 0.015), (25, -0.029), (26, 0.03), (27, 0.025), (28, -0.05), (29, -0.008), (30, -0.023), (31, 0.002), (32, -0.021), (33, -0.028), (34, -0.022), (35, -0.015), (36, -0.018), (37, 0.073), (38, 0.028), (39, 0.02), (40, 0.043), (41, 0.092), (42, 0.061), (43, 0.041), (44, 0.017), (45, 0.033), (46, -0.004), (47, -0.054), (48, 0.014), (49, 0.011)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95755231 <a title="221-lsi-1" href="../high_scalability-2008/high_scalability-2008-01-24-Mailinator_Architecture.html">221 high scalability-2008-01-24-Mailinator Architecture</a></p>
-<p>Introduction: Update:A fun exploration of applied searching inHow to search for the word
-"pen1s" in 185 emails every second. When indexOf doesn't cut it you just trie
-harder.Has a drunken friend ever inspired you to create a first of its kind
-internet service that is loved by millions, deemed subversive by thousands,
-all while handling over 1.2 billion emails a year on onerickityold server?
-That's how Paul Tyma came to build Mailinator.Mailinator is a free no-setup
-web service for thwarting evil spammers by creating throw-away registration
-email addresses. If you don't give web sites you real email address they can't
-spam you. They spam Mailinator instead :-)I love design with a point-of-view
-and Mailinator has a big giant harry one: performance first, second, and last.
-Why? Because Mailinator is free and that allows Paul to showcase his different
-perspective on design. While competitors buy big Iron to handle load, Paul
-uses a big idea instead: pick the right problem and create a design to fit the</p><p>2 0.79907334 <a title="221-lsi-2" href="../high_scalability-2009/high_scalability-2009-03-30-Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">551 high scalability-2009-03-30-Lavabit Architecture - Creating a Scalable Email Service</a></p>
-<p>Introduction: Ladar Levison of Lavabit has written anincredible article on howthey took a
-centralized off-the-shelf email server that could handle only few thousand
-users and built their own custom distributed infrastructure for handling
-hundreds of thousands of email users. Lavabit processes 70 gigabytes of data
-per day, is made up of 26 servers, hosts 260,000 email addresses, and
-processes 600,000 emails a day. That's a lot of email.Lavabit's mission has a
-little edge to it too:Lavabit was founded as a direct reaction to the larger
-free e-mail services available. We felt it was possible to create an e-mail
-service that was fast, reliable, feature rich and didn't achieve profitability
-by prostituting its user base to marketers.What I really like about this
-article is that Lavabit has some challenging elements in dealing with
-different email protocols while being able to scale to a lot of users. There's
-more going on than just trying to scale out a database. Many products contain
-complicated bits li</p><p>3 0.77369088 <a title="221-lsi-3" href="../high_scalability-2013/high_scalability-2013-06-18-Scaling_Mailbox_-_From_0_to_One_Million_Users_in_6_Weeks_and_100_Million_Messages_Per_Day.html">1477 high scalability-2013-06-18-Scaling Mailbox - From 0 to One Million Users in 6 Weeks and 100 Million Messages Per Day</a></p>
-<p>Introduction: You know your product is doing well when most of yourearly blog postsdeal with
-the status of the waiting list of hundreds of thousands of users eagerly
-waiting to download your product. That's the enviable positionMailbox, a free
-mobile email management app, found themselves early in their release cycle.
-Hasn't email been done already? Apparently not. Mailbox scaled to one million
-users in a paltry six weeks with a team ofabout 14 people. As of April they
-were delivering over100 million messages per day.How did they do it? Mailbox
-engineering lead,Sean Beausoleil, gave an informative interview on
-readwrite.comon how Mailbox planned to scale... Gather signals early. A pre-
-release launch video helped generate interest, but it also allowed them to
-gauge early interest before even releasing. From the overwhelming response
-they knew they would need to have to scale and scale quickly. Have something
-unique. The average person might not think a mailbox app would be a fertile
-product space. T</p><p>4 0.77132553 <a title="221-lsi-4" href="../high_scalability-2008/high_scalability-2008-02-19-Building_a_email_communication_system.html">253 high scalability-2008-02-19-Building a email communication system</a></p>
-<p>Introduction: hi,the website i work for is looking to build a email system that can handle a
-fair few emails (up to a hundred thousand a day).These comprise emails like
-registration emails, newsletters, lots of user triggered emails and overnight
-emails.At present we queue them in SQL and feed them into an smtp server on
-one of our web servers when the queue drops below a certain level.this has
-caused our mail system to crash as well as hammer our DB server (shared!!!).We
-have got an architecture of what we want to build but thought there might be
-something we could buy off the shelf that allowed us to keep templated emails,
-lists of recipients, schedule sends etc and report on it. We can't find
-anythingWhat do big websites like amazon etc use or people a little smaller
-but who still send loads of mail (flickr, ebuyer, or other ecommerce
-sites)Cheerstarqs</p><p>5 0.77102971 <a title="221-lsi-5" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
-<p>Introduction: This is a guest post by Rodrigo Guzman, CTO ofiDoneThis, which makes status
-reporting happen at your company with the lightest possible touch.iDoneThisis
-a simple management application that emails your team at the end of every day
-to ask, "What'd you get done today?" Just reply with a few lines of what you
-got done. The following morning everyone on your team gets a digest with what
-the team accomplished the previous day to keep everyone in the loop and
-kickstart another awesome day.Before we launched, we built iDoneThis over a
-weekend in the most rudimentary way possible. I kid you not, we sent the first
-few batches of daily emails using the BCC field of a Gmail inbox. The upshot
-is that we've had users on the site from Day 3 of its existence on.We've gone
-from launch in January 2011 when we sent hundreds of emails out per day by
-hand to sending out over 1 million emails and handling over 200,000 incoming
-emails per month. In total, customers have recorded over 1.7 million
-dones.Stat</p><p>6 0.74832493 <a title="221-lsi-6" href="../high_scalability-2013/high_scalability-2013-07-17-How_do_you_create_a_100th_Monkey_software_development_culture%3F.html">1492 high scalability-2013-07-17-How do you create a 100th Monkey software development culture?</a></p>
+<p>Introduction: Update:  A fun exploration of applied searching in  How to search for the word "pen1s" in 185 emails every second . When indexOf doesn't cut it you just trie harder.   Has a drunken friend ever inspired you to create a first of its kind internet service that is loved by millions, deemed subversive by thousands, all while handling over 1.2 billion emails a year on one  rickity  old server? That's how Paul Tyma came to build Mailinator.   Mailinator is a free no-setup web service for thwarting evil spammers by creating throw-away registration email addresses. If you don't give web sites you real email address they can't spam you. They spam Mailinator instead :-)   I love design with a point-of-view and Mailinator has a big giant harry one: performance first, second, and last. Why? Because Mailinator is free and that allows Paul to showcase his different perspective on design. While competitors buy big Iron to handle load, Paul uses a big idea instead: pick the right problem and create a</p><p>2 0.79907334 <a title="221-lsi-2" href="../high_scalability-2009/high_scalability-2009-03-30-Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">551 high scalability-2009-03-30-Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: Ladar Levison of Lavabit has written an  incredible article on how  they took a centralized off-the-shelf email server that could handle only few thousand users and built their own custom distributed infrastructure for handling hundreds of thousands of email users.  Lavabit processes 70 gigabytes of data per day, is made up of 26 servers, hosts 260,000 email addresses, and processes 600,000 emails a day. That's a lot of email.   Lavabit's mission has a little edge to it too:
+   Lavabit was founded as a direct reaction to the larger free e-mail services available. We felt it was possible to create an e-mail service that was fast, reliable, feature rich and didn't achieve profitability by prostituting its user base to marketers.   
+What I really like about this article is that Lavabit has some challenging elements in dealing with different email protocols while being able to scale to a lot of users. There's more going on than just trying to scale out a database. Many products contain com</p><p>3 0.77369088 <a title="221-lsi-3" href="../high_scalability-2013/high_scalability-2013-06-18-Scaling_Mailbox_-_From_0_to_One_Million_Users_in_6_Weeks_and_100_Million_Messages_Per_Day.html">1477 high scalability-2013-06-18-Scaling Mailbox - From 0 to One Million Users in 6 Weeks and 100 Million Messages Per Day</a></p>
+<p>Introduction: You know your product is doing well when most of your  early blog posts  deal with the status of the waiting list of hundreds of thousands of users eagerly waiting to download your product. That's the enviable position  Mailbox , a free mobile email management app, found themselves early in their release cycle. 
+ 
+Hasn't email been done already? Apparently not. Mailbox scaled to one million users in a paltry six weeks with a team of  about 14 people . As of April they were delivering over  100 million messages per day .
+ 
+How did they do it? Mailbox engineering lead,  Sean Beausoleil , gave an  informative interview on readwrite.com  on how Mailbox planned to scale... 
+  
+  Gather signals early . A pre-release launch video helped generate interest, but it also allowed them to gauge early interest before even releasing. From the overwhelming response they knew they would need to have to scale and scale quickly.  
+  Have something unique . The average person might not think a mailbox app</p><p>4 0.77132553 <a title="221-lsi-4" href="../high_scalability-2008/high_scalability-2008-02-19-Building_a_email_communication_system.html">253 high scalability-2008-02-19-Building a email communication system</a></p>
+<p>Introduction: hi,   the website i work for is looking to build a email system that can handle a fair few emails (up to a hundred thousand a day).     These comprise emails like registration emails, newsletters, lots of user triggered emails and overnight emails.     At present we queue them in SQL and feed them into an smtp server on one of our web servers when the queue drops below a certain level.     this has caused our mail system to crash as well as hammer our DB server (shared!!!).     We have got an architecture of what we want to build but thought there might be something we could buy off the shelf that allowed us to keep templated emails, lists of recipients, schedule sends etc and report on it. We can't find anything     What do big websites like amazon etc use or people a little smaller but who still send loads of mail (flickr, ebuyer, or other ecommerce sites)     Cheers     tarqs</p><p>5 0.77102971 <a title="221-lsi-5" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
+<p>Introduction: This is a guest post by Rodrigo Guzman, CTO of  iDoneThis , which makes status reporting happen at your company with the lightest possible touch. 
+ 
+ iDoneThis  is a simple management application that emails your team at the end of every day to ask, "What'd you get done today?"  Just reply with a few lines of what you got done. The following morning everyone on your team gets a digest with what the team accomplished the previous day to keep everyone in the loop and kickstart another awesome day.
+ 
+Before we launched, we built iDoneThis over a weekend in the most rudimentary way possible.  I kid you not, we sent the first few batches of daily emails using the BCC field of a Gmail inbox.  The upshot is that we’ve had users on the site from Day 3 of its existence on.
+ 
+We’ve gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month.  In total, customers have recorded over 1.</p><p>6 0.74832493 <a title="221-lsi-6" href="../high_scalability-2013/high_scalability-2013-07-17-How_do_you_create_a_100th_Monkey_software_development_culture%3F.html">1492 high scalability-2013-07-17-How do you create a 100th Monkey software development culture?</a></p>
 <p>7 0.73141539 <a title="221-lsi-7" href="../high_scalability-2008/high_scalability-2008-01-06-Email_Architecture.html">202 high scalability-2008-01-06-Email Architecture</a></p>
 <p>8 0.72758776 <a title="221-lsi-8" href="../high_scalability-2011/high_scalability-2011-02-08-Mollom_Architecture_-_Killing_Over_373_Million_Spams_at_100_Requests_Per_Second.html">985 high scalability-2011-02-08-Mollom Architecture - Killing Over 373 Million Spams at 100 Requests Per Second</a></p>
 <p>9 0.72186381 <a title="221-lsi-9" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
@@ -214,75 +127,46 @@ dones.Stat</p><p>6 0.74832493 <a title="221-lsi-6" href="../high_scalability-201
 <p>[(1, 0.079), (2, 0.283), (10, 0.062), (15, 0.023), (17, 0.013), (28, 0.096), (30, 0.021), (33, 0.01), (40, 0.012), (47, 0.017), (61, 0.077), (77, 0.018), (79, 0.074), (85, 0.023), (94, 0.064), (99, 0.019)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96341717 <a title="221-lda-1" href="../high_scalability-2008/high_scalability-2008-01-24-Mailinator_Architecture.html">221 high scalability-2008-01-24-Mailinator Architecture</a></p>
-<p>Introduction: Update:A fun exploration of applied searching inHow to search for the word
-"pen1s" in 185 emails every second. When indexOf doesn't cut it you just trie
-harder.Has a drunken friend ever inspired you to create a first of its kind
-internet service that is loved by millions, deemed subversive by thousands,
-all while handling over 1.2 billion emails a year on onerickityold server?
-That's how Paul Tyma came to build Mailinator.Mailinator is a free no-setup
-web service for thwarting evil spammers by creating throw-away registration
-email addresses. If you don't give web sites you real email address they can't
-spam you. They spam Mailinator instead :-)I love design with a point-of-view
-and Mailinator has a big giant harry one: performance first, second, and last.
-Why? Because Mailinator is free and that allows Paul to showcase his different
-perspective on design. While competitors buy big Iron to handle load, Paul
-uses a big idea instead: pick the right problem and create a design to fit the</p><p>2 0.95699096 <a title="221-lda-2" href="../high_scalability-2012/high_scalability-2012-06-08-Stuff_The_Internet_Says_On_Scalability_For_June_8%2C_2012.html">1261 high scalability-2012-06-08-Stuff The Internet Says On Scalability For June 8, 2012</a></p>
-<p>Introduction: It's HighScalability Time:21TB: Tumblr relational dataQuotable
-Quotes:@ajbaird: Scalability is not a "feature" tacked on at the end
-development.@h_ingo: I likeDoron's comparison: Build a MySQL scale-out cluster
-instead, then buy 2 Ferrari's with the money saved :-) You might figure Harry
-Potter would have some sort of scaling spell, but no, he has to rely on
-themuggle powered Azure. Pottermore uses Azure to handle 110 million page
-impressions a day. Ian Bogost in What Should We Do for a Living? brings up a
-sobering idea from the Facebook Illusion, the Internet economy will not save
-us, it sucks at scaling jobs and exists because it is subsidized by surpluses
-from the old economy it was supposed to replace. Where is that replicator when
-we need it?In Praise of Idleness. Bruce Dawson argues against busy waiting and
-for locks, in most cases. Couldn't agree more, that's a lot of CPU doing
-nothing and programmers quickly lose track of the overall flow of the program,
-thoughAdaptive spinning</p><p>3 0.949494 <a title="221-lda-3" href="../high_scalability-2014/high_scalability-2014-03-12-Paper%3A_Scalable_Eventually_Consistent_Counters_over_Unreliable_Networks.html">1611 high scalability-2014-03-12-Paper: Scalable Eventually Consistent Counters over Unreliable Networks</a></p>
-<p>Introduction: Counting at scale in a distributed environment issurprisingly hard. And it's a
-subject we've covered before in various ways:Big Data Counting: How to count a
-billion distinct objects using only 1.5KB of Memory,How to update video views
-count effectively?,Numbers Everyone Should Know (sharded
-counters).Kellabyte(which is an excellent blog) inScalable Eventually
-Consistent Counterstalks about how the Cassandra counter implementation scores
-well on the scalability and high availability front, but in so doing has "over
-and under counting problem in partitioned environments."Which is often fine.
-But if you want more accuracy there's a PN-counter, which is aCRDT (convergent
-replicated data type)where "all the changes made to a counter on each node
-rather than storing and modifying a single value so that you can merge all the
-values into the proper final value. Of course the trade-off here is additional
-storage and processing but there are ways to optimize this."And there's a
-paper you can co</p><p>4 0.94789052 <a title="221-lda-4" href="../high_scalability-2011/high_scalability-2011-04-27-Heroku_Emergency_Strategy%3A_Incident_Command_System_and_8_Hour_Ops_Rotations_for_Fresh_Minds.html">1030 high scalability-2011-04-27-Heroku Emergency Strategy: Incident Command System and 8 Hour Ops Rotations for Fresh Minds</a></p>
-<p>Introduction: In Resolved: Widespread Application Outage, Herokutells their story of how
-they dealt with theAmazon outage. While taking 100% responsibility for the
-downtime, they also shared a number of the strategies they used to bring their
-service back to full working order.One ofHeroku'smost interesting strategies
-wasn't a technical hack at all, but how they consciously went about deploying
-their Ops personnel in response to the emergency. An outline of their strategy
-is: Monitoring systems immediately alerted Ops to the problem. An on-call
-engineer applied triage logic to the problem and classified it as serious,
-which caused the on-callIncident Commanderto be woken out of restful slumber.
-TheICcontactedAWS. They were in constant contact with theirAWSrepresentative
-and worked closely withAWSto solve problems.TheICalertedHerokuengineers. A
-full crew: support, data, and other engineering teams worked around the clock
-to bring everything back online.The Ops team instituted an emergency incident
-co</p><p>5 0.94638216 <a title="221-lda-5" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
-<p>Introduction: We talked about 42 Monster Problems That Attack As Loads Increase. And inThe
-Aggregation Collection we talked about the value of prioritizing work and
-making smart queues as a way of absorbing and not reflecting traffic
-spikes.Now we move on to our next batch of strategies where the theme
-isconditioning, which is the idea of shaping and controlling flows of work
-within your application...Use Resources Proportional To a Fixed LimitThis is
-probably the most important rule for achieving scalability within an
-application. What it means:Find the resource that has a fixed limit that you
-know you can support. For example, a guarantee to handle a certain number of
-objects in memory. So if we always use resources proportional to the number of
-objects it is likely we can prevent resource exhaustion.Devise ways of tying
-what you need to do to the individual resources.Some examples:Keep a list of
-purchase orders with line items over $20 (or whatever). Do not keep a list of
-the line items because t</p><p>6 0.94246417 <a title="221-lda-6" href="../high_scalability-2013/high_scalability-2013-04-12-Stuff_The_Internet_Says_On_Scalability_For_April_12%2C_2013.html">1439 high scalability-2013-04-12-Stuff The Internet Says On Scalability For April 12, 2013</a></p>
+<p>Introduction: Update:  A fun exploration of applied searching in  How to search for the word "pen1s" in 185 emails every second . When indexOf doesn't cut it you just trie harder.   Has a drunken friend ever inspired you to create a first of its kind internet service that is loved by millions, deemed subversive by thousands, all while handling over 1.2 billion emails a year on one  rickity  old server? That's how Paul Tyma came to build Mailinator.   Mailinator is a free no-setup web service for thwarting evil spammers by creating throw-away registration email addresses. If you don't give web sites you real email address they can't spam you. They spam Mailinator instead :-)   I love design with a point-of-view and Mailinator has a big giant harry one: performance first, second, and last. Why? Because Mailinator is free and that allows Paul to showcase his different perspective on design. While competitors buy big Iron to handle load, Paul uses a big idea instead: pick the right problem and create a</p><p>2 0.95699096 <a title="221-lda-2" href="../high_scalability-2012/high_scalability-2012-06-08-Stuff_The_Internet_Says_On_Scalability_For_June_8%2C_2012.html">1261 high scalability-2012-06-08-Stuff The Internet Says On Scalability For June 8, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+  21TB  : Tumblr relational data 
+ Quotable Quotes:              
+ 
+  @ajbaird : Scalability is not a "feature" tacked on at the end development. 
+  @h_ingo : I like  Doron's comparison : Build a MySQL scale-out cluster instead, then buy 2 Ferrari's with the money saved :-)  
+ 
+ 
+ You might figure Harry Potter would have some sort of scaling spell, but no, he has to rely on the  muggle powered Azure . Pottermore uses Azure to handle 110 million page impressions a day.  
+ Ian Bogost in  What Should We Do for a Living?  brings up a sobering idea from the  Facebook Illusion , the Internet economy will not save us, it sucks at scaling jobs and exists because it is subsidized by surpluses from the old economy it was supposed to replace. Where is that replicator when we need it? 
+  In Praise of Idleness . Bruce Dawson argues against busy waiting and for locks, in most cases. Couldn't agree more, that's a lot of CPU doing nothing and programmers quickly lose trac</p><p>3 0.949494 <a title="221-lda-3" href="../high_scalability-2014/high_scalability-2014-03-12-Paper%3A_Scalable_Eventually_Consistent_Counters_over_Unreliable_Networks.html">1611 high scalability-2014-03-12-Paper: Scalable Eventually Consistent Counters over Unreliable Networks</a></p>
+<p>Introduction: Counting at scale in a distributed environment is  surprisingly hard . And it's a subject we've covered before in various ways:  Big Data Counting: How to count a billion distinct objects using only 1.5KB of Memory ,  How to update video views count effectively? ,  Numbers Everyone Should Know (sharded counters) .
+ 
+ Kellabyte  (which is an excellent blog) in  Scalable Eventually Consistent Counters  talks about how the Cassandra counter implementation scores well on the scalability and high availability front, but in so doing has "over and under counting problem in partitioned environments."
+ 
+Which is often fine. But if you want more accuracy there's a PN-counter, which is a  CRDT (convergent replicated data type)  where "all the changes made to a counter on each node rather than storing and modifying a single value so that you can merge all the values into the proper final value. Of course the trade-off here is additional storage and processing but there are ways to optimize this."</p><p>4 0.94789052 <a title="221-lda-4" href="../high_scalability-2011/high_scalability-2011-04-27-Heroku_Emergency_Strategy%3A_Incident_Command_System_and_8_Hour_Ops_Rotations_for_Fresh_Minds.html">1030 high scalability-2011-04-27-Heroku Emergency Strategy: Incident Command System and 8 Hour Ops Rotations for Fresh Minds</a></p>
+<p>Introduction: In  Resolved: Widespread Application Outage  ,  Heroku  tells their story of how they dealt with the   Amazon outage . While taking 100% responsibility for the downtime, they also shared a number of the strategies they used to bring their service back to full working order.
+ 
+ One of  Heroku's  most interesting strategies wasn't a technical hack at all, but how they consciously went about deploying their Ops personnel in response to the emergency. An outline of their strategy is: 
+ 
+ 
+  
+ Monitoring systems immediately alerted Ops to the problem.  
+ An on-call engineer applied triage logic to the problem and classified it as serious, which caused the on-call  Incident Commander  to be woken out of restful slumber.  
+  The  IC  contacted  AWS . They were in constant contact with their  AWS  representative and worked closely with  AWS  to solve problems.  
+  The  IC  alerted  Heroku  engineers. A full crew: support, data, and other engineering teams worked around the clock to bring every</p><p>5 0.94638216 <a title="221-lda-5" href="../high_scalability-2013/high_scalability-2013-03-11-Low_Level_Scalability_Solutions_-_The_Conditioning_Collection.html">1421 high scalability-2013-03-11-Low Level Scalability Solutions - The Conditioning Collection</a></p>
+<p>Introduction: We talked about  42 Monster Problems That Attack As Loads Increase . And in  The Aggregation Collection  we talked about the value of prioritizing work and making smart queues as a way of absorbing and not reflecting traffic spikes.
+ 
+Now we move on to our next batch of strategies where the theme is  conditioning , which is the idea of shaping and controlling flows of work within your application...
+  Use Resources Proportional To a Fixed Limit  
+This is probably the most important rule for achieving scalability within an application. What it means:
+  
+ Find the resource that has a fixed limit that you know you can support. For example, a guarantee to handle a certain number of objects in memory. So if we always use resources proportional to the number of objects it is likely we can prevent resource exhaustion. 
+ Devise ways of tying what you need to do to the individual resources. 
+  
+Some examples:
+  
+ Keep a list of purchase orders with line items over $20 (or whatever). Do not keep</p><p>6 0.94246417 <a title="221-lda-6" href="../high_scalability-2013/high_scalability-2013-04-12-Stuff_The_Internet_Says_On_Scalability_For_April_12%2C_2013.html">1439 high scalability-2013-04-12-Stuff The Internet Says On Scalability For April 12, 2013</a></p>
 <p>7 0.94190907 <a title="221-lda-7" href="../high_scalability-2013/high_scalability-2013-01-28-DuckDuckGo_Architecture_-_1_Million_Deep_Searches_a_Day_and_Growing.html">1395 high scalability-2013-01-28-DuckDuckGo Architecture - 1 Million Deep Searches a Day and Growing</a></p>
 <p>8 0.9413833 <a title="221-lda-8" href="../high_scalability-2010/high_scalability-2010-12-20-Netflix%3A_Use_Less_Chatty_Protocols_in_the_Cloud_-_Plus_26_Fixes.html">960 high scalability-2010-12-20-Netflix: Use Less Chatty Protocols in the Cloud - Plus 26 Fixes</a></p>
 <p>9 0.94133282 <a title="221-lda-9" href="../high_scalability-2013/high_scalability-2013-02-27-42_Monster_Problems_that_Attack_as_Loads_Increase.html">1413 high scalability-2013-02-27-42 Monster Problems that Attack as Loads Increase</a></p>

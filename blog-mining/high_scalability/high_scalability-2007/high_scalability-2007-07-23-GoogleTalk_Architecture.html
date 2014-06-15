@@ -16,38 +16,35 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>21 high scalability-2007-07-23-GoogleTalk Architecture</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2007-21-html" href="http://highscalability.com//blog/2007/7/23/googletalk-architecture.html">html</a></p><p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM
-messages aren't the major architectural challenge, handling user presence
-indications dominate the design. They also have the challenge of handling
-small low latency messages and integrating with many other systems. How do
-they do it?Site: http://www.google.com/talkInformation SourcesGoogleTalk
-ArchitecturePlatformLinuxJavaGoogle StackShardWhat's Inside?The StatsSupport
-presence and messages for millions of users.Handles billions of packets per
-day in under 100ms.IM is different than many other applications because the
-requests are small packets.Routing and application logic are applied per
-packet for sender and receiver.Messages must be delivered in-
-order.Architecture extends to new clients and Google services.Lessons
-LearnedMeasure the right thing.- People ask about how many IMs do you deliver
-or how many active users. Turns out not to be the right engineering question.-
-Hard part of IM is how to show corre</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Interestingly the IM messages aren't the major architectural challenge, handling user presence indications dominate the design. [sent-2, score-0.787]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2007-21-html" href="http://highscalability.com//blog/2007/7/23/googletalk-architecture.html">html</a></p><p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM messages aren't the major architectural challenge, handling user presence indications dominate the design. They also have the challenge of handling small low latency messages and integrating with many other systems. How do they do it?
+ 
+Site: http://www.google.com/talk
+  Information Sources     GoogleTalk Architecture  
+ Platform 
+    Linux    Java    Google Stack    Shard 
+ What's Inside? 
+ The Stats 
+    Support presence and messages for millions of users.    Handles billions of packets per day in under 100ms.    IM is different  than many other applications because the requests are small packets.    Routing and application logic are applied per packet for sender and receiver.    Messages must be delivered in-order.    Architecture extends to new clients and Google services. 
+ Lessons Learned 
+    Measure the right thing. - People ask about how many IMs do you deliver or how many active users. Turns out not</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Interestingly the IM messages aren't the major architectural challenge, handling user presence indications dominate the design. [sent-2, score-0.787]
 </p><p>2 They also have the challenge of handling small low latency messages and integrating with many other systems. [sent-3, score-0.38]
-</p><p>3 Routing and application logic are applied per packet for sender and receiver. [sent-11, score-0.163]
-</p><p>4 - People ask about how many IMs do you deliver or how many active users. [sent-15, score-0.198]
-</p><p>5 - Hard part of IM is how to show correct present to all connected users because growth is non-linear: ConnectedUsers * BuddyListSize * OnlineStateChanges- A linear user grown can mean a very non-linear server growth which requires serving many billions of presence packets per day. [sent-17, score-0.61]
-</p><p>6 - Simulate presence requests and going on-line and off-line for weeksand months, even if real data is not returned. [sent-22, score-0.297]
-</p><p>7 - Google Talk backend servers handle traffic for a subset of users. [sent-25, score-0.189]
-</p><p>8 - Servers can bring down servers and backups take over. [sent-29, score-0.192]
-</p><p>9 Then you can bring up new servers and data migrated automatically and clients auto detect and go to new servers. [sent-30, score-0.396]
-</p><p>10 Add Abstractions to Hide System Complexity- Different systems should have little knowledge of each other, especially when separate groups are working together. [sent-31, score-0.187]
-</p><p>11 Can change at anytime without cascading changes throughout the system. [sent-33, score-0.225]
-</p><p>12 - Abstract these complexities into a set of gateways that are discovered at runtime. [sent-34, score-0.174]
-</p><p>13 This is architectural implications as you can have separate system failing independently. [sent-40, score-0.202]
-</p><p>14 - What happens when servers restart with an empty cache? [sent-45, score-0.269]
-</p><p>15 - What happens if traffic shifts to a new data center? [sent-46, score-0.165]
-</p><p>16 Don't sit in hard 1msec retry loops, for example. [sent-53, score-0.153]
+</p><p>3 The Stats      Support presence and messages for millions of users. [sent-8, score-0.42]
+</p><p>4 Handles billions of packets per day in under 100ms. [sent-9, score-0.214]
+</p><p>5 Architecture extends to new clients and Google services. [sent-13, score-0.201]
+</p><p>6 - People ask about how many IMs do you deliver or how many active users. [sent-15, score-0.198]
+</p><p>7 - Hard part of IM is how to show correct present to all connected users because growth is non-linear: ConnectedUsers * BuddyListSize * OnlineStateChanges - A linear user grown can mean a very non-linear server growth which requires serving many billions of presence packets per day. [sent-17, score-0.61]
+</p><p>8 - Have a large number friends and presence explodes. [sent-18, score-0.379]
+</p><p>9 - Simulate presence requests and going on-line and off-line for weeks and months, even if real data is not returned. [sent-22, score-0.297]
+</p><p>10 - Google Talk backend servers handle traffic for a subset of users. [sent-25, score-0.189]
+</p><p>11 - Servers can bring down servers and backups take over. [sent-29, score-0.192]
+</p><p>12 Then you can bring up new servers and data migrated automatically and clients auto detect and go to new servers. [sent-30, score-0.396]
+</p><p>13 Add Abstractions to Hide System Complexity - Different systems should have little knowledge of each other, especially when separate groups are working together. [sent-31, score-0.187]
+</p><p>14 Can change at anytime without cascading changes throughout the system. [sent-33, score-0.225]
+</p><p>15 This is architectural implications as you can have separate system failing independently. [sent-40, score-0.202]
+</p><p>16 - What happens when servers restart with an empty cache? [sent-45, score-0.269]
 </p><p>17 - Add ability to profile live servers without impacting server. [sent-56, score-0.19]
 </p><p>18 - Log end-to-end so you can reconstruct an entire operation from beginning to end across all machines. [sent-60, score-0.225]
-</p><p>19 Software Development Strategies- Make sure binaries are both backward and forward compatible so you can have old clients work with new code. [sent-61, score-0.31]
+</p><p>19 Software Development Strategies - Make sure binaries are both backward and forward compatible so you can have old clients work with new code. [sent-61, score-0.31]
 </p><p>20 This is very different than many companies who have completely separate OP teams in their data centers. [sent-65, score-0.202]
 </p>
 <br/>
@@ -55,75 +52,33 @@ Hard part of IM is how to show corre</p><br/><h2>Summary: the most important sen
 <p>[('presence', 0.297), ('im', 0.221), ('ims', 0.193), ('abstracted', 0.17), ('retry', 0.153), ('cascading', 0.143), ('rpc', 0.143), ('clients', 0.126), ('operation', 0.125), ('messages', 0.123), ('packets', 0.115), ('servers', 0.112), ('indications', 0.112), ('infect', 0.112), ('separate', 0.103), ('epoll', 0.1), ('reconstruct', 0.1), ('billions', 0.099), ('many', 0.099), ('architectural', 0.099), ('binaries', 0.097), ('google', 0.095), ('gateways', 0.094), ('op', 0.094), ('spoke', 0.094), ('experimentation', 0.089), ('backward', 0.087), ('sender', 0.085), ('challenge', 0.084), ('knowledge', 0.084), ('shifts', 0.084), ('smooth', 0.084), ('number', 0.082), ('anytime', 0.082), ('dominate', 0.082), ('happens', 0.081), ('bring', 0.08), ('complexities', 0.08), ('connections', 0.079), ('impacting', 0.078), ('migrated', 0.078), ('logic', 0.078), ('lab', 0.077), ('backend', 0.077), ('continual', 0.076), ('empty', 0.076), ('everything', 0.076), ('extends', 0.075), ('interestingly', 0.074), ('handling', 0.074)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000004 <a title="21-tfidf-1" href="../high_scalability-2007/high_scalability-2007-07-23-GoogleTalk_Architecture.html">21 high scalability-2007-07-23-GoogleTalk Architecture</a></p>
-<p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM
-messages aren't the major architectural challenge, handling user presence
-indications dominate the design. They also have the challenge of handling
-small low latency messages and integrating with many other systems. How do
-they do it?Site: http://www.google.com/talkInformation SourcesGoogleTalk
-ArchitecturePlatformLinuxJavaGoogle StackShardWhat's Inside?The StatsSupport
-presence and messages for millions of users.Handles billions of packets per
-day in under 100ms.IM is different than many other applications because the
-requests are small packets.Routing and application logic are applied per
-packet for sender and receiver.Messages must be delivered in-
-order.Architecture extends to new clients and Google services.Lessons
-LearnedMeasure the right thing.- People ask about how many IMs do you deliver
-or how many active users. Turns out not to be the right engineering question.-
-Hard part of IM is how to show corre</p><p>2 0.157626 <a title="21-tfidf-2" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
-<p>Introduction: Update: Erlang at Facebook by Eugene Letuchy. How Facebook uses Erlang to
-implement Chat, AIM Presence, and Chat Jabber support. I've done
-someXMPPdevelopment so when I readFacebook was making a Jabber chat clientI
-was really curious how they would make it work. While core XMPP is
-straightforward, a number of protocol extensions like discovery, forms, chat
-states, pubsub, multi user chat, and privacy lists really up the
-implementation complexity. Some real engineering challenges were involved to
-make this puppy scale and perform. It's not clear what extensions they've
-implemented, but a blog entry by Facebook's Eugene Letuchy hits some of the
-architectural challenges they faced and how they overcame them.A web based
-Jabber client poses a few problems because XMPP, like most IM protocols, is an
-asynchronous event driven system that pretty much assumes you have a full time
-open connection. After logging in the server sends a client roster information
-and presence information. Your client</p><p>3 0.15525456 <a title="21-tfidf-3" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
-<p>Introduction: Update 4:Why you don't want to shard.by Morgon on the MySQL Performance
-Blog.Optimize everything else first, and then if performance still isn't good
-enough, it's time to take a very bitter medicine.Update 3:Building Scalable
-Databases: Pros and Cons of Various Database Sharding Schemesby Dare Obasanjo.
-Excellent discussion of why and when you would choose a sharding architecture,
-how to shard, and problems with sharding.Update 2:Mr. Moore gets to punt on
-shardingby Alan Rimm-Kaufman of 37signals. Insightful article on design
-tradeoffs and the evils of premature optimization. With more memory, more CPU,
-and new tech like SSD, problems can be avoided before more exotic
-architectures like sharding are needed. Add features not infrastructure.Jeremy
-Zawodnysays he's wrong wrong wrong. we're running multi-core CPUs at slower
-clock speeds. Moore won't save you.Update:Dan Pritchett shares some
-excellentSharding Lessons: Size Your Shards, Use Math on Shard Counts,
-Carefully Consider the Spread</p><p>4 0.1491465 <a title="21-tfidf-4" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
-<p>Introduction: Now that we have theC10K concurrent connection problemlicked, how do we level
-up and support 10 million concurrent connections? Impossible you say. Nope,
-systems right now are delivering 10 million concurrent connections using
-techniques that are as radical as they may be unfamiliar.To learn how it's
-done we turn toRobert Graham, CEO of Errata Security, and his absolutely
-fantastic talk atShmoocon 2013calledC10M Defending The Internet At
-Scale.Robert has a brilliant way of framing the problem that I've never heard
-of before. He starts with a little bit of history, relating how Unix wasn't
-originally designed to be a general server OS, it was designed to be a control
-system for a telephone network. It was the telephone network that actually
-transported the data so there was a clean separation between the control plane
-and the data plane. Theproblem is we now use Unix servers as part of the data
-plane, which we shouldn't do at all. If we were designing a kernel for
-handling one applicati</p><p>5 0.13968833 <a title="21-tfidf-5" href="../high_scalability-2012/high_scalability-2012-05-07-Startups_are_Creating_a_New_System_of_the_World_for_IT.html">1240 high scalability-2012-05-07-Startups are Creating a New System of the World for IT</a></p>
-<p>Introduction: It remains that, from the same principles, I now demonstrate the frame of the
-System of the World.-- Isaac NewtonThe practice of IT reminds me a lot of the
-practice of science before Isaac Newton. Aristotelianism was dead, but there
-was nothing to replace it. Then Newton came along, created a scientific
-revolution with hisSystem of the World. And everything changed. That was New
-System of the World number one.New System of the World number two was written
-about by the incomparable Neal Stephenson in his incredible Baroque Cycle
-series. It explores the singular creation of a new way of organizing society
-grounded in new modes of thought in business, religion, politics, and science.
-Our modern world emerged Enlightened as it could from this roiling cauldron of
-forces.In IT we may have had a Leonardo da Vinci or even a Galileo, but we've
-never had our Newton. Maybe we don't need a towering genius to make everything
-clear? For years startups, like the frenetically inventive age of the 17th</p><p>6 0.13667223 <a title="21-tfidf-6" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
+<p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM messages aren't the major architectural challenge, handling user presence indications dominate the design. They also have the challenge of handling small low latency messages and integrating with many other systems. How do they do it?
+ 
+Site: http://www.google.com/talk
+  Information Sources     GoogleTalk Architecture  
+ Platform 
+    Linux    Java    Google Stack    Shard 
+ What's Inside? 
+ The Stats 
+    Support presence and messages for millions of users.    Handles billions of packets per day in under 100ms.    IM is different  than many other applications because the requests are small packets.    Routing and application logic are applied per packet for sender and receiver.    Messages must be delivered in-order.    Architecture extends to new clients and Google services. 
+ Lessons Learned 
+    Measure the right thing. - People ask about how many IMs do you deliver or how many active users. Turns out not</p><p>2 0.157626 <a title="21-tfidf-2" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
+<p>Introduction: Update :  Erlang at Facebook  by Eugene Letuchy. How Facebook uses Erlang to implement Chat, AIM Presence, and Chat Jabber support.  
+ 
+I've done some  XMPP  development so when I read  Facebook was making a Jabber chat client  I was really curious how they would make it work. While core XMPP is straightforward, a number of protocol extensions like discovery, forms, chat states, pubsub, multi user chat, and privacy lists really up the implementation complexity. Some real engineering challenges were involved to make this puppy scale and perform.  It's not clear what extensions they've  implemented, but a blog entry by Facebook's Eugene Letuchy hits some of the architectural challenges they faced and how they overcame them.
+ 
+A web based Jabber client poses a few problems because XMPP, like most IM protocols, is an asynchronous event driven system that pretty much assumes you have a full time open connection. After logging in the server sends a client roster information and presence info</p><p>3 0.15525456 <a title="21-tfidf-3" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
+<p>Introduction: Update 4:   Why you don’t want to shard.  by Morgon on the MySQL Performance Blog.  Optimize everything else first, and then if performance still isn’t good enough, it’s time to take a very bitter medicine.    Update 3:   Building Scalable Databases: Pros and Cons of Various Database Sharding Schemes  by Dare Obasanjo. Excellent discussion of why and when you would choose a sharding architecture, how to shard, and problems with sharding.  Update 2:   Mr. Moore gets to punt on sharding  by Alan Rimm-Kaufman of 37signals. Insightful article on design tradeoffs and the evils of premature optimization. With more memory, more CPU, and new tech like SSD,  problems can be avoided before more exotic architectures like sharding are needed.  Add features not infrastructure.  Jeremy Zawodny  says he's wrong wrong wrong. we're running multi-core CPUs at slower clock speeds. Moore won't save you.  Update:  Dan Pritchett shares some excellent  Sharding Lessons : Size Your Shards, Use Math on Shard C</p><p>4 0.1491465 <a title="21-tfidf-4" href="../high_scalability-2013/high_scalability-2013-05-13-The_Secret_to_10_Million_Concurrent_Connections_-The_Kernel_is_the_Problem%2C_Not_the_Solution.html">1456 high scalability-2013-05-13-The Secret to 10 Million Concurrent Connections -The Kernel is the Problem, Not the Solution</a></p>
+<p>Introduction: Now that we have the    C10K concurrent connection problem    licked, how do we level up and support 10 million concurrent connections? Impossible you say. Nope, systems right now are delivering 10 million concurrent connections using techniques that are as radical as they may be unfamiliar. 
+   To learn how it’s done we turn to    Robert Graham   , CEO of Errata Security, and his absolutely fantastic talk at    Shmoocon 2013    called    C10M Defending The Internet At Scale   . 
+  Robert has a brilliant way of framing the problem that I’ve never heard of before. He starts with a little bit of history, relating how Unix wasn’t originally designed to be a general server OS, it was designed to be a control system for a telephone network. It was the telephone network that actually transported the data so there was a clean separation between the control plane and the data plane. The  problem is we now use Unix servers as part of the data plane , which we shouldn’t do at all. If we were des</p><p>5 0.13968833 <a title="21-tfidf-5" href="../high_scalability-2012/high_scalability-2012-05-07-Startups_are_Creating_a_New_System_of_the_World_for_IT.html">1240 high scalability-2012-05-07-Startups are Creating a New System of the World for IT</a></p>
+<p>Introduction: It remains that, from the same principles, I now demonstrate the frame of the System of the World.  -- Isaac Newton
+ 
+The practice of IT reminds me a lot of the practice of science before Isaac Newton. Aristotelianism was dead, but there was nothing to replace it. Then Newton came along, created a scientific revolution with his  System of the World . And everything changed. That was New System of the World number one.
+ 
+New System of the World number two was written about by the incomparable Neal Stephenson in his incredible  Baroque Cycle  series. It explores the singular creation of a new way of organizing society grounded in new modes of thought in business, religion, politics, and science. Our modern world emerged Enlightened as it could from this roiling cauldron of forces.
+ 
+In IT we may have had a Leonardo da Vinci or even a Galileo, but we’ve never had our Newton. Maybe we don't need a towering genius to make everything clear? For years startups, like the frenetically inventive</p><p>6 0.13667223 <a title="21-tfidf-6" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
 <p>7 0.1364273 <a title="21-tfidf-7" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
 <p>8 0.13600057 <a title="21-tfidf-8" href="../high_scalability-2011/high_scalability-2011-05-17-Facebook%3A_An_Example_Canonical_Architecture_for_Scaling_Billions_of_Messages.html">1042 high scalability-2011-05-17-Facebook: An Example Canonical Architecture for Scaling Billions of Messages</a></p>
 <p>9 0.13527139 <a title="21-tfidf-9" href="../high_scalability-2014/high_scalability-2014-03-31-How_WhatsApp_Grew_to_Nearly_500_Million_Users%2C_11%2C000_cores%2C_and_70_Million_Messages_a_Second.html">1622 high scalability-2014-03-31-How WhatsApp Grew to Nearly 500 Million Users, 11,000 cores, and 70 Million Messages a Second</a></p>
@@ -143,48 +98,23 @@ clear? For years startups, like the frenetically inventive age of the 17th</p><p
 <p>[(0, 0.233), (1, 0.1), (2, 0.014), (3, -0.092), (4, 0.006), (5, -0.036), (6, 0.058), (7, 0.043), (8, -0.044), (9, -0.011), (10, 0.006), (11, 0.082), (12, -0.035), (13, -0.023), (14, 0.026), (15, 0.066), (16, 0.025), (17, 0.0), (18, 0.013), (19, 0.038), (20, 0.06), (21, -0.001), (22, -0.005), (23, -0.056), (24, 0.031), (25, 0.023), (26, 0.008), (27, 0.028), (28, -0.028), (29, 0.025), (30, 0.026), (31, -0.033), (32, -0.005), (33, -0.039), (34, 0.026), (35, 0.018), (36, 0.019), (37, 0.01), (38, 0.008), (39, 0.04), (40, 0.05), (41, 0.024), (42, 0.062), (43, -0.036), (44, -0.08), (45, -0.068), (46, -0.046), (47, -0.001), (48, -0.018), (49, -0.044)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95896065 <a title="21-lsi-1" href="../high_scalability-2007/high_scalability-2007-07-23-GoogleTalk_Architecture.html">21 high scalability-2007-07-23-GoogleTalk Architecture</a></p>
-<p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM
-messages aren't the major architectural challenge, handling user presence
-indications dominate the design. They also have the challenge of handling
-small low latency messages and integrating with many other systems. How do
-they do it?Site: http://www.google.com/talkInformation SourcesGoogleTalk
-ArchitecturePlatformLinuxJavaGoogle StackShardWhat's Inside?The StatsSupport
-presence and messages for millions of users.Handles billions of packets per
-day in under 100ms.IM is different than many other applications because the
-requests are small packets.Routing and application logic are applied per
-packet for sender and receiver.Messages must be delivered in-
-order.Architecture extends to new clients and Google services.Lessons
-LearnedMeasure the right thing.- People ask about how many IMs do you deliver
-or how many active users. Turns out not to be the right engineering question.-
-Hard part of IM is how to show corre</p><p>2 0.80393398 <a title="21-lsi-2" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
-<p>Introduction: What's cool about starting a new project is you finally have a chance to do it
-right. You of course eventually mess everything up in your own way, but for
-that one moment the world has a perfect order, a rightness that feels
-satisfying and good. Arne Claassen, the CTO of notify.me, a brand new real
-time notification delivery service, is in this honeymoon period now.Arne has
-been gracious enough to share with us his philosophy of how to build a
-notification service. I think you'll find it fascinating because Arne goes
-into a lot of useful detail about how his system works.His main design
-philosophy is to minimize the bottlenecks that form around synchronous access,
-that is whensome resource is requested and the requestor ties up more
-resources, waiting for a response. If the requested resource can't be
-delivered in a timely manner, more and more requests pile up until the server
-can't accept any new ones. Nobody gets what they want and you have an outage.
-Breaking synchronous operations</p><p>3 0.80381989 <a title="21-lsi-3" href="../high_scalability-2014/high_scalability-2014-03-31-How_WhatsApp_Grew_to_Nearly_500_Million_Users%2C_11%2C000_cores%2C_and_70_Million_Messages_a_Second.html">1622 high scalability-2014-03-31-How WhatsApp Grew to Nearly 500 Million Users, 11,000 cores, and 70 Million Messages a Second</a></p>
-<p>Introduction: When we lastvisited WhatsAppthey'd just been acquired by Facebook for $19
-billion. We learned about their early architecture, which centered around a
-maniacal focus on optimizing Erlang into handling 2 million connections a
-server, working on All The Phones, and making users happy through
-simplicity.Two years later traffic has grown 10x. How did WhatsApp make that
-jump to the next level of scalability?Rick Reedtells us in a talk he gave at
-the Erlang Factory:That's 'Billion' with a 'B': Scaling to the next level at
-WhatsApp(slides), which revealed some eye popping WhatsApp stats:What has
-hundreds of nodes, thousands of cores, hundreds of terabytes of RAM, and hopes
-to serve the billions of smartphones that will soon be a reality around the
-globe? The Erlang/FreeBSD-based server infrastructure at WhatsApp. We've faced
-many challenges in meeting the ever-growing demand for our messaging services,
-but as we continue to push the envelope on size (>8000 cores) and speed (>70M
-Erlang message</p><p>4 0.78936291 <a title="21-lsi-4" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>
+<p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM messages aren't the major architectural challenge, handling user presence indications dominate the design. They also have the challenge of handling small low latency messages and integrating with many other systems. How do they do it?
+ 
+Site: http://www.google.com/talk
+  Information Sources     GoogleTalk Architecture  
+ Platform 
+    Linux    Java    Google Stack    Shard 
+ What's Inside? 
+ The Stats 
+    Support presence and messages for millions of users.    Handles billions of packets per day in under 100ms.    IM is different  than many other applications because the requests are small packets.    Routing and application logic are applied per packet for sender and receiver.    Messages must be delivered in-order.    Architecture extends to new clients and Google services. 
+ Lessons Learned 
+    Measure the right thing. - People ask about how many IMs do you deliver or how many active users. Turns out not</p><p>2 0.80393398 <a title="21-lsi-2" href="../high_scalability-2008/high_scalability-2008-10-27-Notify.me_Architecture_-_Synchronicity_Kills.html">431 high scalability-2008-10-27-Notify.me Architecture - Synchronicity Kills</a></p>
+<p>Introduction: What's cool about starting a new project is you finally have a chance to do it right. You of course eventually mess everything up in your own way, but for that one moment the world has a perfect order, a rightness that feels satisfying and good. Arne Claassen, the CTO of notify.me, a brand new real time notification delivery service, is in this honeymoon period now.  Arne has been gracious enough to share with us his philosophy of how to build a notification service. I think you'll find it fascinating because Arne goes into a lot of useful detail about how his system works.    His main design philosophy is to minimize the bottlenecks that form around synchronous access, that is when  some resource is requested and the requestor ties up more resources, waiting for a response. If the requested resource can’t be delivered in a timely manner, more and more requests pile up until the server can’t accept any new ones. Nobody gets what they want and you have an outage. Breaking synchronous op</p><p>3 0.80381989 <a title="21-lsi-3" href="../high_scalability-2014/high_scalability-2014-03-31-How_WhatsApp_Grew_to_Nearly_500_Million_Users%2C_11%2C000_cores%2C_and_70_Million_Messages_a_Second.html">1622 high scalability-2014-03-31-How WhatsApp Grew to Nearly 500 Million Users, 11,000 cores, and 70 Million Messages a Second</a></p>
+<p>Introduction: When we last  visited WhatsApp  they’d just been acquired by Facebook for $19 billion. We learned about their early architecture, which centered around a maniacal focus on optimizing Erlang into handling 2 million connections a server, working on All The Phones, and making users happy through simplicity.
+   Two years later traffic has grown 10x. How did WhatsApp make that jump to the next level of scalability? 
+    Rick Reed    tells us in a talk he gave at the Erlang Factory:    That's 'Billion' with a 'B': Scaling to the next level at WhatsApp    (   slides   ), which revealed some eye popping WhatsApp stats: 
+  
+  What has hundreds of nodes, thousands of cores, hundreds of terabytes of RAM, and hopes to serve the billions of smartphones that will soon be a reality around the globe? The Erlang/FreeBSD-based server infrastructure at WhatsApp. We've faced many challenges in meeting the ever-growing demand for our messaging services, but as we continue to push the envelope on size (>800</p><p>4 0.78936291 <a title="21-lsi-4" href="../high_scalability-2014/high_scalability-2014-02-26-The_WhatsApp_Architecture_Facebook_Bought_For_%2419_Billion.html">1602 high scalability-2014-02-26-The WhatsApp Architecture Facebook Bought For $19 Billion</a></p>
 <p>Introduction: Rick Reedin an upcoming talk in March titledThat's 'Billion' with a 'B':
 Scaling to the next level at WhatsAppreveals some eye
 poppingWhatsAppstats:What has hundreds of nodes, thousands of cores, hundreds
@@ -199,20 +129,7 @@ Simultaneous Connections.Having built a high performance messaging bus in C++
 while at Yahoo, Rick Reed is not new to the world of high scalability
 architectures. The founders are also ex-Yahoo guys with not a little
 experience scaling systems. So WhatsApp comes by thei</p><p>5 0.78897703 <a title="21-lsi-5" href="../high_scalability-2008/high_scalability-2008-01-10-Letting_Clients_Know_What%27s_Changed%3A_Push_Me_or_Pull_Me%3F.html">205 high scalability-2008-01-10-Letting Clients Know What's Changed: Push Me or Pull Me?</a></p>
-<p>Introduction: I had a false beliefI thought I came here to stayWe're all just visitingAll
-just breaking like wavesThe oceans made me, but who came up with me?Push me,
-pull me, push me, or pull me out .So true Perl Jam(Push me Pull me lyrics), so
-true. I too have wondered how web clients should be notified of model changes.
-Should servers push events to clients or should clients pull events from
-servers? A topic worthy of its own song if ever there was one.breakTo pull
-events the client simply starts a timer and makes a request to the server.
-This is polling. You can either pull a complete set of fresh data or get a
-list of changes. The server "knows" if anything you are interested in has
-changed and makes those changes available to you. Knowing what has changed can
-be relatively simple with a publish-subscribe type backend or you can get very
-complex with fine grained bit maps of attributes and keeping per client state
-on what I client still needs to see.Polling is heavy man. Imagine all your
-client</p><p>6 0.78088301 <a title="21-lsi-6" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
+<p>Introduction: I had a false belief I thought I came here to stay We're all just visiting All just breaking like waves The oceans made me, but who came up with me? Push me, pull me, push me, or pull me out .     So true Perl Jam   (Push me Pull me lyrics)  , so true. I too have wondered how web clients should be notified of model changes. Should servers push events to clients or should clients pull events from servers? A topic worthy of its own song if ever there was one.       To pull events the client simply starts a timer and makes a request to the server. This is polling. You can either pull a complete set of fresh data or get a list of changes. The server "knows" if anything you are interested in has changed and makes those changes available to you.  Knowing what has changed can be relatively simple with a publish-subscribe type backend or you can get very complex with fine grained bit maps of attributes and keeping per client state on what I client still needs to see.     Polling is heavy man.</p><p>6 0.78088301 <a title="21-lsi-6" href="../high_scalability-2013/high_scalability-2013-08-13-In_Memoriam%3A_Lavabit_Architecture_-_Creating_a_Scalable_Email_Service.html">1501 high scalability-2013-08-13-In Memoriam: Lavabit Architecture - Creating a Scalable Email Service</a></p>
 <p>7 0.76875651 <a title="21-lsi-7" href="../high_scalability-2008/high_scalability-2008-05-14-New_Facebook_Chat_Feature_Scales_to_70_Million_Users_Using_Erlang.html">318 high scalability-2008-05-14-New Facebook Chat Feature Scales to 70 Million Users Using Erlang</a></p>
 <p>8 0.76212507 <a title="21-lsi-8" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
 <p>9 0.76023036 <a title="21-lsi-9" href="../high_scalability-2014/high_scalability-2014-04-28-How_Disqus_Went_Realtime_with_165K_Messages_Per_Second_and_Less_than_.2_Seconds_Latency.html">1638 high scalability-2014-04-28-How Disqus Went Realtime with 165K Messages Per Second and Less than .2 Seconds Latency</a></p>
@@ -232,75 +149,61 @@ client</p><p>6 0.78088301 <a title="21-lsi-6" href="../high_scalability-2013/hig
 <p>[(1, 0.113), (2, 0.23), (10, 0.091), (33, 0.164), (40, 0.011), (61, 0.107), (73, 0.02), (79, 0.147), (85, 0.018), (94, 0.026)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.93883187 <a title="21-lda-1" href="../high_scalability-2011/high_scalability-2011-06-14-Shakespeare_on_Why_Other_People_Like_Such_Stupid_Stuff.html">1060 high scalability-2011-06-14-Shakespeare on Why Other People Like Such Stupid Stuff</a></p>
-<p>Introduction: Jumping around the social mediasphere, it's not uncommon to feel the heat
-generated in praise of a favorite this or that over all the clearly inferior
-alternatives. Whilst human nature may never cool, I think Old Will had some
-insight worth considering the next time a flame threatens to flicker forth:My
-mistress' eyes are nothing like the sun (Sonnet 130)My mistress' eyes are
-nothing like the sun;Coral is far more red than her lips' red ;If snow be
-white, why then her breasts are dun;If hairs be wires, black wires grow on her
-head.I have seen roses damask, red and white,But no such roses see I in her
-cheeks;And in some perfumes is there more delightThan in the breath that from
-my mistress reeks.I love to hear her speak, yet well I knowThat music hath a
-far more pleasing sound;I grant I never saw a goddess go;My mistress, when she
-walks, treads on the ground:And yet, by heaven, I think my love as rareAs any
-she belied with false compare.-William Shakespeare</p><p>2 0.92955101 <a title="21-lda-2" href="../high_scalability-2012/high_scalability-2012-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_31%2C_2012.html">1315 high scalability-2012-08-30-Stuff The Internet Says On Scalability For August 31, 2012</a></p>
-<p>Introduction: It's HighScalability Time:LHC compute jobs:use 1.5 CPU millennia every 3 days;
-Obama helps load test Reddit:4.3 million page viewsQuotable Quotes:@secastro:
-Want to see nearly a terabyte of memory?@DZone: Apache Projects are the
-Justice League of ScalabilityApple And Google Might Be Negotiating Patents.
-Remember when empires and nation states would have a nice little summer war
-and then negotiate boundary lines and terms of trade?Google Faculty Summit
-2012: The Online Revolution - Education at Scale. Someday we may have direct
-knowledge downloads and augmented wisdom packs, but until then these primitive
-attempts at learning process improvement are a good start. OnLive lost: how
-the paradise of streaming games was undone by one man's ego. The fascinating
-story behind a radical idea: applications hosted and rendered in the cloud
-while being displayed remotely on a device. You might have thought latency
-would be the killer, but it turned out the rendering required a physical
-machine per</p><p>3 0.9295131 <a title="21-lda-3" href="../high_scalability-2009/high_scalability-2009-08-20-VMware_to_bridge_a_DMZ.__.html">686 high scalability-2009-08-20-VMware to bridge a DMZ.  </a></p>
-<p>Introduction: Hey guys,There is a renewed push at my organization to deploy
-vmware...everywhere.I am rather excited as I know we have a lot of waste when
-it comes to resources.What has pricked my ears up however, is the notion of
-using this technology in our very busy public facing DMZ's.Today we get lots
-of spikes of traffic and we are coping very well. 40x HP blades,
-apache/php/perl/tomcat/ all in HA behind HA F5's and HA Checkpoint FW's. (20
-servers in 2 datacentres).The idea is, we virtualise these machines, including
-the firewalls onto hosts vmware clusters that span the public interface to our
-internal networks. This is something that has gone against the #1 rule I have
-ever lived by while working on the inet. No airgaps from the unknown to the
-known!I am interested in feedback on this scenario.From a resource
-perspective, our resource requirements in the DMZ will be lowered over time
-due to business change and we still have a lot of head room in our capacity.Do
-you think this is change for ch</p><p>4 0.92153221 <a title="21-lda-4" href="../high_scalability-2011/high_scalability-2011-06-24-Stuff_The_Internet_Says_On_Scalability_For_June_24%2C_2011.html">1067 high scalability-2011-06-24-Stuff The Internet Says On Scalability For June 24, 2011</a></p>
-<p>Introduction: Submitted for your scaling pleasure: Achievements:Watsonuses 10,000's of
-watts, the computer between the ears uses 20. With only 200 million pages and
-2TB of data, Watson is BigInsights, not BigData.That Google is pretty big:1
-billion unique monthly visitorstweetimages: We peaked at 22m avatars
-yesterday. Bandwidth peaked at 9GB of @twitter avatars in a single
-hour.Foursquare Surpasses 10 Million Users Reddit Hits 1.2B Monthly Pageviews,
-More Than Doubles Its Engineering StaffTwitter: 185 million tweets are posted
-daily;  1.6 billion search queries daily; indexing latency is less than 10
-seconds. Quotable quotes:skr: OH: "people wait their whole lives for a
-situation where they can use bloom filters"joeweinman: @Werner at
-#structureconf : as of Nov 10, 2010, all Amazon.com traffic was served from
-AWS. <\-- The child surpasses the parent.bbatsov: A compiled language does not
-scalability make -- Yodaswredman: If i read the marketing buzzwords
-'scalability' or leverage your data' one more</p><p>same-blog 5 0.92044646 <a title="21-lda-5" href="../high_scalability-2007/high_scalability-2007-07-23-GoogleTalk_Architecture.html">21 high scalability-2007-07-23-GoogleTalk Architecture</a></p>
-<p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM
-messages aren't the major architectural challenge, handling user presence
-indications dominate the design. They also have the challenge of handling
-small low latency messages and integrating with many other systems. How do
-they do it?Site: http://www.google.com/talkInformation SourcesGoogleTalk
-ArchitecturePlatformLinuxJavaGoogle StackShardWhat's Inside?The StatsSupport
-presence and messages for millions of users.Handles billions of packets per
-day in under 100ms.IM is different than many other applications because the
-requests are small packets.Routing and application logic are applied per
-packet for sender and receiver.Messages must be delivered in-
-order.Architecture extends to new clients and Google services.Lessons
-LearnedMeasure the right thing.- People ask about how many IMs do you deliver
-or how many active users. Turns out not to be the right engineering question.-
-Hard part of IM is how to show corre</p><p>6 0.91232502 <a title="21-lda-6" href="../high_scalability-2009/high_scalability-2009-06-05-HotPads_Shows_the_True_Cost_of_Hosting_on_Amazon.html">619 high scalability-2009-06-05-HotPads Shows the True Cost of Hosting on Amazon</a></p>
+<p>Introduction: Jumping around the social mediasphere, it's not uncommon to feel the heat generated in praise of a favorite this or that over all the clearly inferior alternatives. Whilst human nature may never cool, I think Old Will had some insight worth considering the next time a flame threatens to flicker forth:
+ 
+  My mistress' eyes are nothing like the sun (Sonnet 130)  
+  
+ 
+ 
+ 
+
+ My mistress' eyes are nothing like the sun; Coral is far more red than her lips' red ; If snow be white, why then her breasts are dun; If hairs be wires, black wires grow on her head. I have seen roses damask, red and white, But no such roses see I in her cheeks; And in some perfumes is there more delight Than in the breath that from my mistress reeks. I love to hear her speak, yet well I know That music hath a far more pleasing sound; I grant I never saw a goddess go; My mistress, when she walks, treads on the ground: And yet, by heaven, I think my love as rare As any she belied with false compare. 
+
+ 
+ 
+ 
+  –Willia</p><p>2 0.92955101 <a title="21-lda-2" href="../high_scalability-2012/high_scalability-2012-08-30-Stuff_The_Internet_Says_On_Scalability_For_August_31%2C_2012.html">1315 high scalability-2012-08-30-Stuff The Internet Says On Scalability For August 31, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+ LHC compute jobs:  use 1.5 CPU millennia every 3 days ; Obama helps load test Reddit:  4.3 million page views  
+ Quotable Quotes:                      
+ 
+  @secastro : Want to see nearly a terabyte of memory? 
+  @DZone : Apache Projects are the Justice League of Scalability 
+ 
+ 
+  Apple And Google Might Be Negotiating Patents . Remember when empires and nation states would have a nice little summer war and then negotiate boundary lines and terms of trade? 
+  Google Faculty Summit 2012: The Online Revolution - Education at Scale . Someday we may have direct knowledge downloads and augmented wisdom packs, but until then these primitive attempts at learning process improvement are a good start.  
+  OnLive lost: how the paradise of streaming games was undone by one man's ego . The fascinating story behind a radical idea: applications hosted and rendered in the cloud while being displayed remotely on a device. You might have thought latency would be the killer</p><p>3 0.9295131 <a title="21-lda-3" href="../high_scalability-2009/high_scalability-2009-08-20-VMware_to_bridge_a_DMZ.__.html">686 high scalability-2009-08-20-VMware to bridge a DMZ.  </a></p>
+<p>Introduction: Hey guys,  There is a renewed push at my organization to deploy vmware...everywhere.  I am rather excited as I know we have a lot of waste when it comes to resources.  What has pricked my ears up however, is the notion of using this technology in our very busy public facing DMZ's.  Today we get lots of spikes of traffic and we are coping very well.  40x HP blades, apache/php/perl/tomcat/ all in HA behind HA F5's and HA Checkpoint FW's.  (20 servers in 2 datacentres).  The idea is, we virtualise these machines, including the firewalls onto hosts vmware clusters that span the public interface to our internal networks.  This is something that has gone against the #1 rule I have ever lived by while working on the inet.  No airgaps from the unknown to the known!  I am interested in feedback on this scenario.  From a resource perspective, our resource requirements in the DMZ will be lowered over time due to business change and we still have a lot of head room in our capacity.  Do you think t</p><p>4 0.92153221 <a title="21-lda-4" href="../high_scalability-2011/high_scalability-2011-06-24-Stuff_The_Internet_Says_On_Scalability_For_June_24%2C_2011.html">1067 high scalability-2011-06-24-Stuff The Internet Says On Scalability For June 24, 2011</a></p>
+<p>Introduction: Submitted for your scaling pleasure: 
+  
+ Achievements:                 
+ 
+  Watson  uses 10,000's of watts, the computer between the ears uses 20. With only 200 million pages and 2TB of data, Watson is BigInsights, not BigData. 
+ That Google is pretty big:  1 billion unique monthly visitors  
+  tweetimages : We peaked at 22m avatars yesterday. Bandwidth peaked at 9GB of @twitter avatars in a single hour. 
+  Foursquare Surpasses 10 Million Users   
+  Reddit Hits 1.2B Monthly Pageviews, More Than Doubles Its Engineering Staff  
+  Twitter : 185 million tweets are posted daily;  1.6 billion search queries daily; indexing latency is less than 10 seconds.  
+ 
+ 
+ Quotable quotes:                     
+ 
+  skr : OH: "people wait their whole lives for a situation where they can use bloom filters" 
+  joeweinman : @Werner at #structureconf : as of Nov 10, 2010, all Amazon.com traffic was served from AWS. <-- The child surpasses the parent. 
+  bbatsov : A compiled language does not scalability mak</p><p>same-blog 5 0.92044646 <a title="21-lda-5" href="../high_scalability-2007/high_scalability-2007-07-23-GoogleTalk_Architecture.html">21 high scalability-2007-07-23-GoogleTalk Architecture</a></p>
+<p>Introduction: Google Talk is Google's instant communications service. Interestingly the IM messages aren't the major architectural challenge, handling user presence indications dominate the design. They also have the challenge of handling small low latency messages and integrating with many other systems. How do they do it?
+ 
+Site: http://www.google.com/talk
+  Information Sources     GoogleTalk Architecture  
+ Platform 
+    Linux    Java    Google Stack    Shard 
+ What's Inside? 
+ The Stats 
+    Support presence and messages for millions of users.    Handles billions of packets per day in under 100ms.    IM is different  than many other applications because the requests are small packets.    Routing and application logic are applied per packet for sender and receiver.    Messages must be delivered in-order.    Architecture extends to new clients and Google services. 
+ Lessons Learned 
+    Measure the right thing. - People ask about how many IMs do you deliver or how many active users. Turns out not</p><p>6 0.91232502 <a title="21-lda-6" href="../high_scalability-2009/high_scalability-2009-06-05-HotPads_Shows_the_True_Cost_of_Hosting_on_Amazon.html">619 high scalability-2009-06-05-HotPads Shows the True Cost of Hosting on Amazon</a></p>
 <p>7 0.90740943 <a title="21-lda-7" href="../high_scalability-2013/high_scalability-2013-07-12-Stuff_The_Internet_Says_On_Scalability_For_July_12%2C_2013.html">1490 high scalability-2013-07-12-Stuff The Internet Says On Scalability For July 12, 2013</a></p>
 <p>8 0.89375412 <a title="21-lda-8" href="../high_scalability-2013/high_scalability-2013-09-20-Stuff_The_Internet_Says_On_Scalability_For_September_20%2C_2013.html">1520 high scalability-2013-09-20-Stuff The Internet Says On Scalability For September 20, 2013</a></p>
 <p>9 0.8891319 <a title="21-lda-9" href="../high_scalability-2013/high_scalability-2013-06-05-A_Simple_6_Step_Transition_Guide_for_Moving_Away_from_X_to_AWS_.html">1470 high scalability-2013-06-05-A Simple 6 Step Transition Guide for Moving Away from X to AWS </a></p>

@@ -16,34 +16,23 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-317-html" href="http://highscalability.com//blog/2008/5/10/hitting-300-simbledb-requests-per-second-on-a-small-ec2-inst.html">html</a></p><p>Introduction: High Performance Multithreaded Access to Amazon SimpleDBis a great follow up
-to the idea inHow SimpleDB Differs from a RDBMSthat more programming is the
-price paid for performance in SimpleDB. It shows how much work and
-infrastructure is required to batter better performance out of
-SimpleDB.Remember, in SimpleDB you get keys to records from queries so if you
-want to get all the fields for records you need to make separate requests.
-Since SimpleDB isn't exactly a speed daemon the obvious strategy is to
-parallelize. Even if a job takes a 100 msecs you can get a lot done in a
-little time if you can execute enough jobs in parallel.Parallelization is the
-approach taken by Haakon@AWS in his Java code example of how to get the most
-out of SimpleDB. You can find the code atIndexing and Querying Amazon S3
-Metadata with Amazon SimpleDB. We'll also consider how a back-end service
-architecture built on Erlang may be a better fit with cloud computing.breakTwo
-general mechanisms of parallelism are a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Remember, in SimpleDB you get keys to records from queries so if you want to get all the fields for records you need to make separate requests. [sent-3, score-0.441]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2008-317-html" href="http://highscalability.com//blog/2008/5/10/hitting-300-simbledb-requests-per-second-on-a-small-ec2-inst.html">html</a></p><p>Introduction: High Performance Multithreaded Access to Amazon SimpleDB   is a great  follow up to the idea in  How SimpleDB Differs from a RDBMS  that more programming is the price paid for performance in SimpleDB.  It shows how much work and infrastructure is required to batter better performance out of SimpleDB.   Remember, in SimpleDB you get keys to records from queries so if you want to get all the fields for records you need to make separate requests. Since SimpleDB isn't exactly a speed daemon the obvious strategy is to parallelize.  Even if a job takes a 100 msecs you can get a lot done in a little time if you can execute enough jobs in parallel.   Parallelization is the approach taken by Haakon@AWS  in his Java code example of how to get the most out of SimpleDB. You can find the code at  Indexing and Querying Amazon S3 Metadata with Amazon SimpleDB . We'll also consider how a back-end service architecture built on Erlang may be a better fit with cloud computing.
+   
+ Two general mechanisms</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Remember, in SimpleDB you get keys to records from queries so if you want to get all the fields for records you need to make separate requests. [sent-3, score-0.441]
 </p><p>2 Even if a job takes a 100 msecs you can get a lot done in a little time if you can execute enough jobs in parallel. [sent-5, score-0.234]
-</p><p>3 Parallelization is the approach taken by Haakon@AWS in his Java code example of how to get the most out of SimpleDB. [sent-6, score-0.163]
-</p><p>4 breakTwo general mechanisms of parallelism are available: threads and boxes. [sent-9, score-0.323]
-</p><p>5 To get the most bang out of a single machine you need threads (events, etc). [sent-10, score-0.322]
-</p><p>6 The items were pulled by the thread pool and processed. [sent-16, score-0.602]
-</p><p>7 The idea is to balance processing overhead with work overhead. [sent-18, score-0.209]
-</p><p>8 You don't want popping items off SQS to dominate your processing time so you have to do enough work in each pass to make it worth the investment. [sent-19, score-0.507]
-</p><p>9 The architecture uses two thread pools: one to run queries and one to get record values. [sent-20, score-0.53]
-</p><p>10 Applications must carefully tune the number of threads in each pool so the queries to overwhelm the gets. [sent-21, score-0.637]
-</p><p>11 Using a query thread pool with 2 threads and a get thread pool with 32 threads it was possible to perform 300 TPS on a small EC2 instances. [sent-22, score-1.594]
-</p><p>12 SQS is your work distribution backbone and you just spin up the number of thread pool instances you need. [sent-24, score-0.656]
-</p><p>13 Instead of thread pools something like Java'sfork/join frameworkcould be used. [sent-35, score-0.48]
+</p><p>3 Two general mechanisms of parallelism are available: threads and boxes. [sent-9, score-0.323]
+</p><p>4 To get the most bang out of a single machine you need threads (events, etc). [sent-10, score-0.322]
+</p><p>5 The items were pulled by the thread pool and processed. [sent-16, score-0.602]
+</p><p>6 The idea is to balance processing overhead with work overhead. [sent-18, score-0.209]
+</p><p>7 You don't want popping items off SQS to dominate your processing time so you have to do enough work in each pass to make it worth the investment. [sent-19, score-0.507]
+</p><p>8 The architecture uses two thread pools: one to run queries and one to get record values. [sent-20, score-0.53]
+</p><p>9 Applications must carefully tune the number of threads in each pool so the queries to overwhelm the gets. [sent-21, score-0.637]
+</p><p>10 Using a query thread pool with 2 threads and a get thread pool with 32 threads it was possible to perform 300 TPS on a small EC2 instances. [sent-22, score-1.594]
+</p><p>11 SQS is your work distribution backbone and you just spin up the number of thread pool instances you need. [sent-24, score-0.656]
+</p><p>12 Thread pools and SQS is one parallelization approach. [sent-34, score-0.208]
+</p><p>13 Instead of thread pools something like Java's  fork/join framework  could be used. [sent-35, score-0.48]
 </p><p>14 Yes, it is a "'multicore-friendly lightweight parallel framework' that supports a style of parallel programming where problems are recursively split into smaller fragments, solved in parallel and recombined," but it's also a style of programming that is very difficult to program correctly. [sent-37, score-0.868]
-</p><p>15 Erlang style architectures described by Luke Hoersten inScalable Web Apps: Erlang + Pythonis a simpler more reliable to programming model. [sent-39, score-0.225]
+</p><p>15 Erlang style architectures described by Luke Hoersten in  Scalable Web Apps: Erlang + Python  is a simpler more reliable to programming model. [sent-39, score-0.225]
 </p><p>16 An event driven actor based approach is much harder to screw up than closely cooperating threads in a shared memory space. [sent-40, score-0.559]
 </p><p>17 Erlang originally ran in embedded systems where the requirement was to reliably squeeze the most work possible out of limited CPU and other compute resources. [sent-41, score-0.303]
 </p><p>18 Oddly enough the embedded node of old closely parallels your basic cloud VM. [sent-42, score-0.363]
@@ -55,65 +44,17 @@ general mechanisms of parallelism are a</p><br/><h2>Summary: the most important 
 <p>[('thread', 0.272), ('erlang', 0.254), ('pool', 0.25), ('sqs', 0.249), ('threads', 0.228), ('pools', 0.208), ('simpledb', 0.174), ('work', 0.134), ('style', 0.121), ('closely', 0.117), ('parallel', 0.11), ('programming', 0.104), ('embedded', 0.098), ('howgoogle', 0.098), ('idiom', 0.098), ('inscalable', 0.098), ('punts', 0.098), ('parallelism', 0.095), ('get', 0.094), ('chew', 0.092), ('recursively', 0.088), ('records', 0.086), ('oddly', 0.085), ('amazon', 0.084), ('record', 0.083), ('disadvantage', 0.082), ('piling', 0.082), ('queries', 0.081), ('items', 0.08), ('inhow', 0.08), ('luke', 0.078), ('overwhelm', 0.078), ('parallels', 0.078), ('popping', 0.076), ('processing', 0.075), ('fragments', 0.075), ('screw', 0.073), ('compose', 0.073), ('dominate', 0.072), ('cooperating', 0.072), ('horse', 0.071), ('squeeze', 0.071), ('equation', 0.071), ('enough', 0.07), ('msecs', 0.07), ('differs', 0.07), ('approach', 0.069), ('primitive', 0.069), ('primitives', 0.069), ('multithreaded', 0.068)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="317-tfidf-1" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
-<p>Introduction: High Performance Multithreaded Access to Amazon SimpleDBis a great follow up
-to the idea inHow SimpleDB Differs from a RDBMSthat more programming is the
-price paid for performance in SimpleDB. It shows how much work and
-infrastructure is required to batter better performance out of
-SimpleDB.Remember, in SimpleDB you get keys to records from queries so if you
-want to get all the fields for records you need to make separate requests.
-Since SimpleDB isn't exactly a speed daemon the obvious strategy is to
-parallelize. Even if a job takes a 100 msecs you can get a lot done in a
-little time if you can execute enough jobs in parallel.Parallelization is the
-approach taken by Haakon@AWS in his Java code example of how to get the most
-out of SimpleDB. You can find the code atIndexing and Querying Amazon S3
-Metadata with Amazon SimpleDB. We'll also consider how a back-end service
-architecture built on Erlang may be a better fit with cloud computing.breakTwo
-general mechanisms of parallelism are a</p><p>2 0.27854028 <a title="317-tfidf-2" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
-<p>Introduction: There's not a lot  of talk about application architectures at the process
-level. You have your threads, pools of threads, and you have your callback
-models. That's about it. Languages/frameworks making a virtue out of simple
-models, like Go and Erlang, do so at the price of control. It's difficult to
-make a low latency well conditioned application when a power full tool, like
-work scheduling, is taken out of the hands of the programmer.But that's not
-all there is my friend. We'll dive into different ways an application can be
-composed across threads of control.Your favorite language may not give you
-access to all the capabilities we are going to talk about, but lately there
-has been a sort of revival in considering performance important, especially
-for controlling latency variance, so I think it's time to talk about these
-kind of issues. When it was do everything in the thread of a web server thread
-pool none of these issues really mattered. But now that developers are
-creating sophist</p><p>3 0.2341136 <a title="317-tfidf-3" href="../high_scalability-2009/high_scalability-2009-04-21-Thread_Pool_Engine_in_MS_CLR_4%2C_and_Work-Stealing_scheduling_algorithm.html">575 high scalability-2009-04-21-Thread Pool Engine in MS CLR 4, and Work-Stealing scheduling algorithm</a></p>
-<p>Introduction: I just saw this article inHFadeel blogthat spaek about Parallelism in .NET
-Framework 4, and how Thread Pool work, and the most faoums scheduling
-algorithm : Work-stealing algorithm. With preisnation to see it in action.</p><p>4 0.22742786 <a title="317-tfidf-4" href="../high_scalability-2009/high_scalability-2009-01-20-Product%3A_Amazon%27s_SimpleDB.html">498 high scalability-2009-01-20-Product: Amazon's SimpleDB</a></p>
-<p>Introduction: Update 35:How and Why Glue is Using Amazon SimpleDB instead of a Relational
-Database. Discusses a key design decision that required duplicating data in
-order to mimic RDBMS joins:Given the trade off between potential
-inconsistencies and scalability, social services have to choose the
-latter.Update 34: Apparently Amazon pulled this article. I'm not sure what
-that means. Maybe time went backwards or something?Amazon dramatically drops
-SimpleDB pricing to $0.25 per GB per month from $1.50 per GB. This puts
-SimpleDB on par withGoogle App Engine. They also announced a few new
-features:a SQL-like SELECT API as well as a Batch Put operation to streamline
-uploading of multiple items or attributes. One of the complaints against
-SimpleDB is that programmers end up writing too much code to do simple things.
-These features and a much cheaper price should help considerably. And you can
-store lots of data now. GAE is still capped.Update 33: Amazon announcesElastic
-Block Store (EBS), which provides l</p><p>5 0.207974 <a title="317-tfidf-5" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
-<p>Introduction: InfoQueue has thisexcellent talk by Brian Goetzon the new features being added
-to Java SE 7 that will allow programmers to fully exploit our massively multi-
-processor future. While the talk is about Java it's really more general than
-that and there's a lot to learn here for everyone.Brian starts with a short,
-coherent, and compelling explanation of why programmers can't expect to be
-saved by ever faster CPUs and why we must learn to exploit the strengths of
-multiple core computers to make our software go faster.Some techniques for
-exploiting multiple cores are given in an equally short, coherent, and
-compelling explanation of why divide and conquer as the secret to multi-core
-bliss, fork-join, how the Java approach differs from map-reduce, and lots of
-other juicy topics.The multi-core "problem" is only going to get worse. Tilera
-founder Anant Agarwalestimates by 2017embedded processors could have 4,096
-cores, server CPUs might have 512 cores and desktop chips could use 128 cores.
-Some</p><p>6 0.20743747 <a title="317-tfidf-6" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
+<p>Introduction: High Performance Multithreaded Access to Amazon SimpleDB   is a great  follow up to the idea in  How SimpleDB Differs from a RDBMS  that more programming is the price paid for performance in SimpleDB.  It shows how much work and infrastructure is required to batter better performance out of SimpleDB.   Remember, in SimpleDB you get keys to records from queries so if you want to get all the fields for records you need to make separate requests. Since SimpleDB isn't exactly a speed daemon the obvious strategy is to parallelize.  Even if a job takes a 100 msecs you can get a lot done in a little time if you can execute enough jobs in parallel.   Parallelization is the approach taken by Haakon@AWS  in his Java code example of how to get the most out of SimpleDB. You can find the code at  Indexing and Querying Amazon S3 Metadata with Amazon SimpleDB . We'll also consider how a back-end service architecture built on Erlang may be a better fit with cloud computing.
+   
+ Two general mechanisms</p><p>2 0.27854028 <a title="317-tfidf-2" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
+<p>Introduction: There's not a lot  of talk about application architectures at the process level. You have your threads, pools of threads, and you have your callback models. That's about it. Languages/frameworks making a virtue out of simple models, like Go and Erlang, do so at the price of control. It's difficult to make a low latency well conditioned application when a power full tool, like work scheduling, is taken out of the hands of the programmer.
+ 
+But that's not all there is my friend. We'll dive into different ways an application can be composed across threads of control.
+ 
+Your favorite language may not give you access to all the capabilities we are going to talk about, but lately there has been a sort of revival in considering performance important, especially for controlling  latency variance , so I think it's time to talk about these kind of issues. When it was do everything in the thread of a web server thread pool none of these issues really mattered. But now that developers are creating</p><p>3 0.2341136 <a title="317-tfidf-3" href="../high_scalability-2009/high_scalability-2009-04-21-Thread_Pool_Engine_in_MS_CLR_4%2C_and_Work-Stealing_scheduling_algorithm.html">575 high scalability-2009-04-21-Thread Pool Engine in MS CLR 4, and Work-Stealing scheduling algorithm</a></p>
+<p>Introduction: I just saw this article in   HFadeel blog   that spaek about Parallelism in .NET Framework 4, and how Thread Pool work, and the most faoums scheduling algorithm : Work-stealing algorithm. With preisnation to see it in action.</p><p>4 0.22742786 <a title="317-tfidf-4" href="../high_scalability-2009/high_scalability-2009-01-20-Product%3A_Amazon%27s_SimpleDB.html">498 high scalability-2009-01-20-Product: Amazon's SimpleDB</a></p>
+<p>Introduction: Update 35  :   How and Why Glue is Using Amazon SimpleDB instead of a Relational Database  . Discusses a key design decision that required duplicating data in order to mimic RDBMS joins:   Given the trade off between potential inconsistencies and scalability, social services have to choose the latter.      Update 34  : Apparently Amazon pulled this article. I'm not sure what that means. Maybe time went backwards or something?   Amazon dramatically drops SimpleDB pricing to $0.25 per GB per month from $1.50 per GB  . This puts SimpleDB on par with   Google App Engine  . They also announced  a few new features:   a SQL-like SELECT API as well as a Batch Put operation to streamline uploading of multiple items or attributes  . One of the complaints against SimpleDB is that programmers end up writing too much code to do simple things. These features and a much cheaper price should help considerably. And you can store lots of data now. GAE is still capped.    Update 33  : Amazon announces</p><p>5 0.207974 <a title="317-tfidf-5" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
+<p>Introduction: InfoQueue has this  excellent talk by Brian Goetz  on the new features being added to Java SE 7 that will allow programmers to fully exploit our massively multi-processor future. While the talk is about Java it's really more general than that and there's a lot to learn here for everyone.  Brian starts with a short, coherent, and compelling explanation of why programmers can't expect to be saved by ever faster CPUs and why we must learn to exploit the strengths of multiple core computers to make our software go faster.   Some techniques for exploiting multiple cores are given in an equally  short, coherent, and compelling explanation of why divide and conquer as the secret to multi-core bliss, fork-join, how the Java approach differs from map-reduce, and lots of other juicy topics.   The multi-core "problem" is only going to get worse. Tilera founder Anant Agarwal  estimates by 2017  embedded processors could have 4,096 cores, server CPUs might have 512 cores and desktop chips could use</p><p>6 0.20743747 <a title="317-tfidf-6" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
 <p>7 0.18729073 <a title="317-tfidf-7" href="../high_scalability-2009/high_scalability-2009-08-07-The_Canonical_Cloud_Architecture_.html">674 high scalability-2009-08-07-The Canonical Cloud Architecture </a></p>
 <p>8 0.1853749 <a title="317-tfidf-8" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
 <p>9 0.1840647 <a title="317-tfidf-9" href="../high_scalability-2008/high_scalability-2008-04-21-The_Search_for_the_Source_of_Data_-_How_SimpleDB_Differs_from_a_RDBMS.html">306 high scalability-2008-04-21-The Search for the Source of Data - How SimpleDB Differs from a RDBMS</a></p>
@@ -133,76 +74,27 @@ Some</p><p>6 0.20743747 <a title="317-tfidf-6" href="../high_scalability-2014/hi
 <p>[(0, 0.223), (1, 0.132), (2, -0.018), (3, 0.053), (4, -0.045), (5, 0.003), (6, 0.072), (7, 0.01), (8, -0.083), (9, -0.085), (10, -0.006), (11, 0.032), (12, 0.027), (13, -0.061), (14, -0.05), (15, -0.113), (16, -0.038), (17, -0.03), (18, 0.043), (19, 0.019), (20, -0.003), (21, -0.115), (22, -0.008), (23, 0.002), (24, 0.076), (25, -0.071), (26, 0.099), (27, 0.024), (28, 0.206), (29, 0.033), (30, 0.045), (31, 0.064), (32, -0.012), (33, -0.057), (34, 0.066), (35, -0.057), (36, 0.029), (37, 0.049), (38, -0.001), (39, -0.003), (40, -0.019), (41, -0.036), (42, -0.038), (43, -0.012), (44, 0.009), (45, -0.018), (46, -0.024), (47, -0.091), (48, 0.031), (49, 0.008)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97157985 <a title="317-lsi-1" href="../high_scalability-2008/high_scalability-2008-05-10-Hitting_300_SimbleDB_Requests_Per_Second_on_a_Small_EC2_Instance.html">317 high scalability-2008-05-10-Hitting 300 SimbleDB Requests Per Second on a Small EC2 Instance</a></p>
-<p>Introduction: High Performance Multithreaded Access to Amazon SimpleDBis a great follow up
-to the idea inHow SimpleDB Differs from a RDBMSthat more programming is the
-price paid for performance in SimpleDB. It shows how much work and
-infrastructure is required to batter better performance out of
-SimpleDB.Remember, in SimpleDB you get keys to records from queries so if you
-want to get all the fields for records you need to make separate requests.
-Since SimpleDB isn't exactly a speed daemon the obvious strategy is to
-parallelize. Even if a job takes a 100 msecs you can get a lot done in a
-little time if you can execute enough jobs in parallel.Parallelization is the
-approach taken by Haakon@AWS in his Java code example of how to get the most
-out of SimpleDB. You can find the code atIndexing and Querying Amazon S3
-Metadata with Amazon SimpleDB. We'll also consider how a back-end service
-architecture built on Erlang may be a better fit with cloud computing.breakTwo
-general mechanisms of parallelism are a</p><p>2 0.80470151 <a title="317-lsi-2" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
-<p>Introduction: This is an email interview withViktor Klang, Director of Engineering
-atTypesafe, on theScala Futuresmodel &Akka;,both topics on which is he is
-immensely passionate and knowledgeable.How do you structure your application?
-That's the question I explored in the articleBeyond Threads And Callbacks. An
-option I did not talk about, mostly because of my own ignorance, is a powerful
-stack you may not be all that familiar with: Scala and Akka.To remedy my
-oversight is our acting tour guide, Typesafe's Viktor Klang, long time Scala
-hacker and Java enterprise systems architect. Viktor was very patient in
-answering my questions and was enthusiastic about sharing his knowledge. He's
-a guy who definitely knows what he is talking about.I've implemented several
-Actor systems along with the messaging infrastructure, threading, async IO,
-service orchestration, failover, etc, so I'm innately skeptical about
-frameworks that remove control from the programmer at the cost of latency.So
-at the end of the inte</p><p>3 0.79910624 <a title="317-lsi-3" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
-<p>Introduction: There's not a lot  of talk about application architectures at the process
-level. You have your threads, pools of threads, and you have your callback
-models. That's about it. Languages/frameworks making a virtue out of simple
-models, like Go and Erlang, do so at the price of control. It's difficult to
-make a low latency well conditioned application when a power full tool, like
-work scheduling, is taken out of the hands of the programmer.But that's not
-all there is my friend. We'll dive into different ways an application can be
-composed across threads of control.Your favorite language may not give you
-access to all the capabilities we are going to talk about, but lately there
-has been a sort of revival in considering performance important, especially
-for controlling latency variance, so I think it's time to talk about these
-kind of issues. When it was do everything in the thread of a web server thread
-pool none of these issues really mattered. But now that developers are
-creating sophist</p><p>4 0.79718995 <a title="317-lsi-4" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
-<p>Introduction: InfoQueue has thisexcellent talk by Brian Goetzon the new features being added
-to Java SE 7 that will allow programmers to fully exploit our massively multi-
-processor future. While the talk is about Java it's really more general than
-that and there's a lot to learn here for everyone.Brian starts with a short,
-coherent, and compelling explanation of why programmers can't expect to be
-saved by ever faster CPUs and why we must learn to exploit the strengths of
-multiple core computers to make our software go faster.Some techniques for
-exploiting multiple cores are given in an equally short, coherent, and
-compelling explanation of why divide and conquer as the secret to multi-core
-bliss, fork-join, how the Java approach differs from map-reduce, and lots of
-other juicy topics.The multi-core "problem" is only going to get worse. Tilera
-founder Anant Agarwalestimates by 2017embedded processors could have 4,096
-cores, server CPUs might have 512 cores and desktop chips could use 128 cores.
-Some</p><p>5 0.78160417 <a title="317-lsi-5" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
-<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around.
-Hidden in every application are ways of moving messages around and giving code
-CPU time to process them. Unhiding those capabilities and making them first
-class facilities for the programmer to control is the idea behind
-AppBackplane.This goes directly against the trend of hiding everything from
-the programmer and doing it all automagically. Which is great, until it
-doesn't work. Then it sucks. And the approach of giving the programmer all the
-power also sucks, until it's tuned to work together and performance is
-incredible even under increasing loads. Then it's great.These are two
-different curves going in opposite directions. You need to decide for your
-application which curve you need to be on.AppBackplane is an example framework
-supporting the multiple application architectures we talked about inBeyond
-Threads And Callbacks. It provides a scheduling system that supports
-continuous and high loads, meets crit</p><p>6 0.74541759 <a title="317-lsi-6" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
+<p>Introduction: High Performance Multithreaded Access to Amazon SimpleDB   is a great  follow up to the idea in  How SimpleDB Differs from a RDBMS  that more programming is the price paid for performance in SimpleDB.  It shows how much work and infrastructure is required to batter better performance out of SimpleDB.   Remember, in SimpleDB you get keys to records from queries so if you want to get all the fields for records you need to make separate requests. Since SimpleDB isn't exactly a speed daemon the obvious strategy is to parallelize.  Even if a job takes a 100 msecs you can get a lot done in a little time if you can execute enough jobs in parallel.   Parallelization is the approach taken by Haakon@AWS  in his Java code example of how to get the most out of SimpleDB. You can find the code at  Indexing and Querying Amazon S3 Metadata with Amazon SimpleDB . We'll also consider how a back-end service architecture built on Erlang may be a better fit with cloud computing.
+   
+ Two general mechanisms</p><p>2 0.80470151 <a title="317-lsi-2" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
+<p>Introduction: This is an email interview with   Viktor Klang   , Director of Engineering at    Typesafe   , on the    Scala Futures    model &    Akka,    both topics on which is he is immensely passionate and knowledgeable.  
+ 
+How do you structure your application? That’s the question I explored in the article  Beyond Threads And Callbacks . An option I did not talk about, mostly because of my own ignorance, is a powerful stack you may not be all that familiar with: Scala and Akka.
+   To remedy my oversight is our acting tour guide, Typesafe’s Viktor Klang, long time Scala hacker and Java enterprise systems architect. Viktor was very patient in answering my questions and was enthusiastic about sharing his knowledge. He’s a guy who definitely knows what he is talking about. 
+   I’ve implemented several Actor systems along with the messaging infrastructure, threading, async IO, service orchestration, failover, etc, so I’m innately skeptical about frameworks that remove control from the programmer at</p><p>3 0.79910624 <a title="317-lsi-3" href="../high_scalability-2013/high_scalability-2013-03-18-Beyond_Threads_and_Callbacks_-_Application_Architecture_Pros_and_Cons.html">1425 high scalability-2013-03-18-Beyond Threads and Callbacks - Application Architecture Pros and Cons</a></p>
+<p>Introduction: There's not a lot  of talk about application architectures at the process level. You have your threads, pools of threads, and you have your callback models. That's about it. Languages/frameworks making a virtue out of simple models, like Go and Erlang, do so at the price of control. It's difficult to make a low latency well conditioned application when a power full tool, like work scheduling, is taken out of the hands of the programmer.
+ 
+But that's not all there is my friend. We'll dive into different ways an application can be composed across threads of control.
+ 
+Your favorite language may not give you access to all the capabilities we are going to talk about, but lately there has been a sort of revival in considering performance important, especially for controlling  latency variance , so I think it's time to talk about these kind of issues. When it was do everything in the thread of a web server thread pool none of these issues really mattered. But now that developers are creating</p><p>4 0.79718995 <a title="317-lsi-4" href="../high_scalability-2009/high_scalability-2009-06-23-Learn_How_to_Exploit_Multiple_Cores_for_Better_Performance_and_Scalability.html">636 high scalability-2009-06-23-Learn How to Exploit Multiple Cores for Better Performance and Scalability</a></p>
+<p>Introduction: InfoQueue has this  excellent talk by Brian Goetz  on the new features being added to Java SE 7 that will allow programmers to fully exploit our massively multi-processor future. While the talk is about Java it's really more general than that and there's a lot to learn here for everyone.  Brian starts with a short, coherent, and compelling explanation of why programmers can't expect to be saved by ever faster CPUs and why we must learn to exploit the strengths of multiple core computers to make our software go faster.   Some techniques for exploiting multiple cores are given in an equally  short, coherent, and compelling explanation of why divide and conquer as the secret to multi-core bliss, fork-join, how the Java approach differs from map-reduce, and lots of other juicy topics.   The multi-core "problem" is only going to get worse. Tilera founder Anant Agarwal  estimates by 2017  embedded processors could have 4,096 cores, server CPUs might have 512 cores and desktop chips could use</p><p>5 0.78160417 <a title="317-lsi-5" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
+<p>Introduction: Hidden in every computer is a hardware backplane for moving signals around. Hidden in every application are ways of moving messages around and giving code CPU time to process them. Unhiding those capabilities and making them first class facilities for the programmer to control is the idea behind AppBackplane.
+ 
+This goes directly against the trend of hiding everything from the programmer and doing it all automagically. Which is great, until it doesn't work. Then it sucks. And the approach of giving the programmer all the power also sucks, until it's tuned to work together and performance is incredible even under increasing loads. Then it's great.
+ 
+These are two different curves going in opposite directions. You need to decide for your application which curve you need to be on.
+ 
+AppBackplane is an example framework supporting the multiple  application architectures we talked about in  Beyond Threads And Callbacks .  It provides a scheduling system that supports continuous and high loa</p><p>6 0.74541759 <a title="317-lsi-6" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
 <p>7 0.71126264 <a title="317-lsi-7" href="../high_scalability-2010/high_scalability-2010-12-03-GPU_vs_CPU_Smackdown_%3A_The_Rise_of_Throughput-Oriented_Architectures.html">953 high scalability-2010-12-03-GPU vs CPU Smackdown : The Rise of Throughput-Oriented Architectures</a></p>
 <p>8 0.70899045 <a title="317-lsi-8" href="../high_scalability-2009/high_scalability-2009-08-07-The_Canonical_Cloud_Architecture_.html">674 high scalability-2009-08-07-The Canonical Cloud Architecture </a></p>
 <p>9 0.70616925 <a title="317-lsi-9" href="../high_scalability-2013/high_scalability-2013-10-23-Strategy%3A_Use_Linux_Taskset_to_Pin_Processes_or_Let_the_OS_Schedule_It%3F.html">1536 high scalability-2013-10-23-Strategy: Use Linux Taskset to Pin Processes or Let the OS Schedule It?</a></p>
@@ -222,69 +114,36 @@ continuous and high loads, meets crit</p><p>6 0.74541759 <a title="317-lsi-6" hr
 <p>[(1, 0.108), (2, 0.27), (10, 0.077), (77, 0.026), (79, 0.096), (85, 0.302), (94, 0.042)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.9706105 <a title="317-lda-1" href="../high_scalability-2010/high_scalability-2010-05-03-100_Node_Hazelcast_cluster_on_Amazon_EC2.html">820 high scalability-2010-05-03-100 Node Hazelcast cluster on Amazon EC2</a></p>
-<p>Introduction: Deploying, running and monitoring application on a big cluster is a
-challenging task. RecentlyHazelcastteam deployed a demo application on Amazon
-EC2 platform to show how Hazelcast p2p cluster scales and screen recorded the
-entire process from deployment to monitoring.Hazelcast is open source (Apache
-License), transactional, distributed caching solution for Java. It is a little
-more than a cache though as it provides distributed implementation of map,
-multimap, queue, topic, lock and executor service. Details of running 100 node
-Hazelcast cluster on Amazon EC2 can befound here. Make sure towatch the
-screencast!</p><p>2 0.96682268 <a title="317-lda-2" href="../high_scalability-2011/high_scalability-2011-05-02-Stack_Overflow_Makes_Slow_Pages_100x_Faster_by_Simple_SQL_Tuning.html">1032 high scalability-2011-05-02-Stack Overflow Makes Slow Pages 100x Faster by Simple SQL Tuning</a></p>
-<p>Introduction: The most common complaint against NoSQL is that if you know how to write good
-SQL queries then SQL works fine. If SQL is slow you can always tune it and
-make it faster. A great example of this incremental improvement process was
-written up by StackExchange's Sam Saffron, in A day in the life of a slow page
-at Stack Overflow, where he shows through profiling and SQL tuning it was
-possible to reduce page load times from 630ms to 40ms for some pages and for
-other pages the improvement was 100x.Sam provides a lot of wonderful detail of
-his tuning process, how it works, the thought process, the tools used, and the
-tradeoffs involved. Here's a short summary of the steps:Using theirmini-
-profiler it was shown that abadge detail pagewas taking 630.3 ms to load,
-298.1 ms of that was spent on SQL queries, and then the tool listed the SQL
-queries for the page and how long each took.From the historical logs, which
-are stored inHAProxy on a month-by-month basis, Sam was able to determine this
-page</p><p>3 0.96163547 <a title="317-lda-3" href="../high_scalability-2014/high_scalability-2014-01-13-NYTimes_Architecture%3A_No_Head%2C_No_Master%2C_No_Single_Point_of_Failure.html">1577 high scalability-2014-01-13-NYTimes Architecture: No Head, No Master, No Single Point of Failure</a></p>
-<p>Introduction: Michael Laing, a Systems Architect at NYTimes, gave thisgreat decriptionof
-their use ofRabbitMQ and their overall architecture on the RabbitMQ mailing
-list. The closing sentiment marks this as definitely an architecture to learn
-from:Although it may seem complex,Fabrik has simple components and is mostly
-principles and plumbing. The key point to grasp is that there is no head, no
-master, no single point of failure. As I write this I can see components
-failing (not RabbitMQ), and we are fixing them so they are more reliable. But
-the system doesn't fail, users can connect, and messages are delivered,
-regardless - all within design parameters.Since it's short, to the point, and
-I couldn't say it better, I'll just reproduce several original sources
-here:Just a quick note and thank you to the RabbitMQ team for a great
-product.Our premier online offering www.nytimes.com has a new look and new
-underpinnings, now including a messaging architecture implemented using
-RabbitMQ.This architecture -</p><p>4 0.96125436 <a title="317-lda-4" href="../high_scalability-2007/high_scalability-2007-11-06-Product%3A_ChironFS.html">143 high scalability-2007-11-06-Product: ChironFS</a></p>
-<p>Introduction: If you are trying to create highly available file systems, especially across
-data centers, then ChironFS is one potential solution. It's relatively new, so
-there aren't lots of experience reports, but it looks worth considering. What
-isChironFSand how does it work?Adapted from the ChironFS website:The Chiron
-Filesystem is a Fuse based filesystem that frees you from single points of
-failure. It's main purpose is to guarantee filesystem availability using
-replication. But it isn't a RAID implementation. RAID replicates DEVICES not
-FILESYSTEMS.Why not just use RAID over some network block device? Because it
-is a block device and if one server mounts that device in RW mode, no other
-server will be able to mount it in RW mode. Any real network may have many
-servers and offer a variety of services. Keeping everything running can become
-a real nightmare!</p><p>5 0.95505345 <a title="317-lda-5" href="../high_scalability-2011/high_scalability-2011-05-31-Awesome_List_of_Advanced_Distributed_Systems_Papers.html">1049 high scalability-2011-05-31-Awesome List of Advanced Distributed Systems Papers</a></p>
-<p>Introduction: As part ofDr. Indranil Gupta's CS 525 Spring 2011 Advanced Distributed Systems
-class, he has collected an incredible list of resources on distributed
-systems. Hisresearch groupis also doing some interesting work.Thevarious
-topicsinclude: Before there Were Clouds, Cloud Computing, P2P Systems, Basic
-Distributed Computing Concepts, Sensor Networks, Overlays and DHTs, Cloud
-Programming, Cloud Scheduling, Key-Value Stores, Storage, Sensor Net Routing,
-Geo-Distribution, P2P Apps, In-network processing, Epidemics, Probabilistic
-Membership Protocols, Distributed Monitoring and  Management, Publish-
-Subscribe/CDNs, Measurement Studies, Old Wine: Stale or Vintage?, In
-Byzantium, Cloud Pricing, Other Industrial Systems, Structure of Networks,
-Completing the Circle, Green Clouds, Distributed Debugging, Flash!, The Middle
-or the End?, Availability-Aware Systems, Design Methodologies, Handling
-Stress, Sources of unreliability in networks, Handling Stress, Selfish
-algorithms, Security, Economic Theo</p><p>6 0.95242417 <a title="317-lda-6" href="../high_scalability-2012/high_scalability-2012-05-04-Stuff_The_Internet_Says_On_Scalability_For_May_4%2C_2012.html">1239 high scalability-2012-05-04-Stuff The Internet Says On Scalability For May 4, 2012</a></p>
+<p>Introduction: Deploying, running and monitoring application on a big cluster is a challenging task. Recently  Hazelcast  team deployed a demo application on Amazon EC2 platform to show how Hazelcast p2p cluster scales and screen recorded the entire process from deployment to monitoring.
+ 
+Hazelcast is open source (Apache License), transactional, distributed caching solution for Java. It is a little more than a cache though as it provides distributed implementation of map, multimap, queue, topic, lock and executor service.Â 
+ 
+Details of running 100 node Hazelcast cluster on Amazon EC2 can be  found here . Make sure to  watch the screencast !</p><p>2 0.96682268 <a title="317-lda-2" href="../high_scalability-2011/high_scalability-2011-05-02-Stack_Overflow_Makes_Slow_Pages_100x_Faster_by_Simple_SQL_Tuning.html">1032 high scalability-2011-05-02-Stack Overflow Makes Slow Pages 100x Faster by Simple SQL Tuning</a></p>
+<p>Introduction: The most common complaint against NoSQL is that if you know how to write good SQL queries then SQL works fine. If SQL is slow you can always tune it and make it faster. A great example of this incremental improvement process was written up by StackExchange's Sam Saffron, in  A day in the life of a slow page at Stack Overflow , where he shows through profiling and SQL tuning it was possible to reduce page load times from 630ms to 40ms for some pages and for other pages the improvement was 100x.
+ 
+Sam provides a lot of wonderful detail of his tuning process, how it works, the thought process, the tools used, and the tradeoffs involved. Here's a short summary of the steps:
+  
+ Using their  mini-profiler  it was shown that a  badge detail page  was taking 630.3 ms to load, 298.1 ms of that was spent on SQL queries, and then the tool listed the SQL queries for the page and how long each took. 
+ From the historical logs, which are stored in  HAProxy  on a month-by-month basis, Sam was able t</p><p>3 0.96163547 <a title="317-lda-3" href="../high_scalability-2014/high_scalability-2014-01-13-NYTimes_Architecture%3A_No_Head%2C_No_Master%2C_No_Single_Point_of_Failure.html">1577 high scalability-2014-01-13-NYTimes Architecture: No Head, No Master, No Single Point of Failure</a></p>
+<p>Introduction: Michael Laing, a Systems Architect at NYTimes, gave this  great decription  of their use of  RabbitMQ  and their overall architecture on the RabbitMQ mailing list. The closing sentiment marks this as definitely an architecture to learn from:
+  
+
+Although it may seem complex,  Fabrik  has simple components and is mostly principles and plumbing. The key point to grasp is that there is no head, no master, no single point of failure. As I write this I can see components failing (not RabbitMQ), and we are fixing them so they are more reliable. But the system doesn't fail, users can connect, and messages are delivered, regardless - all within design parameters.
+
+  
+Since it's short, to the point, and I couldn't say it better, I'll just reproduce several original sources here:
+  
+
+Just a quick note and thank you to the RabbitMQ team for a great product.
+
+
+Our premier online offering www.nytimes.com has a new look and new underpinnings, now including a messaging architecture implemented using</p><p>4 0.96125436 <a title="317-lda-4" href="../high_scalability-2007/high_scalability-2007-11-06-Product%3A_ChironFS.html">143 high scalability-2007-11-06-Product: ChironFS</a></p>
+<p>Introduction: If you are trying to create highly available file systems, especially across data centers,  then ChironFS is one potential solution. It's relatively new, so there aren't lots of experience reports, but it looks worth considering. What is  ChironFS  and how does it work?
+ 
+Adapted from the ChironFS website:   The Chiron Filesystem is a Fuse based filesystem that frees you from single points of failure. It's main purpose is to guarantee filesystem availability using replication. But it isn't a RAID implementation. RAID replicates DEVICES not FILESYSTEMS.  Why not just use RAID over some network block device? Because it is a block device and if one server mounts that device in RW mode, no other server will be able to mount it in RW mode. Any real network may have many servers and offer a variety of services. Keeping everything running can become a real nightmare!</p><p>5 0.95505345 <a title="317-lda-5" href="../high_scalability-2011/high_scalability-2011-05-31-Awesome_List_of_Advanced_Distributed_Systems_Papers.html">1049 high scalability-2011-05-31-Awesome List of Advanced Distributed Systems Papers</a></p>
+<p>Introduction: As part of  Dr. Indranil Gupta 's  CS 525 Spring 2011 Advanced Distributed Systems  class, he has collected an incredible  list of resources on distributed systems . His  research group  is also doing some interesting work.
+ 
+The  various topics  include: Before there Were Clouds, Cloud Computing, P2P Systems, Basic Distributed Computing Concepts, Sensor Networks, Overlays and DHTs, Cloud Programming, Cloud Scheduling, Key-Value Stores, Storage, Sensor Net Routing, Geo-Distribution, P2P Apps, In-network processing, Epidemics, Probabilistic Membership Protocols, Distributed Monitoring and  Management, Publish-Subscribe/CDNs, Measurement Studies, Old Wine: Stale or Vintage?, In Byzantium, Cloud Pricing, Other Industrial Systems, Structure of Networks, Completing the Circle, Green Clouds, Distributed Debugging, Flash!, The Middle or the End?, Availability-Aware Systems, Design Methodologies, Handling Stress, Sources of unreliability in networks, Handling Stress, Selfish algorithms, Securi</p><p>6 0.95242417 <a title="317-lda-6" href="../high_scalability-2012/high_scalability-2012-05-04-Stuff_The_Internet_Says_On_Scalability_For_May_4%2C_2012.html">1239 high scalability-2012-05-04-Stuff The Internet Says On Scalability For May 4, 2012</a></p>
 <p>7 0.94644368 <a title="317-lda-7" href="../high_scalability-2013/high_scalability-2013-08-12-100_Curse_Free_Lessons_from_Gordon_Ramsay_on_Building_Great_Software.html">1500 high scalability-2013-08-12-100 Curse Free Lessons from Gordon Ramsay on Building Great Software</a></p>
 <p>8 0.93967873 <a title="317-lda-8" href="../high_scalability-2007/high_scalability-2007-12-23-Synchronizing_Memcached_application.html">191 high scalability-2007-12-23-Synchronizing Memcached application</a></p>
 <p>9 0.930673 <a title="317-lda-9" href="../high_scalability-2011/high_scalability-2011-05-12-Paper%3A_Mind_the_Gap%3A_Reconnecting_Architecture_and_OS_Research.html">1039 high scalability-2011-05-12-Paper: Mind the Gap: Reconnecting Architecture and OS Research</a></p>
