@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</title>
+</head>
+
+<body>
+<p><a title="brendan_oconnor_ai" href="../brendan_oconnor_ai_home.html">brendan_oconnor_ai</a> <a title="brendan_oconnor_ai-2009" href="../home/brendan_oconnor_ai-2009_home.html">brendan_oconnor_ai-2009</a> <a title="brendan_oconnor_ai-2009-139" href="#">brendan_oconnor_ai-2009-139</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="brendan_oconnor_ai-2009-139-html" href="http://brenocon.com/blog/2009/04/performance-comparison-keyvalue-stores-for-language-model-counts/">html</a></p><p>Introduction: I’m doing  word and bigram counts  on a corpus of tweets.  I want to store and rapidly retrieve them later for  language model  purposes.  So there’s a big table of counts that get incremented many times.  The easiest way to get something running is to use an open-source key/value store; but which?  There’s recently been some development in this area so I thought it would be good to revisit and evaluate some options.
+ 
+Here are timings for a single counting process: iterate over 45,000 short text messages, tokenize them, then increment counters for their unigrams and bigrams.  (The speed of the data store is only one component of performance.)  There are about 17 increments per tweet: 400k unique terms and 750k total count.  This is substantially smaller than what I need, but it’s small enough to easily test.  I used several very different architectures and packages, explained below.
+  
+ 
+ architecture
+  name
+  speed
+   
+ in-memory, within-process
+  python dictionary
+   2700 tweets/sec</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I want to store and rapidly retrieve them later for  language model  purposes. [sent-2, score-0.197]
+</p><p>2 Here are timings for a single counting process: iterate over 45,000 short text messages, tokenize them, then increment counters for their unigrams and bigrams. [sent-6, score-0.173]
+</p><p>3 (The speed of the data store is only one component of performance. [sent-7, score-0.269]
+</p><p>4 )  Ideally it would be nice to have a distributed key-value store with a heavy caching layer. [sent-17, score-0.39]
+</p><p>5 This is the best option for many types of experimental NLP code, since it can just be serialized to disk for use later. [sent-22, score-0.277]
+</p><p>6 Only if you want many processes to build it concurrently and incrementally, or want many processes to access the model but not have to hold it in their own process space, do the other options start becoming relevant. [sent-23, score-0.389]
+</p><p>7 BerkeleyDB : a well-known key/value store that I’ve used for a while. [sent-24, score-0.248]
+</p><p>8 )    Tokyo Cabinet  is a newish key/value store that has some impressive benchmarks. [sent-27, score-0.197]
+</p><p>9 Usually used for caching results from database queries for web applications — because in-memory caching is  way  faster than hitting disk on a database query. [sent-34, score-0.502]
+</p><p>10 Clients talk to it via a plaintext protocol over sockets. [sent-36, score-0.297]
+</p><p>11 The fact it was slower than the dictionary or BDB or Cabinet means that the communication overhead was high. [sent-37, score-0.21]
+</p><p>12 The nice thing about Memcached for keeping running counts like this is that it should distribute well: have lots of different processes/machines processing data and asking a central Memcached cluster to increment counters. [sent-38, score-0.194]
+</p><p>13 It might be a little unfair to compare Memcached performance to BerkeleyDB or Cabinet, since it’s designed for the situation of communicating with many clients at once. [sent-39, score-0.18]
+</p><p>14 pyx aka  python-libmemcached  write wraps a  different  C library,  libmemcached . [sent-51, score-0.186]
+</p><p>15 The first one is to use an in-memory data store, and communicate using the memcached protocol. [sent-63, score-0.664]
+</p><p>16 It’s pretty ridiculous that that’s still the same speed — communication overhead is completely dominating the time. [sent-67, score-0.205]
+</p><p>17 I can’t say this evaluation tells us too much about the server systems, since it’s all for a single process, which really isn’t their use case. [sent-72, score-0.19]
+</p><p>18 It is interesting, however, to see that memcached’s plaintext protocol causing a big performance hit compared to a binary one. [sent-73, score-0.384]
+</p><p>19 There’s a  lot  of  talk  and perhaps  code  for a binary memcached protocol, but I couldn’t find any docs suggesting whether it currently works. [sent-74, score-0.716]
+</p><p>20 Final note: it’s interesting how many of these new low-latency datastore systems come out of open-sourced projects from social network companies. [sent-80, score-0.18]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('memcached', 0.582), ('cabinet', 0.259), ('tokyo', 0.259), ('berkeleydb', 0.226), ('store', 0.197), ('protocol', 0.194), ('tyrant', 0.194), ('socket', 0.162), ('database', 0.103), ('caching', 0.097), ('leonard', 0.097), ('distributed', 0.096), ('architecture', 0.084), ('binary', 0.082), ('use', 0.082), ('python', 0.079), ('option', 0.077), ('dictionary', 0.077), ('processes', 0.072), ('speed', 0.072), ('communication', 0.068), ('many', 0.067), ('datastore', 0.065), ('hashtable', 0.065), ('increment', 0.065), ('keeps', 0.065), ('lin', 0.065), ('memcachedb', 0.065), ('overhead', 0.065), ('wraps', 0.065), ('different', 0.065), ('counts', 0.064), ('performance', 0.057), ('unfortunately', 0.057), ('server', 0.056), ('japanese', 0.056), ('em', 0.056), ('aka', 0.056), ('clients', 0.056), ('counting', 0.056), ('options', 0.056), ('process', 0.055), ('talk', 0.052), ('single', 0.052), ('plaintext', 0.051), ('disk', 0.051), ('substantially', 0.051), ('used', 0.051), ('projects', 0.048), ('packages', 0.048)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000002 <a title="139-tfidf-1" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-22-Performance_comparison%3A_key-value_stores_for_language_model_counts.html">139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</a></p>
+<p>Introduction: I’m doing  word and bigram counts  on a corpus of tweets.  I want to store and rapidly retrieve them later for  language model  purposes.  So there’s a big table of counts that get incremented many times.  The easiest way to get something running is to use an open-source key/value store; but which?  There’s recently been some development in this area so I thought it would be good to revisit and evaluate some options.
+ 
+Here are timings for a single counting process: iterate over 45,000 short text messages, tokenize them, then increment counters for their unigrams and bigrams.  (The speed of the data store is only one component of performance.)  There are about 17 increments per tweet: 400k unique terms and 750k total count.  This is substantially smaller than what I need, but it’s small enough to easily test.  I used several very different architectures and packages, explained below.
+  
+ 
+ architecture
+  name
+  speed
+   
+ in-memory, within-process
+  python dictionary
+   2700 tweets/sec</p><p>2 0.087864034 <a title="139-tfidf-2" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-02-23-Comparison_of_data_analysis_packages%3A_R%2C_Matlab%2C_SciPy%2C_Excel%2C_SAS%2C_SPSS%2C_Stata.html">135 brendan oconnor ai-2009-02-23-Comparison of data analysis packages: R, Matlab, SciPy, Excel, SAS, SPSS, Stata</a></p>
+<p>Introduction: Lukas  and I were trying to write a succinct comparison of the most popular packages that are typically used for data analysis.  I think most people choose one based on what people around them use or what they learn in school, so I’ve found it hard to find comparative information.  I’m posting the table here in hopes of useful comments.
+  
+ 
+ 
+  Name  
+  Advantages  
+  Disadvantages  
+  Open source?  
+  Typical   users  
+ 
+ 
+ R 
+ Library support; visualization 
+ Steep learning curve 
+ Yes 
+ Finance; Statistics 
+ 
+ 
+ Matlab 
+ Elegant matrix support; visualization 
+ Expensive; incomplete statistics support 
+ No 
+ Engineering 
+ 
+ 
+ SciPy/NumPy/Matplotlib 
+ Python (general-purpose programming language) 
+ Immature 
+ Yes 
+ Engineering 
+ 
+ 
+ Excel 
+ Easy; visual; flexible 
+ Large datasets 
+ No 
+ Business 
+ 
+ 
+ SAS 
+ Large datasets 
+ Expensive; outdated programming language 
+ No 
+ Business; Government 
+ 
+ 
+ Stata 
+ Easy statistical analysis 
+  
+ No 
+ Science 
+ 
+ 
+ SPSS 
+ Like Stata but more ex</p><p>3 0.076046616 <a title="139-tfidf-3" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-09-19-End-to-end_NLP_packages.html">174 brendan oconnor ai-2011-09-19-End-to-end NLP packages</a></p>
+<p>Introduction: What freely available end-to-end natural language processing (NLP) systems are out there, that start with raw text, and output parses and semantic structures?  Lots of NLP research focuses on single tasks at a time, and thus produces software that does a single task at a time.  But for various applications, it is nicer to have a full end-to-end system that just runs on whatever text you give it.
+ 
+If you believe this is a worthwhile goal (see caveat at bottom), I will postulate there aren’t a ton of such end-to-end, multilevel systems.  Here are ones I can think of.  Corrections and clarifications welcome.
+  
+  Stanford CoreNLP .  Raw text to  rich syntactic dependencies  ( LFG -inspired).  Also POS, NER, coreference. 
+  C&C; tools .  From (sentence-segmented, tokenized?) text to rich syntactic dependencies ( CCG -based) and also a semantic representation.  POS and chunks on the way.  Does anyone use this much?  It seems underappreciated relative to its richness. 
+  Senna .  Sentence-se</p><p>4 0.074946247 <a title="139-tfidf-4" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>Introduction: update 2012-10-25 : I’ve been informed there is a new maintainer for Mawk, who has probably fixed the bugs I’ve been seeing.
+  
+
+From: Gert Hulselmans   
+
+
+[The bugs you have found are] indeed true with mawk v1.3.3 which comes standard with Debian/Ubuntu.  This version is almost not developed the last 10 years.
+
+
+I now already use mawk v1.3.4 maintained by another developer (Thomas E. Dickey) 
+for more than a year on huge datafiles (sometimes several GB).
+
+
+The problems/wrong results I had with mawk v1.3.3 sometimes are gone. In his version, normally all open/known bugs are fixed.
+
+
+This version can be downloaded from:  http://invisible-island.net/mawk/ 
+
+     update 2010-04-30  : I have since found large datasets where mawk is buggy and gives the wrong result.  nawk seems safe.   When one of these newfangled   “Big Data”   sets comes your way, the very first thing you have to do is data munging: shuffling around file formats, renaming fields and the like.  Once you’re dealing with hun</p><p>5 0.071520224 <a title="139-tfidf-5" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-08-Patches_to_Rainbow%2C_the_old_text_classifier_that_won%E2%80%99t_go_away.html">153 brendan oconnor ai-2009-09-08-Patches to Rainbow, the old text classifier that won’t go away</a></p>
+<p>Introduction: I’ve been reading several somewhat recent finance papers ( Antweiler and Frank 2005 ,  Das and Chen 2007 ) that use  Rainbow , the text classification software originally written by  Andrew McCallum  back in 1996.  The last version is from 2002 and the homepage announces he isn’t really supporting it any more.
+ 
+However, as far as I can tell, it might still be the easiest-to-use text classifier package out there.  You don’t have to program — just invoke commandline arguments — and it can accommodate reasonably sized datasets, does tokenization, stopword filtering, etc. for you, and has some useful feature selection and other options.  Based on my limited usage, it seems well-implemented.  If anyone knows of a better one I’d love to hear it.  I once looked at, among other things,  GATE  and  UIMA , and they seemed too hard to use if you wanted to download something that did simple text classification; or else, maybe they didn’t have documentation on how to use them in that manner.     R</p><p>6 0.069666795 <a title="139-tfidf-6" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<p>7 0.063853309 <a title="139-tfidf-7" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-01-20-Moral_psychology_on_Amazon_Mechanical_Turk.html">90 brendan oconnor ai-2008-01-20-Moral psychology on Amazon Mechanical Turk</a></p>
+<p>8 0.063612603 <a title="139-tfidf-8" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-12-31-List_of_probabilistic_model_mini-language_toolkits.html">157 brendan oconnor ai-2009-12-31-List of probabilistic model mini-language toolkits</a></p>
+<p>9 0.062349312 <a title="139-tfidf-9" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-07-22-FFT%3A_Friedman_%2B_Fortran_%2B_Tricks.html">147 brendan oconnor ai-2009-07-22-FFT: Friedman + Fortran + Tricks</a></p>
+<p>10 0.059375282 <a title="139-tfidf-10" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-08-Haghighi_and_Klein_%282009%29%3A_Simple_Coreference_Resolution_with_Rich_Syntactic_and_Semantic_Features.html">150 brendan oconnor ai-2009-08-08-Haghighi and Klein (2009): Simple Coreference Resolution with Rich Syntactic and Semantic Features</a></p>
+<p>11 0.059317511 <a title="139-tfidf-11" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>12 0.059024185 <a title="139-tfidf-12" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-01-07-Love_it_and_hate_it%2C_R_has_come_of_age.html">132 brendan oconnor ai-2009-01-07-Love it and hate it, R has come of age</a></p>
+<p>13 0.057824474 <a title="139-tfidf-13" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-27-Facebook_sentiment_mining_predicts_presidential_polls.html">131 brendan oconnor ai-2008-12-27-Facebook sentiment mining predicts presidential polls</a></p>
+<p>14 0.057695806 <a title="139-tfidf-14" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-26-Seeing_how_%E2%80%9Cart%E2%80%9D_and_%E2%80%9Cpharmaceuticals%E2%80%9D_are_linguistically_similar_in_web_text.html">156 brendan oconnor ai-2009-09-26-Seeing how “art” and “pharmaceuticals” are linguistically similar in web text</a></p>
+<p>15 0.057027586 <a title="139-tfidf-15" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-04-The_%2460%2C000_cat%3A_deep_belief_networks_make_less_sense_for_language_than_vision.html">184 brendan oconnor ai-2012-07-04-The $60,000 cat: deep belief networks make less sense for language than vision</a></p>
+<p>16 0.056682475 <a title="139-tfidf-16" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-02-Histograms_%E2%80%94_matplotlib_vs._R.html">179 brendan oconnor ai-2012-02-02-Histograms — matplotlib vs. R</a></p>
+<p>17 0.056649502 <a title="139-tfidf-17" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-04-16-Rise_and_fall_of_Dirichlet_process_clusters.html">194 brendan oconnor ai-2013-04-16-Rise and fall of Dirichlet process clusters</a></p>
+<p>18 0.05626028 <a title="139-tfidf-18" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-03-15-Feminists%2C_anarchists%2C_computational_complexity%2C_bounded_rationality%2C_nethack%2C_and_other_things_to_do.html">53 brendan oconnor ai-2007-03-15-Feminists, anarchists, computational complexity, bounded rationality, nethack, and other things to do</a></p>
+<p>19 0.054960076 <a title="139-tfidf-19" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-17-1_billion_web_page_dataset_from_CMU.html">138 brendan oconnor ai-2009-04-17-1 billion web page dataset from CMU</a></p>
+<p>20 0.053623158 <a title="139-tfidf-20" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-01-23-SF_conference_for_data_mining_mercenaries.html">133 brendan oconnor ai-2009-01-23-SF conference for data mining mercenaries</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/brendan_oconnor_ai_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, -0.213), (1, -0.105), (2, 0.048), (3, -0.03), (4, 0.015), (5, 0.006), (6, -0.023), (7, -0.035), (8, 0.011), (9, -0.007), (10, -0.031), (11, 0.008), (12, 0.002), (13, -0.047), (14, 0.029), (15, 0.045), (16, 0.026), (17, 0.012), (18, -0.064), (19, 0.044), (20, 0.057), (21, -0.064), (22, -0.001), (23, -0.057), (24, 0.019), (25, 0.036), (26, -0.023), (27, 0.011), (28, 0.065), (29, 0.012), (30, -0.019), (31, -0.048), (32, 0.042), (33, -0.023), (34, -0.04), (35, -0.065), (36, 0.011), (37, 0.008), (38, -0.034), (39, -0.063), (40, -0.053), (41, -0.067), (42, -0.015), (43, 0.103), (44, -0.012), (45, 0.016), (46, 0.004), (47, 0.005), (48, 0.047), (49, -0.052)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.95943999 <a title="139-lsi-1" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-22-Performance_comparison%3A_key-value_stores_for_language_model_counts.html">139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</a></p>
+<p>Introduction: I’m doing  word and bigram counts  on a corpus of tweets.  I want to store and rapidly retrieve them later for  language model  purposes.  So there’s a big table of counts that get incremented many times.  The easiest way to get something running is to use an open-source key/value store; but which?  There’s recently been some development in this area so I thought it would be good to revisit and evaluate some options.
+ 
+Here are timings for a single counting process: iterate over 45,000 short text messages, tokenize them, then increment counters for their unigrams and bigrams.  (The speed of the data store is only one component of performance.)  There are about 17 increments per tweet: 400k unique terms and 750k total count.  This is substantially smaller than what I need, but it’s small enough to easily test.  I used several very different architectures and packages, explained below.
+  
+ 
+ architecture
+  name
+  speed
+   
+ in-memory, within-process
+  python dictionary
+   2700 tweets/sec</p><p>2 0.81804454 <a title="139-lsi-2" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>Introduction: update 2012-10-25 : I’ve been informed there is a new maintainer for Mawk, who has probably fixed the bugs I’ve been seeing.
+  
+
+From: Gert Hulselmans   
+
+
+[The bugs you have found are] indeed true with mawk v1.3.3 which comes standard with Debian/Ubuntu.  This version is almost not developed the last 10 years.
+
+
+I now already use mawk v1.3.4 maintained by another developer (Thomas E. Dickey) 
+for more than a year on huge datafiles (sometimes several GB).
+
+
+The problems/wrong results I had with mawk v1.3.3 sometimes are gone. In his version, normally all open/known bugs are fixed.
+
+
+This version can be downloaded from:  http://invisible-island.net/mawk/ 
+
+     update 2010-04-30  : I have since found large datasets where mawk is buggy and gives the wrong result.  nawk seems safe.   When one of these newfangled   “Big Data”   sets comes your way, the very first thing you have to do is data munging: shuffling around file formats, renaming fields and the like.  Once you’re dealing with hun</p><p>3 0.71745843 <a title="139-lsi-3" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-02-23-Comparison_of_data_analysis_packages%3A_R%2C_Matlab%2C_SciPy%2C_Excel%2C_SAS%2C_SPSS%2C_Stata.html">135 brendan oconnor ai-2009-02-23-Comparison of data analysis packages: R, Matlab, SciPy, Excel, SAS, SPSS, Stata</a></p>
+<p>Introduction: Lukas  and I were trying to write a succinct comparison of the most popular packages that are typically used for data analysis.  I think most people choose one based on what people around them use or what they learn in school, so I’ve found it hard to find comparative information.  I’m posting the table here in hopes of useful comments.
+  
+ 
+ 
+  Name  
+  Advantages  
+  Disadvantages  
+  Open source?  
+  Typical   users  
+ 
+ 
+ R 
+ Library support; visualization 
+ Steep learning curve 
+ Yes 
+ Finance; Statistics 
+ 
+ 
+ Matlab 
+ Elegant matrix support; visualization 
+ Expensive; incomplete statistics support 
+ No 
+ Engineering 
+ 
+ 
+ SciPy/NumPy/Matplotlib 
+ Python (general-purpose programming language) 
+ Immature 
+ Yes 
+ Engineering 
+ 
+ 
+ Excel 
+ Easy; visual; flexible 
+ Large datasets 
+ No 
+ Business 
+ 
+ 
+ SAS 
+ Large datasets 
+ Expensive; outdated programming language 
+ No 
+ Business; Government 
+ 
+ 
+ Stata 
+ Easy statistical analysis 
+  
+ No 
+ Science 
+ 
+ 
+ SPSS 
+ Like Stata but more ex</p><p>4 0.65593839 <a title="139-lsi-4" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-05-19-conplot_%E2%80%93_a_console_plotter.html">103 brendan oconnor ai-2008-05-19-conplot – a console plotter</a></p>
+<p>Introduction: This has to be the most quick-and-dirty data visualizer out there: I wrote an ascii art plotter script that takes a column of numbers on stdin and throws out a plot on your console.  I’ve been using it for several months to quickly look at numbers on the commandline, especially from logs and such.  (Back in school I would use gnuplot for this; R is good too.  But sometimes you want to move really fast, esp if you have a few hideous perl -pe one-liners on your hands and mucking around with temp files will interrupt your flow.)
+ 
+Link:  github.com/brendano/conplot 
+ 
+“Demo”:
+  $ cat time.log | conplot
+14601
+                                                                         oooooooo
+                                                                    oooooo
+                                                            ooooooooo
+                                                 oooooooooooo
+11269                                     oooooooo
+                                       o</p><p>5 0.61591196 <a title="139-lsi-5" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-28-Calculating_running_variance_in_Python_and_C%2B%2B.html">128 brendan oconnor ai-2008-11-28-Calculating running variance in Python and C++</a></p>
+<p>Introduction: It’s fairly obvious that an average can be calculated online, but interestingly, there’s also a way to calculate a running variance and standard deviation.  Read all about it  here .
+ 
+I’m playing around with the  Netflix Prize  data of 100 million movie ratings, and a huge problem is figuring out how to load and calculate everything in memory.  I’m having success with  NumPy , the numeric library for Python, because it compactly stores arrays with C/Fortran binary layouts.  For example, 100 million 32-bit floats = 100M * 4 = 400MB of memory, which is manageable.  And it’s much easier to play around interactively in  ipython / matplotlib  rather than write C++ for everything.
+ 
+Unfortunately, the simple ways to calculate variance on an array of that size create wasteful intermediate data structures as long as the original array.
+  
+>>> mean( (x-mean(x)) ** 2 )            # two intermediate structures
+>>> tmp=x-mean(x); tmp**=2; mean(tmp)   # one intermediate structure
+  
+That’s an e</p><p>6 0.61417097 <a title="139-lsi-6" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-02-Histograms_%E2%80%94_matplotlib_vs._R.html">179 brendan oconnor ai-2012-02-02-Histograms — matplotlib vs. R</a></p>
+<p>7 0.60480142 <a title="139-lsi-7" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-04-The_%2460%2C000_cat%3A_deep_belief_networks_make_less_sense_for_language_than_vision.html">184 brendan oconnor ai-2012-07-04-The $60,000 cat: deep belief networks make less sense for language than vision</a></p>
+<p>8 0.59853953 <a title="139-lsi-8" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-08-Patches_to_Rainbow%2C_the_old_text_classifier_that_won%E2%80%99t_go_away.html">153 brendan oconnor ai-2009-09-08-Patches to Rainbow, the old text classifier that won’t go away</a></p>
+<p>9 0.57167566 <a title="139-lsi-9" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-12-31-List_of_probabilistic_model_mini-language_toolkits.html">157 brendan oconnor ai-2009-12-31-List of probabilistic model mini-language toolkits</a></p>
+<p>10 0.55462891 <a title="139-lsi-10" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-07-22-FFT%3A_Friedman_%2B_Fortran_%2B_Tricks.html">147 brendan oconnor ai-2009-07-22-FFT: Friedman + Fortran + Tricks</a></p>
+<p>11 0.51368189 <a title="139-lsi-11" href="../brendan_oconnor_ai-2014/brendan_oconnor_ai-2014-02-19-What_the_ACL-2014_review_scores_mean.html">203 brendan oconnor ai-2014-02-19-What the ACL-2014 review scores mean</a></p>
+<p>12 0.50853103 <a title="139-lsi-12" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-01-20-Moral_psychology_on_Amazon_Mechanical_Turk.html">90 brendan oconnor ai-2008-01-20-Moral psychology on Amazon Mechanical Turk</a></p>
+<p>13 0.49617282 <a title="139-lsi-13" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-04-16-Rise_and_fall_of_Dirichlet_process_clusters.html">194 brendan oconnor ai-2013-04-16-Rise and fall of Dirichlet process clusters</a></p>
+<p>14 0.46745023 <a title="139-lsi-14" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-07-15-Beta_conjugate_explorer.html">146 brendan oconnor ai-2009-07-15-Beta conjugate explorer</a></p>
+<p>15 0.46564212 <a title="139-lsi-15" href="../brendan_oconnor_ai-2010/brendan_oconnor_ai-2010-03-31-How_Facebook_privacy_failed_me.html">158 brendan oconnor ai-2010-03-31-How Facebook privacy failed me</a></p>
+<p>16 0.445638 <a title="139-lsi-16" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-17-1_billion_web_page_dataset_from_CMU.html">138 brendan oconnor ai-2009-04-17-1 billion web page dataset from CMU</a></p>
+<p>17 0.44226828 <a title="139-lsi-17" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-03-29-Allende%E2%80%99s_cybernetic_economy_project.html">98 brendan oconnor ai-2008-03-29-Allende’s cybernetic economy project</a></p>
+<p>18 0.44142503 <a title="139-lsi-18" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-03-09-I_don%E2%80%99t_get_this_web_parsing_shared_task.html">181 brendan oconnor ai-2012-03-09-I don’t get this web parsing shared task</a></p>
+<p>19 0.42954081 <a title="139-lsi-19" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-26-Seeing_how_%E2%80%9Cart%E2%80%9D_and_%E2%80%9Cpharmaceuticals%E2%80%9D_are_linguistically_similar_in_web_text.html">156 brendan oconnor ai-2009-09-26-Seeing how “art” and “pharmaceuticals” are linguistically similar in web text</a></p>
+<p>20 0.42336479 <a title="139-lsi-20" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-09-19-End-to-end_NLP_packages.html">174 brendan oconnor ai-2011-09-19-End-to-end NLP packages</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/brendan_oconnor_ai_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(16, 0.023), (22, 0.025), (24, 0.495), (43, 0.023), (44, 0.102), (48, 0.015), (55, 0.019), (57, 0.013), (70, 0.02), (73, 0.016), (74, 0.113), (80, 0.04), (97, 0.013)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.98886847 <a title="139-lda-1" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-01-27-Graphics%21_Atari_Breakout_and_religious_text_NLP.html">91 brendan oconnor ai-2008-01-27-Graphics! Atari Breakout and religious text NLP</a></p>
+<p>Introduction: From a graphics/mod programming workshop,  modifications of “Breakout”  in awesome video form:
+ 
+          
+ 
+It uses  Processing , a framework designed for animation and graphicky things.  It was also used for the  Similar Diversity  visualization that maps out named entities and their common verbs across religious texts.  It’s pretty cool:     … so a name gets bigger with its frequency, I get that; but what governs the size of an arc connecting two names?  They say “common activities” — I’m guessing a distance measure on the terms in the contexts in which they appear?  I’d be most interested in a graph of their explicit interactions; something like a count of co-occurrences in a proximity window (word radius? verse? chapter? book?) might do the trick…
+ 
+This came out a while ago, I think; here are some  related works  posted on infosthetics.com.</p><p>2 0.98152411 <a title="139-lda-2" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-07-31-war_death_statistics.html">22 brendan oconnor ai-2005-07-31-war death statistics</a></p>
+<p>Introduction: What a project — an impressively painstaking compilation of  20th century civilian and military casualties .  Summary: lots of people were killed.  Interesting are  the comments on morality and how prejudgement leads to differing casualty estimations  — estimates vary wildly for controversial regimes, like Castro’s Cuba (I’ve heard lots about), but are suspiciously round and agreed-upon for incidents that scholars seem to care less about, like the Congo Crisis of the 1960′s (I’ve heard not so much about.)</p><p>same-blog 3 0.94272047 <a title="139-lda-3" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-22-Performance_comparison%3A_key-value_stores_for_language_model_counts.html">139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</a></p>
+<p>Introduction: I’m doing  word and bigram counts  on a corpus of tweets.  I want to store and rapidly retrieve them later for  language model  purposes.  So there’s a big table of counts that get incremented many times.  The easiest way to get something running is to use an open-source key/value store; but which?  There’s recently been some development in this area so I thought it would be good to revisit and evaluate some options.
+ 
+Here are timings for a single counting process: iterate over 45,000 short text messages, tokenize them, then increment counters for their unigrams and bigrams.  (The speed of the data store is only one component of performance.)  There are about 17 increments per tweet: 400k unique terms and 750k total count.  This is substantially smaller than what I need, but it’s small enough to easily test.  I used several very different architectures and packages, explained below.
+  
+ 
+ architecture
+  name
+  speed
+   
+ in-memory, within-process
+  python dictionary
+   2700 tweets/sec</p><p>4 0.91056991 <a title="139-lda-4" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-02-23-Comparison_of_data_analysis_packages%3A_R%2C_Matlab%2C_SciPy%2C_Excel%2C_SAS%2C_SPSS%2C_Stata.html">135 brendan oconnor ai-2009-02-23-Comparison of data analysis packages: R, Matlab, SciPy, Excel, SAS, SPSS, Stata</a></p>
+<p>Introduction: Lukas  and I were trying to write a succinct comparison of the most popular packages that are typically used for data analysis.  I think most people choose one based on what people around them use or what they learn in school, so I’ve found it hard to find comparative information.  I’m posting the table here in hopes of useful comments.
+  
+ 
+ 
+  Name  
+  Advantages  
+  Disadvantages  
+  Open source?  
+  Typical   users  
+ 
+ 
+ R 
+ Library support; visualization 
+ Steep learning curve 
+ Yes 
+ Finance; Statistics 
+ 
+ 
+ Matlab 
+ Elegant matrix support; visualization 
+ Expensive; incomplete statistics support 
+ No 
+ Engineering 
+ 
+ 
+ SciPy/NumPy/Matplotlib 
+ Python (general-purpose programming language) 
+ Immature 
+ Yes 
+ Engineering 
+ 
+ 
+ Excel 
+ Easy; visual; flexible 
+ Large datasets 
+ No 
+ Business 
+ 
+ 
+ SAS 
+ Large datasets 
+ Expensive; outdated programming language 
+ No 
+ Business; Government 
+ 
+ 
+ Stata 
+ Easy statistical analysis 
+  
+ No 
+ Science 
+ 
+ 
+ SPSS 
+ Like Stata but more ex</p><p>5 0.45209414 <a title="139-lda-5" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-26-Seeing_how_%E2%80%9Cart%E2%80%9D_and_%E2%80%9Cpharmaceuticals%E2%80%9D_are_linguistically_similar_in_web_text.html">156 brendan oconnor ai-2009-09-26-Seeing how “art” and “pharmaceuticals” are linguistically similar in web text</a></p>
+<p>Introduction: Earlier this week I asked the question,
+ 
+ How are “art” and “pharmaceuticals” similar? 
+ 
+People sent me lots of submissions!  Some are great, some are a bit of a stretch.
+  
+ Overpriced by an order of magnitude.
+  The letters of “art” are found embedded, in order, in “pharmaceuticals”.
+  Search keywords that cost the most to advertise on?
+  “Wyeth”: I think this means  this , and  this .
+  “Romeo and Juliet” famously includes both “art” (wherefore art thou) and pharmaceuticals (poison!)
+  Some art has been created out of pharmaceuticals.
+  Some art has been created under the influence of pharmaceuticals.
+   
+I was asking because I was playing around with a dataset of 100,000 noun phrases’ appearances on the web, from the  Reading the Web  project at CMU.  That is, for a noun like “art”, this data has a large list of phrases in which the word “art” is used, across some 200 million web pages.  For two noun concepts, we can see what they have in common and what’s different by looking at</p><p>6 0.44420236 <a title="139-lda-6" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-01-Binary_classification_evaluation_in_R_via_ROCR.html">136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</a></p>
+<p>7 0.44072202 <a title="139-lda-7" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<p>8 0.41294059 <a title="139-lda-8" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-05-18-Announcing_TweetMotif_for_summarizing_twitter_topics.html">140 brendan oconnor ai-2009-05-18-Announcing TweetMotif for summarizing twitter topics</a></p>
+<p>9 0.40513685 <a title="139-lda-9" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-11-24-Graphs_for_SANCL-2012_web_parsing_results.html">189 brendan oconnor ai-2012-11-24-Graphs for SANCL-2012 web parsing results</a></p>
+<p>10 0.40494475 <a title="139-lda-10" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-08-16-A_better_Obama_vs_McCain_poll_aggregation.html">111 brendan oconnor ai-2008-08-16-A better Obama vs McCain poll aggregation</a></p>
+<p>11 0.3949956 <a title="139-lda-11" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>12 0.39015177 <a title="139-lda-12" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-17-1_billion_web_page_dataset_from_CMU.html">138 brendan oconnor ai-2009-04-17-1 billion web page dataset from CMU</a></p>
+<p>13 0.38811195 <a title="139-lda-13" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-02-Histograms_%E2%80%94_matplotlib_vs._R.html">179 brendan oconnor ai-2012-02-02-Histograms — matplotlib vs. R</a></p>
+<p>14 0.37774983 <a title="139-lda-14" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-12-20-Data-driven_charity.html">86 brendan oconnor ai-2007-12-20-Data-driven charity</a></p>
+<p>15 0.37622851 <a title="139-lda-15" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-01-20-Moral_psychology_on_Amazon_Mechanical_Turk.html">90 brendan oconnor ai-2008-01-20-Moral psychology on Amazon Mechanical Turk</a></p>
+<p>16 0.37198955 <a title="139-lda-16" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-09-19-End-to-end_NLP_packages.html">174 brendan oconnor ai-2011-09-19-End-to-end NLP packages</a></p>
+<p>17 0.36787093 <a title="139-lda-17" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-12-31-List_of_probabilistic_model_mini-language_toolkits.html">157 brendan oconnor ai-2009-12-31-List of probabilistic model mini-language toolkits</a></p>
+<p>18 0.36460757 <a title="139-lda-18" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-17-p-values%2C_CDF%E2%80%99s%2C_NLP_etc..html">185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</a></p>
+<p>19 0.35843205 <a title="139-lda-19" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-10-11-It_is_accurate_to_determine_a_blog%E2%80%99s_bias_by_what_it_links_to.html">117 brendan oconnor ai-2008-10-11-It is accurate to determine a blog’s bias by what it links to</a></p>
+<p>20 0.3569746 <a title="139-lda-20" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-01-23-SF_conference_for_data_mining_mercenaries.html">133 brendan oconnor ai-2009-01-23-SF conference for data mining mercenaries</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

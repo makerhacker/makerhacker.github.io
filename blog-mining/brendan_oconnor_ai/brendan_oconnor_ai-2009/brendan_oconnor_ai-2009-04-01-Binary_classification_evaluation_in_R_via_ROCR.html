@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</title>
+</head>
+
+<body>
+<p><a title="brendan_oconnor_ai" href="../brendan_oconnor_ai_home.html">brendan_oconnor_ai</a> <a title="brendan_oconnor_ai-2009" href="../home/brendan_oconnor_ai-2009_home.html">brendan_oconnor_ai-2009</a> <a title="brendan_oconnor_ai-2009-136" href="#">brendan_oconnor_ai-2009-136</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="brendan_oconnor_ai-2009-136-html" href="http://brenocon.com/blog/2009/04/binary-classification-evaluation-in-r-via-rocr/">html</a></p><p>Introduction: A binary classifier makes decisions with confidence levels.  Usually it’s imperfect: if you put a decision threshold anywhere, items will fall on the wrong side — errors.  I made  this a diagram  a while ago for Turker voting; same principle applies for any binary classifier.
+ 
+     
+ 
+So there are a zillion ways to evaluate a binary classifier.  Accuracy?  Accuracy on different item types (sens, spec)?  Accuracy on different classifier decisions (prec, npv)?  And worse, over the years every field has given these metrics different names.  Signal detection, bioinformatics, medicine, statistics, machine learning, and more I’m sure.  But in R, there’s the excellent  ROCR package  to compute and visualize all the different metrics.
+ 
+I wanted to have a small, easy-to-use function that calls ROCR and reports the basic information I’m interested in.  For  preds , a vector of predictions (as confidence scores), and  labels , the true labels for the instances, it works like this:
+ 
+>  binary_e</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Usually it’s imperfect: if you put a decision threshold anywhere, items will fall on the wrong side — errors. [sent-2, score-0.215]
+</p><p>2 And worse, over the years every field has given these metrics different names. [sent-8, score-0.278]
+</p><p>3 For  preds , a vector of predictions (as confidence scores), and  labels , the true labels for the instances, it works like this:   >  binary_eval(preds, labels)          These are four graphs showing variation of classifier performance as the cutoff changes. [sent-12, score-1.825]
+</p><p>4 The graphs are:        Accuracy  — how raw accuracy changes with different cutoffs. [sent-17, score-0.413]
+</p><p>5 The extreme left and right sides are baselines of always guessing positive vs always guessing negative — so their accuracies are the respective population rates. [sent-18, score-0.331]
+</p><p>6 But positionally it’s nice here: cutoff on the x-axis like the topleft, but it’s a precision/recall metric so goes along with the bottomright. [sent-22, score-0.681]
+</p><p>7 ROC aka Sensitivity-Specificity curve   — Left side is low cutoff (aggressive), right side is high cutoff (conservative). [sent-23, score-1.728]
+</p><p>8 Note that unlike all the other graphs, ROC & AUC are invariant across different item label proportions. [sent-27, score-0.219]
+</p><p>9 (Given a trained classifier, precision and accuracy are influenced by the balanced-ness of the items; recall and specificity are not. [sent-28, score-0.266]
+</p><p>10 )     Precision-Recall curve   — Left side is high cutoff (conservative), right side is low cutoff (aggressive). [sent-29, score-1.728]
+</p><p>11 I debated flipping the axes, but prec vs rec is standard practice elsewhere. [sent-32, score-0.349]
+</p><p>12 )       The other thing binary_eval does is show one cutoff point across all the graphs — the blue circle — and display its associated performance metrics. [sent-36, score-1.028]
+</p><p>13 So here, it used the naive cutoff (0 for real-valued predictions; 0. [sent-37, score-0.715]
+</p><p>14 5 for probabilities) and plotted that point with the blue circle on all the graphs. [sent-38, score-0.209]
+</p><p>15 Plus it reports for that cutoff:    Predictions seem to be real-valued scores, so using naive cutoff 0: Acc = 0. [sent-39, score-0.777]
+</p><p>16 570    So it’s very apparent that the naive cutoff isn’t performing well here. [sent-45, score-0.715]
+</p><p>17 We can call it and supply a cutoff, or perhaps better, ask it to pick a cutoff that maximizes any metric that ROCR knows about. [sent-46, score-0.681]
+</p><p>18 For example, calibration for accuracy or F-score:        binary_eval(preds, labels, ‘acc’)     binary_eval(preds, labels, ‘f’)                         I added the function to my R utilities file, here:  dlanalysis/util. [sent-47, score-0.264]
+</p><p>19 The best Wikipedia page to start reading about the zillions of all of these interrelated confusion matrix metrics might be the  the ROC page . [sent-54, score-0.225]
+</p><p>20 If you want to see lots and lots more evaluation metrics, look at the  “extended classifier evaluation” section of LingPipe’s sentiment analysis tutorial . [sent-55, score-0.286]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('cutoff', 0.611), ('accuracy', 0.209), ('classifier', 0.209), ('labels', 0.204), ('preds', 0.188), ('roc', 0.149), ('side', 0.149), ('acc', 0.141), ('rocr', 0.141), ('metrics', 0.139), ('prec', 0.123), ('curve', 0.112), ('graphs', 0.11), ('naive', 0.104), ('predictions', 0.104), ('circle', 0.094), ('spec', 0.094), ('different', 0.094), ('binary', 0.089), ('flipping', 0.082), ('auc', 0.082), ('item', 0.082), ('rec', 0.082), ('evaluation', 0.077), ('left', 0.075), ('guessing', 0.075), ('aggressive', 0.075), ('scan', 0.07), ('metric', 0.07), ('compute', 0.07), ('conservative', 0.07), ('four', 0.07), ('confidence', 0.07), ('items', 0.066), ('reports', 0.062), ('blue', 0.062), ('vs', 0.062), ('recall', 0.057), ('scores', 0.057), ('performance', 0.055), ('function', 0.055), ('point', 0.053), ('decisions', 0.052), ('low', 0.052), ('wanted', 0.049), ('given', 0.045), ('right', 0.044), ('across', 0.043), ('page', 0.043), ('machine', 0.041)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999976 <a title="136-tfidf-1" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-01-Binary_classification_evaluation_in_R_via_ROCR.html">136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</a></p>
+<p>Introduction: A binary classifier makes decisions with confidence levels.  Usually it’s imperfect: if you put a decision threshold anywhere, items will fall on the wrong side — errors.  I made  this a diagram  a while ago for Turker voting; same principle applies for any binary classifier.
+ 
+     
+ 
+So there are a zillion ways to evaluate a binary classifier.  Accuracy?  Accuracy on different item types (sens, spec)?  Accuracy on different classifier decisions (prec, npv)?  And worse, over the years every field has given these metrics different names.  Signal detection, bioinformatics, medicine, statistics, machine learning, and more I’m sure.  But in R, there’s the excellent  ROCR package  to compute and visualize all the different metrics.
+ 
+I wanted to have a small, easy-to-use function that calls ROCR and reports the basic information I’m interested in.  For  preds , a vector of predictions (as confidence scores), and  labels , the true labels for the instances, it works like this:
+ 
+>  binary_e</p><p>2 0.16133544 <a title="136-tfidf-2" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-06-17-Confusion_matrix_diagrams.html">197 brendan oconnor ai-2013-06-17-Confusion matrix diagrams</a></p>
+<p>Introduction: I wrote a little note and diagrams on confusion matrix metrics: Precision, Recall, F, Sensitivity, Specificity, ROC, AUC, PR Curves, etc.
+ 
+ brenocon.com/confusion_matrix_diagrams.pdf 
+ 
+also,Â  graffle source .</p><p>3 0.12158877 <a title="136-tfidf-3" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-11-24-Graphs_for_SANCL-2012_web_parsing_results.html">189 brendan oconnor ai-2012-11-24-Graphs for SANCL-2012 web parsing results</a></p>
+<p>Introduction: I was just looking at some papers from the  SANCL-2012 workshop on web parsing  from June this year, which are very interesting to those of us who wish we had good parsers for non-newspaper text.  The shared task focus was on domain adaptation from a setting of lots of Wall Street Journal annotated data and very little in-domain training data.  (Previous discussion  here ; see Ryan McDonald’s detailed comment.)   Here are some graphs of the results ( last page in the Petrov & McDonald overview ).
+ 
+I was most interested in whether parsing accuracy on the WSJ correlates to accuracy on web text.  Fortunately, it does.  They evaluated all systems on four evaluation sets: (1) Text from a question/answer site, (2) newsgroups, (3) reviews, and (4) Wall Street Journal PTB.  Here is a graph across system entries, with the x-axis being the labeled dependency parsing accuracy on WSJPTB, and the y-axis the average accuracy on the three web evaluation sets.  Note the axis scales are different: web</p><p>4 0.089268565 <a title="136-tfidf-4" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-27-Facebook_sentiment_mining_predicts_presidential_polls.html">131 brendan oconnor ai-2008-12-27-Facebook sentiment mining predicts presidential polls</a></p>
+<p>Introduction: I’m a bit late blogging this, but here’s a messy, exciting — and statistically validated! — new online data source.
+ 
+My friend  Roddy  at Facebook  wrote a post describing their sentiment analysis system , which can evaluate positive or negative sentiment toward a particular topic by looking at a large number of wall messages.  (I’d link to it, but I can’t find the URL anymore — here’s the  Lexicon , but that version only gets term frequencies but no sentiment.)
+ 
+How they constructed their sentiment detector is interesting.  Starting with a list of positive and negative terms, they had a lexical acquisition step to gather many more candidate synonyms and misspellings — a necessity in this social media domain, where  WordNet  ain’t gonna come close!  After manually filtering these candidates, they assess the sentiment toward a mention of a topic by looking for instances of these positive and negative words nearby, along with “negation heuristics” and a few other features.
+ 
+He describ</p><p>5 0.074697748 <a title="136-tfidf-5" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>Introduction: Everyone recently seems to be talking about  this newish paper by Digrazia, McKelvey, Bollen, and Rojas  ( pdf here ) that examines the correlation of Congressional candidate name mentions on Twitter against whether the candidate won the race.  One of the coauthors also wrote a Washington Post  Op-Ed  about it.  I read the paper and I think it’s reasonable, but their op-ed overstates their results.  It claims:
+  
+“In the 2010 data, our Twitter data predicted the winner in 404 out of 435 competitive races”
+  
+But this analysis is nowhere in their paper.  Fabio Rojas has now  posted errata/rebuttals  about the op-ed and described this analysis they did here.  There are several major issues off the bat:
+  
+ They didn’t ever predict 404/435 races; they only analyzed 406 races they call “competitive,” getting 92.5% (in-sample) accuracy, then extrapolated to all races to get the 435 number. 
+ They’re reporting about  in-sample  predictions, which is really misleading to a non-scientific audi</p><p>6 0.070125654 <a title="136-tfidf-6" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<p>7 0.069235578 <a title="136-tfidf-7" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-17-p-values%2C_CDF%E2%80%99s%2C_NLP_etc..html">185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</a></p>
+<p>8 0.064131767 <a title="136-tfidf-8" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-08-Patches_to_Rainbow%2C_the_old_text_classifier_that_won%E2%80%99t_go_away.html">153 brendan oconnor ai-2009-09-08-Patches to Rainbow, the old text classifier that won’t go away</a></p>
+<p>9 0.062911823 <a title="136-tfidf-9" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-01-11-Please_report_your_SVM%E2%80%99s_kernel%21.html">164 brendan oconnor ai-2011-01-11-Please report your SVM’s kernel!</a></p>
+<p>10 0.061445482 <a title="136-tfidf-10" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-08-16-A_better_Obama_vs_McCain_poll_aggregation.html">111 brendan oconnor ai-2008-08-16-A better Obama vs McCain poll aggregation</a></p>
+<p>11 0.055986729 <a title="136-tfidf-11" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-31-Probabilistic_interpretation_of_the_B3_coreference_resolution_metric.html">199 brendan oconnor ai-2013-08-31-Probabilistic interpretation of the B3 coreference resolution metric</a></p>
+<p>12 0.049434163 <a title="136-tfidf-12" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-06-29-Evangelicals_vs._Aquarians.html">66 brendan oconnor ai-2007-06-29-Evangelicals vs. Aquarians</a></p>
+<p>13 0.048055097 <a title="136-tfidf-13" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-02-Histograms_%E2%80%94_matplotlib_vs._R.html">179 brendan oconnor ai-2012-02-02-Histograms — matplotlib vs. R</a></p>
+<p>14 0.043248892 <a title="136-tfidf-14" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>15 0.043124508 <a title="136-tfidf-15" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-01-20-Moral_psychology_on_Amazon_Mechanical_Turk.html">90 brendan oconnor ai-2008-01-20-Moral psychology on Amazon Mechanical Turk</a></p>
+<p>16 0.041532442 <a title="136-tfidf-16" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-22-Performance_comparison%3A_key-value_stores_for_language_model_counts.html">139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</a></p>
+<p>17 0.041240755 <a title="136-tfidf-17" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-01-07-Love_it_and_hate_it%2C_R_has_come_of_age.html">132 brendan oconnor ai-2009-01-07-Love it and hate it, R has come of age</a></p>
+<p>18 0.039748605 <a title="136-tfidf-18" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-08-Haghighi_and_Klein_%282009%29%3A_Simple_Coreference_Resolution_with_Rich_Syntactic_and_Semantic_Features.html">150 brendan oconnor ai-2009-08-08-Haghighi and Klein (2009): Simple Coreference Resolution with Rich Syntactic and Semantic Features</a></p>
+<p>19 0.039105371 <a title="136-tfidf-19" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-12-20-Data-driven_charity.html">86 brendan oconnor ai-2007-12-20-Data-driven charity</a></p>
+<p>20 0.038954176 <a title="136-tfidf-20" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-03-14-R_scan%28%29_for_quick-and-dirty_checks.html">192 brendan oconnor ai-2013-03-14-R scan() for quick-and-dirty checks</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/brendan_oconnor_ai_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, -0.161), (1, -0.102), (2, 0.074), (3, -0.041), (4, -0.06), (5, 0.005), (6, -0.04), (7, -0.103), (8, -0.037), (9, -0.065), (10, 0.019), (11, -0.004), (12, -0.05), (13, 0.0), (14, -0.059), (15, -0.013), (16, -0.055), (17, -0.045), (18, 0.099), (19, -0.105), (20, -0.051), (21, -0.002), (22, 0.008), (23, -0.147), (24, -0.04), (25, -0.01), (26, 0.142), (27, -0.073), (28, 0.137), (29, 0.033), (30, 0.072), (31, -0.055), (32, 0.16), (33, 0.013), (34, -0.074), (35, -0.082), (36, -0.133), (37, 0.101), (38, 0.109), (39, 0.06), (40, 0.189), (41, 0.084), (42, -0.023), (43, -0.021), (44, 0.082), (45, -0.173), (46, 0.215), (47, -0.051), (48, 0.028), (49, -0.134)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.98501229 <a title="136-lsi-1" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-01-Binary_classification_evaluation_in_R_via_ROCR.html">136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</a></p>
+<p>Introduction: A binary classifier makes decisions with confidence levels.  Usually it’s imperfect: if you put a decision threshold anywhere, items will fall on the wrong side — errors.  I made  this a diagram  a while ago for Turker voting; same principle applies for any binary classifier.
+ 
+     
+ 
+So there are a zillion ways to evaluate a binary classifier.  Accuracy?  Accuracy on different item types (sens, spec)?  Accuracy on different classifier decisions (prec, npv)?  And worse, over the years every field has given these metrics different names.  Signal detection, bioinformatics, medicine, statistics, machine learning, and more I’m sure.  But in R, there’s the excellent  ROCR package  to compute and visualize all the different metrics.
+ 
+I wanted to have a small, easy-to-use function that calls ROCR and reports the basic information I’m interested in.  For  preds , a vector of predictions (as confidence scores), and  labels , the true labels for the instances, it works like this:
+ 
+>  binary_e</p><p>2 0.86502093 <a title="136-lsi-2" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-06-17-Confusion_matrix_diagrams.html">197 brendan oconnor ai-2013-06-17-Confusion matrix diagrams</a></p>
+<p>Introduction: I wrote a little note and diagrams on confusion matrix metrics: Precision, Recall, F, Sensitivity, Specificity, ROC, AUC, PR Curves, etc.
+ 
+ brenocon.com/confusion_matrix_diagrams.pdf 
+ 
+also,Â  graffle source .</p><p>3 0.46464282 <a title="136-lsi-3" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-27-Facebook_sentiment_mining_predicts_presidential_polls.html">131 brendan oconnor ai-2008-12-27-Facebook sentiment mining predicts presidential polls</a></p>
+<p>Introduction: I’m a bit late blogging this, but here’s a messy, exciting — and statistically validated! — new online data source.
+ 
+My friend  Roddy  at Facebook  wrote a post describing their sentiment analysis system , which can evaluate positive or negative sentiment toward a particular topic by looking at a large number of wall messages.  (I’d link to it, but I can’t find the URL anymore — here’s the  Lexicon , but that version only gets term frequencies but no sentiment.)
+ 
+How they constructed their sentiment detector is interesting.  Starting with a list of positive and negative terms, they had a lexical acquisition step to gather many more candidate synonyms and misspellings — a necessity in this social media domain, where  WordNet  ain’t gonna come close!  After manually filtering these candidates, they assess the sentiment toward a mention of a topic by looking for instances of these positive and negative words nearby, along with “negation heuristics” and a few other features.
+ 
+He describ</p><p>4 0.429335 <a title="136-lsi-4" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-11-24-Graphs_for_SANCL-2012_web_parsing_results.html">189 brendan oconnor ai-2012-11-24-Graphs for SANCL-2012 web parsing results</a></p>
+<p>Introduction: I was just looking at some papers from the  SANCL-2012 workshop on web parsing  from June this year, which are very interesting to those of us who wish we had good parsers for non-newspaper text.  The shared task focus was on domain adaptation from a setting of lots of Wall Street Journal annotated data and very little in-domain training data.  (Previous discussion  here ; see Ryan McDonald’s detailed comment.)   Here are some graphs of the results ( last page in the Petrov & McDonald overview ).
+ 
+I was most interested in whether parsing accuracy on the WSJ correlates to accuracy on web text.  Fortunately, it does.  They evaluated all systems on four evaluation sets: (1) Text from a question/answer site, (2) newsgroups, (3) reviews, and (4) Wall Street Journal PTB.  Here is a graph across system entries, with the x-axis being the labeled dependency parsing accuracy on WSJPTB, and the y-axis the average accuracy on the three web evaluation sets.  Note the axis scales are different: web</p><p>5 0.42263785 <a title="136-lsi-5" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-17-p-values%2C_CDF%E2%80%99s%2C_NLP_etc..html">185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</a></p>
+<p>Introduction: Update Aug 10: THIS IS NOT A SUMMARY OF THE WHOLE PAPER!  it’s whining about one particular method of analysis before talking about other things further down
+   
+A quick note on  Berg-Kirkpatrick et al EMNLP-2012, “An Empirical Investigation of Statistical Signiﬁcance in NLP” .  They make lots of graphs of p-values against observed magnitudes and talk about “curves”, e.g.
+ 
+ We see the same curve-shaped trend we saw for summarization and dependency parsing. Different group comparisons, same group comparisons, and system combination comparisons form distinct curves. 
+ 
+For example, Figure 2.
+ 
+   
+ 
+I fear they made 10 graphs to rediscover a basic statistical fact: a p-value comes from a null hypothesis CDF.  That’s what these “curve-shaped trends” are in all their graphs.  They are CDFs.
+ 
+To back up, the statistical significance testing question is whether, in their notation, the observed dataset performance difference \(\delta(x)\) is “real” or not: if you were to resample the data,</p><p>6 0.36089763 <a title="136-lsi-6" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-08-16-A_better_Obama_vs_McCain_poll_aggregation.html">111 brendan oconnor ai-2008-08-16-A better Obama vs McCain poll aggregation</a></p>
+<p>7 0.34030953 <a title="136-lsi-7" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-07-27-China%3A_fines_for_bad_maps.html">71 brendan oconnor ai-2007-07-27-China: fines for bad maps</a></p>
+<p>8 0.34009612 <a title="136-lsi-8" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-07-08-Game_outcome_graphs_%E2%80%94_prisoner%E2%80%99s_dilemma_with_FUN_ARROWS%21%21%21.html">68 brendan oconnor ai-2007-07-08-Game outcome graphs — prisoner’s dilemma with FUN ARROWS!!!</a></p>
+<p>9 0.32097903 <a title="136-lsi-9" href="../brendan_oconnor_ai-2014/brendan_oconnor_ai-2014-02-18-Scatterplot_of_KN-PYP_language_model_results.html">202 brendan oconnor ai-2014-02-18-Scatterplot of KN-PYP language model results</a></p>
+<p>10 0.30542651 <a title="136-lsi-10" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-31-Probabilistic_interpretation_of_the_B3_coreference_resolution_metric.html">199 brendan oconnor ai-2013-08-31-Probabilistic interpretation of the B3 coreference resolution metric</a></p>
+<p>11 0.29361811 <a title="136-lsi-11" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-07-04-City_crisis_simulation_%28e.g._terrorist_attack%29.html">14 brendan oconnor ai-2005-07-04-City crisis simulation (e.g. terrorist attack)</a></p>
+<p>12 0.282859 <a title="136-lsi-12" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>13 0.27582079 <a title="136-lsi-13" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-10-05-Be_careful_with_dictionary-based_text_analysis.html">176 brendan oconnor ai-2011-10-05-Be careful with dictionary-based text analysis</a></p>
+<p>14 0.27395141 <a title="136-lsi-14" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>15 0.26377457 <a title="136-lsi-15" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-04-The_%2460%2C000_cat%3A_deep_belief_networks_make_less_sense_for_language_than_vision.html">184 brendan oconnor ai-2012-07-04-The $60,000 cat: deep belief networks make less sense for language than vision</a></p>
+<p>16 0.25648475 <a title="136-lsi-16" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-03-18-color_name_study_i_did.html">95 brendan oconnor ai-2008-03-18-color name study i did</a></p>
+<p>17 0.25265336 <a title="136-lsi-17" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-04-21-What_inputs_do_Monte_Carlo_algorithms_need%3F.html">195 brendan oconnor ai-2013-04-21-What inputs do Monte Carlo algorithms need?</a></p>
+<p>18 0.24729294 <a title="136-lsi-18" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-12-09-Race_and_IQ_debate_%E2%80%93_links.html">85 brendan oconnor ai-2007-12-09-Race and IQ debate – links</a></p>
+<p>19 0.24018995 <a title="136-lsi-19" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-10-31-tanh_is_a_rescaled_logistic_sigmoid_function.html">201 brendan oconnor ai-2013-10-31-tanh is a rescaled logistic sigmoid function</a></p>
+<p>20 0.23896872 <a title="136-lsi-20" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-22-Performance_comparison%3A_key-value_stores_for_language_model_counts.html">139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/brendan_oconnor_ai_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(16, 0.01), (24, 0.06), (28, 0.01), (43, 0.021), (44, 0.131), (48, 0.029), (55, 0.029), (57, 0.023), (70, 0.014), (74, 0.061), (80, 0.081), (92, 0.047), (98, 0.392)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.92098022 <a title="136-lda-1" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-06-25-looking_for_related_blogs-links.html">7 brendan oconnor ai-2005-06-25-looking for related blogs-links</a></p>
+<p>Introduction: What are good other resources on the internet for social science, cognitive science, and artificial intelligence (or computation more generally)? I’m looking for blog-like things in particular — stay updated on new research and the like.
+ 
+here’s the list so far, trying to be interdisciplinary as possible. A cognitive neuroscience or neuroeconomics blog would be a nice addition.
+  
+  Marginal Revolution  (i really like this one, except for the annoying pro-ayn rand jokes.  well they’re just jokes.  right…?)     
+  Daniel Drezner  
+  Language Log  
+  
+other possibilities…  need to search technorati.com for more…
+ 
+  neurodudes  
+ http://www.kybernetica.com/ 
+ http://www.karmachakra.com/aiknowledge/  
+
+
+ 
+
+ 
+Perhaps mailing lists and/or newsgroups are better for some of these topics.</p><p>same-blog 2 0.88648641 <a title="136-lda-2" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-01-Binary_classification_evaluation_in_R_via_ROCR.html">136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</a></p>
+<p>Introduction: A binary classifier makes decisions with confidence levels.  Usually it’s imperfect: if you put a decision threshold anywhere, items will fall on the wrong side — errors.  I made  this a diagram  a while ago for Turker voting; same principle applies for any binary classifier.
+ 
+     
+ 
+So there are a zillion ways to evaluate a binary classifier.  Accuracy?  Accuracy on different item types (sens, spec)?  Accuracy on different classifier decisions (prec, npv)?  And worse, over the years every field has given these metrics different names.  Signal detection, bioinformatics, medicine, statistics, machine learning, and more I’m sure.  But in R, there’s the excellent  ROCR package  to compute and visualize all the different metrics.
+ 
+I wanted to have a small, easy-to-use function that calls ROCR and reports the basic information I’m interested in.  For  preds , a vector of predictions (as confidence scores), and  labels , the true labels for the instances, it works like this:
+ 
+>  binary_e</p><p>3 0.36037278 <a title="136-lda-3" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<p>Introduction: 10/1/09 update  — well, it’s been nearly a year, and I should say not everything in this rant is totally true, and I certainly believe much less of it now.  Current take:  Statistics , not machine learning, is the real deal, but unfortunately suffers from bad marketing.  On the other hand, to the extent that bad marketing includes misguided undergraduate curriculums, there’s plenty of room to improve for everyone.
+   
+So it’s pretty clear by now that statistics and machine learning aren’t very different fields. I was recently pointed to   a very amusing comparison   by the excellent statistician — and machine learning expert —   Robert Tibshiriani  .  Reproduced here:  
+ 
+  Glossary 
+   
+ Machine learning
+  Statistics 
+   
+ network, graphs
+  model 
+   
+ weights
+  parameters 
+   
+ learning
+  fitting 
+   
+ generalization
+  test set performance 
+   
+ supervised learning
+  regression/classiﬁcation 
+   
+ unsupervised learning
+  density estimation, clustering 
+   
+ large grant = $1,000,000</p><p>4 0.34871328 <a title="136-lda-4" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>Introduction: Everyone recently seems to be talking about  this newish paper by Digrazia, McKelvey, Bollen, and Rojas  ( pdf here ) that examines the correlation of Congressional candidate name mentions on Twitter against whether the candidate won the race.  One of the coauthors also wrote a Washington Post  Op-Ed  about it.  I read the paper and I think it’s reasonable, but their op-ed overstates their results.  It claims:
+  
+“In the 2010 data, our Twitter data predicted the winner in 404 out of 435 competitive races”
+  
+But this analysis is nowhere in their paper.  Fabio Rojas has now  posted errata/rebuttals  about the op-ed and described this analysis they did here.  There are several major issues off the bat:
+  
+ They didn’t ever predict 404/435 races; they only analyzed 406 races they call “competitive,” getting 92.5% (in-sample) accuracy, then extrapolated to all races to get the 435 number. 
+ They’re reporting about  in-sample  predictions, which is really misleading to a non-scientific audi</p><p>5 0.33675033 <a title="136-lda-5" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-27-Facebook_sentiment_mining_predicts_presidential_polls.html">131 brendan oconnor ai-2008-12-27-Facebook sentiment mining predicts presidential polls</a></p>
+<p>Introduction: I’m a bit late blogging this, but here’s a messy, exciting — and statistically validated! — new online data source.
+ 
+My friend  Roddy  at Facebook  wrote a post describing their sentiment analysis system , which can evaluate positive or negative sentiment toward a particular topic by looking at a large number of wall messages.  (I’d link to it, but I can’t find the URL anymore — here’s the  Lexicon , but that version only gets term frequencies but no sentiment.)
+ 
+How they constructed their sentiment detector is interesting.  Starting with a list of positive and negative terms, they had a lexical acquisition step to gather many more candidate synonyms and misspellings — a necessity in this social media domain, where  WordNet  ain’t gonna come close!  After manually filtering these candidates, they assess the sentiment toward a mention of a topic by looking for instances of these positive and negative words nearby, along with “negation heuristics” and a few other features.
+ 
+He describ</p><p>6 0.33245385 <a title="136-lda-6" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-04-16-Rise_and_fall_of_Dirichlet_process_clusters.html">194 brendan oconnor ai-2013-04-16-Rise and fall of Dirichlet process clusters</a></p>
+<p>7 0.32684156 <a title="136-lda-7" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-02-23-Comparison_of_data_analysis_packages%3A_R%2C_Matlab%2C_SciPy%2C_Excel%2C_SAS%2C_SPSS%2C_Stata.html">135 brendan oconnor ai-2009-02-23-Comparison of data analysis packages: R, Matlab, SciPy, Excel, SAS, SPSS, Stata</a></p>
+<p>8 0.32616043 <a title="136-lda-8" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-08-Haghighi_and_Klein_%282009%29%3A_Simple_Coreference_Resolution_with_Rich_Syntactic_and_Semantic_Features.html">150 brendan oconnor ai-2009-08-08-Haghighi and Klein (2009): Simple Coreference Resolution with Rich Syntactic and Semantic Features</a></p>
+<p>9 0.3237547 <a title="136-lda-9" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-22-Performance_comparison%3A_key-value_stores_for_language_model_counts.html">139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</a></p>
+<p>10 0.32353693 <a title="136-lda-10" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-04-The_%2460%2C000_cat%3A_deep_belief_networks_make_less_sense_for_language_than_vision.html">184 brendan oconnor ai-2012-07-04-The $60,000 cat: deep belief networks make less sense for language than vision</a></p>
+<p>11 0.31577846 <a title="136-lda-11" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>12 0.31413481 <a title="136-lda-12" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-17-p-values%2C_CDF%E2%80%99s%2C_NLP_etc..html">185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</a></p>
+<p>13 0.31313896 <a title="136-lda-13" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-06-29-Evangelicals_vs._Aquarians.html">66 brendan oconnor ai-2007-06-29-Evangelicals vs. Aquarians</a></p>
+<p>14 0.31069568 <a title="136-lda-14" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-11-24-Graphs_for_SANCL-2012_web_parsing_results.html">189 brendan oconnor ai-2012-11-24-Graphs for SANCL-2012 web parsing results</a></p>
+<p>15 0.3102324 <a title="136-lda-15" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-03-09-I_don%E2%80%99t_get_this_web_parsing_shared_task.html">181 brendan oconnor ai-2012-03-09-I don’t get this web parsing shared task</a></p>
+<p>16 0.30590841 <a title="136-lda-16" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-10-08-Blog_move_has_landed.html">115 brendan oconnor ai-2008-10-08-Blog move has landed</a></p>
+<p>17 0.30128527 <a title="136-lda-17" href="../brendan_oconnor_ai-2006/brendan_oconnor_ai-2006-03-18-Mark_Turner%3A_Toward_the_Founding_of_Cognitive_Social_Science.html">31 brendan oconnor ai-2006-03-18-Mark Turner: Toward the Founding of Cognitive Social Science</a></p>
+<p>18 0.30128527 <a title="136-lda-18" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-10-13-Verificationism_dinosaur_comics.html">79 brendan oconnor ai-2007-10-13-Verificationism dinosaur comics</a></p>
+<p>19 0.30101317 <a title="136-lda-19" href="../brendan_oconnor_ai-2004/brendan_oconnor_ai-2004-11-24-addiction_%26_2_problems_of_economics.html">2 brendan oconnor ai-2004-11-24-addiction & 2 problems of economics</a></p>
+<p>20 0.29898238 <a title="136-lda-20" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-08-16-A_better_Obama_vs_McCain_poll_aggregation.html">111 brendan oconnor ai-2008-08-16-A better Obama vs McCain poll aggregation</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

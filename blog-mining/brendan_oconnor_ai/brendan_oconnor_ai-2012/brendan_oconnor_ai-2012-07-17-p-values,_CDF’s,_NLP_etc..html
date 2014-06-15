@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</title>
+</head>
+
+<body>
+<p><a title="brendan_oconnor_ai" href="../brendan_oconnor_ai_home.html">brendan_oconnor_ai</a> <a title="brendan_oconnor_ai-2012" href="../home/brendan_oconnor_ai-2012_home.html">brendan_oconnor_ai-2012</a> <a title="brendan_oconnor_ai-2012-185" href="#">brendan_oconnor_ai-2012-185</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="brendan_oconnor_ai-2012-185-html" href="http://brenocon.com/blog/2012/07/p-values-cdfs-nlp-etc/">html</a></p><p>Introduction: Update Aug 10: THIS IS NOT A SUMMARY OF THE WHOLE PAPER!  it’s whining about one particular method of analysis before talking about other things further down
+   
+A quick note on  Berg-Kirkpatrick et al EMNLP-2012, “An Empirical Investigation of Statistical Signiﬁcance in NLP” .  They make lots of graphs of p-values against observed magnitudes and talk about “curves”, e.g.
+ 
+ We see the same curve-shaped trend we saw for summarization and dependency parsing. Different group comparisons, same group comparisons, and system combination comparisons form distinct curves. 
+ 
+For example, Figure 2.
+ 
+   
+ 
+I fear they made 10 graphs to rediscover a basic statistical fact: a p-value comes from a null hypothesis CDF.  That’s what these “curve-shaped trends” are in all their graphs.  They are CDFs.
+ 
+To back up, the statistical significance testing question is whether, in their notation, the observed dataset performance difference \(\delta(x)\) is “real” or not: if you were to resample the data,</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I fear they made 10 graphs to rediscover a basic statistical fact: a p-value comes from a null hypothesis CDF. [sent-8, score-0.64]
+</p><p>2 To back up, the statistical significance testing question is whether, in their notation, the observed dataset performance difference \(\delta(x)\) is “real” or not: if you were to resample the data, how much would \(\delta(x)\) vary? [sent-11, score-1.114]
+</p><p>3 One way to think about significance testing in this setting is, it asks if the difference you got has the same sign as the true difference. [sent-12, score-0.679]
+</p><p>4 (not quite the Bayesian posterior of what  Gelman et al call a “sign error” , but rather a kind of pessimistic worst-case probability of it; this is how classic hypothesis testing works. [sent-13, score-0.495]
+</p><p>5 Strip away all the complications of bootstrap tests and stupidly overengineered NLP metrics, and consider the simple case where, in their notation, the observed dataset difference \( \delta(x) \) is a simple average of per-unit differences \(\delta(one unit)\); i. [sent-15, score-0.808]
+</p><p>6 The standard error is the standard deviation of the dataset difference, a measure of how much it were to vary if the units were resampled, and unit-level differences were i. [sent-18, score-0.546]
+</p><p>7 This standard error is, according to bog-standard Stat 101 theory,   \[ \sqrt{Var(\delta(x))} = \frac{\sqrt{Var(\delta(\text{one unit}))} }{ \sqrt{n} } \]   And you get 5% significance (in a  z-test . [sent-21, score-0.468]
+</p><p>8 ) if your observed difference \(\delta(x)\) is more than 1. [sent-24, score-0.288]
+</p><p>9 )  The point is you can read off, from the standard error equation, the important determinants of significance: (numerator) the variability of system performance, variability between systems, and difficulty of the task; and (denominator) the size of the dataset. [sent-29, score-0.596]
+</p><p>10 )  They’re plotting \(1-pvalue\), which is the null hypothesis CDF. [sent-34, score-0.403]
+</p><p>11 )  But in nonparametric tests there’s still a null hypothesis CDF — it’s the  ECDF  of the statistic over simulation outcomes — and your pvalue comes from it! [sent-37, score-0.832]
+</p><p>12 Every dataset has its own null hypothesis CDF; if it was the normal approximation case, those factors go into the numerator and denominator of the standard error. [sent-39, score-0.828]
+</p><p>13 )   In fact, if their recovered null hypothesis CDFs really are the same as an unpaired z-test’s null hypothesis CDF, that could be telling is that these NLP metrics are truly overengineered: their statistical variability behaves similarly to an arithmetic mean. [sent-41, score-1.372]
+</p><p>14 The last section, basically a demonstration that “statistical significance ! [sent-51, score-0.252]
+</p><p>15 Since statistical signicance testing is basically the question “Do I have the correct sign of the performance difference? [sent-53, score-0.603]
+</p><p>16 This paper illustrates the point in an odd fashion, looking at the out-of-domain p-value versus in-domain p-value — why not just directly map between domain effect sizes instead of doing everything roundabout with significance tests, which hide what’s truly going on? [sent-57, score-0.308]
+</p><p>17 For example, just plot Brown performance versus WSJ performance, and throw in standard error bars if you like. [sent-58, score-0.439]
+</p><p>18 (I guess if you’re a true NLP engineer, you always care about paired tests since it makes it easier to see incremental system improvements, thus the general focus on hypothesis tests instead of confidence regions? [sent-59, score-0.81]
+</p><p>19 I like confidence regions and standard errors much more as a thing to be reported, you can trivially read off unpaired tests from them yourself, but you don’t get the increased power of paired testing then. [sent-60, score-0.864]
+</p><p>20 In that paper they actually break out different sources of variability for the specific problem of variability due to optimizer instability. [sent-67, score-0.38]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('delta', 0.297), ('significance', 0.252), ('null', 0.231), ('performance', 0.223), ('tests', 0.216), ('cdf', 0.198), ('variability', 0.19), ('nlp', 0.187), ('hypothesis', 0.172), ('testing', 0.159), ('difference', 0.156), ('paired', 0.15), ('sqrt', 0.15), ('observed', 0.132), ('var', 0.114), ('sign', 0.112), ('metrics', 0.112), ('statistical', 0.109), ('error', 0.108), ('standard', 0.108), ('unpaired', 0.099), ('wsj', 0.099), ('normal', 0.092), ('comparisons', 0.09), ('et', 0.089), ('dataset', 0.083), ('notation', 0.079), ('unit', 0.079), ('differences', 0.079), ('bleu', 0.076), ('nonparametric', 0.076), ('numerator', 0.076), ('overengineered', 0.076), ('pvalue', 0.076), ('regions', 0.076), ('voodoo', 0.076), ('al', 0.075), ('pairs', 0.075), ('graphs', 0.067), ('correlated', 0.066), ('bootstrap', 0.066), ('denominator', 0.066), ('curves', 0.066), ('comes', 0.061), ('vary', 0.06), ('figure', 0.059), ('fact', 0.058), ('group', 0.057), ('truly', 0.056), ('confidence', 0.056)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999976 <a title="185-tfidf-1" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-17-p-values%2C_CDF%E2%80%99s%2C_NLP_etc..html">185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</a></p>
+<p>Introduction: Update Aug 10: THIS IS NOT A SUMMARY OF THE WHOLE PAPER!  it’s whining about one particular method of analysis before talking about other things further down
+   
+A quick note on  Berg-Kirkpatrick et al EMNLP-2012, “An Empirical Investigation of Statistical Signiﬁcance in NLP” .  They make lots of graphs of p-values against observed magnitudes and talk about “curves”, e.g.
+ 
+ We see the same curve-shaped trend we saw for summarization and dependency parsing. Different group comparisons, same group comparisons, and system combination comparisons form distinct curves. 
+ 
+For example, Figure 2.
+ 
+   
+ 
+I fear they made 10 graphs to rediscover a basic statistical fact: a p-value comes from a null hypothesis CDF.  That’s what these “curve-shaped trends” are in all their graphs.  They are CDFs.
+ 
+To back up, the statistical significance testing question is whether, in their notation, the observed dataset performance difference \(\delta(x)\) is “real” or not: if you were to resample the data,</p><p>2 0.13492943 <a title="185-tfidf-2" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-08-Haghighi_and_Klein_%282009%29%3A_Simple_Coreference_Resolution_with_Rich_Syntactic_and_Semantic_Features.html">150 brendan oconnor ai-2009-08-08-Haghighi and Klein (2009): Simple Coreference Resolution with Rich Syntactic and Semantic Features</a></p>
+<p>Introduction: I haven’t done a paper review on this blog for a while, so here we go.
+ 
+ Coreference  resolution is an interesting NLP problem.  ( Examples. )  It involves honest-to-goodness syntactic, semantic, and discourse phenomena, but still seems like a real cognitive task that humans have to solve when reading text [1].  I haven’t read the whole literature, but I’ve always been puzzled by the crop of papers on it I’ve seen in the last year or two.  There’s a big focus on fancy graph/probabilistic/constrained optimization algorithms, but often these papers gloss over the linguistic features — the core information they actually make their decisions with [2].  I never understood why the latter isn’t the most important issue.  Therefore, it was a joy to read
+  
+ Aria Haghighi and Dan Klein, EMNLP-2009.   “Simple Coreference Resolution with Rich Syntactic and Semantic Features.”  
+  
+They describe a simple, essentially non-statistical system that outperforms previous unsupervised systems, and compa</p><p>3 0.11956576 <a title="185-tfidf-3" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<p>Introduction: 10/1/09 update  — well, it’s been nearly a year, and I should say not everything in this rant is totally true, and I certainly believe much less of it now.  Current take:  Statistics , not machine learning, is the real deal, but unfortunately suffers from bad marketing.  On the other hand, to the extent that bad marketing includes misguided undergraduate curriculums, there’s plenty of room to improve for everyone.
+   
+So it’s pretty clear by now that statistics and machine learning aren’t very different fields. I was recently pointed to   a very amusing comparison   by the excellent statistician — and machine learning expert —   Robert Tibshiriani  .  Reproduced here:  
+ 
+  Glossary 
+   
+ Machine learning
+  Statistics 
+   
+ network, graphs
+  model 
+   
+ weights
+  parameters 
+   
+ learning
+  fitting 
+   
+ generalization
+  test set performance 
+   
+ supervised learning
+  regression/classiﬁcation 
+   
+ unsupervised learning
+  density estimation, clustering 
+   
+ large grant = $1,000,000</p><p>4 0.11585218 <a title="185-tfidf-4" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-11-24-Graphs_for_SANCL-2012_web_parsing_results.html">189 brendan oconnor ai-2012-11-24-Graphs for SANCL-2012 web parsing results</a></p>
+<p>Introduction: I was just looking at some papers from the  SANCL-2012 workshop on web parsing  from June this year, which are very interesting to those of us who wish we had good parsers for non-newspaper text.  The shared task focus was on domain adaptation from a setting of lots of Wall Street Journal annotated data and very little in-domain training data.  (Previous discussion  here ; see Ryan McDonald’s detailed comment.)   Here are some graphs of the results ( last page in the Petrov & McDonald overview ).
+ 
+I was most interested in whether parsing accuracy on the WSJ correlates to accuracy on web text.  Fortunately, it does.  They evaluated all systems on four evaluation sets: (1) Text from a question/answer site, (2) newsgroups, (3) reviews, and (4) Wall Street Journal PTB.  Here is a graph across system entries, with the x-axis being the labeled dependency parsing accuracy on WSJPTB, and the y-axis the average accuracy on the three web evaluation sets.  Note the axis scales are different: web</p><p>5 0.095476553 <a title="185-tfidf-5" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-09-19-End-to-end_NLP_packages.html">174 brendan oconnor ai-2011-09-19-End-to-end NLP packages</a></p>
+<p>Introduction: What freely available end-to-end natural language processing (NLP) systems are out there, that start with raw text, and output parses and semantic structures?  Lots of NLP research focuses on single tasks at a time, and thus produces software that does a single task at a time.  But for various applications, it is nicer to have a full end-to-end system that just runs on whatever text you give it.
+ 
+If you believe this is a worthwhile goal (see caveat at bottom), I will postulate there aren’t a ton of such end-to-end, multilevel systems.  Here are ones I can think of.  Corrections and clarifications welcome.
+  
+  Stanford CoreNLP .  Raw text to  rich syntactic dependencies  ( LFG -inspired).  Also POS, NER, coreference. 
+  C&C; tools .  From (sentence-segmented, tokenized?) text to rich syntactic dependencies ( CCG -based) and also a semantic representation.  POS and chunks on the way.  Does anyone use this much?  It seems underappreciated relative to its richness. 
+  Senna .  Sentence-se</p><p>6 0.093829378 <a title="185-tfidf-6" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-27-Facebook_sentiment_mining_predicts_presidential_polls.html">131 brendan oconnor ai-2008-12-27-Facebook sentiment mining predicts presidential polls</a></p>
+<p>7 0.09232752 <a title="185-tfidf-7" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-05-20-Log-normal_and_logistic-normal_terminology.html">169 brendan oconnor ai-2011-05-20-Log-normal and logistic-normal terminology</a></p>
+<p>8 0.088089094 <a title="185-tfidf-8" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-02-Histograms_%E2%80%94_matplotlib_vs._R.html">179 brendan oconnor ai-2012-02-02-Histograms — matplotlib vs. R</a></p>
+<p>9 0.087942585 <a title="185-tfidf-9" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-11-20-science_writing_bad%21.html">28 brendan oconnor ai-2005-11-20-science writing bad!</a></p>
+<p>10 0.086871877 <a title="185-tfidf-10" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-11-11-Memorizing_small_tables.html">177 brendan oconnor ai-2011-11-11-Memorizing small tables</a></p>
+<p>11 0.084077492 <a title="185-tfidf-11" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-03-09-I_don%E2%80%99t_get_this_web_parsing_shared_task.html">181 brendan oconnor ai-2012-03-09-I don’t get this web parsing shared task</a></p>
+<p>12 0.083094381 <a title="185-tfidf-12" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-02-23-Comparison_of_data_analysis_packages%3A_R%2C_Matlab%2C_SciPy%2C_Excel%2C_SAS%2C_SPSS%2C_Stata.html">135 brendan oconnor ai-2009-02-23-Comparison of data analysis packages: R, Matlab, SciPy, Excel, SAS, SPSS, Stata</a></p>
+<p>13 0.082485288 <a title="185-tfidf-13" href="../brendan_oconnor_ai-2014/brendan_oconnor_ai-2014-04-26-Replot%3A_departure_delays_vs_flight_time_speed-up.html">204 brendan oconnor ai-2014-04-26-Replot: departure delays vs flight time speed-up</a></p>
+<p>14 0.080754511 <a title="185-tfidf-14" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-04-06-a_regression_slope_is_a_weighted_average_of_pairs%E2%80%99_slopes%21.html">100 brendan oconnor ai-2008-04-06-a regression slope is a weighted average of pairs’ slopes!</a></p>
+<p>15 0.080444604 <a title="185-tfidf-15" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>16 0.078218482 <a title="185-tfidf-16" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-12-09-Race_and_IQ_debate_%E2%80%93_links.html">85 brendan oconnor ai-2007-12-09-Race and IQ debate – links</a></p>
+<p>17 0.0767553 <a title="185-tfidf-17" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-02-23-Wasserman_on_Stats_vs_ML%2C_and_previous_comparisons.html">191 brendan oconnor ai-2013-02-23-Wasserman on Stats vs ML, and previous comparisons</a></p>
+<p>18 0.075784422 <a title="185-tfidf-18" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-14-Save_Zipf%E2%80%99s_Law_%28new_anti-credulous-power-law_article%29.html">180 brendan oconnor ai-2012-02-14-Save Zipf’s Law (new anti-credulous-power-law article)</a></p>
+<p>19 0.069235578 <a title="185-tfidf-19" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-01-Binary_classification_evaluation_in_R_via_ROCR.html">136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</a></p>
+<p>20 0.068606652 <a title="185-tfidf-20" href="../brendan_oconnor_ai-2014/brendan_oconnor_ai-2014-02-19-What_the_ACL-2014_review_scores_mean.html">203 brendan oconnor ai-2014-02-19-What the ACL-2014 review scores mean</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/brendan_oconnor_ai_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, -0.28), (1, -0.079), (2, 0.108), (3, -0.093), (4, 0.012), (5, 0.01), (6, -0.061), (7, -0.07), (8, 0.021), (9, -0.06), (10, 0.11), (11, 0.004), (12, -0.029), (13, 0.026), (14, -0.059), (15, -0.028), (16, -0.066), (17, -0.114), (18, 0.099), (19, -0.075), (20, -0.048), (21, -0.037), (22, -0.161), (23, 0.02), (24, -0.008), (25, 0.036), (26, 0.06), (27, -0.048), (28, 0.054), (29, -0.005), (30, -0.025), (31, 0.012), (32, 0.027), (33, 0.073), (34, 0.085), (35, -0.004), (36, -0.038), (37, -0.023), (38, 0.048), (39, -0.03), (40, 0.063), (41, 0.042), (42, -0.011), (43, 0.021), (44, 0.018), (45, -0.068), (46, -0.119), (47, -0.027), (48, -0.012), (49, -0.053)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.98007065 <a title="185-lsi-1" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-17-p-values%2C_CDF%E2%80%99s%2C_NLP_etc..html">185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</a></p>
+<p>Introduction: Update Aug 10: THIS IS NOT A SUMMARY OF THE WHOLE PAPER!  it’s whining about one particular method of analysis before talking about other things further down
+   
+A quick note on  Berg-Kirkpatrick et al EMNLP-2012, “An Empirical Investigation of Statistical Signiﬁcance in NLP” .  They make lots of graphs of p-values against observed magnitudes and talk about “curves”, e.g.
+ 
+ We see the same curve-shaped trend we saw for summarization and dependency parsing. Different group comparisons, same group comparisons, and system combination comparisons form distinct curves. 
+ 
+For example, Figure 2.
+ 
+   
+ 
+I fear they made 10 graphs to rediscover a basic statistical fact: a p-value comes from a null hypothesis CDF.  That’s what these “curve-shaped trends” are in all their graphs.  They are CDFs.
+ 
+To back up, the statistical significance testing question is whether, in their notation, the observed dataset performance difference \(\delta(x)\) is “real” or not: if you were to resample the data,</p><p>2 0.54579175 <a title="185-lsi-2" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-08-Haghighi_and_Klein_%282009%29%3A_Simple_Coreference_Resolution_with_Rich_Syntactic_and_Semantic_Features.html">150 brendan oconnor ai-2009-08-08-Haghighi and Klein (2009): Simple Coreference Resolution with Rich Syntactic and Semantic Features</a></p>
+<p>Introduction: I haven’t done a paper review on this blog for a while, so here we go.
+ 
+ Coreference  resolution is an interesting NLP problem.  ( Examples. )  It involves honest-to-goodness syntactic, semantic, and discourse phenomena, but still seems like a real cognitive task that humans have to solve when reading text [1].  I haven’t read the whole literature, but I’ve always been puzzled by the crop of papers on it I’ve seen in the last year or two.  There’s a big focus on fancy graph/probabilistic/constrained optimization algorithms, but often these papers gloss over the linguistic features — the core information they actually make their decisions with [2].  I never understood why the latter isn’t the most important issue.  Therefore, it was a joy to read
+  
+ Aria Haghighi and Dan Klein, EMNLP-2009.   “Simple Coreference Resolution with Rich Syntactic and Semantic Features.”  
+  
+They describe a simple, essentially non-statistical system that outperforms previous unsupervised systems, and compa</p><p>3 0.54577368 <a title="185-lsi-3" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-11-24-Graphs_for_SANCL-2012_web_parsing_results.html">189 brendan oconnor ai-2012-11-24-Graphs for SANCL-2012 web parsing results</a></p>
+<p>Introduction: I was just looking at some papers from the  SANCL-2012 workshop on web parsing  from June this year, which are very interesting to those of us who wish we had good parsers for non-newspaper text.  The shared task focus was on domain adaptation from a setting of lots of Wall Street Journal annotated data and very little in-domain training data.  (Previous discussion  here ; see Ryan McDonald’s detailed comment.)   Here are some graphs of the results ( last page in the Petrov & McDonald overview ).
+ 
+I was most interested in whether parsing accuracy on the WSJ correlates to accuracy on web text.  Fortunately, it does.  They evaluated all systems on four evaluation sets: (1) Text from a question/answer site, (2) newsgroups, (3) reviews, and (4) Wall Street Journal PTB.  Here is a graph across system entries, with the x-axis being the labeled dependency parsing accuracy on WSJPTB, and the y-axis the average accuracy on the three web evaluation sets.  Note the axis scales are different: web</p><p>4 0.53241849 <a title="185-lsi-4" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-12-09-Race_and_IQ_debate_%E2%80%93_links.html">85 brendan oconnor ai-2007-12-09-Race and IQ debate – links</a></p>
+<p>Introduction: William Saletan, a writer for Slate, recently wrote  a loud series of articles  on genetic racial differences in IQ in the wake of James Watson’s  controversial remarks .  It prompted lots of discussion; here is an  excellent response from Richard Nisbett , a leading authority in the field on the environmentalist side of the debate.
+ 
+More academic articles:  Rushton and Jensen’s 2005 review  of evidence for genetic differences; and what I’ve found to be the most balanced so far, the 1995 APA report  Inteligence: Knowns and Unknowns  which concludes for all the heated claims out there, the scientific evidence tends to be pretty weak.
+ 
+Blog world:  Funny title from Brad DeLong ; and another  Slate response to Saletan and Rushton/Jensen .
+ 
+The politics of the race and intelligence question is a huge distraction from trying to find out the actual truth of the matter.  But I suppose the political implications are why it attracts so much attention — for good or bad.
+ 
+The most interesting</p><p>5 0.52060628 <a title="185-lsi-5" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-01-Binary_classification_evaluation_in_R_via_ROCR.html">136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</a></p>
+<p>Introduction: A binary classifier makes decisions with confidence levels.  Usually it’s imperfect: if you put a decision threshold anywhere, items will fall on the wrong side — errors.  I made  this a diagram  a while ago for Turker voting; same principle applies for any binary classifier.
+ 
+     
+ 
+So there are a zillion ways to evaluate a binary classifier.  Accuracy?  Accuracy on different item types (sens, spec)?  Accuracy on different classifier decisions (prec, npv)?  And worse, over the years every field has given these metrics different names.  Signal detection, bioinformatics, medicine, statistics, machine learning, and more I’m sure.  But in R, there’s the excellent  ROCR package  to compute and visualize all the different metrics.
+ 
+I wanted to have a small, easy-to-use function that calls ROCR and reports the basic information I’m interested in.  For  preds , a vector of predictions (as confidence scores), and  labels , the true labels for the instances, it works like this:
+ 
+>  binary_e</p><p>6 0.50901306 <a title="185-lsi-6" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<p>7 0.48905823 <a title="185-lsi-7" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-27-Facebook_sentiment_mining_predicts_presidential_polls.html">131 brendan oconnor ai-2008-12-27-Facebook sentiment mining predicts presidential polls</a></p>
+<p>8 0.48742577 <a title="185-lsi-8" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-11-20-science_writing_bad%21.html">28 brendan oconnor ai-2005-11-20-science writing bad!</a></p>
+<p>9 0.47435004 <a title="185-lsi-9" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-11-11-Memorizing_small_tables.html">177 brendan oconnor ai-2011-11-11-Memorizing small tables</a></p>
+<p>10 0.44968301 <a title="185-lsi-10" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>11 0.42930457 <a title="185-lsi-11" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-07-04-City_crisis_simulation_%28e.g._terrorist_attack%29.html">14 brendan oconnor ai-2005-07-04-City crisis simulation (e.g. terrorist attack)</a></p>
+<p>12 0.42471993 <a title="185-lsi-12" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-09-19-End-to-end_NLP_packages.html">174 brendan oconnor ai-2011-09-19-End-to-end NLP packages</a></p>
+<p>13 0.42193761 <a title="185-lsi-13" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-31-Probabilistic_interpretation_of_the_B3_coreference_resolution_metric.html">199 brendan oconnor ai-2013-08-31-Probabilistic interpretation of the B3 coreference resolution metric</a></p>
+<p>14 0.41823241 <a title="185-lsi-14" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-08-16-A_better_Obama_vs_McCain_poll_aggregation.html">111 brendan oconnor ai-2008-08-16-A better Obama vs McCain poll aggregation</a></p>
+<p>15 0.41787571 <a title="185-lsi-15" href="../brendan_oconnor_ai-2014/brendan_oconnor_ai-2014-04-26-Replot%3A_departure_delays_vs_flight_time_speed-up.html">204 brendan oconnor ai-2014-04-26-Replot: departure delays vs flight time speed-up</a></p>
+<p>16 0.41254431 <a title="185-lsi-16" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-06-17-Pairwise_comparisons_for_relevance_evaluation.html">106 brendan oconnor ai-2008-06-17-Pairwise comparisons for relevance evaluation</a></p>
+<p>17 0.41174397 <a title="185-lsi-17" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-22-Performance_comparison%3A_key-value_stores_for_language_model_counts.html">139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</a></p>
+<p>18 0.4088293 <a title="185-lsi-18" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-01-11-Please_report_your_SVM%E2%80%99s_kernel%21.html">164 brendan oconnor ai-2011-01-11-Please report your SVM’s kernel!</a></p>
+<p>19 0.40777108 <a title="185-lsi-19" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>20 0.40451404 <a title="185-lsi-20" href="../brendan_oconnor_ai-2006/brendan_oconnor_ai-2006-06-28-Social_network-ized_economic_markets.html">40 brendan oconnor ai-2006-06-28-Social network-ized economic markets</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/brendan_oconnor_ai_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(9, 0.039), (16, 0.012), (24, 0.03), (31, 0.341), (32, 0.011), (43, 0.038), (44, 0.135), (48, 0.017), (55, 0.039), (59, 0.023), (70, 0.034), (73, 0.013), (74, 0.114), (75, 0.015), (80, 0.055)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.96346742 <a title="185-lda-1" href="../brendan_oconnor_ai-2006/brendan_oconnor_ai-2006-05-11-Drunken_monkeys_experiment%21.html">36 brendan oconnor ai-2006-05-11-Drunken monkeys experiment!</a></p>
+<p>Introduction: Monkeys drink more alcohol when housed alone, and some like to end a long day in the lab with a boozy cocktail, according to a new analysis of alcohol consumption among members of a rhesus macaque social group. … “It was not unusual to see some of the monkeys stumble and fall, sway, and vomit,” Chen added. “In a few of our heavy drinkers, they would drink until they fell asleep.” … In yet another study, the scientists gave a group of male monkeys 24-hour access to the beverage dispensers. According to the researchers, a spike in consumption immediately followed the facilityâ€™s working hours. 
+ 
+“Like humans, monkeys are more likely to drink after stressful periods, such as soon after the daily 8-5 testing hours and after a long week of testing,” said Chen.
+ 
+ Link  (courtesy of  digg )</p><p>same-blog 2 0.90175617 <a title="185-lda-2" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-17-p-values%2C_CDF%E2%80%99s%2C_NLP_etc..html">185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</a></p>
+<p>Introduction: Update Aug 10: THIS IS NOT A SUMMARY OF THE WHOLE PAPER!  it’s whining about one particular method of analysis before talking about other things further down
+   
+A quick note on  Berg-Kirkpatrick et al EMNLP-2012, “An Empirical Investigation of Statistical Signiﬁcance in NLP” .  They make lots of graphs of p-values against observed magnitudes and talk about “curves”, e.g.
+ 
+ We see the same curve-shaped trend we saw for summarization and dependency parsing. Different group comparisons, same group comparisons, and system combination comparisons form distinct curves. 
+ 
+For example, Figure 2.
+ 
+   
+ 
+I fear they made 10 graphs to rediscover a basic statistical fact: a p-value comes from a null hypothesis CDF.  That’s what these “curve-shaped trends” are in all their graphs.  They are CDFs.
+ 
+To back up, the statistical significance testing question is whether, in their notation, the observed dataset performance difference \(\delta(x)\) is “real” or not: if you were to resample the data,</p><p>3 0.5059213 <a title="185-lda-3" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<p>Introduction: 10/1/09 update  — well, it’s been nearly a year, and I should say not everything in this rant is totally true, and I certainly believe much less of it now.  Current take:  Statistics , not machine learning, is the real deal, but unfortunately suffers from bad marketing.  On the other hand, to the extent that bad marketing includes misguided undergraduate curriculums, there’s plenty of room to improve for everyone.
+   
+So it’s pretty clear by now that statistics and machine learning aren’t very different fields. I was recently pointed to   a very amusing comparison   by the excellent statistician — and machine learning expert —   Robert Tibshiriani  .  Reproduced here:  
+ 
+  Glossary 
+   
+ Machine learning
+  Statistics 
+   
+ network, graphs
+  model 
+   
+ weights
+  parameters 
+   
+ learning
+  fitting 
+   
+ generalization
+  test set performance 
+   
+ supervised learning
+  regression/classiﬁcation 
+   
+ unsupervised learning
+  density estimation, clustering 
+   
+ large grant = $1,000,000</p><p>4 0.44857433 <a title="185-lda-4" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-08-Haghighi_and_Klein_%282009%29%3A_Simple_Coreference_Resolution_with_Rich_Syntactic_and_Semantic_Features.html">150 brendan oconnor ai-2009-08-08-Haghighi and Klein (2009): Simple Coreference Resolution with Rich Syntactic and Semantic Features</a></p>
+<p>Introduction: I haven’t done a paper review on this blog for a while, so here we go.
+ 
+ Coreference  resolution is an interesting NLP problem.  ( Examples. )  It involves honest-to-goodness syntactic, semantic, and discourse phenomena, but still seems like a real cognitive task that humans have to solve when reading text [1].  I haven’t read the whole literature, but I’ve always been puzzled by the crop of papers on it I’ve seen in the last year or two.  There’s a big focus on fancy graph/probabilistic/constrained optimization algorithms, but often these papers gloss over the linguistic features — the core information they actually make their decisions with [2].  I never understood why the latter isn’t the most important issue.  Therefore, it was a joy to read
+  
+ Aria Haghighi and Dan Klein, EMNLP-2009.   “Simple Coreference Resolution with Rich Syntactic and Semantic Features.”  
+  
+They describe a simple, essentially non-statistical system that outperforms previous unsupervised systems, and compa</p><p>5 0.43807238 <a title="185-lda-5" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>Introduction: Everyone recently seems to be talking about  this newish paper by Digrazia, McKelvey, Bollen, and Rojas  ( pdf here ) that examines the correlation of Congressional candidate name mentions on Twitter against whether the candidate won the race.  One of the coauthors also wrote a Washington Post  Op-Ed  about it.  I read the paper and I think it’s reasonable, but their op-ed overstates their results.  It claims:
+  
+“In the 2010 data, our Twitter data predicted the winner in 404 out of 435 competitive races”
+  
+But this analysis is nowhere in their paper.  Fabio Rojas has now  posted errata/rebuttals  about the op-ed and described this analysis they did here.  There are several major issues off the bat:
+  
+ They didn’t ever predict 404/435 races; they only analyzed 406 races they call “competitive,” getting 92.5% (in-sample) accuracy, then extrapolated to all races to get the 435 number. 
+ They’re reporting about  in-sample  predictions, which is really misleading to a non-scientific audi</p><p>6 0.43062183 <a title="185-lda-6" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-04-The_%2460%2C000_cat%3A_deep_belief_networks_make_less_sense_for_language_than_vision.html">184 brendan oconnor ai-2012-07-04-The $60,000 cat: deep belief networks make less sense for language than vision</a></p>
+<p>7 0.42824832 <a title="185-lda-7" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-11-24-Graphs_for_SANCL-2012_web_parsing_results.html">189 brendan oconnor ai-2012-11-24-Graphs for SANCL-2012 web parsing results</a></p>
+<p>8 0.41757697 <a title="185-lda-8" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-27-Facebook_sentiment_mining_predicts_presidential_polls.html">131 brendan oconnor ai-2008-12-27-Facebook sentiment mining predicts presidential polls</a></p>
+<p>9 0.41458732 <a title="185-lda-9" href="../brendan_oconnor_ai-2004/brendan_oconnor_ai-2004-11-24-addiction_%26_2_problems_of_economics.html">2 brendan oconnor ai-2004-11-24-addiction & 2 problems of economics</a></p>
+<p>10 0.41178149 <a title="185-lda-10" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-10-02-Powerset%E2%80%99s_natural_language_search_system.html">188 brendan oconnor ai-2012-10-02-Powerset’s natural language search system</a></p>
+<p>11 0.40056026 <a title="185-lda-11" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-08-16-A_better_Obama_vs_McCain_poll_aggregation.html">111 brendan oconnor ai-2008-08-16-A better Obama vs McCain poll aggregation</a></p>
+<p>12 0.39477846 <a title="185-lda-12" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>13 0.39448488 <a title="185-lda-13" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-02-Histograms_%E2%80%94_matplotlib_vs._R.html">179 brendan oconnor ai-2012-02-02-Histograms — matplotlib vs. R</a></p>
+<p>14 0.39430934 <a title="185-lda-14" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-10-05-Be_careful_with_dictionary-based_text_analysis.html">176 brendan oconnor ai-2011-10-05-Be careful with dictionary-based text analysis</a></p>
+<p>15 0.3931824 <a title="185-lda-15" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-05-18-Announcing_TweetMotif_for_summarizing_twitter_topics.html">140 brendan oconnor ai-2009-05-18-Announcing TweetMotif for summarizing twitter topics</a></p>
+<p>16 0.3903321 <a title="185-lda-16" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-17-1_billion_web_page_dataset_from_CMU.html">138 brendan oconnor ai-2009-04-17-1 billion web page dataset from CMU</a></p>
+<p>17 0.38810608 <a title="185-lda-17" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-03-15-Feminists%2C_anarchists%2C_computational_complexity%2C_bounded_rationality%2C_nethack%2C_and_other_things_to_do.html">53 brendan oconnor ai-2007-03-15-Feminists, anarchists, computational complexity, bounded rationality, nethack, and other things to do</a></p>
+<p>18 0.37797323 <a title="185-lda-18" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-12-20-Data-driven_charity.html">86 brendan oconnor ai-2007-12-20-Data-driven charity</a></p>
+<p>19 0.37732506 <a title="185-lda-19" href="../brendan_oconnor_ai-2006/brendan_oconnor_ai-2006-08-30-A_big%2C_fun_list_of_links_I%E2%80%99m_reading.html">44 brendan oconnor ai-2006-08-30-A big, fun list of links I’m reading</a></p>
+<p>20 0.37639737 <a title="185-lda-20" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-09-13-Response_on_our_movie_personas_paper.html">200 brendan oconnor ai-2013-09-13-Response on our movie personas paper</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

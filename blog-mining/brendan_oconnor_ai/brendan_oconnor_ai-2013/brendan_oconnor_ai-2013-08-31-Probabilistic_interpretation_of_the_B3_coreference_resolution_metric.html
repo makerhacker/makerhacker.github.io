@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>199 brendan oconnor ai-2013-08-31-Probabilistic interpretation of the B3 coreference resolution metric</title>
+</head>
+
+<body>
+<p><a title="brendan_oconnor_ai" href="../brendan_oconnor_ai_home.html">brendan_oconnor_ai</a> <a title="brendan_oconnor_ai-2013" href="../home/brendan_oconnor_ai-2013_home.html">brendan_oconnor_ai-2013</a> <a title="brendan_oconnor_ai-2013-199" href="#">brendan_oconnor_ai-2013-199</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>199 brendan oconnor ai-2013-08-31-Probabilistic interpretation of the B3 coreference resolution metric</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="brendan_oconnor_ai-2013-199-html" href="http://brenocon.com/blog/2013/08/probabilistic-interpretation-of-the-b3-coreference-resolution-metric/">html</a></p><p>Introduction: Here is an intuitive justification for the  B3  evaluation metric often used in coreference resolution, based on whether mention pairs are coreferent. If a mention from the document is chosen at random,
+  
+ B3-Recall is the (expected) proportion of its actual coreferents that the system thinks are coreferent with it. 
+ B3-Precision is the (expected) proportion of its system-hypothesized coreferents that are actually coreferent with it. 
+  
+Does this look correct to people? Details below:  
+ 
+In B3′s basic form, it’s a clustering evaluation metric, to evaluate a gold-standard clustering of mentions against a system-produced clustering of mentions.
+ 
+Let \(G\) mean a gold-standard entity and \(S\) mean a system-predicted entity, where an entity is a set of mentions. \(i\)Â refers to a mention; there are \(n\) mentions in the document. \(G_i\) means the gold entity that contains mention \(i\); and \(S_i\) means the system entity that has \(i\).
+ 
+The B3 precision and recall for a document</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Here is an intuitive justification for the  B3  evaluation metric often used in coreference resolution, based on whether mention pairs are coreferent. [sent-1, score-0.922]
+</p><p>2 If a mention from the document is chosen at random,     B3-Recall is the (expected) proportion of its actual coreferents that the system thinks are coreferent with it. [sent-2, score-1.223]
+</p><p>3 B3-Precision is the (expected) proportion of its system-hypothesized coreferents that are actually coreferent with it. [sent-3, score-0.591]
+</p><p>4 Details below:     In B3′s basic form, it’s a clustering evaluation metric, to evaluate a gold-standard clustering of mentions against a system-produced clustering of mentions. [sent-5, score-0.699]
+</p><p>5 Let \(G\) mean a gold-standard entity and \(S\) mean a system-predicted entity, where an entity is a set of mentions. [sent-6, score-0.436]
+</p><p>6 \(G_i\) means the gold entity that contains mention \(i\); and \(S_i\) means the system entity that has \(i\). [sent-8, score-1.289]
+</p><p>7 Think about it like,   \begin{align}  B3Prec  &= E_{ment}\left[ \frac{ |G_i \cap S_i| }{ |S_i| } \right] \\  &= E_{ment}\left[ P(G_j = G_i \mid j \in S_i) \right]  \end{align}   The first step is the expectation under the distribution of “pick a mention \(i\) at random from the document”. [sent-10, score-0.551]
+</p><p>8 The second step is from restating \(|G_i \cap S_i|\) as: out of the system-hypothesized coreferents of \(i\), how many are in the same gold cluster as \(i\)? [sent-11, score-0.699]
+</p><p>9 Thus \(|G_i \cap S_i|/|S_i|\) is: if you choose a mention \(j\) randomly out of \(S_i\), how often does it have the same gold cluster as \(i\)? [sent-12, score-0.888]
+</p><p>10 This is why I like B3: I can explain it in terms of mention pairs. [sent-17, score-0.373]
+</p><p>11 I think this also gives an additional justification to  Cai and Strube (2010) ‘s proposal to handle divergent gold versus system mentions. [sent-18, score-0.707]
+</p><p>12 So say the system produces a spurious mention \(i\) that isn’t part of the gold standard’s mentions (a “twinless” mention). [sent-19, score-1.04]
+</p><p>13 If you assume that mentions not in the gold standard should be considered to have no coreferents, then all of \(i\)’s system-hypothesized coreferents are false positives. [sent-20, score-0.775]
+</p><p>14 Therefore, to think about precision under this assumption, the system’s non-gold-mentions should be added to the gold as singleton entities, before computing precision. [sent-21, score-0.449]
+</p><p>15 And analogously for recall (add gold-only mentions as system-side singletons: the system has failed to find any coreference links to them). [sent-22, score-0.529]
+</p><p>16 I also like the pairwise linking metric since it’s defined only in terms of mentions; to be analogous to the presentation of B3 here,     Pairwise-Prec: choose a pair of mentions the system thinks are coreferent. [sent-26, score-1.067]
+</p><p>17 Pairwise-Rec: choose a pair of coreferent mentions. [sent-28, score-0.396]
+</p><p>18 Or algorithmically: take all entities to be fully connected mention graphs and compute link recovery precision/recall. [sent-30, score-0.399]
+</p><p>19 ) Â It is apparent though, that the Cai and Strube method can be adapted to pairwise metrics, maybe including  BLANC , under the same justification given here for why it should apply to B3. [sent-33, score-0.372]
+</p><p>20 (As far as I know B3 hasn’t been proposed before as a pure clustering metric … you could actually think of it in comparison to  Rand index ,  VI , etc. [sent-34, score-0.43]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('mention', 0.319), ('gold', 0.279), ('cap', 0.251), ('coreferents', 0.251), ('mentions', 0.245), ('coreferent', 0.218), ('entity', 0.218), ('justification', 0.175), ('frac', 0.153), ('system', 0.153), ('ment', 0.151), ('vi', 0.151), ('metric', 0.149), ('pairwise', 0.149), ('document', 0.149), ('align', 0.14), ('clustering', 0.133), ('choose', 0.111), ('cluster', 0.105), ('cai', 0.1), ('mid', 0.1), ('strube', 0.1), ('think', 0.1), ('random', 0.088), ('entities', 0.08), ('defined', 0.08), ('intuitive', 0.08), ('expectation', 0.08), ('entropies', 0.08), ('proportion', 0.074), ('often', 0.074), ('begin', 0.07), ('precision', 0.07), ('coreference', 0.07), ('pair', 0.067), ('step', 0.064), ('expected', 0.064), ('recall', 0.061), ('thinks', 0.059), ('though', 0.059), ('evaluation', 0.055), ('correct', 0.054), ('left', 0.054), ('terms', 0.054), ('means', 0.051), ('end', 0.049), ('given', 0.048), ('actually', 0.048), ('part', 0.044), ('consideration', 0.044)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999964 <a title="199-tfidf-1" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-31-Probabilistic_interpretation_of_the_B3_coreference_resolution_metric.html">199 brendan oconnor ai-2013-08-31-Probabilistic interpretation of the B3 coreference resolution metric</a></p>
+<p>Introduction: Here is an intuitive justification for the  B3  evaluation metric often used in coreference resolution, based on whether mention pairs are coreferent. If a mention from the document is chosen at random,
+  
+ B3-Recall is the (expected) proportion of its actual coreferents that the system thinks are coreferent with it. 
+ B3-Precision is the (expected) proportion of its system-hypothesized coreferents that are actually coreferent with it. 
+  
+Does this look correct to people? Details below:  
+ 
+In B3′s basic form, it’s a clustering evaluation metric, to evaluate a gold-standard clustering of mentions against a system-produced clustering of mentions.
+ 
+Let \(G\) mean a gold-standard entity and \(S\) mean a system-predicted entity, where an entity is a set of mentions. \(i\)Â refers to a mention; there are \(n\) mentions in the document. \(G_i\) means the gold entity that contains mention \(i\); and \(S_i\) means the system entity that has \(i\).
+ 
+The B3 precision and recall for a document</p><p>2 0.16725591 <a title="199-tfidf-2" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-08-Haghighi_and_Klein_%282009%29%3A_Simple_Coreference_Resolution_with_Rich_Syntactic_and_Semantic_Features.html">150 brendan oconnor ai-2009-08-08-Haghighi and Klein (2009): Simple Coreference Resolution with Rich Syntactic and Semantic Features</a></p>
+<p>Introduction: I haven’t done a paper review on this blog for a while, so here we go.
+ 
+ Coreference  resolution is an interesting NLP problem.  ( Examples. )  It involves honest-to-goodness syntactic, semantic, and discourse phenomena, but still seems like a real cognitive task that humans have to solve when reading text [1].  I haven’t read the whole literature, but I’ve always been puzzled by the crop of papers on it I’ve seen in the last year or two.  There’s a big focus on fancy graph/probabilistic/constrained optimization algorithms, but often these papers gloss over the linguistic features — the core information they actually make their decisions with [2].  I never understood why the latter isn’t the most important issue.  Therefore, it was a joy to read
+  
+ Aria Haghighi and Dan Klein, EMNLP-2009.   “Simple Coreference Resolution with Rich Syntactic and Semantic Features.”  
+  
+They describe a simple, essentially non-statistical system that outperforms previous unsupervised systems, and compa</p><p>3 0.095950752 <a title="199-tfidf-3" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-04-11-F-scores%2C_Dice%2C_and_Jaccard_set_similarity.html">183 brendan oconnor ai-2012-04-11-F-scores, Dice, and Jaccard set similarity</a></p>
+<p>Introduction: The  Dice similarity  is the same as  F1-score ; and they are monotonic in  Jaccard similarity .  I worked this out recently but couldn’t find anything about it online so here’s a writeup.
+ 
+Let \(A\) be the set of found items, and \(B\) the set of wanted items.  \(Prec=|AB|/|A|\), \(Rec=|AB|/|B|\).  Their harmonic mean, the \(F1\)-measure, is the same as the Dice coefficient: 
+\begin{align*} 
+F1(A,B) 
+&= \frac{2}{1/P+ 1/R} 
+ = \frac{2}{|A|/|AB| + |B|/|AB|} \\ 
+Dice(A,B) 
+&= \frac{2|AB|}{ |A| + |B| } \\ 
+&= \frac{2 |AB|}{ (|AB| + |A \setminus B|) + (|AB| + |B \setminus A|)} \\ 
+&= \frac{|AB|}{|AB| + \frac{1}{2}|A \setminus B| + \frac{1}{2} |B \setminus A|} 
+\end{align*}
+ 
+It’s nice to characterize the set comparison into the three mutually exclusive partitions \(AB\), \(A \setminus B\), and \(B \setminus A\).  This illustrates Dice’s close relationship to the Jaccard metric, 
+\begin{align*} 
+Jacc(A,B) 
+&= \frac{|AB|}{|A \cup B|} \\ 
+&= \frac{|AB|}{|AB| + |A \setminus B| + |B \setminus</p><p>4 0.092214592 <a title="199-tfidf-4" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-07-01-Bias_correction_sneak_peek%21.html">108 brendan oconnor ai-2008-07-01-Bias correction sneak peek!</a></p>
+<p>Introduction: (Update 10/2008: actually this model doesn’t work in all cases.Â   In the final paper  we use an (even) simpler model.)
+ 
+I really don’t have time to write up an explanation for what this is so I’ll just post the graph instead.  Each box is a scatterplot of an AMT worker’s responses versus a gold standard.  Drawn are attempts to fit linear models to each worker.  The idea is to correct for the biases of each worker.  With a linear model y ~ ax+b, the correction is correction(y) = (y-b)/a.  Arrows show such corrections.  Hilariously bad “corrections” happen.  *But*, there is also weighting: to get the “correct” answer (maximum likelihood) from several workers, you weight by a^2/stddev^2.  Despite the sometimes odd corrections, the cross-validated results from this model correlate better with the gold than the raw averaging of workers.  (Raw averaging is the maximum likelihood solution for a fixed noise model: a=1, b=0, and each worker’s variance is equal).
+ 
+Much better explanation is c</p><p>5 0.089759588 <a title="199-tfidf-5" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-27-Facebook_sentiment_mining_predicts_presidential_polls.html">131 brendan oconnor ai-2008-12-27-Facebook sentiment mining predicts presidential polls</a></p>
+<p>Introduction: I’m a bit late blogging this, but here’s a messy, exciting — and statistically validated! — new online data source.
+ 
+My friend  Roddy  at Facebook  wrote a post describing their sentiment analysis system , which can evaluate positive or negative sentiment toward a particular topic by looking at a large number of wall messages.  (I’d link to it, but I can’t find the URL anymore — here’s the  Lexicon , but that version only gets term frequencies but no sentiment.)
+ 
+How they constructed their sentiment detector is interesting.  Starting with a list of positive and negative terms, they had a lexical acquisition step to gather many more candidate synonyms and misspellings — a necessity in this social media domain, where  WordNet  ain’t gonna come close!  After manually filtering these candidates, they assess the sentiment toward a mention of a topic by looking for instances of these positive and negative words nearby, along with “negation heuristics” and a few other features.
+ 
+He describ</p><p>6 0.088724308 <a title="199-tfidf-6" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-04-16-Rise_and_fall_of_Dirichlet_process_clusters.html">194 brendan oconnor ai-2013-04-16-Rise and fall of Dirichlet process clusters</a></p>
+<p>7 0.079577476 <a title="199-tfidf-7" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-06-17-Pairwise_comparisons_for_relevance_evaluation.html">106 brendan oconnor ai-2008-06-17-Pairwise comparisons for relevance evaluation</a></p>
+<p>8 0.07329125 <a title="199-tfidf-8" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-11-13-Bayes_update_view_of_pointwise_mutual_information.html">178 brendan oconnor ai-2011-11-13-Bayes update view of pointwise mutual information</a></p>
+<p>9 0.070624843 <a title="199-tfidf-9" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>10 0.070122041 <a title="199-tfidf-10" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-09-25-Information_theory_stuff.html">175 brendan oconnor ai-2011-09-25-Information theory stuff</a></p>
+<p>11 0.064136922 <a title="199-tfidf-11" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-03-13-Cosine_similarity%2C_Pearson_correlation%2C_and_OLS_coefficients.html">182 brendan oconnor ai-2012-03-13-Cosine similarity, Pearson correlation, and OLS coefficients</a></p>
+<p>12 0.059231408 <a title="199-tfidf-12" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-10-05-Be_careful_with_dictionary-based_text_analysis.html">176 brendan oconnor ai-2011-10-05-Be careful with dictionary-based text analysis</a></p>
+<p>13 0.05667121 <a title="199-tfidf-13" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-17-p-values%2C_CDF%E2%80%99s%2C_NLP_etc..html">185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</a></p>
+<p>14 0.055986729 <a title="199-tfidf-14" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-01-Binary_classification_evaluation_in_R_via_ROCR.html">136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</a></p>
+<p>15 0.055917952 <a title="199-tfidf-15" href="../brendan_oconnor_ai-2014/brendan_oconnor_ai-2014-02-19-What_the_ACL-2014_review_scores_mean.html">203 brendan oconnor ai-2014-02-19-What the ACL-2014 review scores mean</a></p>
+<p>16 0.051384233 <a title="199-tfidf-16" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-01-02-The_Jungle_Economy.html">47 brendan oconnor ai-2007-01-02-The Jungle Economy</a></p>
+<p>17 0.049815532 <a title="199-tfidf-17" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-03-15-Feminists%2C_anarchists%2C_computational_complexity%2C_bounded_rationality%2C_nethack%2C_and_other_things_to_do.html">53 brendan oconnor ai-2007-03-15-Feminists, anarchists, computational complexity, bounded rationality, nethack, and other things to do</a></p>
+<p>18 0.048892442 <a title="199-tfidf-18" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-06-14-How_much_text_versus_metadata_is_in_a_tweet%3F.html">171 brendan oconnor ai-2011-06-14-How much text versus metadata is in a tweet?</a></p>
+<p>19 0.048869088 <a title="199-tfidf-19" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-08-08-When%E2%80%99s_the_last_time_you_dug_through_19th_century_English_mortuary_records.html">74 brendan oconnor ai-2007-08-08-When’s the last time you dug through 19th century English mortuary records</a></p>
+<p>20 0.048082843 <a title="199-tfidf-20" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/brendan_oconnor_ai_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, -0.181), (1, -0.089), (2, 0.09), (3, -0.049), (4, -0.024), (5, 0.002), (6, -0.007), (7, -0.086), (8, -0.132), (9, -0.024), (10, -0.048), (11, -0.036), (12, -0.009), (13, 0.176), (14, -0.046), (15, -0.057), (16, -0.101), (17, -0.091), (18, 0.093), (19, -0.088), (20, -0.077), (21, -0.069), (22, 0.083), (23, -0.087), (24, -0.003), (25, -0.011), (26, 0.164), (27, -0.129), (28, -0.017), (29, -0.006), (30, -0.065), (31, -0.087), (32, -0.03), (33, -0.116), (34, -0.073), (35, 0.094), (36, -0.094), (37, -0.017), (38, 0.053), (39, -0.066), (40, 0.037), (41, -0.184), (42, -0.003), (43, 0.063), (44, -0.094), (45, 0.094), (46, -0.044), (47, -0.087), (48, -0.041), (49, 0.006)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.98752421 <a title="199-lsi-1" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-31-Probabilistic_interpretation_of_the_B3_coreference_resolution_metric.html">199 brendan oconnor ai-2013-08-31-Probabilistic interpretation of the B3 coreference resolution metric</a></p>
+<p>Introduction: Here is an intuitive justification for the  B3  evaluation metric often used in coreference resolution, based on whether mention pairs are coreferent. If a mention from the document is chosen at random,
+  
+ B3-Recall is the (expected) proportion of its actual coreferents that the system thinks are coreferent with it. 
+ B3-Precision is the (expected) proportion of its system-hypothesized coreferents that are actually coreferent with it. 
+  
+Does this look correct to people? Details below:  
+ 
+In B3′s basic form, it’s a clustering evaluation metric, to evaluate a gold-standard clustering of mentions against a system-produced clustering of mentions.
+ 
+Let \(G\) mean a gold-standard entity and \(S\) mean a system-predicted entity, where an entity is a set of mentions. \(i\)Â refers to a mention; there are \(n\) mentions in the document. \(G_i\) means the gold entity that contains mention \(i\); and \(S_i\) means the system entity that has \(i\).
+ 
+The B3 precision and recall for a document</p><p>2 0.63304383 <a title="199-lsi-2" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-04-11-F-scores%2C_Dice%2C_and_Jaccard_set_similarity.html">183 brendan oconnor ai-2012-04-11-F-scores, Dice, and Jaccard set similarity</a></p>
+<p>Introduction: The  Dice similarity  is the same as  F1-score ; and they are monotonic in  Jaccard similarity .  I worked this out recently but couldn’t find anything about it online so here’s a writeup.
+ 
+Let \(A\) be the set of found items, and \(B\) the set of wanted items.  \(Prec=|AB|/|A|\), \(Rec=|AB|/|B|\).  Their harmonic mean, the \(F1\)-measure, is the same as the Dice coefficient: 
+\begin{align*} 
+F1(A,B) 
+&= \frac{2}{1/P+ 1/R} 
+ = \frac{2}{|A|/|AB| + |B|/|AB|} \\ 
+Dice(A,B) 
+&= \frac{2|AB|}{ |A| + |B| } \\ 
+&= \frac{2 |AB|}{ (|AB| + |A \setminus B|) + (|AB| + |B \setminus A|)} \\ 
+&= \frac{|AB|}{|AB| + \frac{1}{2}|A \setminus B| + \frac{1}{2} |B \setminus A|} 
+\end{align*}
+ 
+It’s nice to characterize the set comparison into the three mutually exclusive partitions \(AB\), \(A \setminus B\), and \(B \setminus A\).  This illustrates Dice’s close relationship to the Jaccard metric, 
+\begin{align*} 
+Jacc(A,B) 
+&= \frac{|AB|}{|A \cup B|} \\ 
+&= \frac{|AB|}{|AB| + |A \setminus B| + |B \setminus</p><p>3 0.5784992 <a title="199-lsi-3" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-11-13-Bayes_update_view_of_pointwise_mutual_information.html">178 brendan oconnor ai-2011-11-13-Bayes update view of pointwise mutual information</a></p>
+<p>Introduction: This is fun.  Pointwise Mutual Information (e.g.  Church and Hanks 1990 ) between two variable outcomes \(x\) and \(y\) is
+ 
+\[ PMI(x,y) = \log \frac{p(x,y)}{p(x)p(y)} \]
+ 
+It’s called “pointwise” because  Mutual Information , between two (discrete) variables X and Y, is the expectation of PMI over possible outcomes of X and Y: \( MI(X,Y) = \sum_{x,y} p(x,y) PMI(x,y) \).
+ 
+One interpretation of PMI is it’s measuring how much deviation from independence there is — since \(p(x,y)=p(x)p(y)\) if X and Y were independent, so the ratio is how non-independent they (the outcomes) are.
+ 
+You can get another interpretation of this quantity if you switch into conditional probabilities.  Looking just at the ratio, apply the definition of conditional probability:
+ 
+\[ \frac{p(x,y)}{p(x)p(y)} = \frac{p(x|y)}{p(x)} \]
+ 
+Think about doing a Bayes update for your belief about \(x\).  Start with the prior \(p(x)\), then learn \(y\) and you update to the posterior belief \(p(x|y)\).  How much your belief</p><p>4 0.57614291 <a title="199-lsi-4" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-06-17-Pairwise_comparisons_for_relevance_evaluation.html">106 brendan oconnor ai-2008-06-17-Pairwise comparisons for relevance evaluation</a></p>
+<p>Introduction: Not much on this blog lately, so I’ll repost a comment I just wrote on whether to use pairwise vs. absolute judgments for relevance quality evaluation.  (A fun one I know!)
+ 
+From  this post on the Dolores Labs blog .
+ 
+The paper being talked about is  Here or There: Preference Judgments for Relevance  by Carterette et al.
+  
+I skimmed through the Carterette paper and it’s interesting. My concern with pairwise setup is, in order to get comparability among query-result pairs, you need to get annotators to do an O(N^2) amount of work. (Unless you do something horribly complicated with partial orders.) The absolute judgment task scales linearly, of course. Given the AMT environment and a fixed budget, if I stay in the smaller-volume task, instead of spending a lot on a quadratic taskload, I can simply get a higher number of workers per result and boil out more noise. Of course, if it’s true the pairwise judgment task is easier — as the paper claims — that might make my spending more effic</p><p>5 0.54480374 <a title="199-lsi-5" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-08-Haghighi_and_Klein_%282009%29%3A_Simple_Coreference_Resolution_with_Rich_Syntactic_and_Semantic_Features.html">150 brendan oconnor ai-2009-08-08-Haghighi and Klein (2009): Simple Coreference Resolution with Rich Syntactic and Semantic Features</a></p>
+<p>Introduction: I haven’t done a paper review on this blog for a while, so here we go.
+ 
+ Coreference  resolution is an interesting NLP problem.  ( Examples. )  It involves honest-to-goodness syntactic, semantic, and discourse phenomena, but still seems like a real cognitive task that humans have to solve when reading text [1].  I haven’t read the whole literature, but I’ve always been puzzled by the crop of papers on it I’ve seen in the last year or two.  There’s a big focus on fancy graph/probabilistic/constrained optimization algorithms, but often these papers gloss over the linguistic features — the core information they actually make their decisions with [2].  I never understood why the latter isn’t the most important issue.  Therefore, it was a joy to read
+  
+ Aria Haghighi and Dan Klein, EMNLP-2009.   “Simple Coreference Resolution with Rich Syntactic and Semantic Features.”  
+  
+They describe a simple, essentially non-statistical system that outperforms previous unsupervised systems, and compa</p><p>6 0.52119297 <a title="199-lsi-6" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-04-21-What_inputs_do_Monte_Carlo_algorithms_need%3F.html">195 brendan oconnor ai-2013-04-21-What inputs do Monte Carlo algorithms need?</a></p>
+<p>7 0.47221982 <a title="199-lsi-7" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-27-Facebook_sentiment_mining_predicts_presidential_polls.html">131 brendan oconnor ai-2008-12-27-Facebook sentiment mining predicts presidential polls</a></p>
+<p>8 0.44967097 <a title="199-lsi-8" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-10-05-Be_careful_with_dictionary-based_text_analysis.html">176 brendan oconnor ai-2011-10-05-Be careful with dictionary-based text analysis</a></p>
+<p>9 0.44495431 <a title="199-lsi-9" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-04-16-Rise_and_fall_of_Dirichlet_process_clusters.html">194 brendan oconnor ai-2013-04-16-Rise and fall of Dirichlet process clusters</a></p>
+<p>10 0.37930471 <a title="199-lsi-10" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-17-p-values%2C_CDF%E2%80%99s%2C_NLP_etc..html">185 brendan oconnor ai-2012-07-17-p-values, CDF’s, NLP etc.</a></p>
+<p>11 0.35311112 <a title="199-lsi-11" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-03-13-Cosine_similarity%2C_Pearson_correlation%2C_and_OLS_coefficients.html">182 brendan oconnor ai-2012-03-13-Cosine similarity, Pearson correlation, and OLS coefficients</a></p>
+<p>12 0.34388348 <a title="199-lsi-12" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>13 0.33570164 <a title="199-lsi-13" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-07-01-Bias_correction_sneak_peek%21.html">108 brendan oconnor ai-2008-07-01-Bias correction sneak peek!</a></p>
+<p>14 0.32080635 <a title="199-lsi-14" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-01-Binary_classification_evaluation_in_R_via_ROCR.html">136 brendan oconnor ai-2009-04-01-Binary classification evaluation in R via ROCR</a></p>
+<p>15 0.28980845 <a title="199-lsi-15" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-08-16-A_better_Obama_vs_McCain_poll_aggregation.html">111 brendan oconnor ai-2008-08-16-A better Obama vs McCain poll aggregation</a></p>
+<p>16 0.28719488 <a title="199-lsi-16" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-08-08-When%E2%80%99s_the_last_time_you_dug_through_19th_century_English_mortuary_records.html">74 brendan oconnor ai-2007-08-08-When’s the last time you dug through 19th century English mortuary records</a></p>
+<p>17 0.28212354 <a title="199-lsi-17" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-09-19-End-to-end_NLP_packages.html">174 brendan oconnor ai-2011-09-19-End-to-end NLP packages</a></p>
+<p>18 0.27342841 <a title="199-lsi-18" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-09-25-Information_theory_stuff.html">175 brendan oconnor ai-2011-09-25-Information theory stuff</a></p>
+<p>19 0.27045673 <a title="199-lsi-19" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-07-08-Game_outcome_graphs_%E2%80%94_prisoner%E2%80%99s_dilemma_with_FUN_ARROWS%21%21%21.html">68 brendan oconnor ai-2007-07-08-Game outcome graphs — prisoner’s dilemma with FUN ARROWS!!!</a></p>
+<p>20 0.26495031 <a title="199-lsi-20" href="../brendan_oconnor_ai-2014/brendan_oconnor_ai-2014-02-19-What_the_ACL-2014_review_scores_mean.html">203 brendan oconnor ai-2014-02-19-What the ACL-2014 review scores mean</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/brendan_oconnor_ai_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(44, 0.099), (48, 0.039), (57, 0.021), (61, 0.433), (62, 0.011), (70, 0.026), (74, 0.126), (80, 0.064), (83, 0.01), (86, 0.025), (89, 0.037)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.95257664 <a title="199-lda-1" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-06-26-Good_linguistic_semantics_textbook%3F.html">172 brendan oconnor ai-2011-06-26-Good linguistic semantics textbook?</a></p>
+<p>Introduction: I’m looking for recommendations for a good textbook/handbook/reference on (non-formal) linguistic semantics. Â My undergrad semantics course was almost entirely focused on logical/formal semantics, which is fine, but I don’t feel familiar with the breadth of substantive issues — for example, I’d be hard-pressed to explain why something like semantic/thematic role labeling should be useful for anything at all.
+ 
+I somewhat randomly stumbled upon  Frawley 1992  ( review ) in a  used bookstore  and it seemed pretty good — in particular, it cleanly separates itself from the philosophical study of semantics, and thus identifies issues that seem amenable to computational modeling.
+ 
+I’m wondering what else is out there? Â Here’s  a comparison of three textbooks .</p><p>same-blog 2 0.93931729 <a title="199-lda-2" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-31-Probabilistic_interpretation_of_the_B3_coreference_resolution_metric.html">199 brendan oconnor ai-2013-08-31-Probabilistic interpretation of the B3 coreference resolution metric</a></p>
+<p>Introduction: Here is an intuitive justification for the  B3  evaluation metric often used in coreference resolution, based on whether mention pairs are coreferent. If a mention from the document is chosen at random,
+  
+ B3-Recall is the (expected) proportion of its actual coreferents that the system thinks are coreferent with it. 
+ B3-Precision is the (expected) proportion of its system-hypothesized coreferents that are actually coreferent with it. 
+  
+Does this look correct to people? Details below:  
+ 
+In B3′s basic form, it’s a clustering evaluation metric, to evaluate a gold-standard clustering of mentions against a system-produced clustering of mentions.
+ 
+Let \(G\) mean a gold-standard entity and \(S\) mean a system-predicted entity, where an entity is a set of mentions. \(i\)Â refers to a mention; there are \(n\) mentions in the document. \(G_i\) means the gold entity that contains mention \(i\); and \(S_i\) means the system entity that has \(i\).
+ 
+The B3 precision and recall for a document</p><p>3 0.90596694 <a title="199-lda-3" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-07-08-Game_outcome_graphs_%E2%80%94_prisoner%E2%80%99s_dilemma_with_FUN_ARROWS%21%21%21.html">68 brendan oconnor ai-2007-07-08-Game outcome graphs — prisoner’s dilemma with FUN ARROWS!!!</a></p>
+<p>Introduction: I think game theory could benefit immensely from better presentation.  Its default presentation is pretty mathematical.  This is good because it treats social interactions in an abstract way, highlighting their essential properties, but is bad because it’s hard to understand, especially at first.
+ 
+However, I think I have a visualization that can sometimes capture the same abstract properties of the mathematics.  Here’s a stab at using it to explain everyone’s favorite game, the prisoner’s dilemma.
+ 
+THE PD: Two players each choose whether to play nice, or be mean — Cooperate or Defect.  Then they simultaneously play their actions, and get payoffs depending on what both played.  If both cooperated, they help each other and do well; if both defect, they do quite poorly.  But if one tries to cooperate and the other defects, then the defector gets a big win, and the cooperator gets a crappy “sucker’s payoff”.
+ 
+The formal PD definition looks like this:
+ 
+   
+ 
+where each of the four pairs</p><p>4 0.36362574 <a title="199-lda-4" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<p>Introduction: 10/1/09 update  — well, it’s been nearly a year, and I should say not everything in this rant is totally true, and I certainly believe much less of it now.  Current take:  Statistics , not machine learning, is the real deal, but unfortunately suffers from bad marketing.  On the other hand, to the extent that bad marketing includes misguided undergraduate curriculums, there’s plenty of room to improve for everyone.
+   
+So it’s pretty clear by now that statistics and machine learning aren’t very different fields. I was recently pointed to   a very amusing comparison   by the excellent statistician — and machine learning expert —   Robert Tibshiriani  .  Reproduced here:  
+ 
+  Glossary 
+   
+ Machine learning
+  Statistics 
+   
+ network, graphs
+  model 
+   
+ weights
+  parameters 
+   
+ learning
+  fitting 
+   
+ generalization
+  test set performance 
+   
+ supervised learning
+  regression/classiﬁcation 
+   
+ unsupervised learning
+  density estimation, clustering 
+   
+ large grant = $1,000,000</p><p>5 0.36175472 <a title="199-lda-5" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-08-Haghighi_and_Klein_%282009%29%3A_Simple_Coreference_Resolution_with_Rich_Syntactic_and_Semantic_Features.html">150 brendan oconnor ai-2009-08-08-Haghighi and Klein (2009): Simple Coreference Resolution with Rich Syntactic and Semantic Features</a></p>
+<p>Introduction: I haven’t done a paper review on this blog for a while, so here we go.
+ 
+ Coreference  resolution is an interesting NLP problem.  ( Examples. )  It involves honest-to-goodness syntactic, semantic, and discourse phenomena, but still seems like a real cognitive task that humans have to solve when reading text [1].  I haven’t read the whole literature, but I’ve always been puzzled by the crop of papers on it I’ve seen in the last year or two.  There’s a big focus on fancy graph/probabilistic/constrained optimization algorithms, but often these papers gloss over the linguistic features — the core information they actually make their decisions with [2].  I never understood why the latter isn’t the most important issue.  Therefore, it was a joy to read
+  
+ Aria Haghighi and Dan Klein, EMNLP-2009.   “Simple Coreference Resolution with Rich Syntactic and Semantic Features.”  
+  
+They describe a simple, essentially non-statistical system that outperforms previous unsupervised systems, and compa</p><p>6 0.33730191 <a title="199-lda-6" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-17-1_billion_web_page_dataset_from_CMU.html">138 brendan oconnor ai-2009-04-17-1 billion web page dataset from CMU</a></p>
+<p>7 0.32762194 <a title="199-lda-7" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-03-15-Feminists%2C_anarchists%2C_computational_complexity%2C_bounded_rationality%2C_nethack%2C_and_other_things_to_do.html">53 brendan oconnor ai-2007-03-15-Feminists, anarchists, computational complexity, bounded rationality, nethack, and other things to do</a></p>
+<p>8 0.32563987 <a title="199-lda-8" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-12-20-Data-driven_charity.html">86 brendan oconnor ai-2007-12-20-Data-driven charity</a></p>
+<p>9 0.32350343 <a title="199-lda-9" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-05-18-Announcing_TweetMotif_for_summarizing_twitter_topics.html">140 brendan oconnor ai-2009-05-18-Announcing TweetMotif for summarizing twitter topics</a></p>
+<p>10 0.31923202 <a title="199-lda-10" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-09-13-Response_on_our_movie_personas_paper.html">200 brendan oconnor ai-2013-09-13-Response on our movie personas paper</a></p>
+<p>11 0.3190164 <a title="199-lda-11" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-09-19-End-to-end_NLP_packages.html">174 brendan oconnor ai-2011-09-19-End-to-end NLP packages</a></p>
+<p>12 0.31420338 <a title="199-lda-12" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-10-02-Powerset%E2%80%99s_natural_language_search_system.html">188 brendan oconnor ai-2012-10-02-Powerset’s natural language search system</a></p>
+<p>13 0.31409714 <a title="199-lda-13" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-12-Disease_tracking_with_web_queries_and_social_messaging_%28Google%2C_Twitter%2C_Facebook%E2%80%A6%29.html">123 brendan oconnor ai-2008-11-12-Disease tracking with web queries and social messaging (Google, Twitter, Facebook…)</a></p>
+<p>14 0.31355521 <a title="199-lda-14" href="../brendan_oconnor_ai-2014/brendan_oconnor_ai-2014-02-19-What_the_ACL-2014_review_scores_mean.html">203 brendan oconnor ai-2014-02-19-What the ACL-2014 review scores mean</a></p>
+<p>15 0.30791217 <a title="199-lda-15" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-04-The_%2460%2C000_cat%3A_deep_belief_networks_make_less_sense_for_language_than_vision.html">184 brendan oconnor ai-2012-07-04-The $60,000 cat: deep belief networks make less sense for language than vision</a></p>
+<p>16 0.30083823 <a title="199-lda-16" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-08-Patches_to_Rainbow%2C_the_old_text_classifier_that_won%E2%80%99t_go_away.html">153 brendan oconnor ai-2009-09-08-Patches to Rainbow, the old text classifier that won’t go away</a></p>
+<p>17 0.299833 <a title="199-lda-17" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-08-20-Some_analysis_of_tweet_shares_and_%E2%80%9Cpredicting%E2%80%9D_election_outcomes.html">198 brendan oconnor ai-2013-08-20-Some analysis of tweet shares and “predicting” election outcomes</a></p>
+<p>18 0.29839113 <a title="199-lda-18" href="../brendan_oconnor_ai-2004/brendan_oconnor_ai-2004-11-24-addiction_%26_2_problems_of_economics.html">2 brendan oconnor ai-2004-11-24-addiction & 2 problems of economics</a></p>
+<p>19 0.29714146 <a title="199-lda-19" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-03-27-Seth_Roberts_and_academic_blogging.html">55 brendan oconnor ai-2007-03-27-Seth Roberts and academic blogging</a></p>
+<p>20 0.29681641 <a title="199-lda-20" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-06-10-Freak-Freakonomics_%28Ariel_Rubinstein_is_the_shit%21%29.html">63 brendan oconnor ai-2007-06-10-Freak-Freakonomics (Ariel Rubinstein is the shit!)</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>128 brendan oconnor ai-2008-11-28-Calculating running variance in Python and C++</title>
+</head>
+
+<body>
+<p><a title="brendan_oconnor_ai" href="../brendan_oconnor_ai_home.html">brendan_oconnor_ai</a> <a title="brendan_oconnor_ai-2008" href="../home/brendan_oconnor_ai-2008_home.html">brendan_oconnor_ai-2008</a> <a title="brendan_oconnor_ai-2008-128" href="#">brendan_oconnor_ai-2008-128</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>128 brendan oconnor ai-2008-11-28-Calculating running variance in Python and C++</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="brendan_oconnor_ai-2008-128-html" href="http://brenocon.com/blog/2008/11/calculating-running-variance-in-python-and-c/">html</a></p><p>Introduction: It’s fairly obvious that an average can be calculated online, but interestingly, there’s also a way to calculate a running variance and standard deviation.  Read all about it  here .
+ 
+I’m playing around with the  Netflix Prize  data of 100 million movie ratings, and a huge problem is figuring out how to load and calculate everything in memory.  I’m having success with  NumPy , the numeric library for Python, because it compactly stores arrays with C/Fortran binary layouts.  For example, 100 million 32-bit floats = 100M * 4 = 400MB of memory, which is manageable.  And it’s much easier to play around interactively in  ipython / matplotlib  rather than write C++ for everything.
+ 
+Unfortunately, the simple ways to calculate variance on an array of that size create wasteful intermediate data structures as long as the original array.
+  
+>>> mean( (x-mean(x)) ** 2 )            # two intermediate structures
+>>> tmp=x-mean(x); tmp**=2; mean(tmp)   # one intermediate structure
+  
+That’s an e</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 It’s fairly obvious that an average can be calculated online, but interestingly, there’s also a way to calculate a running variance and standard deviation. [sent-1, score-0.533]
+</p><p>2 I’m playing around with the  Netflix Prize  data of 100 million movie ratings, and a huge problem is figuring out how to load and calculate everything in memory. [sent-3, score-0.556]
+</p><p>3 I’m having success with  NumPy , the numeric library for Python, because it compactly stores arrays with C/Fortran binary layouts. [sent-4, score-0.21]
+</p><p>4 For example, 100 million 32-bit floats = 100M * 4 = 400MB of memory, which is manageable. [sent-5, score-0.113]
+</p><p>5 And it’s much easier to play around interactively in  ipython / matplotlib  rather than write C++ for everything. [sent-6, score-0.216]
+</p><p>6 Unfortunately, the simple ways to calculate variance on an array of that size create wasteful intermediate data structures as long as the original array. [sent-7, score-1.073]
+</p><p>7 >>> mean( (x-mean(x)) ** 2 )            # two intermediate structures >>> tmp=x-mean(x); tmp**=2; mean(tmp)   # one intermediate structure    That’s an extra 400 or 800 megs of memory being thrown around. [sent-8, score-0.883]
+</p><p>8 (And if x was an array of integers, the x-mean(x) step implicitly converts to 64-bit doubles which, well, doubles things again! [sent-9, score-0.644]
+</p><p>9 )   So, following John Cook’s  explanation , I wrote  running_stat , a C++ and Python implementation of running variance. [sent-10, score-0.281]
+</p><p>10 It takes almost no memory and is faster than NumPy’s native variance function. [sent-11, score-0.557]
+</p><p>11 Demo :    In [1]: from numpy import * In [2]: x = arange(1e8)                      # python RSIZE = 774 MB  In [3]: timeit -n1 -r5 std(x)                # RSIZE goes as high as 2. [sent-12, score-0.691]
+</p><p>12 01 s per loop  In [4]: import running_stat In [5]: timeit -n1 -r5 running_stat. [sent-14, score-0.391]
+</p><p>13 std(x)   # RSIZE = 774 MB the whole time 1 loops, best of 5: 1. [sent-15, score-0.07]
+</p><p>14 66 s per loop    The C++ implementation is very simple and can be ripped out of  running_stat. [sent-16, score-0.43]
+</p><p>15 com/brendano/running_stat    I wonder if Haskell’s laziness, perhaps along with my friend Patrick’s  Haskell BLAS bindings , might magically solve some of the memory usage in the naive implementation. [sent-19, score-0.563]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('memory', 0.283), ('intermediate', 0.267), ('rsize', 0.267), ('tmp', 0.267), ('calculate', 0.232), ('numpy', 0.232), ('variance', 0.197), ('doubles', 0.178), ('haskell', 0.178), ('loops', 0.178), ('mb', 0.178), ('implementation', 0.177), ('python', 0.163), ('array', 0.155), ('timeit', 0.155), ('structures', 0.141), ('loop', 0.141), ('import', 0.141), ('million', 0.113), ('running', 0.104), ('per', 0.095), ('simple', 0.081), ('std', 0.077), ('ripped', 0.077), ('bindings', 0.077), ('cook', 0.077), ('implicitly', 0.077), ('integers', 0.077), ('ipython', 0.077), ('load', 0.077), ('native', 0.077), ('stores', 0.077), ('mean', 0.073), ('prize', 0.071), ('usage', 0.071), ('ratings', 0.071), ('demo', 0.071), ('netflix', 0.071), ('gb', 0.071), ('matplotlib', 0.071), ('numeric', 0.071), ('best', 0.07), ('around', 0.068), ('solve', 0.066), ('naive', 0.066), ('extra', 0.066), ('movie', 0.066), ('success', 0.062), ('interestingly', 0.059), ('step', 0.056)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999994 <a title="128-tfidf-1" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-28-Calculating_running_variance_in_Python_and_C%2B%2B.html">128 brendan oconnor ai-2008-11-28-Calculating running variance in Python and C++</a></p>
+<p>Introduction: It’s fairly obvious that an average can be calculated online, but interestingly, there’s also a way to calculate a running variance and standard deviation.  Read all about it  here .
+ 
+I’m playing around with the  Netflix Prize  data of 100 million movie ratings, and a huge problem is figuring out how to load and calculate everything in memory.  I’m having success with  NumPy , the numeric library for Python, because it compactly stores arrays with C/Fortran binary layouts.  For example, 100 million 32-bit floats = 100M * 4 = 400MB of memory, which is manageable.  And it’s much easier to play around interactively in  ipython / matplotlib  rather than write C++ for everything.
+ 
+Unfortunately, the simple ways to calculate variance on an array of that size create wasteful intermediate data structures as long as the original array.
+  
+>>> mean( (x-mean(x)) ** 2 )            # two intermediate structures
+>>> tmp=x-mean(x); tmp**=2; mean(tmp)   # one intermediate structure
+  
+That’s an e</p><p>2 0.10084507 <a title="128-tfidf-2" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-02-Histograms_%E2%80%94_matplotlib_vs._R.html">179 brendan oconnor ai-2012-02-02-Histograms — matplotlib vs. R</a></p>
+<p>Introduction: When possible, I like to use R for its really, really good statistical visualization capabilities.  I’m doing a modeling project in Python right now (R is too slow, bad at large data, bad at structured data, etc.), and in comparison to base R, the matplotlib library is just painful.  I wrote a toy  Metropolis  sampler for a  triangle distribution  and all I want to see is whether it looks like it’s working.  For the same dataset, here are histograms with default settings.  (Python:  pylab.hist(d) , R:  hist(d) )
+ 
+   
+ 
+I want to know whether my Metropolis sampler is working; those two plots give a very different idea.  Of course, you could say this is an unfair comparison, since matplotlib is only using 10 bins, while R is using 18 here — and it’s always important to vary the bin size a few times when looking at histograms.  But R’s defaults really are better: it actually uses an adaptive bin size, and the heuristic worked, choosing a reasonable number for the data.  The  hist()  manu</p><p>3 0.080103844 <a title="128-tfidf-3" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-02-23-Comparison_of_data_analysis_packages%3A_R%2C_Matlab%2C_SciPy%2C_Excel%2C_SAS%2C_SPSS%2C_Stata.html">135 brendan oconnor ai-2009-02-23-Comparison of data analysis packages: R, Matlab, SciPy, Excel, SAS, SPSS, Stata</a></p>
+<p>Introduction: Lukas  and I were trying to write a succinct comparison of the most popular packages that are typically used for data analysis.  I think most people choose one based on what people around them use or what they learn in school, so I’ve found it hard to find comparative information.  I’m posting the table here in hopes of useful comments.
+  
+ 
+ 
+  Name  
+  Advantages  
+  Disadvantages  
+  Open source?  
+  Typical   users  
+ 
+ 
+ R 
+ Library support; visualization 
+ Steep learning curve 
+ Yes 
+ Finance; Statistics 
+ 
+ 
+ Matlab 
+ Elegant matrix support; visualization 
+ Expensive; incomplete statistics support 
+ No 
+ Engineering 
+ 
+ 
+ SciPy/NumPy/Matplotlib 
+ Python (general-purpose programming language) 
+ Immature 
+ Yes 
+ Engineering 
+ 
+ 
+ Excel 
+ Easy; visual; flexible 
+ Large datasets 
+ No 
+ Business 
+ 
+ 
+ SAS 
+ Large datasets 
+ Expensive; outdated programming language 
+ No 
+ Business; Government 
+ 
+ 
+ Stata 
+ Easy statistical analysis 
+  
+ No 
+ Science 
+ 
+ 
+ SPSS 
+ Like Stata but more ex</p><p>4 0.068007246 <a title="128-tfidf-4" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-24-Python_bindings_to_Google%E2%80%99s_%E2%80%9CAJAX%E2%80%9D_Search_API.html">127 brendan oconnor ai-2008-11-24-Python bindings to Google’s “AJAX” Search API</a></p>
+<p>Introduction: I couldn’t find this anywhere on the web, so I threw together a quick Python binding for  Google’s “AJAX” Search API  (or rather, JSON-over-HTTP).Â  (There are bindings out there for the old SOAP interface; I heard that was discontinued though.)
+ 
+Nothing fancy but it works for me.Â  At:  gist.github.com/28405</p><p>5 0.06401448 <a title="128-tfidf-5" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-21-Netflix_Prize.html">125 brendan oconnor ai-2008-11-21-Netflix Prize</a></p>
+<p>Introduction: Here’s  a fascinating NYT article on the Netflix Prize  for a better movie recommendation system.  Tons of great stuff there; here’s a few highlights …
+ 
+First, a good unsupervised learning story:
+  
+There’s a sort of unsettling, alien quality to their computers’ results. When the teams examine the ways that singular value decomposition is slotting movies into categories, sometimes it makes sense to them — as when the computer highlights what appears to be some essence of nerdiness in a bunch of sci-fi movies. But many categorizations are now so obscure that they cannot see the reasoning behind them. Possibly the algorithms are finding connections so deep and subconscious that customers themselves wouldn’t even recognize them. At one point, Chabbert showed me a list of movies that his algorithm had discovered share some ineffable similarity; it includes a historical movie, “Joan of Arc,” a wrestling video, “W.W.E.: SummerSlam 2004,” the comedy “It Had to Be You” and a version of Charle</p><p>6 0.059344456 <a title="128-tfidf-6" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-03-29-Allende%E2%80%99s_cybernetic_economy_project.html">98 brendan oconnor ai-2008-03-29-Allende’s cybernetic economy project</a></p>
+<p>7 0.058173224 <a title="128-tfidf-7" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>8 0.048918378 <a title="128-tfidf-8" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-22-Performance_comparison%3A_key-value_stores_for_language_model_counts.html">139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</a></p>
+<p>9 0.046605024 <a title="128-tfidf-9" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-08-21-Berkeley_SDA_and_the_General_Social_Survey.html">186 brendan oconnor ai-2012-08-21-Berkeley SDA and the General Social Survey</a></p>
+<p>10 0.046512824 <a title="128-tfidf-10" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-02-19-Move_to_brenocon.com.html">165 brendan oconnor ai-2011-02-19-Move to brenocon.com</a></p>
+<p>11 0.041379649 <a title="128-tfidf-11" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-10-08-MyDebates.org%2C_online_polling%2C_and_potentially_the_coolest_question_corpus_ever.html">116 brendan oconnor ai-2008-10-08-MyDebates.org, online polling, and potentially the coolest question corpus ever</a></p>
+<p>12 0.039193176 <a title="128-tfidf-12" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-05-27-Where_tweets_get_sent_from.html">142 brendan oconnor ai-2009-05-27-Where tweets get sent from</a></p>
+<p>13 0.038316775 <a title="128-tfidf-13" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-05-08-Movie_summary_corpus_and_learning_character_personas.html">196 brendan oconnor ai-2013-05-08-Movie summary corpus and learning character personas</a></p>
+<p>14 0.037533019 <a title="128-tfidf-14" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-04-08-More_fun_with_Gapminder_-_Trendalyzer.html">58 brendan oconnor ai-2007-04-08-More fun with Gapminder - Trendalyzer</a></p>
+<p>15 0.036816552 <a title="128-tfidf-15" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-04-Blogger_to_WordPress_migration_helper.html">149 brendan oconnor ai-2009-08-04-Blogger to WordPress migration helper</a></p>
+<p>16 0.035312679 <a title="128-tfidf-16" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-07-22-FFT%3A_Friedman_%2B_Fortran_%2B_Tricks.html">147 brendan oconnor ai-2009-07-22-FFT: Friedman + Fortran + Tricks</a></p>
+<p>17 0.034551211 <a title="128-tfidf-17" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-07-04-The_%2460%2C000_cat%3A_deep_belief_networks_make_less_sense_for_language_than_vision.html">184 brendan oconnor ai-2012-07-04-The $60,000 cat: deep belief networks make less sense for language than vision</a></p>
+<p>18 0.033747628 <a title="128-tfidf-18" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-07-23-R_questions_on_StackOverflow.html">148 brendan oconnor ai-2009-07-23-R questions on StackOverflow</a></p>
+<p>19 0.033480309 <a title="128-tfidf-19" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-07-01-Bias_correction_sneak_peek%21.html">108 brendan oconnor ai-2008-07-01-Bias correction sneak peek!</a></p>
+<p>20 0.033291876 <a title="128-tfidf-20" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-03-27-Seth_Roberts_and_academic_blogging.html">55 brendan oconnor ai-2007-03-27-Seth Roberts and academic blogging</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/brendan_oconnor_ai_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, -0.121), (1, -0.07), (2, -0.0), (3, -0.0), (4, -0.019), (5, -0.017), (6, -0.008), (7, -0.047), (8, 0.022), (9, -0.001), (10, -0.055), (11, -0.02), (12, -0.066), (13, -0.028), (14, -0.028), (15, 0.019), (16, 0.078), (17, 0.051), (18, -0.079), (19, 0.081), (20, 0.083), (21, -0.02), (22, -0.039), (23, 0.005), (24, -0.091), (25, -0.042), (26, -0.031), (27, -0.027), (28, 0.033), (29, -0.101), (30, 0.032), (31, -0.13), (32, 0.086), (33, -0.03), (34, -0.12), (35, -0.085), (36, 0.028), (37, 0.011), (38, 0.036), (39, -0.144), (40, 0.041), (41, -0.112), (42, -0.05), (43, 0.02), (44, 0.058), (45, -0.048), (46, -0.074), (47, 0.138), (48, 0.043), (49, -0.051)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.98621827 <a title="128-lsi-1" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-28-Calculating_running_variance_in_Python_and_C%2B%2B.html">128 brendan oconnor ai-2008-11-28-Calculating running variance in Python and C++</a></p>
+<p>Introduction: It’s fairly obvious that an average can be calculated online, but interestingly, there’s also a way to calculate a running variance and standard deviation.  Read all about it  here .
+ 
+I’m playing around with the  Netflix Prize  data of 100 million movie ratings, and a huge problem is figuring out how to load and calculate everything in memory.  I’m having success with  NumPy , the numeric library for Python, because it compactly stores arrays with C/Fortran binary layouts.  For example, 100 million 32-bit floats = 100M * 4 = 400MB of memory, which is manageable.  And it’s much easier to play around interactively in  ipython / matplotlib  rather than write C++ for everything.
+ 
+Unfortunately, the simple ways to calculate variance on an array of that size create wasteful intermediate data structures as long as the original array.
+  
+>>> mean( (x-mean(x)) ** 2 )            # two intermediate structures
+>>> tmp=x-mean(x); tmp**=2; mean(tmp)   # one intermediate structure
+  
+That’s an e</p><p>2 0.51927549 <a title="128-lsi-2" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-22-Performance_comparison%3A_key-value_stores_for_language_model_counts.html">139 brendan oconnor ai-2009-04-22-Performance comparison: key-value stores for language model counts</a></p>
+<p>Introduction: I’m doing  word and bigram counts  on a corpus of tweets.  I want to store and rapidly retrieve them later for  language model  purposes.  So there’s a big table of counts that get incremented many times.  The easiest way to get something running is to use an open-source key/value store; but which?  There’s recently been some development in this area so I thought it would be good to revisit and evaluate some options.
+ 
+Here are timings for a single counting process: iterate over 45,000 short text messages, tokenize them, then increment counters for their unigrams and bigrams.  (The speed of the data store is only one component of performance.)  There are about 17 increments per tweet: 400k unique terms and 750k total count.  This is substantially smaller than what I need, but it’s small enough to easily test.  I used several very different architectures and packages, explained below.
+  
+ 
+ architecture
+  name
+  speed
+   
+ in-memory, within-process
+  python dictionary
+   2700 tweets/sec</p><p>3 0.51732916 <a title="128-lsi-3" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-02-Histograms_%E2%80%94_matplotlib_vs._R.html">179 brendan oconnor ai-2012-02-02-Histograms — matplotlib vs. R</a></p>
+<p>Introduction: When possible, I like to use R for its really, really good statistical visualization capabilities.  I’m doing a modeling project in Python right now (R is too slow, bad at large data, bad at structured data, etc.), and in comparison to base R, the matplotlib library is just painful.  I wrote a toy  Metropolis  sampler for a  triangle distribution  and all I want to see is whether it looks like it’s working.  For the same dataset, here are histograms with default settings.  (Python:  pylab.hist(d) , R:  hist(d) )
+ 
+   
+ 
+I want to know whether my Metropolis sampler is working; those two plots give a very different idea.  Of course, you could say this is an unfair comparison, since matplotlib is only using 10 bins, while R is using 18 here — and it’s always important to vary the bin size a few times when looking at histograms.  But R’s defaults really are better: it actually uses an adaptive bin size, and the heuristic worked, choosing a reasonable number for the data.  The  hist()  manu</p><p>4 0.49987951 <a title="128-lsi-4" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>Introduction: update 2012-10-25 : I’ve been informed there is a new maintainer for Mawk, who has probably fixed the bugs I’ve been seeing.
+  
+
+From: Gert Hulselmans   
+
+
+[The bugs you have found are] indeed true with mawk v1.3.3 which comes standard with Debian/Ubuntu.  This version is almost not developed the last 10 years.
+
+
+I now already use mawk v1.3.4 maintained by another developer (Thomas E. Dickey) 
+for more than a year on huge datafiles (sometimes several GB).
+
+
+The problems/wrong results I had with mawk v1.3.3 sometimes are gone. In his version, normally all open/known bugs are fixed.
+
+
+This version can be downloaded from:  http://invisible-island.net/mawk/ 
+
+     update 2010-04-30  : I have since found large datasets where mawk is buggy and gives the wrong result.  nawk seems safe.   When one of these newfangled   “Big Data”   sets comes your way, the very first thing you have to do is data munging: shuffling around file formats, renaming fields and the like.  Once you’re dealing with hun</p><p>5 0.49590549 <a title="128-lsi-5" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-05-19-conplot_%E2%80%93_a_console_plotter.html">103 brendan oconnor ai-2008-05-19-conplot – a console plotter</a></p>
+<p>Introduction: This has to be the most quick-and-dirty data visualizer out there: I wrote an ascii art plotter script that takes a column of numbers on stdin and throws out a plot on your console.  I’ve been using it for several months to quickly look at numbers on the commandline, especially from logs and such.  (Back in school I would use gnuplot for this; R is good too.  But sometimes you want to move really fast, esp if you have a few hideous perl -pe one-liners on your hands and mucking around with temp files will interrupt your flow.)
+ 
+Link:  github.com/brendano/conplot 
+ 
+“Demo”:
+  $ cat time.log | conplot
+14601
+                                                                         oooooooo
+                                                                    oooooo
+                                                            ooooooooo
+                                                 oooooooooooo
+11269                                     oooooooo
+                                       o</p><p>6 0.49158132 <a title="128-lsi-6" href="../brendan_oconnor_ai-2011/brendan_oconnor_ai-2011-02-19-Move_to_brenocon.com.html">165 brendan oconnor ai-2011-02-19-Move to brenocon.com</a></p>
+<p>7 0.47944483 <a title="128-lsi-7" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-02-23-Comparison_of_data_analysis_packages%3A_R%2C_Matlab%2C_SciPy%2C_Excel%2C_SAS%2C_SPSS%2C_Stata.html">135 brendan oconnor ai-2009-02-23-Comparison of data analysis packages: R, Matlab, SciPy, Excel, SAS, SPSS, Stata</a></p>
+<p>8 0.37296203 <a title="128-lsi-8" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-08-21-Berkeley_SDA_and_the_General_Social_Survey.html">186 brendan oconnor ai-2012-08-21-Berkeley SDA and the General Social Survey</a></p>
+<p>9 0.3506901 <a title="128-lsi-9" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-05-08-Movie_summary_corpus_and_learning_character_personas.html">196 brendan oconnor ai-2013-05-08-Movie summary corpus and learning character personas</a></p>
+<p>10 0.34343842 <a title="128-lsi-10" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-07-22-FFT%3A_Friedman_%2B_Fortran_%2B_Tricks.html">147 brendan oconnor ai-2009-07-22-FFT: Friedman + Fortran + Tricks</a></p>
+<p>11 0.3350811 <a title="128-lsi-11" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-07-04-City_crisis_simulation_%28e.g._terrorist_attack%29.html">14 brendan oconnor ai-2005-07-04-City crisis simulation (e.g. terrorist attack)</a></p>
+<p>12 0.33169878 <a title="128-lsi-12" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-04-16-Rise_and_fall_of_Dirichlet_process_clusters.html">194 brendan oconnor ai-2013-04-16-Rise and fall of Dirichlet process clusters</a></p>
+<p>13 0.32832938 <a title="128-lsi-13" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-24-Python_bindings_to_Google%E2%80%99s_%E2%80%9CAJAX%E2%80%9D_Search_API.html">127 brendan oconnor ai-2008-11-24-Python bindings to Google’s “AJAX” Search API</a></p>
+<p>14 0.32748827 <a title="128-lsi-14" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-03-29-Allende%E2%80%99s_cybernetic_economy_project.html">98 brendan oconnor ai-2008-03-29-Allende’s cybernetic economy project</a></p>
+<p>15 0.31785631 <a title="128-lsi-15" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-10-08-MyDebates.org%2C_online_polling%2C_and_potentially_the_coolest_question_corpus_ever.html">116 brendan oconnor ai-2008-10-08-MyDebates.org, online polling, and potentially the coolest question corpus ever</a></p>
+<p>16 0.2956405 <a title="128-lsi-16" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-10-11-It_is_accurate_to_determine_a_blog%E2%80%99s_bias_by_what_it_links_to.html">117 brendan oconnor ai-2008-10-11-It is accurate to determine a blog’s bias by what it links to</a></p>
+<p>17 0.2866185 <a title="128-lsi-17" href="../brendan_oconnor_ai-2010/brendan_oconnor_ai-2010-03-31-How_Facebook_privacy_failed_me.html">158 brendan oconnor ai-2010-03-31-How Facebook privacy failed me</a></p>
+<p>18 0.27739146 <a title="128-lsi-18" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-08-04-Blogger_to_WordPress_migration_helper.html">149 brendan oconnor ai-2009-08-04-Blogger to WordPress migration helper</a></p>
+<p>19 0.27721065 <a title="128-lsi-19" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-09-15-Dollar_auction.html">77 brendan oconnor ai-2007-09-15-Dollar auction</a></p>
+<p>20 0.27717784 <a title="128-lsi-20" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-10-15-Financial_market_theory_on_the_Daily_Show.html">119 brendan oconnor ai-2008-10-15-Financial market theory on the Daily Show</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/brendan_oconnor_ai_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(4, 0.052), (7, 0.575), (24, 0.031), (44, 0.05), (55, 0.026), (70, 0.044), (74, 0.087), (80, 0.025)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97231662 <a title="128-lda-1" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-28-Calculating_running_variance_in_Python_and_C%2B%2B.html">128 brendan oconnor ai-2008-11-28-Calculating running variance in Python and C++</a></p>
+<p>Introduction: It’s fairly obvious that an average can be calculated online, but interestingly, there’s also a way to calculate a running variance and standard deviation.  Read all about it  here .
+ 
+I’m playing around with the  Netflix Prize  data of 100 million movie ratings, and a huge problem is figuring out how to load and calculate everything in memory.  I’m having success with  NumPy , the numeric library for Python, because it compactly stores arrays with C/Fortran binary layouts.  For example, 100 million 32-bit floats = 100M * 4 = 400MB of memory, which is manageable.  And it’s much easier to play around interactively in  ipython / matplotlib  rather than write C++ for everything.
+ 
+Unfortunately, the simple ways to calculate variance on an array of that size create wasteful intermediate data structures as long as the original array.
+  
+>>> mean( (x-mean(x)) ** 2 )            # two intermediate structures
+>>> tmp=x-mean(x); tmp**=2; mean(tmp)   # one intermediate structure
+  
+That’s an e</p><p>2 0.81829906 <a title="128-lda-2" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-07-04-freakonomics_blog.html">15 brendan oconnor ai-2005-07-04-freakonomics blog</a></p>
+<p>Introduction: Here it is!   Still need to read the book.  I’m a little bothered by people proclaiming it to be the first application of economic principles to social questions — hasn’t social economics been around for decades? — but the spirit and approach is right.</p><p>3 0.19942327 <a title="128-lda-3" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-02-02-Histograms_%E2%80%94_matplotlib_vs._R.html">179 brendan oconnor ai-2012-02-02-Histograms — matplotlib vs. R</a></p>
+<p>Introduction: When possible, I like to use R for its really, really good statistical visualization capabilities.  I’m doing a modeling project in Python right now (R is too slow, bad at large data, bad at structured data, etc.), and in comparison to base R, the matplotlib library is just painful.  I wrote a toy  Metropolis  sampler for a  triangle distribution  and all I want to see is whether it looks like it’s working.  For the same dataset, here are histograms with default settings.  (Python:  pylab.hist(d) , R:  hist(d) )
+ 
+   
+ 
+I want to know whether my Metropolis sampler is working; those two plots give a very different idea.  Of course, you could say this is an unfair comparison, since matplotlib is only using 10 bins, while R is using 18 here — and it’s always important to vary the bin size a few times when looking at histograms.  But R’s defaults really are better: it actually uses an adaptive bin size, and the heuristic worked, choosing a reasonable number for the data.  The  hist()  manu</p><p>4 0.17461497 <a title="128-lda-4" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-09-10-Don%E2%80%99t_MAWK_AWK_%E2%80%93_the_fastest_and_most_elegant_big_data_munging_language%21.html">154 brendan oconnor ai-2009-09-10-Don’t MAWK AWK – the fastest and most elegant big data munging language!</a></p>
+<p>Introduction: update 2012-10-25 : I’ve been informed there is a new maintainer for Mawk, who has probably fixed the bugs I’ve been seeing.
+  
+
+From: Gert Hulselmans   
+
+
+[The bugs you have found are] indeed true with mawk v1.3.3 which comes standard with Debian/Ubuntu.  This version is almost not developed the last 10 years.
+
+
+I now already use mawk v1.3.4 maintained by another developer (Thomas E. Dickey) 
+for more than a year on huge datafiles (sometimes several GB).
+
+
+The problems/wrong results I had with mawk v1.3.3 sometimes are gone. In his version, normally all open/known bugs are fixed.
+
+
+This version can be downloaded from:  http://invisible-island.net/mawk/ 
+
+     update 2010-04-30  : I have since found large datasets where mawk is buggy and gives the wrong result.  nawk seems safe.   When one of these newfangled   “Big Data”   sets comes your way, the very first thing you have to do is data munging: shuffling around file formats, renaming fields and the like.  Once you’re dealing with hun</p><p>5 0.17217967 <a title="128-lda-5" href="../brendan_oconnor_ai-2014/brendan_oconnor_ai-2014-02-19-What_the_ACL-2014_review_scores_mean.html">203 brendan oconnor ai-2014-02-19-What the ACL-2014 review scores mean</a></p>
+<p>Introduction: I’ve had several people ask me what the numbers in  ACL  reviews mean — and I can’t find anywhere online where they’re described.  (Can anyone point this out if it is somewhere?)
+ 
+So here’s the review form, below.  They all go from 1 to 5, with 5 the best.  I think the review emails to authors only include a subset of the below — for example, “Overall Recommendation” is not included?
+ 
+The CFP said that they have different types of review forms for different types of papers.  I think this one is for a standard full paper.  I guess what people  really  want to know is what scores tend to correspond to acceptances.  I really have no idea and I get the impression this can change year to year.  I have no involvement with the ACL conference besides being one of many, many reviewers.
+ 
+  
+  
+APPROPRIATENESS (1-5)
+Does the paper fit in ACL 2014? (Please answer this question in light of the desire to broaden the scope of the research areas represented at ACL.) 
+
+5: Certainly. 
+4: Probabl</p><p>6 0.17003094 <a title="128-lda-6" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-12-03-Statistics_vs._Machine_Learning%2C_fight%21.html">129 brendan oconnor ai-2008-12-03-Statistics vs. Machine Learning, fight!</a></p>
+<p>7 0.16945067 <a title="128-lda-7" href="../brendan_oconnor_ai-2006/brendan_oconnor_ai-2006-08-30-A_big%2C_fun_list_of_links_I%E2%80%99m_reading.html">44 brendan oconnor ai-2006-08-30-A big, fun list of links I’m reading</a></p>
+<p>8 0.16817755 <a title="128-lda-8" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-12-Disease_tracking_with_web_queries_and_social_messaging_%28Google%2C_Twitter%2C_Facebook%E2%80%A6%29.html">123 brendan oconnor ai-2008-11-12-Disease tracking with web queries and social messaging (Google, Twitter, Facebook…)</a></p>
+<p>9 0.16332027 <a title="128-lda-9" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-12-20-Data-driven_charity.html">86 brendan oconnor ai-2007-12-20-Data-driven charity</a></p>
+<p>10 0.16292603 <a title="128-lda-10" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-04-17-1_billion_web_page_dataset_from_CMU.html">138 brendan oconnor ai-2009-04-17-1 billion web page dataset from CMU</a></p>
+<p>11 0.16178401 <a title="128-lda-11" href="../brendan_oconnor_ai-2012/brendan_oconnor_ai-2012-10-02-Powerset%E2%80%99s_natural_language_search_system.html">188 brendan oconnor ai-2012-10-02-Powerset’s natural language search system</a></p>
+<p>12 0.16142242 <a title="128-lda-12" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-09-02-cognitive_modelling_is_rational_choice%2B%2B.html">26 brendan oconnor ai-2005-09-02-cognitive modelling is rational choice++</a></p>
+<p>13 0.16051354 <a title="128-lda-13" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-06-10-Freak-Freakonomics_%28Ariel_Rubinstein_is_the_shit%21%29.html">63 brendan oconnor ai-2007-06-10-Freak-Freakonomics (Ariel Rubinstein is the shit!)</a></p>
+<p>14 0.15906015 <a title="128-lda-14" href="../brendan_oconnor_ai-2009/brendan_oconnor_ai-2009-02-23-Comparison_of_data_analysis_packages%3A_R%2C_Matlab%2C_SciPy%2C_Excel%2C_SAS%2C_SPSS%2C_Stata.html">135 brendan oconnor ai-2009-02-23-Comparison of data analysis packages: R, Matlab, SciPy, Excel, SAS, SPSS, Stata</a></p>
+<p>15 0.15767893 <a title="128-lda-15" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-03-15-Feminists%2C_anarchists%2C_computational_complexity%2C_bounded_rationality%2C_nethack%2C_and_other_things_to_do.html">53 brendan oconnor ai-2007-03-15-Feminists, anarchists, computational complexity, bounded rationality, nethack, and other things to do</a></p>
+<p>16 0.15754883 <a title="128-lda-16" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-06-05-Clinton-Obama_support_visualization.html">105 brendan oconnor ai-2008-06-05-Clinton-Obama support visualization</a></p>
+<p>17 0.1565707 <a title="128-lda-17" href="../brendan_oconnor_ai-2008/brendan_oconnor_ai-2008-11-24-Python_bindings_to_Google%E2%80%99s_%E2%80%9CAJAX%E2%80%9D_Search_API.html">127 brendan oconnor ai-2008-11-24-Python bindings to Google’s “AJAX” Search API</a></p>
+<p>18 0.15647164 <a title="128-lda-18" href="../brendan_oconnor_ai-2013/brendan_oconnor_ai-2013-09-13-Response_on_our_movie_personas_paper.html">200 brendan oconnor ai-2013-09-13-Response on our movie personas paper</a></p>
+<p>19 0.15617943 <a title="128-lda-19" href="../brendan_oconnor_ai-2007/brendan_oconnor_ai-2007-09-15-Dollar_auction.html">77 brendan oconnor ai-2007-09-15-Dollar auction</a></p>
+<p>20 0.15593402 <a title="128-lda-20" href="../brendan_oconnor_ai-2005/brendan_oconnor_ai-2005-07-09-the_psychology_of_design_as_explanation.html">19 brendan oconnor ai-2005-07-09-the psychology of design as explanation</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
