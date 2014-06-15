@@ -16,36 +16,24 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-687-html" href="http://highscalability.com//blog/2009/8/24/how-google-serves-data-from-multiple-datacenters.html">html</a></p><p>Introduction: Update:Streamy Explains CAP and HBase's Approach to CAP.We plan to employ
-inter-cluster replication, with each cluster located in a single DC. Remote
-replication will introduce some eventual consistency into the system, but each
-cluster will continue to be strongly consistent.Ryan Barrett, Google App
-Engine datastore lead, gave this talkTransactions Across Datacenters (and
-Other Weekend Projects)at the Google I/O 2009 conference.While the talk
-doesn't necessarily break new technical ground, Ryan does an excellent job
-explaining and evaluating the different options you have when architecting a
-system to work across multiple datacenters. This is calledmultihoming,
-operating from multiple datacenters simultaneously.As multihoming is one of
-the most challenging tasks in all computing, Ryan's clear and thoughtful style
-comfortably leads you through the various options. On the trip you learn:The
-differentmulti-homing optionsare: Backups, Master-Slave, Multi-Master, 2PC,
-and Paxos. You'll als</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 They chose this approach in order to provide:- lowish latency writes- datacenter failure survival- strong consistency guarantees. [sent-11, score-0.791]
-</p><p>2 A major Google App Engine goal was to provide a strong consistency model for programmers. [sent-13, score-0.401]
-</p><p>3 Once we move data across datacenters what consistency guarantees do we have? [sent-39, score-0.792]
-</p><p>4 When you start operating across datacenters it's even harder to enforce transactions because more things can go wrong and operations have high latency. [sent-54, score-0.682]
-</p><p>5 So closer is better and you can only be closer if your data is near the user which requires operating in multiple datacenters. [sent-60, score-0.44]
-</p><p>6 Operating in multiple datacenters is hard: high cost, high latency, low latency, difficult operations, harder code. [sent-69, score-0.545]
-</p><p>7 It's especially hard if you have a read/write structured data system where you accept writes from more than one location. [sent-70, score-0.4]
-</p><p>8 But datacenters fail, you could lose data, and your site could go down. [sent-76, score-0.489]
-</p><p>9 Pick a master datacenter that writes go to and other sites replicate to. [sent-82, score-0.554]
-</p><p>10 - Data in your other datacenters may not be consistent on failure. [sent-86, score-0.36]
-</p><p>11 NASDAQ has two datacenters close together (low latency) and perform a two-phase commit on every transaction, but they have very strict latency requirements. [sent-99, score-0.576]
-</p><p>12 It's like asynchronous replication, but you are serving writes from multiple locations. [sent-129, score-0.381]
-</p><p>13 Here it literally changes how the system runs because the multiple writes must be merged. [sent-135, score-0.381]
-</p><p>14 - AppEngine wants strong consistency to make building applications easier, so they didn't consider this option. [sent-145, score-0.401]
-</p><p>15 Because there are so few datacenters you tend to go through the same set of master coordinators. [sent-149, score-0.479]
-</p><p>16 - Wanted to do this, but the they didn't want to pay the 150msec latency hit to writes, especially when competing against 5msec writes for RDBMSes. [sent-169, score-0.53]
-</p><p>17 - They tried using physcially close datacenters but the built-in multi-datacenter overhead (routers, etc) was too high. [sent-170, score-0.36]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-687-html" href="http://highscalability.com//blog/2009/8/24/how-google-serves-data-from-multiple-datacenters.html">html</a></p><p>Introduction: Update:   Streamy Explains CAP and HBase's Approach to CAP .  We plan to employ inter-cluster replication, with each cluster located in a single DC.  Remote replication will introduce some eventual consistency into the system, but each cluster will continue to be strongly consistent.   Ryan Barrett, Google App Engine datastore lead, gave this talk   Transactions Across Datacenters (and Other Weekend Projects)   at the Google I/O 2009 conference.   While the talk doesn't necessarily break new technical ground, Ryan does an excellent job explaining and evaluating the different options you have when architecting a system to work across multiple datacenters. This is called  multihoming ,  operating from multiple datacenters simultaneously.  As multihoming is one of the most challenging tasks in all computing, Ryan's clear and thoughtful style comfortably leads you through the various options. On the trip you learn:
+   The different  multi-homing options  are: Backups, Master-Slave, Multi-M</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This is called  multihoming ,  operating from multiple datacenters simultaneously. [sent-6, score-0.67]
+</p><p>2 They chose this approach in order to provide: - lowish latency writes  - datacenter failure survival - strong consistency guarantees. [sent-11, score-1.048]
+</p><p>3 A major Google App Engine goal was to provide a strong consistency model for programmers. [sent-13, score-0.401]
+</p><p>4 Once we move data across datacenters what consistency guarantees do we have? [sent-39, score-0.792]
+</p><p>5 Transactions - Extended form of consistency across multiple operations. [sent-41, score-0.486]
+</p><p>6 When you start operating across datacenters it's even harder to enforce transactions because more things can go wrong and operations have high latency. [sent-54, score-0.682]
+</p><p>7 Sh*t happens  - datacenters fail for any number of reasons. [sent-56, score-0.479]
+</p><p>8 So closer is better and you can only be closer if your data is near the user which requires operating in multiple datacenters. [sent-60, score-0.44]
+</p><p>9 Operating in multiple datacenters is hard: high cost, high latency, low latency, difficult operations, harder code. [sent-69, score-0.545]
+</p><p>10 But datacenters fail, you could lose data, and your site could go down. [sent-76, score-0.489]
+</p><p>11 Pick a master datacenter that writes go to and other sites replicate to. [sent-82, score-0.554]
+</p><p>12 NASDAQ has two datacenters close together (low latency) and perform a two-phase commit on every transaction, but they have very strict latency requirements. [sent-99, score-0.576]
+</p><p>13 - Using more than two datacenters is fundamentally harder. [sent-100, score-0.424]
+</p><p>14 Multi-Master Replication  - support writes from multiple datacenters simultaneously. [sent-127, score-0.741]
+</p><p>15 - AppEngine wants strong consistency to make building applications easier, so they didn't consider this option. [sent-145, score-0.401]
+</p><p>16 Because there are so few datacenters you tend to go through the same set of  master coordinators. [sent-149, score-0.479]
+</p><p>17 - Wanted to do this, but the they didn't want to pay the 150msec latency hit to writes, especially when competing against 5msec writes for RDBMSes. [sent-169, score-0.53]
 </p><p>18 If your app is serving data in one datacenter and it should be moved to another that coordination is done through Paxos. [sent-176, score-0.498]
 </p><p>19 A preference for the strong consistency model was repeatedly specified as a major design goal because this makes the job of the programmer easier. [sent-200, score-0.401]
 </p><p>20 I wonder if giving up strong consistency would have been such a big deal in comparison? [sent-203, score-0.401]
@@ -55,76 +43,21 @@ and Paxos. You'll als</p><br/><h2>Summary: the most important sentenses generete
 <p>[('datacenters', 0.36), ('consistency', 0.294), ('writes', 0.257), ('datacenter', 0.178), ('consensus', 0.148), ('latency', 0.139), ('entity', 0.129), ('lose', 0.129), ('multiple', 0.124), ('ryan', 0.121), ('master', 0.119), ('happens', 0.119), ('strong', 0.107), ('robinsonpaper', 0.104), ('datastore', 0.103), ('engine', 0.101), ('appengine', 0.096), ('app', 0.095), ('multihoming', 0.094), ('transactions', 0.094), ('operating', 0.092), ('extra', 0.08), ('coordination', 0.079), ('commit', 0.077), ('closer', 0.077), ('henry', 0.077), ('moved', 0.076), ('azure', 0.075), ('throughput', 0.073), ('write', 0.073), ('failure', 0.073), ('especially', 0.073), ('pnuts', 0.073), ('data', 0.07), ('google', 0.07), ('still', 0.069), ('enforce', 0.068), ('across', 0.068), ('matrix', 0.066), ('fundamentally', 0.064), ('serialized', 0.063), ('reads', 0.062), ('failover', 0.061), ('money', 0.061), ('low', 0.061), ('pay', 0.061), ('ton', 0.059), ('limits', 0.059), ('wanted', 0.059), ('protocol', 0.059)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="687-tfidf-1" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
-<p>Introduction: Update:Streamy Explains CAP and HBase's Approach to CAP.We plan to employ
-inter-cluster replication, with each cluster located in a single DC. Remote
-replication will introduce some eventual consistency into the system, but each
-cluster will continue to be strongly consistent.Ryan Barrett, Google App
-Engine datastore lead, gave this talkTransactions Across Datacenters (and
-Other Weekend Projects)at the Google I/O 2009 conference.While the talk
-doesn't necessarily break new technical ground, Ryan does an excellent job
-explaining and evaluating the different options you have when architecting a
-system to work across multiple datacenters. This is calledmultihoming,
-operating from multiple datacenters simultaneously.As multihoming is one of
-the most challenging tasks in all computing, Ryan's clear and thoughtful style
-comfortably leads you through the various options. On the trip you learn:The
-differentmulti-homing optionsare: Backups, Master-Slave, Multi-Master, 2PC,
-and Paxos. You'll als</p><p>2 0.29171443 <a title="687-tfidf-2" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
-<p>Introduction: A giant step into the fully distributed future has been taken by the Google
-App Engine team with the release of theirHigh Replication Datastore. The HRD
-is targeted at mission critical applications that require data replicated to
-at least three datacenters, full ACID semantics forentity groups, and lower
-consistency guarantees across entity groups.This is a major accomplishment.
-Few organizations can implement a true multi-datacenter datastore. Other than
-SimpleDB, how many other publicly accessible database services can operate out
-of multiple datacenters? Now that capability can be had by anyone. But there
-is a price, literally and otherwise. Because the HRD uses three times the
-resources as Google App Engine's Master/Slave datastatore, it will cost three
-times as much. And because it is a distributed database, with all that implies
-in the CAP sense, developers will have to be very careful in how they
-architect their applications because as costs increased, reliability
-increased, com</p><p>3 0.2857793 <a title="687-tfidf-3" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
-<p>Introduction: The title of this post is a quote from Ilya Grigorik's post Weak Consistency
-and CAP Implications. Besides the article being excellent, I thought this idea
-had something to add to the great NoSQL versus RDBMS debate, whereMike
-Stonebraker makes the argument that network partitions are rare so designing
-eventually consistent systems for such rare occurrence is not worth losing
-ACID semantics over. Even if network partitions are rare, latency between
-datacenters is not rare, so the game is still on.The rare-partition argument
-seems to flow from a centralized-distributed view of systems. Such systems are
-scale-out in that they grow by adding distributed nodes, but the nodes
-generally do not cross datacenter boundaries. The assumption is the network is
-fast enough that distributed operations are roughly homogenous between
-nodes.In a fully-distributed system the nodes can be dispersed across
-datacenters, which gives operations a widely variable performance profile.
-Because everything talks</p><p>4 0.26011196 <a title="687-tfidf-4" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
-<p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><p>5 0.25398281 <a title="687-tfidf-5" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
-<p>Introduction: So far every massively scalable database is a bundle of compromises. For some
-the weak guarantees of Amazon'seventual consistencymodel are too cold. For
-many the strong guarantees of standard RDBMSdistributed transactionsare too
-hot. Google App Engine tries to get it just right withentity groups. Yahoo! is
-also trying to get is just right by offering per-record timeline consistency,
-which hopes to serve up a heaping bowl ofrich database functionality and low
-latency at massive scale:We describe PNUTS [Platform for Nimble Universal
-Table Storage], a massively parallel and geographically distributed database
-system for Yahoo!'s web applications. PNUTS provides data storage organized as
-hashed or ordered tables, low latency for large numbers of con-current
-requests including updates and queries, and novel per-record consistency
-guarantees. It is a hosted, centrally managed, and geographically distributed
-service, and utilizes automated load-balancing and failover to reduce
-operational com</p><p>6 0.21791182 <a title="687-tfidf-6" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
+<p>Introduction: Update:   Streamy Explains CAP and HBase's Approach to CAP .  We plan to employ inter-cluster replication, with each cluster located in a single DC.  Remote replication will introduce some eventual consistency into the system, but each cluster will continue to be strongly consistent.   Ryan Barrett, Google App Engine datastore lead, gave this talk   Transactions Across Datacenters (and Other Weekend Projects)   at the Google I/O 2009 conference.   While the talk doesn't necessarily break new technical ground, Ryan does an excellent job explaining and evaluating the different options you have when architecting a system to work across multiple datacenters. This is called  multihoming ,  operating from multiple datacenters simultaneously.  As multihoming is one of the most challenging tasks in all computing, Ryan's clear and thoughtful style comfortably leads you through the various options. On the trip you learn:
+   The different  multi-homing options  are: Backups, Master-Slave, Multi-M</p><p>2 0.29171443 <a title="687-tfidf-2" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
+<p>Introduction: A giant step into the fully distributed future has been taken by the Google App Engine team with the release of their  High Replication Datastore . The HRD is targeted at mission critical applications that require data replicated to at least three datacenters, full ACID semantics for  entity groups , and lower consistency guarantees across entity groups.
+ 
+This is a major accomplishment. Few organizations can implement a true multi-datacenter datastore. Other than SimpleDB, how many other publicly accessible database services can operate out of multiple datacenters? Now that capability can be had by anyone. But there is a price, literally and otherwise. Because the HRD uses three times the resources as Google App Engine's Master/Slave datastatore, it will cost three times as much. And because it is a distributed database, with all that implies in the CAP sense, developers will have to be very careful in how they architect their applications because as costs increased, reliability incre</p><p>3 0.2857793 <a title="687-tfidf-3" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
+<p>Introduction: The title of this post is a quote from Ilya Grigorik's post  Weak Consistency and CAP Implications . Besides the article being excellent, I thought this idea had something to add to the great NoSQL versus RDBMS debate, where  Mike Stonebraker  makes the argument that network partitions are rare so designing eventually consistent systems for such rare occurrence is not worth losing ACID semantics over. Even if network partitions are rare, latency between datacenters is not rare, so the game is still on.
+ 
+The rare-partition argument seems to flow from a centralized-distributed view of systems. Such systems are scale-out in that they grow by adding distributed nodes, but the nodes generally do not cross datacenter boundaries. The assumption is the network is fast enough that distributed operations are roughly homogenous between nodes.
+ 
+In a fully-distributed system the nodes can be dispersed across datacenters, which gives operations a widely variable performance profile. Because everyt</p><p>4 0.26011196 <a title="687-tfidf-4" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
+<p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><p>5 0.25398281 <a title="687-tfidf-5" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
+<p>Introduction: So far every massively scalable database is a bundle of compromises. For some the weak guarantees of Amazon's  eventual consistency  model are too cold. For many the strong guarantees of standard RDBMS  distributed transactions  are too hot. Google App Engine tries to get it just right with  entity groups . Yahoo! is also trying to get is just right by offering per-record timeline consistency, which hopes to serve up a heaping bowl of  rich database functionality and low latency at massive scale :
+   We describe PNUTS [Platform for Nimble Universal Table Storage], a massively parallel and geographically distributed database system for Yahoo!â&euro;&trade;s web applications. PNUTS provides data storage organized as hashed or ordered tables, low latency for large numbers of con-current requests including updates and queries, and novel per-record consistency guarantees. It is a hosted, centrally managed, and geographically distributed service, and utilizes automated load-balancing and failover to redu</p><p>6 0.21791182 <a title="687-tfidf-6" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
 <p>7 0.21436584 <a title="687-tfidf-7" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
 <p>8 0.20691717 <a title="687-tfidf-8" href="../high_scalability-2009/high_scalability-2009-07-25-Latency_is_Everywhere_and_it_Costs_You_Sales_-_How_to_Crush_it.html">661 high scalability-2009-07-25-Latency is Everywhere and it Costs You Sales - How to Crush it</a></p>
 <p>9 0.1974797 <a title="687-tfidf-9" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
@@ -144,76 +77,32 @@ operational com</p><p>6 0.21791182 <a title="687-tfidf-6" href="../high_scalabil
 <p>[(0, 0.286), (1, 0.187), (2, 0.001), (3, 0.085), (4, -0.025), (5, 0.091), (6, 0.006), (7, -0.005), (8, -0.018), (9, -0.108), (10, -0.019), (11, 0.023), (12, -0.151), (13, -0.015), (14, 0.149), (15, 0.078), (16, -0.024), (17, 0.0), (18, 0.031), (19, -0.087), (20, 0.128), (21, 0.114), (22, -0.017), (23, -0.075), (24, -0.111), (25, 0.006), (26, 0.068), (27, -0.013), (28, -0.015), (29, -0.161), (30, 0.029), (31, -0.104), (32, -0.067), (33, -0.027), (34, 0.015), (35, -0.015), (36, -0.057), (37, 0.038), (38, -0.014), (39, 0.01), (40, -0.032), (41, 0.07), (42, -0.078), (43, 0.005), (44, 0.04), (45, -0.062), (46, 0.066), (47, 0.002), (48, 0.024), (49, -0.047)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96691942 <a title="687-lsi-1" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
-<p>Introduction: Update:Streamy Explains CAP and HBase's Approach to CAP.We plan to employ
-inter-cluster replication, with each cluster located in a single DC. Remote
-replication will introduce some eventual consistency into the system, but each
-cluster will continue to be strongly consistent.Ryan Barrett, Google App
-Engine datastore lead, gave this talkTransactions Across Datacenters (and
-Other Weekend Projects)at the Google I/O 2009 conference.While the talk
-doesn't necessarily break new technical ground, Ryan does an excellent job
-explaining and evaluating the different options you have when architecting a
-system to work across multiple datacenters. This is calledmultihoming,
-operating from multiple datacenters simultaneously.As multihoming is one of
-the most challenging tasks in all computing, Ryan's clear and thoughtful style
-comfortably leads you through the various options. On the trip you learn:The
-differentmulti-homing optionsare: Backups, Master-Slave, Multi-Master, 2PC,
-and Paxos. You'll als</p><p>2 0.91080946 <a title="687-lsi-2" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
-<p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><p>3 0.89877123 <a title="687-lsi-3" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
-<p>Introduction: Here are a few updates on the articlePaper: Don't Settle For Eventual:
-Scalable Causal Consistency For Wide-Area Storage With COPS from Mike Freedman
-and Wyatt Lloyd.Q: How software architectures could change in response to
-casual+ consistency?A: I don't really think they would much. Somebody would
-still run a two-tier architecture in their datacenter:  a front-tier of
-webservers running both (say) PHP and our client library, and a back tier of
-storage nodes running COPS.  (I'm not sure if it was obvious given the
-discussion of our "thick" client -- you should think of the COPS client
-dropping in where a memcache client library does...albeit ours has per-session
-state.) Q: Why not just use vector clocks?A: The problem with vector clocks
-and scalability has always been that the size of vector clocks in O(N), where
-N is the number of nodes.  So if we want to scale to a datacenter with 10K
-nodes, each piece of metadata must have size O(10K).  And in fact, vector
-clocks alone only allow yo</p><p>4 0.88238049 <a title="687-lsi-4" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
-<p>Introduction: InNoSQL: Past, Present, FutureEric Brewerhas a particularly fine section on
-explaining the often hard to understand ideas ofBASE(Basically Available, Soft
-State, Eventually Consistent),ACID(Atomicity, Consistency, Isolation,
-Durability),CAP(Consistency Availability, Partition Tolerance), in terms of a
-pernicious long standing myth about the sanctity of consistency in
-banking.Myth: Money is important, so banksmustuse transactions to keep money
-safe and consistent, right?Reality: Banking transactions are inconsistent,
-particularly for ATMs. ATMs are designed to have a normal case behaviour and a
-partition mode behaviour. In partition mode Availability is chosen over
-Consistency.Why?1)Availability correlates with revenue and consistency
-generally does not.2)Historically there was never an idea of perfect
-communication so everything was partitioned.Your ATM transaction must go
-through so Availability is more important than consistency. If the ATM is down
-then you aren't making money. If yo</p><p>5 0.85668868 <a title="687-lsi-5" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
-<p>Introduction: The title of this post is a quote from Ilya Grigorik's post Weak Consistency
-and CAP Implications. Besides the article being excellent, I thought this idea
-had something to add to the great NoSQL versus RDBMS debate, whereMike
-Stonebraker makes the argument that network partitions are rare so designing
-eventually consistent systems for such rare occurrence is not worth losing
-ACID semantics over. Even if network partitions are rare, latency between
-datacenters is not rare, so the game is still on.The rare-partition argument
-seems to flow from a centralized-distributed view of systems. Such systems are
-scale-out in that they grow by adding distributed nodes, but the nodes
-generally do not cross datacenter boundaries. The assumption is the network is
-fast enough that distributed operations are roughly homogenous between
-nodes.In a fully-distributed system the nodes can be dispersed across
-datacenters, which gives operations a widely variable performance profile.
-Because everything talks</p><p>6 0.84449297 <a title="687-lsi-6" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
+<p>Introduction: Update:   Streamy Explains CAP and HBase's Approach to CAP .  We plan to employ inter-cluster replication, with each cluster located in a single DC.  Remote replication will introduce some eventual consistency into the system, but each cluster will continue to be strongly consistent.   Ryan Barrett, Google App Engine datastore lead, gave this talk   Transactions Across Datacenters (and Other Weekend Projects)   at the Google I/O 2009 conference.   While the talk doesn't necessarily break new technical ground, Ryan does an excellent job explaining and evaluating the different options you have when architecting a system to work across multiple datacenters. This is called  multihoming ,  operating from multiple datacenters simultaneously.  As multihoming is one of the most challenging tasks in all computing, Ryan's clear and thoughtful style comfortably leads you through the various options. On the trip you learn:
+   The different  multi-homing options  are: Backups, Master-Slave, Multi-M</p><p>2 0.91080946 <a title="687-lsi-2" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
+<p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><p>3 0.89877123 <a title="687-lsi-3" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
+<p>Introduction: Here are a few updates on the article  Paper: Don’t Settle For Eventual: Scalable Causal Consistency For Wide-Area Storage With COPS  from Mike Freedman and Wyatt Lloyd.
+ 
+ Q: How software architectures could change in response to casual+ consistency? 
+ 
+ A : I don't really think they would much. Somebody would still run a two-tier architecture in their datacenter:  a front-tier of webservers running both (say) PHP and our client library, and a back tier of storage nodes running COPS.  (I'm not sure if it was obvious given the discussion of our "thick" client -- you should think of the COPS client dropping in where a memcache client library does...albeit ours has per-session state.)
+ 
+ 
+ 
+ Q: Why not just use vector clocks? 
+ 
+ A : The problem with vector clocks and scalability has always been that the size of vector clocks in O(N), where N is the number of nodes.  So if we want to scale to a datacenter with 10K nodes, each piece of metadata must have size O(10K).  And in fact, vector</p><p>4 0.88238049 <a title="687-lsi-4" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
+<p>Introduction: In   NoSQL: Past, Present, Future    Eric Brewer  has a particularly fine section on explaining the often hard to understand ideas of   BASE   (Basically Available, Soft State, Eventually Consistent),   ACID   (Atomicity, Consistency, Isolation, Durability),   CAP   (Consistency Availability, Partition Tolerance), in terms of a pernicious long standing myth about the sanctity of consistency in banking.
+    Myth   : Money is important, so banks   must   use transactions to keep money safe and consistent, right? 
+    Reality   : Banking transactions are inconsistent, particularly for ATMs. ATMs are designed to have a normal case behaviour and a partition mode behaviour. In partition mode Availability is chosen over Consistency. 
+   Why?   1)  Availability correlates with revenue and consistency generally does not.  2)  Historically there was never an idea of perfect communication so everything was partitioned.
+   Your ATM transaction must go through so Availability is more important than</p><p>5 0.85668868 <a title="687-lsi-5" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
+<p>Introduction: The title of this post is a quote from Ilya Grigorik's post  Weak Consistency and CAP Implications . Besides the article being excellent, I thought this idea had something to add to the great NoSQL versus RDBMS debate, where  Mike Stonebraker  makes the argument that network partitions are rare so designing eventually consistent systems for such rare occurrence is not worth losing ACID semantics over. Even if network partitions are rare, latency between datacenters is not rare, so the game is still on.
+ 
+The rare-partition argument seems to flow from a centralized-distributed view of systems. Such systems are scale-out in that they grow by adding distributed nodes, but the nodes generally do not cross datacenter boundaries. The assumption is the network is fast enough that distributed operations are roughly homogenous between nodes.
+ 
+In a fully-distributed system the nodes can be dispersed across datacenters, which gives operations a widely variable performance profile. Because everyt</p><p>6 0.84449297 <a title="687-lsi-6" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
 <p>7 0.81841969 <a title="687-lsi-7" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
 <p>8 0.80908632 <a title="687-lsi-8" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
 <p>9 0.8012917 <a title="687-lsi-9" href="../high_scalability-2012/high_scalability-2012-12-18-Georeplication%3A_When_Bad_Things_Happen_to_Good_Systems.html">1374 high scalability-2012-12-18-Georeplication: When Bad Things Happen to Good Systems</a></p>
@@ -233,76 +122,27 @@ Because everything talks</p><p>6 0.84449297 <a title="687-lsi-6" href="../high_s
 <p>[(1, 0.11), (2, 0.229), (10, 0.055), (30, 0.032), (40, 0.017), (47, 0.02), (48, 0.028), (51, 0.025), (61, 0.127), (77, 0.034), (79, 0.201), (85, 0.03), (94, 0.024)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.98438692 <a title="687-lda-1" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
-<p>Introduction: Update:Streamy Explains CAP and HBase's Approach to CAP.We plan to employ
-inter-cluster replication, with each cluster located in a single DC. Remote
-replication will introduce some eventual consistency into the system, but each
-cluster will continue to be strongly consistent.Ryan Barrett, Google App
-Engine datastore lead, gave this talkTransactions Across Datacenters (and
-Other Weekend Projects)at the Google I/O 2009 conference.While the talk
-doesn't necessarily break new technical ground, Ryan does an excellent job
-explaining and evaluating the different options you have when architecting a
-system to work across multiple datacenters. This is calledmultihoming,
-operating from multiple datacenters simultaneously.As multihoming is one of
-the most challenging tasks in all computing, Ryan's clear and thoughtful style
-comfortably leads you through the various options. On the trip you learn:The
-differentmulti-homing optionsare: Backups, Master-Slave, Multi-Master, 2PC,
-and Paxos. You'll als</p><p>2 0.97109872 <a title="687-lda-2" href="../high_scalability-2010/high_scalability-2010-02-19-Twitter%E2%80%99s_Plan_to_Analyze_100_Billion_Tweets.html">780 high scalability-2010-02-19-Twitter’s Plan to Analyze 100 Billion Tweets</a></p>
-<p>Introduction: If Twitter is the "nervous system of the web" as some people think, then what
-is the brain that makes sense of all those signals (tweets) from the nervous
-system? That brain is the Twitter Analytics System and Kevin Weil, as
-Analytics Lead at Twitter, is the homunculus within in charge of figuring out
-what those over 100 billion tweets (approximately the number of neurons in the
-human brain) mean.Twitter has only 10% of the expected 100 billion tweets now,
-but a good brain always plans ahead. Kevin gave a talk,Hadoop and Protocol
-Buffers at Twitter, at theHadoop Meetup, explaining how Twitter plans to use
-all that data to an answer key business questions.What type of questions is
-Twitter interested in answering? Questions that help them better understand
-Twitter. Questions like:How many requests do we serve in a day?What is the
-average latency?How many searches happen in day?How many unique queries, how
-many unique users, what is their geographic distribution?What can we tell
-about as</p><p>3 0.96781397 <a title="687-lda-3" href="../high_scalability-2009/high_scalability-2009-03-05-Strategy%3A__In_Cloud_Computing_Systematically_Drive_Load_to_the_CPU.html">526 high scalability-2009-03-05-Strategy:  In Cloud Computing Systematically Drive Load to the CPU</a></p>
-<p>Introduction: Update 2:Linear Bloom Filtersby Edward Kmett. A Bloom filter is a novel data
-structure for approximating membership in a set. A Bloom join conserves
-network bandwith by exchanging cheaper, more plentiful local CPU utilization
-and disk IO.Update:What are Amazon EC2 Compute Units?. Cloud providers charge
-for CPU time in voodoo units like "compute units" and "core hours." Geva Perry
-takes on the quest of figuring out what these mean in real life.breakI
-attended Sebastian Stadil'sAWS Training CampSaturday and during the class
-Sebastian brought up a wonderfully counter-intuitive idea:CPU (EC2) costs a
-lot less than storage (S3, SDB) so you should systematically move as much work
-as you can to the CPU. This is said to be theClient-Cloud Paradigm. It
-leverages the well pummeled trend that CPU power follows Moore's Law while
-storage followsThe Great Plains' Law(flat). And what sane computing
-professional would do battle with Sir Moore and histrusty battle swordof a
-law?Embedded systems often m</p><p>4 0.96719187 <a title="687-lda-4" href="../high_scalability-2012/high_scalability-2012-05-09-Cell_Architectures.html">1242 high scalability-2012-05-09-Cell Architectures</a></p>
-<p>Introduction: A consequence of Service Oriented Architectures is the burning need to provide
-services at scale. The architecture that has evolved to satisfy these
-requirements is a little known technique called the Cell Architecture.A Cell
-Architecture is based on the idea that massive scale requires parallelization
-and parallelization requires components be isolated from each other. These
-islands of isolation are called cells. A cell is a self-contained installation
-that can satisfy all the operations for a shard. A shard is a subset of a much
-larger dataset, typically a range of users, for example. Cell Architectures
-have several advantages:Cells provide a unit of parallelization that can be
-adjusted to any size as the user base grows.Cell are added in an incremental
-fashion as more capacity is required.Cells isolate failures. One cell failure
-does not impact other cells.Cells provide isolation as the storage and
-application horsepower to process requests is independent of other cells.Cells
-enable</p><p>5 0.96658224 <a title="687-lda-5" href="../high_scalability-2012/high_scalability-2012-02-02-The_Data-Scope_Project_-_6PB_storage%2C_500GBytes-sec_sequential_IO%2C_20M_IOPS%2C_130TFlops.html">1186 high scalability-2012-02-02-The Data-Scope Project - 6PB storage, 500GBytes-sec sequential IO, 20M IOPS, 130TFlops</a></p>
-<p>Introduction: "Data is everywhere, never be at a single location. Not scalable, not
-maintainable."-Alex SzalayWhile Galileo played life and death doctrinal games
-over the mysteries revealed by the telescope, another revolution went
-unnoticed, the microscope gave up mystery after mystery and nobody yet
-understood how subversive would be what it revealed. For the first time these
-new tools of perceptual augmentation allowed humans to peek behind the veil of
-appearance. A new new eye driving human invention and discovery for hundreds
-of years.Data is anothermaterialthat hides, revealing itself only when we look
-at different scales and investigate its underlying patterns. If the universe
-is trulymade of information, then we are looking into truly primal stuff. A
-new eye is needed for Data and an ambitious project calledData-scopeaims to be
-the lens.A detailedpaperon the Data-Scope tells more about what it is:The
-Data-Scope is a new scientific instrument, capable of 'observing' immense
-volumes of data fr</p><p>6 0.96655935 <a title="687-lda-6" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
+<p>Introduction: Update:   Streamy Explains CAP and HBase's Approach to CAP .  We plan to employ inter-cluster replication, with each cluster located in a single DC.  Remote replication will introduce some eventual consistency into the system, but each cluster will continue to be strongly consistent.   Ryan Barrett, Google App Engine datastore lead, gave this talk   Transactions Across Datacenters (and Other Weekend Projects)   at the Google I/O 2009 conference.   While the talk doesn't necessarily break new technical ground, Ryan does an excellent job explaining and evaluating the different options you have when architecting a system to work across multiple datacenters. This is called  multihoming ,  operating from multiple datacenters simultaneously.  As multihoming is one of the most challenging tasks in all computing, Ryan's clear and thoughtful style comfortably leads you through the various options. On the trip you learn:
+   The different  multi-homing options  are: Backups, Master-Slave, Multi-M</p><p>2 0.97109872 <a title="687-lda-2" href="../high_scalability-2010/high_scalability-2010-02-19-Twitter%E2%80%99s_Plan_to_Analyze_100_Billion_Tweets.html">780 high scalability-2010-02-19-Twitter’s Plan to Analyze 100 Billion Tweets</a></p>
+<p>Introduction: If Twitter is the “nervous system of the web” as some people think, then what is the brain that makes sense of all those signals (tweets) from the nervous system? That brain is the Twitter Analytics System and Kevin Weil,  as Analytics Lead at Twitter,  is the homunculus within in charge of figuring out what those over 100 billion tweets (approximately the number of neurons in the human brain) mean.
+ 
+Twitter has only 10% of the expected 100 billion tweets now, but a good brain always plans ahead. Kevin gave a talk,  Hadoop and Protocol Buffers at Twitter , at the  Hadoop Meetup , explaining how Twitter plans to use all that data to an answer key business questions.
+ 
+What type of questions is Twitter interested in answering? Questions that help them better understand Twitter. Questions like:
+  
+  How many requests do we serve in  a day?  
+  What is the average latency? 
+  How many searches happen in day?  
+  How many unique queries, how many unique users, what is their geographic dist</p><p>3 0.96781397 <a title="687-lda-3" href="../high_scalability-2009/high_scalability-2009-03-05-Strategy%3A__In_Cloud_Computing_Systematically_Drive_Load_to_the_CPU.html">526 high scalability-2009-03-05-Strategy:  In Cloud Computing Systematically Drive Load to the CPU</a></p>
+<p>Introduction: Update 2:     Linear Bloom Filters   by Edward Kmett. A Bloom filter is a novel data structure for approximating membership in a set. A Bloom join  conserves network bandwith  by exchanging cheaper, more plentiful local CPU utilization and disk IO.    Update:     What are Amazon EC2 Compute Units?  . Cloud providers charge for CPU time in voodoo units like "compute units" and "core hours."  Geva Perry takes on the quest of figuring out what these mean in real life.       I attended Sebastian Stadil's   AWS Training Camp   Saturday and during the class Sebastian brought up a wonderfully counter-intuitive idea:   CPU (EC2) costs a lot less than storage (S3, SDB) so you should systematically move as much work as you can to the CPU  . This is said to be the   Client-Cloud Paradigm  . It leverages the well pummeled trend that CPU power follows Moore's Law while storage follows   The Great Plains' Law   (flat). And what sane computing professional would do battle with Sir Moore and his   tru</p><p>4 0.96719187 <a title="687-lda-4" href="../high_scalability-2012/high_scalability-2012-05-09-Cell_Architectures.html">1242 high scalability-2012-05-09-Cell Architectures</a></p>
+<p>Introduction: A consequence of Service Oriented Architectures is the burning need to provide services at scale. The architecture that has evolved to satisfy these requirements is a little known technique called the Cell Architecture.  A Cell Architecture is based on the idea that massive scale requires parallelization and parallelization requires components be isolated from each other. These islands of isolation are called cells. A cell is a self-contained installation that can satisfy all the operations for a  shard . A shard is a subset of a much larger dataset, typically a range of users, for example.   Cell Architectures have several advantages:
+  
+ Cells provide a unit of parallelization that can be adjusted to any size as the user base grows. 
+ Cell are added in an incremental fashion as more capacity is required. 
+ Cells isolate failures. One cell failure does not impact other cells. 
+ Cells provide isolation as the storage and application horsepower to process requests is independent of othe</p><p>5 0.96658224 <a title="687-lda-5" href="../high_scalability-2012/high_scalability-2012-02-02-The_Data-Scope_Project_-_6PB_storage%2C_500GBytes-sec_sequential_IO%2C_20M_IOPS%2C_130TFlops.html">1186 high scalability-2012-02-02-The Data-Scope Project - 6PB storage, 500GBytes-sec sequential IO, 20M IOPS, 130TFlops</a></p>
+<p>Introduction: “ Data is everywhere, never be at a single location. Not scalable, not maintainable. ”  –Alex Szalay    While Galileo played life and death doctrinal games over the mysteries revealed by the telescope, another revolution went unnoticed, the microscope gave up mystery after mystery and nobody yet understood how subversive would be what it revealed. For the first time these new tools of perceptual augmentation allowed humans to peek behind the veil of appearance. A new new eye driving human invention and discovery for hundreds of years.     Data is another    material    that hides, revealing itself only when we look at different scales and investigate its underlying patterns. If the universe is truly    made of information   , then we are looking into truly primal stuff. A new eye is needed for Data and an ambitious project called    Data-scope    aims to be the lens.     A detailed    paper    on the Data-Scope tells more about what it is:  
+  The Data-Scope is a new scientific instrum</p><p>6 0.96655935 <a title="687-lda-6" href="../high_scalability-2012/high_scalability-2012-08-20-The_Performance_of_Distributed_Data-Structures_Running_on_a_%22Cache-Coherent%22_In-Memory_Data_Grid.html">1307 high scalability-2012-08-20-The Performance of Distributed Data-Structures Running on a "Cache-Coherent" In-Memory Data Grid</a></p>
 <p>7 0.96566188 <a title="687-lda-7" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
 <p>8 0.96513897 <a title="687-lda-8" href="../high_scalability-2012/high_scalability-2012-11-05-Gone_Fishin%27%3A_Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_In_The_Ambient_Cloud.html">1355 high scalability-2012-11-05-Gone Fishin': Building Super Scalable Systems: Blade Runner Meets Autonomic Computing In The Ambient Cloud</a></p>
 <p>9 0.96507329 <a title="687-lda-9" href="../high_scalability-2009/high_scalability-2009-12-16-Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_in_the_Ambient_Cloud.html">750 high scalability-2009-12-16-Building Super Scalable Systems: Blade Runner Meets Autonomic Computing in the Ambient Cloud</a></p>

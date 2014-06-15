@@ -16,113 +16,69 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>589 high scalability-2009-05-05-Drop ACID and Think About Data</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-589-html" href="http://highscalability.com//blog/2009/5/5/drop-acid-and-think-about-data.html">html</a></p><p>Introduction: The abstract for the talk given by Bob Ippolito, co-founder and CTO of Mochi
-Media, Inc:Building large systems on top of a traditional single-master RDBMS
-data storage layer is no longer good enough. This talk explores the landscape
-of new technologies available today to augment your data layer to improve
-performance and reliability. Is your application a good fit for caches, bloom
-filters, bitmap indexes, column stores, distributed key/value stores, or
-document databases? Learn how they work (in theory and practice) and decide
-for yourself.Bob does an excellent job highlighting different products and the
-key concepts to understand when pondering the wide variety of new database
-offerings. It's unlikely you'll be able to say oh, this is the database for me
-after watching the presentation, but you will be much better informed on your
-options. And I imagine slightly confused as to what to do :-)An interesting
-observation in the talk is that the more robust products are internal to large</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Is your application a good fit for caches, bloom filters, bitmap indexes, column stores, distributed key/value stores, or document databases? [sent-3, score-0.628]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-589-html" href="http://highscalability.com//blog/2009/5/5/drop-acid-and-think-about-data.html">html</a></p><p>Introduction: The abstract for the talk given by Bob Ippolito, co-founder and CTO of Mochi Media, Inc:
+   Building large systems on top of a traditional single-master RDBMS data storage layer is no longer good enough. This talk explores the landscape of new technologies available today to augment your data layer to improve performance and reliability. Is your application a good fit for caches, bloom filters, bitmap indexes, column stores, distributed key/value stores, or document databases? Learn how they work (in theory and practice) and decide for yourself.   
+Bob does an excellent job highlighting different products and the key concepts to understand when pondering the wide variety of new database offerings. It's unlikely you'll be able to say oh, this is the database for me after watching the presentation, but you will be much better informed on your options. And I imagine slightly confused as to what to do :-)  An interesting observation in the talk is that the more robust products are internal</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Is your application a good fit for caches, bloom filters, bitmap indexes, column stores, distributed key/value stores, or document databases? [sent-3, score-0.628]
 </p><p>2 From all the choices discussed the column database Vertica seems closest to Bob's heart and it's the product they use. [sent-10, score-0.422]
 </p><p>3 It supports clustering, column storage, compression, bitmapped indexes, bloom filters, grids, and lots of other useful features. [sent-11, score-0.54]
-</p><p>4 Availability - you can read and write and write your data all the timePartition Tolerance - if one or more nodes fails the system still works and becomes consistent when the system comes on- line. [sent-22, score-0.719]
+</p><p>4 Availability - you can read and write and write your data all the time     Partition Tolerance - if one or more nodes fails the system still works and becomes consistent when the system comes on-line. [sent-22, score-0.719]
 </p><p>5 compression - great gains in throughput, can store more, reduces IO bottleneck because you have to store less so you have to talk to the disks less so performance improves. [sent-27, score-0.755]
-</p><p>6 hybrid between row and column databaserow database - store objects togethercolumn database - store attributes of objects together. [sent-29, score-1.116]
-</p><p>7 It's a calculation on data that probabilistically maps the data to the nodes it can be found on. [sent-32, score-0.482]
-</p><p>8 Uses consistent hashing to distribute data to one or more nodes for redundancy and performance. [sent-42, score-0.528]
-</p><p>9 Consistent hashing - a ring of nodes and hash function picks which node(s) to store dataConsistency between nodes is based on vector clocks and read repair. [sent-43, score-0.767]
-</p><p>10 Read repair - When a client does a read and the nodes disagree on the data it's up to the client to select the correct data and tell the nodes the new correct state. [sent-45, score-0.922]
-</p><p>11 You can write to many nodes at once so depending on the number of replicas (which is configurable) maintained you should always be able to write somewhere. [sent-48, score-0.437]
-</p><p>12 It's a data structure store not a key-value store, which means it understands your values so you can operate on them. [sent-96, score-0.45]
-</p><p>13 Big downside is it requires that full data store in RAM. [sent-103, score-0.417]
-</p><p>14 Sequential reads are fast because data in a column is stored together. [sent-134, score-0.478]
-</p><p>15 When using column database you are almost always scanning the entire column. [sent-137, score-0.422]
-</p><p>16 In exchange for losing data you can store all information in constant spaceGives you false positives at a known error rate. [sent-147, score-0.358]
-</p><p>17 Knowing a bloom filter you can locally perform a computation to know which nodes the data may be on. [sent-150, score-0.52]
-</p><p>18 LucidDB Column DatabaseJava/C++ open source data warehouseNo clustering so only single node performance, but that can be enough for the applications column stores are good at. [sent-155, score-0.655]
-</p><p>19 Related ArticlesAvailability & Consistencyby Werner VogelsBASE: An Acid Alternativeby Dan PritchettMongoDB- a high-performance, open source, schema-free document-oriented data store that's easy to deploy, manage and use. [sent-160, score-0.358]
-</p><p>20 Vertica- blazing-fast data warehousing softwareLucidDB- the first and only open-source RDBMS purpose-built entirely for data warehousing and business intelligence. [sent-161, score-0.432]
+</p><p>6 hybrid between row and column database    row database - store objects together    column database - store attributes of objects together. [sent-29, score-1.642]
+</p><p>7 versioning     bloom filters - allows data to be distributed across a bunch of nodes. [sent-31, score-0.42]
+</p><p>8 It's a calculation on data that probabilistically maps the data to the nodes it can be found on. [sent-32, score-0.482]
+</p><p>9 Uses consistent hashing to distribute data to one or more nodes for redundancy and performance. [sent-42, score-0.528]
+</p><p>10 Consistent hashing - a ring of nodes and hash function picks which node(s) to store data     Consistency between nodes is based on vector clocks and read repair. [sent-43, score-0.9]
+</p><p>11 Read repair - When a client does a read and the nodes disagree on the data it's up to the client to select the correct data and tell the nodes the new correct state. [sent-45, score-0.922]
+</p><p>12 You can write to many nodes at once so depending on the number of replicas (which is configurable) maintained you should always be able to write somewhere. [sent-48, score-0.437]
+</p><p>13 It's a data structure store not a key-value store, which means it understands your values so you can operate on them. [sent-96, score-0.45]
+</p><p>14 Big downside is it requires that full data store in RAM. [sent-103, score-0.417]
+</p><p>15 Sequential reads are fast because data in a column is stored together. [sent-134, score-0.478]
+</p><p>16 When using column database you are almost always scanning the entire column. [sent-137, score-0.422]
+</p><p>17 In exchange for losing data you can store all information in constant space     Gives you false positives at a known error rate. [sent-147, score-0.358]
+</p><p>18 Knowing a bloom filter you can locally perform a computation to know which nodes the data may be on. [sent-150, score-0.52]
+</p><p>19 LucidDB Column Database     Java/C++ open source data warehouse    No clustering so only single node performance, but that can be enough for the applications column stores are good at. [sent-155, score-0.655]
+</p><p>20 Vertica  - blazing-fast data warehousing software    LucidDB  - the first and only open-source RDBMS purpose-built entirely for data warehousing and business intelligence. [sent-161, score-0.432]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('column', 0.345), ('acid', 0.252), ('store', 0.225), ('compression', 0.185), ('nodes', 0.159), ('consistent', 0.149), ('write', 0.139), ('bloom', 0.136), ('data', 0.133), ('har', 0.115), ('bob', 0.113), ('row', 0.104), ('stores', 0.097), ('filters', 0.095), ('tag', 0.094), ('values', 0.092), ('filter', 0.092), ('client', 0.092), ('document', 0.091), ('hashing', 0.087), ('warehousing', 0.083), ('bigtable', 0.082), ('io', 0.08), ('node', 0.08), ('rebalancing', 0.08), ('correct', 0.077), ('database', 0.077), ('cache', 0.072), ('hash', 0.071), ('keys', 0.069), ('clocks', 0.066), ('project', 0.066), ('reduces', 0.065), ('presentation', 0.064), ('view', 0.064), ('attributes', 0.063), ('indexes', 0.062), ('transaction', 0.061), ('downside', 0.059), ('lots', 0.059), ('products', 0.059), ('queries', 0.058), ('maps', 0.057), ('master', 0.057), ('handle', 0.057), ('written', 0.056), ('distributed', 0.056), ('talk', 0.055), ('builds', 0.054), ('characteristics', 0.054)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9999997 <a title="589-tfidf-1" href="../high_scalability-2009/high_scalability-2009-05-05-Drop_ACID_and_Think_About_Data.html">589 high scalability-2009-05-05-Drop ACID and Think About Data</a></p>
-<p>Introduction: The abstract for the talk given by Bob Ippolito, co-founder and CTO of Mochi
-Media, Inc:Building large systems on top of a traditional single-master RDBMS
-data storage layer is no longer good enough. This talk explores the landscape
-of new technologies available today to augment your data layer to improve
-performance and reliability. Is your application a good fit for caches, bloom
-filters, bitmap indexes, column stores, distributed key/value stores, or
-document databases? Learn how they work (in theory and practice) and decide
-for yourself.Bob does an excellent job highlighting different products and the
-key concepts to understand when pondering the wide variety of new database
-offerings. It's unlikely you'll be able to say oh, this is the database for me
-after watching the presentation, but you will be much better informed on your
-options. And I imagine slightly confused as to what to do :-)An interesting
-observation in the talk is that the more robust products are internal to large</p><p>2 0.38211784 <a title="589-tfidf-2" href="../high_scalability-2009/high_scalability-2009-07-17-Against_all_the_odds.html">658 high scalability-2009-07-17-Against all the odds</a></p>
-<p>Introduction: This article not about Mariah Carey, or its song. It's about Storing System,
-Database.First let's describe what means by odds: In my social network, I
-found 93% of the mainstream developers sanctify the database, or at least
-consider it in any data persistence challenge as the ultimate, superhero, and
-undefeatable solution.I think this problem come from the education,
-personally, and some companies also I think it's involved in this.To start to
-fix this bad thinking, we all should agree in the following points:Every
-challenge have its own solutions, so whatever you want to save/persistent,
-there are always many solutions. For example the Web search engines, such as:
-Google, Kngine, Yahoo, Bing don't use database at all instead we use Indexes
-(Index file) for better performance.The Database in general whatever the
-vendor it's slow compared with other solutions such as: Key-Value storing
-system, Index file, DHT.The Database currently employ Relation Data model, or
-Object relational data</p><p>3 0.22103155 <a title="589-tfidf-3" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
-<p>Introduction: Update 2:Sorting 1 PB with MapReduce. PB is not peanut-butter-and-jelly
-misspelled. It's 1 petabyte or 1000 terabytes or 1,000,000 gigabytes.It took
-six hours and two minutes to sort 1PB (10 trillion 100-byte records) on 4,000
-computersand the results were replicated thrice on 48,000 disks.Update:Greg
-Lindenpoints to a new Google articleMapReduce: simplified data processing on
-large clusters. Some interesting stats: 100k MapReduce jobs are executed each
-day; more than 20 petabytes of data are processed per day; more than 10k
-MapReduce programs have been implemented; machines are dual processor with
-gigabit ethernet and 4-8 GB of memory.Google is the King of scalability.
-Everyone knows Google for their large, sophisticated, and fast searching, but
-they don't just shine in search. Their platform approach to building scalable
-applications allows them to roll out internet scale applications at an
-alarmingly high competition crushing rate. Their goal is always to build a
-higher performing h</p><p>4 0.21515876 <a title="589-tfidf-4" href="../high_scalability-2011/high_scalability-2011-06-20-35%2B_Use_Cases_for_Choosing_Your_Next_NoSQL_Database.html">1064 high scalability-2011-06-20-35+ Use Cases for Choosing Your Next NoSQL Database</a></p>
-<p>Introduction: We've asked What The Heck Are You Actually Using NoSQL For?. We've asked 101
-Questions To Ask When Considering A NoSQL Database. We've even had a webinar
-What Should I Do? Choosing SQL, NoSQL or Both for Scalable Web
-Applications.Now we get to the point of considering use cases and which
-systems might be appropriate for those use cases.What are your options?First,
-let's cover what are the various data models. These have been adapted fromEmil
-EifremandNoSQL databases. Document DatabasesLineage: Inspired by Lotus
-Notes.Data model: Collections of documents, which contain key-value
-collections.Example: CouchDB, MongoDB Good at: Natural data modeling.
-Programmer friendly. Rapid development. Web friendly, CRUD.Graph
-DatabasesLineage: Euler and graph theory.Data model: Nodes & relationships,
-both which can hold key-value pairsExample: AllegroGraph, InfoGrid, Neo4jGood
-at:  Rock complicated graph problems. Fast.Relational DatabasesLineage: E. F.
-Codd in A Relational Model of Data for Large Sha</p><p>5 0.21220073 <a title="589-tfidf-5" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
-<p>Introduction: It's a truism that we should choose theright tool for the job. Everyone says
-that. And who can disagree? The problem is this is not helpful advice without
-being able to answer more specific questions like: What jobs are the tools
-good at? Will they work on jobs like mine? Is it worth the risk to try
-something new when all my people know something else and we have a deadline to
-meet? How can I make all the tools work together?In the NoSQL space this kind
-of real-world data is still a bit vague. When asked, vendors tend to give very
-general answers like NoSQL is good for BigData or key-value access. What does
-that mean for for the developer in the trenches faced with the task of solving
-a specific problem and there are a dozen confusing choices and no obvious
-winner? Not a lot. It's often hard to take that next step and imagine how
-their specific problems could be solved in a way that's worth taking the
-trouble and risk.Let's change that. What problems are you using NoSQL to
-solve? Which</p><p>6 0.20627299 <a title="589-tfidf-6" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: The abstract for the talk given by Bob Ippolito, co-founder and CTO of Mochi Media, Inc:
+   Building large systems on top of a traditional single-master RDBMS data storage layer is no longer good enough. This talk explores the landscape of new technologies available today to augment your data layer to improve performance and reliability. Is your application a good fit for caches, bloom filters, bitmap indexes, column stores, distributed key/value stores, or document databases? Learn how they work (in theory and practice) and decide for yourself.   
+Bob does an excellent job highlighting different products and the key concepts to understand when pondering the wide variety of new database offerings. It's unlikely you'll be able to say oh, this is the database for me after watching the presentation, but you will be much better informed on your options. And I imagine slightly confused as to what to do :-)  An interesting observation in the talk is that the more robust products are internal</p><p>2 0.38211784 <a title="589-tfidf-2" href="../high_scalability-2009/high_scalability-2009-07-17-Against_all_the_odds.html">658 high scalability-2009-07-17-Against all the odds</a></p>
+<p>Introduction: This article not about Mariah Carey, or its song. It's about Storing System, Database.   
+First let's describe what means by odds:  In my social network, I found 93% of the mainstream developers sanctify the database, or at least consider it in any data persistence challenge as the ultimate, superhero, and undefeatable solution.  I think this problem come from the education, personally, and some companies also I think it's involved in this.  To start to fix this bad thinking, we all should agree in the following points:
+  
+ Every challenge have its own solutions, so whatever you want to save/persistent, there are always many solutions. For example the Web search engines, such as: Google, Kngine, Yahoo, Bing don't use database at all instead we use Indexes (Index file) for better performance. 
+   
+ The Database in general whatever the vendor it's slow compared with other solutions such as: Key-Value storing system, Index file, DHT. 
+   
+ The Database currently employ Relation Data model</p><p>3 0.22103155 <a title="589-tfidf-3" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
+<p>Introduction: Update 2:   Sorting 1 PB with MapReduce . PB is not peanut-butter-and-jelly misspelled. It's 1 petabyte or 1000 terabytes or 1,000,000 gigabytes.  It took six hours and two minutes to sort 1PB (10 trillion 100-byte records) on 4,000 computers  and the results were replicated thrice on 48,000 disks.  Update:   Greg Linden  points to a new Google article  MapReduce: simplified data processing on large clusters . Some interesting stats: 100k MapReduce jobs are executed each day; more than 20 petabytes of data are processed per day; more than 10k MapReduce programs have been implemented; machines are dual processor with gigabit ethernet and 4-8 GB of memory.  Google is the King of scalability.  Everyone knows Google for their large,  sophisticated, and fast searching, but they don't just shine in search. Their platform approach to building scalable applications allows them to roll out internet scale applications at an alarmingly high competition crushing rate. Their goal is always to build</p><p>4 0.21515876 <a title="589-tfidf-4" href="../high_scalability-2011/high_scalability-2011-06-20-35%2B_Use_Cases_for_Choosing_Your_Next_NoSQL_Database.html">1064 high scalability-2011-06-20-35+ Use Cases for Choosing Your Next NoSQL Database</a></p>
+<p>Introduction: We've asked  What The Heck Are You Actually Using NoSQL For? . We've asked  101 Questions To Ask When Considering A NoSQL Database . We've even had a  webinar   What Should I Do? Choosing SQL, NoSQL or Both for Scalable Web Applications .
+ 
+Now we get to the point of considering use cases and which systems might be appropriate for those use cases.
+  What are your options?  
+First, let's cover what are the various data models. These have been adapted from  Emil Eifrem  and  NoSQL databases . 
+ 
+ Document Databases 
+  
+ Lineage: Inspired by Lotus Notes. 
+ Data model: Collections of documents, which contain key-value collections. 
+ Example: CouchDB, MongoDB  
+ Good at: Natural data modeling. Programmer friendly. Rapid development. Web friendly, CRUD. 
+             Graph Databases    
+ 
+ Lineage: Euler and graph theory. 
+ Data model: Nodes & relationships, both which can hold key-value pairs 
+ Example: AllegroGraph, InfoGrid, Neo4j 
+ Good at:  Rock complicated graph problems. Fast.</p><p>5 0.21220073 <a title="589-tfidf-5" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
+<p>Introduction: It's a truism that we should choose the  right tool for the job . Everyone says that. And who can disagree? The problem is this is not helpful advice without being able to answer more specific questions like: What jobs are the tools good at? Will they work on jobs like mine? Is it worth the risk to try something new when all my people know something else and we have a deadline to meet? How can I make all the tools work together?
+ 
+In the NoSQL space this kind of real-world data is still a bit vague. When asked, vendors tend to give very general answers like NoSQL is good for BigData or key-value access. What does that mean for for the developer in the trenches faced with the task of solving a specific problem and there are a dozen confusing choices and no obvious winner? Not a lot. It's often hard to take that next step and imagine how their specific problems could be solved in a way that's worth taking the trouble and risk.
+ 
+Let's change that. What problems are you using NoSQL to sol</p><p>6 0.20627299 <a title="589-tfidf-6" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
 <p>7 0.20474012 <a title="589-tfidf-7" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
 <p>8 0.20329665 <a title="589-tfidf-8" href="../high_scalability-2009/high_scalability-2009-03-16-Are_Cloud_Based_Memory_Architectures_the_Next_Big_Thing%3F.html">538 high scalability-2009-03-16-Are Cloud Based Memory Architectures the Next Big Thing?</a></p>
 <p>9 0.19721203 <a title="589-tfidf-9" href="../high_scalability-2010/high_scalability-2010-09-01-Paper%3A_The_Case_for_Determinism_in_Database_Systems__.html">890 high scalability-2010-09-01-Paper: The Case for Determinism in Database Systems  </a></p>
@@ -142,75 +98,28 @@ solve? Which</p><p>6 0.20627299 <a title="589-tfidf-6" href="../high_scalability
 <p>[(0, 0.303), (1, 0.186), (2, -0.033), (3, 0.024), (4, 0.054), (5, 0.239), (6, 0.023), (7, -0.049), (8, 0.008), (9, -0.022), (10, 0.063), (11, 0.019), (12, -0.112), (13, -0.019), (14, 0.066), (15, 0.038), (16, -0.037), (17, -0.026), (18, -0.0), (19, -0.073), (20, 0.006), (21, 0.052), (22, 0.071), (23, 0.058), (24, -0.082), (25, -0.082), (26, 0.095), (27, 0.057), (28, -0.017), (29, -0.017), (30, -0.051), (31, -0.011), (32, -0.014), (33, -0.004), (34, 0.001), (35, -0.008), (36, -0.017), (37, 0.03), (38, -0.032), (39, -0.054), (40, -0.023), (41, -0.007), (42, 0.044), (43, 0.039), (44, -0.024), (45, 0.038), (46, 0.036), (47, -0.017), (48, 0.043), (49, 0.083)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96127337 <a title="589-lsi-1" href="../high_scalability-2009/high_scalability-2009-05-05-Drop_ACID_and_Think_About_Data.html">589 high scalability-2009-05-05-Drop ACID and Think About Data</a></p>
-<p>Introduction: The abstract for the talk given by Bob Ippolito, co-founder and CTO of Mochi
-Media, Inc:Building large systems on top of a traditional single-master RDBMS
-data storage layer is no longer good enough. This talk explores the landscape
-of new technologies available today to augment your data layer to improve
-performance and reliability. Is your application a good fit for caches, bloom
-filters, bitmap indexes, column stores, distributed key/value stores, or
-document databases? Learn how they work (in theory and practice) and decide
-for yourself.Bob does an excellent job highlighting different products and the
-key concepts to understand when pondering the wide variety of new database
-offerings. It's unlikely you'll be able to say oh, this is the database for me
-after watching the presentation, but you will be much better informed on your
-options. And I imagine slightly confused as to what to do :-)An interesting
-observation in the talk is that the more robust products are internal to large</p><p>2 0.84482408 <a title="589-lsi-2" href="../high_scalability-2009/high_scalability-2009-07-17-Against_all_the_odds.html">658 high scalability-2009-07-17-Against all the odds</a></p>
-<p>Introduction: This article not about Mariah Carey, or its song. It's about Storing System,
-Database.First let's describe what means by odds: In my social network, I
-found 93% of the mainstream developers sanctify the database, or at least
-consider it in any data persistence challenge as the ultimate, superhero, and
-undefeatable solution.I think this problem come from the education,
-personally, and some companies also I think it's involved in this.To start to
-fix this bad thinking, we all should agree in the following points:Every
-challenge have its own solutions, so whatever you want to save/persistent,
-there are always many solutions. For example the Web search engines, such as:
-Google, Kngine, Yahoo, Bing don't use database at all instead we use Indexes
-(Index file) for better performance.The Database in general whatever the
-vendor it's slow compared with other solutions such as: Key-Value storing
-system, Index file, DHT.The Database currently employ Relation Data model, or
-Object relational data</p><p>3 0.83842301 <a title="589-lsi-3" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
-<p>Introduction: So far every massively scalable database is a bundle of compromises. For some
-the weak guarantees of Amazon'seventual consistencymodel are too cold. For
-many the strong guarantees of standard RDBMSdistributed transactionsare too
-hot. Google App Engine tries to get it just right withentity groups. Yahoo! is
-also trying to get is just right by offering per-record timeline consistency,
-which hopes to serve up a heaping bowl ofrich database functionality and low
-latency at massive scale:We describe PNUTS [Platform for Nimble Universal
-Table Storage], a massively parallel and geographically distributed database
-system for Yahoo!'s web applications. PNUTS provides data storage organized as
-hashed or ordered tables, low latency for large numbers of con-current
-requests including updates and queries, and novel per-record consistency
-guarantees. It is a hosted, centrally managed, and geographically distributed
-service, and utilizes automated load-balancing and failover to reduce
-operational com</p><p>4 0.83774823 <a title="589-lsi-4" href="../high_scalability-2009/high_scalability-2009-07-02-Product%3A_Project_Voldemort_-_A_Distributed_Database.html">651 high scalability-2009-07-02-Product: Project Voldemort - A Distributed Database</a></p>
-<p>Introduction: Update:Presentation from theNoSQL conference:slides,video 1,video 2.Project
-Voldemort is an open source implementation of the basic parts ofDynamo
-(Amazon's Highly Available Key-value Store)distributed key-value storage
-system. LinkedIn is using it in their production environment for "certain
-high-scalability storage problems where simple functional partitioning is not
-sufficient."From their website:Data is automatically replicated over multiple
-servers.Data is automatically partitioned so each server contains only a
-subset of the total dataServer failure is handled transparentlyPluggable
-serialization is supported to allow rich keys and values including lists and
-tuples with named fields, as well as to integrate with common serialization
-frameworks like Protocol Buffers, Thrift, and Java SerializationData items are
-versioned to maximize data integrity in failure scenarios without compromising
-availability of the systemEach node is independent of other nodes with no
-central point of fa</p><p>5 0.82498288 <a title="589-lsi-5" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
-<p>Introduction: Youmight haveconsistency problems if you have: multiple datastores in multiple
-datacenters, without distributed transactions, and with the ability to
-alternately execute out of each datacenter;  syncing protocols that can fail
-or sync stale data; distributed clients that cache data and then write old
-back to the central store; a NoSQL database that doesn't have transactions
-between updates of multiple related key-value records; application level
-integrity checks; client drivenoptimistic locking.Sounds a lot like many
-evolving, loosely coupled, autonomous, distributed systems these days. How do
-you solve these consistency problems? Siddharth "Sid" Anand of Netflix talks
-about how they solved theirs in his excellent presentation, NoSQL @ Netflix :
-Part 1, given to a packed crowd at aCloud Computing Meetup. You might be
-inclined to say how silly it is to have these problems in the first place, but
-just hold on. See if you might share some of their problems, before getting
-all judgy:Netfli</p><p>6 0.81414962 <a title="589-lsi-6" href="../high_scalability-2009/high_scalability-2009-09-16-Paper%3A_A_practical_scalable_distributed_B-tree.html">705 high scalability-2009-09-16-Paper: A practical scalable distributed B-tree</a></p>
+<p>Introduction: The abstract for the talk given by Bob Ippolito, co-founder and CTO of Mochi Media, Inc:
+   Building large systems on top of a traditional single-master RDBMS data storage layer is no longer good enough. This talk explores the landscape of new technologies available today to augment your data layer to improve performance and reliability. Is your application a good fit for caches, bloom filters, bitmap indexes, column stores, distributed key/value stores, or document databases? Learn how they work (in theory and practice) and decide for yourself.   
+Bob does an excellent job highlighting different products and the key concepts to understand when pondering the wide variety of new database offerings. It's unlikely you'll be able to say oh, this is the database for me after watching the presentation, but you will be much better informed on your options. And I imagine slightly confused as to what to do :-)  An interesting observation in the talk is that the more robust products are internal</p><p>2 0.84482408 <a title="589-lsi-2" href="../high_scalability-2009/high_scalability-2009-07-17-Against_all_the_odds.html">658 high scalability-2009-07-17-Against all the odds</a></p>
+<p>Introduction: This article not about Mariah Carey, or its song. It's about Storing System, Database.   
+First let's describe what means by odds:  In my social network, I found 93% of the mainstream developers sanctify the database, or at least consider it in any data persistence challenge as the ultimate, superhero, and undefeatable solution.  I think this problem come from the education, personally, and some companies also I think it's involved in this.  To start to fix this bad thinking, we all should agree in the following points:
+  
+ Every challenge have its own solutions, so whatever you want to save/persistent, there are always many solutions. For example the Web search engines, such as: Google, Kngine, Yahoo, Bing don't use database at all instead we use Indexes (Index file) for better performance. 
+   
+ The Database in general whatever the vendor it's slow compared with other solutions such as: Key-Value storing system, Index file, DHT. 
+   
+ The Database currently employ Relation Data model</p><p>3 0.83842301 <a title="589-lsi-3" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
+<p>Introduction: So far every massively scalable database is a bundle of compromises. For some the weak guarantees of Amazon's  eventual consistency  model are too cold. For many the strong guarantees of standard RDBMS  distributed transactions  are too hot. Google App Engine tries to get it just right with  entity groups . Yahoo! is also trying to get is just right by offering per-record timeline consistency, which hopes to serve up a heaping bowl of  rich database functionality and low latency at massive scale :
+   We describe PNUTS [Platform for Nimble Universal Table Storage], a massively parallel and geographically distributed database system for Yahoo!â&euro;&trade;s web applications. PNUTS provides data storage organized as hashed or ordered tables, low latency for large numbers of con-current requests including updates and queries, and novel per-record consistency guarantees. It is a hosted, centrally managed, and geographically distributed service, and utilizes automated load-balancing and failover to redu</p><p>4 0.83774823 <a title="589-lsi-4" href="../high_scalability-2009/high_scalability-2009-07-02-Product%3A_Project_Voldemort_-_A_Distributed_Database.html">651 high scalability-2009-07-02-Product: Project Voldemort - A Distributed Database</a></p>
+<p>Introduction: Update:  Presentation from the  NoSQL conference :  slides ,  video 1 ,  video 2 .  Project Voldemort is an open source implementation of the basic parts of  Dynamo (Amazonâ&euro;&trade;s Highly Available Key-value Store)  distributed key-value storage system. LinkedIn is using it in their production environment for "certain high-scalability storage problems where simple functional partitioning is not sufficient."
+ 
+From their website:
+  Data is automatically replicated over multiple servers.   Data is automatically partitioned so each server contains only a subset of the total data   Server failure is handled transparently   Pluggable serialization is supported to allow rich keys and values including lists and tuples with named fields, as well as to integrate with common serialization frameworks like Protocol Buffers, Thrift, and Java Serialization   Data items are versioned to maximize data integrity in failure scenarios without compromising availability of the system   Each node is independent o</p><p>5 0.82498288 <a title="589-lsi-5" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
+<p>Introduction: You  might have  consistency problems if you have: multiple datastores in multiple datacenters, without distributed transactions, and with the ability to alternately execute out of each datacenter;  syncing protocols that can fail or sync stale data; distributed clients that cache data and then write old back to the central store; a NoSQL database that doesn't have transactions between updates of multiple related key-value records; application level integrity checks; client driven  optimistic locking .
+ 
+Sounds a lot like many evolving, loosely coupled, autonomous, distributed systems these days. How do you solve these consistency problems? Siddharth "Sid" Anand of Netflix talks about how they solved theirs in his excellent presentation,  NoSQL @ Netflix : Part 1 , given to a packed crowd at a  Cloud Computing Meetup . 
+ 
+You might be inclined to say how silly it is to have these problems in the first place, but just hold on. See if you might share some of their problems, before gettin</p><p>6 0.81414962 <a title="589-lsi-6" href="../high_scalability-2009/high_scalability-2009-09-16-Paper%3A_A_practical_scalable_distributed_B-tree.html">705 high scalability-2009-09-16-Paper: A practical scalable distributed B-tree</a></p>
 <p>7 0.80690563 <a title="589-lsi-7" href="../high_scalability-2009/high_scalability-2009-12-30-Terrastore_-_Scalable%2C_elastic%2C_consistent_document_store..html">756 high scalability-2009-12-30-Terrastore - Scalable, elastic, consistent document store.</a></p>
 <p>8 0.78499854 <a title="589-lsi-8" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
 <p>9 0.77625084 <a title="589-lsi-9" href="../high_scalability-2008/high_scalability-2008-12-17-Ringo_-_Distributed_key-value_storage_for_immutable_data.html">468 high scalability-2008-12-17-Ringo - Distributed key-value storage for immutable data</a></p>
@@ -230,75 +139,44 @@ all judgy:Netfli</p><p>6 0.81414962 <a title="589-lsi-6" href="../high_scalabili
 <p>[(0, 0.02), (1, 0.132), (2, 0.242), (10, 0.049), (30, 0.041), (61, 0.115), (68, 0.042), (77, 0.017), (79, 0.14), (85, 0.046), (94, 0.053)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.98185706 <a title="589-lda-1" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>
-<p>Introduction: What do you get when you take a SQL database and start a new implementation
-from scratch, taking advantage of the latest research and modern hardware?
-Mike Stonebraker, the sword wielding Johnny Appleseed of the database world,
-hopes you get something like his new database,VoltDB: a pure SQL, pure ACID,
-pure OLTP, shared nothing, sharded, scalable, lockless, open source, in-memory
-DBMS, purpose-built for running hundreds of thousands of transactions a
-second. VoltDBclaims to be100 times faster than MySQL, up to 13 times faster
-thanCassandra, and 45 times faster than Oracle, with near-linear scaling.Will
-VoltDB kill off the new NoSQL upstarts? Will VoltDB cause a mass extinction of
-ancient databases? Probably no and no to both questions, but it's a product
-with a definite point-of-view and is worth a look as the transaction component
-in your system. But will it be right for you? Let's see...I first heard the
-details about VoltDB at Gluecon, where Mr. Stonebraker presented his highly
-ent</p><p>2 0.98160154 <a title="589-lda-2" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
-<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as
-a child: but when I became a man, I put away childish things. --
-CorinthiansWith this new pricing, developments will be driven by the costs.I
-like to optimize my apps to make them better or faster, but to optimize them
-just to make them cheaper is a waste of time.-- Sylvain onGoogle GroupsThe
-dream is dead. Google App Engine's boldpay for what you usedream dies as it
-leaves childish things behind and becomes areal product.Pricing will change.
-Architectures will change. Customers will change. Hearts and minds will
-change. But Google App Engine will survive. Google isshutting downmany of
-itsprojects. GAE is not among them. Do we have GAE's pricing change to thank
-for it surving the more wood behindmore deadly arrows push? Without a radical
-and quick shift towards profitably GAE would no doubt be a historical footnote
-in the long scroll of good ideas. The urgency involved is clearly reflected in
-GAE's offering a</p><p>same-blog 3 0.9797098 <a title="589-lda-3" href="../high_scalability-2009/high_scalability-2009-05-05-Drop_ACID_and_Think_About_Data.html">589 high scalability-2009-05-05-Drop ACID and Think About Data</a></p>
-<p>Introduction: The abstract for the talk given by Bob Ippolito, co-founder and CTO of Mochi
-Media, Inc:Building large systems on top of a traditional single-master RDBMS
-data storage layer is no longer good enough. This talk explores the landscape
-of new technologies available today to augment your data layer to improve
-performance and reliability. Is your application a good fit for caches, bloom
-filters, bitmap indexes, column stores, distributed key/value stores, or
-document databases? Learn how they work (in theory and practice) and decide
-for yourself.Bob does an excellent job highlighting different products and the
-key concepts to understand when pondering the wide variety of new database
-offerings. It's unlikely you'll be able to say oh, this is the database for me
-after watching the presentation, but you will be much better informed on your
-options. And I imagine slightly confused as to what to do :-)An interesting
-observation in the talk is that the more robust products are internal to large</p><p>4 0.97936362 <a title="589-lda-4" href="../high_scalability-2012/high_scalability-2012-03-09-Stuff_The_Internet_Says_On_Scalability_For_March_9%2C_2012.html">1206 high scalability-2012-03-09-Stuff The Internet Says On Scalability For March 9, 2012</a></p>
-<p>Introduction: You've Got Questions We've Got HighScalability:1 trillion bits per second:
-IBM's Holey Optochip;Scale of the Universe: 2;Infinite wireless: Vortex radio
-waves; 105,000 Servers: Akamai.Quotable quotes:@CodingFabian: IaaS = Ops
-without Hardware; PaaS = Devs without Ops; SaaS = Business without
-Devs@audaciouslife: While I was away 90K signed on MT @akfirat One course, 90K
-students. Talk about scalability in education @dthume: "Fault tolerance
-implies scalability" - Joe Armstrong, @jessiekeck: Looks like my local bar
-takes the same approach to scalability with their paper towels as I do w/
-software. http://pic.twitter.com/DTL2W1eC@neil_conway: Weird: network locality
-is no longer important within a DC and yet communication predicted to dominate
-computation cost in manycore CPUs@coda: You don't "beat the CAP theorem". You
-"build distributed systems that don't suck miserably". At best.@drunkcod:
-"programmers know the benefits of everything but the trade-offs of nothing"
-The problem with soft</p><p>5 0.97908396 <a title="589-lda-5" href="../high_scalability-2013/high_scalability-2013-10-18-Stuff_The_Internet_Says_On_Scalability_For_October_18th%2C_2013.html">1534 high scalability-2013-10-18-Stuff The Internet Says On Scalability For October 18th, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:Test your sense of scale. Is this image of
-something microscopic or macroscopic?Find out.$3.5 million: Per Episode Cost
-of Breaking BadQuotable Quotes:@GammaCounter: "There are 400 billion trees in
-the Amazon River basin, close to the number of stars in the Milky Way galaxy."
-@rbranson: Virtualization has near-zero overhead, unless the VM spends most of
-it's time copying between RAM and networkâ&euro;Ś like memcached or
-haproxy.@HackerNewsOnion: Programming is 1% inspiration, 99% trying to get
-your environment working.@aneel: "roundtrips, not bandwidth, is now often the
-bottleneck for most applications"@jamesurquhart: Not to mention the fact that
-auto-scaling should happen above IaaS layer. Think multi-cloud.Sheref Mansy: A
-machine keeps sort of chugging away, without worrying about its environment.
-But a living system has to.V.D. Veksler: it just came to my attention that
-Javascript v8 is faster than Python. I could not believe it, thought it might
-just be CPyt</p><p>6 0.97867268 <a title="589-lda-6" href="../high_scalability-2013/high_scalability-2013-05-17-Stuff_The_Internet_Says_On_Scalability_For_May_17%2C_2013.html">1460 high scalability-2013-05-17-Stuff The Internet Says On Scalability For May 17, 2013</a></p>
+<p>Introduction: What do you get when you take a SQL database and start a new implementation from scratch, taking advantage of the latest research and modern hardware?  Mike Stonebraker , the sword wielding Johnny Appleseed of the database world, hopes you get something like his new database,  VoltDB : a pure SQL, pure ACID, pure OLTP, shared nothing, sharded, scalable, lockless, open source, in-memory DBMS, purpose-built for running hundreds of thousands of transactions a second. VoltDB  claims to be  100 times faster than MySQL, up to 13 times faster than  Cassandra , and 45 times faster than Oracle, with near-linear scaling.
+  Will VoltDB kill off the new NoSQL upstarts? Will VoltDB cause a mass extinction of ancient databases? Probably no and no to both questions, but it's a product with a definite point-of-view and is worth a look as the transaction component in your system. But will it be right for you? Let's see...
+ 
+I first heard the details about VoltDB at  Gluecon , where Mr. Stonebraker pres</p><p>2 0.98160154 <a title="589-lda-2" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
+<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as a child: but when I became a man, I put away childish things . -- Corinthians
+ 
+ With this new pricing, developments will be driven by the costs .  I like to optimize my apps to make them better or faster, but to optimize them just to make them cheaper is a waste of time.  -- Sylvain on  Google Groups 
+ 
+The dream is dead. Google App Engine's bold  pay for what you use  dream dies as it leaves childish things behind and becomes a  real product .  Pricing will change . Architectures will change. Customers will change. Hearts and minds will change. But Google App Engine  will survive.   
+ 
+Google is  shutting down  many of its  projects . GAE is not among them. Do we have GAE's pricing change to thank for it surving the  more wood behind  more deadly arrows push? Without a radical and quick shift towards profitably GAE would no doubt be a historical footnote in the long scroll of good ideas. The urgency involve</p><p>same-blog 3 0.9797098 <a title="589-lda-3" href="../high_scalability-2009/high_scalability-2009-05-05-Drop_ACID_and_Think_About_Data.html">589 high scalability-2009-05-05-Drop ACID and Think About Data</a></p>
+<p>Introduction: The abstract for the talk given by Bob Ippolito, co-founder and CTO of Mochi Media, Inc:
+   Building large systems on top of a traditional single-master RDBMS data storage layer is no longer good enough. This talk explores the landscape of new technologies available today to augment your data layer to improve performance and reliability. Is your application a good fit for caches, bloom filters, bitmap indexes, column stores, distributed key/value stores, or document databases? Learn how they work (in theory and practice) and decide for yourself.   
+Bob does an excellent job highlighting different products and the key concepts to understand when pondering the wide variety of new database offerings. It's unlikely you'll be able to say oh, this is the database for me after watching the presentation, but you will be much better informed on your options. And I imagine slightly confused as to what to do :-)  An interesting observation in the talk is that the more robust products are internal</p><p>4 0.97936362 <a title="589-lda-4" href="../high_scalability-2012/high_scalability-2012-03-09-Stuff_The_Internet_Says_On_Scalability_For_March_9%2C_2012.html">1206 high scalability-2012-03-09-Stuff The Internet Says On Scalability For March 9, 2012</a></p>
+<p>Introduction: You've Got Questions We've Got HighScalability:
+  
+  1 trillion bits per second : IBM’s Holey Optochip;  Scale of the Universe : 2;  Infinite wireless : Vortex radio waves;  105,000 Servers : Akamai. 
+ Quotable quotes:                                 
+ 
+  @CodingFabian : IaaS = Ops without Hardware; PaaS = Devs without Ops; SaaS = Business without Devs 
+  @audaciouslife : While I was away 90K signed on MT @akfirat One course, 90K students. Talk about scalability in education  
+  @dthume : "Fault tolerance implies scalability" - Joe Armstrong,  
+  @jessiekeck : Looks like my local bar takes the same approach to scalability with their paper towels as I do w/ software. http://pic.twitter.com/DTL2W1eC 
+  @neil_conway : Weird: network locality is no longer important within a DC and yet communication predicted to dominate computation cost in manycore CPUs 
+  @coda : You don't "beat the CAP theorem". You "build distributed systems that don't suck miserably". At best. 
+  @drunkcod : "programme</p><p>5 0.97908396 <a title="589-lda-5" href="../high_scalability-2013/high_scalability-2013-10-18-Stuff_The_Internet_Says_On_Scalability_For_October_18th%2C_2013.html">1534 high scalability-2013-10-18-Stuff The Internet Says On Scalability For October 18th, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    Test your sense of scale. Is this image of something microscopic or macroscopic?  Find out .   
+  $3.5 million : Per Episode Cost of Breaking Bad 
+ Quotable Quotes:                            
+ 
+  @GammaCounter : "There are 400 billion trees in the Amazon River basin, close to the number of stars in the Milky Way galaxy."  
+  @rbranson : Virtualization has near-zero overhead, unless the VM spends most of it's time copying between RAM and network… like memcached or haproxy. 
+  @HackerNewsOnion : Programming is 1% inspiration, 99% trying to get your environment working. 
+  @aneel : "roundtrips, not bandwidth, is now often the bottleneck for most applications" 
+  @jamesurquhart : Not to mention the fact that auto-scaling should happen above IaaS layer. Think multi-cloud. 
+  Sheref Mansy : A machine keeps sort of chugging away, without worrying about its environment. But a living system has to. 
+  V.D. Veksler : it just came to my attention that Javascri</p><p>6 0.97867268 <a title="589-lda-6" href="../high_scalability-2013/high_scalability-2013-05-17-Stuff_The_Internet_Says_On_Scalability_For_May_17%2C_2013.html">1460 high scalability-2013-05-17-Stuff The Internet Says On Scalability For May 17, 2013</a></p>
 <p>7 0.97855121 <a title="589-lda-7" href="../high_scalability-2014/high_scalability-2014-02-21-Stuff_The_Internet_Says_On_Scalability_For_February_21st%2C_2014.html">1600 high scalability-2014-02-21-Stuff The Internet Says On Scalability For February 21st, 2014</a></p>
 <p>8 0.978104 <a title="589-lda-8" href="../high_scalability-2011/high_scalability-2011-04-12-Caching_and_Processing_2TB_Mozilla_Crash_Reports_in_memory_with_Hazelcast.html">1020 high scalability-2011-04-12-Caching and Processing 2TB Mozilla Crash Reports in memory with Hazelcast</a></p>
 <p>9 0.97781384 <a title="589-lda-9" href="../high_scalability-2014/high_scalability-2014-05-16-Stuff_The_Internet_Says_On_Scalability_For_May_16th%2C_2014.html">1649 high scalability-2014-05-16-Stuff The Internet Says On Scalability For May 16th, 2014</a></p>

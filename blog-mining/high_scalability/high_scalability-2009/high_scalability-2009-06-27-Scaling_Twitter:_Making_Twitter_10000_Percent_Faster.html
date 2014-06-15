@@ -16,34 +16,21 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>639 high scalability-2009-06-27-Scaling Twitter: Making Twitter 10000 Percent Faster</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-639-html" href="http://highscalability.com//blog/2009/6/27/scaling-twitter-making-twitter-10000-percent-faster.html">html</a></p><p>Introduction: Update 6:Some interesting changes from Twitter'sEvan Weaver: everything in RAM
-now, database is a backup; peaks at 300 tweets/second; every tweet followed by
-average 126 people; vector cache of tweet IDs; row cache; fragment cache; page
-cache; keep separate caches; GC makes Ruby optimization resistant so went with
-Scala; Thrift and HTTP are used internally; 100s internal requests for every
-external request; rewrote MQ but kept interface the same; 3 queues are used to
-load balance requests; extensive A/B testing for backwards capability;
-switched to C memcached client for speed; optimize critical path; faster to
-get the cached results from the network memory than recompute them
-locally.Update 5:Twitter on Scala. A Conversation with Steve Jenson, Alex
-Payne, and Robey Pointer by Bill Venners. A fascinating discussion of why
-Twitter moved to the Java JVM for their server infrastructure (long lived
-processes) and why they moved toScalato program against it (high level
-language, static typi</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 A fascinating discussion of why Twitter moved to the Java JVM for their server infrastructure (long lived processes) and why they moved toScalato program against it (high level language, static typing, functional). [sent-4, score-0.346]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-639-html" href="http://highscalability.com//blog/2009/6/27/scaling-twitter-making-twitter-10000-percent-faster.html">html</a></p><p>Introduction: Update 6:  Some interesting changes from Twitter's  Evan Weaver : everything in RAM now, database is a backup; peaks at 300 tweets/second; every tweet followed by average 126 people; vector cache of tweet IDs; row cache; fragment cache; page cache; keep separate caches; GC makes Ruby optimization resistant so went with Scala; Thrift and HTTP are used internally; 100s internal requests for every external request; rewrote MQ but kept interface the same; 3 queues are used to load balance requests; extensive A/B testing for backwards capability; switched to C memcached client for speed; optimize critical path; faster to get the cached results from the network memory than recompute them locally.  Update 5:   Twitter on Scala . A Conversation with Steve Jenson, Alex Payne, and Robey Pointer by Bill Venners. A fascinating discussion of why Twitter moved to the Java JVM for their server infrastructure  (long lived processes) and why they moved to  Scala  to program against it (high level langu</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 A fascinating discussion of why Twitter moved to the Java JVM for their server infrastructure  (long lived processes) and why they moved to  Scala  to program against it (high level language, static typing, functional). [sent-4, score-0.346]
 </p><p>2 Tells how Twitter changed their infrastructure to go from handling 3 requests to 139 requests a second. [sent-7, score-0.236]
 </p><p>3 They moved to a messaging model, asynchronous process, 3 levels of cache, and moved their middleware to a mixture C and Scala/JVM. [sent-8, score-0.284]
 </p><p>4 My uneducated guess is it's not a language or architecture problem, but more a problem of not being able to add hardware fast enough into their data center. [sent-13, score-0.205]
-</p><p>5 Update:Twitter releasesStarling- light-weight persistent queue server that speaks the MemCache protocol. [sent-15, score-0.146]
+</p><p>5 Update:  Twitter releases  Starling  - light-weight persistent queue server that speaks the MemCache protocol. [sent-15, score-0.146]
 </p><p>6 Early design decisions that worked well in the small melted under the crush of new users chirping tweets to all their friends. [sent-18, score-0.176]
-</p><p>7 Web darling Ruby on Rails was fingered early for the scaling problems, but Blaine Cook, Twitter's lead architect, held Ruby blameless:For us, it's really about scaling horizontally - to that end, Rails and Ruby haven't been stumbling blocks, compared to any other language or framework. [sent-19, score-0.416]
-</p><p>8 The performance boosts associated with a "faster" language would give us a 10-20% improvement, but thanks to architectural changes that Ruby and Rails happily accommodated, Twitter is 10000% faster than it was in January. [sent-20, score-0.154]
+</p><p>7 Web darling Ruby on Rails was fingered early for the scaling problems, but Blaine Cook, Twitter's lead architect, held Ruby blameless:    For us, it’s really about scaling horizontally - to that end, Rails and Ruby haven’t been stumbling blocks, compared to any other language or framework. [sent-19, score-0.416]
+</p><p>8 The performance boosts associated with a “faster” language would give us a 10-20% improvement, but thanks to architectural changes that Ruby and Rails happily accommodated, Twitter is 10000% faster than it was in January. [sent-20, score-0.154]
 </p><p>9 - For example, if getting a count is slow, you can memoize the count into memcache in a millisecond. [sent-49, score-0.172]
 </p><p>10 So rather than doing a query, a friend's status is updated in cache instead. [sent-52, score-0.12]
 </p><p>11 So they want to store critical attributes in a hash and lazy load the other attributes on access. [sent-56, score-0.14]
 </p><p>12 - Send message to invalidate friend's cache in the background instead of doing all individually, synchronously. [sent-64, score-0.186]
-</p><p>13 - Moved toRinda, which a shared queue that uses a tuplespace model, along the lines of Linda. [sent-68, score-0.142]
+</p><p>13 - Moved to  Rinda , which a shared queue that uses a tuplespace model, along the lines of Linda. [sent-68, score-0.142]
 </p><p>14 But the queues are persistent and the messages are lost on failure. [sent-69, score-0.167]
-</p><p>15 Deployment- They do a review and push out new mongrel servers. [sent-80, score-0.136]
+</p><p>15 Deployment - They do a review and push out new mongrel servers. [sent-80, score-0.136]
 </p><p>16 - An internal server error is given to the user if their mongrel server is replaced. [sent-82, score-0.26]
 </p><p>17 A rolling blackout isn't used because the message queue state is in the mongrels and a rolling approach would cause all the queues in the remaining mongrels to fill up. [sent-84, score-0.589]
 </p><p>18 - The partition scheme will be based on time, not users, because most requests are very temporally local. [sent-94, score-0.118]
@@ -55,69 +42,18 @@ language, static typi</p><br/><h2>Summary: the most important sentenses generete
 <p>[('twitter', 0.397), ('rails', 0.247), ('ruby', 0.192), ('moved', 0.142), ('mongrel', 0.136), ('blaine', 0.129), ('cache', 0.12), ('requests', 0.118), ('intwitter', 0.117), ('friends', 0.116), ('api', 0.114), ('mongrels', 0.105), ('queues', 0.103), ('ids', 0.101), ('pinpoint', 0.093), ('language', 0.092), ('friend', 0.089), ('queue', 0.084), ('exception', 0.079), ('scaling', 0.075), ('tweet', 0.071), ('attributes', 0.07), ('message', 0.066), ('messages', 0.064), ('small', 0.063), ('rolling', 0.063), ('server', 0.062), ('changes', 0.062), ('slave', 0.059), ('darling', 0.058), ('stumbling', 0.058), ('fingered', 0.058), ('accommodated', 0.058), ('tuplespace', 0.058), ('jenson', 0.058), ('advisers', 0.058), ('articlesfor', 0.058), ('chirping', 0.058), ('flaky', 0.058), ('hammers', 0.058), ('terrifying', 0.058), ('uneducated', 0.058), ('videoby', 0.058), ('violates', 0.058), ('getting', 0.058), ('processes', 0.058), ('count', 0.057), ('enough', 0.055), ('statistics', 0.055), ('melted', 0.055)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="639-tfidf-1" href="../high_scalability-2009/high_scalability-2009-06-27-Scaling_Twitter%3A_Making_Twitter_10000_Percent_Faster.html">639 high scalability-2009-06-27-Scaling Twitter: Making Twitter 10000 Percent Faster</a></p>
-<p>Introduction: Update 6:Some interesting changes from Twitter'sEvan Weaver: everything in RAM
-now, database is a backup; peaks at 300 tweets/second; every tweet followed by
-average 126 people; vector cache of tweet IDs; row cache; fragment cache; page
-cache; keep separate caches; GC makes Ruby optimization resistant so went with
-Scala; Thrift and HTTP are used internally; 100s internal requests for every
-external request; rewrote MQ but kept interface the same; 3 queues are used to
-load balance requests; extensive A/B testing for backwards capability;
-switched to C memcached client for speed; optimize critical path; faster to
-get the cached results from the network memory than recompute them
-locally.Update 5:Twitter on Scala. A Conversation with Steve Jenson, Alex
-Payne, and Robey Pointer by Bill Venners. A fascinating discussion of why
-Twitter moved to the Java JVM for their server infrastructure (long lived
-processes) and why they moved toScalato program against it (high level
-language, static typi</p><p>2 0.34511995 <a title="639-tfidf-2" href="../high_scalability-2010/high_scalability-2010-06-07-Six_Ways_Twitter_May_Reach_its_Big_Hairy_Audacious_Goal_of_One_Billion_Users.html">837 high scalability-2010-06-07-Six Ways Twitter May Reach its Big Hairy Audacious Goal of One Billion Users</a></p>
-<p>Introduction: Twitter has a big hairy audacious goal of reaching one billion users by 2013.
-Three forces stand against Twitter. The world will end in2012. But let's be
-optimistic and assume we'll make it. Next is Facebook. Currently Facebook is
-the user leader with over 400 million users. Will Facebook stumble or will
-they rocket to one billion users before Twitter? And lastly, there's Twitter's
-"low" starting point and "slow" growth rate. Twitter currently has106
-millionregistered users and adds about 300,000 new users a day. That doesn't
-add up to a billion in three years. Twitter needs to triple the number of
-registered users they add per day. How will Twitter reach its goal of over one
-billion users served?From recent infrastructure announcements and information
-gleaned atChirp (videos) and other talks, it has become a little clearer how
-they hope to reach their billion user goal: 1) Make a Big Hairy Audacious Goal
-2) Hire Lots of Quality People 3) Hug Developers and Users 4) Drive the
-Technolog</p><p>3 0.26393092 <a title="639-tfidf-3" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
-<p>Introduction: Update:Jake inDoes Django really scale better than Rails?thinks apps like FFS
-shouldn't need so much hardware to scale.In a short three months Friends for
-Sale (think Hot-or-Not with a market economy) grew to become a top 10 Facebook
-application handling 200 gorgeous requests per second and a stunning 300
-million page views a month. They did all this using Ruby on Rails, two part
-time developers, a cluster of a dozen machines, and a fairly standard
-architecture. How did Friends for Sale scale to sell all those beautiful
-people? And how much do you think your friends are worth on the open market?
-Site: http://www.facebook.com/apps/application.php?id=7019261521Information
-SourcesSiqi Chen and Alexander Le, co-creators of Friends for Sale, answering
-my standard questionairre.Virality on FacebookThe PlatformRuby on RailsCentOS
-5 (64 bit)Capistrano- update and restart application
-servers.MemcachedMySQLNginxStarling- distributed queue serverSoftlayer-
-hosting servicePingdom- for website moni</p><p>4 0.22611322 <a title="639-tfidf-4" href="../high_scalability-2009/high_scalability-2009-04-05-At_Some_Point_the_Cost_of_Servers_Outweighs_the_Cost_of_Programmers.html">556 high scalability-2009-04-05-At Some Point the Cost of Servers Outweighs the Cost of Programmers</a></p>
-<p>Introduction: This is the intriguing quote by Bill Venners in an interview with Twitter's
-Alex Payne on Twitter's heretical switch from a pure Ruby stack to a Ruby on
-Rails stack on the front-end and JVM/Scala on the back-end:So performance was
-also one of the problems with JRuby, which I [Bill Venners] think helps
-explain better why they'd [Twitter] prefer Scala over Ruby or JRuby for some
-things.I have often heard Rubyists say that although Ruby is slower than Java,
-for many things it is plenty fast enough, and they are right. The logic goes
-further, saying that servers are cheap, and programmers expensive, so it makes
-sense to tradeoff some runtime performance for programmer productivity. And I
-think that's very often true too, but not always.If you have enough traffic,
-at some point the cost of servers outweighs the cost of programmers. I'm not
-sure whether Twitter is past that point, but they get a lot of traffic. And
-frankly this isn't an intrinsic tradeoff. Other dynamic languages are faster</p><p>5 0.22339016 <a title="639-tfidf-5" href="../high_scalability-2009/high_scalability-2009-04-14-Designing_a_Scalable_Twitter.html">568 high scalability-2009-04-14-Designing a Scalable Twitter</a></p>
-<p>Introduction: There were many talks recently about twitter scalability and their specific
-choice of language such as Scala to address their existing Ruby based
-scalability. In this post i tried to provide a more methodical approach for
-handling twitter scalability challenges that is centered around the right
-choice of architecture patterns rather then the language itself.The
-architecture pattern are given in a generic fashion that is not specific to
-twitter itself and can serve anyone who is looking to build a scalable real
-time web application in the near future.</p><p>6 0.20513494 <a title="639-tfidf-6" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
+<p>Introduction: Update 6:  Some interesting changes from Twitter's  Evan Weaver : everything in RAM now, database is a backup; peaks at 300 tweets/second; every tweet followed by average 126 people; vector cache of tweet IDs; row cache; fragment cache; page cache; keep separate caches; GC makes Ruby optimization resistant so went with Scala; Thrift and HTTP are used internally; 100s internal requests for every external request; rewrote MQ but kept interface the same; 3 queues are used to load balance requests; extensive A/B testing for backwards capability; switched to C memcached client for speed; optimize critical path; faster to get the cached results from the network memory than recompute them locally.  Update 5:   Twitter on Scala . A Conversation with Steve Jenson, Alex Payne, and Robey Pointer by Bill Venners. A fascinating discussion of why Twitter moved to the Java JVM for their server infrastructure  (long lived processes) and why they moved to  Scala  to program against it (high level langu</p><p>2 0.34511995 <a title="639-tfidf-2" href="../high_scalability-2010/high_scalability-2010-06-07-Six_Ways_Twitter_May_Reach_its_Big_Hairy_Audacious_Goal_of_One_Billion_Users.html">837 high scalability-2010-06-07-Six Ways Twitter May Reach its Big Hairy Audacious Goal of One Billion Users</a></p>
+<p>Introduction: Twitter has a big hairy audacious goal of reaching one billion users  by 2013. Three forces stand against Twitter. The world will end in  2012 . But let's be optimistic and assume we'll make it. Next is Facebook. Currently Facebook is the user leader with over  400 million users . Will Facebook stumble or will they rocket to one billion users before Twitter? And lastly, there's Twitter's "low" starting point and "slow" growth rate. Twitter currently has  106 million  registered users and adds about 300,000 new users a day. That doesn't add up to a billion in three years. Twitter needs to triple the number of registered users they add per day. How will Twitter reach its goal of over one billion users served?
+ 
+From recent infrastructure announcements and information gleaned at  Chirp  ( videos ) and other talks, it has become a little clearer how they hope to reach their billion user goal: 1) Make a Big Hairy Audacious Goal 2) Hire Lots of Quality People 3) Hug Developers and Users 4) D</p><p>3 0.26393092 <a title="639-tfidf-3" href="../high_scalability-2008/high_scalability-2008-05-02-Friends_for_Sale_Architecture_-_A_300_Million_Page_View-Month_Facebook_RoR_App.html">313 high scalability-2008-05-02-Friends for Sale Architecture - A 300 Million Page View-Month Facebook RoR App</a></p>
+<p>Introduction: Update:  Jake in  Does Django really scale better than Rails?  thinks apps like FFS shouldn't need so much hardware to scale.  In a short three months Friends for Sale (think Hot-or-Not with a market economy) grew to become a top 10 Facebook application handling 200 gorgeous requests per second and a stunning 300 million page views a month. They did all this using Ruby on Rails,  two part time developers, a cluster of a dozen machines, and a fairly standard architecture. How did Friends for Sale scale to sell all those beautiful people? And how much do you think your friends are worth on the open market? 
+ 
+Site: http://www.facebook.com/apps/application.php?id=7019261521
+  Information Sources    Siqi Chen and Alexander Le, co-creators of Friends for Sale, answering my standard questionairre.     Virality on Facebook  
+ The Platform 
+    Ruby on Rails    CentOS 5 (64 bit)     Capistrano  - update and restart application servers.     Memcached     MySQL     Nginx      Starling  - distrib</p><p>4 0.22611322 <a title="639-tfidf-4" href="../high_scalability-2009/high_scalability-2009-04-05-At_Some_Point_the_Cost_of_Servers_Outweighs_the_Cost_of_Programmers.html">556 high scalability-2009-04-05-At Some Point the Cost of Servers Outweighs the Cost of Programmers</a></p>
+<p>Introduction: This is the intriguing quote by Bill Venners in an interview with Twitter's Alex Payne on Twitter's heretical switch from a pure Ruby stack to a Ruby on Rails stack on the front-end and JVM/Scala on the back-end:      So performance was also one of the problems with JRuby, which I [Bill Venners] think helps explain better why they'd [Twitter] prefer Scala over Ruby or JRuby for some things.  I have often heard Rubyists say that although Ruby is slower than Java, for many things it is plenty fast enough, and they are right. The logic goes further, saying that servers are cheap, and programmers expensive, so it makes sense to tradeoff some runtime performance for programmer productivity. And I think that's very often true too, but not always.  If you have enough traffic, at some point the cost of servers outweighs the cost of programmers . I'm not sure whether Twitter is past that point, but they get a lot of traffic. And frankly this isn't an intrinsic tradeoff. Other dynamic languages</p><p>5 0.22339016 <a title="639-tfidf-5" href="../high_scalability-2009/high_scalability-2009-04-14-Designing_a_Scalable_Twitter.html">568 high scalability-2009-04-14-Designing a Scalable Twitter</a></p>
+<p>Introduction: There were many talks recently about twitter scalability and their specific choice of language such as Scala  to address their existing Ruby based scalability. In this post i tried to provide a more methodical approach for handling twitter scalability challenges that is centered around the right choice of architecture patterns rather then the language itself.   The architecture pattern are given in a generic fashion that is not specific to twitter itself and can serve anyone who is looking to build a scalable real time web application in the near future.</p><p>6 0.20513494 <a title="639-tfidf-6" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
 <p>7 0.20412359 <a title="639-tfidf-7" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
 <p>8 0.20294696 <a title="639-tfidf-8" href="../high_scalability-2009/high_scalability-2009-04-20-Some_things_about_Memcached_from_a_Twitter_software_developer.html">574 high scalability-2009-04-20-Some things about Memcached from a Twitter software developer</a></p>
 <p>9 0.20027927 <a title="639-tfidf-9" href="../high_scalability-2008/high_scalability-2008-10-15-Outside.in_Scales_Up_with_Engine_Yard_and_moving_from_PHP_to_Ruby_on_Rails.html">417 high scalability-2008-10-15-Outside.in Scales Up with Engine Yard and moving from PHP to Ruby on Rails</a></p>
@@ -137,75 +73,29 @@ time web application in the near future.</p><p>6 0.20513494 <a title="639-tfidf-
 <p>[(0, 0.296), (1, 0.143), (2, -0.072), (3, -0.115), (4, 0.1), (5, -0.062), (6, -0.052), (7, 0.065), (8, -0.014), (9, -0.008), (10, 0.021), (11, 0.122), (12, 0.055), (13, 0.046), (14, -0.115), (15, -0.049), (16, 0.016), (17, -0.072), (18, -0.005), (19, -0.033), (20, -0.057), (21, -0.053), (22, 0.067), (23, 0.021), (24, 0.0), (25, 0.04), (26, 0.042), (27, -0.01), (28, -0.044), (29, 0.057), (30, 0.065), (31, -0.176), (32, -0.163), (33, 0.032), (34, -0.165), (35, -0.049), (36, -0.048), (37, 0.085), (38, -0.164), (39, -0.041), (40, 0.083), (41, -0.081), (42, -0.044), (43, 0.033), (44, -0.039), (45, -0.057), (46, -0.041), (47, -0.015), (48, 0.016), (49, -0.006)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97296393 <a title="639-lsi-1" href="../high_scalability-2009/high_scalability-2009-06-27-Scaling_Twitter%3A_Making_Twitter_10000_Percent_Faster.html">639 high scalability-2009-06-27-Scaling Twitter: Making Twitter 10000 Percent Faster</a></p>
-<p>Introduction: Update 6:Some interesting changes from Twitter'sEvan Weaver: everything in RAM
-now, database is a backup; peaks at 300 tweets/second; every tweet followed by
-average 126 people; vector cache of tweet IDs; row cache; fragment cache; page
-cache; keep separate caches; GC makes Ruby optimization resistant so went with
-Scala; Thrift and HTTP are used internally; 100s internal requests for every
-external request; rewrote MQ but kept interface the same; 3 queues are used to
-load balance requests; extensive A/B testing for backwards capability;
-switched to C memcached client for speed; optimize critical path; faster to
-get the cached results from the network memory than recompute them
-locally.Update 5:Twitter on Scala. A Conversation with Steve Jenson, Alex
-Payne, and Robey Pointer by Bill Venners. A fascinating discussion of why
-Twitter moved to the Java JVM for their server infrastructure (long lived
-processes) and why they moved toScalato program against it (high level
-language, static typi</p><p>2 0.85827488 <a title="639-lsi-2" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
-<p>Introduction: Toy solutions solving Twitter's "problems" are a favorite scalability trope.
-Everybody has this idea that Twitter is easy. With a little architectural hand
-waving we have a scalable Twitter, just that simple. Well, it's not that
-simple asRaffi Krikorian, VP of Engineering at Twitter, describes in his
-superb and very detailed presentation onTimelines at Scale. If you want to
-know how Twitter works - then start here.It happened gradually so you may have
-missed it, but Twitter has grown up. It started as a strugglingthree-tierish
-Ruby on Railswebsite to become a beautifully service driven core that we
-actually go to now to see if other services are down. Quite a change.Twitter
-now has 150M world wide active users, handles 300K QPS to generate timelines,
-and a firehose that churns out 22 MB/sec. 400 million tweets a day flow
-through the system and it can take up to 5 minutes for a tweet to flow from
-Lady Gaga's fingers to her 31 million followers.A couple of points stood
-out:Twitter no lon</p><p>3 0.82649326 <a title="639-lsi-3" href="../high_scalability-2010/high_scalability-2010-06-07-Six_Ways_Twitter_May_Reach_its_Big_Hairy_Audacious_Goal_of_One_Billion_Users.html">837 high scalability-2010-06-07-Six Ways Twitter May Reach its Big Hairy Audacious Goal of One Billion Users</a></p>
-<p>Introduction: Twitter has a big hairy audacious goal of reaching one billion users by 2013.
-Three forces stand against Twitter. The world will end in2012. But let's be
-optimistic and assume we'll make it. Next is Facebook. Currently Facebook is
-the user leader with over 400 million users. Will Facebook stumble or will
-they rocket to one billion users before Twitter? And lastly, there's Twitter's
-"low" starting point and "slow" growth rate. Twitter currently has106
-millionregistered users and adds about 300,000 new users a day. That doesn't
-add up to a billion in three years. Twitter needs to triple the number of
-registered users they add per day. How will Twitter reach its goal of over one
-billion users served?From recent infrastructure announcements and information
-gleaned atChirp (videos) and other talks, it has become a little clearer how
-they hope to reach their billion user goal: 1) Make a Big Hairy Audacious Goal
-2) Hire Lots of Quality People 3) Hug Developers and Users 4) Drive the
-Technolog</p><p>4 0.82249421 <a title="639-lsi-4" href="../high_scalability-2013/high_scalability-2013-07-15-Ask_HS%3A_What%27s_Wrong_with_Twitter%2C_Why_Isn%27t_One_Machine_Enough%3F.html">1491 high scalability-2013-07-15-Ask HS: What's Wrong with Twitter, Why Isn't One Machine Enough?</a></p>
-<p>Introduction: Can anyone convincingly explain why properties sporting traffic statistics
-that may seem in-line with with the capabilities of a single big-iron machine
-need so many machines in their architecture?This is a common reaction to
-architecture profiles on High Scalability: I could do all that on a few
-machines so they must be doing something really stupid. Lo and behold this
-same reaction also occurred to the articleThe Architecture Twitter Uses to
-Deal with 150M Active Users. On Hacker Newspapsosouid voiced what a lot of
-people may have been thinking:I really question the current trend of creating
-big, complex, fragile architectures to "be able to scale". These numbers are a
-great example of why, the entire thing could run on a single server, in a very
-straight forward setup. When you are creating a cluster for scalability, and
-it has less CPU, RAM and IO than a single server, what are you gaining? They
-are only doing 6k writes a second for crying out loud.This is a surprisingly
-hard react</p><p>5 0.82249296 <a title="639-lsi-5" href="../high_scalability-2009/high_scalability-2009-04-05-At_Some_Point_the_Cost_of_Servers_Outweighs_the_Cost_of_Programmers.html">556 high scalability-2009-04-05-At Some Point the Cost of Servers Outweighs the Cost of Programmers</a></p>
-<p>Introduction: This is the intriguing quote by Bill Venners in an interview with Twitter's
-Alex Payne on Twitter's heretical switch from a pure Ruby stack to a Ruby on
-Rails stack on the front-end and JVM/Scala on the back-end:So performance was
-also one of the problems with JRuby, which I [Bill Venners] think helps
-explain better why they'd [Twitter] prefer Scala over Ruby or JRuby for some
-things.I have often heard Rubyists say that although Ruby is slower than Java,
-for many things it is plenty fast enough, and they are right. The logic goes
-further, saying that servers are cheap, and programmers expensive, so it makes
-sense to tradeoff some runtime performance for programmer productivity. And I
-think that's very often true too, but not always.If you have enough traffic,
-at some point the cost of servers outweighs the cost of programmers. I'm not
-sure whether Twitter is past that point, but they get a lot of traffic. And
-frankly this isn't an intrinsic tradeoff. Other dynamic languages are faster</p><p>6 0.78538877 <a title="639-lsi-6" href="../high_scalability-2008/high_scalability-2008-05-19-Twitter_as_a_scalability_case_study.html">323 high scalability-2008-05-19-Twitter as a scalability case study</a></p>
+<p>Introduction: Update 6:  Some interesting changes from Twitter's  Evan Weaver : everything in RAM now, database is a backup; peaks at 300 tweets/second; every tweet followed by average 126 people; vector cache of tweet IDs; row cache; fragment cache; page cache; keep separate caches; GC makes Ruby optimization resistant so went with Scala; Thrift and HTTP are used internally; 100s internal requests for every external request; rewrote MQ but kept interface the same; 3 queues are used to load balance requests; extensive A/B testing for backwards capability; switched to C memcached client for speed; optimize critical path; faster to get the cached results from the network memory than recompute them locally.  Update 5:   Twitter on Scala . A Conversation with Steve Jenson, Alex Payne, and Robey Pointer by Bill Venners. A fascinating discussion of why Twitter moved to the Java JVM for their server infrastructure  (long lived processes) and why they moved to  Scala  to program against it (high level langu</p><p>2 0.85827488 <a title="639-lsi-2" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
+<p>Introduction: Toy solutions solving Twitter’s “problems” are a favorite scalability trope. Everybody has this idea that Twitter is easy. With a little architectural hand waving we have a scalable Twitter, just that simple. Well, it’s not that simple as   Raffi Krikorian   , VP of Engineering at Twitter, describes in his superb and very detailed presentation on    Timelines at Scale   . If you want to know how Twitter works - then start here.  
+ 
+It happened gradually so you may have missed it, but Twitter has grown up. It started as a struggling   three-tierish Ruby on Rails    website to become a beautifully service driven core that we actually go to now to see if other services are down. Quite a change.  
+ 
+Twitter now has 150M world wide active users, handles 300K QPS to generate timelines, and a firehose that churns out 22 MB/sec. 400 million tweets a day flow through the system and it can take up to 5 minutes for a tweet to flow from Lady Gaga’s fingers to her 31 million followers.
+ 
+A couple o</p><p>3 0.82649326 <a title="639-lsi-3" href="../high_scalability-2010/high_scalability-2010-06-07-Six_Ways_Twitter_May_Reach_its_Big_Hairy_Audacious_Goal_of_One_Billion_Users.html">837 high scalability-2010-06-07-Six Ways Twitter May Reach its Big Hairy Audacious Goal of One Billion Users</a></p>
+<p>Introduction: Twitter has a big hairy audacious goal of reaching one billion users  by 2013. Three forces stand against Twitter. The world will end in  2012 . But let's be optimistic and assume we'll make it. Next is Facebook. Currently Facebook is the user leader with over  400 million users . Will Facebook stumble or will they rocket to one billion users before Twitter? And lastly, there's Twitter's "low" starting point and "slow" growth rate. Twitter currently has  106 million  registered users and adds about 300,000 new users a day. That doesn't add up to a billion in three years. Twitter needs to triple the number of registered users they add per day. How will Twitter reach its goal of over one billion users served?
+ 
+From recent infrastructure announcements and information gleaned at  Chirp  ( videos ) and other talks, it has become a little clearer how they hope to reach their billion user goal: 1) Make a Big Hairy Audacious Goal 2) Hire Lots of Quality People 3) Hug Developers and Users 4) D</p><p>4 0.82249421 <a title="639-lsi-4" href="../high_scalability-2013/high_scalability-2013-07-15-Ask_HS%3A_What%27s_Wrong_with_Twitter%2C_Why_Isn%27t_One_Machine_Enough%3F.html">1491 high scalability-2013-07-15-Ask HS: What's Wrong with Twitter, Why Isn't One Machine Enough?</a></p>
+<p>Introduction: Can anyone convincingly explain why properties sporting traffic statistics that may seem in-line with with the capabilities of a single big-iron machine need so many machines in their architecture?
+ 
+This is a common reaction to architecture profiles on High Scalability: I could do all that on a few machines so they must be doing something really stupid. 
+ 
+Lo and behold this same reaction also occurred to the article  The Architecture Twitter Uses to Deal with 150M Active Users . On Hacker News  papsosouid  voiced what a lot of people may have been thinking:
+  
+
+I really question the current trend of creating big, complex, fragile architectures to "be able to scale". These numbers are a great example of why, the entire thing could run on a single server, in a very straight forward setup. When you are creating a cluster for scalability, and it has less CPU, RAM and IO than a single server, what are you gaining? They are only doing 6k writes a second for crying out loud.
+
+  
+This is a s</p><p>5 0.82249296 <a title="639-lsi-5" href="../high_scalability-2009/high_scalability-2009-04-05-At_Some_Point_the_Cost_of_Servers_Outweighs_the_Cost_of_Programmers.html">556 high scalability-2009-04-05-At Some Point the Cost of Servers Outweighs the Cost of Programmers</a></p>
+<p>Introduction: This is the intriguing quote by Bill Venners in an interview with Twitter's Alex Payne on Twitter's heretical switch from a pure Ruby stack to a Ruby on Rails stack on the front-end and JVM/Scala on the back-end:      So performance was also one of the problems with JRuby, which I [Bill Venners] think helps explain better why they'd [Twitter] prefer Scala over Ruby or JRuby for some things.  I have often heard Rubyists say that although Ruby is slower than Java, for many things it is plenty fast enough, and they are right. The logic goes further, saying that servers are cheap, and programmers expensive, so it makes sense to tradeoff some runtime performance for programmer productivity. And I think that's very often true too, but not always.  If you have enough traffic, at some point the cost of servers outweighs the cost of programmers . I'm not sure whether Twitter is past that point, but they get a lot of traffic. And frankly this isn't an intrinsic tradeoff. Other dynamic languages</p><p>6 0.78538877 <a title="639-lsi-6" href="../high_scalability-2008/high_scalability-2008-05-19-Twitter_as_a_scalability_case_study.html">323 high scalability-2008-05-19-Twitter as a scalability case study</a></p>
 <p>7 0.78243124 <a title="639-lsi-7" href="../high_scalability-2009/high_scalability-2009-04-20-Some_things_about_Memcached_from_a_Twitter_software_developer.html">574 high scalability-2009-04-20-Some things about Memcached from a Twitter software developer</a></p>
 <p>8 0.76721209 <a title="639-lsi-8" href="../high_scalability-2011/high_scalability-2011-12-19-How_Twitter_Stores_250_Million_Tweets_a_Day_Using_MySQL.html">1159 high scalability-2011-12-19-How Twitter Stores 250 Million Tweets a Day Using MySQL</a></p>
 <p>9 0.72647548 <a title="639-lsi-9" href="../high_scalability-2011/high_scalability-2011-11-29-DataSift_Architecture%3A_Realtime_Datamining_at_120%2C000_Tweets_Per_Second.html">1148 high scalability-2011-11-29-DataSift Architecture: Realtime Datamining at 120,000 Tweets Per Second</a></p>
@@ -225,62 +115,32 @@ frankly this isn't an intrinsic tradeoff. Other dynamic languages are faster</p>
 <p>[(1, 0.137), (2, 0.539), (10, 0.02), (26, 0.013), (30, 0.018), (47, 0.014), (56, 0.011), (61, 0.054), (79, 0.053), (85, 0.041), (89, 0.01), (94, 0.027)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.99654335 <a title="639-lda-1" href="../high_scalability-2012/high_scalability-2012-02-10-Stuff_The_Internet_Says_On_Scalability_For_February_10%2C_2012.html">1190 high scalability-2012-02-10-Stuff The Internet Says On Scalability For February 10, 2012</a></p>
-<p>Introduction: HighScalability Tested, Mother Approved:12,233TPS: Twitter @ Super Bowl; 11
-Million Slices: Dominos @ Super Bowl;500K requests per second: S3; The great
-mobile money drain. Mobile: high resource costs, low revenue. Mobile traffic
-on Plenty of Fish is growing at 3% a month, rising to 3 Billion pageviews a
-month, 40% of signups are mobile, and all traffic will soon be 60-70% mobile.
-The problem: how do you make money on mobile?Time to chuck microprocessors for
-a networks of cells? How Networks of Biological Cells Solve Distributed
-Computing Problems: Computer scientists prove that networks of cells can
-compute as efficiently as networks of computers linked via the internet. We
-believe that there is a need for a network model, where nodes are by design
-below the computation and communication capabilities of Turing
-machines.Unrelated? GDrive at last and S3 Drops Storage Pricing.If you
-areStackOverflow and your data is overflowing, what do you do? Move it to its
-own hardware, add memory, ad</p><p>2 0.99646622 <a title="639-lda-2" href="../high_scalability-2011/high_scalability-2011-01-03-Stuff_The_Internet_Says_On_Scalability_For_January_3%2C_2010.html">967 high scalability-2011-01-03-Stuff The Internet Says On Scalability For January 3, 2010</a></p>
-<p>Introduction: Submitted for your reading pleasure...Quotable Quotes@hofmanndavid:
-Performance and scalability anxiety makes developers want to catch the flying
-butterflies@tivrfoa:"Scalability solutions aren't magic. They involve
-partitioning, indexing and replication." Twitter engineerAlan Perlis: Fools
-ignore complexity; pragmatists suffer it; experts avoid it; geniuses remove
-it.CIO update: Post-mortem on the Skype outage. Interesting tale of a
-cascading collapse in complex, distributed, interactive systems. For more
-background see the highly illuminating Explaining Supernodes by Dan
-York.RethinkDB and SSD Databases. SSD was not a revolution by Kevin Burton.
-What's really shocking to me, is that while SSD and flash storage is very
-exciting, it wasn't as revolutionary in 2010 as I would have liked to have
-seen.The case for Datastore-Side-Scripting. Russell Sullivan predicts real-
-time web applications are going in the direction of being entirely event
-driven, from client (WebSockets) to web-server</p><p>same-blog 3 0.99588662 <a title="639-lda-3" href="../high_scalability-2009/high_scalability-2009-06-27-Scaling_Twitter%3A_Making_Twitter_10000_Percent_Faster.html">639 high scalability-2009-06-27-Scaling Twitter: Making Twitter 10000 Percent Faster</a></p>
-<p>Introduction: Update 6:Some interesting changes from Twitter'sEvan Weaver: everything in RAM
-now, database is a backup; peaks at 300 tweets/second; every tweet followed by
-average 126 people; vector cache of tweet IDs; row cache; fragment cache; page
-cache; keep separate caches; GC makes Ruby optimization resistant so went with
-Scala; Thrift and HTTP are used internally; 100s internal requests for every
-external request; rewrote MQ but kept interface the same; 3 queues are used to
-load balance requests; extensive A/B testing for backwards capability;
-switched to C memcached client for speed; optimize critical path; faster to
-get the cached results from the network memory than recompute them
-locally.Update 5:Twitter on Scala. A Conversation with Steve Jenson, Alex
-Payne, and Robey Pointer by Bill Venners. A fascinating discussion of why
-Twitter moved to the Java JVM for their server infrastructure (long lived
-processes) and why they moved toScalato program against it (high level
-language, static typi</p><p>4 0.99538267 <a title="639-lda-4" href="../high_scalability-2012/high_scalability-2012-02-27-Zen_and_the_Art_of_Scaling_-_A_Koan_and_Epigram_Approach.html">1199 high scalability-2012-02-27-Zen and the Art of Scaling - A Koan and Epigram Approach</a></p>
-<p>Introduction: This is a guest post derived from an email conversation withRussell Sullivan,
-a computer architect and creator ofAlchemy Database,A Hybrid RDBMS/NOSQL-
-Datastore.Russell (AKA Jak Sprats) has been pondering, considering, and
-implementing distributed databases for many years. In a recent email
-conversation he shared 44 of the lessons he has learned from developing the
-infrastructure for high performance / highly scalable systems. Some are well
-known, some are debatable, and some obviously result from a deep experience
-that is worth learning from:There are maybe 20 classic bottlenecks (CPU, NIC
-overload, memory fragmentation, disk seeks, swap, thread deadlock, packet
-loss, etc.), have a basic understanding of them, because each is a dark
-tunnel, and you need a specialised flashlight for each.The true style of
-scalable architecture is rooted in the nature of bottlenecks. I always talk
-aboutcommutative operationson a sharded relational model, and I figure if that
-is in place, whatever is bu</p><p>5 0.99439371 <a title="639-lda-5" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
+<p>Introduction: HighScalability Tested, Mother Approved:
+  
+  12,233TPS : Twitter @ Super Bowl;  11 Million Slices : Dominos @ Super Bowl;  500K requests per second : S3;  
+  The great mobile money drain . Mobile: high resource costs, low revenue. Mobile traffic on Plenty of Fish is  growing at 3% a month , rising to 3 Billion pageviews a month, 40% of signups are mobile, and all traffic will soon be 60-70% mobile. The problem: how do you make money on mobile? 
+  Time to chuck microprocessors for a networks of cells?   How Networks of Biological Cells Solve Distributed Computing Problems : Computer scientists prove that networks of cells can compute as efficiently as networks of computers linked via the internet. We believe that there is a need for a network model, where nodes are by design below the computation and communication capabilities of Turing machines. 
+  Unrelated?   GDrive at last  and  S3 Drops Storage Pricing . 
+ If you are  StackOverflow and your data is overflowing , what do you do? Mo</p><p>2 0.99646622 <a title="639-lda-2" href="../high_scalability-2011/high_scalability-2011-01-03-Stuff_The_Internet_Says_On_Scalability_For_January_3%2C_2010.html">967 high scalability-2011-01-03-Stuff The Internet Says On Scalability For January 3, 2010</a></p>
+<p>Introduction: Submitted for your reading pleasure...
+  
+ Quotable Quotes           
+ 
+  @hofmanndavid : Performance and scalability anxiety makes developers want to catch the flying butterflies 
+  @tivrfoa :  "Scalability solutions aren't magic. They involve partitioning, indexing and replication." Twitter engineer  
+ Alan Perlis:  Fools ignore complexity; pragmatists suffer it; experts avoid it; geniuses remove it.  
+ 
+ 
+  CIO update: Post-mortem on the Skype outage . Interesting tale of a cascading collapse in complex, distributed, interactive systems. For more background see the highly illuminating  Explaining Supernodes  by Dan York. 
+  RethinkDB and SSD Databases. SSD was not a revolution  by Kevin Burton.  What’s really shocking to me, is that while SSD and flash storage is very exciting, it wasn’t as revolutionary in 2010 as I would have liked to have seen.  
+  The case for Datastore-Side-Scripting . Russell Sullivan predicts real-time web applications are going in the direction of being enti</p><p>same-blog 3 0.99588662 <a title="639-lda-3" href="../high_scalability-2009/high_scalability-2009-06-27-Scaling_Twitter%3A_Making_Twitter_10000_Percent_Faster.html">639 high scalability-2009-06-27-Scaling Twitter: Making Twitter 10000 Percent Faster</a></p>
+<p>Introduction: Update 6:  Some interesting changes from Twitter's  Evan Weaver : everything in RAM now, database is a backup; peaks at 300 tweets/second; every tweet followed by average 126 people; vector cache of tweet IDs; row cache; fragment cache; page cache; keep separate caches; GC makes Ruby optimization resistant so went with Scala; Thrift and HTTP are used internally; 100s internal requests for every external request; rewrote MQ but kept interface the same; 3 queues are used to load balance requests; extensive A/B testing for backwards capability; switched to C memcached client for speed; optimize critical path; faster to get the cached results from the network memory than recompute them locally.  Update 5:   Twitter on Scala . A Conversation with Steve Jenson, Alex Payne, and Robey Pointer by Bill Venners. A fascinating discussion of why Twitter moved to the Java JVM for their server infrastructure  (long lived processes) and why they moved to  Scala  to program against it (high level langu</p><p>4 0.99538267 <a title="639-lda-4" href="../high_scalability-2012/high_scalability-2012-02-27-Zen_and_the_Art_of_Scaling_-_A_Koan_and_Epigram_Approach.html">1199 high scalability-2012-02-27-Zen and the Art of Scaling - A Koan and Epigram Approach</a></p>
+<p>Introduction: This is a guest post derived from an email conversation with   Russell Sullivan  , a computer architect and creator of  Alchemy Database,  A Hybrid RDBMS/NOSQL-Datastore. 
+ 
+Russell (AKA Jak Sprats) has been pondering, considering, and implementing distributed databases for many years. In a recent email conversation he shared 44 of the lessons he has learned from developing the infrastructure for high performance / highly scalable systems. Some are well known, some are debatable, and some obviously result from a deep experience that is worth learning from:
+  
+  There are maybe 20 classic bottlenecks (CPU, NIC overload, memory fragmentation, disk seeks, swap, thread deadlock, packet loss, etc.), have a basic understanding of them, because each is a dark tunnel, and you need a specialised flashlight for each.  
+ The true style of scalable architecture is rooted in the nature of bottlenecks. I always talk about  commutative operations  on a sharded relational model, and I figure if that i</p><p>5 0.99439371 <a title="639-lda-5" href="../high_scalability-2014/high_scalability-2014-02-05-Little%E2%80%99s_Law%2C_Scalability_and_Fault_Tolerance%3A_The_OS_is_your_bottleneck._What_you_can_do%3F.html">1591 high scalability-2014-02-05-Little’s Law, Scalability and Fault Tolerance: The OS is your bottleneck. What you can do?</a></p>
 <p>Introduction: This is a guestrepostby Ron Pressler, the founder and CEO ofParallel Universe,
 a Y Combinator company building advanced middleware for real-time
 applications. Little's Law helps us determine the maximum request rate a

@@ -16,28 +16,16 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-512-html" href="http://highscalability.com//blog/2009/2/14/scaling-digg-and-other-web-applications.html">html</a></p><p>Introduction: Joe Stump, Lead Architect at Digg, gavethis presentationat the Web 2.0 Expo. I
-couldn't find the actual presentation, but fortunatelyKris Jordantook some
-great notes. That's how key moments in history are accidentally captured
-forever. Joe was also kind enough to respond to my email questions with a
-phone call.In this first part of the post Joe shares some timeless wisdom that
-you may or may not have read before. I of course take some pains to extract
-all the wit from the original presentation in favor of simple rules. What
-really struck me however was how Joe thought MemcacheDBWill be the biggest new
-kid on the block in scaling. MemcacheDB has been around for a little while and
-I've never thought of it in that way. Well learn why Joe is so excited by
-MemcacheDB at the end of the post.Impressive Stats80th-100th largest site in
-the world26 million uniques a month30 million users.Uniques are only half that
-traffic. Traffic = unique web visitors + APIs + Digg buttons.2 billion
-requests a</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 2 billion requests a month13,000 requests a second, peak at 27,000 requests a second. [sent-14, score-0.207]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-512-html" href="http://highscalability.com//blog/2009/2/14/scaling-digg-and-other-web-applications.html">html</a></p><p>Introduction: Joe Stump, Lead Architect at Digg, gave  this presentation  at the Web 2.0 Expo. I couldn't find the actual presentation, but fortunately  Kris Jordan  took some great notes. That's how key moments in history are accidentally captured forever. Joe was also kind enough to respond to my email questions with a phone call.   In this first part of the post Joe shares some timeless wisdom that you may or may not have read before. I of course take some pains to extract all the wit from the original presentation in favor of simple rules. What really struck me however was how Joe thought MemcacheDB  Will be the biggest new kid on the block in scaling .  MemcacheDB has been around for a little while and I've never thought of it in that way. Well learn why Joe is so excited by MemcacheDB at the end of the post.
+  Impressive Stats   80th-100th largest site in the world   26 million uniques a month   30 million users.   Uniques are only half that traffic. Traffic = unique web visitors + APIs + Digg</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 2 billion requests a month   13,000 requests a second, peak at 27,000 requests a second. [sent-14, score-0.207]
 </p><p>2 Horizontal partitioning means store a subset of rows on a different machines. [sent-40, score-0.206]
 </p><p>3 Vertical partitioning means putting some columns in one table and some columns in another table. [sent-42, score-0.342]
 </p><p>4 Build a data access layer so partitioning is hidden behind an API. [sent-45, score-0.131]
-</p><p>5 With partitioning comes theCAP Theorem: you can only pick two of the following three: Strong Consistency, High Availability, Partition Tolerance. [sent-46, score-0.131]
+</p><p>5 With partitioning comes the  CAP Theorem :  you can only pick two of the following three: Strong Consistency, High Availability, Partition Tolerance. [sent-46, score-0.131]
 </p><p>6 Denormalization means data is copied in multiple objects and must be kept synchronized. [sent-48, score-0.15]
-</p><p>7 - It's faster and more responsive than cron and only slightly less responsive than real-time. [sent-52, score-0.128]
-</p><p>8 All three are then combined to return a combined single answer to the client. [sent-58, score-0.201]
-</p><p>9 So you have to:- denormalize- avoid joins- avoid large scans across databases by partitioning- cache- add read slaves- don't use NFSRun numbers before you try and fix a problem to make sure things actually will work. [sent-65, score-0.172]
+</p><p>7 All three are then combined to return a combined single answer to the client. [sent-58, score-0.201]
+</p><p>8 So you have to: - denormalize - avoid joins - avoid large scans across databases by partitioning - cache - add read slaves - don't use NFS   Run numbers before you try and fix a problem to make sure things actually will work. [sent-65, score-0.303]
+</p><p>9 Cache changeable items in memcached   Cache rarely changed items in  APC . [sent-70, score-0.212]
 </p><p>10 Eventually consistent means that writes to one partition will eventually make it to all the other partitions. [sent-78, score-0.236]
 </p><p>11 After a write reads made one after another don't have to return the same value as they could be handled by different partitions. [sent-79, score-0.252]
 </p><p>12 Trust that people have it handled and they'll take care of it. [sent-93, score-0.163]
@@ -55,70 +43,22 @@ requests a</p><br/><h2>Summary: the most important sentenses genereted by tfidf 
 <p>[('memcachedb', 0.444), ('digg', 0.349), ('joe', 0.259), ('apc', 0.141), ('partitioning', 0.131), ('php', 0.129), ('stump', 0.125), ('denormalization', 0.109), ('writes', 0.099), ('diggs', 0.094), ('evolutionary', 0.091), ('handled', 0.09), ('trust', 0.089), ('return', 0.089), ('uses', 0.088), ('step', 0.086), ('excited', 0.083), ('memcached', 0.078), ('copied', 0.075), ('means', 0.075), ('normalized', 0.073), ('people', 0.073), ('write', 0.073), ('records', 0.072), ('memcache', 0.071), ('revolutionary', 0.071), ('tags', 0.07), ('requests', 0.069), ('columns', 0.068), ('presentation', 0.067), ('items', 0.067), ('kevin', 0.064), ('responsive', 0.064), ('eventually', 0.062), ('add', 0.058), ('avoid', 0.057), ('queuing', 0.057), ('combined', 0.056), ('gavethis', 0.055), ('globals', 0.055), ('architecturefor', 0.055), ('coders', 0.055), ('conforms', 0.055), ('storesan', 0.055), ('thecap', 0.055), ('database', 0.053), ('language', 0.052), ('presentationat', 0.051), ('kris', 0.051), ('adistributed', 0.051)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000005 <a title="512-tfidf-1" href="../high_scalability-2009/high_scalability-2009-02-14-Scaling_Digg_and_Other_Web_Applications.html">512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</a></p>
-<p>Introduction: Joe Stump, Lead Architect at Digg, gavethis presentationat the Web 2.0 Expo. I
-couldn't find the actual presentation, but fortunatelyKris Jordantook some
-great notes. That's how key moments in history are accidentally captured
-forever. Joe was also kind enough to respond to my email questions with a
-phone call.In this first part of the post Joe shares some timeless wisdom that
-you may or may not have read before. I of course take some pains to extract
-all the wit from the original presentation in favor of simple rules. What
-really struck me however was how Joe thought MemcacheDBWill be the biggest new
-kid on the block in scaling. MemcacheDB has been around for a little while and
-I've never thought of it in that way. Well learn why Joe is so excited by
-MemcacheDB at the end of the post.Impressive Stats80th-100th largest site in
-the world26 million uniques a month30 million users.Uniques are only half that
-traffic. Traffic = unique web visitors + APIs + Digg buttons.2 billion
-requests a</p><p>2 0.37434012 <a title="512-tfidf-2" href="../high_scalability-2009/high_scalability-2009-04-04-Digg_Architecture.html">554 high scalability-2009-04-04-Digg Architecture</a></p>
-<p>Introduction: Update 4::Introducing Digg's IDDB Infrastructureby Joe Stump.IDDB is a way to
-partition both indexes (e.g. integer sequences and unique character indexes)
-and actual tables across multiple storage servers (MySQL and MemcacheDB are
-currently supported with more to follow).Update 3::Scaling Digg and Other Web
-Applications.Update 2::How Digg WorksandHow Digg Really Works(wear ear plugs).
-Brought to you straight from Digg's blog. A very succinct explanation of the
-major elements of the Digg architecture while tracing a request through the
-system. I've updated this profile with the new information.Update:Digg now
-receives 230 million plus page views per month and 26 million unique visitors
-- traffic that necessitated major internal upgrades.Traffic generated by
-Digg's over 22 million famously info-hungry users and 230 million page views
-can crash an unsuspecting website head-on into its CPU, memory, and bandwidth
-limits. How does Digg handle billions of requests a month?Site:
-http://digg.co</p><p>3 0.23107356 <a title="512-tfidf-3" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
-<p>Introduction: Real-time social graphs (connectivity between people, places, and things).
-That's why scaling Facebook is hardsays Jeff Rothschild, Vice President of
-Technology at Facebook. Social networking sites like Facebook, Digg, and
-Twitter are simply harder than traditional websites to scale. Why is that? Why
-would social networking sites be any more difficult to scale than traditional
-web sites? Let's find out.Traditional websites are easier to scale than social
-networking sites for two reasons:They usually access only their own data and
-common cached data.Only 1-2% of users are active on the site at one
-time.Imagine a huge site like Yahoo. When you come to Yahoo they can get your
-profile record with one get and that's enough to build your view of the
-website for you. It's relatively straightforward to scale systems based around
-single records usingdistributed hashing schemes. And since only a few percent
-of the people are on the site at once it takes comparatively little RAM cache
-to handle a</p><p>4 0.22324337 <a title="512-tfidf-4" href="../high_scalability-2010/high_scalability-2010-06-01-Sponsored_Post%3A_Get_Your_High_Scalability_Fix_at_Digg.html">833 high scalability-2010-06-01-Sponsored Post: Get Your High Scalability Fix at Digg</a></p>
-<p>Introduction: Get Your High Scalability Fix at Digg Interested in working on cutting-edge
-high-scale infrastructure at Digg? We're making a big investment in scaling
-and have committed to the NoSQL (Not only SQL) path with Cassandra. We're
-using other open-source infrastructure to help us scale including Hadoop,
-RabbitMQ, Zookeeper, Thrift, HDFS and Lucene. We're rewriting Digg from the
-ground up and we need amazing developers to join our world-class team. If you
-think you are up for the challenge, or you know someone who might be, take a
-look at our jobs page for more information.</p><p>5 0.1943974 <a title="512-tfidf-5" href="../high_scalability-2010/high_scalability-2010-03-23-Digg%3A_4000%25_Performance_Increase_by_Sorting_in_PHP_Rather_than_MySQL.html">799 high scalability-2010-03-23-Digg: 4000% Performance Increase by Sorting in PHP Rather than MySQL</a></p>
-<p>Introduction: O'Reilly Radar's James Turner conducted avery informative interviewwith Joe
-Stump, current CTO ofSimpleGeoand former lead architect atDigg, in which Joe
-makes some of his usually insightful comments on his experience using
-Cassandra vs MySQL. As Digg started out with aMySQL oriented architectureand
-has recently beenmoving full speedto Cassandra, his observations on some of
-their lessons learned and the motivation for the move are especially valuable.
-Here are some of the key takeaways you find useful:Precompute on writes, make
-reads fast. This is an oldie as a scaling strategy, but it's valuable to see
-how SimpleGeo is applying it to their problem of finding entities within a
-certain geographical region. Using Cassandra they've built two clusters: one
-for indexes and one for records. The records cluster, as you might imagine, is
-a simple data lookup. The index cluster has a carefully constructed key for
-every lookup scenario. The indexes are computed on the write, so reads are
-very fas</p><p>6 0.16664572 <a title="512-tfidf-6" href="../high_scalability-2012/high_scalability-2012-11-07-Gone_Fishin%27%3A_10_Ways_to_Take_your_Site_from_One_to_One_Million_Users_by_Kevin_Rose__.html">1356 high scalability-2012-11-07-Gone Fishin': 10 Ways to Take your Site from One to One Million Users by Kevin Rose  </a></p>
+<p>Introduction: Joe Stump, Lead Architect at Digg, gave  this presentation  at the Web 2.0 Expo. I couldn't find the actual presentation, but fortunately  Kris Jordan  took some great notes. That's how key moments in history are accidentally captured forever. Joe was also kind enough to respond to my email questions with a phone call.   In this first part of the post Joe shares some timeless wisdom that you may or may not have read before. I of course take some pains to extract all the wit from the original presentation in favor of simple rules. What really struck me however was how Joe thought MemcacheDB  Will be the biggest new kid on the block in scaling .  MemcacheDB has been around for a little while and I've never thought of it in that way. Well learn why Joe is so excited by MemcacheDB at the end of the post.
+  Impressive Stats   80th-100th largest site in the world   26 million uniques a month   30 million users.   Uniques are only half that traffic. Traffic = unique web visitors + APIs + Digg</p><p>2 0.37434012 <a title="512-tfidf-2" href="../high_scalability-2009/high_scalability-2009-04-04-Digg_Architecture.html">554 high scalability-2009-04-04-Digg Architecture</a></p>
+<p>Introduction: Update 4: :  Introducing Digg’s IDDB Infrastructure  by Joe Stump.  IDDB is a way to partition both indexes (e.g. integer sequences and unique character indexes) and actual tables across multiple storage servers (MySQL and MemcacheDB are currently supported with more to follow).   Update 3: :  Scaling Digg and Other Web Applications .  Update 2: :  How Digg Works  and  How Digg Really Works  (wear ear plugs). Brought  to you straight from Digg's blog. A very succinct explanation of the major elements of the Digg architecture while tracing a request through the system. I've updated this profile with the new information.  Update:   Digg now receives 230 million plus page views per month and 26 million unique visitors - traffic that necessitated major internal upgrades .  Traffic generated by Digg's over 22 million famously info-hungry users and 230 million page views can crash an unsuspecting website head-on into its CPU, memory, and bandwidth limits. How does Digg handle billions of req</p><p>3 0.23107356 <a title="512-tfidf-3" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
+<p>Introduction: Real-time social graphs (connectivity between people, places, and things). That's why scaling Facebook is hard  says Jeff Rothschild , Vice President of Technology at Facebook. Social networking sites like Facebook, Digg, and Twitter are simply harder than traditional websites to scale. Why is that? Why would social networking sites be any more difficult to scale than traditional web sites? Let's find out.
+ 
+Traditional websites are easier to scale than social networking sites for two reasons:
+  
+ They usually access only their own data and common cached data. 
+ Only 1-2% of users are active on the site at one time. 
+  
+Imagine a huge site like Yahoo. When you come to Yahoo they can get your profile record with one get and that's enough to build your view of the website for you. It's relatively straightforward to scale systems based around single records using  distributed hashing schemes . And since only a few percent of the people are on the site at once it takes comparatively little</p><p>4 0.22324337 <a title="512-tfidf-4" href="../high_scalability-2010/high_scalability-2010-06-01-Sponsored_Post%3A_Get_Your_High_Scalability_Fix_at_Digg.html">833 high scalability-2010-06-01-Sponsored Post: Get Your High Scalability Fix at Digg</a></p>
+<p>Introduction: Get Your High Scalability Fix at Digg     
+  Interested in working on cutting-edge high-scale infrastructure at Digg? We're making a big investment in scaling and have committed to the NoSQL (Not o nly  SQL) path with  Cassandra . We're using other  open-source  infrastructure to help us scale including Hadoop, RabbitMQ, Zookeeper, Thrift, HDFS and Lucene. We're rewriting Digg from the ground up and we need amazing developers to join our world-class team. If you think you are up for the challenge, or you know someone who might be, take a look at our  jobs page  for more information.</p><p>5 0.1943974 <a title="512-tfidf-5" href="../high_scalability-2010/high_scalability-2010-03-23-Digg%3A_4000%25_Performance_Increase_by_Sorting_in_PHP_Rather_than_MySQL.html">799 high scalability-2010-03-23-Digg: 4000% Performance Increase by Sorting in PHP Rather than MySQL</a></p>
+<p>Introduction: O'Reilly Radar's James Turner conducted a  very informative interview  with Joe Stump, current CTO of  SimpleGeo  and former lead architect at  Digg , in which Joe makes some of his usually insightful comments on his experience using Cassandra vs MySQL. As Digg started out with a  MySQL oriented architecture  and has recently been  moving full speed  to Cassandra, his observations on some of their lessons learned and the motivation for the move are especially valuable. Here are some of the key takeaways you find useful:
+  
+  Precompute on writes, make reads fast . This is an oldie as a scaling strategy, but it's valuable to see how SimpleGeo is applying it to their problem of finding entities within a certain geographical region. Using Cassandra they've built two clusters: one for indexes and one for records. The records cluster, as you might imagine, is a simple data lookup. The index cluster has a carefully constructed key for every lookup scenario. The indexes are computed on the wr</p><p>6 0.16664572 <a title="512-tfidf-6" href="../high_scalability-2012/high_scalability-2012-11-07-Gone_Fishin%27%3A_10_Ways_to_Take_your_Site_from_One_to_One_Million_Users_by_Kevin_Rose__.html">1356 high scalability-2012-11-07-Gone Fishin': 10 Ways to Take your Site from One to One Million Users by Kevin Rose  </a></p>
 <p>7 0.1624615 <a title="512-tfidf-7" href="../high_scalability-2009/high_scalability-2009-10-06-10_Ways_to_Take_your_Site_from_One_to_One_Million_Users_by_Kevin_Rose__.html">715 high scalability-2009-10-06-10 Ways to Take your Site from One to One Million Users by Kevin Rose  </a></p>
 <p>8 0.15820575 <a title="512-tfidf-8" href="../high_scalability-2010/high_scalability-2010-07-27-A_Metric_A%24%24-Ton_of_Joe_Stump%3A_The_Cloud_is_Cheaper_than_Bare_Metal.html">865 high scalability-2010-07-27-A Metric A$$-Ton of Joe Stump: The Cloud is Cheaper than Bare Metal</a></p>
 <p>9 0.15603337 <a title="512-tfidf-9" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
@@ -138,76 +78,33 @@ very fas</p><p>6 0.16664572 <a title="512-tfidf-6" href="../high_scalability-201
 <p>[(0, 0.265), (1, 0.147), (2, -0.044), (3, -0.103), (4, 0.07), (5, 0.044), (6, -0.048), (7, -0.045), (8, 0.022), (9, 0.003), (10, -0.006), (11, 0.05), (12, -0.041), (13, 0.025), (14, -0.0), (15, -0.043), (16, -0.047), (17, 0.035), (18, -0.007), (19, 0.037), (20, -0.001), (21, 0.073), (22, 0.049), (23, 0.027), (24, -0.012), (25, 0.014), (26, -0.008), (27, 0.043), (28, -0.004), (29, -0.119), (30, 0.088), (31, -0.048), (32, -0.04), (33, 0.02), (34, 0.032), (35, -0.033), (36, -0.026), (37, 0.019), (38, -0.015), (39, -0.026), (40, -0.07), (41, -0.063), (42, -0.061), (43, -0.03), (44, 0.022), (45, -0.074), (46, 0.031), (47, -0.016), (48, 0.006), (49, -0.047)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.94827968 <a title="512-lsi-1" href="../high_scalability-2009/high_scalability-2009-02-14-Scaling_Digg_and_Other_Web_Applications.html">512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</a></p>
-<p>Introduction: Joe Stump, Lead Architect at Digg, gavethis presentationat the Web 2.0 Expo. I
-couldn't find the actual presentation, but fortunatelyKris Jordantook some
-great notes. That's how key moments in history are accidentally captured
-forever. Joe was also kind enough to respond to my email questions with a
-phone call.In this first part of the post Joe shares some timeless wisdom that
-you may or may not have read before. I of course take some pains to extract
-all the wit from the original presentation in favor of simple rules. What
-really struck me however was how Joe thought MemcacheDBWill be the biggest new
-kid on the block in scaling. MemcacheDB has been around for a little while and
-I've never thought of it in that way. Well learn why Joe is so excited by
-MemcacheDB at the end of the post.Impressive Stats80th-100th largest site in
-the world26 million uniques a month30 million users.Uniques are only half that
-traffic. Traffic = unique web visitors + APIs + Digg buttons.2 billion
-requests a</p><p>2 0.84178436 <a title="512-lsi-2" href="../high_scalability-2009/high_scalability-2009-04-04-Digg_Architecture.html">554 high scalability-2009-04-04-Digg Architecture</a></p>
-<p>Introduction: Update 4::Introducing Digg's IDDB Infrastructureby Joe Stump.IDDB is a way to
-partition both indexes (e.g. integer sequences and unique character indexes)
-and actual tables across multiple storage servers (MySQL and MemcacheDB are
-currently supported with more to follow).Update 3::Scaling Digg and Other Web
-Applications.Update 2::How Digg WorksandHow Digg Really Works(wear ear plugs).
-Brought to you straight from Digg's blog. A very succinct explanation of the
-major elements of the Digg architecture while tracing a request through the
-system. I've updated this profile with the new information.Update:Digg now
-receives 230 million plus page views per month and 26 million unique visitors
-- traffic that necessitated major internal upgrades.Traffic generated by
-Digg's over 22 million famously info-hungry users and 230 million page views
-can crash an unsuspecting website head-on into its CPU, memory, and bandwidth
-limits. How does Digg handle billions of requests a month?Site:
-http://digg.co</p><p>3 0.75435442 <a title="512-lsi-3" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
-<p>Introduction: Real-time social graphs (connectivity between people, places, and things).
-That's why scaling Facebook is hardsays Jeff Rothschild, Vice President of
-Technology at Facebook. Social networking sites like Facebook, Digg, and
-Twitter are simply harder than traditional websites to scale. Why is that? Why
-would social networking sites be any more difficult to scale than traditional
-web sites? Let's find out.Traditional websites are easier to scale than social
-networking sites for two reasons:They usually access only their own data and
-common cached data.Only 1-2% of users are active on the site at one
-time.Imagine a huge site like Yahoo. When you come to Yahoo they can get your
-profile record with one get and that's enough to build your view of the
-website for you. It's relatively straightforward to scale systems based around
-single records usingdistributed hashing schemes. And since only a few percent
-of the people are on the site at once it takes comparatively little RAM cache
-to handle a</p><p>4 0.74430048 <a title="512-lsi-4" href="../high_scalability-2013/high_scalability-2013-08-26-Reddit%3A_Lessons_Learned_from_Mistakes_Made_Scaling_to_1_Billion_Pageviews_a_Month.html">1507 high scalability-2013-08-26-Reddit: Lessons Learned from Mistakes Made Scaling to 1 Billion Pageviews a Month</a></p>
-<p>Introduction: Jeremy Edberg, the first paid employee at reddit, teaches us a lot about how
-to create a successful social site in a really good talk he gave at the RAMP
-conference. Watch it here at Scaling Reddit from 1 Million to 1 Billion-
-Pitfalls and Lessons.Jeremy uses a virtue and sin approach. Examples of the
-mistakes made in scaling reddit are shared and it turns out they did a lot of
-good stuff too. Somewhat of a shocker is that Jeremy is now a Reliability
-Architect at Netflix, so we get a little Netflix perspective thrown in for
-free.Some of the lessons that stood out most for me: Think of SSDs as cheap
-RAM, not expensive disk. When reddit moved from spinning disks to SSDs for the
-database the number of servers was reduced from 12 to 1 with a ton of
-headroom. SSDs are 4x more expensive but you get 16x the performance. Worth
-the cost. Give users a little bit of power, see what they do with it, and turn
-the good stuff into features. One of the biggest revelations for me was how
-much reddit le</p><p>5 0.7355541 <a title="512-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
-<p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services
-like: diary, community, message, review, and photo album. Having a lot in
-common with LiveJournal they also developed many of the same approaches. Their
-write up on how they scaled their system is easily one of the best out
-there.Site: http://mixi.jpInformation Sourcesmixi.jp- scaling out with open
-sourcePlatformLinuxApacheMySQLPerlMemcachedSquidShardWhat's Inside?They grew
-to approximately 4 million users in two years and add over 15,000 new
-users/day.Ranks 35th on Alexa and 3rd in Japan.More than 100 MySQL serversAdd
-more than 10 servers/monthUse non-persistent connections.Diary traffic is 85%
-read and 15% write.Message traffic is is 75% read and 25% write.Ran into
-replication performance problems so they had to split the database.Considered
-splitting vertically by user or splitting horizontally by table type.The ended
-up partitioning by table type and user. So all the messages for a group of
-users would be</p><p>6 0.71537089 <a title="512-lsi-6" href="../high_scalability-2010/high_scalability-2010-03-23-Digg%3A_4000%25_Performance_Increase_by_Sorting_in_PHP_Rather_than_MySQL.html">799 high scalability-2010-03-23-Digg: 4000% Performance Increase by Sorting in PHP Rather than MySQL</a></p>
+<p>Introduction: Joe Stump, Lead Architect at Digg, gave  this presentation  at the Web 2.0 Expo. I couldn't find the actual presentation, but fortunately  Kris Jordan  took some great notes. That's how key moments in history are accidentally captured forever. Joe was also kind enough to respond to my email questions with a phone call.   In this first part of the post Joe shares some timeless wisdom that you may or may not have read before. I of course take some pains to extract all the wit from the original presentation in favor of simple rules. What really struck me however was how Joe thought MemcacheDB  Will be the biggest new kid on the block in scaling .  MemcacheDB has been around for a little while and I've never thought of it in that way. Well learn why Joe is so excited by MemcacheDB at the end of the post.
+  Impressive Stats   80th-100th largest site in the world   26 million uniques a month   30 million users.   Uniques are only half that traffic. Traffic = unique web visitors + APIs + Digg</p><p>2 0.84178436 <a title="512-lsi-2" href="../high_scalability-2009/high_scalability-2009-04-04-Digg_Architecture.html">554 high scalability-2009-04-04-Digg Architecture</a></p>
+<p>Introduction: Update 4: :  Introducing Digg’s IDDB Infrastructure  by Joe Stump.  IDDB is a way to partition both indexes (e.g. integer sequences and unique character indexes) and actual tables across multiple storage servers (MySQL and MemcacheDB are currently supported with more to follow).   Update 3: :  Scaling Digg and Other Web Applications .  Update 2: :  How Digg Works  and  How Digg Really Works  (wear ear plugs). Brought  to you straight from Digg's blog. A very succinct explanation of the major elements of the Digg architecture while tracing a request through the system. I've updated this profile with the new information.  Update:   Digg now receives 230 million plus page views per month and 26 million unique visitors - traffic that necessitated major internal upgrades .  Traffic generated by Digg's over 22 million famously info-hungry users and 230 million page views can crash an unsuspecting website head-on into its CPU, memory, and bandwidth limits. How does Digg handle billions of req</p><p>3 0.75435442 <a title="512-lsi-3" href="../high_scalability-2009/high_scalability-2009-10-13-Why_are_Facebook%2C_Digg%2C_and_Twitter_so_hard_to_scale%3F.html">721 high scalability-2009-10-13-Why are Facebook, Digg, and Twitter so hard to scale?</a></p>
+<p>Introduction: Real-time social graphs (connectivity between people, places, and things). That's why scaling Facebook is hard  says Jeff Rothschild , Vice President of Technology at Facebook. Social networking sites like Facebook, Digg, and Twitter are simply harder than traditional websites to scale. Why is that? Why would social networking sites be any more difficult to scale than traditional web sites? Let's find out.
+ 
+Traditional websites are easier to scale than social networking sites for two reasons:
+  
+ They usually access only their own data and common cached data. 
+ Only 1-2% of users are active on the site at one time. 
+  
+Imagine a huge site like Yahoo. When you come to Yahoo they can get your profile record with one get and that's enough to build your view of the website for you. It's relatively straightforward to scale systems based around single records using  distributed hashing schemes . And since only a few percent of the people are on the site at once it takes comparatively little</p><p>4 0.74430048 <a title="512-lsi-4" href="../high_scalability-2013/high_scalability-2013-08-26-Reddit%3A_Lessons_Learned_from_Mistakes_Made_Scaling_to_1_Billion_Pageviews_a_Month.html">1507 high scalability-2013-08-26-Reddit: Lessons Learned from Mistakes Made Scaling to 1 Billion Pageviews a Month</a></p>
+<p>Introduction: Jeremy Edberg   , the first paid employee at reddit, teaches us a lot about how to create a successful social site in a really good talk he gave at the RAMP conference. Watch it here at  Scaling Reddit from 1 Million to 1 Billion–Pitfalls and Lessons .  
+ 
+ Jeremy uses a virtue and sin approach. Examples of the mistakes made in scaling reddit are shared and it turns out they did a lot of good stuff too. Somewhat of a shocker is that   Jeremy is now a Reliability Architect at Netflix, so we get a little Netflix perspective thrown in for free. 
+ 
+ Some of the lessons that stood out most for me:  
+  
+  Think of SSDs as cheap RAM, not expensive disk . When reddit moved from spinning disks to SSDs for the database the number of servers was reduced from 12 to 1 with a ton of headroom. SSDs are 4x more expensive but you get 16x the performance. Worth the cost.  
+  Give users a little bit of power, see what they do with it, and turn the good stuff into features . One of the biggest revelations</p><p>5 0.7355541 <a title="512-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-10-mixi.jp__Architecture.html">5 high scalability-2007-07-10-mixi.jp  Architecture</a></p>
+<p>Introduction: Mixi is a fast growing social networking site in Japan. They provide services like: diary, community, message, review, and photo album. Having a lot in common with LiveJournal they also developed many of the same approaches. Their write up on how they scaled their system is easily one of the best out there.
+ 
+Site: http://mixi.jp
+  Information Sources     mixi.jp  - scaling out with open source 
+ Platform 
+    Linux    Apache    MySQL    Perl    Memcached    Squid    Shard 
+ What's Inside? 
+   They grew to approximately 4 million users in two years and add over 15,000 new users/day.     Ranks 35th on Alexa and 3rd in Japan.    More than 100 MySQL servers    Add more than 10 servers/month    Use non-persistent connections.    Diary traffic is 85% read and 15% write.    Message traffic is is 75% read and 25% write.    Ran into replication performance problems so they had to split the database.    Considered splitting vertically by user or splitting horizontally by table type.    The ende</p><p>6 0.71537089 <a title="512-lsi-6" href="../high_scalability-2010/high_scalability-2010-03-23-Digg%3A_4000%25_Performance_Increase_by_Sorting_in_PHP_Rather_than_MySQL.html">799 high scalability-2010-03-23-Digg: 4000% Performance Increase by Sorting in PHP Rather than MySQL</a></p>
 <p>7 0.71272391 <a title="512-lsi-7" href="../high_scalability-2010/high_scalability-2010-04-12-Poppen.de_Architecture.html">808 high scalability-2010-04-12-Poppen.de Architecture</a></p>
 <p>8 0.70557338 <a title="512-lsi-8" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>9 0.69937187 <a title="512-lsi-9" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
@@ -227,76 +124,34 @@ users would be</p><p>6 0.71537089 <a title="512-lsi-6" href="../high_scalability
 <p>[(1, 0.142), (2, 0.272), (10, 0.025), (30, 0.039), (41, 0.091), (47, 0.015), (61, 0.073), (73, 0.014), (77, 0.016), (79, 0.113), (85, 0.04), (94, 0.053)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.9839474 <a title="512-lda-1" href="../high_scalability-2011/high_scalability-2011-04-08-Stuff_The_Internet_Says_On_Scalability_For_April_8%2C_2011.html">1019 high scalability-2011-04-08-Stuff The Internet Says On Scalability For April 8, 2011</a></p>
-<p>Introduction: Submitted for your reading pleasure on this tomato killing frosty morn...Now
-we really know why vampires feed on blood...they are elastically acquiring
-more compute power. Your Next Computer May Be Made of...Blood! It's
-thosememristorsagain. Ancient vamps are really just giant super
-computers.Twitter now at 155 million tweets a day, up from 55 million a year
-ago.10,000-core Linux supercomputer built in Amazon cloud By Jon Brodkin. The
-10,000 cores were composed of 1,250 instances with eight cores each, as well
-as 8.75TB of RAM and 2PB disk space. The cluster ran for eight hours at a cost
-of $8,500.Quotable Quotes for $273 Alex:@davidklemke: Holy balls Windows Azure
-Tables is awesome. Man am I regretting not getting into this cloud stuff
-sooner, it's scalability heaven.@nik: The volume of tweets we are flowing into
-HBase is truly staggering #bigdata #datasift@wattersjames: One of the key
-points I mentioned before: Scalability is being able to deploy on the smallest
-systems that meets yo</p><p>2 0.9741379 <a title="512-lda-2" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
-<p>Introduction: This is an email interview withViktor Klang, Director of Engineering
-atTypesafe, on theScala Futuresmodel &Akka;,both topics on which is he is
-immensely passionate and knowledgeable.How do you structure your application?
-That's the question I explored in the articleBeyond Threads And Callbacks. An
-option I did not talk about, mostly because of my own ignorance, is a powerful
-stack you may not be all that familiar with: Scala and Akka.To remedy my
-oversight is our acting tour guide, Typesafe's Viktor Klang, long time Scala
-hacker and Java enterprise systems architect. Viktor was very patient in
-answering my questions and was enthusiastic about sharing his knowledge. He's
-a guy who definitely knows what he is talking about.I've implemented several
-Actor systems along with the messaging infrastructure, threading, async IO,
-service orchestration, failover, etc, so I'm innately skeptical about
-frameworks that remove control from the programmer at the cost of latency.So
-at the end of the inte</p><p>3 0.96935385 <a title="512-lda-3" href="../high_scalability-2011/high_scalability-2011-07-12-Google%2B_is_Built_Using_Tools_You_Can_Use_Too%3A_Closure%2C_Java_Servlets%2C_JavaScript%2C_BigTable%2C_Colossus%2C_Quick_Turnaround.html">1078 high scalability-2011-07-12-Google+ is Built Using Tools You Can Use Too: Closure, Java Servlets, JavaScript, BigTable, Colossus, Quick Turnaround</a></p>
-<p>Introduction: Joseph Smarr, former CTO of Plaxo (which explains why I recognized his
-picture), in I'm a technical lead on the Google+ team. Ask me anything,
-reveals the stack used for building Google+:Our stack is pretty standard fare
-for Google apps these days: we use Java servlets for our server code and
-JavaScript for the browser-side of the UI, largely built with the (open-
-source) Closure framework, including Closure's JavaScript compiler and
-template system. A couple nifty tricks we do: we use the HTML5 History API to
-maintain pretty-looking URLs even though it's an AJAX app (falling back on
-hash-fragments for older browsers); and we often render our Closure templates
-server-side so the page renders before any JavaScript is loaded, then the
-JavaScript finds the right DOM nodes and hooks up event handlers, etc. to make
-it responsive (as a result, if you're on a slow connection and you click on
-stuff really fast, you may notice a lag before it does anything, but luckily
-most people don't run int</p><p>same-blog 4 0.96848375 <a title="512-lda-4" href="../high_scalability-2009/high_scalability-2009-02-14-Scaling_Digg_and_Other_Web_Applications.html">512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</a></p>
-<p>Introduction: Joe Stump, Lead Architect at Digg, gavethis presentationat the Web 2.0 Expo. I
-couldn't find the actual presentation, but fortunatelyKris Jordantook some
-great notes. That's how key moments in history are accidentally captured
-forever. Joe was also kind enough to respond to my email questions with a
-phone call.In this first part of the post Joe shares some timeless wisdom that
-you may or may not have read before. I of course take some pains to extract
-all the wit from the original presentation in favor of simple rules. What
-really struck me however was how Joe thought MemcacheDBWill be the biggest new
-kid on the block in scaling. MemcacheDB has been around for a little while and
-I've never thought of it in that way. Well learn why Joe is so excited by
-MemcacheDB at the end of the post.Impressive Stats80th-100th largest site in
-the world26 million uniques a month30 million users.Uniques are only half that
-traffic. Traffic = unique web visitors + APIs + Digg buttons.2 billion
-requests a</p><p>5 0.96182197 <a title="512-lda-5" href="../high_scalability-2012/high_scalability-2012-06-18-The_Clever_Ways_Chrome_Hides_Latency_by_Anticipating_Your_Every_Need.html">1267 high scalability-2012-06-18-The Clever Ways Chrome Hides Latency by Anticipating Your Every Need</a></p>
-<p>Introduction: Ilya Grigorik has written another wonderful article lavishly detailing the
-extraordinary tactics Chrome employs to hide network latency from users:
-Chrome Networking: DNS Prefetch & TCP Preconnect. Ilya springs some surpising
-factoids on us, revealing how the web has slowed and super sized:The size of
-an average page has grown to 1059kB and is now composed of over80 subresource
-requests.An average DNS lookup takes between 60 and 120ms. This creates a
-100-200ms of latency before a request can be sent because of th full round-
-trip (RTT) to perform the TCP handshake.Slow mobile experiences are largely
-due to the much higher RTT's (200-1000ms) on wireless networks. Reducing the
-number of outbound connections and the total byte size of your pages is the
-single best optimization you can make for mobile today. Chrome reduces
-apparent latency using a host of clever anticipatory mechanisms:Learns the
-network topology as you use it via a Predictor object that anticipates user
-behavior and futur</p><p>6 0.96145475 <a title="512-lda-6" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
+<p>Introduction: Submitted for your reading pleasure on this tomato killing frosty morn...
+  
+ Now we really know why vampires feed on blood...they are elastically acquiring more compute power.  Your Next Computer May Be Made of...Blood!  It's those  memristors  again. Ancient vamps are really just giant super computers. 
+  Twitter now at 155 million tweets a day , up from 55 million a year ago. 
+   10,000-core Linux supercomputer built in Amazon cloud  By Jon Brodkin. T he 10,000 cores were composed of 1,250 instances with eight cores each, as well as 8.75TB of RAM and 2PB disk space. The cluster ran for eight hours at a cost of $8,500 . 
+ Quotable Quotes for $273 Alex:      
+ 
+  @davidklemke : Holy balls Windows Azure Tables is awesome. Man am I regretting not getting into this cloud stuff sooner, it's scalability heaven. 
+  @nik : The volume of tweets we are flowing into HBase is truly staggering #bigdata #datasift 
+  @wattersjames : One of the key points I mentioned before: Scalability is being abl</p><p>2 0.9741379 <a title="512-lda-2" href="../high_scalability-2013/high_scalability-2013-05-08-Typesafe_Interview%3A_Scala_%2B_Akka_is_an_IaaS_for_Your_Process_Architecture.html">1454 high scalability-2013-05-08-Typesafe Interview: Scala + Akka is an IaaS for Your Process Architecture</a></p>
+<p>Introduction: This is an email interview with   Viktor Klang   , Director of Engineering at    Typesafe   , on the    Scala Futures    model &    Akka,    both topics on which is he is immensely passionate and knowledgeable.  
+ 
+How do you structure your application? That’s the question I explored in the article  Beyond Threads And Callbacks . An option I did not talk about, mostly because of my own ignorance, is a powerful stack you may not be all that familiar with: Scala and Akka.
+   To remedy my oversight is our acting tour guide, Typesafe’s Viktor Klang, long time Scala hacker and Java enterprise systems architect. Viktor was very patient in answering my questions and was enthusiastic about sharing his knowledge. He’s a guy who definitely knows what he is talking about. 
+   I’ve implemented several Actor systems along with the messaging infrastructure, threading, async IO, service orchestration, failover, etc, so I’m innately skeptical about frameworks that remove control from the programmer at</p><p>3 0.96935385 <a title="512-lda-3" href="../high_scalability-2011/high_scalability-2011-07-12-Google%2B_is_Built_Using_Tools_You_Can_Use_Too%3A_Closure%2C_Java_Servlets%2C_JavaScript%2C_BigTable%2C_Colossus%2C_Quick_Turnaround.html">1078 high scalability-2011-07-12-Google+ is Built Using Tools You Can Use Too: Closure, Java Servlets, JavaScript, BigTable, Colossus, Quick Turnaround</a></p>
+<p>Introduction: Joseph Smarr, former CTO of Plaxo (which explains why I recognized his picture), in  I'm a technical lead on the Google+ team. Ask me anything , reveals the stack used for building Google+:
+  Our stack is pretty standard fare for Google apps these days: we use Java servlets for our server code and JavaScript for the browser-side of the UI, largely built with the (open-source) Closure framework, including Closure's JavaScript compiler and template system. A couple nifty tricks we do: we use the HTML5 History API to maintain pretty-looking URLs even though it's an AJAX app (falling back on hash-fragments for older browsers); and we often render our Closure templates server-side so the page renders before any JavaScript is loaded, then the JavaScript finds the right DOM nodes and hooks up event handlers, etc. to make it responsive (as a result, if you're on a slow connection and you click on stuff really fast, you may notice a lag before it does anything, but luckily most people don't run</p><p>same-blog 4 0.96848375 <a title="512-lda-4" href="../high_scalability-2009/high_scalability-2009-02-14-Scaling_Digg_and_Other_Web_Applications.html">512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</a></p>
+<p>Introduction: Joe Stump, Lead Architect at Digg, gave  this presentation  at the Web 2.0 Expo. I couldn't find the actual presentation, but fortunately  Kris Jordan  took some great notes. That's how key moments in history are accidentally captured forever. Joe was also kind enough to respond to my email questions with a phone call.   In this first part of the post Joe shares some timeless wisdom that you may or may not have read before. I of course take some pains to extract all the wit from the original presentation in favor of simple rules. What really struck me however was how Joe thought MemcacheDB  Will be the biggest new kid on the block in scaling .  MemcacheDB has been around for a little while and I've never thought of it in that way. Well learn why Joe is so excited by MemcacheDB at the end of the post.
+  Impressive Stats   80th-100th largest site in the world   26 million uniques a month   30 million users.   Uniques are only half that traffic. Traffic = unique web visitors + APIs + Digg</p><p>5 0.96182197 <a title="512-lda-5" href="../high_scalability-2012/high_scalability-2012-06-18-The_Clever_Ways_Chrome_Hides_Latency_by_Anticipating_Your_Every_Need.html">1267 high scalability-2012-06-18-The Clever Ways Chrome Hides Latency by Anticipating Your Every Need</a></p>
+<p>Introduction: Ilya Grigorik has written another wonderful article lavishly detailing the extraordinary tactics Chrome employs to hide network latency from users:  Chrome Networking: DNS Prefetch & TCP Preconnect . Ilya springs some surpising factoids on us, revealing how the web has slowed and super sized:
+  
+ The size of an average page has grown to 1059kB and is now composed of over  80 subresource requests . 
+ An average DNS lookup takes between 60 and 120ms. This creates a 100-200ms of latency before a request can be sent because of th full round-trip (RTT) to perform the TCP handshake. 
+ Slow mobile experiences are largely due to the much higher RTT's (200-1000ms) on wireless networks. Reducing the number of outbound connections and the total byte size of your pages is the single best optimization you can make for mobile today.  
+  
+Chrome reduces apparent latency using a host of clever anticipatory mechanisms:
+  
+ Learns the network topology as you use it via a Predictor object that anticipate</p><p>6 0.96145475 <a title="512-lda-6" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
 <p>7 0.96078831 <a title="512-lda-7" href="../high_scalability-2013/high_scalability-2013-03-25-AppBackplane_-_A_Framework_for_Supporting_Multiple_Application_Architectures.html">1429 high scalability-2013-03-25-AppBackplane - A Framework for Supporting Multiple Application Architectures</a></p>
 <p>8 0.95981961 <a title="512-lda-8" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
 <p>9 0.95933378 <a title="512-lda-9" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>

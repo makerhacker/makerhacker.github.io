@@ -16,38 +16,29 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-815-html" href="http://highscalability.com//blog/2010/4/27/paper-dapper-googles-large-scale-distributed-systems-tracing.html">html</a></p><p>Introduction: Imagine a single search request coursing through Google's massive
-infrastructure. A single request can run across thousands of machines and
-involve hundreds of different subsystems. And oh by the way, you are
-processing more requests per second than any other system in the world. How do
-you debug such a system? How do you figure out where the problems are? How do
-you determine if programmers are coding correctly? How do you keep sensitive
-data secret and safe? How do ensure products don't use more resources than
-they are assigned? How do you store all the data? How do you make use of
-it?That's where Dapper comes in. Dapper is Google's tracing system and it was
-originally created to understand the system behaviour from a search request.
-Now Google's production clustersgenerate more than 1 terabyte of sampled trace
-data per day. So how does Dapper do what Dapper does?Dapper is described in an
-very well written and intricately detailed paper:Dapper, a Large-Scale
-Distributed Systems Traci</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Now Google's production clustersgenerate more than 1 terabyte of sampled trace data per day. [sent-13, score-0.753]
-</p><p>2 The full paper is worth a full read and a re- read, but we'll just cover some of the highlights:There are so many operations going on that Google can't trace every request all the time, so in order to reduce overhead they sample one out of thousands of requests. [sent-20, score-0.724]
-</p><p>3 Tracing is laregly transparent to applications because the trace code in common libraries (threading, control flow, RPC) is sufficient to debug most problems. [sent-23, score-0.858]
-</p><p>4 Atrace idis allocated to bind all the spans to a particular trace session. [sent-34, score-0.72]
-</p><p>5 The trace id isn't a globally unique sequence number, it's a probabilistically unique 64-bit integer. [sent-35, score-0.844]
-</p><p>6 Each row is a single trace which each column mapped to a span. [sent-37, score-0.689]
-</p><p>7 The median latency for sending trace data from applications to the central repository is 15 seconds, but often it can take many hours. [sent-38, score-0.732]
-</p><p>8 There's also always the curious question of how do you trace the tracing system? [sent-39, score-0.903]
-</p><p>9 An out-of-bound trace mechanism is in place for that purpose. [sent-41, score-0.645]
-</p><p>10 For example, Google can look at the trace to pinpoint: which applications are not using proper levels of authentication and encryption; and find which applications accessing sensitive data are not logging at an appropriate level so they won't see data they shouldn't see. [sent-45, score-0.929]
-</p><p>11 Originally the sampling rate was uniform, they are now moving to an adaptive sampling rate that species a desired number of traces per unit of time. [sent-51, score-0.815]
-</p><p>12 If a trace is kept all spans for the trace are also kept. [sent-58, score-1.407]
-</p><p>13 DAPI is an API ontop of the trace data which makes it possible to write trace applications and analysis tools. [sent-62, score-1.377]
-</p><p>14 Data can be accessed by trace id, in bulk by MapReduce, or by index. [sent-63, score-0.645]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-815-html" href="http://highscalability.com//blog/2010/4/27/paper-dapper-googles-large-scale-distributed-systems-tracing.html">html</a></p><p>Introduction: Imagine a single search request coursing through Google's massive infrastructure. A single request can run across thousands of machines and involve hundreds of different subsystems. And oh by the way, you are processing more requests per second than any other system in the world. How do you debug such a system? How do you figure out where the problems are? How do you determine if programmers are coding correctly? How do you keep sensitive data secret and safe? How do ensure products don't use more resources than they are assigned? How do you store all the data? How do you make use of it?
+ 
+That's where Dapper comes in. Dapper is Google's tracing system and it was originally created to understand the system behaviour from a search request. Now Google's production clusters  generate more than 1 terabyte of sampled trace data per day . So how does Dapper do what Dapper does?
+ 
+Dapper is described in an very well written and intricately detailed paper:  Dapper, a Large-Scale Distributed Sy</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Now Google's production clusters  generate more than 1 terabyte of sampled trace data per day . [sent-13, score-0.753]
+</p><p>2 The full paper is worth a full read and a re-read, but we'll just cover  some of the highlights:     There are so many operations going on that Google can't trace every  request all the time, so in order to reduce overhead they sample one out of thousands of requests. [sent-20, score-0.724]
+</p><p>3 Google found sampling  provides sufficient information for many common uses of the tracing data . [sent-21, score-0.706]
+</p><p>4 Tracing is laregly transparent to applications because the trace code in common libraries (threading, control flow, RPC) is sufficient to debug most problems. [sent-23, score-0.858]
+</p><p>5 A  trace id  is allocated to bind all the spans to a particular trace session. [sent-34, score-1.405]
+</p><p>6 The trace id isn't a globally unique sequence number, it's a probabilistically unique 64-bit integer. [sent-35, score-0.844]
+</p><p>7 Each row is a single trace which each column mapped to a span. [sent-37, score-0.689]
+</p><p>8 The median latency for sending trace data from applications to the central repository is 15 seconds, but often it can take many hours. [sent-38, score-0.732]
+</p><p>9 There's also always the curious question of how do you trace the tracing system? [sent-39, score-0.903]
+</p><p>10 An out-of-bound trace mechanism is in place for that purpose. [sent-41, score-0.645]
+</p><p>11 For example, Google can look at the trace to pinpoint: which applications are not using proper levels of authentication and encryption; and find which applications accessing sensitive data are not logging at an appropriate level so they won't see data they shouldn't see. [sent-45, score-0.929]
+</p><p>12 Originally the sampling rate was uniform, they are now moving to an adaptive sampling rate that species a desired number of traces per unit of time. [sent-51, score-0.815]
+</p><p>13 If a trace is kept all spans for the trace are also kept. [sent-58, score-1.407]
+</p><p>14 DAPI is an API ontop of the trace data which makes it possible to write  trace applications and analysis tools. [sent-62, score-1.377]
 </p><p>15 During development the trace information is used to characterize performance, determine correctness, understand how an application is working, and as a verification test to determine if an application is behaving as expected. [sent-66, score-0.776]
 </p><p>16 Developers have parallel debug logs that are outside of the trace system. [sent-67, score-0.746]
-</p><p>17 Using the trace data it's possible to generate charge back data based on actual usage. [sent-73, score-0.747]
+</p><p>17 Using the trace data it's possible to generate charge back  data based on actual usage. [sent-73, score-0.747]
 </p><p>18 Using the system view provided by the trace data they were able to identify unintended service interactions and fix them. [sent-76, score-0.802]
-</p><p>19 Dapper has a few downsides too:Work that is batched together for efficiency is not correctly mapped to the trace ids inside the batch. [sent-78, score-0.73]
+</p><p>19 Dapper has a few downsides too:           Work that is batched together for efficiency is not correctly mapped to the trace ids inside the batch. [sent-78, score-0.73]
 </p><p>20 A trace id might get blamed for work it is not doing. [sent-79, score-0.685]
 </p>
 <br/>
@@ -55,76 +46,25 @@ Distributed Systems Traci</p><br/><h2>Summary: the most important sentenses gene
 <p>[('trace', 0.645), ('dapper', 0.37), ('sampling', 0.284), ('tracing', 0.258), ('traces', 0.127), ('debug', 0.101), ('google', 0.098), ('tree', 0.087), ('sample', 0.079), ('spans', 0.075), ('logging', 0.07), ('originating', 0.067), ('payloads', 0.067), ('probabilistically', 0.067), ('system', 0.062), ('binaries', 0.062), ('depths', 0.062), ('rate', 0.06), ('barroso', 0.057), ('sampled', 0.057), ('andre', 0.056), ('workloads', 0.054), ('establish', 0.052), ('data', 0.051), ('indicates', 0.049), ('determine', 0.047), ('unique', 0.046), ('identify', 0.044), ('mapped', 0.044), ('detailed', 0.043), ('threading', 0.042), ('kept', 0.042), ('correctly', 0.041), ('originally', 0.04), ('level', 0.04), ('mapreduce', 0.04), ('id', 0.04), ('sufficient', 0.039), ('bigtable', 0.037), ('common', 0.037), ('information', 0.037), ('applications', 0.036), ('annotation', 0.036), ('patter', 0.036), ('undergo', 0.036), ('coursing', 0.036), ('drilling', 0.036), ('saul', 0.036), ('latencies', 0.035), ('developers', 0.035)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="815-tfidf-1" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
-<p>Introduction: Imagine a single search request coursing through Google's massive
-infrastructure. A single request can run across thousands of machines and
-involve hundreds of different subsystems. And oh by the way, you are
-processing more requests per second than any other system in the world. How do
-you debug such a system? How do you figure out where the problems are? How do
-you determine if programmers are coding correctly? How do you keep sensitive
-data secret and safe? How do ensure products don't use more resources than
-they are assigned? How do you store all the data? How do you make use of
-it?That's where Dapper comes in. Dapper is Google's tracing system and it was
-originally created to understand the system behaviour from a search request.
-Now Google's production clustersgenerate more than 1 terabyte of sampled trace
-data per day. So how does Dapper do what Dapper does?Dapper is described in an
-very well written and intricately detailed paper:Dapper, a Large-Scale
-Distributed Systems Traci</p><p>2 0.21996391 <a title="815-tfidf-2" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
-<p>Introduction: breakThis JoelOnSoftwarethreadasks the age old question of what and how to
-log. The usual trace/error/warning/info advice is totally useless in a large
-scale distributed system. Instead, you need tolog everything all the timeso
-you can solve problems that have already happened across a potentially huge
-range of servers. Yes, it can be done.To see why the typical logging approach
-is broken, imagine this scenario: Your site has been up and running great for
-weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some
-users can no longer add comments to threads. Then you hear the debugging
-deathknell: it's an intermittent problem and customers are pissed. Fix it.
-Now.So how are you going to debug this? The monitoring system doesn't show any
-obvious problems or errors. You quickly post a comment and it works fine. This
-won't be easy. So you think. Commenting involves a bunch of servers and
-networks. There's the load balancer, spam filter, web server, database server,
-caching s</p><p>3 0.16531959 <a title="815-tfidf-3" href="../high_scalability-2009/high_scalability-2009-01-05-Lessons_Learned_at_208K%3A_Towards_Debugging_Millions_of_Cores.html">484 high scalability-2009-01-05-Lessons Learned at 208K: Towards Debugging Millions of Cores</a></p>
-<p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a
-problem more will be seeing as we code big scary programs that run on even
-bigger scarier clouds. Logging gets you far, but sometimes finding the root
-cause of problem requires delving deep into a program's execution. I don't
-know about you, but setting up 200,000+ gdb instances doesn't sound all that
-appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to
-help with this huge task. STAT "gathers and merges stack traces from a
-parallel application's processes." So STAT isn't a low level debugger, but it
-will help you find the needle in a million haystacks.Abstract:Petascale
-systems will present several new challenges to performance and correctness
-tools. Such machines may contain millions of cores, requiring that tools use
-scalable data structures and analysis algorithms to collect and to process
-application data. In addition, at such scales, each tool itself will become a
-large parallel app</p><p>4 0.16345103 <a title="815-tfidf-4" href="../high_scalability-2008/high_scalability-2008-04-29-Strategy%3A_Sample_to_Reduce_Data_Set.html">311 high scalability-2008-04-29-Strategy: Sample to Reduce Data Set</a></p>
-<p>Introduction: Update:Arjenlinks to videoSupporting Scalable Online Statistical
-Processingwhich shows"rather than doing complete aggregates, use statistical
-sampling to provide a reasonable estimate (unbiased guess) of the result."When
-you have a lot of data,samplingallows you to draw conclusions from a much
-smaller amount of data. That's why sampling is a scalability solution. If you
-don't have to process all your data to get the information you need then
-you've made the problem smaller and you'll need fewer resources and you'll get
-more timely results.breakSampling is not useful when you need a complete list
-that matches a specific criteria. If you need to know the exact set of people
-who bought a car in the last week then sampling won't help.But, if you want to
-know many people bought a car then you could take a sample and then create
-estimate of the full data-set. The difference is you won't really know the
-exact car count. You'll have a confidence interval saying how confident you
-are in your es</p><p>5 0.12232403 <a title="815-tfidf-5" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
-<p>Introduction: From theirwebsite:There are a number of times in which you find yourself
-needing performance data. These can include benchmarking, monitoring a
-system's general heath or trying to determine what your system was doing at
-some time in the past. Sometimes you just want to know what the system is
-doing right now. Depending on what you're doing, you often end up using
-different tools, each designed to for that specific situation. Features
-include:You are be able to run with non-integral sampling
-intervals.Collectluses very little CPU. In fact it has been measured to use
-<0.1% when run as a daemon using the default sampling interval of 60 seconds
-for process and slab data and 10 seconds for everything else.Brief, verbose,
-and plot formats are supported.You can report aggregated performance numbers
-on many devices such as CPUs, Disks, interconnects such as Infiniband or
-Quadrics, Networks or even Lustre file systems.Collectl will align its
-sampling on integral second boundaries.Supports proce</p><p>6 0.12042525 <a title="815-tfidf-6" href="../high_scalability-2010/high_scalability-2010-11-04-Facebook_at_13_Million_Queries_Per_Second_Recommends%3A_Minimize_Request_Variance.html">934 high scalability-2010-11-04-Facebook at 13 Million Queries Per Second Recommends: Minimize Request Variance</a></p>
+<p>Introduction: Imagine a single search request coursing through Google's massive infrastructure. A single request can run across thousands of machines and involve hundreds of different subsystems. And oh by the way, you are processing more requests per second than any other system in the world. How do you debug such a system? How do you figure out where the problems are? How do you determine if programmers are coding correctly? How do you keep sensitive data secret and safe? How do ensure products don't use more resources than they are assigned? How do you store all the data? How do you make use of it?
+ 
+That's where Dapper comes in. Dapper is Google's tracing system and it was originally created to understand the system behaviour from a search request. Now Google's production clusters  generate more than 1 terabyte of sampled trace data per day . So how does Dapper do what Dapper does?
+ 
+Dapper is described in an very well written and intricately detailed paper:  Dapper, a Large-Scale Distributed Sy</p><p>2 0.21996391 <a title="815-tfidf-2" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
+<p>Introduction: This JoelOnSoftware  thread  asks the age old question of what and how to log. The usual trace/error/warning/info advice is totally useless in a large scale distributed system. Instead, you need to  log everything all the time  so you can solve problems that have already happened across a potentially huge range of servers. Yes, it can be done.  To see why the typical logging approach is broken,  imagine this scenario: Your site has been up and running great for weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some users can no longer add comments to threads. Then you hear the debugging deathknell: it's an intermittent problem and customers are pissed. Fix it. Now.  So how are you going to debug this? The monitoring system doesn't show any obvious problems or errors. You quickly post a comment and it works fine. This won't be easy. So you think. Commenting involves a bunch of servers and networks. There's the load balancer, spam filter,  web server, database server,</p><p>3 0.16531959 <a title="815-tfidf-3" href="../high_scalability-2009/high_scalability-2009-01-05-Lessons_Learned_at_208K%3A_Towards_Debugging_Millions_of_Cores.html">484 high scalability-2009-01-05-Lessons Learned at 208K: Towards Debugging Millions of Cores</a></p>
+<p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a problem more will be seeing as we code big scary programs that run on even bigger scarier clouds. Logging gets you far, but sometimes finding the root cause of problem requires delving deep into a program's execution. I don't know about you, but setting up 200,000+ gdb instances doesn't sound all that appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to help with this huge task. STAT "gathers and merges stack traces from a parallel applicationâ&euro;&trade;s processes." So STAT isn't a low level debugger, but it will help you find the needle in a million haystacks.  Abstract:
+  Petascale systems will present several new challenges to performance and correctness tools. Such machines may contain millions of cores, requiring that tools use scalable data structures and analysis algorithms to collect and to process application data. In addition, at such scales, each tool itself will become a large paralle</p><p>4 0.16345103 <a title="815-tfidf-4" href="../high_scalability-2008/high_scalability-2008-04-29-Strategy%3A_Sample_to_Reduce_Data_Set.html">311 high scalability-2008-04-29-Strategy: Sample to Reduce Data Set</a></p>
+<p>Introduction: Update:   Arjen  links to video  Supporting Scalable Online Statistical Processing  which shows "rather than doing complete aggregates, use statistical sampling to provide a reasonable estimate (unbiased guess) of the result."  When you have a lot of data,  sampling  allows you to draw conclusions from a much smaller amount of data. That's why sampling is a scalability solution. If you don't have to process all your data to get the information you need then you've made the problem smaller and you'll need fewer resources and you'll get more timely results.
+   
+ Sampling is not useful when you need a complete list that matches a specific criteria. If you need to know the exact set of people who bought a car in the last week then sampling won't help.  But, if you want to know many people bought a car then you could take a sample and then create estimate of the full data-set. The difference is you won't really know the exact car count. You'll have a confidence interval saying how confident</p><p>5 0.12232403 <a title="815-tfidf-5" href="../high_scalability-2008/high_scalability-2008-02-03-Product%3A_Collectl_-_Performance_Data_Collector.html">237 high scalability-2008-02-03-Product: Collectl - Performance Data Collector</a></p>
+<p>Introduction: From their  website :   There are a number of times in which you find yourself needing performance data. These can include benchmarking, monitoring a system's general heath or trying to determine what your system was doing at some time in the past. Sometimes you just want to know what the system is doing right now. Depending on what you're doing, you often end up using different tools, each designed to for that specific situation. Features include: 
+ 
+ 
+ You are be able to run with non-integral sampling intervals.  
+  Collectl  uses very little CPU. In fact it has been measured to use <0.1% when run as a daemon using the default sampling interval of 60 seconds for process and slab data and 10 seconds for everything else. 
+ Brief, verbose, and plot formats are supported. 
+ You can report aggregated performance numbers on many devices such as CPUs, Disks, interconnects such as Infiniband or Quadrics, Networks or even Lustre file systems. 
+ Collectl will align its sampling on integral sec</p><p>6 0.12042525 <a title="815-tfidf-6" href="../high_scalability-2010/high_scalability-2010-11-04-Facebook_at_13_Million_Queries_Per_Second_Recommends%3A_Minimize_Request_Variance.html">934 high scalability-2010-11-04-Facebook at 13 Million Queries Per Second Recommends: Minimize Request Variance</a></p>
 <p>7 0.11763748 <a title="815-tfidf-7" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
 <p>8 0.098600782 <a title="815-tfidf-8" href="../high_scalability-2011/high_scalability-2011-08-29-The_Three_Ages_of_Google_-_Batch%2C_Warehouse%2C_Instant.html">1107 high scalability-2011-08-29-The Three Ages of Google - Batch, Warehouse, Instant</a></p>
 <p>9 0.088412441 <a title="815-tfidf-9" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
@@ -144,76 +84,35 @@ sampling on integral second boundaries.Supports proce</p><p>6 0.12042525 <a titl
 <p>[(0, 0.154), (1, 0.073), (2, -0.003), (3, 0.019), (4, 0.005), (5, 0.03), (6, 0.058), (7, 0.065), (8, -0.02), (9, 0.005), (10, 0.015), (11, 0.01), (12, 0.007), (13, -0.031), (14, 0.039), (15, -0.011), (16, -0.036), (17, -0.037), (18, 0.042), (19, -0.007), (20, 0.067), (21, -0.016), (22, -0.001), (23, 0.006), (24, 0.03), (25, 0.015), (26, -0.04), (27, 0.033), (28, -0.02), (29, -0.004), (30, -0.002), (31, -0.044), (32, 0.03), (33, 0.019), (34, -0.013), (35, 0.027), (36, 0.015), (37, -0.013), (38, 0.001), (39, 0.006), (40, -0.007), (41, 0.02), (42, 0.028), (43, -0.021), (44, -0.013), (45, -0.032), (46, -0.018), (47, -0.04), (48, 0.022), (49, 0.017)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.94815183 <a title="815-lsi-1" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
-<p>Introduction: Imagine a single search request coursing through Google's massive
-infrastructure. A single request can run across thousands of machines and
-involve hundreds of different subsystems. And oh by the way, you are
-processing more requests per second than any other system in the world. How do
-you debug such a system? How do you figure out where the problems are? How do
-you determine if programmers are coding correctly? How do you keep sensitive
-data secret and safe? How do ensure products don't use more resources than
-they are assigned? How do you store all the data? How do you make use of
-it?That's where Dapper comes in. Dapper is Google's tracing system and it was
-originally created to understand the system behaviour from a search request.
-Now Google's production clustersgenerate more than 1 terabyte of sampled trace
-data per day. So how does Dapper do what Dapper does?Dapper is described in an
-very well written and intricately detailed paper:Dapper, a Large-Scale
-Distributed Systems Traci</p><p>2 0.78415877 <a title="815-lsi-2" href="../high_scalability-2010/high_scalability-2010-11-22-Strategy%3A_Google_Sends_Canary_Requests_into_the_Data_Mine.html">946 high scalability-2010-11-22-Strategy: Google Sends Canary Requests into the Data Mine</a></p>
-<p>Introduction: Google runs queries against thousands of in-memory index nodes in parallel and
-then merges the results. One of the interesting problems with this approach,
-explains Google's Jeff Dean in thislecture at Stanford, is theQuery of Death.A
-query can cause a program to fail because of bugs or various other issues.
-This means that a single query can take down an entire cluster of machines,
-which is not good for availability and response times, as it takes quite a
-while for thousands of machines to recover. Thus the Query of Death. New
-queries are always coming into the system and when you are always rolling out
-new software, it's impossible to completely get rid of the problem.Two
-solutions:Test against logs. Google replays a month's worth of logs to see if
-any of those queries kill anything. That helps, but Queries of Death may still
-happen.Send a canary request. A request is sent to one machine. If the request
-succeeds then it will probably succeed on all machines, so go ahead with the
-quer</p><p>3 0.77652478 <a title="815-lsi-3" href="../high_scalability-2012/high_scalability-2012-06-18-Google_on_Latency_Tolerant_Systems%3A_Making_a_Predictable_Whole_Out_of_Unpredictable_Parts___.html">1266 high scalability-2012-06-18-Google on Latency Tolerant Systems: Making a Predictable Whole Out of Unpredictable Parts   </a></p>
-<p>Introduction: InTaming The Long Latency Tailwe coveredLuiz Barroso's exploration of the long
-tail latency (some operations are really slow) problems generated by large
-fanout architectures (a request is composed of potentially thousands of other
-requests). You may have noticed there weren't a lot of solutions. That's where
-a talk I attended,Achieving Rapid Response Times in Large Online
-Services(slide deck), byJeff Dean, also of Google, comes in:In this talk, I'll
-describe a collection of techniques and practices lowering response times in
-large distributed systems whose components run on shared clusters of machines,
-where pieces of these systems are subject to interference by other tasks, and
-where unpredictable latency hiccups are the norm, not the exception.The goal
-is to use software techniques to reduce variability given the increasing
-variability in underlying hardware, the need to handle dynamic workloads on a
-shared infrastructure, and the need to use large fanout architectures to
-operate at</p><p>4 0.75508738 <a title="815-lsi-4" href="../high_scalability-2010/high_scalability-2010-08-04-Dremel%3A_Interactive_Analysis_of_Web-Scale_Datasets_-_Data_as_a_Programming_Paradigm.html">871 high scalability-2010-08-04-Dremel: Interactive Analysis of Web-Scale Datasets - Data as a Programming Paradigm</a></p>
-<p>Introduction: If Google was a boxer then MapReduce would be a probing right hand that sets
-up the massive left hook that is Dremel, Google's--scalable (thousands of
-CPUs, petabytes of data, trillions of rows), SQL based, columnar, interactive
-(results returned in seconds), ad-hoc--analytics system. If Google was a
-magician then MapReduce would be the shiny thing that distracts the mind while
-the trick goes unnoticed. I say that because even though Dremel has been
-around internally at Google since 2006, we have not heard a whisper about it.
-All we've heard about is MapReduce, clones of which have inspired entire new
-industries.Tricky.Dremel, according to Brian Bershad, Director of Engineering
-at Google, is targeted at solvingBigData class problems:While we all know that
-systems are huge and will get even huger, the implications of this size on
-programmability, manageability, power, etc. is hard to comprehend. Alfred
-noted that the Internet is predicted to be carrying a zetta-byte (1021bytes)
-per year</p><p>5 0.75415343 <a title="815-lsi-5" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
-<p>Introduction: Likewise the current belief that, in the case of artificial machines the very
-large and the very small are equally feasible and lasting is a manifest error.
-Thus, for example, a small obelisk or column or other solid figure can
-certainly be laid down or set up without danger of breaking, while the large
-ones will go to pieces under the slightest provocation, and that purely on
-account of their own weight. -- GalileoGalileo observed how things broke if
-they were naively scaled up. Interestingly, Google noticed a similar pattern
-when building larger software systems using the same techniques used to build
-smaller systems. Luiz Andre Barroso, Distinguished Engineer at Google, talks
-about this fundamental property of scaling systems in his fascinating talk,
-Warehouse-Scale Computing: Entering the Teenage Decade. Google found the
-larger the scale the greater the impact of latency variability. When a request
-is implemented by work done in parallel, as is common with today's service
-oriented</p><p>6 0.74437964 <a title="815-lsi-6" href="../high_scalability-2013/high_scalability-2013-11-13-Google%3A_Multiplex_Multiple_Works_Loads_on_Computers_to_Increase_Machine_Utilization_and_Save_Money.html">1548 high scalability-2013-11-13-Google: Multiplex Multiple Works Loads on Computers to Increase Machine Utilization and Save Money</a></p>
+<p>Introduction: Imagine a single search request coursing through Google's massive infrastructure. A single request can run across thousands of machines and involve hundreds of different subsystems. And oh by the way, you are processing more requests per second than any other system in the world. How do you debug such a system? How do you figure out where the problems are? How do you determine if programmers are coding correctly? How do you keep sensitive data secret and safe? How do ensure products don't use more resources than they are assigned? How do you store all the data? How do you make use of it?
+ 
+That's where Dapper comes in. Dapper is Google's tracing system and it was originally created to understand the system behaviour from a search request. Now Google's production clusters  generate more than 1 terabyte of sampled trace data per day . So how does Dapper do what Dapper does?
+ 
+Dapper is described in an very well written and intricately detailed paper:  Dapper, a Large-Scale Distributed Sy</p><p>2 0.78415877 <a title="815-lsi-2" href="../high_scalability-2010/high_scalability-2010-11-22-Strategy%3A_Google_Sends_Canary_Requests_into_the_Data_Mine.html">946 high scalability-2010-11-22-Strategy: Google Sends Canary Requests into the Data Mine</a></p>
+<p>Introduction: Google runs queries against thousands of in-memory index nodes in parallel and then merges the results. One of the interesting problems with this approach, explains Google's Jeff Dean in this  lecture at Stanford , is the  Query of Death .
+ 
+A query can cause a program to fail because of bugs or various other issues. This means that a single query can take down an entire cluster of machines, which is not good for availability and response times, as it takes quite a while for thousands of machines to recover. Thus the Query of Death. New queries are always coming into the system and when you are always rolling out new software, it's impossible to completely get rid of the problem.
+ 
+Two solutions:
+  
+  Test against logs . Google replays a month's worth of logs to see if any of those queries kill anything. That helps, but Queries of Death may still happen. 
+  Send a canary request . A request is sent to one machine. If the request succeeds then it will probably succeedÂ on all machines, s</p><p>3 0.77652478 <a title="815-lsi-3" href="../high_scalability-2012/high_scalability-2012-06-18-Google_on_Latency_Tolerant_Systems%3A_Making_a_Predictable_Whole_Out_of_Unpredictable_Parts___.html">1266 high scalability-2012-06-18-Google on Latency Tolerant Systems: Making a Predictable Whole Out of Unpredictable Parts   </a></p>
+<p>Introduction: In   Taming The Long Latency Tail   we covered   Luiz Barroso  ’s exploration of the long tail latency (some operations are really slow) problems generated by large fanout architectures (a request is composed of potentially thousands of other requests). You may have noticed there weren’t a lot of solutions. That’s where a talk I attended,   Achieving Rapid Response Times in Large Online Services   (  slide deck  ), by  Jeff Dean , also of Google, comes in:
+  
+  In this talk, I’ll describe a collection of techniques and practices lowering response times in large distributed systems whose components run on shared clusters of machines, where pieces of these systems are subject to interference by other tasks, and where unpredictable latency hiccups are the norm, not the exception. 
+
+  
+ The goal is to use software techniques to reduce variability given the increasing variability in underlying hardware, the need to handle dynamic workloads on a shared infrastructure, and the need to use lar</p><p>4 0.75508738 <a title="815-lsi-4" href="../high_scalability-2010/high_scalability-2010-08-04-Dremel%3A_Interactive_Analysis_of_Web-Scale_Datasets_-_Data_as_a_Programming_Paradigm.html">871 high scalability-2010-08-04-Dremel: Interactive Analysis of Web-Scale Datasets - Data as a Programming Paradigm</a></p>
+<p>Introduction: If Google was a boxer then MapReduce would be a probing right hand that sets up the massive left hook that is  Dremel , Google's—scalable (thousands of CPUs, petabytes of data, trillions of rows), SQL based, columnar, interactive (results returned in seconds), ad-hoc—analytics system. If Google was a magician then MapReduce would be the shiny thing that distracts the mind while the trick goes unnoticed. I say that because even though Dremel has been around internally at Google since 2006, we have not heard a whisper about it. All we've heard about is MapReduce, clones of which have inspired entire new industries.  Tricky .
+ 
+Dremel, according to Brian Bershad, Director of Engineering at Google, is targeted at solving  BigData class problems :
+  
+
+While we all know that systems are huge and will get even huger, the implications of this size on programmability, manageability, power, etc. is hard to comprehend. Alfred noted that the Internet is predicted to be carrying a zetta-byte (10 21</p><p>5 0.75415343 <a title="815-lsi-5" href="../high_scalability-2012/high_scalability-2012-03-12-Google%3A_Taming_the_Long_Latency_Tail_-_When_More_Machines_Equals_Worse_Results.html">1207 high scalability-2012-03-12-Google: Taming the Long Latency Tail - When More Machines Equals Worse Results</a></p>
+<p>Introduction: Likewise the current belief that, in the case of artificial machines the very large and the very small are equally feasible and lasting is a manifest error. Thus, for example, a small obelisk or column or other solid figure can certainly be laid down or set up without danger of breaking, while the large ones will go to pieces under the slightest provocation, and that purely on account of their own weight. -- Galileo  
+Galileo observed how things broke if they were naively scaled up. Interestingly, Google noticed a similar pattern when building larger software systems using the same techniques used to build smaller systems. 
+ 
+ Luiz André Barroso , Distinguished Engineer at Google, talks about this fundamental property of scaling systems in his fascinating talk,  Warehouse-Scale Computing: Entering the Teenage Decade . Google found the larger the scale the greater the impact of latency variability. When a request is implemented by work done in parallel, as is common with today's service</p><p>6 0.74437964 <a title="815-lsi-6" href="../high_scalability-2013/high_scalability-2013-11-13-Google%3A_Multiplex_Multiple_Works_Loads_on_Computers_to_Increase_Machine_Utilization_and_Save_Money.html">1548 high scalability-2013-11-13-Google: Multiplex Multiple Works Loads on Computers to Increase Machine Utilization and Save Money</a></p>
 <p>7 0.73149514 <a title="815-lsi-7" href="../high_scalability-2013/high_scalability-2013-10-21-Google%27s_Sanjay_Ghemawat_on_What_Made_Google_Google_and_Great_Big_Data_Career_Advice.html">1535 high scalability-2013-10-21-Google's Sanjay Ghemawat on What Made Google Google and Great Big Data Career Advice</a></p>
 <p>8 0.73061621 <a title="815-lsi-8" href="../high_scalability-2011/high_scalability-2011-03-24-Strategy%3A_Disk_Backup_for_Speed%2C_Tape_Backup_to_Save_Your_Bacon%2C_Just_Ask_Google.html">1010 high scalability-2011-03-24-Strategy: Disk Backup for Speed, Tape Backup to Save Your Bacon, Just Ask Google</a></p>
 <p>9 0.7224074 <a title="815-lsi-9" href="../high_scalability-2013/high_scalability-2013-02-11-At_Scale_Even_Little_Wins_Pay_Off_Big_-_Google_and_Facebook_Examples.html">1404 high scalability-2013-02-11-At Scale Even Little Wins Pay Off Big - Google and Facebook Examples</a></p>
@@ -233,75 +132,27 @@ oriented</p><p>6 0.74437964 <a title="815-lsi-6" href="../high_scalability-2013/
 <p>[(1, 0.124), (2, 0.216), (10, 0.039), (27, 0.013), (30, 0.021), (37, 0.034), (40, 0.026), (47, 0.011), (51, 0.012), (56, 0.183), (61, 0.063), (77, 0.027), (79, 0.076), (85, 0.016), (94, 0.037)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.96909434 <a title="815-lda-1" href="../high_scalability-2010/high_scalability-2010-02-16-Seven_Signs_You_May_Need_a_NoSQL_Database.html">779 high scalability-2010-02-16-Seven Signs You May Need a NoSQL Database</a></p>
-<p>Introduction: While exploring deep into some dusty old library stacks, I dug up Nostradamus'
-long lostNoSQLcodex. What are the chances? Strangely, it also gave the plot to
-the next Dan Brown novel, but I left that out for reasons of sanity. About
-NoSQL, here is what Nosty (his friends call him Nosty) predicted are the signs
-you may need a NoSQL database...You noticed a lot of your database fields are
-really serialized complex objects in disguise. Why bother with a RDBMS at all
-then? Storing serialized objects in a relational database is like being on the
-pill while trying to get pregnant, a bit counter productive. Just use a
-schemaless database from the start.Using a standard query language has become
-too confining. You just want to be free. SQL is so easy, so convenient, and so
-standard, it's reallynot a challengeanymore. You need to be different. Then
-NoSQL is for you. Each has their own completely differentquery mechanism.Your
-toolbox only contains a hammer. Hammers while wonderfully versatile, c</p><p>2 0.95818001 <a title="815-lda-2" href="../high_scalability-2010/high_scalability-2010-11-15-How_Google%27s_Instant_Previews_Reduces_HTTP_Requests.html">941 high scalability-2010-11-15-How Google's Instant Previews Reduces HTTP Requests</a></p>
-<p>Introduction: In a strange case of synchronicity, Google just publishedInstant Previews:
-Under the hood, a very well written blog post by Matias Pelenur of the Instant
-Previews team, giving some fascinating inside details on how Google
-implementedInstant Previews. It's syncronicty because I had just posted
-Strategy: Biggest Performance Impact Is To Reduce The Number Of HTTP Requests
-and one of the major ideas behind the design Instant Previews is to reduce the
-number of HTTP requests through a few well chosen tricks. Cosmic!Some of what
-Google does to reduce HTTP requests:Data URIs, which are are base64 encodings
-of image data, are used instead of static images that are served from the
-server. This means the whole preview can be pieced together from image slices
-in one request as both the data and the image are returned in the same
-request. Google found thateven though base64 encoding adds about 33% to the
-size of the image, tests showed that gzip-compressed data URIs are comparable
-in size to the o</p><p>3 0.94402051 <a title="815-lda-3" href="../high_scalability-2009/high_scalability-2009-10-29-Digg_-_Looking_to_the_Future_with_Cassandra.html">732 high scalability-2009-10-29-Digg - Looking to the Future with Cassandra</a></p>
-<p>Introduction: Digg has been researching ways to scale our database infrastructure for some
-time now. We've adopted a traditional vertically partitioned master-slave
-configuration with MySQL, and also investigated sharding MySQL with IDDB.
-Ultimately, these solutions left us wanting. In the case of the traditional
-architecture, the lack of redundancy on the write masters is painful, and both
-approaches have significant management overhead to keep running.Since it was
-already necessary to abandon data normalization and consistency to make these
-approaches work, we felt comfortable looking at more exotic, non-relational
-data stores. After considering HBase, Hypertable, Cassandra, Tokyo
-Cabinet/Tyrant, Voldemort, and Dynomite, we settled on Cassandra.Each system
-has its own strengths and weaknesses, but Cassandra has a good blend of
-everything. It offers column-oriented data storage, so you have a bit more
-structure than plain key/value stores. It operates in a distributed, highly
-available, peer-to-pee</p><p>4 0.93423343 <a title="815-lda-4" href="../high_scalability-2008/high_scalability-2008-11-18-Scalability_Perspectives_%232%3A_Van_Jacobson_%E2%80%93_Content-Centric_Networking.html">446 high scalability-2008-11-18-Scalability Perspectives #2: Van Jacobson – Content-Centric Networking</a></p>
-<p>Introduction: Scalability Perspectivesis a series of posts that highlights the ideas that
-will shape the next decade of IT architecture. Each post is dedicated to a
-thought leader of the information age and his vision of the future. Be warned
-though – the journey into the minds and perspectives of these people requires
-an open mind.Van JacobsonVan Jacobson is a Research Fellow atPARC. Prior to
-that he was Chief Scientist and co-founder of Packet Design. Prior to that he
-was Chief Scientist at Cisco. Prior to that he was head of the Network
-Research group at Lawrence Berkeley National Laboratory. He's been studying
-networking since 1969. He still hopes that someday something will start to
-make sense.Scaling the Internet – Does the Net needs an upgrade?As the
-Internet is being overrun with video traffic, many wonder if it can survive.
-With challenges being thrown down over the imbalances that have been created
-and their impact on the viability of monopolistic business models, the
-Internet is under con</p><p>same-blog 5 0.92680651 <a title="815-lda-5" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
-<p>Introduction: Imagine a single search request coursing through Google's massive
-infrastructure. A single request can run across thousands of machines and
-involve hundreds of different subsystems. And oh by the way, you are
-processing more requests per second than any other system in the world. How do
-you debug such a system? How do you figure out where the problems are? How do
-you determine if programmers are coding correctly? How do you keep sensitive
-data secret and safe? How do ensure products don't use more resources than
-they are assigned? How do you store all the data? How do you make use of
-it?That's where Dapper comes in. Dapper is Google's tracing system and it was
-originally created to understand the system behaviour from a search request.
-Now Google's production clustersgenerate more than 1 terabyte of sampled trace
-data per day. So how does Dapper do what Dapper does?Dapper is described in an
-very well written and intricately detailed paper:Dapper, a Large-Scale
-Distributed Systems Traci</p><p>6 0.92547697 <a title="815-lda-6" href="../high_scalability-2012/high_scalability-2012-09-14-Stuff_The_Internet_Says_On_Scalability_For_September_14%2C_2012.html">1322 high scalability-2012-09-14-Stuff The Internet Says On Scalability For September 14, 2012</a></p>
+<p>Introduction: While exploring deep into some dusty old library stacks, I dug up Nostradamus' long lost  NoSQL  codex. What are the chances? Strangely, it also gave the plot to the next Dan Brown novel, but I left that out for reasons of sanity. About NoSQL, here is what Nosty (his friends call him Nosty) predicted are the signs you may need a NoSQL database...
+  
+  You noticed a lot of your database fields are really serialized complex objects in disguise . Why bother with a RDBMS at all then? Storing serialized objects in a relational database is like being on the pill while trying to get pregnant, a bit counter productive. Just use a schemaless database from the start. 
+  Using a standard query language has become too confining . You just want to be free. SQL is so easy, so convenient, and so standard, it's really  not a challenge  anymore. You need to be different. Then NoSQL is for you. Each has their own completely different  query mechanism . 
+  Your toolbox only contains a hammer . Hammers wh</p><p>2 0.95818001 <a title="815-lda-2" href="../high_scalability-2010/high_scalability-2010-11-15-How_Google%27s_Instant_Previews_Reduces_HTTP_Requests.html">941 high scalability-2010-11-15-How Google's Instant Previews Reduces HTTP Requests</a></p>
+<p>Introduction: In a strange case of synchronicity, Google just published  Instant Previews: Under the hood , a very well written blog post by Matías Pelenur of the Instant Previews team, giving some fascinating inside details on how Google implemented  Instant Previews . It's syncronicty because I had just posted  Strategy: Biggest Performance Impact Is To Reduce The Number Of HTTP Requests  and one of the major ideas behind the design Instant Previews is to reduce the number of HTTP requests through a few well chosen tricks. Cosmic!
+ 
+Some of what Google does to reduce HTTP requests:
+  
+  Data URIs , which are are base64 encodings of image data, are used instead of static images that are served from the server. This means the whole preview can be pieced together from image slices in one request as both the data and the image are returned in the same request. Google found that  even though base64 encoding adds about 33% to the size of the image, tests showed that gzip-compressed data URIs are compara</p><p>3 0.94402051 <a title="815-lda-3" href="../high_scalability-2009/high_scalability-2009-10-29-Digg_-_Looking_to_the_Future_with_Cassandra.html">732 high scalability-2009-10-29-Digg - Looking to the Future with Cassandra</a></p>
+<p>Introduction: Digg has been researching ways to scale our database infrastructure for some time now. We’ve adopted a  traditional vertically partitioned master-slave  configuration with MySQL, and also investigated sharding MySQL with  IDDB . Ultimately, these solutions left us wanting. In the case of the traditional architecture, the lack of redundancy on the write masters is painful, and both approaches have significant management overhead to keep running.
+ 
+Since it was already necessary to abandon data normalization and consistency to make these approaches work, we felt comfortable looking at more exotic, non-relational data stores. After considering HBase, Hypertable, Cassandra, Tokyo Cabinet/Tyrant, Voldemort, and Dynomite, we settled on  Cassandra .
+ 
+Each system has its own strengths and weaknesses, but Cassandra has a good blend of everything. It offers column-oriented data storage, so you have a bit more structure than plain key/value stores. It operates in a distributed, highly available,</p><p>4 0.93423343 <a title="815-lda-4" href="../high_scalability-2008/high_scalability-2008-11-18-Scalability_Perspectives_%232%3A_Van_Jacobson_%E2%80%93_Content-Centric_Networking.html">446 high scalability-2008-11-18-Scalability Perspectives #2: Van Jacobson – Content-Centric Networking</a></p>
+<p>Introduction: Scalability Perspectives  is a series of posts that highlights the ideas that will shape the next decade of IT architecture. Each post is dedicated to a thought leader of the information age and his vision of the future. Be warned though – the journey into the minds and perspectives of these people requires an open mind.     Van Jacobson    Van Jacobson is a Research Fellow at   PARC  . Prior to that he was Chief Scientist and co-founder of Packet Design. Prior to that he was Chief Scientist at Cisco. Prior to that he was head of the Network Research group at Lawrence Berkeley National Laboratory. He's been studying networking since 1969. He still hopes that someday something will start to make sense.    Scaling the Internet – Does the Net needs an upgrade?    As the Internet is being overrun with video traffic, many wonder if it can survive. With challenges being thrown down over the imbalances that have been created and their impact on the viability of monopolistic business models, t</p><p>same-blog 5 0.92680651 <a title="815-lda-5" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
+<p>Introduction: Imagine a single search request coursing through Google's massive infrastructure. A single request can run across thousands of machines and involve hundreds of different subsystems. And oh by the way, you are processing more requests per second than any other system in the world. How do you debug such a system? How do you figure out where the problems are? How do you determine if programmers are coding correctly? How do you keep sensitive data secret and safe? How do ensure products don't use more resources than they are assigned? How do you store all the data? How do you make use of it?
+ 
+That's where Dapper comes in. Dapper is Google's tracing system and it was originally created to understand the system behaviour from a search request. Now Google's production clusters  generate more than 1 terabyte of sampled trace data per day . So how does Dapper do what Dapper does?
+ 
+Dapper is described in an very well written and intricately detailed paper:  Dapper, a Large-Scale Distributed Sy</p><p>6 0.92547697 <a title="815-lda-6" href="../high_scalability-2012/high_scalability-2012-09-14-Stuff_The_Internet_Says_On_Scalability_For_September_14%2C_2012.html">1322 high scalability-2012-09-14-Stuff The Internet Says On Scalability For September 14, 2012</a></p>
 <p>7 0.92361295 <a title="815-lda-7" href="../high_scalability-2010/high_scalability-2010-07-09-Hot_Scalability_Links_for_July_9%2C_2010.html">854 high scalability-2010-07-09-Hot Scalability Links for July 9, 2010</a></p>
 <p>8 0.92311341 <a title="815-lda-8" href="../high_scalability-2009/high_scalability-2009-07-20-A_Scalability_Lament.html">659 high scalability-2009-07-20-A Scalability Lament</a></p>
 <p>9 0.91918021 <a title="815-lda-9" href="../high_scalability-2010/high_scalability-2010-01-11-Strategy%3A_Don%27t_Use_Polling_for_Real-time_Feeds.html">759 high scalability-2010-01-11-Strategy: Don't Use Polling for Real-time Feeds</a></p>

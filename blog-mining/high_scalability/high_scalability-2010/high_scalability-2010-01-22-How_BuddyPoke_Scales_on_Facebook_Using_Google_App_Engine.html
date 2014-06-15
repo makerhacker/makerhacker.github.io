@@ -16,115 +16,54 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>763 high scalability-2010-01-22-How BuddyPoke Scales on Facebook Using Google App Engine</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-763-html" href="http://highscalability.com//blog/2010/1/22/how-buddypoke-scales-on-facebook-using-google-app-engine.html">html</a></p><p>Introduction: How do you scale a viral Facebook app that has skyrocketed to a mind boggling
-65 million installs (the population of France)? That's the fortunate
-problemBuddyPokeco-founder Dave Westwood has and he talked about his solution
-at Wednesday'sFacebook Meetup. Slides for the complete talk arehere. For those
-not quite sure what BuddyPoke is, it's a social network application that lets
-users show their mood, hug, kiss, and poke their friends through on-line
-avatars.In many ways BuddyPoke is the quintessentially modern web application.
-It thrives off the energy of social network driven ecosystems. Game play
-mechanics, viral loops, and creative monetization strategies are all part of
-if its everyday conceptualization. It mashes together different technologies,
-not in a dark Frankensteining sort of way, but in a smart way that gets the
-most bang for the buck. Part of it runs on Facebook servers (free). Part of it
-runs on flash in a browser (free). Part of it runs on a storage cloud (higher
-cost)</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 How do you scale a viral Facebook app that has skyrocketed to a mind boggling 65 million installs (the population of France)? [sent-1, score-0.243]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-763-html" href="http://highscalability.com//blog/2010/1/22/how-buddypoke-scales-on-facebook-using-google-app-engine.html">html</a></p><p>Introduction: How do you scale a viral Facebook app that has skyrocketed to a mind boggling 65 million installs (the population of France)? That's the fortunate problem  BuddyPoke  co-founder Dave Westwood has and he talked about his solution at Wednesday's  Facebook Meetup . Slides for the complete talk are  here .  For those not quite sure what BuddyPoke is, it's a social network application that lets users show their mood, hug, kiss, and poke their friends through on-line avatars.
+ 
+In many ways BuddyPoke is the quintessentially modern web application. It thrives off the energy of social network driven ecosystems. Game play mechanics, viral loops, and creative monetization strategies are all part of if its everyday conceptualization. It mashes together different technologies, not in a dark Frankensteining sort of way,  but in a smart way that gets the most bang for the buck. Part of it runs on Facebook servers (free). Part of it runs on flash in a browser (free). Part of it runs on a storage clou</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 How do you scale a viral Facebook app that has skyrocketed to a mind boggling 65 million installs (the population of France)? [sent-1, score-0.243]
 </p><p>2 Game play mechanics, viral loops, and creative monetization strategies are all part of if its everyday conceptualization. [sent-7, score-0.247]
-</p><p>3 And part of runs on a Platform as a Service environment (that's GAE) (low cost). [sent-12, score-0.152]
-</p><p>4 User's can also have their avatars made into dolls, t-shirts, and a whole army of other Zazzle powered gifts. [sent-15, score-0.099]
-</p><p>5 Dave talks a lot about moving functionally to different locations in order to minimize costs, selecting techniques to minimize costs, yet keep the performance high enough that users can keep on poking. [sent-24, score-0.301]
-</p><p>6 I tried to find out what the actual cost was, because some people have reported higher than expected costs, and I was wondering what his experience showed. [sent-26, score-0.18]
-</p><p>7 He did say he payed way less than a penny per customer, but I'm not sure about the units. [sent-28, score-0.111]
-</p><p>8 The main app for BuddyPoke is a flash file must be served. [sent-35, score-0.266]
-</p><p>9 These costs are much higher than the costs for running the actual application. [sent-36, score-0.372]
-</p><p>10 In order to get performance you must select strategies that work best with how GAE works. [sent-40, score-0.143]
-</p><p>11 For BuddyPoke this means: 1) perform calculations in the flash client 2) wait on Facebook operations in the client, not GAE. [sent-43, score-0.138]
-</p><p>12 Rather than allowing users to upload a large number of icons, for example, set a max of six or so, otherwise the datastore and your costs will explode. [sent-45, score-0.312]
-</p><p>13 Split a table into two parts: main model and an additional info model. [sent-54, score-0.336]
-</p><p>14 Datastore puts are your largest cost so you need to do everything you can to minimize their cost. [sent-55, score-0.231]
-</p><p>15 In the main model use keyed access only, no indexes, and keep no extra fields. [sent-56, score-0.272]
-</p><p>16 So a "date joined" field for a User model doesn't belong in the main table. [sent-59, score-0.173]
-</p><p>17 It isn't used often so put this kind of data in an additional info model. [sent-60, score-0.163]
-</p><p>18 Put your indexes on this model and perform queries against it. [sent-61, score-0.22]
-</p><p>19 Because the additional info model has indexes it will cause more synchronized writes which costs more, is slower, and can back up processing if you need to write this model frequently. [sent-62, score-0.553]
-</p><p>20 Minimizing costs while making it scale and perform is not obvious. [sent-65, score-0.191]
+</p><p>3 And part of runs on a Platform as a Service  environment (that's GAE) (low cost). [sent-12, score-0.152]
+</p><p>4 Dave talks a lot about moving functionally to different locations in order to minimize costs,  selecting techniques to minimize costs, yet keep the performance high enough that users can keep on poking. [sent-24, score-0.301]
+</p><p>5 I tried to find out what the actual cost was, because some people have reported higher than expected costs, and I was wondering what his experience showed. [sent-26, score-0.18]
+</p><p>6 The main app for BuddyPoke is a flash file must be served. [sent-35, score-0.266]
+</p><p>7 These costs are much higher than the costs for running the actual application. [sent-36, score-0.372]
+</p><p>8 In order to get performance you must select strategies that work best with how GAE works. [sent-40, score-0.143]
+</p><p>9 For BuddyPoke this means: 1) perform calculations in the flash client 2) wait on Facebook operations in the client, not GAE. [sent-43, score-0.138]
+</p><p>10 Rather than allowing users to upload a large number of icons, for example, set a max of six or so, otherwise the datastore and your costs will explode. [sent-45, score-0.312]
+</p><p>11 Memcache  everything in order to smooth out datastore issues. [sent-46, score-0.179]
+</p><p>12 Split a table into two parts: main model and an additional info model. [sent-54, score-0.336]
+</p><p>13 Datastore puts are your largest cost so you need to do everything you can to minimize their cost. [sent-55, score-0.231]
+</p><p>14 In the main model use keyed access only, no indexes, and keep no extra fields. [sent-56, score-0.272]
+</p><p>15 field for a User model doesn't belong in the main table. [sent-60, score-0.173]
+</p><p>16 It isn't used often so put this kind of data in an additional info model. [sent-61, score-0.163]
+</p><p>17 Put your indexes on this model and perform queries against it. [sent-62, score-0.22]
+</p><p>18 Because the additional info model has indexes it will cause more synchronized writes which costs more, is slower, and can back up processing if you need to write this model frequently. [sent-63, score-0.553]
+</p><p>19 To minimize datastore hops use batch gets and puts. [sent-64, score-0.287]
+</p><p>20 Minimizing costs while making it scale and perform is not obvious. [sent-66, score-0.191]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('buddypoke', 0.665), ('dave', 0.298), ('gae', 0.218), ('costs', 0.134), ('datastore', 0.129), ('penny', 0.111), ('app', 0.105), ('minimize', 0.101), ('avatars', 0.099), ('info', 0.095), ('strategies', 0.093), ('model', 0.093), ('flash', 0.081), ('main', 0.08), ('viral', 0.079), ('runs', 0.077), ('cost', 0.076), ('part', 0.075), ('engine', 0.072), ('indexes', 0.07), ('additional', 0.068), ('guy', 0.066), ('facebook', 0.064), ('poke', 0.059), ('farmers', 0.059), ('dolls', 0.059), ('economically', 0.059), ('fortunate', 0.059), ('quintessentially', 0.059), ('skyrocketed', 0.059), ('perform', 0.057), ('gets', 0.057), ('engineby', 0.055), ('puts', 0.054), ('higher', 0.053), ('ever', 0.053), ('bog', 0.053), ('stats', 0.052), ('actual', 0.051), ('hug', 0.051), ('icons', 0.051), ('extra', 0.05), ('order', 0.05), ('otherwise', 0.049), ('functionally', 0.049), ('kiss', 0.049), ('keyed', 0.049), ('naively', 0.049), ('browser', 0.048), ('france', 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999982 <a title="763-tfidf-1" href="../high_scalability-2010/high_scalability-2010-01-22-How_BuddyPoke_Scales_on_Facebook_Using_Google_App_Engine.html">763 high scalability-2010-01-22-How BuddyPoke Scales on Facebook Using Google App Engine</a></p>
-<p>Introduction: How do you scale a viral Facebook app that has skyrocketed to a mind boggling
-65 million installs (the population of France)? That's the fortunate
-problemBuddyPokeco-founder Dave Westwood has and he talked about his solution
-at Wednesday'sFacebook Meetup. Slides for the complete talk arehere. For those
-not quite sure what BuddyPoke is, it's a social network application that lets
-users show their mood, hug, kiss, and poke their friends through on-line
-avatars.In many ways BuddyPoke is the quintessentially modern web application.
-It thrives off the energy of social network driven ecosystems. Game play
-mechanics, viral loops, and creative monetization strategies are all part of
-if its everyday conceptualization. It mashes together different technologies,
-not in a dark Frankensteining sort of way, but in a smart way that gets the
-most bang for the buck. Part of it runs on Facebook servers (free). Part of it
-runs on flash in a browser (free). Part of it runs on a storage cloud (higher
-cost)</p><p>2 0.24353996 <a title="763-tfidf-2" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
-<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as
-a child: but when I became a man, I put away childish things. --
-CorinthiansWith this new pricing, developments will be driven by the costs.I
-like to optimize my apps to make them better or faster, but to optimize them
-just to make them cheaper is a waste of time.-- Sylvain onGoogle GroupsThe
-dream is dead. Google App Engine's boldpay for what you usedream dies as it
-leaves childish things behind and becomes areal product.Pricing will change.
-Architectures will change. Customers will change. Hearts and minds will
-change. But Google App Engine will survive. Google isshutting downmany of
-itsprojects. GAE is not among them. Do we have GAE's pricing change to thank
-for it surving the more wood behindmore deadly arrows push? Without a radical
-and quick shift towards profitably GAE would no doubt be a historical footnote
-in the long scroll of good ideas. The urgency involved is clearly reflected in
-GAE's offering a</p><p>3 0.2240269 <a title="763-tfidf-3" href="../high_scalability-2009/high_scalability-2009-02-21-Google_AppEngine_-_A_Second_Look.html">517 high scalability-2009-02-21-Google AppEngine - A Second Look</a></p>
-<p>Introduction: Update 6::Back to the Future for Data Storage.We are in the middle of a
-renaissance in data storage with the application of many new ideas and
-techniques; there's huge potential for breaking out of thinking about data
-storage in just one way.Update 5:Building Scalable Web Applications with
-Google App Engineby Brett Slatkin.Update 4:Why Google App Engine is broken and
-what Google must do to fix itby Aral Balkan.We don't care that it can scale.
-We care that it does scale. And that it scales when you need it the
-most.Issues: 1MB limit on data structures; 1MB limit on data structures; the
-short-term high CPU quota; quotas in general; Admin? What's that?Update 3:
-BigTableBlues. Catherine Devlin couldn't port an application to GAE because it
-can't do basic filtering and can't search 5,000 records without timing out:
-"Querying from 5000 records - too much for the mighty BigTable, apparently."
-Followup:not the future database. "90% of the work of this project has been
-trying to figure out work</p><p>4 0.156519 <a title="763-tfidf-4" href="../high_scalability-2011/high_scalability-2011-06-08-Stuff_to_Watch_from_Google_IO_2011.html">1055 high scalability-2011-06-08-Stuff to Watch from Google IO 2011</a></p>
-<p>Introduction: With theGoogle IO Developer Conferencecompleted there aredozens and dozensof
-information packed videos now available. While you won't get any of the nifty
-free swag the attendees rake in, it's great of Google to make these videos
-available so quickly after the conference. Let's say you don't want to watch
-all the videos on the pretense you have a life, here are just a dozen
-scalability and architecture related videos you might find interesting:App
-Engine Backends by Justin Haugh, Greg Darke. One of this biggest complaints
-about GAE are the request deadlines. Those are now gone when you rent a new
-Backend node.Scaling App Engine Applicationsby Justin Haugh, Guido van Rossum.
-Two parts: how App Engine scales internally and how you as a programmer make
-it scale using the tools. Good discussion of scaling and why it's hard; 10,000
-queries per second is a large app that needs good architecting; a good
-discussion of GAE's predictive scaling formula of how it decides when to spawn
-instances;</p><p>5 0.12875062 <a title="763-tfidf-5" href="../high_scalability-2008/high_scalability-2008-05-31-Biggest_Under_Reported_Story%3A_Google%27s_BigTable_Costs_10_Times_Less_than_Amazon%27s_SimpleDB.html">336 high scalability-2008-05-31-Biggest Under Reported Story: Google's BigTable Costs 10 Times Less than Amazon's SimpleDB</a></p>
-<p>Introduction: Why isn't Google's aggressive new database pricing strategy getting more pub?
-That's whatBill Katz, instigator of theGAE Meetupand prize winningscience
-fiction authoris wondering:It's surprising that the blogosphere hasn't picked
-up the biggest difference in pricing:Google's datastore is less than a tenth
-of the price of Amazon's SimpleDB while offering a better API.If money matters
-to you then the burn rate under GAE could be convincingly lower. Let's compare
-the numbers:breakGAE pricing:* $0.10 - $0.12 per CPU core-hour* $0.15 - $0.18
-per GB-month of storage* $0.11 - $0.13 per GB outgoing bandwidth* $0.09 -
-$0.11 per GB incoming bandwidthSimpleDB Pricing:* $0.14 per Amazon SimpleDB
-Machine Hour consumed* Structured Data Storage - $1.50 per GB-month* $0.100
-per GB - all data transfer in* $0.170 per GB - first 10 TB / month data
-transfer out (more on the site)Clearly Google priced their services to be
-competitive with Amazon. We may see a response by Amazon in the near feature,
-but the</p><p>6 0.12790132 <a title="763-tfidf-6" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
+<p>Introduction: How do you scale a viral Facebook app that has skyrocketed to a mind boggling 65 million installs (the population of France)? That's the fortunate problem  BuddyPoke  co-founder Dave Westwood has and he talked about his solution at Wednesday's  Facebook Meetup . Slides for the complete talk are  here .  For those not quite sure what BuddyPoke is, it's a social network application that lets users show their mood, hug, kiss, and poke their friends through on-line avatars.
+ 
+In many ways BuddyPoke is the quintessentially modern web application. It thrives off the energy of social network driven ecosystems. Game play mechanics, viral loops, and creative monetization strategies are all part of if its everyday conceptualization. It mashes together different technologies, not in a dark Frankensteining sort of way,  but in a smart way that gets the most bang for the buck. Part of it runs on Facebook servers (free). Part of it runs on flash in a browser (free). Part of it runs on a storage clou</p><p>2 0.24353996 <a title="763-tfidf-2" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
+<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as a child: but when I became a man, I put away childish things . -- Corinthians
+ 
+ With this new pricing, developments will be driven by the costs .  I like to optimize my apps to make them better or faster, but to optimize them just to make them cheaper is a waste of time.  -- Sylvain on  Google Groups 
+ 
+The dream is dead. Google App Engine's bold  pay for what you use  dream dies as it leaves childish things behind and becomes a  real product .  Pricing will change . Architectures will change. Customers will change. Hearts and minds will change. But Google App Engine  will survive.   
+ 
+Google is  shutting down  many of its  projects . GAE is not among them. Do we have GAE's pricing change to thank for it surving the  more wood behind  more deadly arrows push? Without a radical and quick shift towards profitably GAE would no doubt be a historical footnote in the long scroll of good ideas. The urgency involve</p><p>3 0.2240269 <a title="763-tfidf-3" href="../high_scalability-2009/high_scalability-2009-02-21-Google_AppEngine_-_A_Second_Look.html">517 high scalability-2009-02-21-Google AppEngine - A Second Look</a></p>
+<p>Introduction: Update 6: :  Back to the Future for Data Storage .  We are in the middle of a renaissance in data storage with the application of many new ideas and techniques; there's huge potential for breaking out of thinking about data storage in just one way.   Update 5 :  Building Scalable Web Applications with Google App Engine  by Brett Slatkin.
+ 
+ Update 4 :  Why Google App Engine is broken and what Google must do to fix it  by Aral Balkan.  We don't care that it can scale. We care that it does scale. And that it scales when you need it the most.   Issues: 1MB limit on data structures; 1MB limit on data structures; the short-term high CPU quota; quotas in general; Admin? What's that?  Update 3 : BigTable  Blues . Catherine Devlin couldn't port an application to GAE because it can't do basic filtering and can't search 5,000 records without timing out: "Querying from 5000 records - too much for the mighty BigTable, apparently." Followup:  not the future database . "90% of the work of this proje</p><p>4 0.156519 <a title="763-tfidf-4" href="../high_scalability-2011/high_scalability-2011-06-08-Stuff_to_Watch_from_Google_IO_2011.html">1055 high scalability-2011-06-08-Stuff to Watch from Google IO 2011</a></p>
+<p>Introduction: With the  Google IO Developer Conference  completed there are  dozens and dozens  of information packed videos now available. While you won't get any of the nifty free swag the attendees rake in, it's great of Google to make these videos available so quickly after the conference. 
+ 
+Let's say you don't want to watch all the videos on the pretense you have a life, here are just a dozen scalability and architecture related videos you might find interesting:
+  
+  App Engine Backends  by Justin Haugh, Greg Darke. One of this biggest complaints about GAE are the request deadlines. Those are now gone when you rent a new Backend node. 
+  Scaling App Engine Applications  by Justin Haugh, Guido van Rossum. Two parts: how App Engine scales internally and how you as a programmer make it scale using the tools. Good discussion of scaling and why it's hard; 10,000 queries per second is a large app that needs good architecting; a good discussion of GAE's predictive scaling formula of how it decides w</p><p>5 0.12875062 <a title="763-tfidf-5" href="../high_scalability-2008/high_scalability-2008-05-31-Biggest_Under_Reported_Story%3A_Google%27s_BigTable_Costs_10_Times_Less_than_Amazon%27s_SimpleDB.html">336 high scalability-2008-05-31-Biggest Under Reported Story: Google's BigTable Costs 10 Times Less than Amazon's SimpleDB</a></p>
+<p>Introduction: Why isn't Google's aggressive new database pricing strategy getting more pub? That's what   Bill Katz  , instigator of the   GAE Meetup   and prize winning   science fiction author   is wondering:     It's surprising that the blogosphere hasn't picked up the biggest difference in pricing:  Google's datastore is less than a tenth of the price of Amazon's SimpleDB while offering a better API.       If money matters to you then the burn rate under GAE could be convincingly lower. Let's compare the numbers:        GAE pricing  :   * $0.10 - $0.12 per CPU core-hour   * $0.15 - $0.18 per GB-month of storage   * $0.11 - $0.13 per GB outgoing bandwidth   * $0.09 - $0.11 per GB incoming bandwidth      SimpleDB Pricing  :   * $0.14 per Amazon SimpleDB Machine Hour consumed   * Structured Data Storage - $1.50 per GB-month   * $0.100 per GB - all data transfer in   * $0.170 per GB - first 10 TB / month data transfer out (more on the site)     Clearly Google priced their services to be competitive</p><p>6 0.12790132 <a title="763-tfidf-6" href="../high_scalability-2008/high_scalability-2008-05-27-How_I_Learned_to_Stop_Worrying_and_Love_Using_a_Lot_of_Disk_Space_to_Scale.html">327 high scalability-2008-05-27-How I Learned to Stop Worrying and Love Using a Lot of Disk Space to Scale</a></p>
 <p>7 0.12650314 <a title="763-tfidf-7" href="../high_scalability-2010/high_scalability-2010-03-05-Strategy%3A_Planning_for_a_Power_Outage_Google_Style.html">789 high scalability-2010-03-05-Strategy: Planning for a Power Outage Google Style</a></p>
 <p>8 0.12297207 <a title="763-tfidf-8" href="../high_scalability-2013/high_scalability-2013-04-01-Khan_Academy_Checkbook_Scaling_to_6_Million_Users_a_Month_on_GAE.html">1432 high scalability-2013-04-01-Khan Academy Checkbook Scaling to 6 Million Users a Month on GAE</a></p>
 <p>9 0.11669073 <a title="763-tfidf-9" href="../high_scalability-2008/high_scalability-2008-04-08-Google_AppEngine_-_A_First_Look.html">301 high scalability-2008-04-08-Google AppEngine - A First Look</a></p>
@@ -144,76 +83,26 @@ but the</p><p>6 0.12790132 <a title="763-tfidf-6" href="../high_scalability-2008
 <p>[(0, 0.165), (1, 0.085), (2, 0.014), (3, 0.01), (4, -0.019), (5, -0.041), (6, -0.012), (7, 0.044), (8, 0.055), (9, -0.052), (10, 0.013), (11, -0.014), (12, -0.005), (13, 0.021), (14, 0.001), (15, 0.002), (16, -0.082), (17, -0.006), (18, 0.083), (19, -0.028), (20, 0.037), (21, -0.013), (22, 0.069), (23, -0.082), (24, 0.044), (25, 0.007), (26, 0.024), (27, -0.08), (28, 0.022), (29, -0.045), (30, -0.003), (31, -0.048), (32, 0.025), (33, 0.023), (34, -0.039), (35, -0.006), (36, 0.012), (37, -0.033), (38, 0.047), (39, -0.066), (40, -0.027), (41, -0.007), (42, -0.02), (43, 0.047), (44, 0.03), (45, -0.006), (46, -0.064), (47, 0.06), (48, 0.007), (49, -0.008)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9614504 <a title="763-lsi-1" href="../high_scalability-2010/high_scalability-2010-01-22-How_BuddyPoke_Scales_on_Facebook_Using_Google_App_Engine.html">763 high scalability-2010-01-22-How BuddyPoke Scales on Facebook Using Google App Engine</a></p>
-<p>Introduction: How do you scale a viral Facebook app that has skyrocketed to a mind boggling
-65 million installs (the population of France)? That's the fortunate
-problemBuddyPokeco-founder Dave Westwood has and he talked about his solution
-at Wednesday'sFacebook Meetup. Slides for the complete talk arehere. For those
-not quite sure what BuddyPoke is, it's a social network application that lets
-users show their mood, hug, kiss, and poke their friends through on-line
-avatars.In many ways BuddyPoke is the quintessentially modern web application.
-It thrives off the energy of social network driven ecosystems. Game play
-mechanics, viral loops, and creative monetization strategies are all part of
-if its everyday conceptualization. It mashes together different technologies,
-not in a dark Frankensteining sort of way, but in a smart way that gets the
-most bang for the buck. Part of it runs on Facebook servers (free). Part of it
-runs on flash in a browser (free). Part of it runs on a storage cloud (higher
-cost)</p><p>2 0.86824477 <a title="763-lsi-2" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
-<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as
-a child: but when I became a man, I put away childish things. --
-CorinthiansWith this new pricing, developments will be driven by the costs.I
-like to optimize my apps to make them better or faster, but to optimize them
-just to make them cheaper is a waste of time.-- Sylvain onGoogle GroupsThe
-dream is dead. Google App Engine's boldpay for what you usedream dies as it
-leaves childish things behind and becomes areal product.Pricing will change.
-Architectures will change. Customers will change. Hearts and minds will
-change. But Google App Engine will survive. Google isshutting downmany of
-itsprojects. GAE is not among them. Do we have GAE's pricing change to thank
-for it surving the more wood behindmore deadly arrows push? Without a radical
-and quick shift towards profitably GAE would no doubt be a historical footnote
-in the long scroll of good ideas. The urgency involved is clearly reflected in
-GAE's offering a</p><p>3 0.84389317 <a title="763-lsi-3" href="../high_scalability-2011/high_scalability-2011-06-08-Stuff_to_Watch_from_Google_IO_2011.html">1055 high scalability-2011-06-08-Stuff to Watch from Google IO 2011</a></p>
-<p>Introduction: With theGoogle IO Developer Conferencecompleted there aredozens and dozensof
-information packed videos now available. While you won't get any of the nifty
-free swag the attendees rake in, it's great of Google to make these videos
-available so quickly after the conference. Let's say you don't want to watch
-all the videos on the pretense you have a life, here are just a dozen
-scalability and architecture related videos you might find interesting:App
-Engine Backends by Justin Haugh, Greg Darke. One of this biggest complaints
-about GAE are the request deadlines. Those are now gone when you rent a new
-Backend node.Scaling App Engine Applicationsby Justin Haugh, Guido van Rossum.
-Two parts: how App Engine scales internally and how you as a programmer make
-it scale using the tools. Good discussion of scaling and why it's hard; 10,000
-queries per second is a large app that needs good architecting; a good
-discussion of GAE's predictive scaling formula of how it decides when to spawn
-instances;</p><p>4 0.8178106 <a title="763-lsi-4" href="../high_scalability-2009/high_scalability-2009-02-21-Google_AppEngine_-_A_Second_Look.html">517 high scalability-2009-02-21-Google AppEngine - A Second Look</a></p>
-<p>Introduction: Update 6::Back to the Future for Data Storage.We are in the middle of a
-renaissance in data storage with the application of many new ideas and
-techniques; there's huge potential for breaking out of thinking about data
-storage in just one way.Update 5:Building Scalable Web Applications with
-Google App Engineby Brett Slatkin.Update 4:Why Google App Engine is broken and
-what Google must do to fix itby Aral Balkan.We don't care that it can scale.
-We care that it does scale. And that it scales when you need it the
-most.Issues: 1MB limit on data structures; 1MB limit on data structures; the
-short-term high CPU quota; quotas in general; Admin? What's that?Update 3:
-BigTableBlues. Catherine Devlin couldn't port an application to GAE because it
-can't do basic filtering and can't search 5,000 records without timing out:
-"Querying from 5000 records - too much for the mighty BigTable, apparently."
-Followup:not the future database. "90% of the work of this project has been
-trying to figure out work</p><p>5 0.7762078 <a title="763-lsi-5" href="../high_scalability-2009/high_scalability-2009-03-06-Cloud_Programming_Directly_Feeds_Cost_Allocation_Back_into_Software_Design.html">527 high scalability-2009-03-06-Cloud Programming Directly Feeds Cost Allocation Back into Software Design</a></p>
-<p>Introduction: Update 6:CARS = Cost Aware Runtimes and Services by William Louth.Update
-5:Damn You Google, Damn You Yahoo! Why D'Ya Do This to Us? Free accounts on a
-cloud platform are a constant drain of money.Update 4:Caching becomes even
-more important inCPU based billing environments. Avoiding the CPU means saving
-money.Update 3:An interesting simple example of this idea showed up on the
-Google AppEngine list. With one paging algorithm and one use of AJAX the
-yearly cost of the site was $1000. By changing those algorithms the site went
-under quota and became free again. This will make life a lot more interesting
-for developers.Update 2:Business Model Influencing Software Architectureby
-Brandon Watson.The profitability of your project could disappear overnight on
-account of code behaving badly.Update:Amazon addsElastic Block Storeat $0.10
-per 1 million I/O requests. Now I need some cost minimization storage
-algorithms!In theGAE Meetupyesterday a very interesting design rule came
-up:Design By Expli</p><p>6 0.75775152 <a title="763-lsi-6" href="../high_scalability-2008/high_scalability-2008-04-08-Google_AppEngine_-_A_First_Look.html">301 high scalability-2008-04-08-Google AppEngine - A First Look</a></p>
+<p>Introduction: How do you scale a viral Facebook app that has skyrocketed to a mind boggling 65 million installs (the population of France)? That's the fortunate problem  BuddyPoke  co-founder Dave Westwood has and he talked about his solution at Wednesday's  Facebook Meetup . Slides for the complete talk are  here .  For those not quite sure what BuddyPoke is, it's a social network application that lets users show their mood, hug, kiss, and poke their friends through on-line avatars.
+ 
+In many ways BuddyPoke is the quintessentially modern web application. It thrives off the energy of social network driven ecosystems. Game play mechanics, viral loops, and creative monetization strategies are all part of if its everyday conceptualization. It mashes together different technologies, not in a dark Frankensteining sort of way,  but in a smart way that gets the most bang for the buck. Part of it runs on Facebook servers (free). Part of it runs on flash in a browser (free). Part of it runs on a storage clou</p><p>2 0.86824477 <a title="763-lsi-2" href="../high_scalability-2011/high_scalability-2011-09-07-What_Google_App_Engine_Price_Changes_Say_About_the_Future_of_Web_Architecture.html">1112 high scalability-2011-09-07-What Google App Engine Price Changes Say About the Future of Web Architecture</a></p>
+<p>Introduction: When I was a child, I spake as a child, I understood as a child, I thought as a child: but when I became a man, I put away childish things . -- Corinthians
+ 
+ With this new pricing, developments will be driven by the costs .  I like to optimize my apps to make them better or faster, but to optimize them just to make them cheaper is a waste of time.  -- Sylvain on  Google Groups 
+ 
+The dream is dead. Google App Engine's bold  pay for what you use  dream dies as it leaves childish things behind and becomes a  real product .  Pricing will change . Architectures will change. Customers will change. Hearts and minds will change. But Google App Engine  will survive.   
+ 
+Google is  shutting down  many of its  projects . GAE is not among them. Do we have GAE's pricing change to thank for it surving the  more wood behind  more deadly arrows push? Without a radical and quick shift towards profitably GAE would no doubt be a historical footnote in the long scroll of good ideas. The urgency involve</p><p>3 0.84389317 <a title="763-lsi-3" href="../high_scalability-2011/high_scalability-2011-06-08-Stuff_to_Watch_from_Google_IO_2011.html">1055 high scalability-2011-06-08-Stuff to Watch from Google IO 2011</a></p>
+<p>Introduction: With the  Google IO Developer Conference  completed there are  dozens and dozens  of information packed videos now available. While you won't get any of the nifty free swag the attendees rake in, it's great of Google to make these videos available so quickly after the conference. 
+ 
+Let's say you don't want to watch all the videos on the pretense you have a life, here are just a dozen scalability and architecture related videos you might find interesting:
+  
+  App Engine Backends  by Justin Haugh, Greg Darke. One of this biggest complaints about GAE are the request deadlines. Those are now gone when you rent a new Backend node. 
+  Scaling App Engine Applications  by Justin Haugh, Guido van Rossum. Two parts: how App Engine scales internally and how you as a programmer make it scale using the tools. Good discussion of scaling and why it's hard; 10,000 queries per second is a large app that needs good architecting; a good discussion of GAE's predictive scaling formula of how it decides w</p><p>4 0.8178106 <a title="763-lsi-4" href="../high_scalability-2009/high_scalability-2009-02-21-Google_AppEngine_-_A_Second_Look.html">517 high scalability-2009-02-21-Google AppEngine - A Second Look</a></p>
+<p>Introduction: Update 6: :  Back to the Future for Data Storage .  We are in the middle of a renaissance in data storage with the application of many new ideas and techniques; there's huge potential for breaking out of thinking about data storage in just one way.   Update 5 :  Building Scalable Web Applications with Google App Engine  by Brett Slatkin.
+ 
+ Update 4 :  Why Google App Engine is broken and what Google must do to fix it  by Aral Balkan.  We don't care that it can scale. We care that it does scale. And that it scales when you need it the most.   Issues: 1MB limit on data structures; 1MB limit on data structures; the short-term high CPU quota; quotas in general; Admin? What's that?  Update 3 : BigTable  Blues . Catherine Devlin couldn't port an application to GAE because it can't do basic filtering and can't search 5,000 records without timing out: "Querying from 5000 records - too much for the mighty BigTable, apparently." Followup:  not the future database . "90% of the work of this proje</p><p>5 0.7762078 <a title="763-lsi-5" href="../high_scalability-2009/high_scalability-2009-03-06-Cloud_Programming_Directly_Feeds_Cost_Allocation_Back_into_Software_Design.html">527 high scalability-2009-03-06-Cloud Programming Directly Feeds Cost Allocation Back into Software Design</a></p>
+<p>Introduction: Update 6 :  CARS = Cost Aware Runtimes and Services  by William Louth.  Update 5 :  Damn You Google, Damn You Yahoo! Why D'Ya Do This to Us?  Free accounts on a cloud platform are a constant drain of money.  Update 4:  Caching becomes even more important in  CPU based billing environments . Avoiding the CPU means saving money.  Update 3:  An interesting simple example of this idea showed up on the Google AppEngine list. With one paging algorithm and one use of AJAX the yearly cost of the site was $1000. By changing those algorithms the site went under quota and became free again. This will make life a lot more interesting for developers.  Update 2:   Business Model Influencing Software Architecture  by Brandon Watson.  The profitability of your project could disappear overnight on account of code behaving badly .  Update:  Amazon adds  Elastic Block Store  at $0.10 per 1 million I/O requests. Now I need some cost minimization storage algorithms!  In the  GAE Meetup  yesterday a very in</p><p>6 0.75775152 <a title="763-lsi-6" href="../high_scalability-2008/high_scalability-2008-04-08-Google_AppEngine_-_A_First_Look.html">301 high scalability-2008-04-08-Google AppEngine - A First Look</a></p>
 <p>7 0.75714892 <a title="763-lsi-7" href="../high_scalability-2013/high_scalability-2013-04-01-Khan_Academy_Checkbook_Scaling_to_6_Million_Users_a_Month_on_GAE.html">1432 high scalability-2013-04-01-Khan Academy Checkbook Scaling to 6 Million Users a Month on GAE</a></p>
 <p>8 0.71933812 <a title="763-lsi-8" href="../high_scalability-2013/high_scalability-2013-06-07-Stuff_The_Internet_Says_On_Scalability_For_June_7%2C_2013.html">1472 high scalability-2013-06-07-Stuff The Internet Says On Scalability For June 7, 2013</a></p>
 <p>9 0.69313884 <a title="763-lsi-9" href="../high_scalability-2011/high_scalability-2011-04-14-Strategy%3A_Cache_Application_Start_State_to_Reduce_Spin-up_Times.html">1023 high scalability-2011-04-14-Strategy: Cache Application Start State to Reduce Spin-up Times</a></p>
@@ -233,63 +122,31 @@ up:Design By Expli</p><p>6 0.75775152 <a title="763-lsi-6" href="../high_scalabi
 <p>[(1, 0.116), (2, 0.156), (10, 0.054), (27, 0.012), (30, 0.026), (40, 0.015), (61, 0.081), (69, 0.162), (77, 0.027), (79, 0.179), (85, 0.024), (94, 0.056)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.94165111 <a title="763-lda-1" href="../high_scalability-2013/high_scalability-2013-04-08-NuoDB%27s_First_Experience%3A_Google_Compute_Engine_-_1.8_Million_Transactions_Per_Second.html">1437 high scalability-2013-04-08-NuoDB's First Experience: Google Compute Engine - 1.8 Million Transactions Per Second</a></p>
-<p>Introduction: This is a repost of the blog entry written by NuoDB's Tommy Reilly.  We
-atNuoDBwere recently given the opportunity to kick the tires on the Google
-Compute Engine by our friends over at Google. You can watch the entire Google
-Developer Live Session by clickinghere.  In order to access the capabilities
-of GCE we decided to run the same YCSB based benchmark we ran at our General
-Availability Launch back in January. For those of you who missed it we
-demonstrated running the YCSB benchmark on a 24 machine cluster running on our
-private cloud in the NuoDB datacenter. The salient results were 1.7 million
-transactions per second with sub-millisecond latencies.Public cloud
-environments typically mean virtualization, inconsistent network performance
-and potentially slow or low bandwidth disk access. It just so happens that
-NuoDB was designed to work well in such harsh environments (we don't call it a
-cloud database for nothing). Still, the faster the CPU, network and disk the
-faster the database</p><p>2 0.93694258 <a title="763-lda-2" href="../high_scalability-2009/high_scalability-2009-01-08-file_synchronization_solutions.html">488 high scalability-2009-01-08-file synchronization solutions</a></p>
-<p>Introduction: I have two servers connected via Internet (NOT IN THE SAME LAN) serving the
-same website (http://www.ourexample.com).The problem is files uploaded on
-serverA and serverB cannot see each other immediately,thus rsync with certain
-intervals is not a good solution.Can anybody give me some advice on the
-following options?1.NFS over Internet for file sharing2.sshfs3.inotify(our
-system's kernel does not support this and we donot want to risk upgrading our
-kernel as well)4.drbd in active-active mode5 or any other solutionsAny
-suggestions will be welcomed.Thank you in advance.</p><p>same-blog 3 0.92108345 <a title="763-lda-3" href="../high_scalability-2010/high_scalability-2010-01-22-How_BuddyPoke_Scales_on_Facebook_Using_Google_App_Engine.html">763 high scalability-2010-01-22-How BuddyPoke Scales on Facebook Using Google App Engine</a></p>
-<p>Introduction: How do you scale a viral Facebook app that has skyrocketed to a mind boggling
-65 million installs (the population of France)? That's the fortunate
-problemBuddyPokeco-founder Dave Westwood has and he talked about his solution
-at Wednesday'sFacebook Meetup. Slides for the complete talk arehere. For those
-not quite sure what BuddyPoke is, it's a social network application that lets
-users show their mood, hug, kiss, and poke their friends through on-line
-avatars.In many ways BuddyPoke is the quintessentially modern web application.
-It thrives off the energy of social network driven ecosystems. Game play
-mechanics, viral loops, and creative monetization strategies are all part of
-if its everyday conceptualization. It mashes together different technologies,
-not in a dark Frankensteining sort of way, but in a smart way that gets the
-most bang for the buck. Part of it runs on Facebook servers (free). Part of it
-runs on flash in a browser (free). Part of it runs on a storage cloud (higher
-cost)</p><p>4 0.88308746 <a title="763-lda-4" href="../high_scalability-2011/high_scalability-2011-05-25-Stuff_to_Watch_from_Surge_2010.html">1047 high scalability-2011-05-25-Stuff to Watch from Surge 2010</a></p>
-<p>Introduction: Surgeis a conference put on by OmniTI targeting practical Scalability matters.
-OmniTI specializes in helping people solve their scalability problems, as is
-only natural, as it was founded by Theo Schlossnagle, author of the
-canonicalScalable Internet Architectures. Now that Surge 2011 is on the
-horizon, they've generously made available nearly all thevideos from the Surge
-2010conference.  A pattern hopefully every conference will follow (only don't
-wait a year please). We lose a lot of collective wisdom from events not being
-available online in a timely manner.In truth, nearlyall the talksare on topic
-and are worth watching, but here are a few that seem especially relevant:Going
-0 to 60: Scaling LinkedIn by Ruslan Belkin, Sr. Director of Engineering,
-LinkedIn. Have you ever wondered what architectures the site like LinkedIn may
-have used and what insights teams have learned while growing the system from
-serving just a handful to close to a hundred million of users? Scaling and
-Loadbala</p><p>5 0.87665266 <a title="763-lda-5" href="../high_scalability-2007/high_scalability-2007-09-10-Blog%3A_Esoteric_Curio_by_Theo_Schlossnagle.html">87 high scalability-2007-09-10-Blog: Esoteric Curio by Theo Schlossnagle</a></p>
-<p>Introduction: Theo Schlossnagle is the author ofScalable Internet Architectureand the funder
-ofOmniTI, a global leader in Internet technology services that power the World
-Wide Web and email.As you might imagine Theo frequently posts on interesting
-topics for the scalable website builder.A Quick Hit of What's
-InsidePartitioning vs. Federation vs. Sharding,PostgreSQL warm standby on ZFS
-crack,Scalability vs. Performance: it isn't a battle
-Site:http://lethargy.org/~jesus</p><p>6 0.87444609 <a title="763-lda-6" href="../high_scalability-2012/high_scalability-2012-07-02-C_is_for_Compute_-_Google_Compute_Engine_%28GCE%29.html">1275 high scalability-2012-07-02-C is for Compute - Google Compute Engine (GCE)</a></p>
+<p>Introduction: This is a repost of the blog entry written by NuoDB's  Tommy Reilly  .  
+ 
+We at  NuoDB  were recently given the opportunity to kick the tires on the  Google Compute Engine  by our friends over at Google. You can watch the entire Google Developer Live Session by clicking  here .  In order to access the capabilities of GCE we decided to run the same  YCSB  based benchmark we ran at our  General Availability Launch  back in January. For those of you who missed it we demonstrated running the YCSB benchmark on a 24 machine cluster running on our private cloud in the NuoDB datacenter. The salient results were 1.7 million transactions per second with sub-millisecond latencies.
+ 
+Public cloud environments typically mean virtualization, inconsistent network performance and potentially slow or low bandwidth disk access. It just so happens that NuoDB was designed to work well in such harsh environments (we don’t call it a cloud database for nothing). Still, the faster the CPU, network and disk t</p><p>2 0.93694258 <a title="763-lda-2" href="../high_scalability-2009/high_scalability-2009-01-08-file_synchronization_solutions.html">488 high scalability-2009-01-08-file synchronization solutions</a></p>
+<p>Introduction: I have two servers connected via Internet (NOT IN THE SAME LAN) serving the same website (http://www.ourexample.com).The problem is files uploaded on serverA and serverB cannot see each other immediately,thus rsync with certain intervals is not a good solution.   Can anybody give me some advice on the following options?     1.NFS over Internet for file sharing   2.sshfs   3.inotify(our system's kernel does not support this and we donot want to risk upgrading our kernel as well)    4.drbd in active-active mode   5 or any other solutions     Any suggestions will be welcomed.   Thank you in advance.</p><p>same-blog 3 0.92108345 <a title="763-lda-3" href="../high_scalability-2010/high_scalability-2010-01-22-How_BuddyPoke_Scales_on_Facebook_Using_Google_App_Engine.html">763 high scalability-2010-01-22-How BuddyPoke Scales on Facebook Using Google App Engine</a></p>
+<p>Introduction: How do you scale a viral Facebook app that has skyrocketed to a mind boggling 65 million installs (the population of France)? That's the fortunate problem  BuddyPoke  co-founder Dave Westwood has and he talked about his solution at Wednesday's  Facebook Meetup . Slides for the complete talk are  here .  For those not quite sure what BuddyPoke is, it's a social network application that lets users show their mood, hug, kiss, and poke their friends through on-line avatars.
+ 
+In many ways BuddyPoke is the quintessentially modern web application. It thrives off the energy of social network driven ecosystems. Game play mechanics, viral loops, and creative monetization strategies are all part of if its everyday conceptualization. It mashes together different technologies, not in a dark Frankensteining sort of way,  but in a smart way that gets the most bang for the buck. Part of it runs on Facebook servers (free). Part of it runs on flash in a browser (free). Part of it runs on a storage clou</p><p>4 0.88308746 <a title="763-lda-4" href="../high_scalability-2011/high_scalability-2011-05-25-Stuff_to_Watch_from_Surge_2010.html">1047 high scalability-2011-05-25-Stuff to Watch from Surge 2010</a></p>
+<p>Introduction: Surge  is a conference put on by OmniTI targeting practical Scalability matters. OmniTI specializes in helping people solve their scalability problems, as is only natural, as it was founded by Theo Schlossnagle, author of the canonical  Scalable Internet Architectures . 
+ 
+Now that Surge 2011 is on the horizon, they've generously made available nearly all the  videos from the Surge 2010  conference.  A pattern hopefully every conference will follow (only don't wait a year please). We lose a lot of collective wisdom from events not being available online in a timely manner.
+ 
+In truth, nearly  all the talks  are on topic and are worth watching, but here are a few that seem especially relevant:
+  
+  Going 0 to 60: Scaling LinkedIn  by Ruslan Belkin, Sr. Director of Engineering, LinkedIn.        
+ 
+ Have you ever wondered what architectures the site like LinkedIn may have used and what insights teams have learned while growing the system from serving just a handful to close to a hundred m</p><p>5 0.87665266 <a title="763-lda-5" href="../high_scalability-2007/high_scalability-2007-09-10-Blog%3A_Esoteric_Curio_by_Theo_Schlossnagle.html">87 high scalability-2007-09-10-Blog: Esoteric Curio by Theo Schlossnagle</a></p>
+<p>Introduction: Theo Schlossnagle is the author of  Scalable Internet Architecture  and the funder of  OmniTI  , a global leader in Internet technology services that power the World Wide Web and email.  As you might imagine Theo frequently posts on interesting topics for the scalable website builder. 
+  A Quick Hit of What's Inside  
+ Partitioning vs. Federation vs. Sharding ,   PostgreSQL warm standby on ZFS crack ,  Scalability vs. Performance: it isn't a battle 
+ 
+Â 
+ 
+Site:  http://lethargy.org/~jesus</p><p>6 0.87444609 <a title="763-lda-6" href="../high_scalability-2012/high_scalability-2012-07-02-C_is_for_Compute_-_Google_Compute_Engine_%28GCE%29.html">1275 high scalability-2012-07-02-C is for Compute - Google Compute Engine (GCE)</a></p>
 <p>7 0.86292195 <a title="763-lda-7" href="../high_scalability-2013/high_scalability-2013-04-29-AWS_v_GCE_Face-off_and_Why_Innovation_Needs_Lower_Cost_Infrastructures.html">1448 high scalability-2013-04-29-AWS v GCE Face-off and Why Innovation Needs Lower Cost Infrastructures</a></p>
 <p>8 0.85398877 <a title="763-lda-8" href="../high_scalability-2007/high_scalability-2007-09-10-Is_there_a_difference_between_partitioning_and_federation_and_sharding%3F.html">89 high scalability-2007-09-10-Is there a difference between partitioning and federation and sharding?</a></p>
 <p>9 0.853962 <a title="763-lda-9" href="../high_scalability-2010/high_scalability-2010-03-02-Using_the_Ambient_Cloud_as_an_Application_Runtime.html">786 high scalability-2010-03-02-Using the Ambient Cloud as an Application Runtime</a></p>

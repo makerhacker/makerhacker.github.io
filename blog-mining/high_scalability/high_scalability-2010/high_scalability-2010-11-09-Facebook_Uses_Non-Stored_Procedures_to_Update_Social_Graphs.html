@@ -16,36 +16,34 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>936 high scalability-2010-11-09-Facebook Uses Non-Stored Procedures to Update Social Graphs</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-936-html" href="http://highscalability.com//blog/2010/11/9/facebook-uses-non-stored-procedures-to-update-social-graphs.html">html</a></p><p>Introduction: Facebook's Ryan Mack gave aMySQL Tech Talk where he talked about using what he
-called Non-stored Proceduresfor adding edges to Facebook's social graph. The
-question is: how can edges quickly be added to the social graph? The answer is
-ultimately one of deciding where logic should be executed, especially when
-locks are kept open during network hops.Ryan explained a key element of the
-Facebook data model are the connections between people, things they've liked,
-and places they've checked-in. A lot of their writes are adding edges to the
-social graph. Currently this is a two step process, run inside a
-transaction:add a new edge into the graphif the add was successful then
-increment the number of edges on a nodeThis approach works until there's a
-very hot node that is being added to rapidly. For example, a popular game adds
-a new character and everyone likes it at the same time or a new album comes
-out and everyone likes it at the same time.They were limited to the rate they
-could add edge</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Facebook's Ryan Mack gave aMySQL Tech Talk where he talked about using what he called Non-stored Proceduresfor adding edges to Facebook's social graph. [sent-1, score-0.419]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-936-html" href="http://highscalability.com//blog/2010/11/9/facebook-uses-non-stored-procedures-to-update-social-graphs.html">html</a></p><p>Introduction: Facebook's Ryan Mack gave a  MySQL Tech Talk  where he talked about using what he called  Non-stored Procedures  for adding edges to Facebook's social graph. The question is: how can edges quickly be added to the social graph? The answer is ultimately one of deciding where logic should be executed, especially when locks are kept open during network hops.
+ 
+Ryan explained a key element of the Facebook data model are the connections between people, things they've liked, and places they've checked-in. A lot of their writes are adding edges to the social graph. 
+ 
+Currently this is a two step process, run inside a transaction:
+  
+ add a new edge into the graph 
+ if the add was successful then increment the number of edges on a node 
+  
+This approach works until there's a very hot node that is being added to rapidly. For example, a popular game adds a new character and everyone likes it at the same time or a new album comes out and everyone likes it at the same time.
+ 
+They were limited to</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Facebook's Ryan Mack gave a  MySQL Tech Talk  where he talked about using what he called  Non-stored Procedures  for adding edges to Facebook's social graph. [sent-1, score-0.419]
 </p><p>2 The question is: how can edges quickly be added to the social graph? [sent-2, score-0.421]
-</p><p>3 The answer is ultimately one of deciding where logic should be executed, especially when locks are kept open during network hops. [sent-3, score-0.556]
+</p><p>3 The answer is ultimately one of deciding where logic should be executed, especially when locks are kept open during network hops. [sent-3, score-0.556]
 </p><p>4 A lot of their writes are adding edges to the social graph. [sent-5, score-0.509]
-</p><p>5 Currently this is a two step process, run inside a transaction:add a new edge into the graphif the add was successful then increment the number of edges on a nodeThis approach works until there's a very hot node that is being added to rapidly. [sent-6, score-0.847]
+</p><p>5 Currently this is a two step process, run inside a transaction:     add a new edge into the graph   if the add was successful then increment the number of edges on a node     This approach works until there's a very hot node that is being added to rapidly. [sent-6, score-0.813]
 </p><p>6 They were limited to the rate they could add edges by a row lock taken to increment the edge count. [sent-8, score-0.823]
 </p><p>7 The traditional approach around this problem is to use stored procedures, which sends one command to the database and the database executes the same sort of logic as above inside the database server. [sent-22, score-0.583]
 </p><p>8 This approach more than doubles the rate edges can be added, but unfortunately it causes problems with operations. [sent-25, score-0.388]
-</p><p>9 Operations Work Flow MattersEvery time a developer makes a stored procedure or a trigger change, a DB-Op must be asked to update the schema. [sent-26, score-0.511]
+</p><p>9 Operations Work Flow Matters   Every time a developer makes a stored procedure or a trigger change, a DB-Op must be asked to update the schema. [sent-26, score-0.511]
 </p><p>10 At X,000 databases * 20 shards each * 50 edge tables each for each shard, that's X million stored procedures to update. [sent-28, score-0.411]
 </p><p>11 All the logic runs on the server side, with no intermediate network hops. [sent-34, score-0.355]
 </p><p>12 Now let's consider this problem in the broader context of deciding where application logic should run. [sent-39, score-0.539]
 </p><p>13 Logic runs in the application and it modifies data remotely and incrementally using network operations. [sent-41, score-0.473]
-</p><p>14 The trigger and stored procedure approach localizes locks and logic and removes the latency limit on operations per second. [sent-45, score-1.007]
-</p><p>15 The downside is the the stored procedure language is very primitive and there's a split brain between logic in the application and logic in the database. [sent-46, score-1.302]
+</p><p>14 The trigger and stored procedure approach localizes locks and logic and removes the latency limit on operations per second. [sent-45, score-1.007]
+</p><p>15 The downside is the the stored procedure language is very primitive and there's a split brain between logic in the application and logic in the database. [sent-46, score-0.833]
 </p><p>16 The application writer gets to write code in the application, not the database, but it's still written in a primitive language and is completely outside the application framework. [sent-49, score-0.619]
-</p><p>17 An application gets a record, modifies it using a preferred application language, and writes the value back. [sent-51, score-0.663]
+</p><p>17 An application gets a record, modifies it using a preferred application language, and writes the value back. [sent-51, score-0.5]
 </p><p>18 When you write you include your original version number, if the version number hasn't changed then your value is written. [sent-58, score-0.368]
 </p><p>19 If you are a slow writer and there are lots of other writers then you could be live locked out of ever getting your value written. [sent-61, score-0.41]
 </p><p>20 In addition functions can be coded in the application and sent to execute remotely on the data. [sent-81, score-0.36]
@@ -55,77 +53,45 @@ could add edge</p><br/><h2>Summary: the most important sentenses genereted by tf
 <p>[('logic', 0.283), ('edges', 0.283), ('stored', 0.195), ('procedure', 0.18), ('application', 0.163), ('pessimistic', 0.148), ('trigger', 0.136), ('modifies', 0.133), ('edge', 0.128), ('cas', 0.115), ('value', 0.114), ('increment', 0.113), ('locks', 0.108), ('happy', 0.108), ('writers', 0.107), ('remotely', 0.105), ('approach', 0.105), ('primitive', 0.104), ('writer', 0.095), ('locked', 0.094), ('language', 0.094), ('deciding', 0.093), ('version', 0.093), ('sent', 0.092), ('writes', 0.09), ('procedures', 0.088), ('transaction', 0.087), ('statement', 0.085), ('optimistic', 0.083), ('limited', 0.081), ('commit', 0.08), ('updating', 0.08), ('facebook', 0.08), ('insert', 0.079), ('add', 0.079), ('behavior', 0.079), ('architecturefacebook', 0.074), ('mack', 0.074), ('row', 0.074), ('likes', 0.074), ('network', 0.072), ('added', 0.071), ('amysql', 0.07), ('incremented', 0.07), ('multiple', 0.069), ('adding', 0.069), ('number', 0.068), ('adds', 0.067), ('social', 0.067), ('lock', 0.065)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000004 <a title="936-tfidf-1" href="../high_scalability-2010/high_scalability-2010-11-09-Facebook_Uses_Non-Stored_Procedures_to_Update_Social_Graphs.html">936 high scalability-2010-11-09-Facebook Uses Non-Stored Procedures to Update Social Graphs</a></p>
-<p>Introduction: Facebook's Ryan Mack gave aMySQL Tech Talk where he talked about using what he
-called Non-stored Proceduresfor adding edges to Facebook's social graph. The
-question is: how can edges quickly be added to the social graph? The answer is
-ultimately one of deciding where logic should be executed, especially when
-locks are kept open during network hops.Ryan explained a key element of the
-Facebook data model are the connections between people, things they've liked,
-and places they've checked-in. A lot of their writes are adding edges to the
-social graph. Currently this is a two step process, run inside a
-transaction:add a new edge into the graphif the add was successful then
-increment the number of edges on a nodeThis approach works until there's a
-very hot node that is being added to rapidly. For example, a popular game adds
-a new character and everyone likes it at the same time or a new album comes
-out and everyone likes it at the same time.They were limited to the rate they
-could add edge</p><p>2 0.28556362 <a title="936-tfidf-2" href="../high_scalability-2010/high_scalability-2010-11-01-Hot_Trend%3A__Move_Behavior_to_Data_for_a_New_Interactive_Application_Architecture.html">933 high scalability-2010-11-01-Hot Trend:  Move Behavior to Data for a New Interactive Application Architecture</a></p>
-<p>Introduction: Two forces account for the trend of moving behavior to data: larger values
-used in key-value stores and spotty cloud networks. For some time we've seen
-functions pushed close to data with MapReduce, which is a batch process, but
-we are now seeing this model extend to interactive applications, which match
-the current emphasis on highly scalable, real-time, event driven
-applications.To see the trend look at the increasing support for collocated
-behavior at the datastore level:HBase is implementing a coprocessor
-feature.Cassandra is also implementing coprocessors or plugins.Membase is
-creatingNodeCode, which is a process for executing functions on data in the
-database.MongoDB supportsJavaScript stored procedures. VoltDB hasJava based
-stored procedures.In-memory DataGridproducts like GigaSpaces have been doing
-something like this forever. The key difference historically being GigaSpaces'
-tight integration with languages C++ and Java, instead of using a language
-agnostic protocol based appr</p><p>3 0.17154153 <a title="936-tfidf-3" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
-<p>Introduction: Update:Flickr hits2 Billion photosserved. That's a lot of hamburgers.Flickr is
-both my favoritebirdand the web's leading photo sharing site. Flickr has an
-amazing challenge, they must handle a vast sea of ever expanding new content,
-ever increasing legions of users, and a constant stream of new features, all
-while providing excellent performance. How do they do it?Site:
-http://www.flickr.comInformation SourcesFlickr and PHP(an early
-document)Capacity Planning for LAMPFederation at Flickr: Doing Billions of
-Queries a Dayby Dathan Pattishall.Building Scalable Web Sitesby Cal Henderson
-from Flickr.Database War Stories #3: Flickrby Tim O'ReillyCal Henderson's
-Talks. A lot of useful PowerPoint
-presentations.PlatformPHPMySQLShardsMemcached for a caching layer.Squid in
-reverse-proxy for html and images.Linux (RedHat)Smarty for templatingPerlPEAR
-for XML and Email parsingImageMagick, for image processingJava, for the node
-serviceApacheSystemImager for deploymentGanglia for distributed system
-m</p><p>4 0.16843432 <a title="936-tfidf-4" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
-<p>Introduction: For everything given something seems to be taken. Caching is a great
-scalability solution, but caching alsocomes with problems.Shardingis a great
-scalability solution, but as Foursquare recently revealed in apost-mortemabout
-their 17 hours of downtime, sharding also has problems. MongoDB, the database
-Foursquare uses, also contributed theirpost-mortemof what went wrong too.Now
-that everyone has shared and resharded, what can we learn to help us skip
-these mistakes and quickly move on to a different set of mistakes?First, like
-forFacebook, huge props to Foursquare and MongoDB for being upfront and honest
-about their problems. This helps everyone get better and is a sign we work in
-a pretty cool industry.Second, overall, the fault didn't flow from evil hearts
-or gross negligence. As usual the cause was more mundane: a key system, that
-could be a little more robust, combined with a very popular application built
-by a small group of people, under immense pressure, trying to get a lot of
-wo</p><p>5 0.1616466 <a title="936-tfidf-5" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>
-<p>Introduction: What do you get when you take a SQL database and start a new implementation
-from scratch, taking advantage of the latest research and modern hardware?
-Mike Stonebraker, the sword wielding Johnny Appleseed of the database world,
-hopes you get something like his new database,VoltDB: a pure SQL, pure ACID,
-pure OLTP, shared nothing, sharded, scalable, lockless, open source, in-memory
-DBMS, purpose-built for running hundreds of thousands of transactions a
-second. VoltDBclaims to be100 times faster than MySQL, up to 13 times faster
-thanCassandra, and 45 times faster than Oracle, with near-linear scaling.Will
-VoltDB kill off the new NoSQL upstarts? Will VoltDB cause a mass extinction of
-ancient databases? Probably no and no to both questions, but it's a product
-with a definite point-of-view and is worth a look as the transaction component
-in your system. But will it be right for you? Let's see...I first heard the
-details about VoltDB at Gluecon, where Mr. Stonebraker presented his highly
-ent</p><p>6 0.1572963 <a title="936-tfidf-6" href="../high_scalability-2010/high_scalability-2010-09-30-Facebook_and_Site_Failures_Caused_by_Complex%2C_Weakly_Interacting%2C_Layered_Systems.html">910 high scalability-2010-09-30-Facebook and Site Failures Caused by Complex, Weakly Interacting, Layered Systems</a></p>
+<p>Introduction: Facebook's Ryan Mack gave a  MySQL Tech Talk  where he talked about using what he called  Non-stored Procedures  for adding edges to Facebook's social graph. The question is: how can edges quickly be added to the social graph? The answer is ultimately one of deciding where logic should be executed, especially when locks are kept open during network hops.
+ 
+Ryan explained a key element of the Facebook data model are the connections between people, things they've liked, and places they've checked-in. A lot of their writes are adding edges to the social graph. 
+ 
+Currently this is a two step process, run inside a transaction:
+  
+ add a new edge into the graph 
+ if the add was successful then increment the number of edges on a node 
+  
+This approach works until there's a very hot node that is being added to rapidly. For example, a popular game adds a new character and everyone likes it at the same time or a new album comes out and everyone likes it at the same time.
+ 
+They were limited to</p><p>2 0.28556362 <a title="936-tfidf-2" href="../high_scalability-2010/high_scalability-2010-11-01-Hot_Trend%3A__Move_Behavior_to_Data_for_a_New_Interactive_Application_Architecture.html">933 high scalability-2010-11-01-Hot Trend:  Move Behavior to Data for a New Interactive Application Architecture</a></p>
+<p>Introduction: Two forces account for the trend of moving behavior to data: larger values used in key-value stores and spotty cloud networks. For some time we've seen functions pushed close to data with MapReduce, which is a batch process, but we are now seeing this model extend to interactive applications, which match the current emphasis on highly scalable, real-time, event driven applications.
+ 
+To see the trend look at the increasing support for collocated behavior at the datastore level:
+  
+ HBase is implementing a  coprocessor feature . 
+ Cassandra is also implementing  coprocessors or plugins . 
+ Membase is creating  NodeCode , which is a process for executing functions on data in the database. 
+ MongoDB supports  JavaScript stored procedures .  
+ VoltDB has  Java based stored procedures . 
+  In-memory DataGrid  products like GigaSpaces have been doing something like this forever. The key difference historically being GigaSpaces' tight integration with languages C++ and Java, instead of using</p><p>3 0.17154153 <a title="936-tfidf-3" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
+<p>Introduction: Update:  Flickr hits  2 Billion photos  served. That's a lot of hamburgers.   Flickr is both my favorite  bird  and the web's leading photo sharing site. Flickr has an amazing challenge, they must handle a vast sea of ever expanding new content, ever increasing legions of  users, and a constant stream of new features, all while providing excellent performance.  How do they do it?
+ 
+Site: http://www.flickr.com
+  Information Sources     Flickr and PHP  (an early document)     Capacity Planning for LAMP      Federation at Flickr: Doing Billions of Queries a Day  by Dathan Pattishall.     Building Scalable Web Sites  by Cal Henderson from Flickr.    Database War Stories #3: Flickr  by Tim O'Reilly    Cal Henderson's Talks . A lot of useful PowerPoint presentations. 
+ Platform 
+    PHP    MySQL    Shards    Memcached for a caching layer.    Squid in reverse-proxy for html and images.    Linux (RedHat)    Smarty for templating    Perl    PEAR for XML and Email parsing    ImageMagick, for ima</p><p>4 0.16843432 <a title="936-tfidf-4" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: For everything given something seems to be taken. Caching is a great scalability solution, but caching also  comes with problems .  Sharding  is a great scalability solution, but as Foursquare recently revealed in a  post-mortem  about their 17 hours of downtime, sharding also has problems. MongoDB, the database Foursquare uses, also contributed their  post-mortem  of what went wrong too.
+ 
+Now that everyone has shared and resharded, what can we learn to help us skip these mistakes and quickly move on to a different set of mistakes?
+ 
+First, like for  Facebook , huge props to Foursquare and MongoDB for being upfront and honest about their problems. This helps everyone get better and is a sign we work in a pretty cool industry.
+ 
+Second, overall, the fault didn't flow from evil hearts or gross negligence. As usual the cause was more mundane: a key system, that could be a little more robust, combined with a very popular application built by a small group of people, under immense pressure</p><p>5 0.1616466 <a title="936-tfidf-5" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>
+<p>Introduction: What do you get when you take a SQL database and start a new implementation from scratch, taking advantage of the latest research and modern hardware?  Mike Stonebraker , the sword wielding Johnny Appleseed of the database world, hopes you get something like his new database,  VoltDB : a pure SQL, pure ACID, pure OLTP, shared nothing, sharded, scalable, lockless, open source, in-memory DBMS, purpose-built for running hundreds of thousands of transactions a second. VoltDB  claims to be  100 times faster than MySQL, up to 13 times faster than  Cassandra , and 45 times faster than Oracle, with near-linear scaling.
+  Will VoltDB kill off the new NoSQL upstarts? Will VoltDB cause a mass extinction of ancient databases? Probably no and no to both questions, but it's a product with a definite point-of-view and is worth a look as the transaction component in your system. But will it be right for you? Let's see...
+ 
+I first heard the details about VoltDB at  Gluecon , where Mr. Stonebraker pres</p><p>6 0.1572963 <a title="936-tfidf-6" href="../high_scalability-2010/high_scalability-2010-09-30-Facebook_and_Site_Failures_Caused_by_Complex%2C_Weakly_Interacting%2C_Layered_Systems.html">910 high scalability-2010-09-30-Facebook and Site Failures Caused by Complex, Weakly Interacting, Layered Systems</a></p>
 <p>7 0.15263414 <a title="936-tfidf-7" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>8 0.14597812 <a title="936-tfidf-8" href="../high_scalability-2014/high_scalability-2014-05-12-4_Architecture_Issues_When_Scaling_Web_Applications%3A_Bottlenecks%2C_Database%2C_CPU%2C_IO.html">1646 high scalability-2014-05-12-4 Architecture Issues When Scaling Web Applications: Bottlenecks, Database, CPU, IO</a></p>
 <p>9 0.14428844 <a title="936-tfidf-9" href="../high_scalability-2011/high_scalability-2011-03-22-Facebook%27s_New_Realtime_Analytics_System%3A_HBase_to_Process_20_Billion_Events_Per_Day.html">1008 high scalability-2011-03-22-Facebook's New Realtime Analytics System: HBase to Process 20 Billion Events Per Day</a></p>
@@ -145,76 +111,36 @@ ent</p><p>6 0.1572963 <a title="936-tfidf-6" href="../high_scalability-2010/high
 <p>[(0, 0.24), (1, 0.153), (2, -0.032), (3, -0.046), (4, 0.047), (5, 0.086), (6, 0.036), (7, 0.016), (8, -0.021), (9, -0.056), (10, 0.06), (11, 0.135), (12, -0.049), (13, -0.004), (14, 0.006), (15, 0.012), (16, -0.066), (17, 0.032), (18, 0.047), (19, 0.015), (20, 0.008), (21, 0.001), (22, 0.044), (23, 0.024), (24, 0.035), (25, 0.04), (26, 0.001), (27, -0.06), (28, 0.1), (29, 0.026), (30, 0.01), (31, -0.045), (32, -0.029), (33, 0.037), (34, 0.016), (35, -0.021), (36, 0.009), (37, -0.054), (38, -0.002), (39, 0.04), (40, -0.089), (41, -0.043), (42, -0.032), (43, -0.038), (44, 0.001), (45, 0.011), (46, 0.086), (47, 0.043), (48, 0.023), (49, -0.016)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97703421 <a title="936-lsi-1" href="../high_scalability-2010/high_scalability-2010-11-09-Facebook_Uses_Non-Stored_Procedures_to_Update_Social_Graphs.html">936 high scalability-2010-11-09-Facebook Uses Non-Stored Procedures to Update Social Graphs</a></p>
-<p>Introduction: Facebook's Ryan Mack gave aMySQL Tech Talk where he talked about using what he
-called Non-stored Proceduresfor adding edges to Facebook's social graph. The
-question is: how can edges quickly be added to the social graph? The answer is
-ultimately one of deciding where logic should be executed, especially when
-locks are kept open during network hops.Ryan explained a key element of the
-Facebook data model are the connections between people, things they've liked,
-and places they've checked-in. A lot of their writes are adding edges to the
-social graph. Currently this is a two step process, run inside a
-transaction:add a new edge into the graphif the add was successful then
-increment the number of edges on a nodeThis approach works until there's a
-very hot node that is being added to rapidly. For example, a popular game adds
-a new character and everyone likes it at the same time or a new album comes
-out and everyone likes it at the same time.They were limited to the rate they
-could add edge</p><p>2 0.77865779 <a title="936-lsi-2" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
-<p>Introduction: This is an interview withMemSQLcofounder'sEric FrenkielandNikita Shamgunov, in
-which they try to answer critics by going into more depth about their
-technology.MemSQL ruffled a few feathers with their claim of being the fastest
-database in the world. According to their benchmarks MemSQL can execute 200K
-TPS on an EC2QuadrupleExtra Largeand on a 64 core machine they can push 1.2
-million transactions a second.Benchmarks are always a dark mirror, so make of
-them what you will, but the target market for MemSQL is clear: projects
-looking for something both fast and familiar. Fast as in a novel design using
-a combination of technologies likeMVCC, code generation,lock-free data
-structures,skip lists, andin-memory execution. Familiar as in SQL and nothing
-but SQL. The only interface to MemSQL is SQL.It's right to point out MemSQL
-gets a boost by being a first release. Only a limited subset of SQL is
-supported, neither replication or sharding are implemented yet, and writes
-queue in memory befo</p><p>3 0.76452839 <a title="936-lsi-3" href="../high_scalability-2010/high_scalability-2010-11-01-Hot_Trend%3A__Move_Behavior_to_Data_for_a_New_Interactive_Application_Architecture.html">933 high scalability-2010-11-01-Hot Trend:  Move Behavior to Data for a New Interactive Application Architecture</a></p>
-<p>Introduction: Two forces account for the trend of moving behavior to data: larger values
-used in key-value stores and spotty cloud networks. For some time we've seen
-functions pushed close to data with MapReduce, which is a batch process, but
-we are now seeing this model extend to interactive applications, which match
-the current emphasis on highly scalable, real-time, event driven
-applications.To see the trend look at the increasing support for collocated
-behavior at the datastore level:HBase is implementing a coprocessor
-feature.Cassandra is also implementing coprocessors or plugins.Membase is
-creatingNodeCode, which is a process for executing functions on data in the
-database.MongoDB supportsJavaScript stored procedures. VoltDB hasJava based
-stored procedures.In-memory DataGridproducts like GigaSpaces have been doing
-something like this forever. The key difference historically being GigaSpaces'
-tight integration with languages C++ and Java, instead of using a language
-agnostic protocol based appr</p><p>4 0.71872735 <a title="936-lsi-4" href="../high_scalability-2009/high_scalability-2009-02-14-Scaling_Digg_and_Other_Web_Applications.html">512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</a></p>
-<p>Introduction: Joe Stump, Lead Architect at Digg, gavethis presentationat the Web 2.0 Expo. I
-couldn't find the actual presentation, but fortunatelyKris Jordantook some
-great notes. That's how key moments in history are accidentally captured
-forever. Joe was also kind enough to respond to my email questions with a
-phone call.In this first part of the post Joe shares some timeless wisdom that
-you may or may not have read before. I of course take some pains to extract
-all the wit from the original presentation in favor of simple rules. What
-really struck me however was how Joe thought MemcacheDBWill be the biggest new
-kid on the block in scaling. MemcacheDB has been around for a little while and
-I've never thought of it in that way. Well learn why Joe is so excited by
-MemcacheDB at the end of the post.Impressive Stats80th-100th largest site in
-the world26 million uniques a month30 million users.Uniques are only half that
-traffic. Traffic = unique web visitors + APIs + Digg buttons.2 billion
-requests a</p><p>5 0.7114498 <a title="936-lsi-5" href="../high_scalability-2012/high_scalability-2012-03-07-Scale_Indefinitely_on_S3_With_These_Secrets_of_the_S3_Masters.html">1205 high scalability-2012-03-07-Scale Indefinitely on S3 With These Secrets of the S3 Masters</a></p>
-<p>Introduction: In a great article, Amazon S3 Performance Tips & Tricks, Doug Grismore,
-Director of Storage Operations for AWS, has outed the secret arcana normally
-reserved for Premium Developer Support customers on how to really use S3:Size
-matters. Workloads with less than 50-100 total requests per second don't
-require any special effort. Customers that routinely perform thousands of
-requests per second need a plan.Automated partitioning. Automated systems
-scale S3 horizontally by continuously splitting data into partitions based on
-high request rates and the number of keys in a partition (which leads to slow
-lookups). Lessons you've learned with sharding may also apply to S3.   Avoid
-hot spots. Like most sharding schemes, you want to avoid hot spots by the
-smart selection of key names. S3 objects are stored inbuckets.  Each object is
-identified using a key. Keys are kept in sorted order. Keys in S3 are
-partitioned by prefix. Objects that sort together are stored together, so you
-want to select key</p><p>6 0.70921808 <a title="936-lsi-6" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
+<p>Introduction: Facebook's Ryan Mack gave a  MySQL Tech Talk  where he talked about using what he called  Non-stored Procedures  for adding edges to Facebook's social graph. The question is: how can edges quickly be added to the social graph? The answer is ultimately one of deciding where logic should be executed, especially when locks are kept open during network hops.
+ 
+Ryan explained a key element of the Facebook data model are the connections between people, things they've liked, and places they've checked-in. A lot of their writes are adding edges to the social graph. 
+ 
+Currently this is a two step process, run inside a transaction:
+  
+ add a new edge into the graph 
+ if the add was successful then increment the number of edges on a node 
+  
+This approach works until there's a very hot node that is being added to rapidly. For example, a popular game adds a new character and everyone likes it at the same time or a new album comes out and everyone likes it at the same time.
+ 
+They were limited to</p><p>2 0.77865779 <a title="936-lsi-2" href="../high_scalability-2012/high_scalability-2012-08-14-MemSQL_Architecture_-_The_Fast_%28MVCC%2C_InMem%2C_LockFree%2C_CodeGen%29_and_Familiar_%28SQL%29.html">1304 high scalability-2012-08-14-MemSQL Architecture - The Fast (MVCC, InMem, LockFree, CodeGen) and Familiar (SQL)</a></p>
+<p>Introduction: This is an interview with   MemSQL    cofounder’s    Eric Frenkiel    and    Nikita Shamgunov   , in which they try to answer critics by going into more depth about their technology.     MemSQL ruffled a few feathers with their claim of being the fastest database in the world. According to their benchmarks MemSQL can execute 200K TPS on an EC2   Quadruple   Extra Large   and on a 64 core machine they can push 1.2 million transactions a second.     Benchmarks are always a dark mirror, so make of them what you will, but the target market for MemSQL is clear: projects looking for something both fast and familiar. Fast as in a novel design using a combination of technologies like    MVCC   , code generation,    lock-free data structures   ,    skip lists   , and    in-memory execution   . Familiar as in SQL and nothing but SQL. The only interface to MemSQL is SQL.    It’s right to point out MemSQL gets a boost by being a first release. Only a limited subset of SQL is supported, neither rep</p><p>3 0.76452839 <a title="936-lsi-3" href="../high_scalability-2010/high_scalability-2010-11-01-Hot_Trend%3A__Move_Behavior_to_Data_for_a_New_Interactive_Application_Architecture.html">933 high scalability-2010-11-01-Hot Trend:  Move Behavior to Data for a New Interactive Application Architecture</a></p>
+<p>Introduction: Two forces account for the trend of moving behavior to data: larger values used in key-value stores and spotty cloud networks. For some time we've seen functions pushed close to data with MapReduce, which is a batch process, but we are now seeing this model extend to interactive applications, which match the current emphasis on highly scalable, real-time, event driven applications.
+ 
+To see the trend look at the increasing support for collocated behavior at the datastore level:
+  
+ HBase is implementing a  coprocessor feature . 
+ Cassandra is also implementing  coprocessors or plugins . 
+ Membase is creating  NodeCode , which is a process for executing functions on data in the database. 
+ MongoDB supports  JavaScript stored procedures .  
+ VoltDB has  Java based stored procedures . 
+  In-memory DataGrid  products like GigaSpaces have been doing something like this forever. The key difference historically being GigaSpaces' tight integration with languages C++ and Java, instead of using</p><p>4 0.71872735 <a title="936-lsi-4" href="../high_scalability-2009/high_scalability-2009-02-14-Scaling_Digg_and_Other_Web_Applications.html">512 high scalability-2009-02-14-Scaling Digg and Other Web Applications</a></p>
+<p>Introduction: Joe Stump, Lead Architect at Digg, gave  this presentation  at the Web 2.0 Expo. I couldn't find the actual presentation, but fortunately  Kris Jordan  took some great notes. That's how key moments in history are accidentally captured forever. Joe was also kind enough to respond to my email questions with a phone call.   In this first part of the post Joe shares some timeless wisdom that you may or may not have read before. I of course take some pains to extract all the wit from the original presentation in favor of simple rules. What really struck me however was how Joe thought MemcacheDB  Will be the biggest new kid on the block in scaling .  MemcacheDB has been around for a little while and I've never thought of it in that way. Well learn why Joe is so excited by MemcacheDB at the end of the post.
+  Impressive Stats   80th-100th largest site in the world   26 million uniques a month   30 million users.   Uniques are only half that traffic. Traffic = unique web visitors + APIs + Digg</p><p>5 0.7114498 <a title="936-lsi-5" href="../high_scalability-2012/high_scalability-2012-03-07-Scale_Indefinitely_on_S3_With_These_Secrets_of_the_S3_Masters.html">1205 high scalability-2012-03-07-Scale Indefinitely on S3 With These Secrets of the S3 Masters</a></p>
+<p>Introduction: In a great article,  Amazon S3 Performance Tips & Tricks , Doug Grismore, Director of Storage Operations for AWS, has outed the secret arcana normally reserved for Premium Developer Support customers on how to really use S3:
+  
+  Size matters . Workloads with less than 50-100 total requests per second don't require any special effort. Customers that routinely perform thousands of requests per second need a plan. 
+  Automated partitioning . Automated systems scale S3 horizontally by continuously splitting data into partitions based on high request rates and the number of keys in a partition (which leads to slow lookups). Lessons you've learned with  sharding  may also apply to S3.    
+  Avoid hot spots . Like most sharding schemes, you want to avoid hot spots by the smart selection of key names. S3 objects are stored in  buckets .  Each object is identified using a key. Keys are kept in sorted order. Keys in S3 are partitioned by prefix. Objects that sort together are stored together, s</p><p>6 0.70921808 <a title="936-lsi-6" href="../high_scalability-2011/high_scalability-2011-06-21-Running_TPC-C_on_MySQL-RDS.html">1065 high scalability-2011-06-21-Running TPC-C on MySQL-RDS</a></p>
 <p>7 0.70783424 <a title="936-lsi-7" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
 <p>8 0.70568973 <a title="936-lsi-8" href="../high_scalability-2009/high_scalability-2009-05-28-Scaling_PostgreSQL_using_CUDA.html">609 high scalability-2009-05-28-Scaling PostgreSQL using CUDA</a></p>
 <p>9 0.70385426 <a title="936-lsi-9" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
@@ -234,76 +160,50 @@ want to select key</p><p>6 0.70921808 <a title="936-lsi-6" href="../high_scalabi
 <p>[(1, 0.138), (2, 0.274), (10, 0.049), (17, 0.043), (30, 0.012), (47, 0.035), (61, 0.06), (79, 0.124), (81, 0.063), (85, 0.042), (94, 0.081)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.97323805 <a title="936-lda-1" href="../high_scalability-2010/high_scalability-2010-11-09-Facebook_Uses_Non-Stored_Procedures_to_Update_Social_Graphs.html">936 high scalability-2010-11-09-Facebook Uses Non-Stored Procedures to Update Social Graphs</a></p>
-<p>Introduction: Facebook's Ryan Mack gave aMySQL Tech Talk where he talked about using what he
-called Non-stored Proceduresfor adding edges to Facebook's social graph. The
-question is: how can edges quickly be added to the social graph? The answer is
-ultimately one of deciding where logic should be executed, especially when
-locks are kept open during network hops.Ryan explained a key element of the
-Facebook data model are the connections between people, things they've liked,
-and places they've checked-in. A lot of their writes are adding edges to the
-social graph. Currently this is a two step process, run inside a
-transaction:add a new edge into the graphif the add was successful then
-increment the number of edges on a nodeThis approach works until there's a
-very hot node that is being added to rapidly. For example, a popular game adds
-a new character and everyone likes it at the same time or a new album comes
-out and everyone likes it at the same time.They were limited to the rate they
-could add edge</p><p>2 0.96838123 <a title="936-lda-2" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>
-<p>Introduction: What do you get when you take a SQL database and start a new implementation
-from scratch, taking advantage of the latest research and modern hardware?
-Mike Stonebraker, the sword wielding Johnny Appleseed of the database world,
-hopes you get something like his new database,VoltDB: a pure SQL, pure ACID,
-pure OLTP, shared nothing, sharded, scalable, lockless, open source, in-memory
-DBMS, purpose-built for running hundreds of thousands of transactions a
-second. VoltDBclaims to be100 times faster than MySQL, up to 13 times faster
-thanCassandra, and 45 times faster than Oracle, with near-linear scaling.Will
-VoltDB kill off the new NoSQL upstarts? Will VoltDB cause a mass extinction of
-ancient databases? Probably no and no to both questions, but it's a product
-with a definite point-of-view and is worth a look as the transaction component
-in your system. But will it be right for you? Let's see...I first heard the
-details about VoltDB at Gluecon, where Mr. Stonebraker presented his highly
-ent</p><p>3 0.96831518 <a title="936-lda-3" href="../high_scalability-2012/high_scalability-2012-12-21-Stuff_The_Internet_Says_On_Scalability_For_December_21%2C_2012.html">1375 high scalability-2012-12-21-Stuff The Internet Says On Scalability For December 21, 2012</a></p>
-<p>Introduction: We at HighScalability are betting the over on the whole Mayan end of the world
-thingy:200M:monthly active Twitterers; 120:number of Netflix reencodings; 1.2
-Million Years:Pr0n Watched Since 2006; 100M:Google Core-Hours Awarded to
-ScienceQuotable Quotes:@shipilev: I've settled on saying that if performance
-is the scalar field in state space, then scalability is just it's
-gradient.@AndiMann: "Only 1% of #Amazon users should care about #cloud
-scalability, elasticity". Brilliant! @Guerrero_FJ: Always remember:
-'scalability problems should be solved when there are scalability problems.'
-#leanstartupSanta's Architecture: It's a little known fact that Santa Clause
-was an early queue innovator. Faced with the problem of delivering a planet
-full of presents in one night, Santa, in his hacker's workshop, created a
-Present Distribution System using thousands of region based priority present
-queues for continuous delivery by the Rudolphs. Rudolphs? You didn't think
-there was only one Rudolph did y</p><p>4 0.96823174 <a title="936-lda-4" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
-<p>Introduction: My impression of DynamoDB before attending aAmazon DynamoDB for Developerstalk
-is that it's the usual quality service produced by Amazon: simple, fast,
-scalable, geographically redundant, expensive enough to make you think twice
-about using it, and delightfully NoOp.After the talk my impression has become
-more nuanced. The quality impression still stands. Look at theforumsand you'll
-see the typical issues every product has, but no real surprises. And as a
-SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced
-a more elegant design.What was surprising is how un-cloudy DynamoDB appears to
-be. The cloud pillars of pay for what you use and quick elastic response to
-bursty traffic have been abandoned, for some understandable reasons, but the
-result is you really have to consider your use cases before making DynamoDB
-the default choice.Here are some of my impressions from the talk...DynamoDB is
-a clean well lighted place for key-value data. The interface is simple,
-co</p><p>5 0.96689051 <a title="936-lda-5" href="../high_scalability-2008/high_scalability-2008-03-12-YouTube_Architecture.html">274 high scalability-2008-03-12-YouTube Architecture</a></p>
-<p>Introduction: Update 2: YouTube Reaches One Billion Views Per Day.That's at least 11,574
-views per second, 694,444 views per minute, and 41,666,667 views per
-hour.Update:YouTube: The Platform. YouTube adds a new rich set of APIs in
-order to become your video platform leader--all for free. Upload, edit, watch,
-search, and comment on video from your own site without visiting YouTube.
-Compose your site internally from APIs because you'll need to expose them
-later anyway.YouTube grew incredibly fast, to over 100 million video views per
-day, with only a handful of people responsible for scaling the site. How did
-they manage to deliver all that video to all those users? And how have they
-evolved since being acquired by Google?Information SourcesGoogle
-VideoPlatformApachePythonLinux (SuSe)MySQLpsyco, a dynamic python->C
-compilerlighttpd for video instead of ApacheWhat's Inside?The StatsSupports
-the delivery of over 100 million videos per day.Founded 2/20053/2006 30
-million video views/day7/2006 100 million</p><p>6 0.96581888 <a title="936-lda-6" href="../high_scalability-2012/high_scalability-2012-10-04-LinkedIn_Moved_from_Rails_to_Node%3A__27_Servers_Cut_and_Up_to_20x_Faster.html">1333 high scalability-2012-10-04-LinkedIn Moved from Rails to Node:  27 Servers Cut and Up to 20x Faster</a></p>
+<p>Introduction: Facebook's Ryan Mack gave a  MySQL Tech Talk  where he talked about using what he called  Non-stored Procedures  for adding edges to Facebook's social graph. The question is: how can edges quickly be added to the social graph? The answer is ultimately one of deciding where logic should be executed, especially when locks are kept open during network hops.
+ 
+Ryan explained a key element of the Facebook data model are the connections between people, things they've liked, and places they've checked-in. A lot of their writes are adding edges to the social graph. 
+ 
+Currently this is a two step process, run inside a transaction:
+  
+ add a new edge into the graph 
+ if the add was successful then increment the number of edges on a node 
+  
+This approach works until there's a very hot node that is being added to rapidly. For example, a popular game adds a new character and everyone likes it at the same time or a new album comes out and everyone likes it at the same time.
+ 
+They were limited to</p><p>2 0.96838123 <a title="936-lda-2" href="../high_scalability-2010/high_scalability-2010-06-28-VoltDB_Decapitates_Six_SQL_Urban_Myths_and_Delivers_Internet_Scale_OLTP_in_the_Process.html">849 high scalability-2010-06-28-VoltDB Decapitates Six SQL Urban Myths and Delivers Internet Scale OLTP in the Process</a></p>
+<p>Introduction: What do you get when you take a SQL database and start a new implementation from scratch, taking advantage of the latest research and modern hardware?  Mike Stonebraker , the sword wielding Johnny Appleseed of the database world, hopes you get something like his new database,  VoltDB : a pure SQL, pure ACID, pure OLTP, shared nothing, sharded, scalable, lockless, open source, in-memory DBMS, purpose-built for running hundreds of thousands of transactions a second. VoltDB  claims to be  100 times faster than MySQL, up to 13 times faster than  Cassandra , and 45 times faster than Oracle, with near-linear scaling.
+  Will VoltDB kill off the new NoSQL upstarts? Will VoltDB cause a mass extinction of ancient databases? Probably no and no to both questions, but it's a product with a definite point-of-view and is worth a look as the transaction component in your system. But will it be right for you? Let's see...
+ 
+I first heard the details about VoltDB at  Gluecon , where Mr. Stonebraker pres</p><p>3 0.96831518 <a title="936-lda-3" href="../high_scalability-2012/high_scalability-2012-12-21-Stuff_The_Internet_Says_On_Scalability_For_December_21%2C_2012.html">1375 high scalability-2012-12-21-Stuff The Internet Says On Scalability For December 21, 2012</a></p>
+<p>Introduction: We at HighScalability are betting the over on the whole Mayan end of the world thingy:
+  
+ 200M:  monthly active Twitterers ; 120:  number of Netflix reencodings ; 1.2 Million Years:  Pr0n Watched Since 2006 ; 100M:  Google Core-Hours Awarded to Science  
+ 
+ Quotable Quotes:                                                                
+ 
+  @shipilev : I've settled on saying that if performance is the scalar field in state space, then scalability is just it's gradient. 
+  @AndiMann : "Only 1% of #Amazon users should care about #cloud scalability, elasticity". Brilliant!  
+  @Guerrero_FJ : Always remember: 'scalability problems should be solved when there are scalability problems.' #leanstartup 
+ 
+ 
+ 
+  Santa's Architecture : It's a little known fact that Santa Clause was an early queue innovator. Faced with the problem of delivering a planet full of presents in one night, Santa, in his hacker's workshop, created a Present Distribution System using thousands of region based priority pr</p><p>4 0.96823174 <a title="936-lda-4" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
+<p>Introduction: My impression of DynamoDB before attending a   Amazon DynamoDB for Developers    talk is that it’s the usual quality service produced by Amazon: simple, fast, scalable, geographically redundant, expensive enough to make you think twice about using it, and delightfully NoOp.     After the talk my impression has become more nuanced. The quality impression still stands. Look at the    forums    and you’ll see the typical issues every product has, but no real surprises. And as a SimpleDB++, DynamoDB seems to have avoided second system syndrome and produced a more elegant design.     What was surprising is how un-cloudy DynamoDB appears to be. The cloud pillars of pay for what you use and quick elastic response to bursty traffic have been abandoned, for some understandable reasons, but the result is you really have to consider your use cases before making DynamoDB the default choice.    Here are some of my impressions from the talk... 
+  
+   DynamoDB is a clean well lighted place for key-va</p><p>5 0.96689051 <a title="936-lda-5" href="../high_scalability-2008/high_scalability-2008-03-12-YouTube_Architecture.html">274 high scalability-2008-03-12-YouTube Architecture</a></p>
+<p>Introduction: Update 2:   YouTube Reaches One Billion Views Per Day .  That’s at least 11,574 views per second, 694,444 views per minute, and 41,666,667 views per hour.     Update:   YouTube: The Platform . YouTube adds a new rich set of APIs in order to become your video platform leader--all for free. Upload, edit, watch, search, and comment on video from your own site without visiting YouTube. Compose your site internally from APIs because you'll need to expose them later anyway.   YouTube grew incredibly fast, to over 100 million video views per day, with only a handful of people responsible for scaling the site. How did they manage to deliver all that video to all those users? And how have they evolved since being acquired by Google?
+  Information Sources   
+    Google Video  
+   Platform   
+  Apache 
+  Python 
+  Linux (SuSe) 
+  MySQL  
+  psyco, a dynamic python->C compiler 
+  lighttpd for video instead of Apache  
+   What's Inside?   The Stats   
+  Supports the delivery of over 100 million vide</p><p>6 0.96581888 <a title="936-lda-6" href="../high_scalability-2012/high_scalability-2012-10-04-LinkedIn_Moved_from_Rails_to_Node%3A__27_Servers_Cut_and_Up_to_20x_Faster.html">1333 high scalability-2012-10-04-LinkedIn Moved from Rails to Node:  27 Servers Cut and Up to 20x Faster</a></p>
 <p>7 0.96550477 <a title="936-lda-7" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
 <p>8 0.96427691 <a title="936-lda-8" href="../high_scalability-2011/high_scalability-2011-02-08-Mollom_Architecture_-_Killing_Over_373_Million_Spams_at_100_Requests_Per_Second.html">985 high scalability-2011-02-08-Mollom Architecture - Killing Over 373 Million Spams at 100 Requests Per Second</a></p>
 <p>9 0.96363145 <a title="936-lda-9" href="../high_scalability-2009/high_scalability-2009-02-03-Paper%3A_Optimistic_Replication.html">507 high scalability-2009-02-03-Paper: Optimistic Replication</a></p>

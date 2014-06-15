@@ -16,36 +16,27 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>857 high scalability-2010-07-13-DbShards Part Deux - The Internals</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-857-html" href="http://highscalability.com//blog/2010/7/13/dbshards-part-deux-the-internals.html">html</a></p><p>Introduction: This is a follow up article byCory Isaacson to the first article on DbShards,
-Product: dbShards - Share Nothing. Shard Everything, describing some of the
-details about how DbShards works on the inside.The dbShards architecture is a
-true "shared nothing" implementation of Database Sharding. The high-level view
-of dbShards is shown here:The above diagram shows how dbShards works for
-achieving massive database scalability across multiple database servers, using
-native DBMS engines and our dbShards components. The important components
-are:dbS/Client: A design goal of dbShards is to make database sharding as
-seamless as possible to an application, so that application developers can
-write the same type of code they always have. A key component to making this
-possible is the dbShards Client. The dbShards Client is our intelligent driver
-that is an exact API emulation of a given vendor's database driver. For
-example, with MySQL we have full support for JDBC, and the the MySQL C driver
-(used in</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The high-level view of dbShards is shown here:The above diagram shows how dbShards works for achieving massive database scalability across multiple database servers, using native DBMS engines and our dbShards components. [sent-4, score-0.521]
-</p><p>2 The important components are:dbS/Client: A design goal of dbShards is to make database sharding as seamless as possible to an application, so that application developers can write the same type of code they always have. [sent-5, score-0.318]
-</p><p>3 The dbShards Client is our intelligent driver that is an exact API emulation of a given vendor's database driver. [sent-7, score-0.237]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-857-html" href="http://highscalability.com//blog/2010/7/13/dbshards-part-deux-the-internals.html">html</a></p><p>Introduction: This is a follow up article by   Cory Isaacson  to the first article on DbShards,   Product: dbShards - Share Nothing. Shard Everything   , describing some of the details about how DbShards works on the inside. 
+ 
+The dbShards architecture is a true “shared nothing” implementation of Database Sharding. The high-level view of dbShards is shown here:    The above diagram shows how dbShards works for achieving massive database scalability across multiple database servers, using native DBMS engines and our dbShards components. The important components are:
+  
+  dbS/Client : A design goal of dbShards is to make database sharding as seamless as possible to an application, so that application developers can write the same type of code they always have. A key component to making this possible is the dbShards Client. The dbShards Client is our intelligent driver that is an exact API emulation of a given vendor’s database driver. For example, with MySQL we have full support for JDBC, and the the</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The high-level view of dbShards is shown here:    The above diagram shows how dbShards works for achieving massive database scalability across multiple database servers, using native DBMS engines and our dbShards components. [sent-4, score-0.521]
+</p><p>2 The important components are:      dbS/Client : A design goal of dbShards is to make database sharding as seamless as possible to an application, so that application developers can write the same type of code they always have. [sent-5, score-0.318]
+</p><p>3 The dbShards Client is our intelligent driver that is an exact API emulation of a given vendor’s database driver. [sent-7, score-0.237]
 </p><p>4 A key to this strategy is that all actual database calls are delegated to the underlying vendor driver, so there is actually nothing between the application and the native DBMS. [sent-11, score-0.44]
-</p><p>5 For a sharded query here is how it works:The dbS/Client driver evaluates the SQL statement (based on the dbShards configuration set up by the system administrator, this is where the sharding scheme is define). [sent-12, score-0.357]
+</p><p>5 For a sharded query here is how it works:    The dbS/Client driver evaluates the SQL statement (based on the dbShards configuration set up by the system administrator, this is where the sharding scheme is define). [sent-12, score-0.357]
 </p><p>6 The correct shard is identified, and dbS/Client delegates the statement to the native vendor driver. [sent-14, score-0.666]
 </p><p>7 In this case, the driver delegates the query to be run on all shards simultaneously, with the results seamlessly rolled up by the dbShards Agent running on the database servers. [sent-16, score-0.44]
-</p><p>8 Shard Server: Each shard server has two primary components on it:DB: The native DBMS (MySQL, Postgres, etc. [sent-21, score-0.543]
+</p><p>8 Shard Server : Each shard server has two primary components on it:     DB : The native DBMS (MySQL, Postgres, etc. [sent-21, score-0.543]
 </p><p>9 Since dbShards is database agnostic, and we rely on proven DBMS engines that have been around for years, we can take full advantage of these products in the sharded environment. [sent-23, score-0.312]
 </p><p>10 Using this sharded approach, applications can expect linear write scalability, and often better than linear read scalability. [sent-31, score-0.257]
 </p><p>11 Because the native DBMS engines perform exceedingly well on smaller, properly sized databases, and when the shard size is correct for a given application, we alter the Database Size to Memory/CPU balance, achieving incredibly fast query times. [sent-33, score-0.745]
-</p><p>12 The design goal was clear: Provide full reliability for each shard (for planned and unplanned "hot" failover), in a high-performance, scalable implementation. [sent-38, score-0.281]
-</p><p>13 For each shard, here is how the architecture works:We call this approach "out of band" replication, because we perform high-speed replication outside the native DBMS. [sent-42, score-0.359]
-</p><p>14 The way it works is as follows:The dbS/Client streams SQL write statements to the DB (DBMS) and dbS (dbS/Agent) simultaneously, on the Primary shard server. [sent-43, score-0.327]
+</p><p>12 The design goal was clear: Provide full reliability for each shard (for planned and unplanned “hot” failover), in a high-performance, scalable implementation. [sent-38, score-0.281]
+</p><p>13 For each shard, here is how the architecture works:     We call this approach “out of band” replication, because we perform high-speed replication outside the native DBMS. [sent-42, score-0.359]
+</p><p>14 The way it works is as follows:     The dbS/Client streams SQL write statements to the DB (DBMS) and dbS (dbS/Agent) simultaneously, on the Primary shard server. [sent-43, score-0.327]
 </p><p>15 The dbS/Agent then replicates the transaction to the dbS/Agent on the Secondary shard server. [sent-44, score-0.382]
 </p><p>16 A single shard can operate with just a single shard server temporarily, or a spare hot standby can be used as the new Secondary, maintaining the same level of reliability. [sent-49, score-0.513]
-</p><p>17 There are several advantages to this approach:It is very lightweight, and scales linearly as more shard servers are added. [sent-51, score-0.237]
+</p><p>17 There are several advantages to this approach:     It is very lightweight, and scales linearly as more shard servers are added. [sent-51, score-0.237]
 </p><p>18 The approach provides the lowest possible latency for write transactions (85% - 90% the speed of an unprotected native DBMS). [sent-52, score-0.283]
 </p><p>19 In summary, dbShards provides an easy to implement approach for a wide array of application requirements, with high scalability, reliable replication, and seamless implementation for both new and existing applications. [sent-56, score-0.274]
 </p><p>20 Because we rely on proven native DBMS engines, and get them to perform at their optimum (through proper balancing of database size, CPU and memory), we can take full advantage of these products at what they do best. [sent-57, score-0.379]
@@ -55,76 +46,37 @@ example, with MySQL we have full support for JDBC, and the the MySQL C driver
 <p>[('dbshards', 0.747), ('dbms', 0.267), ('shard', 0.237), ('native', 0.183), ('secondary', 0.151), ('driver', 0.129), ('engines', 0.11), ('transaction', 0.093), ('vendor', 0.082), ('fish', 0.081), ('query', 0.079), ('delegates', 0.079), ('linear', 0.078), ('primary', 0.074), ('replication', 0.069), ('reliable', 0.069), ('database', 0.068), ('sharded', 0.057), ('sql', 0.057), ('approach', 0.056), ('seamless', 0.056), ('application', 0.055), ('replicates', 0.052), ('nothing', 0.052), ('perform', 0.051), ('components', 0.049), ('shared', 0.049), ('agent', 0.048), ('administrator', 0.047), ('client', 0.046), ('sharding', 0.046), ('seamlessly', 0.046), ('works', 0.046), ('achieving', 0.046), ('statement', 0.046), ('write', 0.044), ('reliability', 0.044), ('simultaneously', 0.042), ('capability', 0.041), ('emulation', 0.04), ('articlesproduct', 0.04), ('isaacson', 0.04), ('adversely', 0.04), ('shards', 0.039), ('used', 0.039), ('correct', 0.039), ('advantage', 0.039), ('implementation', 0.038), ('maintenance', 0.038), ('rely', 0.038)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="857-tfidf-1" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
-<p>Introduction: This is a follow up article byCory Isaacson to the first article on DbShards,
-Product: dbShards - Share Nothing. Shard Everything, describing some of the
-details about how DbShards works on the inside.The dbShards architecture is a
-true "shared nothing" implementation of Database Sharding. The high-level view
-of dbShards is shown here:The above diagram shows how dbShards works for
-achieving massive database scalability across multiple database servers, using
-native DBMS engines and our dbShards components. The important components
-are:dbS/Client: A design goal of dbShards is to make database sharding as
-seamless as possible to an application, so that application developers can
-write the same type of code they always have. A key component to making this
-possible is the dbShards Client. The dbShards Client is our intelligent driver
-that is an exact API emulation of a given vendor's database driver. For
-example, with MySQL we have full support for JDBC, and the the MySQL C driver
-(used in</p><p>2 0.77784556 <a title="857-tfidf-2" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
-<p>Introduction: I met the CodeFutures folks, makers ofdbShards, atGluecon. They occupy an
-interesting niche in the database space, somewhere betweenNoSQL, which
-jettisons everything SQL, and high end analytics platformsthat completely
-rewrite the backend while keeping a SQL facade.High concept: I think of
-dbShards as a sort of commercial OLTP mashup of features from HSCALE
-(partitioning) +MySQL Proxy (transparent intermediate layer) +Memcached
-(client side sharding) +Gigaspaces(parallel query) + MySQL (transactions).You
-may find dbShards interesting if you are looking to keep SQL, need scale out
-writes and reads, need out of the box parallel query capabilities, and would
-prefer to use a standard platform like MySQL as a base. To learn more about
-dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult
-questions (not really).Who are you, what is dbShards, and what problem was
-dbShards created to solve?I'm Cory Isaacson, CEO/CTO of CodeFutures
-Corporation, the makers of dbShards. dbSha</p><p>3 0.22123566 <a title="857-tfidf-3" href="../high_scalability-2011/high_scalability-2011-03-04-Stuff_The_Internet_Says_On_Scalability_For_March_4%2C_2011.html">999 high scalability-2011-03-04-Stuff The Internet Says On Scalability For March 4, 2011</a></p>
-<p>Introduction: Submitted for your reading pleasure on this beautifully blue and sunny
-Friday...@Werner: Each day #AWS adds enough computing muscle to power one
-whole Amazon.com circa 2000, when it was a $2.8 billion business
-http://wv.ly/gMr8LQBuilding servers to rule in hell. Datacenters spend a lot
-of energy on cooling down processors. Why can't they operate at higher
-temperatures? This is the proposition addressed by James Hamilton inExploring
-the Limits of Datacenter Temprature and Datacenter Knowledge in What's Next?
-Hotter Servers with 'Gas Pedals'.Quotable Quotes for 200 Watson:@jreichhold:
-One thing working at Twitter teaches me daily is that all scale is relative.
-What seemed impossible last year is now the daily case.@dannycast0nguay: If
-you're concerned about scalability, any algorithm that forces you to run
-agreement will eventually become your bottleneck.--Werner Vogels@rael: No
-shortcut ever goes undetected by scale.@sramji: Caching is for scalability,
-not for speed. Your cache *will* b</p><p>4 0.15804413 <a title="857-tfidf-4" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
-<p>Introduction: For everything given something seems to be taken. Caching is a great
-scalability solution, but caching alsocomes with problems.Shardingis a great
-scalability solution, but as Foursquare recently revealed in apost-mortemabout
-their 17 hours of downtime, sharding also has problems. MongoDB, the database
-Foursquare uses, also contributed theirpost-mortemof what went wrong too.Now
-that everyone has shared and resharded, what can we learn to help us skip
-these mistakes and quickly move on to a different set of mistakes?First, like
-forFacebook, huge props to Foursquare and MongoDB for being upfront and honest
-about their problems. This helps everyone get better and is a sign we work in
-a pretty cool industry.Second, overall, the fault didn't flow from evil hearts
-or gross negligence. As usual the cause was more mundane: a key system, that
-could be a little more robust, combined with a very popular application built
-by a small group of people, under immense pressure, trying to get a lot of
-wo</p><p>5 0.15493327 <a title="857-tfidf-5" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
-<p>Introduction: Update 4:Why you don't want to shard.by Morgon on the MySQL Performance
-Blog.Optimize everything else first, and then if performance still isn't good
-enough, it's time to take a very bitter medicine.Update 3:Building Scalable
-Databases: Pros and Cons of Various Database Sharding Schemesby Dare Obasanjo.
-Excellent discussion of why and when you would choose a sharding architecture,
-how to shard, and problems with sharding.Update 2:Mr. Moore gets to punt on
-shardingby Alan Rimm-Kaufman of 37signals. Insightful article on design
-tradeoffs and the evils of premature optimization. With more memory, more CPU,
-and new tech like SSD, problems can be avoided before more exotic
-architectures like sharding are needed. Add features not infrastructure.Jeremy
-Zawodnysays he's wrong wrong wrong. we're running multi-core CPUs at slower
-clock speeds. Moore won't save you.Update:Dan Pritchett shares some
-excellentSharding Lessons: Size Your Shards, Use Math on Shard Counts,
-Carefully Consider the Spread</p><p>6 0.14375618 <a title="857-tfidf-6" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
+<p>Introduction: This is a follow up article by   Cory Isaacson  to the first article on DbShards,   Product: dbShards - Share Nothing. Shard Everything   , describing some of the details about how DbShards works on the inside. 
+ 
+The dbShards architecture is a true “shared nothing” implementation of Database Sharding. The high-level view of dbShards is shown here:    The above diagram shows how dbShards works for achieving massive database scalability across multiple database servers, using native DBMS engines and our dbShards components. The important components are:
+  
+  dbS/Client : A design goal of dbShards is to make database sharding as seamless as possible to an application, so that application developers can write the same type of code they always have. A key component to making this possible is the dbShards Client. The dbShards Client is our intelligent driver that is an exact API emulation of a given vendor’s database driver. For example, with MySQL we have full support for JDBC, and the the</p><p>2 0.77784556 <a title="857-tfidf-2" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>Introduction: I met the CodeFutures folks, makers of  dbShards , at  Gluecon . They occupy an interesting niche in the database space, somewhere between  NoSQL , which jettisons everything SQL, and  high end analytics platforms  that completely rewrite the backend while keeping a SQL facade.
+ 
+High concept: I think of dbShards as a sort of commercial OLTP mashup of features from  HSCALE  (partitioning) +  MySQL Proxy  (transparent intermediate layer) +  Memcached  (client side sharding) +  Gigaspaces  (parallel query) + MySQL (transactions).
+ 
+You may find dbShards interesting if you are looking to keep SQL, need scale out writes and reads, need out of the box parallel query capabilities, and would prefer to use a standard platform like MySQL as a base. To learn more about dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult questions (not really).
+  Who are you, what is dbShards, and what problem was dbShards created to solve?   
+
+I’m Cory Isaacson, CEO/CTO of CodeFutures Corp</p><p>3 0.22123566 <a title="857-tfidf-3" href="../high_scalability-2011/high_scalability-2011-03-04-Stuff_The_Internet_Says_On_Scalability_For_March_4%2C_2011.html">999 high scalability-2011-03-04-Stuff The Internet Says On Scalability For March 4, 2011</a></p>
+<p>Introduction: Submitted for your reading pleasure on this beautifully blue and sunny Friday...
+  
+  @Werner : Each day #AWS adds enough computing muscle to power one whole Amazon.com circa 2000, when it was a $2.8 billion business http://wv.ly/gMr8LQ 
+ Building servers to rule in hell. Datacenters spend a lot of energy on cooling down processors. Why can't they operate at higher temperatures? This is the proposition addressed by James Hamilton in  Exploring the Limits of Datacenter Temprature  and Datacenter Knowledge in  What’s Next? Hotter Servers with ‘Gas Pedals’ .  
+ Quotable Quotes for 200 Watson:                              
+ 
+  @jreichhold : One thing working at Twitter teaches me daily is that all scale is relative. What seemed impossible last year is now the daily case. 
+  @dannycast0nguay : If you’re concerned about scalability, any algorithm that forces you to run agreement will eventually become your bottleneck.—Werner Vogels 
+  @rael : No shortcut ever goes undetected by scale. 
+  @sr</p><p>4 0.15804413 <a title="857-tfidf-4" href="../high_scalability-2010/high_scalability-2010-10-15-Troubles_with_Sharding_-_What_can_we_learn_from_the_Foursquare_Incident%3F.html">920 high scalability-2010-10-15-Troubles with Sharding - What can we learn from the Foursquare Incident?</a></p>
+<p>Introduction: For everything given something seems to be taken. Caching is a great scalability solution, but caching also  comes with problems .  Sharding  is a great scalability solution, but as Foursquare recently revealed in a  post-mortem  about their 17 hours of downtime, sharding also has problems. MongoDB, the database Foursquare uses, also contributed their  post-mortem  of what went wrong too.
+ 
+Now that everyone has shared and resharded, what can we learn to help us skip these mistakes and quickly move on to a different set of mistakes?
+ 
+First, like for  Facebook , huge props to Foursquare and MongoDB for being upfront and honest about their problems. This helps everyone get better and is a sign we work in a pretty cool industry.
+ 
+Second, overall, the fault didn't flow from evil hearts or gross negligence. As usual the cause was more mundane: a key system, that could be a little more robust, combined with a very popular application built by a small group of people, under immense pressure</p><p>5 0.15493327 <a title="857-tfidf-5" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
+<p>Introduction: Update 4:   Why you don’t want to shard.  by Morgon on the MySQL Performance Blog.  Optimize everything else first, and then if performance still isn’t good enough, it’s time to take a very bitter medicine.    Update 3:   Building Scalable Databases: Pros and Cons of Various Database Sharding Schemes  by Dare Obasanjo. Excellent discussion of why and when you would choose a sharding architecture, how to shard, and problems with sharding.  Update 2:   Mr. Moore gets to punt on sharding  by Alan Rimm-Kaufman of 37signals. Insightful article on design tradeoffs and the evils of premature optimization. With more memory, more CPU, and new tech like SSD,  problems can be avoided before more exotic architectures like sharding are needed.  Add features not infrastructure.  Jeremy Zawodny  says he's wrong wrong wrong. we're running multi-core CPUs at slower clock speeds. Moore won't save you.  Update:  Dan Pritchett shares some excellent  Sharding Lessons : Size Your Shards, Use Math on Shard C</p><p>6 0.14375618 <a title="857-tfidf-6" href="../high_scalability-2007/high_scalability-2007-11-13-Flickr_Architecture.html">152 high scalability-2007-11-13-Flickr Architecture</a></p>
 <p>7 0.14124823 <a title="857-tfidf-7" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
 <p>8 0.14070408 <a title="857-tfidf-8" href="../high_scalability-2013/high_scalability-2013-04-15-Scaling_Pinterest_-_From_0_to_10s_of_Billions_of_Page_Views_a_Month_in_Two_Years.html">1440 high scalability-2013-04-15-Scaling Pinterest - From 0 to 10s of Billions of Page Views a Month in Two Years</a></p>
 <p>9 0.12118562 <a title="857-tfidf-9" href="../high_scalability-2008/high_scalability-2008-07-26-Sharding_the_Hibernate_Way.html">358 high scalability-2008-07-26-Sharding the Hibernate Way</a></p>
@@ -144,70 +96,28 @@ Carefully Consider the Spread</p><p>6 0.14375618 <a title="857-tfidf-6" href="..
 <p>[(0, 0.139), (1, 0.066), (2, -0.032), (3, -0.049), (4, 0.028), (5, 0.122), (6, 0.006), (7, -0.116), (8, -0.024), (9, -0.061), (10, -0.013), (11, 0.042), (12, -0.064), (13, 0.049), (14, 0.012), (15, 0.034), (16, -0.041), (17, -0.018), (18, 0.013), (19, 0.054), (20, 0.019), (21, 0.004), (22, -0.032), (23, -0.007), (24, -0.038), (25, 0.043), (26, -0.031), (27, -0.132), (28, -0.001), (29, 0.105), (30, -0.002), (31, -0.024), (32, 0.009), (33, -0.014), (34, 0.082), (35, -0.039), (36, -0.007), (37, 0.079), (38, -0.068), (39, 0.014), (40, -0.015), (41, 0.081), (42, 0.016), (43, -0.052), (44, 0.02), (45, -0.053), (46, 0.026), (47, 0.071), (48, -0.022), (49, 0.043)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.93284971 <a title="857-lsi-1" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
-<p>Introduction: This is a follow up article byCory Isaacson to the first article on DbShards,
-Product: dbShards - Share Nothing. Shard Everything, describing some of the
-details about how DbShards works on the inside.The dbShards architecture is a
-true "shared nothing" implementation of Database Sharding. The high-level view
-of dbShards is shown here:The above diagram shows how dbShards works for
-achieving massive database scalability across multiple database servers, using
-native DBMS engines and our dbShards components. The important components
-are:dbS/Client: A design goal of dbShards is to make database sharding as
-seamless as possible to an application, so that application developers can
-write the same type of code they always have. A key component to making this
-possible is the dbShards Client. The dbShards Client is our intelligent driver
-that is an exact API emulation of a given vendor's database driver. For
-example, with MySQL we have full support for JDBC, and the the MySQL C driver
-(used in</p><p>2 0.85929829 <a title="857-lsi-2" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
-<p>Introduction: I met the CodeFutures folks, makers ofdbShards, atGluecon. They occupy an
-interesting niche in the database space, somewhere betweenNoSQL, which
-jettisons everything SQL, and high end analytics platformsthat completely
-rewrite the backend while keeping a SQL facade.High concept: I think of
-dbShards as a sort of commercial OLTP mashup of features from HSCALE
-(partitioning) +MySQL Proxy (transparent intermediate layer) +Memcached
-(client side sharding) +Gigaspaces(parallel query) + MySQL (transactions).You
-may find dbShards interesting if you are looking to keep SQL, need scale out
-writes and reads, need out of the box parallel query capabilities, and would
-prefer to use a standard platform like MySQL as a base. To learn more about
-dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult
-questions (not really).Who are you, what is dbShards, and what problem was
-dbShards created to solve?I'm Cory Isaacson, CEO/CTO of CodeFutures
-Corporation, the makers of dbShards. dbSha</p><p>3 0.833808 <a title="857-lsi-3" href="../high_scalability-2008/high_scalability-2008-07-26-Sharding_the_Hibernate_Way.html">358 high scalability-2008-07-26-Sharding the Hibernate Way</a></p>
-<p>Introduction: Update:A very nice JavaWorld podcast interview withGoogle engineer Max Ross on
-Hibernate Shards. Max defines Hibernate Shards (horizontal partitioning), how
-it works (pretty well), virtual shards (don't ask), what they need to do in
-the future (query, replication, operational tools), and how it relates to
-Google AppEngine (not much).To scale you are supposed to partition your data.
-Sounds good, but how do you do it? When you actually sit down to work out all
-the details it's not that easy. Hibernate Shards to the rescue! Hibernate
-shards is: an extension to the core Hibernate product that adds facilities for
-horizontal partitioning. If you know the core Hibernate API you know the
-shards API. No learning curve at all. Here is what a few members of the core
-group had to say about the Hibernate Shards open source project. Although
-there are some limitations, from the sound of it they are doing useful stuff
-in the right way and it's very much worth looking at, especially if you use
-Hiberna</p><p>4 0.83060414 <a title="857-lsi-4" href="../high_scalability-2008/high_scalability-2008-12-28-How_to_Organize_a_Database_Table%E2%80%99s_Keys_for_Scalability.html">476 high scalability-2008-12-28-How to Organize a Database Table’s Keys for Scalability</a></p>
-<p>Introduction: The key (no pun intended) to understanding how to organize your dataset’s data
-is to think of each shard not as an individual database, but as one large
-singular database. Just as in a normal single server database setup where you
-have a unique key for each row within a table, each row key within each
-individual shard must be unique to the whole dataset partitioned across all
-shards.There are a few different ways we can accomplish uniqueness of row keys
-across a shard cluster. Each has its pro’s and con’s and the one chosen should
-be specific to the problems you’re trying to solve.</p><p>5 0.74505615 <a title="857-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-24-Product%3A__Hibernate_Shards.html">24 high scalability-2007-07-24-Product:  Hibernate Shards</a></p>
-<p>Introduction: If you want to adopt a shard architecture, but don't want to start from
-scratch, you may want to consider Hibernate's sharding system.Hibernate Shards
-is a framework that is designed to encapsulate and minimize this complexity by
-adding support for horizontal partitioning to Hibernate Core.Hibernate
-Shardskey features:Standard Hibernate programming model - Hibernate Shards
-allows you to continue using the Hibernate APIs you know and love:
-SessionFactory, Session, Criteria, Query. If you already know how to use
-Hibernate, you already know how to use Hibernate Shards.Flexible sharding
-strategies - Distribute data across your shards any way you want. Use one of
-the default strategies we provide or plug in your own application-specific
-logic.Support for virtual shards - Think your sharding strategy is never going
-to change? Think again. Adding new shards and redistributing your data is one
-of the toughest operational challenges you will face once you've deployed your
-shard-aware applicatio</p><p>6 0.73949254 <a title="857-lsi-6" href="../high_scalability-2008/high_scalability-2008-06-11-Pyshards_aspires_to_build_sharding_toolkit_for_Python.html">345 high scalability-2008-06-11-Pyshards aspires to build sharding toolkit for Python</a></p>
+<p>Introduction: This is a follow up article by   Cory Isaacson  to the first article on DbShards,   Product: dbShards - Share Nothing. Shard Everything   , describing some of the details about how DbShards works on the inside. 
+ 
+The dbShards architecture is a true “shared nothing” implementation of Database Sharding. The high-level view of dbShards is shown here:    The above diagram shows how dbShards works for achieving massive database scalability across multiple database servers, using native DBMS engines and our dbShards components. The important components are:
+  
+  dbS/Client : A design goal of dbShards is to make database sharding as seamless as possible to an application, so that application developers can write the same type of code they always have. A key component to making this possible is the dbShards Client. The dbShards Client is our intelligent driver that is an exact API emulation of a given vendor’s database driver. For example, with MySQL we have full support for JDBC, and the the</p><p>2 0.85929829 <a title="857-lsi-2" href="../high_scalability-2010/high_scalability-2010-06-23-Product%3A_dbShards_-_Share_Nothing._Shard_Everything..html">847 high scalability-2010-06-23-Product: dbShards - Share Nothing. Shard Everything.</a></p>
+<p>Introduction: I met the CodeFutures folks, makers of  dbShards , at  Gluecon . They occupy an interesting niche in the database space, somewhere between  NoSQL , which jettisons everything SQL, and  high end analytics platforms  that completely rewrite the backend while keeping a SQL facade.
+ 
+High concept: I think of dbShards as a sort of commercial OLTP mashup of features from  HSCALE  (partitioning) +  MySQL Proxy  (transparent intermediate layer) +  Memcached  (client side sharding) +  Gigaspaces  (parallel query) + MySQL (transactions).
+ 
+You may find dbShards interesting if you are looking to keep SQL, need scale out writes and reads, need out of the box parallel query capabilities, and would prefer to use a standard platform like MySQL as a base. To learn more about dbShards I asked Cory Isaacson (CEO and CTO) a few devastatingly difficult questions (not really).
+  Who are you, what is dbShards, and what problem was dbShards created to solve?   
+
+I’m Cory Isaacson, CEO/CTO of CodeFutures Corp</p><p>3 0.833808 <a title="857-lsi-3" href="../high_scalability-2008/high_scalability-2008-07-26-Sharding_the_Hibernate_Way.html">358 high scalability-2008-07-26-Sharding the Hibernate Way</a></p>
+<p>Introduction: Update :  A very nice JavaWorld podcast interview with  Google engineer Max Ross on Hibernate Shards . Max defines Hibernate Shards (horizontal partitioning), how it works (pretty well), virtual shards (don't ask), what they need to do in the future (query, replication, operational tools), and how it relates to Google AppEngine (not much).   To scale you are supposed to partition your data. Sounds good, but how do you do it? When you actually sit down to work out all the details it’s not that easy. Hibernate Shards to the rescue! Hibernate shards is: an extension to the core Hibernate product that adds facilities for horizontal partitioning. If you know the core Hibernate API you know the shards API. No learning curve at all. Here is what a few members of the core group had to say about the Hibernate Shards open source project. Although there are some limitations, from the sound of it they are doing useful stuff in the right way and it’s very much worth looking at, especially if you us</p><p>4 0.83060414 <a title="857-lsi-4" href="../high_scalability-2008/high_scalability-2008-12-28-How_to_Organize_a_Database_Table%E2%80%99s_Keys_for_Scalability.html">476 high scalability-2008-12-28-How to Organize a Database Table’s Keys for Scalability</a></p>
+<p>Introduction: The key (no pun intended) to understanding how to organize your dataset’s data is to think of each shard not as an individual database, but as one large singular database. Just as in a normal single server database setup where you have a unique key for each row within a table, each row key within each individual shard must be unique to the whole dataset partitioned across all shards.     There are a few different ways we can accomplish uniqueness of row keys across a shard cluster. Each has its pro’s and con’s and the one chosen should be specific to the problems you’re trying to solve.</p><p>5 0.74505615 <a title="857-lsi-5" href="../high_scalability-2007/high_scalability-2007-07-24-Product%3A__Hibernate_Shards.html">24 high scalability-2007-07-24-Product:  Hibernate Shards</a></p>
+<p>Introduction: If you want to adopt a shard architecture, but don't want to start from scratch, you may want to consider Hibernate's sharding system.
+ 
+Hibernate Shards is a framework that is designed to encapsulate and minimize this complexity by adding support for horizontal partitioning to Hibernate Core.   Hibernate Shards  key features:
+  
+  Standard Hibernate programming model - Hibernate Shards allows you to continue using the Hibernate APIs you know and love: SessionFactory, Session, Criteria, Query. If you already know how to use Hibernate, you already know how to use Hibernate Shards. 
+  Flexible sharding strategies - Distribute data across your shards any way you want. Use one of the default strategies we provide or plug in your own application-specific logic. 
+  Support for virtual shards - Think your sharding strategy is never going to change? Think again. Adding new shards and redistributing your data is one of the toughest operational challenges you will face once you've deployed your</p><p>6 0.73949254 <a title="857-lsi-6" href="../high_scalability-2008/high_scalability-2008-06-11-Pyshards_aspires_to_build_sharding_toolkit_for_Python.html">345 high scalability-2008-06-11-Pyshards aspires to build sharding toolkit for Python</a></p>
 <p>7 0.70517761 <a title="857-lsi-7" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>
 <p>8 0.67240292 <a title="857-lsi-8" href="../high_scalability-2013/high_scalability-2013-09-09-Need_Help_with_Database_Scalability%3F_Understand_I-O.html">1514 high scalability-2013-09-09-Need Help with Database Scalability? Understand I-O</a></p>
 <p>9 0.6637798 <a title="857-lsi-9" href="../high_scalability-2009/high_scalability-2009-03-20-Alternate_strategy_for_database_sharding.html">546 high scalability-2009-03-20-Alternate strategy for database sharding</a></p>
@@ -227,76 +137,39 @@ shard-aware applicatio</p><p>6 0.73949254 <a title="857-lsi-6" href="../high_sca
 <p>[(1, 0.124), (2, 0.165), (10, 0.073), (30, 0.062), (47, 0.015), (57, 0.13), (61, 0.084), (73, 0.012), (79, 0.141), (85, 0.068), (94, 0.019)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.92580307 <a title="857-lda-1" href="../high_scalability-2012/high_scalability-2012-03-19-LinkedIn%3A_Creating_a_Low_Latency_Change_Data_Capture_System_with_Databus.html">1211 high scalability-2012-03-19-LinkedIn: Creating a Low Latency Change Data Capture System with Databus</a></p>
-<p>Introduction: This is a guest post bySiddharth Anand, a senior member of LinkedIn's
-Distributed Data Systems team.Over the past 3 years, I've had the good fortune
-to work with many emerging NoSQL products in the context of supporting the
-needs of a high-traffic, customer facing web site.In 2010, I helped Netflix to
-successfullytransition its web scale use-cases from Oracle to SimpleDB, AWS'
-hosted database service. On completion of that migration, we started a second
-migration, this time from SimpleDB to Cassandra. The first transition was key
-to our move from our own data center to AWS' cloud. The second was key to our
-expansion from one AWS Region to multiple geographically-distributed Regions
--- today Netflix serves traffic out of two AWS Regions, one in Virginia, the
-other in Ireland (F1). Both of these transitions have been successful, but
-have involved integration pain points such as the creation of database
-replication technology.In December 2011, I moved to LinkedIn's Distributed
-Data System</p><p>2 0.92431641 <a title="857-lda-2" href="../high_scalability-2011/high_scalability-2011-11-17-Five_Misconceptions_on_Cloud_Portability.html">1144 high scalability-2011-11-17-Five Misconceptions on Cloud Portability</a></p>
-<p>Introduction: The term "cloud portability" is often considered a synonym for
-"CloudAPIportability," which implies a series of misconceptions.If we break
-away from dogma, we can find that what we really looking for in cloud
-portability is Application portability between clouds which can be a vastly
-simpler requirement, as we can achieve application portability without
-settling on a common CloudAPI.In this post i'll be covering five common
-misconceptions people haveWRTto cloud portability.Cloud portability = Cloud
-API portability. API portability is easy; cloud API portability is not.The
-main incentive for Cloud Portability is - Avoiding Vendor lock-in.Cloud
-portability is more about business agility than it is about vendor lock-
-in.Cloud portability isn't for startups. Every startup that is expecting rapid
-growth should re-examine their deployments and plan for cloud portability
-rather than wait to be forced to make the switch when you are least prepared
-to do so.Cloud portability = Compromising on t</p><p>3 0.9231348 <a title="857-lda-3" href="../high_scalability-2008/high_scalability-2008-10-29-CTL_-_Distributed_Control_Dispatching_Framework_.html">433 high scalability-2008-10-29-CTL - Distributed Control Dispatching Framework </a></p>
-<p>Introduction: CTLis aflexible distributed control dispatching framework that enables you to
-break management processes into reusable control modules and execute them in
-distributed fashion over the network.From their website:CTL is a flexible
-distributed control dispatching framework that enables you to break management
-processes into reusable control modules and execute them in distributed
-fashion over the network.What does CTL do?CTL helps you leverage your current
-scripts and tools to easily automate any kind of distributed systems
-management or application provisioning task. Its good for simplifiying large-
-scale scripting efforts or as another tool in your toolbox that helps you
-speed through your daily mix of ad-hoc administration tasks.What are CTL's
-features?CTL has many features, but the general highlights are:* Execute
-sophisticated procedures in distributed environments - Aren't you tired of
-writing and then endlessly modifying scripts that loop over nodes and invoke
-remote actions? CTL d</p><p>4 0.92226154 <a title="857-lda-4" href="../high_scalability-2011/high_scalability-2011-01-04-Map-Reduce_With_Ruby_Using_Hadoop.html">968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</a></p>
-<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop
-cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-
-System), write map-reduce scripts in Ruby and use them to run a map-reduce job
-on your Hadoop cluster. You willnotneed to ssh into the cluster, as all tasks
-are run from your local machine. Below I am using my MacBook Pro as my local
-machine, but the steps I have provided should be reproducible on other
-platforms running bash and Java.Fire-Up Your Hadoop ClusterI choose
-theCloudera distribution of Hadoopwhich is still 100% Apache licensed, but has
-some additional benefits. One of these benefits is that it is released byDoug
-Cutting, who started Hadoop and drove it’s development at Yahoo! He also
-startedLucene, which is another of my favourite Apache Projects, so I have
-good faith that he knows what he is doing. Another benefit, as you will see,
-is that it is simple to fire-up a Hadoop cluster.I am going to use
-Cloudera’sWhirr script, which</p><p>same-blog 5 0.91415173 <a title="857-lda-5" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
-<p>Introduction: This is a follow up article byCory Isaacson to the first article on DbShards,
-Product: dbShards - Share Nothing. Shard Everything, describing some of the
-details about how DbShards works on the inside.The dbShards architecture is a
-true "shared nothing" implementation of Database Sharding. The high-level view
-of dbShards is shown here:The above diagram shows how dbShards works for
-achieving massive database scalability across multiple database servers, using
-native DBMS engines and our dbShards components. The important components
-are:dbS/Client: A design goal of dbShards is to make database sharding as
-seamless as possible to an application, so that application developers can
-write the same type of code they always have. A key component to making this
-possible is the dbShards Client. The dbShards Client is our intelligent driver
-that is an exact API emulation of a given vendor's database driver. For
-example, with MySQL we have full support for JDBC, and the the MySQL C driver
-(used in</p><p>6 0.91334659 <a title="857-lda-6" href="../high_scalability-2007/high_scalability-2007-11-18-Reverse_Proxy.html">159 high scalability-2007-11-18-Reverse Proxy</a></p>
+<p>Introduction: This is a guest post by  Siddharth Anand , a senior member of LinkedIn's Distributed Data Systems team.  
+ 
+Over the past 3 years, I've had the good fortune to work with many emerging NoSQL products in the context of  supporting the needs of a high-traffic, customer facing web site.
+ 
+In 2010, I helped Netflix to successfully   transition its web scale use-cases from Oracle to SimpleDB  , AWS' hosted database service. On completion of that migration, we started a second migration, this time from SimpleDB to Cassandra. The first transition was key to our move from our own data center to AWS' cloud. The second was key to our expansion from one AWS Region to multiple geographically-distributed Regions -- today Netflix serves traffic out of two AWS Regions, one in Virginia, the other in Ireland ( F1 ). Both of these transitions have been successful, but have involved integration pain points such as the creation of database replication technology.
+ 
+In December 2011, I moved to LinkedIn's D</p><p>2 0.92431641 <a title="857-lda-2" href="../high_scalability-2011/high_scalability-2011-11-17-Five_Misconceptions_on_Cloud_Portability.html">1144 high scalability-2011-11-17-Five Misconceptions on Cloud Portability</a></p>
+<p>Introduction: The term "cloud portability" is often considered a synonym for "Cloud  API  portability," which implies a series of misconceptions.
+ 
+If we break away from dogma, we can find that what we really looking for in cloud portability is Application portability between clouds which can be a vastly simpler requirement, as we can achieve application portability without settling on a common Cloud  API. 
+ 
+In this post i'll be covering five common misconceptions people have  WRT  to cloud portability.
+  
+  Cloud portability = Cloud API portability . API portability is easy; cloud API portability is not.  
+  The main incentive for Cloud Portability is - Avoiding Vendor lock-in .Cloud portability is more about business agility than it is about vendor lock-in.  
+  Cloud portability isnâ&euro;&trade;t for startups . Every startup that is expecting rapid growth should re-examine their deployments and plan for cloud portability rather than wait to be forced to make the switch when you are least prepared to do so.</p><p>3 0.9231348 <a title="857-lda-3" href="../high_scalability-2008/high_scalability-2008-10-29-CTL_-_Distributed_Control_Dispatching_Framework_.html">433 high scalability-2008-10-29-CTL - Distributed Control Dispatching Framework </a></p>
+<p>Introduction: CTL  is a  flexible distributed control dispatching framework that enables you to break management processes into reusable control modules and execute them in distributed fashion over the network .  From their website:  CTL is a flexible distributed control dispatching framework that enables you to break management processes into reusable control modules and execute them in distributed fashion over the network.  What does CTL do? CTL helps you leverage your current scripts and tools to easily automate any kind of distributed systems management or application provisioning task. Its good for simplifiying large-scale scripting efforts or as another tool in your toolbox that helps you speed through your daily mix of ad-hoc administration tasks.  What are CTL's features? CTL has many features, but the general highlights are:  * Execute sophisticated procedures in distributed environments - Aren't you tired of writing and then endlessly modifying scripts that loop over nodes and invoke remot</p><p>4 0.92226154 <a title="857-lda-4" href="../high_scalability-2011/high_scalability-2011-01-04-Map-Reduce_With_Ruby_Using_Hadoop.html">968 high scalability-2011-01-04-Map-Reduce With Ruby Using Hadoop</a></p>
+<p>Introduction: A demonstration, with repeatable steps, of how to quickly fire-up a Hadoop cluster on Amazon EC2, load data onto the HDFS (Hadoop Distributed File-System), write map-reduce scripts in Ruby and use them to run a map-reduce job on your Hadoop cluster. You will  not  need to ssh into the cluster, as all tasks are run from your local machine. Below I am using my MacBook Pro as my local machine, but the steps I have provided should be reproducible on other platforms running bash and Java.
+  
+
+  
+
+ Fire-Up Your Hadoop Cluster 
+
+I choose the  Cloudera distribution of Hadoop  which is still 100% Apache licensed, but has some additional benefits. One of these benefits is that it is released by  Doug Cutting , who started Hadoop and drove it’s development at Yahoo! He also started  Lucene , which is another of my favourite Apache Projects, so I have good faith that he knows what he is doing. Another benefit, as you will see, is that it is simple to fire-up a Hadoop cluster.
+
+
+I am going to use C</p><p>same-blog 5 0.91415173 <a title="857-lda-5" href="../high_scalability-2010/high_scalability-2010-07-13-DbShards_Part_Deux_-_The_Internals.html">857 high scalability-2010-07-13-DbShards Part Deux - The Internals</a></p>
+<p>Introduction: This is a follow up article by   Cory Isaacson  to the first article on DbShards,   Product: dbShards - Share Nothing. Shard Everything   , describing some of the details about how DbShards works on the inside. 
+ 
+The dbShards architecture is a true “shared nothing” implementation of Database Sharding. The high-level view of dbShards is shown here:    The above diagram shows how dbShards works for achieving massive database scalability across multiple database servers, using native DBMS engines and our dbShards components. The important components are:
+  
+  dbS/Client : A design goal of dbShards is to make database sharding as seamless as possible to an application, so that application developers can write the same type of code they always have. A key component to making this possible is the dbShards Client. The dbShards Client is our intelligent driver that is an exact API emulation of a given vendor’s database driver. For example, with MySQL we have full support for JDBC, and the the</p><p>6 0.91334659 <a title="857-lda-6" href="../high_scalability-2007/high_scalability-2007-11-18-Reverse_Proxy.html">159 high scalability-2007-11-18-Reverse Proxy</a></p>
 <p>7 0.91288835 <a title="857-lda-7" href="../high_scalability-2011/high_scalability-2011-01-11-Google_Megastore_-_3_Billion_Writes_and_20_Billion_Read_Transactions_Daily.html">972 high scalability-2011-01-11-Google Megastore - 3 Billion Writes and 20 Billion Read Transactions Daily</a></p>
 <p>8 0.89349711 <a title="857-lda-8" href="../high_scalability-2010/high_scalability-2010-07-11-So%2C_Why_is_Twitter_Really_Not_Using_Cassandra_to_Store_Tweets%3F.html">855 high scalability-2010-07-11-So, Why is Twitter Really Not Using Cassandra to Store Tweets?</a></p>
 <p>9 0.89105165 <a title="857-lda-9" href="../high_scalability-2010/high_scalability-2010-04-09-Vagrant_-_Build_and_Deploy_Virtualized_Development_Environments_Using_Ruby.html">807 high scalability-2010-04-09-Vagrant - Build and Deploy Virtualized Development Environments Using Ruby</a></p>

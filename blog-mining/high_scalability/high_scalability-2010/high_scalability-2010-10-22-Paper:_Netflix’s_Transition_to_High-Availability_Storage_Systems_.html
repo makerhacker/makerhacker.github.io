@@ -16,109 +16,47 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>925 high scalability-2010-10-22-Paper: Netflix’s Transition to High-Availability Storage Systems </h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-925-html" href="http://highscalability.com//blog/2010/10/22/paper-netflixs-transition-to-high-availability-storage-syste.html">html</a></p><p>Introduction: In an audacious move for such an established property, Netflix is moving their
-website out of the comfort of their own datacenter and into the wilds of the
-Amazon cloud. This paper by Netflix's Siddharth "Sid" Anand,Netflix's
-Transition to High-Availability Storage Systems, gives a detailed look at this
-transition and does a deep dive on SimpleDB best practices, focussing
-especially on techniques useful to those who are making the move from a
-RDBMS.Sid is going to give a talk at QCon based on this paper and he would
-appreciate your feedback. So if you have any comments or thoughts please
-comment here or email Sid atr39132@hotmail.com or Twitter at @r39132 Here's
-the introduction from the paper:Circa late 2008, Netflix had a single data
-center. This single data center raised a few concerns. As a single-point-of-
-failure (a.k.a. SPOF), it represented a liability - data center outages meant
-interruptions to service and negative customer impact. Additionally, with
-growth in both streaming</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This paper by Netflix's Siddharth "Sid" Anand,Netflix's Transition to High-Availability Storage Systems, gives a detailed look at this transition and does a deep dive on SimpleDB best practices, focussing especially on techniques useful to those who are making the move from a RDBMS. [sent-2, score-0.348]
-</p><p>2 SPOF), it represented a liability - data center outages meant interruptions to service and negative customer impact. [sent-10, score-0.384]
-</p><p>3 Additionally, with growth in both streaming adoption and subscription levels, Netflix would soon outgrow this data center -- we foresaw an immediate need for more power, better cooling, more space, and more hardware. [sent-11, score-0.373]
-</p><p>4 Aside from high upfront costs, this endeavor would likely tie up key engineering resources in data center scale out activities, making them unavailable for new product initiatives. [sent-13, score-0.287]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-925-html" href="http://highscalability.com//blog/2010/10/22/paper-netflixs-transition-to-high-availability-storage-syste.html">html</a></p><p>Introduction: In an audacious move for such an established property, Netflix is moving their website out of the comfort of their own datacenter and into the wilds of the Amazon cloud. This paper by Netflix's Siddharth “Sid” Anand,  Netflix’s Transition to High-Availability Storage Systems , gives a detailed look at this transition and does a deep dive on SimpleDB best practices, focussing especially on techniques useful to those who are making the move from a RDBMS.
+ 
+Sid is going to give a talk at QCon based on this paper and he would appreciate your feedback. So if you have any comments or thoughts please comment here or email Sid at  r39132@hotmail.com  or Twitter at @r39132 Here's the introduction from the paper:
+  Circa late 2008, Netflix had a single data center. This single data center raised a few concerns. As a single-point-of-failure (a.k.a. SPOF), it represented a liability – data center outages meant interruptions to service and negative customer impact. Additionally, with growth in both</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 This paper by Netflix's Siddharth “Sid” Anand,  Netflix’s Transition to High-Availability Storage Systems , gives a detailed look at this transition and does a deep dive on SimpleDB best practices, focussing especially on techniques useful to those who are making the move from a RDBMS. [sent-2, score-0.348]
+</p><p>2 SPOF), it represented a liability – data center outages meant interruptions to service and negative customer impact. [sent-10, score-0.384]
+</p><p>3 Additionally, with growth in both streaming adoption and subscription levels, Netflix would soon outgrow this data center -- we foresaw an immediate need for more power, better cooling, more space, and more hardware. [sent-11, score-0.373]
+</p><p>4 Aside from high upfront costs, this endeavor would likely tie up key engineering resources in data center scale out activities, making them unavailable for new product initiatives. [sent-13, score-0.287]
 </p><p>5 Additionally, we recognized the management of multiple data centers to be a complex task. [sent-14, score-0.194]
 </p><p>6 Building out and managing multiple data centers seemed a risky distraction. [sent-15, score-0.194]
 </p><p>7 Rather than embarking on this path, we chose a more radical one. [sent-16, score-0.177]
-</p><p>8 With multiple, large data centers already in operation and multiple levels of redundancy in various web services (e. [sent-24, score-0.262]
-</p><p>9 S3 and SimpleDB), AWS promised better availability and scalability in a relatively short amount of time. [sent-26, score-0.154]
-</p><p>10 The bidrectional syncing between Oracle and the cloud is aninteresting transition strategy, given all the work involved. [sent-29, score-0.311]
+</p><p>8 With multiple, large data centers already in operation and multiple levels of redundancy in various web services (e. [sent-24, score-0.262]
+</p><p>9 S3 and SimpleDB), AWS promised better availability and scalability in a relatively short amount of time. [sent-26, score-0.154]
+</p><p>10 The bidrectional syncing between Oracle and the cloud is an interesting transition strategy, given all the work involved. [sent-29, score-0.243]
 </p><p>11 Currently, most of our data syncing use-cases are uni-directional. [sent-34, score-0.202]
 </p><p>12 The few that are bidirectional are done on a best-effort basis and use a fixer job. [sent-35, score-0.257]
 </p><p>13 I have an idea of how to implement a bi-directional eventually consistent replication scheme -- the scheme leverages SimpleDB's Consistent Put/Delete API (i. [sent-36, score-0.294]
-</p><p>14 However, if that instance  or the availability zone were to either go down or experience networking issues, we would need to manually intervene. [sent-47, score-0.319]
+</p><p>14 However, if that instance  or the availability zone were to either go down or experience networking issues, we would need to manually intervene. [sent-47, score-0.319]
 </p><p>15 Also, at this juncture in our growth, we were ready to forego strong consistency in favor of high availability (i. [sent-49, score-0.197]
 </p><p>16 In other words, we need availability and are ok with some low level of inconsistencies -- especially if we can fix those inconsistencies via read repair or through a fixer job. [sent-52, score-0.561]
-</p><p>17 Howto keep relationships consistent and how to keep the differentdatabases consistent with each other. [sent-60, score-0.244]
+</p><p>17 How to keep relationships consistent and how to keep the different databases consistent with each other. [sent-60, score-0.244]
 </p><p>18 it turned out that most of our data is looked up either by movie or by user. [sent-63, score-0.182]
 </p><p>19 We either use our own custom MySQL solution for those cases or ferry the query back to our data center today. [sent-66, score-0.313]
-</p><p>20 Now that you've explored your application domain and at least oneNoSQL product in detail, do you have any thoughts on what your idealproduct what look like? [sent-70, score-0.16]
+</p><p>20 Now that you've explored your application domain and at least one NoSQL product in detail, do you have any thoughts on what your ideal product what look like? [sent-70, score-0.16]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('simpledb', 0.355), ('sid', 0.296), ('fixer', 0.189), ('netflix', 0.167), ('inconsistencies', 0.144), ('oracle', 0.141), ('rds', 0.139), ('center', 0.131), ('transition', 0.131), ('consistent', 0.122), ('additionally', 0.115), ('consistency', 0.113), ('syncing', 0.112), ('centers', 0.104), ('thoughts', 0.093), ('either', 0.092), ('chose', 0.091), ('data', 0.09), ('however', 0.089), ('scheme', 0.086), ('liability', 0.086), ('embarking', 0.086), ('outgrow', 0.086), ('parlance', 0.086), ('availability', 0.084), ('ware', 0.081), ('paper', 0.08), ('seems', 0.079), ('instance', 0.077), ('accompanied', 0.077), ('interruptions', 0.077), ('detail', 0.075), ('circa', 0.074), ('foreseeable', 0.074), ('siddharth', 0.072), ('competency', 0.07), ('promised', 0.07), ('move', 0.069), ('levels', 0.068), ('aninteresting', 0.068), ('translate', 0.068), ('bidirectional', 0.068), ('audacious', 0.068), ('focussing', 0.068), ('ap', 0.067), ('explored', 0.067), ('would', 0.066), ('options', 0.065), ('investigating', 0.065), ('spof', 0.065)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9999997 <a title="925-tfidf-1" href="../high_scalability-2010/high_scalability-2010-10-22-Paper%3A_Netflix%E2%80%99s_Transition_to_High-Availability_Storage_Systems_.html">925 high scalability-2010-10-22-Paper: Netflix’s Transition to High-Availability Storage Systems </a></p>
-<p>Introduction: In an audacious move for such an established property, Netflix is moving their
-website out of the comfort of their own datacenter and into the wilds of the
-Amazon cloud. This paper by Netflix's Siddharth "Sid" Anand,Netflix's
-Transition to High-Availability Storage Systems, gives a detailed look at this
-transition and does a deep dive on SimpleDB best practices, focussing
-especially on techniques useful to those who are making the move from a
-RDBMS.Sid is going to give a talk at QCon based on this paper and he would
-appreciate your feedback. So if you have any comments or thoughts please
-comment here or email Sid atr39132@hotmail.com or Twitter at @r39132 Here's
-the introduction from the paper:Circa late 2008, Netflix had a single data
-center. This single data center raised a few concerns. As a single-point-of-
-failure (a.k.a. SPOF), it represented a liability - data center outages meant
-interruptions to service and negative customer impact. Additionally, with
-growth in both streaming</p><p>2 0.29071468 <a title="925-tfidf-2" href="../high_scalability-2009/high_scalability-2009-01-20-Product%3A_Amazon%27s_SimpleDB.html">498 high scalability-2009-01-20-Product: Amazon's SimpleDB</a></p>
-<p>Introduction: Update 35:How and Why Glue is Using Amazon SimpleDB instead of a Relational
-Database. Discusses a key design decision that required duplicating data in
-order to mimic RDBMS joins:Given the trade off between potential
-inconsistencies and scalability, social services have to choose the
-latter.Update 34: Apparently Amazon pulled this article. I'm not sure what
-that means. Maybe time went backwards or something?Amazon dramatically drops
-SimpleDB pricing to $0.25 per GB per month from $1.50 per GB. This puts
-SimpleDB on par withGoogle App Engine. They also announced a few new
-features:a SQL-like SELECT API as well as a Batch Put operation to streamline
-uploading of multiple items or attributes. One of the complaints against
-SimpleDB is that programmers end up writing too much code to do simple things.
-These features and a much cheaper price should help considerably. And you can
-store lots of data now. GAE is still capped.Update 33: Amazon announcesElastic
-Block Store (EBS), which provides l</p><p>3 0.23639783 <a title="925-tfidf-3" href="../high_scalability-2008/high_scalability-2008-04-21-The_Search_for_the_Source_of_Data_-_How_SimpleDB_Differs_from_a_RDBMS.html">306 high scalability-2008-04-21-The Search for the Source of Data - How SimpleDB Differs from a RDBMS</a></p>
-<p>Introduction: Update 2: Yurii responds with theTop 10 Reasons to Avoid Document Databases
-FUD.Update:Top 10 Reasons to Avoid the SimpleDB Hypeby Ryan Park provides a
-well written counter take. Am I really that fawning? If so, doesn't that make
-me a dear?All your life you've used a relational database. At the tender age
-of five you banged out your first SQL query to track your allowance. Your
-RDBMS allegiance was just assumed, like your politics or religion would have
-been assumed 100 years ago. They now say--you know them--that relations won't
-scale and we have to do things differently. New databases like SimpleDB and
-BigTable are what's different. As a long time RDBMS user what can you expect
-of SimpleDB? That's what Alex Tolley of MyMeemz.com set out to discover. Like
-many brave explorers before him, Alex gave a report of his adventures to the
-Royal Society of theAWS Meetup. Alex told a wild almost unbelievable tale of
-cultures and practices so different from our own you almost could not believe
-h</p><p>4 0.22832286 <a title="925-tfidf-4" href="../high_scalability-2007/high_scalability-2007-12-13-Amazon_SimpleDB_-_Scalable_Cloud_Database.html">184 high scalability-2007-12-13-Amazon SimpleDB - Scalable Cloud Database</a></p>
-<p>Introduction: Amazon has announced the limited beta of Amazon SimpleDB - a simple web
-services interface to create and store multiple data sets, query your data
-easily, and return the results. Together with the Simple Storage Service (S3),
-Elastic Compute Cloud (EC2) and other web services Amazon offers a complete
-utility computing platform. SimpleDB was the missing piece of AWS - the
-scalable structured database.Check out my blog entry:
-http://innowave.blogspot.com/2007/12/amazon-simpledb-scalable-cloud-
-database.htmlI was waiting for this one :-)Geekr</p><p>5 0.20520404 <a title="925-tfidf-5" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
-<p>Introduction: Youmight haveconsistency problems if you have: multiple datastores in multiple
-datacenters, without distributed transactions, and with the ability to
-alternately execute out of each datacenter;  syncing protocols that can fail
-or sync stale data; distributed clients that cache data and then write old
-back to the central store; a NoSQL database that doesn't have transactions
-between updates of multiple related key-value records; application level
-integrity checks; client drivenoptimistic locking.Sounds a lot like many
-evolving, loosely coupled, autonomous, distributed systems these days. How do
-you solve these consistency problems? Siddharth "Sid" Anand of Netflix talks
-about how they solved theirs in his excellent presentation, NoSQL @ Netflix :
-Part 1, given to a packed crowd at aCloud Computing Meetup. You might be
-inclined to say how silly it is to have these problems in the first place, but
-just hold on. See if you might share some of their problems, before getting
-all judgy:Netfli</p><p>6 0.18811131 <a title="925-tfidf-6" href="../high_scalability-2012/high_scalability-2012-01-24-The_State_of_NoSQL_in_2012.html">1180 high scalability-2012-01-24-The State of NoSQL in 2012</a></p>
+<p>Introduction: In an audacious move for such an established property, Netflix is moving their website out of the comfort of their own datacenter and into the wilds of the Amazon cloud. This paper by Netflix's Siddharth “Sid” Anand,  Netflix’s Transition to High-Availability Storage Systems , gives a detailed look at this transition and does a deep dive on SimpleDB best practices, focussing especially on techniques useful to those who are making the move from a RDBMS.
+ 
+Sid is going to give a talk at QCon based on this paper and he would appreciate your feedback. So if you have any comments or thoughts please comment here or email Sid at  r39132@hotmail.com  or Twitter at @r39132 Here's the introduction from the paper:
+  Circa late 2008, Netflix had a single data center. This single data center raised a few concerns. As a single-point-of-failure (a.k.a. SPOF), it represented a liability – data center outages meant interruptions to service and negative customer impact. Additionally, with growth in both</p><p>2 0.29071468 <a title="925-tfidf-2" href="../high_scalability-2009/high_scalability-2009-01-20-Product%3A_Amazon%27s_SimpleDB.html">498 high scalability-2009-01-20-Product: Amazon's SimpleDB</a></p>
+<p>Introduction: Update 35  :   How and Why Glue is Using Amazon SimpleDB instead of a Relational Database  . Discusses a key design decision that required duplicating data in order to mimic RDBMS joins:   Given the trade off between potential inconsistencies and scalability, social services have to choose the latter.      Update 34  : Apparently Amazon pulled this article. I'm not sure what that means. Maybe time went backwards or something?   Amazon dramatically drops SimpleDB pricing to $0.25 per GB per month from $1.50 per GB  . This puts SimpleDB on par with   Google App Engine  . They also announced  a few new features:   a SQL-like SELECT API as well as a Batch Put operation to streamline uploading of multiple items or attributes  . One of the complaints against SimpleDB is that programmers end up writing too much code to do simple things. These features and a much cheaper price should help considerably. And you can store lots of data now. GAE is still capped.    Update 33  : Amazon announces</p><p>3 0.23639783 <a title="925-tfidf-3" href="../high_scalability-2008/high_scalability-2008-04-21-The_Search_for_the_Source_of_Data_-_How_SimpleDB_Differs_from_a_RDBMS.html">306 high scalability-2008-04-21-The Search for the Source of Data - How SimpleDB Differs from a RDBMS</a></p>
+<p>Introduction: Update 2: Yurii responds with the  Top 10 Reasons to Avoid Document Databases FUD .     Update:  Top 10 Reasons to Avoid the SimpleDB Hype  by Ryan Park provides a well written counter take. Am I really that fawning? If so, doesn't that make me a dear?      All your life you've used a relational database. At the tender age of five you banged out your first SQL query to track your allowance. Your RDBMS allegiance was just assumed, like your politics or religion would have been assumed 100 years ago. They now say--you know them--that relations won't scale and we have to do things differently. New databases like SimpleDB and BigTable are what's different. As a long time RDBMS user what can you expect of SimpleDB? That's what Alex Tolley of MyMeemz.com set out to discover. Like many brave explorers before him, Alex gave a report of his adventures to the Royal Society of the   AWS Meetup  . Alex told a wild almost unbelievable tale of cultures and practices so different from our own you alm</p><p>4 0.22832286 <a title="925-tfidf-4" href="../high_scalability-2007/high_scalability-2007-12-13-Amazon_SimpleDB_-_Scalable_Cloud_Database.html">184 high scalability-2007-12-13-Amazon SimpleDB - Scalable Cloud Database</a></p>
+<p>Introduction: Amazon has announced the limited beta of Amazon SimpleDB - a simple web services interface to create and store multiple data sets, query your data easily, and return the results. Together with the Simple Storage Service (S3), Elastic Compute Cloud (EC2) and other web services Amazon offers a complete utility computing platform. SimpleDB was the missing piece of AWS - the scalable structured database.     Check out my blog entry: http://innowave.blogspot.com/2007/12/amazon-simpledb-scalable-cloud-database.html     I was waiting for this one :-)     Geekr</p><p>5 0.20520404 <a title="925-tfidf-5" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
+<p>Introduction: You  might have  consistency problems if you have: multiple datastores in multiple datacenters, without distributed transactions, and with the ability to alternately execute out of each datacenter;  syncing protocols that can fail or sync stale data; distributed clients that cache data and then write old back to the central store; a NoSQL database that doesn't have transactions between updates of multiple related key-value records; application level integrity checks; client driven  optimistic locking .
+ 
+Sounds a lot like many evolving, loosely coupled, autonomous, distributed systems these days. How do you solve these consistency problems? Siddharth "Sid" Anand of Netflix talks about how they solved theirs in his excellent presentation,  NoSQL @ Netflix : Part 1 , given to a packed crowd at a  Cloud Computing Meetup . 
+ 
+You might be inclined to say how silly it is to have these problems in the first place, but just hold on. See if you might share some of their problems, before gettin</p><p>6 0.18811131 <a title="925-tfidf-6" href="../high_scalability-2012/high_scalability-2012-01-24-The_State_of_NoSQL_in_2012.html">1180 high scalability-2012-01-24-The State of NoSQL in 2012</a></p>
 <p>7 0.17930841 <a title="925-tfidf-7" href="../high_scalability-2009/high_scalability-2009-11-04-Damn%2C_Which_Database_do_I_Use_Now%3F.html">736 high scalability-2009-11-04-Damn, Which Database do I Use Now?</a></p>
 <p>8 0.16962376 <a title="925-tfidf-8" href="../high_scalability-2010/high_scalability-2010-01-27-Hot_Scalability_Links_for_January_28_2010.html">767 high scalability-2010-01-27-Hot Scalability Links for January 28 2010</a></p>
 <p>9 0.15235351 <a title="925-tfidf-9" href="../high_scalability-2007/high_scalability-2007-12-14-The_Current_Pros_and_Cons_List_for_SimpleDB.html">187 high scalability-2007-12-14-The Current Pros and Cons List for SimpleDB</a></p>
@@ -138,76 +76,18 @@ all judgy:Netfli</p><p>6 0.18811131 <a title="925-tfidf-6" href="../high_scalabi
 <p>[(0, 0.225), (1, 0.087), (2, -0.001), (3, 0.081), (4, -0.02), (5, 0.025), (6, -0.021), (7, -0.146), (8, 0.039), (9, -0.111), (10, -0.018), (11, 0.008), (12, -0.079), (13, -0.066), (14, 0.053), (15, 0.038), (16, 0.024), (17, 0.012), (18, 0.003), (19, -0.062), (20, 0.03), (21, 0.031), (22, 0.037), (23, 0.017), (24, -0.055), (25, -0.069), (26, 0.041), (27, -0.009), (28, 0.109), (29, -0.03), (30, -0.017), (31, -0.004), (32, -0.052), (33, -0.006), (34, -0.013), (35, 0.02), (36, 0.03), (37, 0.081), (38, -0.041), (39, 0.042), (40, 0.042), (41, -0.006), (42, 0.027), (43, -0.012), (44, 0.068), (45, -0.028), (46, -0.045), (47, -0.044), (48, 0.05), (49, -0.007)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9432705 <a title="925-lsi-1" href="../high_scalability-2010/high_scalability-2010-10-22-Paper%3A_Netflix%E2%80%99s_Transition_to_High-Availability_Storage_Systems_.html">925 high scalability-2010-10-22-Paper: Netflix’s Transition to High-Availability Storage Systems </a></p>
-<p>Introduction: In an audacious move for such an established property, Netflix is moving their
-website out of the comfort of their own datacenter and into the wilds of the
-Amazon cloud. This paper by Netflix's Siddharth "Sid" Anand,Netflix's
-Transition to High-Availability Storage Systems, gives a detailed look at this
-transition and does a deep dive on SimpleDB best practices, focussing
-especially on techniques useful to those who are making the move from a
-RDBMS.Sid is going to give a talk at QCon based on this paper and he would
-appreciate your feedback. So if you have any comments or thoughts please
-comment here or email Sid atr39132@hotmail.com or Twitter at @r39132 Here's
-the introduction from the paper:Circa late 2008, Netflix had a single data
-center. This single data center raised a few concerns. As a single-point-of-
-failure (a.k.a. SPOF), it represented a liability - data center outages meant
-interruptions to service and negative customer impact. Additionally, with
-growth in both streaming</p><p>2 0.79811448 <a title="925-lsi-2" href="../high_scalability-2009/high_scalability-2009-01-20-Product%3A_Amazon%27s_SimpleDB.html">498 high scalability-2009-01-20-Product: Amazon's SimpleDB</a></p>
-<p>Introduction: Update 35:How and Why Glue is Using Amazon SimpleDB instead of a Relational
-Database. Discusses a key design decision that required duplicating data in
-order to mimic RDBMS joins:Given the trade off between potential
-inconsistencies and scalability, social services have to choose the
-latter.Update 34: Apparently Amazon pulled this article. I'm not sure what
-that means. Maybe time went backwards or something?Amazon dramatically drops
-SimpleDB pricing to $0.25 per GB per month from $1.50 per GB. This puts
-SimpleDB on par withGoogle App Engine. They also announced a few new
-features:a SQL-like SELECT API as well as a Batch Put operation to streamline
-uploading of multiple items or attributes. One of the complaints against
-SimpleDB is that programmers end up writing too much code to do simple things.
-These features and a much cheaper price should help considerably. And you can
-store lots of data now. GAE is still capped.Update 33: Amazon announcesElastic
-Block Store (EBS), which provides l</p><p>3 0.75448537 <a title="925-lsi-3" href="../high_scalability-2007/high_scalability-2007-10-30-Paper%3A_Dynamo%3A_Amazon%E2%80%99s_Highly_Available_Key-value_Store.html">139 high scalability-2007-10-30-Paper: Dynamo: Amazon’s Highly Available Key-value Store</a></p>
-<p>Introduction: Update 2: Read/WriteWeb has a good article talking about the scalability
-issues of relational databases and how Dynamo solves them:Amazon Dynamo: The
-Next Generation Of Virtual Distributed Storage. But since Dynamo is just
-another frustrating walled garden protected by barbed wire and guard dogs, its
-relevance is somewhat overstated.Update:Greg Lindenhas a take on the paper
-where he questions some of Amazon's design choices: emphasizing write
-availability over fast reads, a lack of indexing support, use of random
-distribution for load balancing, and punting on some scalability issues.Werner
-Vogels, Amazon's avuncular CTO, just announced a newpaperon the internal
-database technology Amazon uses to handle tens of millions customers. I'll
-dive into more details later, but I thought you'd want to read it hot off the
-blog. The bad news is it won't be a service. They are keeping this tech not so
-secret, but very safe. Happily, it's another real-life example to learn from.
-As many top website</p><p>4 0.73168182 <a title="925-lsi-4" href="../high_scalability-2007/high_scalability-2007-12-14-The_Current_Pros_and_Cons_List_for_SimpleDB.html">187 high scalability-2007-12-14-The Current Pros and Cons List for SimpleDB</a></p>
-<p>Introduction: Not surprisingly opinions onSimpleDBvary from it sucks, don't take my
-database, to it will change the world, who needs a database anyway? From
-aquick survey of the blogosphere, here's where SimpleDB stands at the
-moment:SimpleDB ConsNo SLA. We don't know how reliable it will be, how fast it
-will be, or how consistent the performance will be.Consistency constraints are
-relaxed. Reading data immediately after a write may not reflect the latest
-updates. To programmers used to transactions, this may be surprising, but many
-people think this is one of the tradeoffs that needs to be made to
-scale.Database is a core competency. If you don't control your database you
-can't out compete your competition.When your database is out of your control
-you can't guarantee it will work properly. You can't create the proper indexes
-and other optimizations.No join or IN operator. You'll need to do multiple
-client side calls to simulate joins, which will be slow.No stored procedures,
-referential integrity,</p><p>5 0.72417349 <a title="925-lsi-5" href="../high_scalability-2009/high_scalability-2009-11-04-Damn%2C_Which_Database_do_I_Use_Now%3F.html">736 high scalability-2009-11-04-Damn, Which Database do I Use Now?</a></p>
-<p>Introduction: With so many database options available these days, like for the rest of life,
-it's natural to wonder how it allfits together. Amazon complicated, or rather
-expanded the available options by introducing RDS, theirrelational database
-service. RDS is MySQL safely cocooned as a manageable cloud element, resting
-boldly within an energy providing elasticCPU pool, supported by a
-virtuallyinfinite supplyof verycapable virtualized storage.MySQL in AWS isnow
-easyto start, stop, monitor, backup, snapshot, expand, and effortlessly move
-up and down the instance hierarchy. What it's not, contrary to what you might
-expect, is a scale-out solution, it's a scale-up solution. You get more by
-buying a bigger instance, not by horizontally adding more instances. There's
-alimit. Admittedly a larger limit now with Amazon's newhigh memory
-instances.That's OK, well maybe not for people who helped grow Amazon's
-ecosystem by offering a similar product, but so many projects use MySQL that
-this is a big win for a</p><p>6 0.72375631 <a title="925-lsi-6" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
+<p>Introduction: In an audacious move for such an established property, Netflix is moving their website out of the comfort of their own datacenter and into the wilds of the Amazon cloud. This paper by Netflix's Siddharth “Sid” Anand,  Netflix’s Transition to High-Availability Storage Systems , gives a detailed look at this transition and does a deep dive on SimpleDB best practices, focussing especially on techniques useful to those who are making the move from a RDBMS.
+ 
+Sid is going to give a talk at QCon based on this paper and he would appreciate your feedback. So if you have any comments or thoughts please comment here or email Sid at  r39132@hotmail.com  or Twitter at @r39132 Here's the introduction from the paper:
+  Circa late 2008, Netflix had a single data center. This single data center raised a few concerns. As a single-point-of-failure (a.k.a. SPOF), it represented a liability – data center outages meant interruptions to service and negative customer impact. Additionally, with growth in both</p><p>2 0.79811448 <a title="925-lsi-2" href="../high_scalability-2009/high_scalability-2009-01-20-Product%3A_Amazon%27s_SimpleDB.html">498 high scalability-2009-01-20-Product: Amazon's SimpleDB</a></p>
+<p>Introduction: Update 35  :   How and Why Glue is Using Amazon SimpleDB instead of a Relational Database  . Discusses a key design decision that required duplicating data in order to mimic RDBMS joins:   Given the trade off between potential inconsistencies and scalability, social services have to choose the latter.      Update 34  : Apparently Amazon pulled this article. I'm not sure what that means. Maybe time went backwards or something?   Amazon dramatically drops SimpleDB pricing to $0.25 per GB per month from $1.50 per GB  . This puts SimpleDB on par with   Google App Engine  . They also announced  a few new features:   a SQL-like SELECT API as well as a Batch Put operation to streamline uploading of multiple items or attributes  . One of the complaints against SimpleDB is that programmers end up writing too much code to do simple things. These features and a much cheaper price should help considerably. And you can store lots of data now. GAE is still capped.    Update 33  : Amazon announces</p><p>3 0.75448537 <a title="925-lsi-3" href="../high_scalability-2007/high_scalability-2007-10-30-Paper%3A_Dynamo%3A_Amazon%E2%80%99s_Highly_Available_Key-value_Store.html">139 high scalability-2007-10-30-Paper: Dynamo: Amazon’s Highly Available Key-value Store</a></p>
+<p>Introduction: Update 2 : Read/WriteWeb  has a good article talking about the scalability issues of relational databases and how Dynamo solves them:  Amazon Dynamo: The Next Generation Of Virtual Distributed Storage . But since Dynamo is just another frustrating walled garden protected by barbed wire and guard dogs, its relevance is somewhat overstated.   Update :  Greg Linden  has a take on the paper where he questions some of Amazon's design choices: emphasizing write availability over fast reads, a lack of indexing support, use of random distribution for load balancing,  and punting on some scalability issues.  Werner Vogels, Amazon's avuncular CTO, just announced a new  paper  on the internal database technology Amazon uses to handle tens of millions customers. I'll dive into more details later, but I thought you'd want to read it hot off the blog. The bad news is it won't be a service. They are keeping this tech not so secret, but very safe. Happily, it's another real-life example to learn from.</p><p>4 0.73168182 <a title="925-lsi-4" href="../high_scalability-2007/high_scalability-2007-12-14-The_Current_Pros_and_Cons_List_for_SimpleDB.html">187 high scalability-2007-12-14-The Current Pros and Cons List for SimpleDB</a></p>
+<p>Introduction: Not surprisingly opinions on   SimpleDB   vary from it sucks, don't take my database, to it will change the world, who needs a database anyway? From a   quick survey of the blogosphere  , here's where SimpleDB stands at the moment:       SimpleDB Cons        No SLA. We don't know how reliable it will be, how fast it will be, or how consistent the performance will be.   Consistency constraints are relaxed. Reading data immediately after a write may not reflect the latest updates. To programmers used to transactions, this may be surprising, but many people think this is one of the tradeoffs that needs to be made to scale.   Database is a core competency. If you don't control your database you can't out compete your competition.     When your database is out of your control you can't guarantee it will work properly. You can't create the proper indexes and other optimizations.   No join or IN operator. You'll need to do multiple client side calls to simulate joins, which will be slow.   No</p><p>5 0.72417349 <a title="925-lsi-5" href="../high_scalability-2009/high_scalability-2009-11-04-Damn%2C_Which_Database_do_I_Use_Now%3F.html">736 high scalability-2009-11-04-Damn, Which Database do I Use Now?</a></p>
+<p>Introduction: With so many database options available these days, like for the rest of life, it's natural to wonder how it all  fits together . Amazon complicated, or rather expanded the available options by introducing RDS, their  relational database service . RDS is MySQL safely cocooned as a manageable cloud element, resting boldly within an energy providing elastic  CPU pool , supported by a virtually  infinite supply  of very  capable virtualized storage  .
+ 
+MySQL in AWS is  now easy  to start, stop, monitor, backup, snapshot, expand, and effortlessly move up and down the instance hierarchy. What it's not, contrary to what you might expect, is a scale-out solution, it's a scale-up solution. You get more by buying a bigger instance, not by horizontally adding more instances. There's a  limit . Admittedly a larger limit now with Amazon's new  high memory instances .
+ 
+That's OK, well maybe not for people who helped grow Amazon's ecosystem by offering a similar product, but so many projects use M</p><p>6 0.72375631 <a title="925-lsi-6" href="../high_scalability-2012/high_scalability-2012-05-14-DynamoDB_Talk_Notes_and_the_SSD_Hot_S3_Cold_Pattern.html">1245 high scalability-2012-05-14-DynamoDB Talk Notes and the SSD Hot S3 Cold Pattern</a></p>
 <p>7 0.71868402 <a title="925-lsi-7" href="../high_scalability-2011/high_scalability-2011-08-15-Should_any_cloud_be_considered_one_availability_zone%3F_The_Amazon_experience_says_yes..html">1098 high scalability-2011-08-15-Should any cloud be considered one availability zone? The Amazon experience says yes.</a></p>
 <p>8 0.71548402 <a title="925-lsi-8" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
 <p>9 0.70180506 <a title="925-lsi-9" href="../high_scalability-2012/high_scalability-2012-10-26-Stuff_The_Internet_Says_On_Scalability_For_October_26%2C_2012.html">1348 high scalability-2012-10-26-Stuff The Internet Says On Scalability For October 26, 2012</a></p>
@@ -227,76 +107,35 @@ this is a big win for a</p><p>6 0.72375631 <a title="925-lsi-6" href="../high_sc
 <p>[(1, 0.116), (2, 0.265), (10, 0.111), (27, 0.017), (30, 0.025), (43, 0.012), (47, 0.019), (61, 0.114), (77, 0.026), (79, 0.08), (81, 0.09), (85, 0.04)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96131432 <a title="925-lda-1" href="../high_scalability-2010/high_scalability-2010-10-22-Paper%3A_Netflix%E2%80%99s_Transition_to_High-Availability_Storage_Systems_.html">925 high scalability-2010-10-22-Paper: Netflix’s Transition to High-Availability Storage Systems </a></p>
-<p>Introduction: In an audacious move for such an established property, Netflix is moving their
-website out of the comfort of their own datacenter and into the wilds of the
-Amazon cloud. This paper by Netflix's Siddharth "Sid" Anand,Netflix's
-Transition to High-Availability Storage Systems, gives a detailed look at this
-transition and does a deep dive on SimpleDB best practices, focussing
-especially on techniques useful to those who are making the move from a
-RDBMS.Sid is going to give a talk at QCon based on this paper and he would
-appreciate your feedback. So if you have any comments or thoughts please
-comment here or email Sid atr39132@hotmail.com or Twitter at @r39132 Here's
-the introduction from the paper:Circa late 2008, Netflix had a single data
-center. This single data center raised a few concerns. As a single-point-of-
-failure (a.k.a. SPOF), it represented a liability - data center outages meant
-interruptions to service and negative customer impact. Additionally, with
-growth in both streaming</p><p>2 0.9562254 <a title="925-lda-2" href="../high_scalability-2012/high_scalability-2012-07-25-Vertical_Scaling_Ascendant_-_How_are_SSDs_Changing__Architectures%3F.html">1291 high scalability-2012-07-25-Vertical Scaling Ascendant - How are SSDs Changing  Architectures?</a></p>
-<p>Introduction: With Amazonannouncing new High I/O 2TB SSD instancesthe age of SSD has almost
-arrived. I say almost because the $27K a year price tag for the hi1.4xlarge on
-demand instance type is outside the budget of many. Yet even at the full on
-demand rate theprice per IOP for the high IO instance is attractive:27 cents
-($27K/100K IOPS) per vs$1.25 for disk.With the obvious benefits of giant SSD
-machines combined with 10 Gbps networking, it's interesting to consider: what
-architecture decisions might you make differently in the future?More Headroom
-for Vertical Scaling Simplifies EverythingThe beauty of higher hardware
-performance is it shifts effort away from the programmer which allows
-developers to focus on the business of business, minimizing trickeration. This
-has always been the allure ofvertical scalingand is well realized by SSDs
-through a combination of high throughput, low latencies, and just as
-important, high densities.We have a few early examples showing the performance
-punch of the n</p><p>3 0.94950104 <a title="925-lda-3" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
-<p>Introduction: Toy solutions solving Twitter's "problems" are a favorite scalability trope.
-Everybody has this idea that Twitter is easy. With a little architectural hand
-waving we have a scalable Twitter, just that simple. Well, it's not that
-simple asRaffi Krikorian, VP of Engineering at Twitter, describes in his
-superb and very detailed presentation onTimelines at Scale. If you want to
-know how Twitter works - then start here.It happened gradually so you may have
-missed it, but Twitter has grown up. It started as a strugglingthree-tierish
-Ruby on Railswebsite to become a beautifully service driven core that we
-actually go to now to see if other services are down. Quite a change.Twitter
-now has 150M world wide active users, handles 300K QPS to generate timelines,
-and a firehose that churns out 22 MB/sec. 400 million tweets a day flow
-through the system and it can take up to 5 minutes for a tweet to flow from
-Lady Gaga's fingers to her 31 million followers.A couple of points stood
-out:Twitter no lon</p><p>4 0.94767159 <a title="925-lda-4" href="../high_scalability-2009/high_scalability-2009-06-05-HotPads_Shows_the_True_Cost_of_Hosting_on_Amazon.html">619 high scalability-2009-06-05-HotPads Shows the True Cost of Hosting on Amazon</a></p>
-<p>Introduction: Mather Corgan, president of HotPads,gave a great talkon how HotPads uses AWS
-to run their real estate search engine. I loved the presentation for a few
-reasons:It gives real costs on on their servers, how many servers they have,
-what they are used for, and exactly how they use S2, EBS, CloudFront and other
-AWS services. This is great information for anybody trying to architect a
-system and wondering where to run it.HotPads is a "real" application. It's a
-small company and at 4.5 million page-views/month it's large but not super
-large. It has custom server side components like indexing engines, image
-processing, and background database update engines for syncing new real estate
-data. And it also stores a lot of images and has low latency requirements.This
-a really good example mix of where many companies are or would like to be with
-their applications.Their total costs are about $11K/month, which is about what
-they were paying at their previous provider. I found this is a little
-surpris</p><p>5 0.9387362 <a title="925-lda-5" href="../high_scalability-2012/high_scalability-2012-12-21-Stuff_The_Internet_Says_On_Scalability_For_December_21%2C_2012.html">1375 high scalability-2012-12-21-Stuff The Internet Says On Scalability For December 21, 2012</a></p>
-<p>Introduction: We at HighScalability are betting the over on the whole Mayan end of the world
-thingy:200M:monthly active Twitterers; 120:number of Netflix reencodings; 1.2
-Million Years:Pr0n Watched Since 2006; 100M:Google Core-Hours Awarded to
-ScienceQuotable Quotes:@shipilev: I've settled on saying that if performance
-is the scalar field in state space, then scalability is just it's
-gradient.@AndiMann: "Only 1% of #Amazon users should care about #cloud
-scalability, elasticity". Brilliant! @Guerrero_FJ: Always remember:
-'scalability problems should be solved when there are scalability problems.'
-#leanstartupSanta's Architecture: It's a little known fact that Santa Clause
-was an early queue innovator. Faced with the problem of delivering a planet
-full of presents in one night, Santa, in his hacker's workshop, created a
-Present Distribution System using thousands of region based priority present
-queues for continuous delivery by the Rudolphs. Rudolphs? You didn't think
-there was only one Rudolph did y</p><p>6 0.93794101 <a title="925-lda-6" href="../high_scalability-2012/high_scalability-2012-05-16-Big_List_of_20_Common_Bottlenecks.html">1246 high scalability-2012-05-16-Big List of 20 Common Bottlenecks</a></p>
+<p>Introduction: In an audacious move for such an established property, Netflix is moving their website out of the comfort of their own datacenter and into the wilds of the Amazon cloud. This paper by Netflix's Siddharth “Sid” Anand,  Netflix’s Transition to High-Availability Storage Systems , gives a detailed look at this transition and does a deep dive on SimpleDB best practices, focussing especially on techniques useful to those who are making the move from a RDBMS.
+ 
+Sid is going to give a talk at QCon based on this paper and he would appreciate your feedback. So if you have any comments or thoughts please comment here or email Sid at  r39132@hotmail.com  or Twitter at @r39132 Here's the introduction from the paper:
+  Circa late 2008, Netflix had a single data center. This single data center raised a few concerns. As a single-point-of-failure (a.k.a. SPOF), it represented a liability – data center outages meant interruptions to service and negative customer impact. Additionally, with growth in both</p><p>2 0.9562254 <a title="925-lda-2" href="../high_scalability-2012/high_scalability-2012-07-25-Vertical_Scaling_Ascendant_-_How_are_SSDs_Changing__Architectures%3F.html">1291 high scalability-2012-07-25-Vertical Scaling Ascendant - How are SSDs Changing  Architectures?</a></p>
+<p>Introduction: With Amazon     announcing new High I/O 2TB SSD instances    the age of SSD has almost arrived. I say almost because the $27K a year price tag for the hi1.4xlarge on demand instance type is outside the budget of many. Yet even at the full on demand rate the   price per IOP for the high IO instance is attractive:   27 cents ($27K/100K IOPS) per vs    $1.25 for disk   .     With the obvious benefits of giant SSD machines combined with 10 Gbps networking, it’s interesting to consider: what architecture decisions might you make differently in the future? 
+   More Headroom for Vertical Scaling Simplifies Everything   
+ The beauty of higher hardware performance is it shifts effort away from the programmer which allows developers to focus on the business of business, minimizing trickeration. This has always been the allure of    vertical scaling    and is well realized by SSDs through a combination of high throughput, low latencies, and just as important, high densities.    We have a few earl</p><p>3 0.94950104 <a title="925-lda-3" href="../high_scalability-2013/high_scalability-2013-07-08-The_Architecture_Twitter_Uses_to_Deal_with_150M_Active_Users%2C_300K_QPS%2C_a_22_MB-S_Firehose%2C_and_Send_Tweets_in_Under_5_Seconds.html">1488 high scalability-2013-07-08-The Architecture Twitter Uses to Deal with 150M Active Users, 300K QPS, a 22 MB-S Firehose, and Send Tweets in Under 5 Seconds</a></p>
+<p>Introduction: Toy solutions solving Twitter’s “problems” are a favorite scalability trope. Everybody has this idea that Twitter is easy. With a little architectural hand waving we have a scalable Twitter, just that simple. Well, it’s not that simple as   Raffi Krikorian   , VP of Engineering at Twitter, describes in his superb and very detailed presentation on    Timelines at Scale   . If you want to know how Twitter works - then start here.  
+ 
+It happened gradually so you may have missed it, but Twitter has grown up. It started as a struggling   three-tierish Ruby on Rails    website to become a beautifully service driven core that we actually go to now to see if other services are down. Quite a change.  
+ 
+Twitter now has 150M world wide active users, handles 300K QPS to generate timelines, and a firehose that churns out 22 MB/sec. 400 million tweets a day flow through the system and it can take up to 5 minutes for a tweet to flow from Lady Gaga’s fingers to her 31 million followers.
+ 
+A couple o</p><p>4 0.94767159 <a title="925-lda-4" href="../high_scalability-2009/high_scalability-2009-06-05-HotPads_Shows_the_True_Cost_of_Hosting_on_Amazon.html">619 high scalability-2009-06-05-HotPads Shows the True Cost of Hosting on Amazon</a></p>
+<p>Introduction: Mather Corgan, president of HotPads,  gave a great talk  on how HotPads uses AWS to run their real estate search engine. I loved the presentation for a few reasons:
+  It gives real costs on on their servers, how many servers they have, what they are used for, and exactly how they use S2, EBS, CloudFront and other AWS services. This is great information for anybody trying to architect a system and wondering where to run it.    HotPads is a "real" application. It's a small company and at 4.5 million page-views/month it's large but not super large. It has custom server side components like indexing engines, image processing, and background database update engines for syncing new real estate data. And it also stores a lot of images and has low latency requirements.   This a really good example mix of where many companies are or would like to be with their applications.   Their total costs are about $11K/month, which is about what they were paying at their previous provider. I found this is</p><p>5 0.9387362 <a title="925-lda-5" href="../high_scalability-2012/high_scalability-2012-12-21-Stuff_The_Internet_Says_On_Scalability_For_December_21%2C_2012.html">1375 high scalability-2012-12-21-Stuff The Internet Says On Scalability For December 21, 2012</a></p>
+<p>Introduction: We at HighScalability are betting the over on the whole Mayan end of the world thingy:
+  
+ 200M:  monthly active Twitterers ; 120:  number of Netflix reencodings ; 1.2 Million Years:  Pr0n Watched Since 2006 ; 100M:  Google Core-Hours Awarded to Science  
+ 
+ Quotable Quotes:                                                                
+ 
+  @shipilev : I've settled on saying that if performance is the scalar field in state space, then scalability is just it's gradient. 
+  @AndiMann : "Only 1% of #Amazon users should care about #cloud scalability, elasticity". Brilliant!  
+  @Guerrero_FJ : Always remember: 'scalability problems should be solved when there are scalability problems.' #leanstartup 
+ 
+ 
+ 
+  Santa's Architecture : It's a little known fact that Santa Clause was an early queue innovator. Faced with the problem of delivering a planet full of presents in one night, Santa, in his hacker's workshop, created a Present Distribution System using thousands of region based priority pr</p><p>6 0.93794101 <a title="925-lda-6" href="../high_scalability-2012/high_scalability-2012-05-16-Big_List_of_20_Common_Bottlenecks.html">1246 high scalability-2012-05-16-Big List of 20 Common Bottlenecks</a></p>
 <p>7 0.93736488 <a title="925-lda-7" href="../high_scalability-2008/high_scalability-2008-04-21-The_Search_for_the_Source_of_Data_-_How_SimpleDB_Differs_from_a_RDBMS.html">306 high scalability-2008-04-21-The Search for the Source of Data - How SimpleDB Differs from a RDBMS</a></p>
 <p>8 0.93696022 <a title="925-lda-8" href="../high_scalability-2013/high_scalability-2013-01-02-Why_Pinterest_Uses_the_Cloud_Instead_of_Going_Solo_-_To_Be_Or_Not_To_Be.html">1380 high scalability-2013-01-02-Why Pinterest Uses the Cloud Instead of Going Solo - To Be Or Not To Be</a></p>
 <p>9 0.93617153 <a title="925-lda-9" href="../high_scalability-2009/high_scalability-2009-08-06-An_Unorthodox_Approach_to_Database_Design_%3A_The_Coming_of_the_Shard.html">672 high scalability-2009-08-06-An Unorthodox Approach to Database Design : The Coming of the Shard</a></p>

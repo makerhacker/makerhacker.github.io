@@ -16,24 +16,12 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>484 high scalability-2009-01-05-Lessons Learned at 208K: Towards Debugging Millions of Cores</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-484-html" href="http://highscalability.com//blog/2009/1/5/lessons-learned-at-208k-towards-debugging-millions-of-cores.html">html</a></p><p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a
-problem more will be seeing as we code big scary programs that run on even
-bigger scarier clouds. Logging gets you far, but sometimes finding the root
-cause of problem requires delving deep into a program's execution. I don't
-know about you, but setting up 200,000+ gdb instances doesn't sound all that
-appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to
-help with this huge task. STAT "gathers and merges stack traces from a
-parallel application's processes." So STAT isn't a low level debugger, but it
-will help you find the needle in a million haystacks.Abstract:Petascale
-systems will present several new challenges to performance and correctness
-tools. Such machines may contain millions of cores, requiring that tools use
-scalable data structures and analysis algorithms to collect and to process
-application data. In addition, at such scales, each tool itself will become a
-large parallel app</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 STAT "gathers and merges stack traces from a parallel application's processes. [sent-6, score-0.478]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-484-html" href="http://highscalability.com//blog/2009/1/5/lessons-learned-at-208k-towards-debugging-millions-of-cores.html">html</a></p><p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a problem more will be seeing as we code big scary programs that run on even bigger scarier clouds. Logging gets you far, but sometimes finding the root cause of problem requires delving deep into a program's execution. I don't know about you, but setting up 200,000+ gdb instances doesn't sound all that appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to help with this huge task. STAT "gathers and merges stack traces from a parallel applicationâ&euro;&trade;s processes." So STAT isn't a low level debugger, but it will help you find the needle in a million haystacks.  Abstract:
+  Petascale systems will present several new challenges to performance and correctness tools. Such machines may contain millions of cores, requiring that tools use scalable data structures and analysis algorithms to collect and to process application data. In addition, at such scales, each tool itself will become a large paralle</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 STAT "gathers and merges stack traces from a parallel applicationâ&euro;&trade;s processes. [sent-6, score-0.478]
 </p><p>2 " So STAT isn't a low level debugger, but it will help you find the needle in a million haystacks. [sent-7, score-0.17]
-</p><p>3 Abstract:Petascale systems will present several new challenges to performance and correctness tools. [sent-8, score-0.318]
+</p><p>3 Abstract:   Petascale systems will present several new challenges to performance and correctness tools. [sent-8, score-0.318]
 </p><p>4 Such machines may contain millions of cores, requiring that tools use scalable data structures and analysis algorithms to collect and to process application data. [sent-9, score-0.383]
-</p><p>5 In addition, at such scales, each tool itself will become a large parallel application - already, debugging the full BlueGene/L (BG/L) installation at the Lawrence Livermore National Laboratory requires employing 1664 tool daemons. [sent-10, score-0.784]
+</p><p>5 In addition, at such scales, each tool itself will become a large parallel application â&euro;&ldquo; already, debugging the full BlueGene/L (BG/L) installation at the Lawrence Livermore National Laboratory requires employing 1664 tool daemons. [sent-10, score-0.784]
 </p><p>6 To reach such sizes and beyond, tools must use a scalable communication infrastructure and manage their own tool processes efficiently. [sent-11, score-0.468]
 </p><p>7 Some system resources, such as the file system, may also become tool bottlenecks. [sent-12, score-0.327]
 </p><p>8 In this paper, we present challenges to petascale tool development, using the Stack Trace Analysis Tool (STAT) as a case study. [sent-13, score-0.83]
@@ -41,90 +29,38 @@ large parallel app</p><br/><h2>Summary: the most important sentenses genereted b
 </p><p>10 We use results gathered at thousands of tasks on an Infiniband cluster and results up to 208K processes on BG/L to identify current scalability issues as well as challenges that will be faced at the petascale. [sent-15, score-0.384]
 </p><p>11 We then present implemented solutions to these challenges and show the resulting performance improvements. [sent-16, score-0.249]
 </p><p>12 We also discuss future plans to meet the debugging demands of petascale machines. [sent-17, score-0.508]
-</p><p>13 Lessons LearnedAt the end of the paper they identify several insights they had about developing petascale tools:We find that sequential daemon launching becomes a bottleneck at this scale. [sent-18, score-0.829]
-</p><p>14 We improve both scalability andportability by eschewing ad hoc sequential launchers in favor of LaunchMON, a portable daemon spawner that integrates closely with native resource managers. [sent-19, score-0.355]
+</p><p>13 Lessons Learned    At the end of the paper they identify several insights they had about developing petascale tools:    We find that sequential daemon launching becomes a bottleneck at this scale. [sent-18, score-0.829]
+</p><p>14 We improve both scalability and portability by eschewing ad hoc sequential launchers in favor of LaunchMON, a portable daemon spawner that integrates closely with native resource managers. [sent-19, score-0.355]
 </p><p>15 As daemons run, we find that it is critical that they avoid data structures that represent, or even reserve space to represent, a global view. [sent-20, score-0.384]
-</p><p>16 Instead, we adopt a hierarchical representation that dramaticallyreduces data storage and transfer requirements at the fringes of the analysis tree. [sent-21, score-0.287]
+</p><p>16 Instead, we adopt a hierarchical representation that dramatically reduces data storage and transfer requirements at the fringes of the analysis tree. [sent-21, score-0.287]
 </p><p>17 We find that seemingly-independent operations across daemons can suffer scalability bottlenecks when accessing a shared resource, such as the file system. [sent-22, score-0.387]
 </p><p>18 Our scalable binary relocation service is able to optimize the file operations and reduce file system accesses to constant time regardless of system size. [sent-23, score-0.263]
 </p><p>19 Unsurprisingly these lessons aren't that much different than other builders of scalable programs have had to learn. [sent-24, score-0.224]
-</p><p>20 Related ArticlesLivermore Lab pioneers debugging toolby Jaob Jackson in Government Computer News. [sent-25, score-0.235]
+</p><p>20 Related Articles      Livermore Lab pioneers debugging tool  by Jaob Jackson in Government Computer News. [sent-25, score-0.466]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('stat', 0.408), ('petascale', 0.35), ('tool', 0.231), ('gathers', 0.195), ('debugging', 0.158), ('merges', 0.155), ('daemons', 0.146), ('trace', 0.141), ('traces', 0.139), ('challenges', 0.132), ('analysis', 0.128), ('identify', 0.12), ('daemon', 0.118), ('present', 0.117), ('represent', 0.115), ('stack', 0.102), ('tools', 0.101), ('sequential', 0.098), ('equivalence', 0.098), ('fringes', 0.098), ('gdb', 0.098), ('livermore', 0.098), ('file', 0.096), ('debugger', 0.092), ('lawrence', 0.092), ('jackson', 0.087), ('needle', 0.087), ('find', 0.083), ('programs', 0.083), ('structures', 0.083), ('parallel', 0.082), ('employing', 0.082), ('national', 0.079), ('laboratory', 0.077), ('pioneers', 0.077), ('hoc', 0.072), ('reserve', 0.072), ('scalable', 0.071), ('builders', 0.07), ('correctness', 0.069), ('lab', 0.067), ('gathered', 0.067), ('government', 0.067), ('integrates', 0.067), ('processes', 0.065), ('infiniband', 0.063), ('scary', 0.063), ('suffer', 0.062), ('representation', 0.061), ('paper', 0.06)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0 <a title="484-tfidf-1" href="../high_scalability-2009/high_scalability-2009-01-05-Lessons_Learned_at_208K%3A_Towards_Debugging_Millions_of_Cores.html">484 high scalability-2009-01-05-Lessons Learned at 208K: Towards Debugging Millions of Cores</a></p>
-<p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a
-problem more will be seeing as we code big scary programs that run on even
-bigger scarier clouds. Logging gets you far, but sometimes finding the root
-cause of problem requires delving deep into a program's execution. I don't
-know about you, but setting up 200,000+ gdb instances doesn't sound all that
-appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to
-help with this huge task. STAT "gathers and merges stack traces from a
-parallel application's processes." So STAT isn't a low level debugger, but it
-will help you find the needle in a million haystacks.Abstract:Petascale
-systems will present several new challenges to performance and correctness
-tools. Such machines may contain millions of cores, requiring that tools use
-scalable data structures and analysis algorithms to collect and to process
-application data. In addition, at such scales, each tool itself will become a
-large parallel app</p><p>2 0.16531959 <a title="484-tfidf-2" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
-<p>Introduction: Imagine a single search request coursing through Google's massive
-infrastructure. A single request can run across thousands of machines and
-involve hundreds of different subsystems. And oh by the way, you are
-processing more requests per second than any other system in the world. How do
-you debug such a system? How do you figure out where the problems are? How do
-you determine if programmers are coding correctly? How do you keep sensitive
-data secret and safe? How do ensure products don't use more resources than
-they are assigned? How do you store all the data? How do you make use of
-it?That's where Dapper comes in. Dapper is Google's tracing system and it was
-originally created to understand the system behaviour from a search request.
-Now Google's production clustersgenerate more than 1 terabyte of sampled trace
-data per day. So how does Dapper do what Dapper does?Dapper is described in an
-very well written and intricately detailed paper:Dapper, a Large-Scale
-Distributed Systems Traci</p><p>3 0.11033975 <a title="484-tfidf-3" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
-<p>Introduction: breakThis JoelOnSoftwarethreadasks the age old question of what and how to
-log. The usual trace/error/warning/info advice is totally useless in a large
-scale distributed system. Instead, you need tolog everything all the timeso
-you can solve problems that have already happened across a potentially huge
-range of servers. Yes, it can be done.To see why the typical logging approach
-is broken, imagine this scenario: Your site has been up and running great for
-weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some
-users can no longer add comments to threads. Then you hear the debugging
-deathknell: it's an intermittent problem and customers are pissed. Fix it.
-Now.So how are you going to debug this? The monitoring system doesn't show any
-obvious problems or errors. You quickly post a comment and it works fine. This
-won't be easy. So you think. Commenting involves a bunch of servers and
-networks. There's the load balancer, spam filter, web server, database server,
-caching s</p><p>4 0.099863358 <a title="484-tfidf-4" href="../high_scalability-2012/high_scalability-2012-07-04-Top_Features_of_a_Scalable_Database.html">1276 high scalability-2012-07-04-Top Features of a Scalable Database</a></p>
-<p>Introduction: This is a guest post by Douglas Wilson, EMEA Field Application Engineer at
-Raima, based on insights from biulding theirRaima Database Manager.Scalability
-and HardwareScalability is the ability to maintain performance as demands on
-the system increase, by adding further resources. Normally those resources
-will be in the form of hardware. Since processor speeds are no longer
-increasing much, scaling up the hardware normally means adding extra
-processors or cores, and more memory.Scalability and SoftwareHowever,
-scalability requires software that can utilize the extra hardware effectively.
-The software must be designed to allow parallel processing. In the context of
-a database engine this means that the server component must be multi-threaded,
-to allow the operating system to schedule parallel tasks on all the cores that
-are available. Not only that, but the database engine must provide an
-efficient way to break its workload into as many parallel tasks as there are
-cores. So, for example,</p><p>5 0.096864238 <a title="484-tfidf-5" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.How do you scale anAWS(Amazon Web Services) infrastructure?
-This article will give you a detailed reply in two parts: the tools you can
-use to make the most of Amazon's dynamic approach, and the architectural model
-you should adopt for a scalable infrastructure.I base my report on my
-experience gained in several AWS production projects in casual gaming
-(Facebook), e-commerce infrastructures and within the mainstream GIS
-(Geographic Information System). It's true that my experience in gaming
-(IsCool, The Game) is currently the most representative in terms of
-scalability, due to the number of users (over 800 thousand DAU - daily active
-users - at peak usage and over 20 million page views every day), however my
-experiences in e-commerce and GIS (currently underway) provide a different
-view of scalability, taking into account the various problems of availability
-and data management. I will therefore</p><p>6 0.095131874 <a title="484-tfidf-6" href="../high_scalability-2010/high_scalability-2010-03-30-Running_Large_Graph_Algorithms_-_Evaluation_of_Current_State-of-the-Art_and_Lessons_Learned.html">801 high scalability-2010-03-30-Running Large Graph Algorithms - Evaluation of Current State-of-the-Art and Lessons Learned</a></p>
+<p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a problem more will be seeing as we code big scary programs that run on even bigger scarier clouds. Logging gets you far, but sometimes finding the root cause of problem requires delving deep into a program's execution. I don't know about you, but setting up 200,000+ gdb instances doesn't sound all that appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to help with this huge task. STAT "gathers and merges stack traces from a parallel applicationâ&euro;&trade;s processes." So STAT isn't a low level debugger, but it will help you find the needle in a million haystacks.  Abstract:
+  Petascale systems will present several new challenges to performance and correctness tools. Such machines may contain millions of cores, requiring that tools use scalable data structures and analysis algorithms to collect and to process application data. In addition, at such scales, each tool itself will become a large paralle</p><p>2 0.16531959 <a title="484-tfidf-2" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
+<p>Introduction: Imagine a single search request coursing through Google's massive infrastructure. A single request can run across thousands of machines and involve hundreds of different subsystems. And oh by the way, you are processing more requests per second than any other system in the world. How do you debug such a system? How do you figure out where the problems are? How do you determine if programmers are coding correctly? How do you keep sensitive data secret and safe? How do ensure products don't use more resources than they are assigned? How do you store all the data? How do you make use of it?
+ 
+That's where Dapper comes in. Dapper is Google's tracing system and it was originally created to understand the system behaviour from a search request. Now Google's production clusters  generate more than 1 terabyte of sampled trace data per day . So how does Dapper do what Dapper does?
+ 
+Dapper is described in an very well written and intricately detailed paper:  Dapper, a Large-Scale Distributed Sy</p><p>3 0.11033975 <a title="484-tfidf-3" href="../high_scalability-2007/high_scalability-2007-08-30-Log_Everything_All_the_Time.html">77 high scalability-2007-08-30-Log Everything All the Time</a></p>
+<p>Introduction: This JoelOnSoftware  thread  asks the age old question of what and how to log. The usual trace/error/warning/info advice is totally useless in a large scale distributed system. Instead, you need to  log everything all the time  so you can solve problems that have already happened across a potentially huge range of servers. Yes, it can be done.  To see why the typical logging approach is broken,  imagine this scenario: Your site has been up and running great for weeks. No problems. A foreshadowing beeper goes off at 2AM. It seems some users can no longer add comments to threads. Then you hear the debugging deathknell: it's an intermittent problem and customers are pissed. Fix it. Now.  So how are you going to debug this? The monitoring system doesn't show any obvious problems or errors. You quickly post a comment and it works fine. This won't be easy. So you think. Commenting involves a bunch of servers and networks. There's the load balancer, spam filter,  web server, database server,</p><p>4 0.099863358 <a title="484-tfidf-4" href="../high_scalability-2012/high_scalability-2012-07-04-Top_Features_of_a_Scalable_Database.html">1276 high scalability-2012-07-04-Top Features of a Scalable Database</a></p>
+<p>Introduction: This is a guest post by Douglas Wilson, EMEA Field Application Engineer at Raima, based on insights from biulding their  Raima Database Manager . 
+   Scalability and Hardware   
+ Scalability is the ability to maintain performance as demands on the system increase, by adding further resources. Normally those resources will be in the form of hardware. Since processor speeds are no longer increasing much, scaling up the hardware normally means adding extra processors or cores, and more memory. 
+   Scalability and Software   
+ However, scalability requires software that can utilize the extra hardware effectively. The software must be designed to allow parallel processing. In the context of a database engine this means that the server component must be   multi-threaded  , to allow the operating system to schedule parallel tasks on all the cores that are available. Not only that, but the database engine must provide an efficient way to break its workload into as many parallel tasks as there</p><p>5 0.096864238 <a title="484-tfidf-5" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
+<p>Introduction: This is a guest post by    Frédéric Faure    (architect at    Ysance   ), you can follow him on    twitter   . 
+ 
+How do you scale an  AWS  (Amazon Web Services) infrastructure? This article will give you a detailed reply in two parts: the tools you can use to make the most of Amazon’s dynamic approach, and the architectural model you should adopt for a scalable infrastructure.
+ 
+I base my report on my experience gained in several AWS production projects in casual gaming (Facebook), e-commerce infrastructures and within the mainstream GIS (Geographic Information System). It’s true that my experience in gaming ( IsCool, The Game ) is currently the most representative in terms of scalability, due to the number of users (over 800 thousand DAU – daily active users – at peak usage and over 20 million page views every day), however my experiences in e-commerce and GIS (currently underway) provide a different view of scalability, taking into account the various problems of availability and da</p><p>6 0.095131874 <a title="484-tfidf-6" href="../high_scalability-2010/high_scalability-2010-03-30-Running_Large_Graph_Algorithms_-_Evaluation_of_Current_State-of-the-Art_and_Lessons_Learned.html">801 high scalability-2010-03-30-Running Large Graph Algorithms - Evaluation of Current State-of-the-Art and Lessons Learned</a></p>
 <p>7 0.086054191 <a title="484-tfidf-7" href="../high_scalability-2008/high_scalability-2008-11-22-Google_Architecture.html">448 high scalability-2008-11-22-Google Architecture</a></p>
 <p>8 0.08310426 <a title="484-tfidf-8" href="../high_scalability-2007/high_scalability-2007-09-18-Amazon_Architecture.html">96 high scalability-2007-09-18-Amazon Architecture</a></p>
 <p>9 0.080198348 <a title="484-tfidf-9" href="../high_scalability-2011/high_scalability-2011-12-22-Architecting_Massively-Scalable_Near-Real-Time_Risk_Analysis_Solutions.html">1161 high scalability-2011-12-22-Architecting Massively-Scalable Near-Real-Time Risk Analysis Solutions</a></p>
@@ -144,75 +80,39 @@ and data management. I will therefore</p><p>6 0.095131874 <a title="484-tfidf-6"
 <p>[(0, 0.154), (1, 0.03), (2, 0.001), (3, 0.031), (4, -0.011), (5, 0.037), (6, 0.05), (7, 0.023), (8, -0.039), (9, 0.034), (10, 0.026), (11, 0.002), (12, 0.041), (13, -0.031), (14, 0.019), (15, -0.024), (16, 0.031), (17, -0.006), (18, 0.01), (19, 0.042), (20, 0.037), (21, -0.018), (22, -0.033), (23, 0.03), (24, 0.004), (25, -0.012), (26, -0.041), (27, -0.015), (28, -0.008), (29, 0.015), (30, -0.01), (31, 0.001), (32, 0.022), (33, 0.035), (34, -0.031), (35, -0.003), (36, 0.01), (37, -0.021), (38, 0.028), (39, 0.039), (40, -0.046), (41, -0.016), (42, -0.032), (43, -0.019), (44, -0.011), (45, -0.018), (46, -0.067), (47, -0.01), (48, 0.025), (49, 0.034)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96588778 <a title="484-lsi-1" href="../high_scalability-2009/high_scalability-2009-01-05-Lessons_Learned_at_208K%3A_Towards_Debugging_Millions_of_Cores.html">484 high scalability-2009-01-05-Lessons Learned at 208K: Towards Debugging Millions of Cores</a></p>
-<p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a
-problem more will be seeing as we code big scary programs that run on even
-bigger scarier clouds. Logging gets you far, but sometimes finding the root
-cause of problem requires delving deep into a program's execution. I don't
-know about you, but setting up 200,000+ gdb instances doesn't sound all that
-appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to
-help with this huge task. STAT "gathers and merges stack traces from a
-parallel application's processes." So STAT isn't a low level debugger, but it
-will help you find the needle in a million haystacks.Abstract:Petascale
-systems will present several new challenges to performance and correctness
-tools. Such machines may contain millions of cores, requiring that tools use
-scalable data structures and analysis algorithms to collect and to process
-application data. In addition, at such scales, each tool itself will become a
-large parallel app</p><p>2 0.78586632 <a title="484-lsi-2" href="../high_scalability-2012/high_scalability-2012-04-26-Akaros_-_an_open_source_operating_system_for_manycore_architectures.html">1234 high scalability-2012-04-26-Akaros - an open source operating system for manycore architectures</a></p>
-<p>Introduction: If you are interested in future foward OS designs then you might find Akaros
-worth a look. It's an operating system designed for many-core architectures
-and large-scale SMP systems, with the goals of:Providing better support for
-parallel and high-performance applicationsScaling the operating system to a
-large number of cores A more indepth explanation of the motiviation behind
-Akaros can be found inImproving Per-Node Efﬁciency in the Datacenter with
-NewOS Abstractions by Barret Rhoden, Kevin Klues, David Zhu, and Eric
-Brewer.The abstract:We believe datacenters can beneﬁt from more focus on per-
-node efﬁciency, performance, and predictability, versus the more common focus
-so far on scalability to a large number of nodes. Improving per-node efﬁciency
-decreases costs and fault recovery because fewer nodes are required for the
-same amount of work. We believe that the use of complex, general-purpose
-operating systems is a key contributing factor to these inefﬁciencies.
-Traditional operating</p><p>3 0.75561422 <a title="484-lsi-3" href="../high_scalability-2011/high_scalability-2011-05-12-Paper%3A_Mind_the_Gap%3A_Reconnecting_Architecture_and_OS_Research.html">1039 high scalability-2011-05-12-Paper: Mind the Gap: Reconnecting Architecture and OS Research</a></p>
-<p>Introduction: Mind the Gap: Reconnecting Architecture and OS Research is a paper presented
-atHotOS XIII, the place where researchers talk about making potential futures
-happen. For a great overview of the conference take a look at this article by
-Matt Welsh: Conference report: HotOS 2011 in Napa.In the VM/cloud age I
-question the need of having an OS at all, programs can compile directly
-against "raw" hardware, but the paper does a good job of trying to figure out
-the new roll operating systems can play in the future. We've been in a long OS
-holding pattern, so long that we've seen the rise of PaaS vendors skipping the
-OS level abstraction completely, but there's room for a middle ground between
-legacy time sharing systems of the past and service level APIs that are but
-one possible future.Introduction:For too long, operating systems researchers
-and developers have pretty much taken whatever computer architects have dished
-out. With occasional exceptions (e.g., virtualization support), architecture</p><p>4 0.73047507 <a title="484-lsi-4" href="../high_scalability-2008/high_scalability-2008-12-05-Sprinkle_-_Provisioning_Tool_to_Build_Remote_Servers.html">461 high scalability-2008-12-05-Sprinkle - Provisioning Tool to Build Remote Servers</a></p>
-<p>Introduction: At37 SignalsJoshua Sierles describes how 37 Signals usesSprinkleto configure
-their servers within EC2. Sprinkledefines a domain specific meta-language for
-describing and processing the installation of software. You can find an
-interesting discussion of Sprinkle's creation story by the creator himself,
-Marcus Crafter, inSprinkle Some Powder!.Marcus divides provisioning tools into
-two categories:Task Based- the tool issues a list of commands to run on the
-remote system, either remotely via a network connection or smart
-client.Policy/state Based- the tool determines what needs to be run on the
-remote system by examining its current and final state.Sprinkle combines both
-models together in a chocolate-in-my-peanut-butter approach using normal Ruby
-code as the DSL (domain specific language) to declaratively describe remote
-system configurations. 37 Signals likes the use of Ruby as the DSL because it
-makes learning a separate syntax unnecessary. I've successfully done similar
-things in Perl.</p><p>5 0.71406484 <a title="484-lsi-5" href="../high_scalability-2013/high_scalability-2013-10-25-Stuff_The_Internet_Says_On_Scalability_For_October_25th%2C_2013.html">1537 high scalability-2013-10-25-Stuff The Internet Says On Scalability For October 25th, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:Test your sense of scale. Is this image of
-something microscopic or macroscopic?Find out.$465m: Amount lost in 45 minutes
-due to asoftware bug. Where? Where else...the finance industry.Quotable
-Quotes:FCC: Fiber-to-the-home, on average, has the best performance in terms
-of latency, with 18 ms average during the peak period, with cable having 26 ms
-latency and DSL 44 ms latency.@CompSciFact: "About 1,000 instructions is a
-reasonable upper limit for the complexity of problems now envisioned." -- John
-von Neumann, 1946@anildash: healthcare.gov got 20M unique visitors in 20 days,
-faster than Google+ launch. Took Pinterest 2 years & BuzzFeed 4 years to hit
-20M.Thomas A. Edison: I start where the last man left off.@brycebaril: I've
-never had a tech conference toy with my emotions like this year's
-#realtimeconfGreat explanation of the Netflix people don't know, their CDN.
-Chaos Kong is Coming: A Look At The Global Cloud and CDN Powering Netflix:
-Netflix sees abo</p><p>6 0.70904452 <a title="484-lsi-6" href="../high_scalability-2013/high_scalability-2013-02-19-Puppet_monitoring%3A_how_to_monitor_the_success_or_failure_of_Puppet_runs__.html">1408 high scalability-2013-02-19-Puppet monitoring: how to monitor the success or failure of Puppet runs  </a></p>
+<p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a problem more will be seeing as we code big scary programs that run on even bigger scarier clouds. Logging gets you far, but sometimes finding the root cause of problem requires delving deep into a program's execution. I don't know about you, but setting up 200,000+ gdb instances doesn't sound all that appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to help with this huge task. STAT "gathers and merges stack traces from a parallel applicationâ&euro;&trade;s processes." So STAT isn't a low level debugger, but it will help you find the needle in a million haystacks.  Abstract:
+  Petascale systems will present several new challenges to performance and correctness tools. Such machines may contain millions of cores, requiring that tools use scalable data structures and analysis algorithms to collect and to process application data. In addition, at such scales, each tool itself will become a large paralle</p><p>2 0.78586632 <a title="484-lsi-2" href="../high_scalability-2012/high_scalability-2012-04-26-Akaros_-_an_open_source_operating_system_for_manycore_architectures.html">1234 high scalability-2012-04-26-Akaros - an open source operating system for manycore architectures</a></p>
+<p>Introduction: If you are interested in future foward OS designs then you might find  Akaros  worth a look. It's an operating system designed for many-core architectures and large-scale SMP systems, with the goals of:
+  
+ Providing better support for parallel and high-performance applications 
+ Scaling the operating system to a large number of cores  
+  
+A more indepth explanation of the motiviation behind Akaros can be found in  Improving Per-Node Efﬁciency in the Datacenter with NewOS Abstractions  by Barret Rhoden, Kevin Klues, David Zhu, and Eric Brewer.
+ 
+The abstract:
+  We believe datacenters can beneﬁt from more focus on per-node efﬁciency, performance, and predictability, versus the more common focus so far on scalability to a large number of nodes. Improving per-node efﬁciency decreases costs and fault recovery because fewer nodes are required for the same amount of work. We believe that the use of complex, general-purpose operating systems is a key contributing factor to these inefﬁciencies</p><p>3 0.75561422 <a title="484-lsi-3" href="../high_scalability-2011/high_scalability-2011-05-12-Paper%3A_Mind_the_Gap%3A_Reconnecting_Architecture_and_OS_Research.html">1039 high scalability-2011-05-12-Paper: Mind the Gap: Reconnecting Architecture and OS Research</a></p>
+<p>Introduction: Mind the Gap: Reconnecting Architecture and OS Research  is a paper presented at  HotOS XIII , the place where researchers talk about making potential futures happen. For a great overview of the conference take a look at this article by Matt Welsh:  Conference report: HotOS 2011 in Napa .
+ 
+In the VM/cloud age I question the need of having an OS at all, programs can compile directly against "raw" hardware, but the paper does a good job of trying to figure out the new roll operating systems can play in the future. We've been in a long OS holding pattern, so long that we've seen the rise of PaaS vendors skipping the OS level abstraction completely, but there's room for a middle ground between legacy time sharing systems of the past and service level APIs that are but one possible future.
+ 
+Introduction:
+  For too long, operating systems researchers and developers have pretty much taken whatever computer architects have dished out. With occasional exceptions (e.g., virtualization support)</p><p>4 0.73047507 <a title="484-lsi-4" href="../high_scalability-2008/high_scalability-2008-12-05-Sprinkle_-_Provisioning_Tool_to_Build_Remote_Servers.html">461 high scalability-2008-12-05-Sprinkle - Provisioning Tool to Build Remote Servers</a></p>
+<p>Introduction: At  37 Signals  Joshua Sierles describes how 37 Signals uses  Sprinkle  to configure their servers within EC2. Sprinkle  defines a domain specific meta-language for describing and processing the installation of software . You can find an interesting discussion of Sprinkle's creation story by the creator himself, Marcus Crafter, in  Sprinkle Some Powder! .  Marcus divides provisioning tools into two categories:
+    Task Based  - the tool issues a list of commands to run on the remote system, either remotely via a network connection or smart client.     Policy/state Based  - the tool determines what needs to be run on the remote system by examining its current and final state.  Sprinkle combines both models together in a chocolate-in-my-peanut-butter approach using normal Ruby code as the DSL (domain specific language) to declaratively describe remote system configurations. 37 Signals likes the use of Ruby as the DSL because it makes learning a separate syntax unnecessary. I've successfu</p><p>5 0.71406484 <a title="484-lsi-5" href="../high_scalability-2013/high_scalability-2013-10-25-Stuff_The_Internet_Says_On_Scalability_For_October_25th%2C_2013.html">1537 high scalability-2013-10-25-Stuff The Internet Says On Scalability For October 25th, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    Test your sense of scale. Is this image of something microscopic or macroscopic?  Find out .   
+  $465m : Amount lost in 45 minutes due to a  software bug . Where? Where else...the finance industry. 
+ Quotable Quotes:                                                          
+ 
+  FCC : Fiber-to-the-home, on average, has the best performance in terms of latency, with 18 ms average during the peak period, with cable having 26 ms latency and DSL 44 ms latency. 
+  @CompSciFact : "About 1,000 instructions is a reasonable upper limit for the complexity of problems now envisioned." -- John von Neumann, 1946  
+  @anildash : healthcare.gov got 20M unique visitors in 20 days, faster than Google+ launch. Took Pinterest 2 years & BuzzFeed 4 years to hit 20M. 
+ Thomas A. Edison: I start where the last man left off. 
+  @brycebaril : I've never had a tech conference toy with my emotions like this year's #realtimeconf 
+ 
+ 
+ 
+ Great explanation of the Netflix people d</p><p>6 0.70904452 <a title="484-lsi-6" href="../high_scalability-2013/high_scalability-2013-02-19-Puppet_monitoring%3A_how_to_monitor_the_success_or_failure_of_Puppet_runs__.html">1408 high scalability-2013-02-19-Puppet monitoring: how to monitor the success or failure of Puppet runs  </a></p>
 <p>7 0.70872349 <a title="484-lsi-7" href="../high_scalability-2009/high_scalability-2009-09-09-GridwiseTech_revolutionizes_data_management.html">697 high scalability-2009-09-09-GridwiseTech revolutionizes data management</a></p>
 <p>8 0.70842385 <a title="484-lsi-8" href="../high_scalability-2011/high_scalability-2011-09-28-Pursue_robust_indefinite_scalability_with_the_Movable_Feast_Machine.html">1127 high scalability-2011-09-28-Pursue robust indefinite scalability with the Movable Feast Machine</a></p>
 <p>9 0.70769215 <a title="484-lsi-9" href="../high_scalability-2010/high_scalability-2010-04-27-Paper%3A__Dapper%2C_Google%27s_Large-Scale_Distributed_Systems_Tracing_Infrastructure.html">815 high scalability-2010-04-27-Paper:  Dapper, Google's Large-Scale Distributed Systems Tracing Infrastructure</a></p>
@@ -232,76 +132,28 @@ Netflix sees abo</p><p>6 0.70904452 <a title="484-lsi-6" href="../high_scalabili
 <p>[(1, 0.231), (2, 0.143), (10, 0.054), (16, 0.218), (30, 0.032), (56, 0.022), (61, 0.043), (77, 0.012), (79, 0.079), (85, 0.028), (94, 0.034)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.91145986 <a title="484-lda-1" href="../high_scalability-2009/high_scalability-2009-01-05-Lessons_Learned_at_208K%3A_Towards_Debugging_Millions_of_Cores.html">484 high scalability-2009-01-05-Lessons Learned at 208K: Towards Debugging Millions of Cores</a></p>
-<p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a
-problem more will be seeing as we code big scary programs that run on even
-bigger scarier clouds. Logging gets you far, but sometimes finding the root
-cause of problem requires delving deep into a program's execution. I don't
-know about you, but setting up 200,000+ gdb instances doesn't sound all that
-appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to
-help with this huge task. STAT "gathers and merges stack traces from a
-parallel application's processes." So STAT isn't a low level debugger, but it
-will help you find the needle in a million haystacks.Abstract:Petascale
-systems will present several new challenges to performance and correctness
-tools. Such machines may contain millions of cores, requiring that tools use
-scalable data structures and analysis algorithms to collect and to process
-application data. In addition, at such scales, each tool itself will become a
-large parallel app</p><p>2 0.88343018 <a title="484-lda-2" href="../high_scalability-2008/high_scalability-2008-09-23-Event%3A_CloudCamp_Silicon_Valley_Unconference_on_30th_September.html">388 high scalability-2008-09-23-Event: CloudCamp Silicon Valley Unconference on 30th September</a></p>
-<p>Introduction: CloudCampis an interesting unconference where early adapters of Cloud
-Computing technologies exchange ideas. With the rapid change occurring in the
-industry, we need a place we can meet to share our experiences, challenges and
-solutions. At CloudCamp, you are encouraged you to share your thoughts in
-several open discussions, as we strive for the advancement of Cloud Computing.
-End users, IT professionals and vendors are all encouraged to
-participate.CloudCamp Silicon Valley 08is scheduled for Tuesday, September 30,
-2008 from 06:00 PM - 10:00 PM in Sun Microsystems' EBC Briefing Center15
-Network CircleMenlo Park, CA 94025CloudCamp follows an interactive, unscripted
-unconference format. You can propose your own session or you can attend a
-session proposed by someone else. Either way, you are encouraged to engage in
-the discussion and “Vote with your feet”, which means … “find another session
-if you don’t find the session helpful”. Pick and choose from the
-conversations; rant and rave, or</p><p>3 0.88112086 <a title="484-lda-3" href="../high_scalability-2014/high_scalability-2014-04-30-10_Tips_for_Optimizing_NGINX_and_PHP-fpm_for_High_Traffic_Sites.html">1640 high scalability-2014-04-30-10 Tips for Optimizing NGINX and PHP-fpm for High Traffic Sites</a></p>
-<p>Introduction: Adrian Singer has boiled down 7 years of experience to a set of 10 very useful
-tips on how to bestoptimize NGINX and PHP-fpm for high traffic sites:Switch
-from TCP to UNIX domain sockets. When communicating to processes on the same
-machine UNIX sockets have better performance the TCP because there's less
-copying and fewer context switches.Adjust Worker Processes. Set the
-worker_processes in your nginx.conf file to the number of cores your machine
-has and  increase the number of worker_connections.Setup upstream load
-balancing. Multiple upstream backends on the same machine produce higher
-throughout than a single one.Disable access log files. Log files on high
-traffic sites involve a lot of I/O that has to be synchronized across all
-threads. Can have a big impact.Enable GZip. Cache information about frequently
-accessed files. Adjust client timeouts.Adjust output buffers./etc/sysctl.conf
-tuning.Monitor. Continually monitor the number of open connections, free
-memory and number of waiting</p><p>4 0.87084931 <a title="484-lda-4" href="../high_scalability-2007/high_scalability-2007-07-31-Book%3A_Scalable_Internet_Architectures.html">51 high scalability-2007-07-31-Book: Scalable Internet Architectures</a></p>
-<p>Introduction: As a developer, you are aware of the increasing concern amongst developers and
-site architects that websites be able to handle the vast number of visitors
-that flood the Internet on a daily basis. Scalable Internet Architecture
-addresses these concerns by teaching you both good and bad design
-methodologies for building new sites and how to scale existing websites to
-robust, high-availability websites. Primarily example-based, the book
-discusses major topics in web architectural design, presenting existing
-solutions and how they work. Technology budget tight? This book will work for
-you, too, as it introduces new and innovative concepts to solving
-traditionally expensive problems without a large technology budget. Using open
-source and proprietary examples, you will be engaged in best practice design
-methodologies for building new sites, as well as appropriately scaling both
-growing and shrinking sites. Website development help has arrived in the form
-of Scalable Internet Architecture.</p><p>5 0.82424086 <a title="484-lda-5" href="../high_scalability-2011/high_scalability-2011-07-20-Netflix%3A_Harden_Systems_Using_a_Barrel_of_Problem_Causing_Monkeys_-_Latency%2C_Conformity%2C_Doctor%2C_Janitor%2C_Security%2C_Internationalization%2C_Chaos.html">1083 high scalability-2011-07-20-Netflix: Harden Systems Using a Barrel of Problem Causing Monkeys - Latency, Conformity, Doctor, Janitor, Security, Internationalization, Chaos</a></p>
-<p>Introduction: With a new Planet of the Apes coming out, this may be a touchy subject with
-our new overlords, but Netflix is using a whole lot more trouble injecting
-monkeys to test and iteratively harden their systems. We learned previously
-how Netflix used Chaos Monkey, a tool to test failover handling by
-continuously failing EC2 nodes. That was just a start. More monkeys have been
-added to the barrel. Node failure is just one problem in a system. Imagine a
-problem and you can imagine creating a monkey to test if your system is
-handling that problem properly. Yury Izrailevsky talks about just this
-approach in this very interesting post: The Netflix Simian Army.I know what
-you are thinking, if monkeys are so great then why has Netflix been down
-lately. Dmuino addressedthis potential embarrassment, putting all fears of
-cloud inferiority to rest:Unfortunately we're not running 100% on the cloud
-today. We're working on it, and we could use more help. The latest outage was
-caused by a component that sti</p><p>6 0.81776124 <a title="484-lda-6" href="../high_scalability-2010/high_scalability-2010-03-09-Applications_as_Virtual_States.html">790 high scalability-2010-03-09-Applications as Virtual States</a></p>
+<p>Introduction: How do we debug and profile a cloud full of processors and threads? It's a problem more will be seeing as we code big scary programs that run on even bigger scarier clouds. Logging gets you far, but sometimes finding the root cause of problem requires delving deep into a program's execution. I don't know about you, but setting up 200,000+ gdb instances doesn't sound all that appealing. Tools like STAT (Stack Trace Analysis Tool) are being developed to help with this huge task. STAT "gathers and merges stack traces from a parallel applicationâ&euro;&trade;s processes." So STAT isn't a low level debugger, but it will help you find the needle in a million haystacks.  Abstract:
+  Petascale systems will present several new challenges to performance and correctness tools. Such machines may contain millions of cores, requiring that tools use scalable data structures and analysis algorithms to collect and to process application data. In addition, at such scales, each tool itself will become a large paralle</p><p>2 0.88343018 <a title="484-lda-2" href="../high_scalability-2008/high_scalability-2008-09-23-Event%3A_CloudCamp_Silicon_Valley_Unconference_on_30th_September.html">388 high scalability-2008-09-23-Event: CloudCamp Silicon Valley Unconference on 30th September</a></p>
+<p>Introduction: CloudCamp   is an interesting unconference where early adapters of Cloud Computing technologies exchange ideas. With the rapid change occurring in the industry, we need a place we can meet to share our experiences, challenges and solutions. At CloudCamp, you are encouraged you to share your thoughts in several open discussions, as we strive for the advancement of Cloud Computing. End users, IT professionals and vendors are all encouraged to participate.      CloudCamp Silicon Valley 08   is scheduled for Tuesday, September 30, 2008 from 06:00 PM - 10:00 PM in Sun Microsystems' EBC Briefing Center   15 Network Circle   Menlo Park, CA 94025     CloudCamp follows an interactive, unscripted unconference format. You can propose your own session or you can attend a session proposed by someone else. Either way, you are encouraged to engage in the discussion and “Vote with your feet”, which means … “find another session if you don’t find the session helpful”. Pick and choose from the conversat</p><p>3 0.88112086 <a title="484-lda-3" href="../high_scalability-2014/high_scalability-2014-04-30-10_Tips_for_Optimizing_NGINX_and_PHP-fpm_for_High_Traffic_Sites.html">1640 high scalability-2014-04-30-10 Tips for Optimizing NGINX and PHP-fpm for High Traffic Sites</a></p>
+<p>Introduction: Adrian Singer has boiled down 7 years of experience to a set of 10 very useful tips on how to best  optimize NGINX and PHP-fpm for high traffic sites :
+  
+  Switch from TCP to UNIX domain sockets . When communicating to processes on the same machine UNIX sockets have better performance the TCP because there's less copying and fewer context switches. 
+  Adjust Worker Processes . Set the worker_processes in your nginx.conf file to the number of cores your machine has and  increase the number of worker_connections. 
+  Setup upstream load balancing . Multiple upstream backends on the same machine produce higher throughout than a single one. 
+  Disable access log files . Log files on high traffic sites involve a lot of I/O that has to be synchronized across all threads. Can have a big impact. 
+  Enable GZip .  
+  Cache information about frequently accessed files .  
+  Adjust client timeouts . 
+  Adjust output buffers . 
+  /etc/sysctl.conf tuning . 
+  Monitor . Continually monitor the number</p><p>4 0.87084931 <a title="484-lda-4" href="../high_scalability-2007/high_scalability-2007-07-31-Book%3A_Scalable_Internet_Architectures.html">51 high scalability-2007-07-31-Book: Scalable Internet Architectures</a></p>
+<p>Introduction: As a developer, you are aware of the increasing concern amongst developers and site architects that websites be able to handle the vast number of visitors that flood the Internet on a daily basis. Scalable Internet Architecture addresses these concerns by teaching you both good and bad design methodologies for building new sites and how to scale existing websites to robust, high-availability websites. Primarily example-based, the book discusses major topics in web architectural design, presenting existing solutions and how they work. Technology budget tight? This book will work for you, too, as it introduces new and innovative concepts to solving traditionally expensive problems without a large technology budget. Using open source and proprietary examples, you will be engaged in best practice design methodologies for building new sites, as well as appropriately scaling both growing and shrinking sites. Website development help has arrived in the form of Scalable Internet Architecture.</p><p>5 0.82424086 <a title="484-lda-5" href="../high_scalability-2011/high_scalability-2011-07-20-Netflix%3A_Harden_Systems_Using_a_Barrel_of_Problem_Causing_Monkeys_-_Latency%2C_Conformity%2C_Doctor%2C_Janitor%2C_Security%2C_Internationalization%2C_Chaos.html">1083 high scalability-2011-07-20-Netflix: Harden Systems Using a Barrel of Problem Causing Monkeys - Latency, Conformity, Doctor, Janitor, Security, Internationalization, Chaos</a></p>
+<p>Introduction: With a new Planet of the Apes coming out, this may be a touchy subject with our new overlords, but Netflix is using a whole lot more trouble injecting monkeys to test and iteratively harden their systems. We learned previously how Netflix used  Chaos Monkey , a tool to test failover handling by continuously failing EC2 nodes. That was just a start. More monkeys have been added to the barrel. Node failure is just one problem in a system. Imagine a problem and you can imagine creating a monkey to test if your system is handling that problem properly. Yury Izrailevsky talks about just this approach in this very interesting post:  The Netflix Simian Army .
+ 
+I know what you are thinking, if monkeys are so great then why has Netflix been down lately.  Dmuino addressed  this potential embarrassment, putting all fears of cloud inferiority to rest:
+  
+
+Unfortunately we're not running 100% on the cloud today. We're working on it, and we could use more help. The latest outage was caused by a com</p><p>6 0.81776124 <a title="484-lda-6" href="../high_scalability-2010/high_scalability-2010-03-09-Applications_as_Virtual_States.html">790 high scalability-2010-03-09-Applications as Virtual States</a></p>
 <p>7 0.80349141 <a title="484-lda-7" href="../high_scalability-2011/high_scalability-2011-07-01-Stuff_The_Internet_Says_On_Scalability_For_July_1%2C_2011.html">1071 high scalability-2011-07-01-Stuff The Internet Says On Scalability For July 1, 2011</a></p>
 <p>8 0.80180585 <a title="484-lda-8" href="../high_scalability-2014/high_scalability-2014-01-14-Ask_HS%3A_Design_and_Implementation_of_scalable_services%3F.html">1578 high scalability-2014-01-14-Ask HS: Design and Implementation of scalable services?</a></p>
 <p>9 0.7997402 <a title="484-lda-9" href="../high_scalability-2008/high_scalability-2008-11-14-Private-Public_Cloud.html">444 high scalability-2008-11-14-Private-Public Cloud</a></p>

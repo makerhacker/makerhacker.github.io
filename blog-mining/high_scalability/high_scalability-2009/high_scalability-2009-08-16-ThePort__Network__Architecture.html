@@ -16,28 +16,18 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>682 high scalability-2009-08-16-ThePort  Network  Architecture</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-682-html" href="http://highscalability.com//blog/2009/8/16/theport-network-architecture.html">html</a></p><p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to
-share some of the architectural details for their white label social media
-system. It currently runs about 50 social networks varying in size from less
-than 1000 members to more than 300,000 members, all on a Microsoft stack. In
-addition to their social networking platform, they offer Javascript APIs and
-web service APIs (both REST and SOAP) which account for a significant
-percentage of overall system usage.ThePort is an excellent example of a real
-world in-the-trenches product offering real value to customers. One of the
-most interesting problems they have to solve is multi-tenancy. How do you
-provide good performance, complete customization, support, develop new
-features, and provide individual search indexes for each customer? It's not an
-easy problem to solve.How did they solve their problems and build a successful
-system? Site: http://theport.comPlatformMicrosoft.NET 3.5C# / VB.NETSQL Server
-2005Visual S</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In addition to their social networking platform, they offer Javascript APIs and web service APIs (both REST and SOAP) which account for a significant percentage of overall system usage. [sent-3, score-0.231]
-</p><p>2 NETSQL Server 2005Visual Studio 2008 Pro EditionPrototypeSubversionTortoiseSVNTrac (for internal defect tracking. [sent-13, score-0.159]
-</p><p>3 We initially looked at MemCacheD but our internal benchmarking indicated SharedCache had better performance - at least w/in a Microsoft environment. [sent-19, score-0.218]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-682-html" href="http://highscalability.com//blog/2009/8/16/theport-network-architecture.html">html</a></p><p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to share some of the architectural details for their white label social media system. It currently runs about 50 social networks varying in size from less than 1000 members to more than 300,000 members, all on a Microsoft stack. In addition to their social networking platform, they offer Javascript APIs and web service APIs (both REST and SOAP) which account for a significant percentage of overall system usage.  ThePort is an excellent example of a real world in-the-trenches product offering real value to customers.  One of the most interesting problems they have to solve is multi-tenancy. How do you provide good performance, complete customization, support, develop new features, and provide individual search indexes for each customer? It's not an easy problem to solve.  How did they solve their problems and build a successful system? 
+ 
+Site: http://theport.com
+  Platform    Microsoft.NET 3.5    C# / VB.NET</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In addition to their social networking platform, they offer Javascript APIs and web service APIs (both REST and SOAP) which account for a significant percentage of overall system usage. [sent-3, score-0.231]
+</p><p>2 NET    SQL Server 2005     Visual Studio 2008 Pro Edition    Prototype    Subversion    TortoiseSVN    Trac (for internal defect tracking. [sent-13, score-0.159]
+</p><p>3 We initially looked at MemCacheD but our internal benchmarking indicated SharedCache had better performance – at least w/in a Microsoft environment. [sent-19, score-0.218]
 </p><p>4 NET's wildcard search was a little buggy in our initial beta testing. [sent-22, score-0.23]
 </p><p>5 Getting a new machine (2 quad cores with 16 GB of RAM) helped reduce the latency to less than a second. [sent-32, score-0.179]
 </p><p>6 Allowing CSS control isn't enough; we needed a templating system that allows total control over the site. [sent-38, score-0.394]
 </p><p>7 We built a proprietary templating system that unfortunately became too limiting and would one day lead to a drag on performance. [sent-43, score-0.453]
 </p><p>8 This made XSLT a natural choice from the templating angle. [sent-46, score-0.307]
-</p><p>9 XSLT as Custom Templating SystemBuilding a templating system in XSLT that actually allows the template author to make a web service call to our internal web service layer (or external web services) straight from the templating system. [sent-50, score-0.988]
+</p><p>9 XSLT as Custom Templating System  Building a templating system in XSLT that actually allows the template author to make a web service call to our internal web service layer (or external web services) straight from the templating system. [sent-50, score-0.988]
 </p><p>10 What we've found in our internal testing is that these extension objects scale way better than our previous templating system (a homegrown proprietary system). [sent-53, score-0.841]
 </p><p>11 For now, we make the internal web services calls via HTTP, but we will soon be moving this to a TCP call to take advantage of the better connection pooling offered by TCP. [sent-56, score-0.219]
 </p><p>12 For instance, if we needed a collection of comments, previously we'd hit the database for the 5, 10, 100, etc comments we wanted, do the sorting / filtering in the DB, return a single dataset, cache that, and then display. [sent-60, score-0.17]
@@ -45,7 +35,7 @@ system? Site: http://theport.comPlatformMicrosoft.NET 3.5C# / VB.NETSQL Server
 </p><p>14 Given the growth of our templating system mentioned above, we realized it was best to truly separate the tiers into discrete areas. [sent-69, score-0.478]
 </p><p>15 Since our application is easily accessed via a set of REST APIs and our own internal skinning system (and who knows what in the future), dividing the application like this gives us a lot of leeway in being able to swap out components. [sent-70, score-0.246]
 </p><p>16 We think this system will work for the near to mid term but long term, we'll take advantage of a queuing system to keep the index in sync. [sent-78, score-0.373]
-</p><p>17 1 platform architect responsible for overall system architecture (selecting which systems to use, tuning them), 1 lead software architect, and 3 senior - mid level developers. [sent-81, score-0.176]
+</p><p>17 1 platform architect responsible for overall system architecture (selecting which systems to use, tuning them), 1 lead software architect, and 3 senior – mid level developers. [sent-81, score-0.176]
 </p><p>18 Since we're a start-up in a fast evolving market (social media) we find that we're constantly having to adjust to market demands and the latest in social functionality. [sent-82, score-0.238]
 </p><p>19 Internally we use Trac for bug tracking and devote roughly 20% of our week maintaining, supporting, and fixing issues. [sent-98, score-0.176]
 </p><p>20 Our next step will be to set up TCP and MSMQ bindings with WCF to handle our internal service requests and queuing, respectively. [sent-109, score-0.306]
@@ -55,48 +45,14 @@ system? Site: http://theport.comPlatformMicrosoft.NET 3.5C# / VB.NETSQL Server
 <p>[('templating', 0.307), ('xslt', 0.213), ('dell', 0.186), ('wcf', 0.176), ('lucene', 0.168), ('gb', 0.162), ('msmq', 0.16), ('internal', 0.159), ('sharedcache', 0.117), ('tj', 0.117), ('queuing', 0.11), ('comments', 0.109), ('quad', 0.101), ('buggy', 0.092), ('mid', 0.089), ('bug', 0.088), ('fixing', 0.088), ('ram', 0.087), ('system', 0.087), ('apis', 0.085), ('found', 0.085), ('discrete', 0.084), ('bindings', 0.083), ('social', 0.08), ('market', 0.079), ('helped', 0.078), ('sql', 0.076), ('objects', 0.076), ('additionally', 0.072), ('move', 0.071), ('search', 0.071), ('considerable', 0.071), ('processors', 0.07), ('tier', 0.07), ('tcp', 0.07), ('accomplish', 0.068), ('extension', 0.068), ('beta', 0.067), ('blade', 0.067), ('overcome', 0.065), ('retrieve', 0.065), ('solr', 0.064), ('service', 0.064), ('db', 0.063), ('configurable', 0.062), ('cache', 0.061), ('calls', 0.06), ('proprietary', 0.059), ('looked', 0.059), ('members', 0.058)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="682-tfidf-1" href="../high_scalability-2009/high_scalability-2009-08-16-ThePort__Network__Architecture.html">682 high scalability-2009-08-16-ThePort  Network  Architecture</a></p>
-<p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to
-share some of the architectural details for their white label social media
-system. It currently runs about 50 social networks varying in size from less
-than 1000 members to more than 300,000 members, all on a Microsoft stack. In
-addition to their social networking platform, they offer Javascript APIs and
-web service APIs (both REST and SOAP) which account for a significant
-percentage of overall system usage.ThePort is an excellent example of a real
-world in-the-trenches product offering real value to customers. One of the
-most interesting problems they have to solve is multi-tenancy. How do you
-provide good performance, complete customization, support, develop new
-features, and provide individual search indexes for each customer? It's not an
-easy problem to solve.How did they solve their problems and build a successful
-system? Site: http://theport.comPlatformMicrosoft.NET 3.5C# / VB.NETSQL Server
-2005Visual S</p><p>2 0.16507751 <a title="682-tfidf-2" href="../high_scalability-2007/high_scalability-2007-12-28-Amazon%27s_EC2%3A_Pay_as_You_Grow_Could_Cut_Your_Costs_in_Half.html">195 high scalability-2007-12-28-Amazon's EC2: Pay as You Grow Could Cut Your Costs in Half</a></p>
-<p>Introduction: Update 2: SummizeComputes Computing Resources for a Startup. Lots of nice
-graphs showing Amazon is hard to beat for small machines and become less cost
-efficient for well used larger machines. Long term storage costs may eat your
-saving away. And out of cloud bandwidth costs are high.Update:
-viaProductionScale, a nice Digital Web article onhow to setup S3 to store
-media filesand how Blue Origin was able to handle 3.5 million requests and 758
-GBs in bandwidth in a single day for very little $$$. Also a Right Scale
-article onNetwork performance within Amazon EC2 and to Amazon S3. 75MB/s
-between EC2 instances, 10.2MB/s between EC2 and S3 for download, 6.9MB/s
-upload.Now that Amazon's S3 (storage service) isout of betaand EC2 (elastic
-compute cloud) has added newinstance types(the class of machine you can rent)
-with more CPU and more RAM, I thought it would be interesting to take a look
-out how their pricing stacks up.The quick conclusion:the more you scale the
-more you save. A six node co</p><p>3 0.16442434 <a title="682-tfidf-3" href="../high_scalability-2011/high_scalability-2011-06-27-TripAdvisor_Architecture_-_40M_Visitors%2C_200M_Dynamic_Page_Views%2C_30TB_Data.html">1068 high scalability-2011-06-27-TripAdvisor Architecture - 40M Visitors, 200M Dynamic Page Views, 30TB Data</a></p>
-<p>Introduction: This is a guest post byAndy Gelfond, VP of Engineering for TripAdvisor. Andy
-has been with TripAdvisor for six and a half years, wrote a lot of code in the
-earlier days, and has been building and running a first class engineering and
-operations team that is responsible for the worlds largest travel site.
-There's an update for this article atAn Epic TripAdvisor Update: Why Not Run
-On The Cloud? The Grand Experiment. For TripAdvisor, scalability is woven into
-our organization on many levels - data center, software architecture,
-development/deployment/operations, and, most importantly, within the culture
-and organization. It is not enough to have a scalable data center, or a
-scalable software architecture. The process of designing, coding, testing, and
-deploying code also needs to be scalable. All of this starts with hiring and a
-culture and an organization that values and supports a distributed, fast, and
-effective development and operation of a complex and highly scalable consumer
-web s</p><p>4 0.15737 <a title="682-tfidf-4" href="../high_scalability-2012/high_scalability-2012-11-05-Gone_Fishin%27%3A_Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_In_The_Ambient_Cloud.html">1355 high scalability-2012-11-05-Gone Fishin': Building Super Scalable Systems: Blade Runner Meets Autonomic Computing In The Ambient Cloud</a></p>
+<p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to share some of the architectural details for their white label social media system. It currently runs about 50 social networks varying in size from less than 1000 members to more than 300,000 members, all on a Microsoft stack. In addition to their social networking platform, they offer Javascript APIs and web service APIs (both REST and SOAP) which account for a significant percentage of overall system usage.  ThePort is an excellent example of a real world in-the-trenches product offering real value to customers.  One of the most interesting problems they have to solve is multi-tenancy. How do you provide good performance, complete customization, support, develop new features, and provide individual search indexes for each customer? It's not an easy problem to solve.  How did they solve their problems and build a successful system? 
+ 
+Site: http://theport.com
+  Platform    Microsoft.NET 3.5    C# / VB.NET</p><p>2 0.16507751 <a title="682-tfidf-2" href="../high_scalability-2007/high_scalability-2007-12-28-Amazon%27s_EC2%3A_Pay_as_You_Grow_Could_Cut_Your_Costs_in_Half.html">195 high scalability-2007-12-28-Amazon's EC2: Pay as You Grow Could Cut Your Costs in Half</a></p>
+<p>Introduction: Update 2: Summize  Computes Computing Resources for a Startup . Lots of nice graphs showing Amazon is hard to beat for small machines and become less cost efficient for well used larger machines.  Long term storage costs may eat your saving away. And out of cloud bandwidth costs are high.     Update: via  ProductionScale , a nice Digital Web article on  how to setup S3 to store media files  and how Blue Origin was able to handle 3.5 million requests and 758 GBs in bandwidth in a single day for very little $$$. Also a Right Scale article on  Network performance within Amazon EC2 and to Amazon S3 . 75MB/s between EC2 instances, 10.2MB/s between EC2 and S3 for download, 6.9MB/s upload.       Now that Amazon's S3 (storage service) is   out of beta   and EC2 (elastic compute cloud) has added new   instance types   (the class of machine you can rent) with more CPU and more RAM, I thought it would be interesting to take a look out how their pricing stacks up.      The quick conclusion:  the m</p><p>3 0.16442434 <a title="682-tfidf-3" href="../high_scalability-2011/high_scalability-2011-06-27-TripAdvisor_Architecture_-_40M_Visitors%2C_200M_Dynamic_Page_Views%2C_30TB_Data.html">1068 high scalability-2011-06-27-TripAdvisor Architecture - 40M Visitors, 200M Dynamic Page Views, 30TB Data</a></p>
+<p>Introduction: This is a guest post by  Andy Gelfond , VP of Engineering for TripAdvisor. Andy has been with TripAdvisor for six and a half years, wrote a lot of code in the earlier days, and has been building and running a first class engineering and operations team that is responsible for the worlds largest travel site. There's an update for this article at  An Epic TripAdvisor Update: Why Not Run On The Cloud? The Grand Experiment .  
+ 
+For  TripAdvisor , scalability is woven into our organization on many levels - data center, software architecture, development/deployment/operations, and, most importantly, within the culture and organization. It is not enough to have a scalable data center, or a scalable software architecture. The process of designing, coding, testing, and deploying code also needs to be scalable. All of this starts with hiring and a culture and an organization that values and supports a distributed, fast, and effective development and operation of a complex and highly scalable co</p><p>4 0.15737 <a title="682-tfidf-4" href="../high_scalability-2012/high_scalability-2012-11-05-Gone_Fishin%27%3A_Building_Super_Scalable_Systems%3A_Blade_Runner_Meets_Autonomic_Computing_In_The_Ambient_Cloud.html">1355 high scalability-2012-11-05-Gone Fishin': Building Super Scalable Systems: Blade Runner Meets Autonomic Computing In The Ambient Cloud</a></p>
 <p>Introduction: All in all this is still my favorite post and I still think it's an accurate
 vision of a future. Not everyone agrees, but I guess we'll see..."But it is
 not complicated. [There's] just a lot of it." \--Richard Feynmanon how the
@@ -143,76 +99,31 @@ numbers foreshadow a newCambrian explosionof connectivity that will look as</p><
 <p>[(0, 0.293), (1, 0.105), (2, 0.003), (3, -0.073), (4, 0.035), (5, -0.028), (6, 0.009), (7, -0.024), (8, -0.005), (9, 0.018), (10, -0.015), (11, -0.007), (12, -0.033), (13, 0.033), (14, -0.008), (15, -0.008), (16, -0.056), (17, 0.011), (18, 0.015), (19, 0.013), (20, -0.026), (21, -0.044), (22, 0.043), (23, 0.019), (24, 0.001), (25, 0.002), (26, -0.015), (27, -0.077), (28, -0.009), (29, 0.006), (30, -0.006), (31, 0.039), (32, -0.018), (33, -0.032), (34, 0.092), (35, -0.019), (36, -0.025), (37, 0.049), (38, 0.021), (39, 0.05), (40, 0.043), (41, 0.016), (42, 0.037), (43, 0.026), (44, -0.025), (45, 0.055), (46, -0.017), (47, 0.008), (48, 0.008), (49, -0.024)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96810675 <a title="682-lsi-1" href="../high_scalability-2009/high_scalability-2009-08-16-ThePort__Network__Architecture.html">682 high scalability-2009-08-16-ThePort  Network  Architecture</a></p>
-<p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to
-share some of the architectural details for their white label social media
-system. It currently runs about 50 social networks varying in size from less
-than 1000 members to more than 300,000 members, all on a Microsoft stack. In
-addition to their social networking platform, they offer Javascript APIs and
-web service APIs (both REST and SOAP) which account for a significant
-percentage of overall system usage.ThePort is an excellent example of a real
-world in-the-trenches product offering real value to customers. One of the
-most interesting problems they have to solve is multi-tenancy. How do you
-provide good performance, complete customization, support, develop new
-features, and provide individual search indexes for each customer? It's not an
-easy problem to solve.How did they solve their problems and build a successful
-system? Site: http://theport.comPlatformMicrosoft.NET 3.5C# / VB.NETSQL Server
-2005Visual S</p><p>2 0.82024384 <a title="682-lsi-2" href="../high_scalability-2011/high_scalability-2011-08-08-Tagged_Architecture_-_Scaling_to_100_Million_Users%2C_1000_Servers%2C_and_5_Billion_Page_Views.html">1094 high scalability-2011-08-08-Tagged Architecture - Scaling to 100 Million Users, 1000 Servers, and 5 Billion Page Views</a></p>
-<p>Introduction: This is a guest post byJohann Schleier-Smith, CTO & co-founder, Tagged.Five
-snapshots on how Tagged scaled to more than 1,000 serversSince 2004,Taggedhas
-grown from a tiny social experiment to one of the largest social networks,
-delivering five billion pages per month to many millions of members who visit
-to meet and socialize with new people. One step at a time, this evolution
-forced us to evolve our architecture, eventually arriving at an enormously
-capable platform.V1: PHP webapp, 100k users, 15 servers, 2004Tagged was born
-in the rapid-prototyping culture of an incubator that usually launched two new
-concepts each year in search of the big winner. LAMP was the natural choice
-for this style of work, which emphasized flexibility and quick turnaround at a
-time when Java development was mostly oriented towards development at large
-enterprises, Python attracted too few programmers, and Perl brought the wrong
-sort. Also, we knew that Yahoo was a big proponent of PHP, so it would be
-possi</p><p>3 0.80030978 <a title="682-lsi-3" href="../high_scalability-2010/high_scalability-2010-05-03-MocoSpace_Architecture_-_3_Billion_Mobile_Page_Views_a_Month.html">821 high scalability-2010-05-03-MocoSpace Architecture - 3 Billion Mobile Page Views a Month</a></p>
-<p>Introduction: This is a guest post by Jamie Hall, Co-founder & CTO ofMocoSpace, describing
-the architecture for their mobile social network. This is a timely
-architecture to learn from as it combines several hot trends: it is very
-large, mobile, and social. What they think is especially cool about their
-system is: how it optimizes for device/browser fragmentation on the mobile
-Web; their multi-tiered, read/write, local/distributed caching system;
-selecting PostgreSQL over MySQL as a relational DB that can scale.MocoSpace is
-a mobile social network, with 12 million members and 3 billion page views a
-month, which makes it one of the most highly trafficked mobile Websites in the
-US. Members access the site mainly from their mobile phone Web browser,
-ranging from high end smartphones to lower end devices, as well as the Web.
-Activities on the site include customizing profiles, chat, instant messaging,
-music, sharing photos & videos, games, eCards and blogs. The monetization
-strategy is focused on advert</p><p>4 0.79815698 <a title="682-lsi-4" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
-<p>Introduction: This is a guest post by Rodrigo Guzman, CTO ofiDoneThis, which makes status
-reporting happen at your company with the lightest possible touch.iDoneThisis
-a simple management application that emails your team at the end of every day
-to ask, "What'd you get done today?" Just reply with a few lines of what you
-got done. The following morning everyone on your team gets a digest with what
-the team accomplished the previous day to keep everyone in the loop and
-kickstart another awesome day.Before we launched, we built iDoneThis over a
-weekend in the most rudimentary way possible. I kid you not, we sent the first
-few batches of daily emails using the BCC field of a Gmail inbox. The upshot
-is that we've had users on the site from Day 3 of its existence on.We've gone
-from launch in January 2011 when we sent hundreds of emails out per day by
-hand to sending out over 1 million emails and handling over 200,000 incoming
-emails per month. In total, customers have recorded over 1.7 million
-dones.Stat</p><p>5 0.7977553 <a title="682-lsi-5" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
-<p>Introduction: This article is from an interview withZuhaib Siddique, a production engineer
-atHipChat, makers ofgroup chat and IM for teams.HipChat started in an unusual
-space, one you might not think would have much promise, enterprise group
-messaging, but as we are learning there is gold in them thereenterprise hills.
-Which is why Atlassian, makers of well thought of tools like JIRA and
-Confluence,acquired HipChat in 2012.And in a tale not often heard, the
-resources and connections of a larger parent have actually helped HipChat
-enter anexponential growth cycle. Having reached the 1.2 billion message
-storage mark they are now doubling the number of messages sent, stored, and
-indexed every few months.That kind of growth puts a lot of pressure on a once
-adequate infrastructure. HipChat exhibited a common scaling pattern. Start
-simple, experience traffic spikes, and then think what do we do now? Using
-bigger computers is usually the first and best answer. And they did that. That
-gave them some breathi</p><p>6 0.79670393 <a title="682-lsi-6" href="../high_scalability-2014/high_scalability-2014-05-16-Stuff_The_Internet_Says_On_Scalability_For_May_16th%2C_2014.html">1649 high scalability-2014-05-16-Stuff The Internet Says On Scalability For May 16th, 2014</a></p>
+<p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to share some of the architectural details for their white label social media system. It currently runs about 50 social networks varying in size from less than 1000 members to more than 300,000 members, all on a Microsoft stack. In addition to their social networking platform, they offer Javascript APIs and web service APIs (both REST and SOAP) which account for a significant percentage of overall system usage.  ThePort is an excellent example of a real world in-the-trenches product offering real value to customers.  One of the most interesting problems they have to solve is multi-tenancy. How do you provide good performance, complete customization, support, develop new features, and provide individual search indexes for each customer? It's not an easy problem to solve.  How did they solve their problems and build a successful system? 
+ 
+Site: http://theport.com
+  Platform    Microsoft.NET 3.5    C# / VB.NET</p><p>2 0.82024384 <a title="682-lsi-2" href="../high_scalability-2011/high_scalability-2011-08-08-Tagged_Architecture_-_Scaling_to_100_Million_Users%2C_1000_Servers%2C_and_5_Billion_Page_Views.html">1094 high scalability-2011-08-08-Tagged Architecture - Scaling to 100 Million Users, 1000 Servers, and 5 Billion Page Views</a></p>
+<p>Introduction: This is a guest post by  Johann Schleier-Smith , CTO & co-founder, Tagged. 
+  Five snapshots on how Tagged scaled to more than 1,000 servers  
+Since 2004,  Tagged  has grown from a tiny  social experiment to one of the largest social networks, delivering  five billion pages per month to many  millions of members who visit to meet and socialize with new people.   One step at a time, this evolution forced us to evolve our architecture,  eventually arriving at an enormously capable platform  .
+  V1:  PHP webapp, 100k users, 15 servers, 2004  
+     
+ 
+Tagged was born in the rapid-prototyping  culture of an incubator that usually launched two new concepts each  year in search of the big winner.  LAMP was the natural choice  for this style of work, which emphasized flexibility and quick turnaround  at a time when Java development was mostly oriented towards development  at large enterprises, Python attracted too few programmers, and Perl  brought the wrong sort.  Also, we knew that Yahoo was</p><p>3 0.80030978 <a title="682-lsi-3" href="../high_scalability-2010/high_scalability-2010-05-03-MocoSpace_Architecture_-_3_Billion_Mobile_Page_Views_a_Month.html">821 high scalability-2010-05-03-MocoSpace Architecture - 3 Billion Mobile Page Views a Month</a></p>
+<p>Introduction: This is a guest post by Jamie Hall, Co-founder & CTO of  MocoSpace , describing the architecture for their mobile social network. This is a timely architecture to learn from as it combines several hot trends: it is very large, mobile, and social. What they think is especially cool about their system is: how it optimizes for device/browser fragmentation on the mobile Web; their multi-tiered,  read/write, local/distributed caching system; selecting PostgreSQL over MySQL as a relational DB that can scale.
+ 
+MocoSpace is a mobile social network, with 12 million members and 3 billion page views a month, which makes it one of the most highly trafficked mobile Websites in the US. Members access the site mainly from their mobile phone Web browser, ranging from high end smartphones to lower end devices, as well as the Web. Activities on the site include customizing profiles, chat, instant messaging, music, sharing photos & videos, games, eCards and blogs. The monetization strategy is focused on</p><p>4 0.79815698 <a title="682-lsi-4" href="../high_scalability-2012/high_scalability-2012-06-20-iDoneThis_-_Scaling_an_Email-based_App_from_Scratch.html">1269 high scalability-2012-06-20-iDoneThis - Scaling an Email-based App from Scratch</a></p>
+<p>Introduction: This is a guest post by Rodrigo Guzman, CTO of  iDoneThis , which makes status reporting happen at your company with the lightest possible touch. 
+ 
+ iDoneThis  is a simple management application that emails your team at the end of every day to ask, "What'd you get done today?"  Just reply with a few lines of what you got done. The following morning everyone on your team gets a digest with what the team accomplished the previous day to keep everyone in the loop and kickstart another awesome day.
+ 
+Before we launched, we built iDoneThis over a weekend in the most rudimentary way possible.  I kid you not, we sent the first few batches of daily emails using the BCC field of a Gmail inbox.  The upshot is that we’ve had users on the site from Day 3 of its existence on.
+ 
+We’ve gone from launch in January 2011 when we sent hundreds of emails out per day by hand to sending out over 1 million emails and handling over 200,000 incoming emails per month.  In total, customers have recorded over 1.</p><p>5 0.7977553 <a title="682-lsi-5" href="../high_scalability-2014/high_scalability-2014-01-06-How_HipChat_Stores_and_Indexes_Billions_of_Messages_Using_ElasticSearch_and_Redis.html">1573 high scalability-2014-01-06-How HipChat Stores and Indexes Billions of Messages Using ElasticSearch and Redis</a></p>
+<p>Introduction: This article is from an interview with    Zuhaib Siddique   , a production engineer at    HipChat   , makers of     group chat and IM for teams.  
+   HipChat started in an unusual space, one you might not think would have much promise, enterprise group messaging, but as we are learning there is gold in them there    enterprise hills   . Which is why Atlassian, makers of well thought of tools like JIRA and Confluence,    acquired HipChat in 2012   . 
+   And in a tale not often heard, the resources and connections of a larger parent have actually helped HipChat enter an    exponential growth cycle   . Having reached the 1.2 billion message storage mark they are now doubling the number of messages sent, stored, and indexed every few months. 
+   That kind of growth puts a lot of pressure on a once adequate infrastructure. HipChat exhibited a common scaling pattern. Start simple, experience traffic spikes, and then think what do we do now? Using bigger computers is usually the first and bes</p><p>6 0.79670393 <a title="682-lsi-6" href="../high_scalability-2014/high_scalability-2014-05-16-Stuff_The_Internet_Says_On_Scalability_For_May_16th%2C_2014.html">1649 high scalability-2014-05-16-Stuff The Internet Says On Scalability For May 16th, 2014</a></p>
 <p>7 0.79649371 <a title="682-lsi-7" href="../high_scalability-2013/high_scalability-2013-11-04-ESPN%27s_Architecture_at_Scale_-_Operating_at_100%2C000_Duh_Nuh_Nuhs_Per_Second.html">1542 high scalability-2013-11-04-ESPN's Architecture at Scale - Operating at 100,000 Duh Nuh Nuhs Per Second</a></p>
 <p>8 0.79555684 <a title="682-lsi-8" href="../high_scalability-2014/high_scalability-2014-03-11-Building_a_Social_Music_Service_Using_AWS%2C_Scala%2C_Akka%2C_Play%2C_MongoDB%2C_and_Elasticsearch.html">1609 high scalability-2014-03-11-Building a Social Music Service Using AWS, Scala, Akka, Play, MongoDB, and Elasticsearch</a></p>
 <p>9 0.79241163 <a title="682-lsi-9" href="../high_scalability-2013/high_scalability-2013-08-28-Sean_Hull%27s_20_Biggest_Bottlenecks_that_Reduce_and_Slow_Down_Scalability.html">1508 high scalability-2013-08-28-Sean Hull's 20 Biggest Bottlenecks that Reduce and Slow Down Scalability</a></p>
@@ -232,67 +143,42 @@ gave them some breathi</p><p>6 0.79670393 <a title="682-lsi-6" href="../high_sca
 <p>[(1, 0.152), (2, 0.182), (10, 0.047), (15, 0.117), (30, 0.058), (40, 0.019), (47, 0.028), (51, 0.01), (61, 0.113), (77, 0.01), (79, 0.101), (85, 0.038), (91, 0.014), (94, 0.029)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.9433099 <a title="682-lda-1" href="../high_scalability-2009/high_scalability-2009-08-16-ThePort__Network__Architecture.html">682 high scalability-2009-08-16-ThePort  Network  Architecture</a></p>
-<p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to
-share some of the architectural details for their white label social media
-system. It currently runs about 50 social networks varying in size from less
-than 1000 members to more than 300,000 members, all on a Microsoft stack. In
-addition to their social networking platform, they offer Javascript APIs and
-web service APIs (both REST and SOAP) which account for a significant
-percentage of overall system usage.ThePort is an excellent example of a real
-world in-the-trenches product offering real value to customers. One of the
-most interesting problems they have to solve is multi-tenancy. How do you
-provide good performance, complete customization, support, develop new
-features, and provide individual search indexes for each customer? It's not an
-easy problem to solve.How did they solve their problems and build a successful
-system? Site: http://theport.comPlatformMicrosoft.NET 3.5C# / VB.NETSQL Server
-2005Visual S</p><p>2 0.92711222 <a title="682-lda-2" href="../high_scalability-2013/high_scalability-2013-05-10-Stuff_The_Internet_Says_On_Scalability_For_May_10%2C_2013.html">1455 high scalability-2013-05-10-Stuff The Internet Says On Scalability For May 10, 2013</a></p>
-<p>Introduction: Hey, it's HighScalability time:(In Thailand, they figured out how to solve the
-age-old queuing problem!) Nanoscale: Plants IM Using Nanoscale Sound Waves;100
-petabytes: CERN data storageQuotable Quotes:Geoff Arnold: Arguably all
-interesting advances in computer science and software engineering occur when a
-resource that was previously scarce or expensive becomes cheap and
-plentiful.@jamesurquhart: "Complexity is a characteristic of the system, not
-of the parts in it." -Dekker@louisnorthmore: Scaling down - now that's
-scalability!@peakscale: Where distributed systems people retire to forget the
-madness: http://en.wikipedia.org/wiki/Antipaxos @dozba: "The Linux Game
-Database" ... Well, at least they will never have scaling problems.Michael
-Widenius: There is no reason at all to use MySQL@steveloughran: Whenever
-someone says "unlimited scalability", ask if that exceeds theberkenstein
-bound@nationofminds: "I have infinite MIPS. Unlimited scalability. And zero
-effing patience." Endowing cel</p><p>3 0.92460561 <a title="682-lda-3" href="../high_scalability-2007/high_scalability-2007-09-08-Making_the_case_for_PHP_at_Yahoo%21_%28Oct_2002%29.html">85 high scalability-2007-09-08-Making the case for PHP at Yahoo! (Oct 2002)</a></p>
-<p>Introduction: This presentation by Michael Radwin describes why Yahoo! had standardized on
-PHP going forward. It describes how after reviewing all the web technologies
-including their own internal ones, PHP was choosen. It shows that not only
-technical reasons , but also business and development processes were taken
-into account.</p><p>4 0.91276258 <a title="682-lda-4" href="../high_scalability-2010/high_scalability-2010-10-21-Machine_VM_%2B_Cloud_API_-_Rewriting_the_Cloud_from_Scratch.html">923 high scalability-2010-10-21-Machine VM + Cloud API - Rewriting the Cloud from Scratch</a></p>
-<p>Introduction: Write a little "Hello World" program these days and it runs inside a
-bewildering Russian Doll of nested environments, each layer adding its own
-special performance and complexity tax. First, a language executes in its own
-environment of data structure libraries, memory management, and so on. That,
-more often than not, will run inside a language VM like the JVM, CLR, or V8.
-The language VM will in-turn run inside a process that runs inside an OS. An
-application will run in one or more threads inside a process. And the whole
-thing will run inside a machine sharing VM layer like Xen. And across all of
-that are frameworks for monitoring, elasticity, storage, and so on. That's a
-lot of overhead for a such a little program.What if we could remove all these
-taxes and run directly on the new bare metal, which some consider to be a
-combination of Machine VM + Cloud API? That's exactly what a system
-calledMirage, described in the paperTurning down the LAMP: Software
-Specialisation for the Cloud,</p><p>5 0.91260421 <a title="682-lda-5" href="../high_scalability-2012/high_scalability-2012-08-03-Stuff_The_Internet_Says_On_Scalability_For_August_3%2C_2012.html">1297 high scalability-2012-08-03-Stuff The Internet Says On Scalability For August 3, 2012</a></p>
-<p>Introduction: It's HighScalability Time:Quotable Quotes:Ross Tur: the tricks you learned to
-make things big are not the same tricks you can apply to make things infinite.
-@gclaramunt: Son, I'm getting old, but let me tell you a secret: programming
-is hard, and high scalability and concurrent programming... frigging
-hard!@Carnage4Life: At Apple the iOS team didn't see iPhone hardware or
-hardware team see OS until it shipped@adrianco:  #ebspio caps iops but latency
-variance is much lower than EBS@bernardgolden: RT @peakscale: A culture of
-automation is 10x more important than deployment/test/monkey thing you'd like
-to discuss < devops calling@JayCollier: 50 years ago, school standardization
-was needed for scale. Now, scalability and flexibility (variability) can
-coexist. #FOL2012@adrianco: Compared to vanilla EBS many times better for
-random reads. Bandwidth limits both for sequential and
-writes.#ebspio@SQLPerfTips: More hardware won't solve response time problems.
-Proper indexing does.@adrianco: I di</p><p>6 0.90839303 <a title="682-lda-6" href="../high_scalability-2011/high_scalability-2011-03-03-Stack_Overflow_Architecture_Update_-_Now_at_95_Million_Page_Views_a_Month.html">998 high scalability-2011-03-03-Stack Overflow Architecture Update - Now at 95 Million Page Views a Month</a></p>
+<p>Introduction: ThePort Network's Director of Engineering, TJ Muehleman was kind of enough to share some of the architectural details for their white label social media system. It currently runs about 50 social networks varying in size from less than 1000 members to more than 300,000 members, all on a Microsoft stack. In addition to their social networking platform, they offer Javascript APIs and web service APIs (both REST and SOAP) which account for a significant percentage of overall system usage.  ThePort is an excellent example of a real world in-the-trenches product offering real value to customers.  One of the most interesting problems they have to solve is multi-tenancy. How do you provide good performance, complete customization, support, develop new features, and provide individual search indexes for each customer? It's not an easy problem to solve.  How did they solve their problems and build a successful system? 
+ 
+Site: http://theport.com
+  Platform    Microsoft.NET 3.5    C# / VB.NET</p><p>2 0.92711222 <a title="682-lda-2" href="../high_scalability-2013/high_scalability-2013-05-10-Stuff_The_Internet_Says_On_Scalability_For_May_10%2C_2013.html">1455 high scalability-2013-05-10-Stuff The Internet Says On Scalability For May 10, 2013</a></p>
+<p>Introduction: Hey, it's HighScalability time:
+    ( In Thailand, they figured out how to solve the age-old queuing problem! )  
+ 
+  
+  Nanoscale : Plants IM Using Nanoscale Sound Waves;  100 petabytes : CERN data storage 
+ Quotable Quotes:                                                      
+ 
+  Geoff Arnold : Arguably all interesting advances in computer science and software engineering occur when a resource that was previously scarce or expensive becomes cheap and plentiful. 
+  @jamesurquhart : "Complexity is a characteristic of the system, not of the parts in it." -Dekker 
+  @louisnorthmore : Scaling down - now that's scalability! 
+  @peakscale : Where distributed systems people retire to forget the madness: http://en.wikipedia.org/wiki/Antipaxos  
+  @dozba : "The Linux Game Database" ... Well, at least they will never have scaling problems. 
+  Michael Widenius : There is no reason at all to use MySQL 
+  @steveloughran : Whenever someone says "unlimited scalability", ask if that exceeds the  ber</p><p>3 0.92460561 <a title="682-lda-3" href="../high_scalability-2007/high_scalability-2007-09-08-Making_the_case_for_PHP_at_Yahoo%21_%28Oct_2002%29.html">85 high scalability-2007-09-08-Making the case for PHP at Yahoo! (Oct 2002)</a></p>
+<p>Introduction: This presentation by Michael Radwin describes why Yahoo! had standardized on PHP going forward. It describes how after reviewing all the web technologies including their own internal ones, PHP was choosen. It shows that not only technical reasons , but also business and development processes were taken into account.</p><p>4 0.91276258 <a title="682-lda-4" href="../high_scalability-2010/high_scalability-2010-10-21-Machine_VM_%2B_Cloud_API_-_Rewriting_the_Cloud_from_Scratch.html">923 high scalability-2010-10-21-Machine VM + Cloud API - Rewriting the Cloud from Scratch</a></p>
+<p>Introduction: Write a little "Hello World" program these days and it runs inside a bewildering Russian Doll of nested environments, each layer adding its own special performance and complexity tax. First, a language executes in its own environment of data structure libraries, memory management, and so on. That, more often than not, will run inside a language VM like the JVM, CLR, or V8. The language VM will in-turn run inside a process that runs inside an OS. An application will run in one or more threads inside a process. And the whole thing will run inside a machine sharing VM layer like Xen. And across all of that are frameworks for monitoring, elasticity, storage, and so on. That's a lot of overhead for a such a little program.
+ 
+What if we could remove all these taxes and run directly on the new bare metal, which some consider to be a combination of M achine VM + Cloud API ? That's exactly what a system called  Mirage , described in the paper  Turning down the LAMP: Software Specialisation for</p><p>5 0.91260421 <a title="682-lda-5" href="../high_scalability-2012/high_scalability-2012-08-03-Stuff_The_Internet_Says_On_Scalability_For_August_3%2C_2012.html">1297 high scalability-2012-08-03-Stuff The Internet Says On Scalability For August 3, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+ Quotable Quotes:                       
+ 
+  Ross Tur : the tricks you learned to make things big are not the same tricks you can apply to make things infinite.  
+  @gclaramunt : Son, I'm getting old, but let me tell you a secret: programming is hard, and high scalability and concurrent programming... frigging hard! 
+ 
+ 
+  @Carnage4Life : At Apple the iOS team didn't see iPhone hardware or hardware team see OS until it shipped 
+  @adrianco :  #ebspio caps iops but latency variance is much lower than EBS 
+  @bernardgolden : RT @peakscale: A culture of automation is 10x more important than deployment/test/monkey thing you'd like to discuss < devops calling 
+  @JayCollier : 50 years ago, school standardization was needed for scale. Now, scalability and flexibility (variability) can coexist. #FOL2012 
+  @adrianco : Compared to vanilla EBS many times better for random reads. Bandwidth limits both for sequential and writes.  #ebspio  
+  @SQLPerfTips : More hardw</p><p>6 0.90839303 <a title="682-lda-6" href="../high_scalability-2011/high_scalability-2011-03-03-Stack_Overflow_Architecture_Update_-_Now_at_95_Million_Page_Views_a_Month.html">998 high scalability-2011-03-03-Stack Overflow Architecture Update - Now at 95 Million Page Views a Month</a></p>
 <p>7 0.90838873 <a title="682-lda-7" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
 <p>8 0.9077245 <a title="682-lda-8" href="../high_scalability-2007/high_scalability-2007-12-28-Amazon%27s_EC2%3A_Pay_as_You_Grow_Could_Cut_Your_Costs_in_Half.html">195 high scalability-2007-12-28-Amazon's EC2: Pay as You Grow Could Cut Your Costs in Half</a></p>
 <p>9 0.90754241 <a title="682-lda-9" href="../high_scalability-2013/high_scalability-2013-12-06-Stuff_The_Internet_Says_On_Scalability_For_December_6th%2C_2013.html">1559 high scalability-2013-12-06-Stuff The Internet Says On Scalability For December 6th, 2013</a></p>

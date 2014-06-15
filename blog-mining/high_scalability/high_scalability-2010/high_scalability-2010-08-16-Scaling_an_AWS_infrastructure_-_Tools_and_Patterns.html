@@ -16,115 +16,72 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-881-html" href="http://highscalability.com//blog/2010/8/16/scaling-an-aws-infrastructure-tools-and-patterns.html">html</a></p><p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.How do you scale anAWS(Amazon Web Services) infrastructure?
-This article will give you a detailed reply in two parts: the tools you can
-use to make the most of Amazon's dynamic approach, and the architectural model
-you should adopt for a scalable infrastructure.I base my report on my
-experience gained in several AWS production projects in casual gaming
-(Facebook), e-commerce infrastructures and within the mainstream GIS
-(Geographic Information System). It's true that my experience in gaming
-(IsCool, The Game) is currently the most representative in terms of
-scalability, due to the number of users (over 800 thousand DAU - daily active
-users - at peak usage and over 20 million page views every day), however my
-experiences in e-commerce and GIS (currently underway) provide a different
-view of scalability, taking into account the various problems of availability
-and data management. I will therefore</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I will therefore attempt to provide a detailed overview of the factors to take into account in order to optimise the dynamic nature of an infrastructure constructed in a Cloud Computing environment, and in this case, in the AWS environment. [sent-6, score-0.4]
-</p><p>2 Centralised configuration managementIn order to instantiate multiple servers (EC2) on the fly to counter a load peak or perform occasional procedures, we have to use a centralised configuration management tool. [sent-15, score-0.445]
-</p><p>3 It contains the descriptors of the packages to be installed, configuration files to be pushed and services to be started up for a new EC2 instance in order to prepare it according to the type of node or nodes with which you have associated it, or simply to keep an existing instance updated. [sent-23, score-0.455]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2010-881-html" href="http://highscalability.com//blog/2010/8/16/scaling-an-aws-infrastructure-tools-and-patterns.html">html</a></p><p>Introduction: This is a guest post by    Frédéric Faure    (architect at    Ysance   ), you can follow him on    twitter   . 
+ 
+How do you scale an  AWS  (Amazon Web Services) infrastructure? This article will give you a detailed reply in two parts: the tools you can use to make the most of Amazon’s dynamic approach, and the architectural model you should adopt for a scalable infrastructure.
+ 
+I base my report on my experience gained in several AWS production projects in casual gaming (Facebook), e-commerce infrastructures and within the mainstream GIS (Geographic Information System). It’s true that my experience in gaming ( IsCool, The Game ) is currently the most representative in terms of scalability, due to the number of users (over 800 thousand DAU – daily active users – at peak usage and over 20 million page views every day), however my experiences in e-commerce and GIS (currently underway) provide a different view of scalability, taking into account the various problems of availability and da</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I will therefore attempt to provide a detailed overview of the factors to take into account in order to optimise the dynamic nature of an infrastructure constructed in a Cloud Computing environment, and in this case, in the AWS environment. [sent-6, score-0.4]
+</p><p>2 Centralised configuration management        In order to instantiate multiple servers (EC2) on the fly to counter a load peak or perform occasional procedures, we have to use a centralised configuration management tool. [sent-15, score-0.515]
+</p><p>3 It contains the descriptors of the packages to be      installed, configuration files to be pushed and services to be started up for a new EC2 instance in order to prepare it according to the type of node or nodes with which you have associated it, or simply to keep an existing instance updated. [sent-23, score-0.455]
 </p><p>4 It is thus very simple to mount a new instance of a given type, and to be sure that from one server to another, the configuration is identical in every way. [sent-27, score-0.317]
-</p><p>5 Puppet Module DescriptorThe centralised configuration manager is indispensable on a scalable infrastructure, which can have a large number of instances, some of which should be mounted rapidly, in order to reply to user requests during load peak. [sent-30, score-0.285]
-</p><p>6 It is however possible to build an AMI or even an EBS root device with the Puppet client installed on it (and to use, if necessary, the user- data at the launch of the instance in order to set the parameters if a 'static' configuration on the AMI is not sufficient). [sent-39, score-0.617]
-</p><p>7 Note thatWebistranois an HMI enabling access to the Capistrano features and introducing the notion of project management by managing access to the tasks according to profile, to trace who deployed what on which server and to send email signals in response to certain actions. [sent-65, score-0.339]
+</p><p>5 Puppet Module Descriptor     The centralised configuration manager is indispensable on a scalable infrastructure, which can have a large number of instances, some of which should be mounted rapidly, in order to reply to user requests during load peak. [sent-30, score-0.285]
+</p><p>6 It is however possible to build an AMI or even an EBS root device with the Puppet client installed on it (and to use, if necessary, the user-data at the launch of the instance in order to set the parameters if a ‘static’ configuration on the AMI is not sufficient). [sent-39, score-0.617]
+</p><p>7 Note that  Webistrano  is an HMI enabling access to the Capistrano features and introducing the notion of project management by managing access to the tasks according to profile, to trace who deployed what on which server and to send email signals in response to certain actions. [sent-65, score-0.339]
 </p><p>8 This data enables corrections to service development or configuration to be carried out after the event, in order to optimise the aforementioned services, and equally to define the resources to be attributed to them in the most effective way. [sent-77, score-0.48]
-</p><p>9 Thread Scoreboard Apache - Yearly - 1 Day AverageIt should be noted that these tools operate mostly (Centreon, Cacti and Munin) onRRDtool (Round-Robin Database), a database management tool which also enables a graphic representation of the data contained in the base. [sent-85, score-0.331]
+</p><p>9 Thread Scoreboard Apache - Yearly - 1 Day Average     It should be noted that these tools operate mostly (Centreon, Cacti and Munin) on  RRDtool  (Round-Robin Database), a database management tool which also enables a graphic representation of the data contained in the base. [sent-85, score-0.331]
 </p><p>10 Give priority therefore to monitoring tools with modular configuration or simple access via APIs. [sent-92, score-0.425]
-</p><p>11 Managing centralised logsIt's undeniable: the more instances you have, the more scattered logs there'll be on the various instances. [sent-93, score-0.321]
+</p><p>11 Managing centralised logs     It’s undeniable: the more instances you have, the more scattered logs there’ll be on the various instances. [sent-93, score-0.443]
 </p><p>12 Moreover, sending all the logs to the syslog daemon becomes difficult, as the infrastructure components do not necessarily manage it very well (redirection, respecting the syslog protocol, etc. [sent-94, score-0.403]
 </p><p>13 The component can also act as a relay on more complex infrastructures by receiving the network logs from diverse clients and sending them back to the network for a server. [sent-101, score-0.385]
-</p><p>14 It's a simple and non-intrusive tool able to take into account the logs of scattered applications on a server (even if these logs do not respect the syslog protocol format - there is however an advantage to respecting this protocol: greater accuracy of the facilities and priorities). [sent-104, score-0.579]
-</p><p>15 What stands out are the following:Tools such as centralised configuration managers, tools for the execution in parallel of automated tasks and also log managers, will become even more important. [sent-107, score-0.334]
+</p><p>14 It’s a simple and non-intrusive tool able to take into account the logs of scattered applications on a server (even if these logs do not respect the syslog protocol format – there is however an advantage to respecting this protocol: greater accuracy of the facilities and priorities). [sent-104, score-0.579]
+</p><p>15 What stands out are the following:     Tools such as centralised configuration managers, tools for the execution in parallel of automated tasks and also log managers, will become even more important. [sent-107, score-0.334]
 </p><p>16 My aim is to help you set up and optimise your infrastructure by understanding how Amazon tools operate and to get the most benefit from them. [sent-116, score-0.288]
-</p><p>17 Furthermore, no reconstruction of onerous index management is required (possible however on the Tokyo Team's API 'Table') … It goes without saying that what's really time-consuming about data access via the network (between the web or application server and Tokyo Tyrant) is… the network! [sent-152, score-0.436]
-</p><p>18 So in all cases, at the client (API) level you should use 'mget' (multi get), for example, by positioning a array of keys that you wish to recover in the parameters rather than performing a 'get' N times from the client, therefore creating N network accesses. [sent-153, score-0.311]
-</p><p>19 Or, to see some slightly more complex tests, Google"performance ephemeral disk ebs volume raid". [sent-185, score-0.459]
-</p><p>20 I have not found any integrated tools satisfactory for this task: I simply use a command line tool "s3cmd" in order to store my backups. [sent-201, score-0.345]
+</p><p>17 Furthermore, no reconstruction of onerous index management is required (possible however on the Tokyo Team’s API ‘Table’) … It goes without saying that what’s really time-consuming about data access via the network (between the web or application server and Tokyo Tyrant) is… the network! [sent-152, score-0.436]
+</p><p>18 So in all cases, at the client (API) level you should use ‘mget’ (multi get), for example, by positioning a array of keys that you wish to recover in the parameters rather than performing a ‘get’ N times from the client, therefore creating N network accesses. [sent-153, score-0.311]
+</p><p>19 Or, to see some slightly more complex tests, Google  “performance ephemeral disk ebs volume raid” . [sent-185, score-0.459]
+</p><p>20 I have not found any integrated tools satisfactory for this task: I simply use a command line tool “ s3cmd ” in order to store my backups. [sent-201, score-0.345]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('ebs', 0.313), ('metrology', 0.225), ('tokyo', 0.149), ('volume', 0.146), ('puppet', 0.133), ('logs', 0.122), ('aws', 0.118), ('infrastructure', 0.115), ('instance', 0.107), ('tyrant', 0.106), ('therefore', 0.104), ('lvm', 0.102), ('centralised', 0.102), ('tool', 0.098), ('instances', 0.097), ('ami', 0.097), ('however', 0.096), ('order', 0.093), ('configuration', 0.09), ('installed', 0.09), ('stateless', 0.09), ('optimise', 0.088), ('tools', 0.085), ('syslog', 0.083), ('client', 0.082), ('enables', 0.078), ('access', 0.077), ('snapshot', 0.077), ('infrastructures', 0.074), ('management', 0.07), ('via', 0.069), ('satisfactory', 0.069), ('aforementioned', 0.069), ('striping', 0.069), ('differential', 0.066), ('network', 0.066), ('master', 0.065), ('firstly', 0.064), ('thus', 0.062), ('resources', 0.062), ('french', 0.061), ('must', 0.06), ('parameters', 0.059), ('descriptors', 0.058), ('thereby', 0.058), ('server', 0.058), ('tasks', 0.057), ('clients', 0.057), ('cacti', 0.057), ('logical', 0.057)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000002 <a title="881-tfidf-1" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.How do you scale anAWS(Amazon Web Services) infrastructure?
-This article will give you a detailed reply in two parts: the tools you can
-use to make the most of Amazon's dynamic approach, and the architectural model
-you should adopt for a scalable infrastructure.I base my report on my
-experience gained in several AWS production projects in casual gaming
-(Facebook), e-commerce infrastructures and within the mainstream GIS
-(Geographic Information System). It's true that my experience in gaming
-(IsCool, The Game) is currently the most representative in terms of
-scalability, due to the number of users (over 800 thousand DAU - daily active
-users - at peak usage and over 20 million page views every day), however my
-experiences in e-commerce and GIS (currently underway) provide a different
-view of scalability, taking into account the various problems of availability
-and data management. I will therefore</p><p>2 0.39007011 <a title="881-tfidf-2" href="../high_scalability-2010/high_scalability-2010-07-08-Cloud_AWS_Infrastructure_vs._Physical_Infrastructure.html">853 high scalability-2010-07-08-Cloud AWS Infrastructure vs. Physical Infrastructure</a></p>
-<p>Introduction: This is a guest post byFrederic Faure(architect atYsance)on the differences
-between using a cloud infrastructure and building your own. Frederic was kind
-enough to translate the original French version of this article into
-English.I've been noticing many questions about the differences inherent in
-choosing between a Cloud infrastructure such asAWS(Amazon Web Services) and a
-traditional physical infrastructure. Firstly, there are a certain number of
-preconceived notions on this subject that I will attempt to decode for you.
-Then, it must be understood that each infrastructure has its advantages and
-disadvantages: a Cloud-type infrastructure does not necessarily fulfill your
-requirements in every case, however, it can satisfy some of them by optimizing
-or facilitating the features offered by a traditional physical infrastructure.
-I will therefore demonstrate the differences between the two that I have
-noticed, in order to help you make up your own mind.The FrameworkCloudThere
-are several</p><p>3 0.32163057 <a title="881-tfidf-3" href="../high_scalability-2014/high_scalability-2014-04-14-How_do_you_even_do_anything_without_using_EBS%3F.html">1631 high scalability-2014-04-14-How do you even do anything without using EBS?</a></p>
-<p>Introduction: In a recent thread on Hacker News discussing recent AWS price changes,seldo
-mentioned they use AWS for business, they just never use EBS on AWS. A good
-question was asked:How do you even do anything without using EBS?Amazon
-certainly makes using EBS the easiest path. And EBS has a better reliability
-record as of late, but it's still often recommended to not use EBS. This
-avoids a single point of failure at the cost of a lot of complexity, though as
-AWS uses EBS internally, not using EBS may not save you if you use other AWS
-services like RDS or ELB.If you don't want to use EBS, it's hard to know where
-to even start. A dilemma to which Kevin Nuckolls gives a great answer:Well,
-you break your services out onto stateless and stateful machines. After that,
-you make sure that each of your stateful services is resilient to individual
-node failure. I prefer to believe that if you can't roll your entire
-infrastructure over to new nodes monthly then you're unprepared for the
-eventual outage of</p><p>4 0.31349337 <a title="881-tfidf-4" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.Urbandiveis an immersive view service launched by theFrench
-YellowPageswhich allows you to travel in cities in France thanks to a 360°
-view. Urbandive focuses on providing high definition pictures and accurate
-professional and social content. One of the biggest jobs was to enable a fast
-scalable architecture, because it was really difficult to forecast the traffic
-load at production time. Traffic load may be influenced if the service
-receives attention from users as a result of advertising.Below you will find a
-summary of the goals we achieve by using a Ruby scheduler built on top
-ofPuppetonAWSto create a complete infrastructure.Workflow & XTR-LucidOur
-scalability combo is : a home-made Ruby scheduler (XTR-Lucid) to deal with AWS
-APIs + the Puppet Master to install services and configure EC2 instances and
-keep them up-to-date during all the production time. This leads to full
-automation.Here is</p><p>5 0.30760345 <a title="881-tfidf-5" href="../high_scalability-2010/high_scalability-2010-12-21-SQL_%2B_NoSQL_%3D_Yes_%21.html">961 high scalability-2010-12-21-SQL + NoSQL = Yes !</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.Data storage has always been one of the most difficult problems
-to address, especially as the quantity of stored data is constantly
-increasing. This is not simply due to the growing numbers of people regularly
-using the Internet, particularly with all the social networks, games and
-gizmos now available. Companies are also amassing more and more meticulous
-information relevant to their business, in order to optimize productivity and
-ROI (Return On Investment). I find the positioning of SQL and NoSQL (Not Only
-SQL) as opposites rather a shame: it's true that the marketing wave of NoSQL
-has enabled the renewed promotion of a system that's been around for quite a
-while, but which was only rarely considered in most cases, as after all,
-everything could be fitted into the « good old SQL model ». The reverse trend
-of wanting to make everything fit the NoSQL model is not very profitable
-either.So, what'</p><p>6 0.25552577 <a title="881-tfidf-6" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
+<p>Introduction: This is a guest post by    Frédéric Faure    (architect at    Ysance   ), you can follow him on    twitter   . 
+ 
+How do you scale an  AWS  (Amazon Web Services) infrastructure? This article will give you a detailed reply in two parts: the tools you can use to make the most of Amazon’s dynamic approach, and the architectural model you should adopt for a scalable infrastructure.
+ 
+I base my report on my experience gained in several AWS production projects in casual gaming (Facebook), e-commerce infrastructures and within the mainstream GIS (Geographic Information System). It’s true that my experience in gaming ( IsCool, The Game ) is currently the most representative in terms of scalability, due to the number of users (over 800 thousand DAU – daily active users – at peak usage and over 20 million page views every day), however my experiences in e-commerce and GIS (currently underway) provide a different view of scalability, taking into account the various problems of availability and da</p><p>2 0.39007011 <a title="881-tfidf-2" href="../high_scalability-2010/high_scalability-2010-07-08-Cloud_AWS_Infrastructure_vs._Physical_Infrastructure.html">853 high scalability-2010-07-08-Cloud AWS Infrastructure vs. Physical Infrastructure</a></p>
+<p>Introduction: This is a guest post by  Frédéric Faure   (architect at  Ysance )  on the differences between using a cloud infrastructure and building your own. Frédéric was kind enough to translate the original French version of this article into English. 
+ 
+I’ve been noticing many questions about the differences inherent in choosing between a Cloud infrastructure such as  AWS  (Amazon Web Services) and a traditional physical infrastructure. Firstly, there are a certain number of preconceived notions on this subject that I will attempt to decode for you. Then, it must be understood that each infrastructure has its advantages and disadvantages: a Cloud-type infrastructure does not necessarily fulfill your requirements in every case, however, it can satisfy some of them by optimizing or facilitating the features offered by a traditional physical infrastructure. I will therefore demonstrate the differences between the two that I have noticed, in order to help you make up your own mind.
+ 
+ 
+ 
+  The Fram</p><p>3 0.32163057 <a title="881-tfidf-3" href="../high_scalability-2014/high_scalability-2014-04-14-How_do_you_even_do_anything_without_using_EBS%3F.html">1631 high scalability-2014-04-14-How do you even do anything without using EBS?</a></p>
+<p>Introduction: In a recent thread on Hacker News discussing  recent AWS price changes ,  seldo  mentioned they use AWS for business, they just never use EBS on AWS. A good question was asked:
+  
+
+How do you even do anything without using EBS?
+
+  
+Amazon certainly makes using EBS the easiest path. And EBS has a better reliability record as of late, but it's still often recommended to not use EBS. This avoids a single point of failure at the cost of a lot of complexity, though as AWS uses EBS internally, not using EBS may not save you if you use other AWS services like RDS or ELB.
+ 
+If you don't want to use EBS, it's hard to know where to even start. A dilemma to which Kevin Nuckolls  gives a great answer :
+  
+
+Well, you break your services out onto stateless and stateful machines. After that, you make sure that each of your stateful services is resilient to individual node failure. I prefer to believe that if you can't roll your entire infrastructure over to new nodes monthly then you're unprepared fo</p><p>4 0.31349337 <a title="881-tfidf-4" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
+<p>Introduction: This is a guest post by   Frédéric Faure    (architect at  Ysance ), you can follow him on  twitter .  
+ 
+ 
+ 
+ Urbandive  is an immersive view service launched by the  French YellowPages  which allows you to travel in cities in France thanks to a 360° view. Urbandive focuses on providing high definition pictures and accurate professional and social content. One of the biggest jobs was to enable a fast scalable architecture, because it was really difficult to forecast the traffic load at production time. Traffic load may be influenced if the service receives attention from users as a result of advertising.
+ 
+Below you will find a summary of the goals we achieve by using a Ruby scheduler built on top of  Puppet  on  AWS  to create a complete infrastructure.
+    Workflow & XTR-Lucid    
+Our scalability combo is : a home-made Ruby scheduler ( XTR-Lucid ) to deal with AWS APIs + the Puppet Master to install services and configure EC2 instances and keep them up-to-date during all the product</p><p>5 0.30760345 <a title="881-tfidf-5" href="../high_scalability-2010/high_scalability-2010-12-21-SQL_%2B_NoSQL_%3D_Yes_%21.html">961 high scalability-2010-12-21-SQL + NoSQL = Yes !</a></p>
+<p>Introduction: This is a guest post by     Frédéric Faure      (architect at    Ysance   ), you can follow him on    twitter   .  
+ 
+Data storage has always been one of the most difficult problems to address, especially as the quantity of stored data is constantly increasing. This is not simply due to the growing numbers of people regularly using the Internet, particularly with all the social networks, games and gizmos now available. Companies are also amassing more and more meticulous information relevant to their business, in order to optimize productivity and ROI (Return On Investment). I find the positioning of SQL and NoSQL (Not Only SQL) as opposites rather a shame: it’s true that the marketing wave of NoSQL has enabled the renewed promotion of a system that’s been around for quite a while, but which was only rarely considered in most cases, as after all, everything could be fitted into the « good old SQL model ». The reverse trend of wanting to make everything fit the NoSQL model is not very p</p><p>6 0.25552577 <a title="881-tfidf-6" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
 <p>7 0.21085414 <a title="881-tfidf-7" href="../high_scalability-2011/high_scalability-2011-09-21-5_Scalability_Poisons_and_3_Cloud_Scalability_Antidotes.html">1121 high scalability-2011-09-21-5 Scalability Poisons and 3 Cloud Scalability Antidotes</a></p>
 <p>8 0.20516302 <a title="881-tfidf-8" href="../high_scalability-2012/high_scalability-2012-10-26-Stuff_The_Internet_Says_On_Scalability_For_October_26%2C_2012.html">1348 high scalability-2012-10-26-Stuff The Internet Says On Scalability For October 26, 2012</a></p>
 <p>9 0.19171616 <a title="881-tfidf-9" href="../high_scalability-2013/high_scalability-2013-08-28-Sean_Hull%27s_20_Biggest_Bottlenecks_that_Reduce_and_Slow_Down_Scalability.html">1508 high scalability-2013-08-28-Sean Hull's 20 Biggest Bottlenecks that Reduce and Slow Down Scalability</a></p>
@@ -144,76 +101,41 @@ either.So, what'</p><p>6 0.25552577 <a title="881-tfidf-6" href="../high_scalabi
 <p>[(0, 0.35), (1, 0.123), (2, -0.043), (3, 0.003), (4, -0.068), (5, -0.011), (6, 0.121), (7, -0.168), (8, -0.006), (9, -0.099), (10, 0.021), (11, 0.023), (12, 0.058), (13, -0.111), (14, -0.022), (15, 0.002), (16, 0.06), (17, 0.023), (18, 0.022), (19, 0.011), (20, -0.01), (21, -0.066), (22, 0.042), (23, 0.062), (24, -0.013), (25, -0.028), (26, -0.076), (27, -0.033), (28, -0.068), (29, -0.11), (30, -0.076), (31, 0.019), (32, 0.066), (33, 0.052), (34, -0.059), (35, -0.08), (36, 0.101), (37, -0.088), (38, -0.02), (39, -0.013), (40, 0.041), (41, 0.003), (42, -0.035), (43, -0.054), (44, 0.002), (45, -0.007), (46, -0.046), (47, 0.037), (48, 0.04), (49, 0.109)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.95732117 <a title="881-lsi-1" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.How do you scale anAWS(Amazon Web Services) infrastructure?
-This article will give you a detailed reply in two parts: the tools you can
-use to make the most of Amazon's dynamic approach, and the architectural model
-you should adopt for a scalable infrastructure.I base my report on my
-experience gained in several AWS production projects in casual gaming
-(Facebook), e-commerce infrastructures and within the mainstream GIS
-(Geographic Information System). It's true that my experience in gaming
-(IsCool, The Game) is currently the most representative in terms of
-scalability, due to the number of users (over 800 thousand DAU - daily active
-users - at peak usage and over 20 million page views every day), however my
-experiences in e-commerce and GIS (currently underway) provide a different
-view of scalability, taking into account the various problems of availability
-and data management. I will therefore</p><p>2 0.88577569 <a title="881-lsi-2" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.Urbandiveis an immersive view service launched by theFrench
-YellowPageswhich allows you to travel in cities in France thanks to a 360°
-view. Urbandive focuses on providing high definition pictures and accurate
-professional and social content. One of the biggest jobs was to enable a fast
-scalable architecture, because it was really difficult to forecast the traffic
-load at production time. Traffic load may be influenced if the service
-receives attention from users as a result of advertising.Below you will find a
-summary of the goals we achieve by using a Ruby scheduler built on top
-ofPuppetonAWSto create a complete infrastructure.Workflow & XTR-LucidOur
-scalability combo is : a home-made Ruby scheduler (XTR-Lucid) to deal with AWS
-APIs + the Puppet Master to install services and configure EC2 instances and
-keep them up-to-date during all the production time. This leads to full
-automation.Here is</p><p>3 0.82806373 <a title="881-lsi-3" href="../high_scalability-2013/high_scalability-2013-11-05-10_Things_You_Should_Know_About_AWS.html">1543 high scalability-2013-11-05-10 Things You Should Know About AWS</a></p>
-<p>Introduction: Authored by Chris Fregly:  Former Netflix Streaming Platform Engineer, AWS
-Certified Solution Architect and Purveyor of fluxcapacitor.com.Ahead of the
-upcoming 2nd annual re:Invent conference, inspired by Simone Brunozzi's
-recentpresentationat an AWS Meetup in San Francisco, and collected from a few
-of my recentFluxcapacitor.com consulting engagements, I've compiled a list of
-10 useful time and clock-tick saving tips about AWS.1) Query AWS resource
-metadata Can't remember the EBS-Optimized IO throughput of your c1.xlarge
-cluster?  How about the size limit of an S3 object on a single PUT?
-awsnow.infois the answer to all of your AWS-resource metadata questions.
-Interested in integrating awsnow.info with your application?  You're in luck.
-There's now aREST API, as well!Note:  These are default soft limits and will
-vary by account.2) Tame your S3 buckets Delete an entire S3 bucket with a
-single CLI command:  aws s3 rb s3://\--forceRecursively copy a
-local directory to S3:aws</p><p>4 0.80225378 <a title="881-lsi-4" href="../high_scalability-2012/high_scalability-2012-10-25-Not_All_Regions_are_Created_Equal_-_South_America_Es_Bueno.html">1347 high scalability-2012-10-25-Not All Regions are Created Equal - South America Es Bueno</a></p>
-<p>Introduction: Rodrigo Camposshared some interesting benchmark resultsfor AWS instances in
-the South America Region (Sao Paulo) and US East Region (North Virginia). He
-summarized the results in this thread on theGuerrilla Capacity
-Planninglist:The same instance type shows a different behavior depending on
-the region that it is running, this is particularly critical if you depend on
-multiple regions for disaster recovery or geographical load balancingGenerally
-speaking performance is better and more consistent in the South America region
-when compared to Virginia, this is probably due to the fact that SA region was
-the latest to be deployed. Maybe the SA datacenter uses new server models or
-it is just underutilized, but this is a wild guessWrite performance for the
-medium instance type in Virginia abruptly decays, dropping from almost 400
-call/s to something around 300 calls/s, this is not very clear in the scatter
-plot but if you draw a time-based chart you can clearly see this pattern. This
-is the m</p><p>5 0.78598952 <a title="881-lsi-5" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
-<p>Introduction: This is a guest post byShawn Hsiao,Luke Massa, andVictor Luu. Shawn
-runsTripAdvisor's Technical Operations team, Luke and Victor interned on his
-team this past summer. This post is introduced byAndy Gelfond, TripAdvisor's
-head of engineering.It's been a little over a year since our last post about
-theTripAdvisor architecture. It has been an exciting year. Our business and
-team continues to grow, we are now an independent public company, and we have
-continued to keep/scale our development process and culture as we have grown -
-we still run dozens of independent teams, and each team continues to work
-across the entire stack. All that has changed are the numbers:56M visitors per
-month350M+ pages requests a day120TB+ of warehouse data running on a large
-Hadoop cluster, and quickly growingWe also had a very successful college
-intern program that brought on over 60 interns this past summer, all who were
-quickly on boarded and doing the same kind of work as our full time
-engineers.One recurri</p><p>6 0.78265786 <a title="881-lsi-6" href="../high_scalability-2014/high_scalability-2014-04-14-How_do_you_even_do_anything_without_using_EBS%3F.html">1631 high scalability-2014-04-14-How do you even do anything without using EBS?</a></p>
+<p>Introduction: This is a guest post by    Frédéric Faure    (architect at    Ysance   ), you can follow him on    twitter   . 
+ 
+How do you scale an  AWS  (Amazon Web Services) infrastructure? This article will give you a detailed reply in two parts: the tools you can use to make the most of Amazon’s dynamic approach, and the architectural model you should adopt for a scalable infrastructure.
+ 
+I base my report on my experience gained in several AWS production projects in casual gaming (Facebook), e-commerce infrastructures and within the mainstream GIS (Geographic Information System). It’s true that my experience in gaming ( IsCool, The Game ) is currently the most representative in terms of scalability, due to the number of users (over 800 thousand DAU – daily active users – at peak usage and over 20 million page views every day), however my experiences in e-commerce and GIS (currently underway) provide a different view of scalability, taking into account the various problems of availability and da</p><p>2 0.88577569 <a title="881-lsi-2" href="../high_scalability-2011/high_scalability-2011-06-13-Automation_on_AWS_with_Ruby_and_Puppet.html">1058 high scalability-2011-06-13-Automation on AWS with Ruby and Puppet</a></p>
+<p>Introduction: This is a guest post by   Frédéric Faure    (architect at  Ysance ), you can follow him on  twitter .  
+ 
+ 
+ 
+ Urbandive  is an immersive view service launched by the  French YellowPages  which allows you to travel in cities in France thanks to a 360° view. Urbandive focuses on providing high definition pictures and accurate professional and social content. One of the biggest jobs was to enable a fast scalable architecture, because it was really difficult to forecast the traffic load at production time. Traffic load may be influenced if the service receives attention from users as a result of advertising.
+ 
+Below you will find a summary of the goals we achieve by using a Ruby scheduler built on top of  Puppet  on  AWS  to create a complete infrastructure.
+    Workflow & XTR-Lucid    
+Our scalability combo is : a home-made Ruby scheduler ( XTR-Lucid ) to deal with AWS APIs + the Puppet Master to install services and configure EC2 instances and keep them up-to-date during all the product</p><p>3 0.82806373 <a title="881-lsi-3" href="../high_scalability-2013/high_scalability-2013-11-05-10_Things_You_Should_Know_About_AWS.html">1543 high scalability-2013-11-05-10 Things You Should Know About AWS</a></p>
+<p>Introduction: Authored by  Chris Fregly   :  Former Netflix Streaming Platform Engineer, AWS Certified Solution Architect and Purveyor of fluxcapacitor.com.  
+   Ahead of the upcoming 2nd annual re:Invent conference, inspired by Simone Brunozzi’s recent    presentation    at an AWS Meetup in San Francisco, and collected from a few of my recent    Fluxcapacitor.com    consulting engagements, I’ve compiled a list of 10 useful time and clock-tick saving tips about AWS. 
+    1) Query AWS resource metadata  
+      
+   Can’t remember the EBS-Optimized IO throughput of your c1.xlarge cluster?  How about the size limit of an S3 object on a single PUT?     awsnow.info    is the answer to all of your AWS-resource metadata questions.  Interested in integrating awsnow.info with your application?  You’re in luck.  There’s now a    REST API   , as well! 
+   Note:  These are default soft limits and will vary by account. 
+    2) Tame your S3 buckets  
+       
+   Delete an entire S3 bucket with a single CLI command:</p><p>4 0.80225378 <a title="881-lsi-4" href="../high_scalability-2012/high_scalability-2012-10-25-Not_All_Regions_are_Created_Equal_-_South_America_Es_Bueno.html">1347 high scalability-2012-10-25-Not All Regions are Created Equal - South America Es Bueno</a></p>
+<p>Introduction: Rodrigo Campos  shared some interesting benchmark results  for AWS instances in the South America Region (SĂŁo Paulo) and US East Region (North Virginia). He summarized the results in this thread on the  Guerrilla Capacity Planning  list:
+  
+ The same instance type shows a different behavior depending on the region that it is running, this is particularly critical if you depend on multiple regions for disaster recovery or geographical load balancing 
+ Generally speaking performance is better and more consistent in the South America region when compared to Virginia, this is probably due to the fact that SA region was the latest to be deployed. Maybe the SA datacenter uses new server models or it is just underutilized, but this is a wild guess  
+ Write performance for the medium instance type in Virginia abruptly decays, dropping from almost 400 call/s to something around 300 calls/s, this is not very clear in the scatter plot but if you draw a time-based chart you can clearly see this pa</p><p>5 0.78598952 <a title="881-lsi-5" href="../high_scalability-2012/high_scalability-2012-10-02-An_Epic_TripAdvisor_Update%3A_Why_Not_Run_on_the_Cloud%3F_The_Grand_Experiment..html">1331 high scalability-2012-10-02-An Epic TripAdvisor Update: Why Not Run on the Cloud? The Grand Experiment.</a></p>
+<p>Introduction: This is a guest post by  Shawn Hsiao ,  Luke Massa , and  Victor Luu . Shawn runs  TripAdvisor ’s Technical Operations team, Luke and Victor interned on his team this past summer. This post is introduced by  Andy Gelfond , TripAdvisor’s head of engineering.   It's been a little over a year since our last post about the  TripAdvisor architecture . It has been an exciting year. Our business and team continues to grow, we are now an independent public company, and we have continued to keep/scale our development process and culture as we have grown - we still run dozens of independent teams, and each team continues to work across the entire stack. All that has changed are the numbers:
+  
+ 56M visitors per month 
+ 350M+ pages requests a day 
+ 120TB+ of warehouse data running on a large Hadoop cluster, and quickly growing 
+  
+We also had a very successful college intern program that brought on over 60 interns this past summer, all who were quickly on boarded and doing the same kind of work a</p><p>6 0.78265786 <a title="881-lsi-6" href="../high_scalability-2014/high_scalability-2014-04-14-How_do_you_even_do_anything_without_using_EBS%3F.html">1631 high scalability-2014-04-14-How do you even do anything without using EBS?</a></p>
 <p>7 0.77799124 <a title="881-lsi-7" href="../high_scalability-2013/high_scalability-2013-04-03-5_Steps_to_Benchmarking_Managed_NoSQL_-_DynamoDB_vs_Cassandra.html">1434 high scalability-2013-04-03-5 Steps to Benchmarking Managed NoSQL - DynamoDB vs Cassandra</a></p>
 <p>8 0.77728003 <a title="881-lsi-8" href="../high_scalability-2010/high_scalability-2010-07-08-Cloud_AWS_Infrastructure_vs._Physical_Infrastructure.html">853 high scalability-2010-07-08-Cloud AWS Infrastructure vs. Physical Infrastructure</a></p>
 <p>9 0.77573949 <a title="881-lsi-9" href="../high_scalability-2011/high_scalability-2011-09-21-5_Scalability_Poisons_and_3_Cloud_Scalability_Antidotes.html">1121 high scalability-2011-09-21-5 Scalability Poisons and 3 Cloud Scalability Antidotes</a></p>
@@ -233,77 +155,38 @@ engineers.One recurri</p><p>6 0.78265786 <a title="881-lsi-6" href="../high_scal
 <p>[(1, 0.158), (2, 0.182), (10, 0.085), (30, 0.04), (32, 0.069), (40, 0.011), (47, 0.028), (56, 0.019), (61, 0.073), (77, 0.012), (79, 0.082), (85, 0.049), (94, 0.05)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96463388 <a title="881-lda-1" href="../high_scalability-2010/high_scalability-2010-08-16-Scaling_an_AWS_infrastructure_-_Tools_and_Patterns.html">881 high scalability-2010-08-16-Scaling an AWS infrastructure - Tools and Patterns</a></p>
-<p>Introduction: This is a guest post by Frederic Faure (architect at Ysance), you can follow
-him on twitter.How do you scale anAWS(Amazon Web Services) infrastructure?
-This article will give you a detailed reply in two parts: the tools you can
-use to make the most of Amazon's dynamic approach, and the architectural model
-you should adopt for a scalable infrastructure.I base my report on my
-experience gained in several AWS production projects in casual gaming
-(Facebook), e-commerce infrastructures and within the mainstream GIS
-(Geographic Information System). It's true that my experience in gaming
-(IsCool, The Game) is currently the most representative in terms of
-scalability, due to the number of users (over 800 thousand DAU - daily active
-users - at peak usage and over 20 million page views every day), however my
-experiences in e-commerce and GIS (currently underway) provide a different
-view of scalability, taking into account the various problems of availability
-and data management. I will therefore</p><p>2 0.96184671 <a title="881-lda-2" href="../high_scalability-2012/high_scalability-2012-09-07-Stuff_The_Internet_Says_On_Scalability_For_September_7%2C_2012.html">1318 high scalability-2012-09-07-Stuff The Internet Says On Scalability For September 7, 2012</a></p>
-<p>Introduction: It's HighScalability Time:Quotable Quotes:Where did all the supercomputers
-go?Inside Intel.@Jacattell: I love the smell of high scalability in the
-morning :-)@nkohari: Post on HN about GitHub scalability. Top comment?
-"…someone wasted valuable time making the dashboard look so pretty" Evolution
-of SoundCloud's Architecture: The way we develop SoundCloud is to identify the
-points of scale then isolate and optimize the read and write paths
-individually, in anticipation of the next magnitude of growth.How We Build Our
-60-Node (Almost Distributed Web Crawler.  Semantics3 crawls 1-3 million pages
-a day at a cost of ~$3 a day (excluding storage costs) using micro-instances,
-Grearman, redis, perl, chef, and capistrano.Werner Vogels continues his 50
-Shades of Programming book club withBack-to-Basics Weekend Reading -
-Granularity of locks. Highlight is a touching remembrance of Jim Gray.Speaking
-of locks and stories, the MySQL Performance BLog in Write contentions on the
-query cache tracks down</p><p>3 0.9500317 <a title="881-lda-3" href="../high_scalability-2011/high_scalability-2011-06-27-TripAdvisor_Architecture_-_40M_Visitors%2C_200M_Dynamic_Page_Views%2C_30TB_Data.html">1068 high scalability-2011-06-27-TripAdvisor Architecture - 40M Visitors, 200M Dynamic Page Views, 30TB Data</a></p>
-<p>Introduction: This is a guest post byAndy Gelfond, VP of Engineering for TripAdvisor. Andy
-has been with TripAdvisor for six and a half years, wrote a lot of code in the
-earlier days, and has been building and running a first class engineering and
-operations team that is responsible for the worlds largest travel site.
-There's an update for this article atAn Epic TripAdvisor Update: Why Not Run
-On The Cloud? The Grand Experiment. For TripAdvisor, scalability is woven into
-our organization on many levels - data center, software architecture,
-development/deployment/operations, and, most importantly, within the culture
-and organization. It is not enough to have a scalable data center, or a
-scalable software architecture. The process of designing, coding, testing, and
-deploying code also needs to be scalable. All of this starts with hiring and a
-culture and an organization that values and supports a distributed, fast, and
-effective development and operation of a complex and highly scalable consumer
-web s</p><p>4 0.94854158 <a title="881-lda-4" href="../high_scalability-2011/high_scalability-2011-01-18-Paper%3A_Relational_Cloud%3A_A_Database-as-a-Service_for_the_Cloud.html">974 high scalability-2011-01-18-Paper: Relational Cloud: A Database-as-a-Service for the Cloud</a></p>
-<p>Introduction: The Relational Cloud Project is an effort by a group of researchers at MIT to
-investigate technologies and challenges related to Database-as-a-Service
-within cloud-computing. They are trying to figure out how the advantages of
-the DaaS (Database-as-a-Service) model, that we've seen arise in other areas
-like OLAP and NoSQL, can be applied to relational databases. The DaaS
-advantages as they see them are: 1) predictable costs, proportional to the
-quality of service and actual workloads, 2) lower technical complexity, thanks
-to a unified and simplified service access interface, and 3) virtually
-infinite resources ready at hand. An interesting description of their approach
-is explained in the paper Relational Cloud: A Database-as-a-Service for the
-Cloud. From the abstract:This paper introduces a new transactional "database-
-as-a-service" (DBaaS) called Relational Cloud. A DBaaS promises to move much
-of the operational burden of provisioning, conﬁguration, scaling, performance
-tuning, backu</p><p>5 0.94549882 <a title="881-lda-5" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
-<p>Introduction: Wikimedia is the platform on which Wikipedia, Wiktionary, and the other seven
-wiki dwarfs are built on. This document is just excellent for the student
-trying to scale the heights of giant websites. It is full of details and
-innovative ideas that have been proven on some of the most used websites on
-the internet.Site: http://wikimedia.org/Information SourcesWikimedia
-architecturehttp://meta.wikimedia.org/wiki/Wikimedia_serversscale-out vs
-scale-upin thefrom Oracle to
-MySQLblog.PlatformApacheLinuxMySQLPHPSquidLVSLucene for SearchMemcached for
-Distributed Object CacheLighttpd Image ServerThe Stats8 million articles
-spread over hundreds of language projects (english, dutch, ...)10th busiest
-site in the world (source: Alexa)Exponential growth: doubling every 4-6 months
-in terms of visitors / traffic / servers30 000 HTTP requests/s during peak-
-time3 Gbit/s of data traffic3 data centers: Tampa, Amsterdam, Seoul350
-servers, ranging between 1x P4 to 2x Xeon Quad-Core, 0.5 - 16 GB of
-memoryman</p><p>6 0.94467056 <a title="881-lda-6" href="../high_scalability-2012/high_scalability-2012-02-21-Pixable_Architecture_-_Crawling%2C_Analyzing%2C_and_Ranking_20_Million_Photos_a_Day.html">1197 high scalability-2012-02-21-Pixable Architecture - Crawling, Analyzing, and Ranking 20 Million Photos a Day</a></p>
+<p>Introduction: This is a guest post by    Frédéric Faure    (architect at    Ysance   ), you can follow him on    twitter   . 
+ 
+How do you scale an  AWS  (Amazon Web Services) infrastructure? This article will give you a detailed reply in two parts: the tools you can use to make the most of Amazon’s dynamic approach, and the architectural model you should adopt for a scalable infrastructure.
+ 
+I base my report on my experience gained in several AWS production projects in casual gaming (Facebook), e-commerce infrastructures and within the mainstream GIS (Geographic Information System). It’s true that my experience in gaming ( IsCool, The Game ) is currently the most representative in terms of scalability, due to the number of users (over 800 thousand DAU – daily active users – at peak usage and over 20 million page views every day), however my experiences in e-commerce and GIS (currently underway) provide a different view of scalability, taking into account the various problems of availability and da</p><p>2 0.96184671 <a title="881-lda-2" href="../high_scalability-2012/high_scalability-2012-09-07-Stuff_The_Internet_Says_On_Scalability_For_September_7%2C_2012.html">1318 high scalability-2012-09-07-Stuff The Internet Says On Scalability For September 7, 2012</a></p>
+<p>Introduction: It's HighScalability Time:
+  
+ Quotable Quotes:                    
+ 
+  Where did all the supercomputers go?  Inside Intel. 
+  @Jacattell : I love the smell of high scalability in the morning :-) 
+  @nkohari : Post on HN about GitHub scalability. Top comment? “…someone wasted valuable time making the dashboard look so pretty”  
+ 
+ 
+  Evolution of SoundCloud’s Architecture : The way we develop SoundCloud is to identify the points of scale then isolate and optimize the read and write paths individually, in anticipation of the next magnitude of growth. 
+  How We Build Our 60-Node (Almost Distributed Web Crawler .  Semantics3 crawls 1-3 million pages a day at a cost of ~$3 a day (excluding storage costs) using micro-instances, Grearman, redis, perl, chef, and capistrano. 
+ Werner Vogels continues his 50 Shades of Programming book club with  Back-to-Basics Weekend Reading - Granularity of locks . Highlight is a touching remembrance of Jim Gray. 
+ Speaking of locks and stories, the MySQL Per</p><p>3 0.9500317 <a title="881-lda-3" href="../high_scalability-2011/high_scalability-2011-06-27-TripAdvisor_Architecture_-_40M_Visitors%2C_200M_Dynamic_Page_Views%2C_30TB_Data.html">1068 high scalability-2011-06-27-TripAdvisor Architecture - 40M Visitors, 200M Dynamic Page Views, 30TB Data</a></p>
+<p>Introduction: This is a guest post by  Andy Gelfond , VP of Engineering for TripAdvisor. Andy has been with TripAdvisor for six and a half years, wrote a lot of code in the earlier days, and has been building and running a first class engineering and operations team that is responsible for the worlds largest travel site. There's an update for this article at  An Epic TripAdvisor Update: Why Not Run On The Cloud? The Grand Experiment .  
+ 
+For  TripAdvisor , scalability is woven into our organization on many levels - data center, software architecture, development/deployment/operations, and, most importantly, within the culture and organization. It is not enough to have a scalable data center, or a scalable software architecture. The process of designing, coding, testing, and deploying code also needs to be scalable. All of this starts with hiring and a culture and an organization that values and supports a distributed, fast, and effective development and operation of a complex and highly scalable co</p><p>4 0.94854158 <a title="881-lda-4" href="../high_scalability-2011/high_scalability-2011-01-18-Paper%3A_Relational_Cloud%3A_A_Database-as-a-Service_for_the_Cloud.html">974 high scalability-2011-01-18-Paper: Relational Cloud: A Database-as-a-Service for the Cloud</a></p>
+<p>Introduction: The  Relational Cloud Project  is an effort by a group of researchers at MIT to  investigate technologies and challenges related to Database-as-a-Service within cloud-computing . They are trying to figure out how the advantages of the DaaS (Database-as-a-Service) model, that we've seen arise in other areas like OLAP and NoSQL, can be applied to relational databases. The DaaS advantages as they see them are: 1) predictable costs, proportional to the quality of service and actual workloads, 2) lower technical complexity, thanks to a unified and simplified service access interface, and 3) virtually infinite resources ready at hand. An interesting description of their approach is explained in the paper  Relational Cloud: A Database-as-a-Service for the Cloud . From the abstract:
+  
+ This paper introduces a new transactional “database-as-a-service” (DBaaS) called Relational Cloud. A DBaaS promises to move much of the operational burden of provisioning, conﬁguration, scaling, performance tun</p><p>5 0.94549882 <a title="881-lda-5" href="../high_scalability-2007/high_scalability-2007-08-22-Wikimedia_architecture.html">72 high scalability-2007-08-22-Wikimedia architecture</a></p>
+<p>Introduction: Wikimedia is the platform on which Wikipedia, Wiktionary, and the other seven wiki dwarfs are built on. This document is just excellent for the student trying to scale the heights of giant websites. It is full of details and innovative ideas that have been proven on some of the most used websites on the internet.
+ 
+Site: http://wikimedia.org/
+  Information Sources     Wikimedia architecture     http://meta.wikimedia.org/wiki/Wikimedia_servers     scale-out vs scale-up  in the  from Oracle to MySQL  blog. 
+ Platform 
+    Apache    Linux    MySQL    PHP    Squid    LVS    Lucene for Search    Memcached for Distributed Object Cache    Lighttpd Image Server 
+ The Stats 
+    8 million articles spread over hundreds of language projects (english, dutch, ...)    10th busiest site in the world (source: Alexa)    Exponential growth: doubling every 4-6 months in terms of visitors / traffic / servers    30 000 HTTP requests/s during peak-time    3 Gbit/s of data traffic    3 data centers: Tampa, A</p><p>6 0.94467056 <a title="881-lda-6" href="../high_scalability-2012/high_scalability-2012-02-21-Pixable_Architecture_-_Crawling%2C_Analyzing%2C_and_Ranking_20_Million_Photos_a_Day.html">1197 high scalability-2012-02-21-Pixable Architecture - Crawling, Analyzing, and Ranking 20 Million Photos a Day</a></p>
 <p>7 0.94416481 <a title="881-lda-7" href="../high_scalability-2013/high_scalability-2013-11-25-How_To_Make_an_Infinitely_Scalable_Relational_Database_Management_System_%28RDBMS%29.html">1553 high scalability-2013-11-25-How To Make an Infinitely Scalable Relational Database Management System (RDBMS)</a></p>
 <p>8 0.94326276 <a title="881-lda-8" href="../high_scalability-2007/high_scalability-2007-10-02-Secrets_to_Fotolog%27s_Scaling_Success.html">106 high scalability-2007-10-02-Secrets to Fotolog's Scaling Success</a></p>
 <p>9 0.94230449 <a title="881-lda-9" href="../high_scalability-2013/high_scalability-2013-12-02-Evolution_of_Bazaarvoice%E2%80%99s_Architecture_to_500M_Unique_Users_Per_Month.html">1557 high scalability-2013-12-02-Evolution of Bazaarvoice’s Architecture to 500M Unique Users Per Month</a></p>

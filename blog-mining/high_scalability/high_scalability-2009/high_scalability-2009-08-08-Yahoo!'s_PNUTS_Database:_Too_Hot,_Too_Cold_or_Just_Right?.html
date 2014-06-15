@@ -16,115 +16,56 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-676-html" href="http://highscalability.com//blog/2009/8/8/yahoos-pnuts-database-too-hot-too-cold-or-just-right.html">html</a></p><p>Introduction: So far every massively scalable database is a bundle of compromises. For some
-the weak guarantees of Amazon'seventual consistencymodel are too cold. For
-many the strong guarantees of standard RDBMSdistributed transactionsare too
-hot. Google App Engine tries to get it just right withentity groups. Yahoo! is
-also trying to get is just right by offering per-record timeline consistency,
-which hopes to serve up a heaping bowl ofrich database functionality and low
-latency at massive scale:We describe PNUTS [Platform for Nimble Universal
-Table Storage], a massively parallel and geographically distributed database
-system for Yahoo!'s web applications. PNUTS provides data storage organized as
-hashed or ordered tables, low latency for large numbers of con-current
-requests including updates and queries, and novel per-record consistency
-guarantees. It is a hosted, centrally managed, and geographically distributed
-service, and utilizes automated load-balancing and failover to reduce
-operational com</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 For many the strong guarantees of standard RDBMSdistributed transactionsare too hot. [sent-3, score-0.188]
-</p><p>2 PNUTS provides data storage organized as hashed or ordered tables, low latency for large numbers of con-current requests including updates and queries, and novel per-record consistency guarantees. [sent-8, score-0.677]
-</p><p>3 It is a hosted, centrally managed, and geographically distributed service, and utilizes automated load-balancing and failover to reduce operational complexity. [sent-9, score-0.363]
-</p><p>4 We describe the motivation for PNUTS and the design and implementation of its table storage and replication layers, and then present experimental results. [sent-11, score-0.214]
-</p><p>5 PNUTS is designed specifically to operate in many datacenters with a strongish consistency model, which makes it a very interesting design point. [sent-14, score-0.29]
-</p><p>6 You can subscribe to a reliable ordered stream of updates on a table. [sent-15, score-0.284]
-</p><p>7 The consistency model is a per-record timeline consistency: all replicas of a given record apply all updates to the record in the same order. [sent-18, score-0.86]
-</p><p>8 This provides a consistency model that is between the two extremes of serialized transactions and eventual consistency. [sent-19, score-0.321]
-</p><p>9 Conflicting records can't exist at the same time as is allowed by Dynamo. [sent-20, score-0.23]
-</p><p>10 There's no fixed schema for records and columns can be typed or be blobs. [sent-22, score-0.161]
-</p><p>11 You can ask for the latest record version or allow for potentially stale records. [sent-27, score-0.155]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="high_scalability-2009-676-html" href="http://highscalability.com//blog/2009/8/8/yahoos-pnuts-database-too-hot-too-cold-or-just-right.html">html</a></p><p>Introduction: So far every massively scalable database is a bundle of compromises. For some the weak guarantees of Amazon's  eventual consistency  model are too cold. For many the strong guarantees of standard RDBMS  distributed transactions  are too hot. Google App Engine tries to get it just right with  entity groups . Yahoo! is also trying to get is just right by offering per-record timeline consistency, which hopes to serve up a heaping bowl of  rich database functionality and low latency at massive scale :
+   We describe PNUTS [Platform for Nimble Universal Table Storage], a massively parallel and geographically distributed database system for Yahoo!â&euro;&trade;s web applications. PNUTS provides data storage organized as hashed or ordered tables, low latency for large numbers of con-current requests including updates and queries, and novel per-record consistency guarantees. It is a hosted, centrally managed, and geographically distributed service, and utilizes automated load-balancing and failover to redu</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 For some the weak guarantees of Amazon's  eventual consistency  model are too cold. [sent-2, score-0.332]
+</p><p>2 For many the strong guarantees of standard RDBMS  distributed transactions  are too hot. [sent-3, score-0.286]
+</p><p>3 PNUTS provides data storage organized as hashed or ordered tables, low latency for large numbers of con-current requests including updates and queries, and novel per-record consistency guarantees. [sent-8, score-0.677]
+</p><p>4 It is a hosted, centrally managed, and geographically distributed service, and utilizes automated load-balancing and failover to reduce operational complexity. [sent-9, score-0.363]
+</p><p>5 We describe the motivation for PNUTS and the design and implementation of its table storage and replication layers, and then present experimental results. [sent-11, score-0.214]
+</p><p>6 PNUTS is designed specifically to operate in many datacenters with a strongish consistency model, which makes it a very interesting design point. [sent-14, score-0.29]
+</p><p>7 You can subscribe to a reliable ordered stream of updates on a table. [sent-15, score-0.284]
+</p><p>8 The consistency model is a per-record timeline consistency: all replicas of a given record apply all updates to the record in the same order. [sent-18, score-0.86]
+</p><p>9 This provides a consistency model that is between the two extremes of serialized transactions and eventual consistency. [sent-19, score-0.321]
+</p><p>10 Conflicting records can't exist at the same time as is allowed by Dynamo. [sent-20, score-0.23]
+</p><p>11 The degree of read consistency desired can be specified. [sent-25, score-0.217]
 </p><p>12 Asynchronous replication is used to ensure low write latency while providing geographic replication. [sent-28, score-0.24]
-</p><p>13 [3]A message broker that serves both as the replication mechanism and redo log of the database. [sent-30, score-0.407]
+</p><p>13 [3]    A message broker that serves both as the replication mechanism and redo log of the database. [sent-30, score-0.407]
 </p><p>14 The message broker guarantees no replica can receive updates out of order because it provided a reliable, totally ordered message channel. [sent-31, score-0.663]
-</p><p>15 They chose this approach over a gossip mechanism (like Dynamo)because it can be optimized for geographically distant replicas and because replicas do not need to know the location of other replicas. [sent-33, score-0.445]
-</p><p>16 Predicate queries are supported using a scatter-gather mechanism which sends the query to every relevant storage tablet at once. [sent-37, score-0.18]
-</p><p>17 From a system perspective PNUTS offers a lot of the good things: hosted, reliability, lowish latency, automation, scalability, supports many application models, and there's a lot of room to improvement that all applications will be able to take advantage of when available. [sent-40, score-0.266]
-</p><p>18 From a programmer perspective the programmer's job is still way too hard. [sent-45, score-0.251]
-</p><p>19 To be just right programmer's need low latency aggregate operators, complex transactions, scalable counters, automatic relationship management, and all the other features that will help them just buy instant porridge and be done with it. [sent-46, score-0.31]
-</p><p>20 Related ArticlesAnti-RDBMS: A list of distributed key-value storesDetails on Yahoo's distributed databaseby Greg LindenThoughts on Yahoo's PNUTS distributed databaseby Marton TrencseniData Challenges at Yahoo! [sent-47, score-0.455]
+</p><p>15 They chose this approach over a gossip mechanism (like Dynamo)  because it can be optimized for geographically distant replicas and because replicas do not need to know the location of other replicas. [sent-33, score-0.445]
+</p><p>16 From a system perspective PNUTS offers a lot of the good things: hosted, reliability, lowish latency, automation, scalability, supports many application models, and there's a lot of room to improvement that all applications will be able to take advantage of when available. [sent-40, score-0.266]
+</p><p>17 From a programmer perspective the programmer's job is still way too hard. [sent-45, score-0.251]
+</p><p>18 To be just right programmer's need low latency aggregate operators, complex transactions, scalable counters, automatic relationship management, and all the other features that will help them just buy instant  porridge and be done with it. [sent-46, score-0.31]
+</p><p>19 Related Articles       Anti-RDBMS: A list of distributed key-value stores      Details on Yahoo's distributed database  by Greg Linden     Thoughts on Yahoo's PNUTS distributed database  by Marton Trencseni      Data Challenges at Yahoo! [sent-47, score-0.201]
+</p><p>20 Trading consistency for scalability in distributed architectures . [sent-54, score-0.284]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('pnuts', 0.399), ('yahoo', 0.23), ('consistency', 0.217), ('ordered', 0.178), ('records', 0.161), ('record', 0.155), ('hosted', 0.141), ('goldilocks', 0.138), ('nimble', 0.138), ('perspective', 0.134), ('lowish', 0.132), ('databaseby', 0.127), ('geographically', 0.12), ('programmer', 0.117), ('guarantees', 0.115), ('timeline', 0.114), ('replicas', 0.113), ('centrally', 0.112), ('massively', 0.107), ('updates', 0.106), ('transactions', 0.104), ('et', 0.103), ('latency', 0.1), ('mechanism', 0.099), ('broker', 0.098), ('tables', 0.084), ('universal', 0.084), ('message', 0.083), ('queries', 0.081), ('low', 0.076), ('table', 0.076), ('describe', 0.074), ('agrawal', 0.073), ('heaping', 0.073), ('raghu', 0.073), ('strongish', 0.073), ('transactionsare', 0.073), ('secondary', 0.07), ('exist', 0.069), ('porridge', 0.069), ('marton', 0.069), ('layers', 0.068), ('distributed', 0.067), ('lorenzo', 0.066), ('right', 0.065), ('replication', 0.064), ('failover', 0.064), ('resharding', 0.063), ('databasesby', 0.063), ('redo', 0.063)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000004 <a title="676-tfidf-1" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
-<p>Introduction: So far every massively scalable database is a bundle of compromises. For some
-the weak guarantees of Amazon'seventual consistencymodel are too cold. For
-many the strong guarantees of standard RDBMSdistributed transactionsare too
-hot. Google App Engine tries to get it just right withentity groups. Yahoo! is
-also trying to get is just right by offering per-record timeline consistency,
-which hopes to serve up a heaping bowl ofrich database functionality and low
-latency at massive scale:We describe PNUTS [Platform for Nimble Universal
-Table Storage], a massively parallel and geographically distributed database
-system for Yahoo!'s web applications. PNUTS provides data storage organized as
-hashed or ordered tables, low latency for large numbers of con-current
-requests including updates and queries, and novel per-record consistency
-guarantees. It is a hosted, centrally managed, and geographically distributed
-service, and utilizes automated load-balancing and failover to reduce
-operational com</p><p>2 0.25398281 <a title="676-tfidf-2" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
-<p>Introduction: Update:Streamy Explains CAP and HBase's Approach to CAP.We plan to employ
-inter-cluster replication, with each cluster located in a single DC. Remote
-replication will introduce some eventual consistency into the system, but each
-cluster will continue to be strongly consistent.Ryan Barrett, Google App
-Engine datastore lead, gave this talkTransactions Across Datacenters (and
-Other Weekend Projects)at the Google I/O 2009 conference.While the talk
-doesn't necessarily break new technical ground, Ryan does an excellent job
-explaining and evaluating the different options you have when architecting a
-system to work across multiple datacenters. This is calledmultihoming,
-operating from multiple datacenters simultaneously.As multihoming is one of
-the most challenging tasks in all computing, Ryan's clear and thoughtful style
-comfortably leads you through the various options. On the trip you learn:The
-differentmulti-homing optionsare: Backups, Master-Slave, Multi-Master, 2PC,
-and Paxos. You'll als</p><p>3 0.20581616 <a title="676-tfidf-3" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
-<p>Introduction: The title of this post is a quote from Ilya Grigorik's post Weak Consistency
-and CAP Implications. Besides the article being excellent, I thought this idea
-had something to add to the great NoSQL versus RDBMS debate, whereMike
-Stonebraker makes the argument that network partitions are rare so designing
-eventually consistent systems for such rare occurrence is not worth losing
-ACID semantics over. Even if network partitions are rare, latency between
-datacenters is not rare, so the game is still on.The rare-partition argument
-seems to flow from a centralized-distributed view of systems. Such systems are
-scale-out in that they grow by adding distributed nodes, but the nodes
-generally do not cross datacenter boundaries. The assumption is the network is
-fast enough that distributed operations are roughly homogenous between
-nodes.In a fully-distributed system the nodes can be dispersed across
-datacenters, which gives operations a widely variable performance profile.
-Because everything talks</p><p>4 0.1855095 <a title="676-tfidf-4" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
-<p>Introduction: Here are a few updates on the articlePaper: Don't Settle For Eventual:
-Scalable Causal Consistency For Wide-Area Storage With COPS from Mike Freedman
-and Wyatt Lloyd.Q: How software architectures could change in response to
-casual+ consistency?A: I don't really think they would much. Somebody would
-still run a two-tier architecture in their datacenter:  a front-tier of
-webservers running both (say) PHP and our client library, and a back tier of
-storage nodes running COPS.  (I'm not sure if it was obvious given the
-discussion of our "thick" client -- you should think of the COPS client
-dropping in where a memcache client library does...albeit ours has per-session
-state.) Q: Why not just use vector clocks?A: The problem with vector clocks
-and scalability has always been that the size of vector clocks in O(N), where
-N is the number of nodes.  So if we want to scale to a datacenter with 10K
-nodes, each piece of metadata must have size O(10K).  And in fact, vector
-clocks alone only allow yo</p><p>5 0.15153052 <a title="676-tfidf-5" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
-<p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><p>6 0.14680921 <a title="676-tfidf-6" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
+<p>Introduction: So far every massively scalable database is a bundle of compromises. For some the weak guarantees of Amazon's  eventual consistency  model are too cold. For many the strong guarantees of standard RDBMS  distributed transactions  are too hot. Google App Engine tries to get it just right with  entity groups . Yahoo! is also trying to get is just right by offering per-record timeline consistency, which hopes to serve up a heaping bowl of  rich database functionality and low latency at massive scale :
+   We describe PNUTS [Platform for Nimble Universal Table Storage], a massively parallel and geographically distributed database system for Yahoo!â&euro;&trade;s web applications. PNUTS provides data storage organized as hashed or ordered tables, low latency for large numbers of con-current requests including updates and queries, and novel per-record consistency guarantees. It is a hosted, centrally managed, and geographically distributed service, and utilizes automated load-balancing and failover to redu</p><p>2 0.25398281 <a title="676-tfidf-2" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
+<p>Introduction: Update:   Streamy Explains CAP and HBase's Approach to CAP .  We plan to employ inter-cluster replication, with each cluster located in a single DC.  Remote replication will introduce some eventual consistency into the system, but each cluster will continue to be strongly consistent.   Ryan Barrett, Google App Engine datastore lead, gave this talk   Transactions Across Datacenters (and Other Weekend Projects)   at the Google I/O 2009 conference.   While the talk doesn't necessarily break new technical ground, Ryan does an excellent job explaining and evaluating the different options you have when architecting a system to work across multiple datacenters. This is called  multihoming ,  operating from multiple datacenters simultaneously.  As multihoming is one of the most challenging tasks in all computing, Ryan's clear and thoughtful style comfortably leads you through the various options. On the trip you learn:
+   The different  multi-homing options  are: Backups, Master-Slave, Multi-M</p><p>3 0.20581616 <a title="676-tfidf-3" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
+<p>Introduction: The title of this post is a quote from Ilya Grigorik's post  Weak Consistency and CAP Implications . Besides the article being excellent, I thought this idea had something to add to the great NoSQL versus RDBMS debate, where  Mike Stonebraker  makes the argument that network partitions are rare so designing eventually consistent systems for such rare occurrence is not worth losing ACID semantics over. Even if network partitions are rare, latency between datacenters is not rare, so the game is still on.
+ 
+The rare-partition argument seems to flow from a centralized-distributed view of systems. Such systems are scale-out in that they grow by adding distributed nodes, but the nodes generally do not cross datacenter boundaries. The assumption is the network is fast enough that distributed operations are roughly homogenous between nodes.
+ 
+In a fully-distributed system the nodes can be dispersed across datacenters, which gives operations a widely variable performance profile. Because everyt</p><p>4 0.1855095 <a title="676-tfidf-4" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
+<p>Introduction: Here are a few updates on the article  Paper: Don’t Settle For Eventual: Scalable Causal Consistency For Wide-Area Storage With COPS  from Mike Freedman and Wyatt Lloyd.
+ 
+ Q: How software architectures could change in response to casual+ consistency? 
+ 
+ A : I don't really think they would much. Somebody would still run a two-tier architecture in their datacenter:  a front-tier of webservers running both (say) PHP and our client library, and a back tier of storage nodes running COPS.  (I'm not sure if it was obvious given the discussion of our "thick" client -- you should think of the COPS client dropping in where a memcache client library does...albeit ours has per-session state.)
+ 
+ 
+ 
+ Q: Why not just use vector clocks? 
+ 
+ A : The problem with vector clocks and scalability has always been that the size of vector clocks in O(N), where N is the number of nodes.  So if we want to scale to a datacenter with 10K nodes, each piece of metadata must have size O(10K).  And in fact, vector</p><p>5 0.15153052 <a title="676-tfidf-5" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
+<p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><p>6 0.14680921 <a title="676-tfidf-6" href="../high_scalability-2010/high_scalability-2010-12-06-What_the_heck_are_you_actually_using_NoSQL_for%3F.html">954 high scalability-2010-12-06-What the heck are you actually using NoSQL for?</a></p>
 <p>7 0.14222358 <a title="676-tfidf-7" href="../high_scalability-2012/high_scalability-2012-10-22-Spanner_-_It%27s_About_Programmers_Building_Apps_Using_SQL_Semantics_at_NoSQL_Scale.html">1345 high scalability-2012-10-22-Spanner - It's About Programmers Building Apps Using SQL Semantics at NoSQL Scale</a></p>
 <p>8 0.13450389 <a title="676-tfidf-8" href="../high_scalability-2010/high_scalability-2010-03-19-Hot_Scalability_Links_for_March_19%2C_2010.html">797 high scalability-2010-03-19-Hot Scalability Links for March 19, 2010</a></p>
 <p>9 0.13203731 <a title="676-tfidf-9" href="../high_scalability-2011/high_scalability-2011-04-06-Netflix%3A_Run_Consistency_Checkers_All_the_time_to_Fixup_Transactions.html">1017 high scalability-2011-04-06-Netflix: Run Consistency Checkers All the time to Fixup Transactions</a></p>
@@ -144,76 +85,39 @@ milliseconds)), Partition-tolerant (operates with a partition), and Scalable
 <p>[(0, 0.201), (1, 0.099), (2, -0.009), (3, 0.05), (4, 0.01), (5, 0.127), (6, 0.002), (7, -0.018), (8, -0.022), (9, -0.015), (10, 0.006), (11, 0.051), (12, -0.114), (13, -0.051), (14, 0.066), (15, 0.053), (16, -0.001), (17, 0.0), (18, 0.038), (19, -0.07), (20, 0.094), (21, 0.094), (22, -0.017), (23, 0.011), (24, -0.062), (25, -0.044), (26, 0.021), (27, 0.002), (28, 0.005), (29, -0.098), (30, 0.036), (31, -0.011), (32, -0.051), (33, 0.019), (34, -0.013), (35, 0.002), (36, -0.067), (37, 0.029), (38, -0.04), (39, -0.046), (40, -0.036), (41, 0.015), (42, -0.003), (43, -0.029), (44, -0.023), (45, -0.036), (46, 0.026), (47, 0.014), (48, 0.007), (49, 0.004)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.96372515 <a title="676-lsi-1" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
-<p>Introduction: So far every massively scalable database is a bundle of compromises. For some
-the weak guarantees of Amazon'seventual consistencymodel are too cold. For
-many the strong guarantees of standard RDBMSdistributed transactionsare too
-hot. Google App Engine tries to get it just right withentity groups. Yahoo! is
-also trying to get is just right by offering per-record timeline consistency,
-which hopes to serve up a heaping bowl ofrich database functionality and low
-latency at massive scale:We describe PNUTS [Platform for Nimble Universal
-Table Storage], a massively parallel and geographically distributed database
-system for Yahoo!'s web applications. PNUTS provides data storage organized as
-hashed or ordered tables, low latency for large numbers of con-current
-requests including updates and queries, and novel per-record consistency
-guarantees. It is a hosted, centrally managed, and geographically distributed
-service, and utilizes automated load-balancing and failover to reduce
-operational com</p><p>2 0.92115766 <a title="676-lsi-2" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
-<p>Introduction: Teams fromPrincetonand CMU areworking togetherto solve one of the most
-difficult problems in the repertoire: scalable geo-distributed data stores.
-Major companies like Google and Facebook have been working on multiple
-datacenter database functionality for some time, but there's still a general
-lack of available systems that work for complex data scenarios.The ideas in
-this paper--Don't Settle for Eventual: Scalable Causal Consistency for Wide-
-Area Storage with COPS--are different. It's not another eventually consistent
-system, or a traditional transaction oriented system, or a replication based
-system, or a system that punts on the issue. It's something new, a causally
-consistent system that achievesALPSsystem properties. Move over CAP, NoSQL,
-etc, we have another acronym: ALPS - Available (operations always complete
-successfully), Low-latency (operations complete quickly (single digit
-milliseconds)), Partition-tolerant (operates with a partition), and Scalable
-(just add more servers</p><p>3 0.88675481 <a title="676-lsi-3" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
-<p>Introduction: Here are a few updates on the articlePaper: Don't Settle For Eventual:
-Scalable Causal Consistency For Wide-Area Storage With COPS from Mike Freedman
-and Wyatt Lloyd.Q: How software architectures could change in response to
-casual+ consistency?A: I don't really think they would much. Somebody would
-still run a two-tier architecture in their datacenter:  a front-tier of
-webservers running both (say) PHP and our client library, and a back tier of
-storage nodes running COPS.  (I'm not sure if it was obvious given the
-discussion of our "thick" client -- you should think of the COPS client
-dropping in where a memcache client library does...albeit ours has per-session
-state.) Q: Why not just use vector clocks?A: The problem with vector clocks
-and scalability has always been that the size of vector clocks in O(N), where
-N is the number of nodes.  So if we want to scale to a datacenter with 10K
-nodes, each piece of metadata must have size O(10K).  And in fact, vector
-clocks alone only allow yo</p><p>4 0.87821615 <a title="676-lsi-4" href="../high_scalability-2010/high_scalability-2010-09-01-Paper%3A_The_Case_for_Determinism_in_Database_Systems__.html">890 high scalability-2010-09-01-Paper: The Case for Determinism in Database Systems  </a></p>
-<p>Introduction: Can you have your ACID cake and eat your distributed database too? Yes
-explains Daniel Abadi, Assistant Professor of Computer Science at Yale
-University, in an epic post,The problems with ACID, and how to fix them
-without going NoSQL, coauthored with Alexander Thomson, on their paperThe Case
-for Determinism in Database Systems. We've already seenVoltDBoffer the best of
-both worlds, this sounds like a completely different approach.The solution,
-they propose, is: ...an architecture and execution model that avoids deadlock,
-copes with failures without aborting transactions, and achieves high
-concurrency. The paper contains full details, but the basic idea is to use
-ordered locking coupled with optimistic lock location prediction, while
-exploiting deterministic systems' nice replication properties in the case of
-failures.The problem they are trying to solve is:In our opinion, the NoSQL
-decision to give up on ACID is the lazy solution to these scalability and
-replication issues. Responsibil</p><p>5 0.8689574 <a title="676-lsi-5" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
-<p>Introduction: InNoSQL: Past, Present, FutureEric Brewerhas a particularly fine section on
-explaining the often hard to understand ideas ofBASE(Basically Available, Soft
-State, Eventually Consistent),ACID(Atomicity, Consistency, Isolation,
-Durability),CAP(Consistency Availability, Partition Tolerance), in terms of a
-pernicious long standing myth about the sanctity of consistency in
-banking.Myth: Money is important, so banksmustuse transactions to keep money
-safe and consistent, right?Reality: Banking transactions are inconsistent,
-particularly for ATMs. ATMs are designed to have a normal case behaviour and a
-partition mode behaviour. In partition mode Availability is chosen over
-Consistency.Why?1)Availability correlates with revenue and consistency
-generally does not.2)Historically there was never an idea of perfect
-communication so everything was partitioned.Your ATM transaction must go
-through so Availability is more important than consistency. If the ATM is down
-then you aren't making money. If yo</p><p>6 0.85773981 <a title="676-lsi-6" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
+<p>Introduction: So far every massively scalable database is a bundle of compromises. For some the weak guarantees of Amazon's  eventual consistency  model are too cold. For many the strong guarantees of standard RDBMS  distributed transactions  are too hot. Google App Engine tries to get it just right with  entity groups . Yahoo! is also trying to get is just right by offering per-record timeline consistency, which hopes to serve up a heaping bowl of  rich database functionality and low latency at massive scale :
+   We describe PNUTS [Platform for Nimble Universal Table Storage], a massively parallel and geographically distributed database system for Yahoo!â&euro;&trade;s web applications. PNUTS provides data storage organized as hashed or ordered tables, low latency for large numbers of con-current requests including updates and queries, and novel per-record consistency guarantees. It is a hosted, centrally managed, and geographically distributed service, and utilizes automated load-balancing and failover to redu</p><p>2 0.92115766 <a title="676-lsi-2" href="../high_scalability-2011/high_scalability-2011-11-23-Paper%3A_Don%E2%80%99t_Settle_for_Eventual%3A_Scalable_Causal_Consistency_for_Wide-Area_Storage_with_COPS.html">1146 high scalability-2011-11-23-Paper: Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS</a></p>
+<p>Introduction: Teams from  Princeton  and CMU are  working together  to solve one of the most difficult problems in the repertoire: scalable geo-distributed data stores. Major companies like Google and Facebook have been working on multiple datacenter database functionality for some time, but there's still a general lack of available systems that work for complex data scenarios.
+ 
+The ideas in this paper-- Don’t Settle for Eventual: Scalable Causal Consistency for Wide-Area Storage with COPS --are different. It's not another eventually consistent system, or a traditional transaction oriented system, or a replication based system, or a system that punts on the issue. It's something new, a causally consistent system that achieves  ALPS  system properties. Move over CAP, NoSQL, etc, we have another acronym: ALPS - Available (operations always complete successfully), Low-latency (operations complete quickly (single digit milliseconds)), Partition-tolerant (operates with a partition), and Scalable (just a</p><p>3 0.88675481 <a title="676-lsi-3" href="../high_scalability-2011/high_scalability-2011-12-08-Update_on_Scalable_Causal_Consistency_For_Wide-Area_Storage_With_COPS.html">1153 high scalability-2011-12-08-Update on Scalable Causal Consistency For Wide-Area Storage With COPS</a></p>
+<p>Introduction: Here are a few updates on the article  Paper: Don’t Settle For Eventual: Scalable Causal Consistency For Wide-Area Storage With COPS  from Mike Freedman and Wyatt Lloyd.
+ 
+ Q: How software architectures could change in response to casual+ consistency? 
+ 
+ A : I don't really think they would much. Somebody would still run a two-tier architecture in their datacenter:  a front-tier of webservers running both (say) PHP and our client library, and a back tier of storage nodes running COPS.  (I'm not sure if it was obvious given the discussion of our "thick" client -- you should think of the COPS client dropping in where a memcache client library does...albeit ours has per-session state.)
+ 
+ 
+ 
+ Q: Why not just use vector clocks? 
+ 
+ A : The problem with vector clocks and scalability has always been that the size of vector clocks in O(N), where N is the number of nodes.  So if we want to scale to a datacenter with 10K nodes, each piece of metadata must have size O(10K).  And in fact, vector</p><p>4 0.87821615 <a title="676-lsi-4" href="../high_scalability-2010/high_scalability-2010-09-01-Paper%3A_The_Case_for_Determinism_in_Database_Systems__.html">890 high scalability-2010-09-01-Paper: The Case for Determinism in Database Systems  </a></p>
+<p>Introduction: Can you have your ACID cake and eat your distributed database too? Yes explains Daniel Abadi, Assistant Professor of Computer Science at Yale University, in an epic post,  The problems with ACID, and how to fix them without going NoSQL , coauthored with  Alexander Thomson , on their paper  The Case for Determinism in Database Systems . We've already seen  VoltDB  offer the best of both worlds, this sounds like a completely different approach.
+ 
+The solution, they propose, is: 
+  
+
+  ...an architecture and execution model that avoids deadlock, copes with failures without aborting transactions, and achieves high concurrency. The paper contains full details, but the basic idea is to use ordered locking coupled with optimistic lock location prediction, while exploiting deterministic systems' nice replication properties in the case of failures.  
+
+  
+  The problem they are trying to solve is:  
+  
+
+    In our opinion, the NoSQL decision to give up on ACID is the lazy solution to these scala</p><p>5 0.8689574 <a title="676-lsi-5" href="../high_scalability-2013/high_scalability-2013-05-01-Myth%3A_Eric_Brewer_on_Why_Banks_are_BASE_Not_ACID_-_Availability_Is_Revenue_.html">1450 high scalability-2013-05-01-Myth: Eric Brewer on Why Banks are BASE Not ACID - Availability Is Revenue </a></p>
+<p>Introduction: In   NoSQL: Past, Present, Future    Eric Brewer  has a particularly fine section on explaining the often hard to understand ideas of   BASE   (Basically Available, Soft State, Eventually Consistent),   ACID   (Atomicity, Consistency, Isolation, Durability),   CAP   (Consistency Availability, Partition Tolerance), in terms of a pernicious long standing myth about the sanctity of consistency in banking.
+    Myth   : Money is important, so banks   must   use transactions to keep money safe and consistent, right? 
+    Reality   : Banking transactions are inconsistent, particularly for ATMs. ATMs are designed to have a normal case behaviour and a partition mode behaviour. In partition mode Availability is chosen over Consistency. 
+   Why?   1)  Availability correlates with revenue and consistency generally does not.  2)  Historically there was never an idea of perfect communication so everything was partitioned.
+   Your ATM transaction must go through so Availability is more important than</p><p>6 0.85773981 <a title="676-lsi-6" href="../high_scalability-2010/high_scalability-2010-08-12-Think_of_Latency_as_a_Pseudo-permanent_Network_Partition.html">879 high scalability-2010-08-12-Think of Latency as a Pseudo-permanent Network Partition</a></p>
 <p>7 0.85350412 <a title="676-lsi-7" href="../high_scalability-2009/high_scalability-2009-08-24-How_Google_Serves_Data_from_Multiple_Datacenters.html">687 high scalability-2009-08-24-How Google Serves Data from Multiple Datacenters</a></p>
 <p>8 0.8341803 <a title="676-lsi-8" href="../high_scalability-2012/high_scalability-2012-12-18-Georeplication%3A_When_Bad_Things_Happen_to_Good_Systems.html">1374 high scalability-2012-12-18-Georeplication: When Bad Things Happen to Good Systems</a></p>
 <p>9 0.82504815 <a title="676-lsi-9" href="../high_scalability-2013/high_scalability-2013-05-16-Paper%3A_Warp%3A_Multi-Key_Transactions_for_Key-Value_Stores.html">1459 high scalability-2013-05-16-Paper: Warp: Multi-Key Transactions for Key-Value Stores</a></p>
@@ -233,76 +137,28 @@ then you aren't making money. If yo</p><p>6 0.85773981 <a title="676-lsi-6" href
 <p>[(1, 0.164), (2, 0.177), (10, 0.04), (47, 0.29), (56, 0.026), (61, 0.056), (79, 0.129), (94, 0.028)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>1 0.94528508 <a title="676-lda-1" href="../high_scalability-2007/high_scalability-2007-08-03-Scaling_IMAP_and_POP3.html">57 high scalability-2007-08-03-Scaling IMAP and POP3</a></p>
-<p>Introduction: Just thought I'd drop a brief suggestion to anyone building a large mail
-system. Our solution for scaling mail pickup was to develop a sharded
-architecture whereby accounts are spread across a cluster of servers, each
-with imap/pop3 capability. Then we use a cluster of reverse proxies
-(Perdition) speaking to the backend imap/pop3 servers . The benefit of this
-approach is you can use simply use round-robin or HA loadbalancing on the
-perdition servers that end users connect to (e.g. admins can easily move
-accounts around on the backend storage servers without affecting end users).
-Perdition manages routing users to the appropriate backend servers and has
-MySQL support. What we also liked about this approach was that it had no
-dependency on a distributed or networked filesystem, so less chance of
-corruption or data consistency issues. When an individual server reaches
-capacity, we just off load users to a less used server. If any server goes
-offline, it only affects the fraction of users</p><p>2 0.92873287 <a title="676-lda-2" href="../high_scalability-2007/high_scalability-2007-09-06-Scaling_IMAP_and_POP3.html">81 high scalability-2007-09-06-Scaling IMAP and POP3</a></p>
-<p>Introduction: Another scalability strategy brought to you by Erik Osterman:Just thought I'd
-drop a brief suggestion to anyone building a large mail system. Our solution
-for scaling mail pickup was to develop a sharded architecture whereby accounts
-are spread across a cluster of servers, each with imap/pop3 capability. Then
-we use a cluster of reverse proxies (Perdition) speaking to the backend
-imap/pop3 servers .The benefit of this approach is you can use simply use
-round-robin or HA load balancing on the perdition servers that end users
-connect to (e.g. admins can easily move accounts around on the backend storage
-servers without affecting end users). Perdition manages routing users to the
-appropriate backend servers and has MySQL support.What we also liked about
-this approach was that it had no dependency on a distributed or networked file
-system, so less chance of corruption or data consistency issues. When an
-individual server reaches capacity, we just off load users to a less used
-server. If an</p><p>3 0.92155665 <a title="676-lda-3" href="../high_scalability-2010/high_scalability-2010-01-13-10_Hot_Scalability_Links_for_January_13%2C_2010.html">760 high scalability-2010-01-13-10 Hot Scalability Links for January 13, 2010</a></p>
-<p>Introduction: Has Amazon EC2 become over subscribed?by Alan Williamson. Systemic problems
-hit AWS as users experience problems across Amazon's infrastructure. It seems
-the strange attractor of a cloud may be the same as for a shared hosting
-service.Understanding Infrastructure 2.0by James Urquhart.We need to take a
-systems view of our entire infrastructure, and build our automation around the
-end-to-end architecture of that system.Hey You, Get Off of My Cloud: Exploring
-Information Leakage in Third-Party Compute Clouds.We show that it is possible
-to map the internal cloud infrastructure.Hadoop World: Building Data Intensive
-Apps with Hadoop and EC2 by Pete Skomoroch.Dives into detail about how he
-built TrendingTopics.org using Hadoop and EC2.A Crash Course in Modern
-Hardwareby Cliff Click. Yes, your mind will hurt after watching this. And no,
-you probably don't know what your microprocessor is doing anymore.EVE
-Scalability Explainedby James Harrison.This post aims to demystify EVE's
-architecture and</p><p>4 0.91267896 <a title="676-lda-4" href="../high_scalability-2010/high_scalability-2010-07-07-Strategy%3A_Recompute_Instead_of_Remember_Big_Data.html">852 high scalability-2010-07-07-Strategy: Recompute Instead of Remember Big Data</a></p>
-<p>Introduction: Professor Lance Fortnow, in his blog post Drowning in Data, says complexity
-has taught him this lesson:When storage is expensive, it is cheaper to
-recompute what you've already computed. And that's the world we now live in:
-Storage is pretty cheap but data acquisition and computation are even
-cheaper.Jouni, one of the commenters, thinks the opposite is true:storage is
-cheap, but computation is expensive. When you are dealing with massive data,
-the size of the data set is very often determined by the amount of computing
-power available for a certain price.With such data, a linear-time algorithm
-takes O(1) seconds to finish, while a quadratic-time algorithm requires O(n)
-seconds. But as computing power increases exponentially over time, the
-quadratic algorithm gets exponentially slower.For me it's not a matter of
-which is true, both positions can be true, but what's interesting is to think
-that storage and computation are in some cases fungible. Your architecture can
-decide which tradeof</p><p>5 0.90763652 <a title="676-lda-5" href="../high_scalability-2012/high_scalability-2012-09-20-How_Vimeo_Saves_50%25_on_EC2_by_Playing_a_Smarter_Game.html">1326 high scalability-2012-09-20-How Vimeo Saves 50% on EC2 by Playing a Smarter Game</a></p>
-<p>Introduction: Nothing shows how much software architectures have changed than the
-intelligent scheduling of computation over differently priced compute
-resources. This isn't just a false economy either. Vimeo saves up to 50% on
-their video transcoding bill by intelligently playing the spot, reserved, and
-on-demand markets. If you are ready for some advanced reindeer games then take
-a look at  Vimeo EC2 transcoding where they explain their thinking. Even if
-you don't like their rules, it's the strategy that matters. This presentation
-was from 2011, so it would be interesting to see if the new reserved instance
-market has made a difference in their strategy. Here's Vimeo's approach for
-minimizing costs using spot, reserved, and on-demand instances:Never bid more
-than threshold. It is currently set to 80% of on-demand price.Not more than 10
-open spot requests at any time.Bid 10% more than the average price over last
-hourBuy reserve instance capacity to meet non-peak hour loads.Use spots for
-low priorit</p><p>6 0.89879978 <a title="676-lda-6" href="../high_scalability-2007/high_scalability-2007-09-17-Blog%3A_Adding_Simplicity_by_Dan_Pritchett.html">94 high scalability-2007-09-17-Blog: Adding Simplicity by Dan Pritchett</a></p>
+<p>Introduction: Just thought I'd drop a brief suggestion to anyone building a large mail system. Our solution for scaling mail pickup was to develop a sharded architecture whereby accounts are spread across a cluster of servers, each with imap/pop3 capability. Then we use a cluster of reverse proxies (Perdition) speaking to the backend imap/pop3 servers . The benefit of this approach is you can use simply use round-robin or HA loadbalancing on the perdition servers that end users connect to (e.g. admins can easily move accounts around on the backend storage servers without affecting end users). Perdition manages routing users to the appropriate backend servers and has MySQL support. What we also liked about this approach was that it had no dependency on a distributed or networked filesystem, so less chance of corruption or data consistency issues. When an individual server reaches capacity, we just off load users to a less used server. If any server goes offline, it only affects the fraction of users</p><p>2 0.92873287 <a title="676-lda-2" href="../high_scalability-2007/high_scalability-2007-09-06-Scaling_IMAP_and_POP3.html">81 high scalability-2007-09-06-Scaling IMAP and POP3</a></p>
+<p>Introduction: Another scalability strategy brought to you by Erik Osterman:     Just thought I'd drop a brief suggestion to anyone building a large mail system. Our solution for scaling mail pickup was to develop a sharded architecture whereby accounts are spread across a cluster of servers, each with imap/pop3 capability. Then we use a cluster of reverse proxies (Perdition) speaking to the backend imap/pop3 servers .      The benefit of this approach is you can use simply use round-robin or HA load balancing on the perdition servers that end users connect to (e.g. admins can easily move accounts around on the backend storage servers without affecting end users). Perdition manages routing users to the appropriate backend servers and has MySQL support.      What we also liked about this approach was that it had no dependency on a distributed or networked file system, so less chance of corruption or data consistency issues. When an individual server reaches capacity, we just off load users to a less u</p><p>3 0.92155665 <a title="676-lda-3" href="../high_scalability-2010/high_scalability-2010-01-13-10_Hot_Scalability_Links_for_January_13%2C_2010.html">760 high scalability-2010-01-13-10 Hot Scalability Links for January 13, 2010</a></p>
+<p>Introduction: Has Amazon EC2 become over subscribed?  by Alan Williamson. Systemic problems hit AWS as users experience problems across Amazon's infrastructure. It seems the strange attractor of a cloud may be the same as for a shared hosting service. 
+  Understanding Infrastructure 2.0  by James Urquhart.  We need to take a systems view of our entire infrastructure, and build our automation around the end-to-end architecture of that system . 
+  Hey You, Get Off of My Cloud: Exploring Information Leakage in Third-Party Compute Clouds .  We show that it is possible to map the internal cloud infrastructure . 
+  Hadoop World: Building Data Intensive Apps with Hadoop and EC2   by Pete Skomoroch.  Dives into detail about how he built TrendingTopics.org using Hadoop and EC2 . 
+  A Crash Course in Modern Hardware  by Cliff Click. Yes, your mind will hurt after watching this. And no, you probably don't know what your microprocessor is doing anymore. 
+  EVE Scalability Explained  by James Harrison.  This pos</p><p>4 0.91267896 <a title="676-lda-4" href="../high_scalability-2010/high_scalability-2010-07-07-Strategy%3A_Recompute_Instead_of_Remember_Big_Data.html">852 high scalability-2010-07-07-Strategy: Recompute Instead of Remember Big Data</a></p>
+<p>Introduction: Professor Lance Fortnow, in his blog post  Drowning in Data , says complexity has taught him this lesson:  When storage is expensive, it is cheaper to recompute what you've already computed. And that's the world we now live in: Storage is pretty cheap but data acquisition and computation are even cheaper. 
+ 
+Jouni, one of the commenters, thinks the opposite is true:  storage is cheap, but computation is expensive. When you are dealing with massive data, the size of the data set is very often determined by the amount of computing power available for a certain price .  With such data, a linear-time algorithm takes O(1) seconds to finish, while a quadratic-time algorithm requires O(n) seconds. But as computing power increases exponentially over time, the quadratic algorithm gets exponentially slower .
+ 
+For me it's not a matter of which is true, both positions can be true, but what's interesting is to think that storage and computation are in some cases fungible. Your architecture can dec</p><p>5 0.90763652 <a title="676-lda-5" href="../high_scalability-2012/high_scalability-2012-09-20-How_Vimeo_Saves_50%25_on_EC2_by_Playing_a_Smarter_Game.html">1326 high scalability-2012-09-20-How Vimeo Saves 50% on EC2 by Playing a Smarter Game</a></p>
+<p>Introduction: Nothing shows how much software architectures have changed than the intelligent scheduling of computation over differently priced compute resources. This isn't just a false economy either. Vimeo saves up to 50% on their video transcoding bill by intelligently playing the spot, reserved, and on-demand markets. If you are ready for some advanced reindeer games then take a look at   Vimeo EC2 transcoding  where they explain their thinking. Even if you don't like their rules, it's the strategy that matters. This presentation was from 2011, so it would be interesting to see if the new reserved instance market has made a difference in their strategy. 
+ 
+Here's Vimeo's approach for minimizing costs using spot, reserved, and on-demand instances:
+  
+ Never bid more than threshold. It is currently set to 80% of on-demand price. 
+ Not more than 10 open spot requests at any time. 
+ Bid 10% more than the average price over last hour 
+ Buy reserve instance capacity to meet non-peak hour loads. 
+ Use</p><p>6 0.89879978 <a title="676-lda-6" href="../high_scalability-2007/high_scalability-2007-09-17-Blog%3A_Adding_Simplicity_by_Dan_Pritchett.html">94 high scalability-2007-09-17-Blog: Adding Simplicity by Dan Pritchett</a></p>
 <p>7 0.89795429 <a title="676-lda-7" href="../high_scalability-2009/high_scalability-2009-09-17-Infinispan_narrows_the_gap_between_open_source_and_commercial_data_caches_.html">708 high scalability-2009-09-17-Infinispan narrows the gap between open source and commercial data caches </a></p>
 <p>same-blog 8 0.89531559 <a title="676-lda-8" href="../high_scalability-2009/high_scalability-2009-08-08-Yahoo%21%27s_PNUTS_Database%3A_Too_Hot%2C_Too_Cold_or_Just_Right%3F.html">676 high scalability-2009-08-08-Yahoo!'s PNUTS Database: Too Hot, Too Cold or Just Right?</a></p>
 <p>9 0.86830485 <a title="676-lda-9" href="../high_scalability-2009/high_scalability-2009-12-30-Terrastore_-_Scalable%2C_elastic%2C_consistent_document_store..html">756 high scalability-2009-12-30-Terrastore - Scalable, elastic, consistent document store.</a></p>
