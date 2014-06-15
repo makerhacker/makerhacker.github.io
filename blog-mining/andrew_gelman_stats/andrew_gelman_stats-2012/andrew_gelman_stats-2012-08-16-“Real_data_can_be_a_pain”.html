@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>1460 andrew gelman stats-2012-08-16-“Real data can be a pain”</title>
+</head>
+
+<body>
+<p><a title="andrew_gelman_stats" href="../andrew_gelman_stats_home.html">andrew_gelman_stats</a> <a title="andrew_gelman_stats-2012" href="../home/andrew_gelman_stats-2012_home.html">andrew_gelman_stats-2012</a> <a title="andrew_gelman_stats-2012-1460" href="#">andrew_gelman_stats-2012-1460</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>1460 andrew gelman stats-2012-08-16-“Real data can be a pain”</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="andrew_gelman_stats-2012-1460-html" href="http://andrewgelman.com/2012/08/16/real-data-can-be-a-pain/">html</a></p><p>Introduction: Michael McLaughlin sent me the following query with the above title.
+  
+Some time ago, I [McLaughlin] was handed a dataset that needed to be modeled.  It was generated as follows:
+
+
+1. Random navigation errors, historically a binary mixture of normal and Laplace with a common mean, were collected by observation.
+
+
+2. Sadly, these data were recorded with too few decimal places so that the resulting quantization is clearly visible in a scatterplot.
+
+
+3. The quantized data were then interpolated (to an unobserved location).
+
+
+The final result looks like fuzzy points (small scale jitter) at quantized intervals spanning a much larger scale (the parent mixture distribution).  This fuzziness, likely ~normal or ~Laplace, results from the interpolation.  Otherwise, the data would look like a discrete analogue of the normal/Laplace mixture.
+
+
+I would like to characterize the latent normal/Laplace mixture distribution but the quantization is “getting in the way”.  When I tried MCMC on this proble</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Michael McLaughlin sent me the following query with the above title. [sent-1, score-0.066]
+</p><p>2 Some time ago, I [McLaughlin] was handed a dataset that needed to be modeled. [sent-2, score-0.085]
+</p><p>3 Random navigation errors, historically a binary mixture of normal and Laplace with a common mean, were collected by observation. [sent-4, score-0.613]
+</p><p>4 Sadly, these data were recorded with too few decimal places so that the resulting quantization is clearly visible in a scatterplot. [sent-6, score-0.751]
+</p><p>5 The quantized data were then interpolated (to an unobserved location). [sent-8, score-0.572]
+</p><p>6 The final result looks like fuzzy points (small scale jitter) at quantized intervals spanning a much larger scale (the parent mixture distribution). [sent-9, score-1.06]
+</p><p>7 Otherwise, the data would look like a discrete analogue of the normal/Laplace mixture. [sent-11, score-0.177]
+</p><p>8 I would like to characterize the latent normal/Laplace mixture distribution but the quantization is “getting in the way”. [sent-12, score-1.012]
+</p><p>9 When I tried MCMC on this problem (using JAGS) and simply ignoring the quantization, it turned out that the “signal” coming from the jitter overwhelmed that due to the underlying parent mixture so that the MCMC process did not “see” the normal/Laplace distribution very well. [sent-13, score-1.203]
+</p><p>10 That is, it returned unrealistic parameters for it, with values more in tune with the jitter than with the parent distribution. [sent-14, score-0.787]
+</p><p>11 Unfortunately, I have not found any way to incorporate it into a valid MCMC model either. [sent-17, score-0.141]
+</p><p>12 I’ve searched everywhere I can find but have uncovered no examples for treating quantization error corrupting a parent distribution. [sent-18, score-1.04]
+</p><p>13 My reply:  I think this should work fine in Stan (or any other Bayesian software) if you just model the steps 1, 2, 3 directly:   For step 1, you have your mixture model. [sent-20, score-0.564]
+</p><p>14 You just need to put an informative prior distribution on the parameters of the mixture components to get a stable estimate. [sent-21, score-0.558]
+</p><p>15 For step 2, just model the quantization:  if the data from step 1 are z_i, and the rounded data are y_i, then set up a model for y|z, maybe just a simple rounding model. [sent-22, score-0.849]
+</p><p>16 Or in this case (a mixture of normal and laplace densities for z), you should be able to simply integrate out the missingness to get a probability distribution for the rounded data, z. [sent-24, score-1.22]
+</p><p>17 For step 3, I don’t quite know what you mean by “interpolated to an unobserved location. [sent-25, score-0.271]
+</p><p>18 ”  Again, though, this is just some process that can be modeled. [sent-26, score-0.064]
+</p><p>19 The trick is to model the data and then do the inference, rather than trying to jump directly to create an estimate from the data. [sent-28, score-0.24]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('quantization', 0.466), ('mixture', 0.343), ('jitter', 0.28), ('parent', 0.24), ('laplace', 0.19), ('quantized', 0.186), ('rounded', 0.16), ('interpolated', 0.16), ('mclaughlin', 0.153), ('mcmc', 0.153), ('distribution', 0.147), ('step', 0.137), ('unobserved', 0.134), ('normal', 0.118), ('data', 0.092), ('fuzziness', 0.085), ('navigation', 0.085), ('analogue', 0.085), ('handed', 0.085), ('model', 0.084), ('spanning', 0.077), ('corrupting', 0.077), ('scale', 0.073), ('uncovered', 0.072), ('missingness', 0.072), ('unrealistic', 0.07), ('tune', 0.07), ('decimal', 0.068), ('fuzzy', 0.068), ('overwhelmed', 0.068), ('sadly', 0.068), ('integrate', 0.068), ('parameters', 0.068), ('historically', 0.067), ('query', 0.066), ('process', 0.064), ('directly', 0.064), ('treating', 0.063), ('searched', 0.063), ('recorded', 0.063), ('rounding', 0.063), ('visible', 0.062), ('jags', 0.062), ('simply', 0.061), ('densities', 0.061), ('returned', 0.059), ('everywhere', 0.059), ('generated', 0.057), ('incorporate', 0.057), ('characterize', 0.056)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999994 <a title="1460-tfidf-1" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-16-%E2%80%9CReal_data_can_be_a_pain%E2%80%9D.html">1460 andrew gelman stats-2012-08-16-“Real data can be a pain”</a></p>
+<p>Introduction: Michael McLaughlin sent me the following query with the above title.
+  
+Some time ago, I [McLaughlin] was handed a dataset that needed to be modeled.  It was generated as follows:
+
+
+1. Random navigation errors, historically a binary mixture of normal and Laplace with a common mean, were collected by observation.
+
+
+2. Sadly, these data were recorded with too few decimal places so that the resulting quantization is clearly visible in a scatterplot.
+
+
+3. The quantized data were then interpolated (to an unobserved location).
+
+
+The final result looks like fuzzy points (small scale jitter) at quantized intervals spanning a much larger scale (the parent mixture distribution).  This fuzziness, likely ~normal or ~Laplace, results from the interpolation.  Otherwise, the data would look like a discrete analogue of the normal/Laplace mixture.
+
+
+I would like to characterize the latent normal/Laplace mixture distribution but the quantization is “getting in the way”.  When I tried MCMC on this proble</p><p>2 0.28036854 <a title="1460-tfidf-2" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-15-How_I_think_about_mixture_models.html">1459 andrew gelman stats-2012-08-15-How I think about mixture models</a></p>
+<p>Introduction: Larry Wasserman  refers  to finite mixture models as “beasts” and  writes  jokes that they “should be avoided at all costs.”
+ 
+I’ve thought a lot about mixture models, ever since using them in an  analysis  of voting patterns that was published in 1990.  First off, I’d like to say that our model was useful so I’d prefer not to pay the cost of avoiding it.  For a quick description of our mixture model and its context, see pp. 379-380 of my  article  in the Jim Berger volume).  Actually, our case was particularly difficult because we were not even fitting a mixture model to data, we were fitting it to latent data and using the model to perform partial pooling.  My difficulties in trying to fit this model inspired our discussion of mixture models in Bayesian Data Analysis (page 109 in the second edition, in the section on “Counterexamples to the theorems”).
+ 
+I agree with Larry that if you’re fitting a mixture model, it’s good to be aware of the problems that arise if you try to estimate</p><p>3 0.17825645 <a title="1460-tfidf-3" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-03-18-Check_your_missing-data_imputations_using_cross-validation.html">1218 andrew gelman stats-2012-03-18-Check your missing-data imputations using cross-validation</a></p>
+<p>Introduction: Elena Grewal writes:
+  
+I am currently using the iterative regression imputation model as implemented in the Stata ICE package. I am using data from a survey of about 90,000 students in 142 schools and my variable of interest is parent level of education. I want only this variable to be imputed with as little bias as possible as I am not using any other variable. So I scoured the survey for every variable I thought could possibly predict parent education. The main variable I found is parent occupation, which explains about 35% of the variance in parent education for the students with complete data on both. I then include the 20 other variables I found in the survey in a regression predicting parent education, which explains about 40% of the variance in parent education for students with complete data on all the variables. 
+
+
+My question is this: many of the other variables I found have more missing values than the parent education variable, and also, although statistically significant</p><p>4 0.13563919 <a title="1460-tfidf-4" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-28-The_holes_in_my_philosophy_of_Bayesian_data_analysis.html">781 andrew gelman stats-2011-06-28-The holes in my philosophy of Bayesian data analysis</a></p>
+<p>Introduction: I’ve been writing a lot about my philosophy of Bayesian statistics and how it fits into Popper’s ideas about falsification and Kuhn’s ideas about scientific revolutions.
+ 
+ Here’s  my long, somewhat technical paper with Cosma Shalizi. 
+ Here’s  our shorter overview for the volume on the philosophy of social science. 
+ Here’s  my latest try (for an online symposium), focusing on the key issues.
+ 
+I’m pretty happy with my approach–the familiar idea that Bayesian data analysis iterates the three steps of model building, inference, and model checking–but it does have some unresolved (maybe unresolvable) problems.  Here are a couple mentioned in the third of the above links.
+ 
+Consider a simple model with independent data y_1, y_2, .., y_10 ~ N(θ,σ^2), with a prior distribution θ ~ N(0,10^2) and σ known and taking on some value of approximately 10. Inference about μ is straightforward, as is model checking, whether based on graphs or numerical summaries such as the sample variance and skewn</p><p>5 0.13517281 <a title="1460-tfidf-5" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-02-24-F-f-f-fake_data.html">1735 andrew gelman stats-2013-02-24-F-f-f-fake data</a></p>
+<p>Introduction: Tiago Fragoso writes:
+  
+Suppose I fit a two stage regression model
+
+
+Y = a + bx + e 
+a = cw + d + e1
+
+
+I could fit it all in one step by using MCMC for example (my model is more complicated than that, so I’ll have to do it by MCMC). However, I could fit the first regression only using MCMC because those estimates are hard to obtain and perform the second regression using least squares or a separate MCMC. 
+
+
+So there’s an ‘one step’ inference based on doing it all at the same time and a ‘two step’ inference by fitting one and using the estimates on the further steps. What is gained or lost between both? Is anything done in this question?
+  
+My response:
+ 
+Rather than answering your particular question, I’ll give you my generic answer, which is to simulate fake data from your model, then fit your model both ways and see how the results differ.  Repeat the simulation a few thousand times and you can make all the statistical comparisons you like.</p><p>6 0.12975787 <a title="1460-tfidf-6" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-19-Transformations_for_non-normal_data.html">2176 andrew gelman stats-2014-01-19-Transformations for non-normal data</a></p>
+<p>7 0.12493161 <a title="1460-tfidf-7" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-18-Should_we_always_be_using_the_t_and_robit_instead_of_the_normal_and_logit%3F.html">773 andrew gelman stats-2011-06-18-Should we always be using the t and robit instead of the normal and logit?</a></p>
+<p>8 0.12012807 <a title="1460-tfidf-8" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-01-31-Using_sample_size_in_the_prior_distribution.html">547 andrew gelman stats-2011-01-31-Using sample size in the prior distribution</a></p>
+<p>9 0.11330968 <a title="1460-tfidf-9" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-20-The_pervasive_twoishness_of_statistics%3B_in_particular%2C_the_%E2%80%9Csampling_distribution%E2%80%9D_and_the_%E2%80%9Clikelihood%E2%80%9D_are_two_different_models%2C_and_that%E2%80%99s_a_good_thing.html">774 andrew gelman stats-2011-06-20-The pervasive twoishness of statistics; in particular, the “sampling distribution” and the “likelihood” are two different models, and that’s a good thing</a></p>
+<p>10 0.10845392 <a title="1460-tfidf-10" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-06-11-Convergence_Monitoring_for_Non-Identifiable_and_Non-Parametric_Models.html">1374 andrew gelman stats-2012-06-11-Convergence Monitoring for Non-Identifiable and Non-Parametric Models</a></p>
+<p>11 0.10631461 <a title="1460-tfidf-11" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-10-10-Another_reason_why_you_can_get_good_inferences_from_a_bad_model.html">1527 andrew gelman stats-2012-10-10-Another reason why you can get good inferences from a bad model</a></p>
+<p>12 0.10129268 <a title="1460-tfidf-12" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-04-05-More_philosophy_of_Bayes.html">1247 andrew gelman stats-2012-04-05-More philosophy of Bayes</a></p>
+<p>13 0.096323423 <a title="1460-tfidf-13" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-02-05-Prior_distribution_for_a_predicted_probability.html">2200 andrew gelman stats-2014-02-05-Prior distribution for a predicted probability</a></p>
+<p>14 0.092885658 <a title="1460-tfidf-14" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-11-06-Quote_of_the_day.html">398 andrew gelman stats-2010-11-06-Quote of the day</a></p>
+<p>15 0.091551773 <a title="1460-tfidf-15" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-22-The_kluges_of_today_are_the_textbook_solutions_of_tomorrow..html">2143 andrew gelman stats-2013-12-22-The kluges of today are the textbook solutions of tomorrow.</a></p>
+<p>16 0.090208225 <a title="1460-tfidf-16" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-10-16-The_%E2%80%9CWashington_read%E2%80%9D_and_the_algebra_of_conditional_distributions.html">961 andrew gelman stats-2011-10-16-The “Washington read” and the algebra of conditional distributions</a></p>
+<p>17 0.089299135 <a title="1460-tfidf-17" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-07-16-Priors.html">1941 andrew gelman stats-2013-07-16-Priors</a></p>
+<p>18 0.088820554 <a title="1460-tfidf-18" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-29-More_on_scaled-inverse_Wishart_and_prior_independence.html">1474 andrew gelman stats-2012-08-29-More on scaled-inverse Wishart and prior independence</a></p>
+<p>19 0.088728376 <a title="1460-tfidf-19" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-07-When_you%E2%80%99re_planning_on_fitting_a_model%2C_build_up_to_it_by_fitting_simpler_models_first.__Then%2C_once_you_have_a_model_you_like%2C_check_the_hell_out_of_it.html">1972 andrew gelman stats-2013-08-07-When you’re planning on fitting a model, build up to it by fitting simpler models first.  Then, once you have a model you like, check the hell out of it</a></p>
+<p>20 0.088232413 <a title="1460-tfidf-20" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-04-19-The_mysterious_Gamma_%281.4%2C_0.4%29.html">669 andrew gelman stats-2011-04-19-The mysterious Gamma (1.4, 0.4)</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/andrew_gelman_stats_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.14), (1, 0.137), (2, 0.014), (3, 0.047), (4, 0.04), (5, 0.002), (6, 0.041), (7, -0.041), (8, -0.02), (9, -0.005), (10, 0.004), (11, 0.001), (12, -0.039), (13, -0.027), (14, -0.028), (15, 0.002), (16, 0.017), (17, -0.006), (18, 0.01), (19, -0.018), (20, 0.017), (21, -0.002), (22, -0.007), (23, -0.037), (24, 0.013), (25, 0.026), (26, -0.022), (27, -0.006), (28, 0.031), (29, 0.006), (30, -0.014), (31, -0.01), (32, -0.009), (33, 0.032), (34, 0.021), (35, 0.034), (36, -0.055), (37, -0.003), (38, -0.039), (39, 0.01), (40, 0.027), (41, 0.014), (42, -0.018), (43, 0.006), (44, 0.022), (45, 0.012), (46, 0.002), (47, 0.005), (48, 0.04), (49, -0.028)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.95464414 <a title="1460-lsi-1" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-16-%E2%80%9CReal_data_can_be_a_pain%E2%80%9D.html">1460 andrew gelman stats-2012-08-16-“Real data can be a pain”</a></p>
+<p>Introduction: Michael McLaughlin sent me the following query with the above title.
+  
+Some time ago, I [McLaughlin] was handed a dataset that needed to be modeled.  It was generated as follows:
+
+
+1. Random navigation errors, historically a binary mixture of normal and Laplace with a common mean, were collected by observation.
+
+
+2. Sadly, these data were recorded with too few decimal places so that the resulting quantization is clearly visible in a scatterplot.
+
+
+3. The quantized data were then interpolated (to an unobserved location).
+
+
+The final result looks like fuzzy points (small scale jitter) at quantized intervals spanning a much larger scale (the parent mixture distribution).  This fuzziness, likely ~normal or ~Laplace, results from the interpolation.  Otherwise, the data would look like a discrete analogue of the normal/Laplace mixture.
+
+
+I would like to characterize the latent normal/Laplace mixture distribution but the quantization is “getting in the way”.  When I tried MCMC on this proble</p><p>2 0.84372503 <a title="1460-lsi-2" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-04-28-Understanding_simulations_in_terms_of_predictive_inference%3F.html">1287 andrew gelman stats-2012-04-28-Understanding simulations in terms of predictive inference?</a></p>
+<p>Introduction: David Hogg writes:
+  
+My (now deceased) collaborator and guru in all things inference, Sam Roweis, used to emphasize to me that we should evaluate models in the data space — not the parameter space — because models are always effectively “effective” and not really, fundamentally true. Or, in other words, models should be compared in the space of their predictions, not in the space of their parameters (the  parameters didn’t really “exist” at all for Sam).  In that spirit, when we estimate the effectiveness of a MCMC method or tuning — by autocorrelation time or ESJD or anything else — shouldn’t we be looking at the changes in the model predictions over time, rather than the changes in the parameters over time?  That is, the autocorrelation time should be the autocorrelation time in what the model (at the walker position) predicts for the data, and the ESJD should be the expected squared jump distance in what the model predicts for the data?  This might resolve the concern I expressed a</p><p>3 0.82745689 <a title="1460-lsi-3" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-01-19-Transformations_for_non-normal_data.html">2176 andrew gelman stats-2014-01-19-Transformations for non-normal data</a></p>
+<p>Introduction: Steve Peterson writes:
+  
+I recently submitted a proposal on applying a Bayesian analysis to gender comparisons on motivational constructs. I had an idea on how to improve the model I used and was hoping you could give me some feedback.
+
+
+The data come from a survey based on 5-point Likert scales. Different constructs are measured for each student as scores derived from averaging a student’s responses on particular subsets of survey questions. (I suppose it is not uncontroversial to treat these scores as interval measures and would be interested to hear if you have any objections.) I am comparing genders on each construct. Researchers typically use t-tests to do so.
+
+
+To use a Bayesian approach I applied the programs written in R and JAGS by John Kruschke for estimating the difference of means:
+
+
+http://www.indiana.edu/~kruschke/BEST/
+
+
+An issue in that analysis is that the distributions of student scores are not normal. There was skewness in some of the distributions and not always in</p><p>4 0.81764275 <a title="1460-lsi-4" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-06-30-David_Hogg_on_statistics.html">1401 andrew gelman stats-2012-06-30-David Hogg on statistics</a></p>
+<p>Introduction: Data analysis recipes: Fitting a model to data :
+  
+We go through the many considerations involved in fitting a model to data, using as an example the fit of a straight line to a set of points in a two-dimensional plane. Standard weighted least-squares fitting is only appropriate when there is a dimension along which the data points have negligible uncertainties, and another along which all the uncertainties can be described by Gaussians of known variance; these conditions are rarely met in practice. We consider cases of general, heterogeneous, and arbitrarily covariant two-dimensional uncertainties, and situations in which there are bad data (large outliers), unknown uncertainties, and unknown but expected intrinsic scatter in the linear relationship being fit. Above all we emphasize the importance of having a “generative model” for the data, even an approximate one. Once there is a generative model, the subsequent fitting is non-arbitrary because the model permits direct computation</p><p>5 0.81603372 <a title="1460-lsi-5" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-18-Should_we_always_be_using_the_t_and_robit_instead_of_the_normal_and_logit%3F.html">773 andrew gelman stats-2011-06-18-Should we always be using the t and robit instead of the normal and logit?</a></p>
+<p>Introduction: My (coauthored) books on Bayesian data analysis and applied regression are like almost all the other statistics textbooks out there, in that we spend most of our time on the basic distributions such as normal and logistic and then, only as an aside, discuss robust models such as t and robit.
+ 
+Why aren’t the t and robit front and center?  Sure, I can see starting with the normal (at least in the Bayesian book, where we actually work out all the algebra), but then why don’t we move on immediately to the real stuff?
+ 
+This isn’t just (or mainly) a question of textbooks or teaching; I’m really thinking here about statistical practice.  My statistical practice.  Should t and robit be the default?  If not, why not?
+ 
+Some possible answers:
+  
+10.  Estimating the degrees of freedom in the error distribution isn’t so easy, and throwing this extra parameter into the model could make inference unstable.
+
+
+9.  Real data usually don’t have outliers.  In practice, fitting a robust model costs you</p><p>6 0.81539154 <a title="1460-lsi-6" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-10-10-Another_reason_why_you_can_get_good_inferences_from_a_bad_model.html">1527 andrew gelman stats-2012-10-10-Another reason why you can get good inferences from a bad model</a></p>
+<p>7 0.81533611 <a title="1460-lsi-7" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-06-03-Question_about_predictive_checks.html">1363 andrew gelman stats-2012-06-03-Question about predictive checks</a></p>
+<p>8 0.81356639 <a title="1460-lsi-8" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-01-31-Using_sample_size_in_the_prior_distribution.html">547 andrew gelman stats-2011-01-31-Using sample size in the prior distribution</a></p>
+<p>9 0.80198431 <a title="1460-lsi-9" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-12-09-How_to_model_distributions_that_have_outliers_in_one_direction.html">2128 andrew gelman stats-2013-12-09-How to model distributions that have outliers in one direction</a></p>
+<p>10 0.79556495 <a title="1460-lsi-10" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-06-20-The_pervasive_twoishness_of_statistics%3B_in_particular%2C_the_%E2%80%9Csampling_distribution%E2%80%9D_and_the_%E2%80%9Clikelihood%E2%80%9D_are_two_different_models%2C_and_that%E2%80%99s_a_good_thing.html">774 andrew gelman stats-2011-06-20-The pervasive twoishness of statistics; in particular, the “sampling distribution” and the “likelihood” are two different models, and that’s a good thing</a></p>
+<p>11 0.79389018 <a title="1460-lsi-11" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-15-How_I_think_about_mixture_models.html">1459 andrew gelman stats-2012-08-15-How I think about mixture models</a></p>
+<p>12 0.77521574 <a title="1460-lsi-12" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-04-21-Stan_Model_of_the_Week%3A_Hierarchical_Modeling_of_Supernovas.html">2299 andrew gelman stats-2014-04-21-Stan Model of the Week: Hierarchical Modeling of Supernovas</a></p>
+<p>13 0.77226114 <a title="1460-lsi-13" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-11-06-Quote_of_the_day.html">398 andrew gelman stats-2010-11-06-Quote of the day</a></p>
+<p>14 0.77041179 <a title="1460-lsi-14" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-04-19-The_mysterious_Gamma_%281.4%2C_0.4%29.html">669 andrew gelman stats-2011-04-19-The mysterious Gamma (1.4, 0.4)</a></p>
+<p>15 0.76922268 <a title="1460-lsi-15" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-06-11-Convergence_Monitoring_for_Non-Identifiable_and_Non-Parametric_Models.html">1374 andrew gelman stats-2012-06-11-Convergence Monitoring for Non-Identifiable and Non-Parametric Models</a></p>
+<p>16 0.76688111 <a title="1460-lsi-16" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-02-12-How_to_think_about_%E2%80%9Cidentifiability%E2%80%9D_in_Bayesian_inference%3F.html">2208 andrew gelman stats-2014-02-12-How to think about “identifiability” in Bayesian inference?</a></p>
+<p>17 0.76548773 <a title="1460-lsi-17" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-08-27-Bayesian_model_averaging_or_fitting_a_larger_model.html">1999 andrew gelman stats-2013-08-27-Bayesian model averaging or fitting a larger model</a></p>
+<p>18 0.76230198 <a title="1460-lsi-18" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-05-09-The_first_version_of_my_%E2%80%9Cinference_from_iterative_simulation_using_parallel_sequences%E2%80%9D_paper%21.html">1309 andrew gelman stats-2012-05-09-The first version of my “inference from iterative simulation using parallel sequences” paper!</a></p>
+<p>19 0.75984275 <a title="1460-lsi-19" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-07-Chi-square_FAIL_when_many_cells_have_small_expected_values.html">996 andrew gelman stats-2011-11-07-Chi-square FAIL when many cells have small expected values</a></p>
+<p>20 0.75640845 <a title="1460-lsi-20" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-05-07-Bayesian_hierarchical_model_for_the_prediction_of_soccer_results.html">20 andrew gelman stats-2010-05-07-Bayesian hierarchical model for the prediction of soccer results</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/andrew_gelman_stats_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(15, 0.034), (16, 0.063), (21, 0.057), (24, 0.117), (36, 0.013), (55, 0.027), (57, 0.24), (63, 0.012), (65, 0.012), (79, 0.021), (84, 0.016), (95, 0.026), (98, 0.013), (99, 0.205)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.94084424 <a title="1460-lda-1" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-10-20-A_statistical_model_for_underdispersion.html">1542 andrew gelman stats-2012-10-20-A statistical model for underdispersion</a></p>
+<p>Introduction: We have lots of models for overdispersed count data but we rarely see underdispersed data.  But now I know what example I’ll be giving when this next comes up in class.  From a  book review  by Theo Tait:
+  
+A number of shark species go in for oophagy, or uterine cannibalism. Sand tiger foetuses ‘eat each other in utero, acting out the harshest form of sibling rivalry imaginable’. Only two babies emerge, one from each of the mother shark’s uteruses: the survivors have eaten everything else. ‘A female sand tiger gives birth to a baby that’s already a metre long and an experienced killer,’ explains Demian Chapman, an expert on the subject.
+  
+That’s what I call underdispersion.  E(y)=2, var(y)=0.  Take that, M. Poisson!</p><p>2 0.88615382 <a title="1460-lda-2" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-01-05-What_are_the_standards_for_reliability_in_experimental_psychology%3F.html">1101 andrew gelman stats-2012-01-05-What are the standards for reliability in experimental psychology?</a></p>
+<p>Introduction: An experimental psychologist was wondering about the standards in that field for “acceptable reliability” (when looking at inter-rater reliability in coding data).  He wondered, for example, if some variation on signal detectability theory might be applied to adjust for inter-rater differences in criteria for saying some code is present.
+ 
+What about Cohen’s kappa?  The psychologist wrote:
+  
+Cohen’s kappa does adjust for “guessing,” but its assumptions are not well motivated, perhaps not any more than adjustments for guessing versus the application of signal detectability theory where that can be applied. But one can’t do a straightforward application of signal detectability theory for reliability in that you don’t know whether the signal is present or not.
+  
+I think measurement issues are important but I don’t have enough experience in this area to answer the question without knowing more about the problem that this researcher is working on.
+ 
+I’m posting it here because I imagine t</p><p>3 0.87587744 <a title="1460-lda-3" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-12-06-Krugman_disses_Hayek_as_%E2%80%9Cbeing_almost_entirely_about_politics_rather_than_economics%E2%80%9D.html">1043 andrew gelman stats-2011-12-06-Krugman disses Hayek as “being almost entirely about politics rather than economics”</a></p>
+<p>Introduction: That’s ok , Krugman earlier  slammed  Galbraith.  (I wonder if Krugman is as big a fan of “tough choices” now as he was  in 1996 .)  Given Krugman’s politicization in recent years, I’m surprised he’s so dismissive of the political (rather than technical-economic) nature of Hayek’s influence.  (I don’t know if he’s changed his views on Galbraith in recent years.)
+ 
+P.S.  Greg Mankiw, in contrast,  labels  Galbraith and Hayek as “two of the great economists of the 20th century” and writes, “even though their most famous works were written many decades ago, they are still well worth reading today.”</p><p>4 0.86849648 <a title="1460-lda-4" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-09-05-World_Bank_data_now_online.html">891 andrew gelman stats-2011-09-05-World Bank data now online</a></p>
+<p>Introduction: Wayne Folta writes that the World Bank is  opening up some of its data  for researchers.</p><p>5 0.85867286 <a title="1460-lda-5" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-08-19-Will_Stan_work_well_with_40%C3%9740_matrices%3F.html">861 andrew gelman stats-2011-08-19-Will Stan work well with 40×40 matrices?</a></p>
+<p>Introduction: Tomas Iesmantas writes:
+  
+I’m dealing with high dimensional (40-50 parameters) hierarchical bayesian model applied to nonlinear Poisson regression problem.
+
+
+Now I’m using an adaptive version for the Metropolis adjusted Langevin algorithm with a truncated drift (Yves F. Atchade, 2003) to obtain samples from posterior.
+
+
+But this algorithm is not very efficient in my case, it needs several millions iterations as burn-in period. And simulation takes quite a long time, since algorithm has to work with 40×40 matrices.
+
+
+Maybe you know another MCMC algorithm which could take not so many burn-in samples and would be able to deal with nonlinear regression? In non-hierarchical nonlinear regression model adaptive metropolis algorithm is enough, but in hierarchical case I could use something more effective.
+  
+My reply:
+ 
+Try fitting the model in Stan.  If that doesn’t work, let me know.</p><p>same-blog 6 0.85447931 <a title="1460-lda-6" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-08-16-%E2%80%9CReal_data_can_be_a_pain%E2%80%9D.html">1460 andrew gelman stats-2012-08-16-“Real data can be a pain”</a></p>
+<p>7 0.85073406 <a title="1460-lda-7" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-09-06-One_reason_New_York_isn%E2%80%99t_as_rich_as_it_used_to_be%3A__Redistribution_of_federal_tax_money_to_other_states.html">1485 andrew gelman stats-2012-09-06-One reason New York isn’t as rich as it used to be:  Redistribution of federal tax money to other states</a></p>
+<p>8 0.83868426 <a title="1460-lda-8" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-19-Tempering_and_modes.html">1018 andrew gelman stats-2011-11-19-Tempering and modes</a></p>
+<p>9 0.83742785 <a title="1460-lda-9" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-01-30-Convenient_page_of_data_sources_from_the_Washington_Post.html">1146 andrew gelman stats-2012-01-30-Convenient page of data sources from the Washington Post</a></p>
+<p>10 0.83737433 <a title="1460-lda-10" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-08-18-DataMarket.html">215 andrew gelman stats-2010-08-18-DataMarket</a></p>
+<p>11 0.83296692 <a title="1460-lda-11" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-12-06-The_K_Foundation_burns_Cosma%E2%80%99s_turkey.html">1044 andrew gelman stats-2011-12-06-The K Foundation burns Cosma’s turkey</a></p>
+<p>12 0.82227933 <a title="1460-lda-12" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-30-Stan_uses_Nuts%21.html">1036 andrew gelman stats-2011-11-30-Stan uses Nuts!</a></p>
+<p>13 0.82149088 <a title="1460-lda-13" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-01-15-Fun_fight_over_the_Grover_search_algorithm.html">1120 andrew gelman stats-2012-01-15-Fun fight over the Grover search algorithm</a></p>
+<p>14 0.81236744 <a title="1460-lda-14" href="../andrew_gelman_stats-2014/andrew_gelman_stats-2014-05-04-Stan_%28%26_JAGS%29_Tutorial_on_Linear_Mixed_Models.html">2318 andrew gelman stats-2014-05-04-Stan (& JAGS) Tutorial on Linear Mixed Models</a></p>
+<p>15 0.79830277 <a title="1460-lda-15" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-05-26-How_to_understand_coefficients_that_reverse_sign_when_you_start_controlling_for_things%3F.html">1870 andrew gelman stats-2013-05-26-How to understand coefficients that reverse sign when you start controlling for things?</a></p>
+<p>16 0.79283047 <a title="1460-lda-16" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-11-03-This_post_does_not_mention_Wegman.html">989 andrew gelman stats-2011-11-03-This post does not mention Wegman</a></p>
+<p>17 0.79157895 <a title="1460-lda-17" href="../andrew_gelman_stats-2010/andrew_gelman_stats-2010-09-29-Statistics_and_the_end_of_time.html">306 andrew gelman stats-2010-09-29-Statistics and the end of time</a></p>
+<p>18 0.78721929 <a title="1460-lda-18" href="../andrew_gelman_stats-2013/andrew_gelman_stats-2013-05-29-Another_one_of_those_%E2%80%9CPsychological_Science%E2%80%9D_papers_%28this_time_on_biceps_size_and_political_attitudes_among_college_students%29.html">1876 andrew gelman stats-2013-05-29-Another one of those “Psychological Science” papers (this time on biceps size and political attitudes among college students)</a></p>
+<p>19 0.77849281 <a title="1460-lda-19" href="../andrew_gelman_stats-2011/andrew_gelman_stats-2011-07-22-%E2%80%9CInformation_visualization%E2%80%9D_vs._%E2%80%9CStatistical_graphics%E2%80%9D.html">816 andrew gelman stats-2011-07-22-“Information visualization” vs. “Statistical graphics”</a></p>
+<p>20 0.77208722 <a title="1460-lda-20" href="../andrew_gelman_stats-2012/andrew_gelman_stats-2012-01-09-Blogging%2C_polemical_and_otherwise.html">1108 andrew gelman stats-2012-01-09-Blogging, polemical and otherwise</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
