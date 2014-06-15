@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>61 fast ml-2014-05-08-Impute missing values with Amelia</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2014" href="../home/fast_ml-2014_home.html">fast_ml-2014</a> <a title="fast_ml-2014-61" href="#">fast_ml-2014-61</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>61 fast ml-2014-05-08-Impute missing values with Amelia</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2014-61-html" href="http://fastml.com//impute-missing-values-with-amelia/">html</a></p><p>Introduction: One of the ways to deal with missing values in data is to impute them. We use Amelia R package on  The Analytics Edge competition  data. Since one typically gets many imputed sets, we bag them with good results. So good that it seems we would have won the contest if not for a bug in our code.
+    The competition  
+Much to our surprise, we ranked 17th out of almost 1700 competitors - from the public leaderboard score we expected to be in top 10%, barely. The contest turned out to be one with huge overfitting possibilities, and people overfitted badly - some preliminary leaders ended up down the middle of the pack, while we soared up the ranks.
+ 
+But wait! There’s more. When preparing this article, we discovered a bug - apparently we used only 1980 points for training:
+   points_in_test = 1980
+train = data.iloc[:points_in_test,]     # should be [:-points_in_test,]
+test = data.iloc[-points_in_test:,]
+   
+If not for this little bug, we would have won, apparently.
+ 
+ 
+  Imputing data  
+A</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 One of the ways to deal with missing values in data is to impute them. [sent-1, score-0.33]
+</p><p>2 Since one typically gets many imputed sets, we bag them with good results. [sent-3, score-0.355]
+</p><p>3 So good that it seems we would have won the contest if not for a bug in our code. [sent-4, score-0.227]
+</p><p>4 The contest turned out to be one with huge overfitting possibilities, and people overfitted badly - some preliminary leaders ended up down the middle of the pack, while we soared up the ranks. [sent-6, score-0.318]
+</p><p>5 When preparing this article, we discovered a bug - apparently we used only 1980 points for training:    points_in_test = 1980 train = data. [sent-9, score-0.226]
+</p><p>6 Imputing data   A common strategy found in the forums, besides using Support Vector Machines as a classifier, was to impute missing values with  mice , as described in the class. [sent-12, score-0.664]
+</p><p>7 imputed_data = complete( mice( data ))      Imputing with  mice  , while straightforward, seemed very slow - no end in sight - so we turned to another R package: Amelia. [sent-13, score-0.404]
+</p><p>8 The package is named after  Amelia Earhart , a famous American woman aviator who went missing over the ocean. [sent-15, score-0.241]
+</p><p>9 The good thing about the software is that it works much faster than  mice , partly due to employing multiple cores. [sent-17, score-0.453]
+</p><p>10 Column types   The main thing to do when running the algorithm is to specify types of columns:    noms = c( 'some', 'nominal', 'columns' ) ords = c( 'and', 'ordinal', 'if', 'you', 'need', 'them' ) idvars = c( 'these', 'will', 'be', 'ignored' )  a. [sent-22, score-0.764]
+</p><p>11 out = amelia( data, noms = noms, ords = ords, idvars = idvars )     Nominal is another word for categorical. [sent-23, score-0.826]
+</p><p>12 Ordinals you can skip, unless you specifically want them imputed as integers. [sent-24, score-0.355]
+</p><p>13 And  idvars  will be preserved in the output but otherwise ignored - put your target variable among them. [sent-25, score-0.236]
+</p><p>14 Parallelism   By default, Amelia performs five runs, so you end up with five imputed sets. [sent-27, score-0.445]
+</p><p>15 It makes sense to set the number of imputed datasets to be equal to [multiple of] the number of cores in your CPU, so that all cores work in parallel. [sent-29, score-0.511]
+</p><p>16 ncpus = 8 m = ncpus * 10      # 80 sets, see Bagging  a. [sent-30, score-0.472]
+</p><p>17 , parallel = 'multicore', ncpus = ncpus )     Output   The object returned by the function holds a list of imputed sets. [sent-34, score-0.87]
+</p><p>18 This strategy produced the best score for us, although SVM trained on data with  missing values filled in a particular way  was also quite good (final AUC = 0. [sent-46, score-0.369]
+</p><p>19 785 result pictured above comes from bagging 96 imputed sets. [sent-49, score-0.6]
+</p><p>20 Post scriptum: an experiment with imputing  y    In principle, it’s possible to use imputation software to fill missing values for  y  in the test set. [sent-51, score-0.532]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('amelia', 0.532), ('imputed', 0.355), ('idvars', 0.236), ('mice', 0.236), ('ncpus', 0.236), ('bagging', 0.196), ('bug', 0.177), ('imputing', 0.177), ('noms', 0.177), ('ords', 0.177), ('missing', 0.147), ('impute', 0.118), ('strategy', 0.098), ('package', 0.094), ('types', 0.087), ('turned', 0.078), ('cores', 0.078), ('multiple', 0.072), ('columns', 0.071), ('sets', 0.067), ('values', 0.065), ('particular', 0.059), ('software', 0.053), ('contest', 0.05), ('preparing', 0.049), ('harvard', 0.049), ('preliminary', 0.049), ('employing', 0.049), ('complete', 0.049), ('remove', 0.049), ('pictured', 0.049), ('principle', 0.049), ('middle', 0.049), ('huge', 0.049), ('segmentation', 0.049), ('end', 0.047), ('possible', 0.047), ('auc', 0.047), ('bad', 0.043), ('fill', 0.043), ('forums', 0.043), ('ended', 0.043), ('performs', 0.043), ('seemed', 0.043), ('surprise', 0.043), ('expected', 0.043), ('support', 0.043), ('holds', 0.043), ('partly', 0.043), ('issue', 0.043)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0 <a title="61-tfidf-1" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>Introduction: One of the ways to deal with missing values in data is to impute them. We use Amelia R package on  The Analytics Edge competition  data. Since one typically gets many imputed sets, we bag them with good results. So good that it seems we would have won the contest if not for a bug in our code.
+    The competition  
+Much to our surprise, we ranked 17th out of almost 1700 competitors - from the public leaderboard score we expected to be in top 10%, barely. The contest turned out to be one with huge overfitting possibilities, and people overfitted badly - some preliminary leaders ended up down the middle of the pack, while we soared up the ranks.
+ 
+But wait! There’s more. When preparing this article, we discovered a bug - apparently we used only 1980 points for training:
+   points_in_test = 1980
+train = data.iloc[:points_in_test,]     # should be [:-points_in_test,]
+test = data.iloc[-points_in_test:,]
+   
+If not for this little bug, we would have won, apparently.
+ 
+ 
+  Imputing data  
+A</p><p>2 0.084382862 <a title="61-tfidf-2" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>Introduction: Many machine learning tools will only accept numbers as input. This may be a problem if you want to use such tool but your data includes categorical features. To represent them as numbers typically one converts each categorical feature using “one-hot encoding”, that is from a value like “BMW” or “Mercedes” to a vector of zeros and one  1 .
+ 
+This  functionality  is available in some software libraries. We load data using Pandas, then convert categorical columns with  DictVectorizer  from scikit-learn.
+   
+ Pandas  is a popular Python library inspired by data frames in R. It allows easier manipulation of tabular numeric and non-numeric data. Downsides: not very intuitive, somewhat steep learning curve. For any questions you may have, Google + StackOverflow combo works well as a source of answers.
+ 
+ UPDATE:  Turns out that Pandas has  get_dummies()  function which does what we’re after. More on this in a while.
+ 
+We’ll use Pandas to load the data, do some cleaning and send it to Scikit-</p><p>3 0.072276875 <a title="61-tfidf-3" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>Introduction: There’s a contest at Kaggle held by Qatar University. They want to be able to discriminate men from women based on handwriting. For a thousand bucks, well, why not?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+ 
+ 
+As  Sashi noticed on the forums , it’s not difficult to improve on the benchmarks a little bit. In particular, he mentioned feature selection, normalizing the data and using a regularized linear model. Here’s our version of the story.
+ 
+Let’s start with normalizing. There’s a nice function for that in R,  scale() . The dataset is small, 1128 examples, so we can go ahead and use R.
+ 
+Turns out that in its raw form, the data won’t scale. That’s because apparently there are some columns with zeros only. That makes it difficult to divide.
+ 
+Fortunately, we know just the right tool for the task. We learned about it on Kaggle forums too. It’s a function in   caret  package  called  nearZeroVar() . It will give you indexes of all the columns which have near zero var</p><p>4 0.064532138 <a title="61-tfidf-4" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>Introduction: Little Spearmint couldn’t sleep that night.  I was so close…  - he was thinking. It seemed that he had found a better than default value for one of the random forest hyperparams, but it turned out to be false. He made a decision as he fell asleep:  Next time, I will show them! 
+   
+The way to do this is to use a dataset that is known to produce lower error with high  mtry  values, namely previously mentioned  Madelon  from NIPS 2003 Feature Selection Challenge. Among 500 attributes, only 20 are informative, the rest are noise. That’s the reason why high  mtry  is good here: you have to consider a lot of features to find a meaningful one.
+ 
+The dataset consists of a train, validation and test parts, with labels being available for train and validation. We will further split the training set into our train and validation sets, and use the original validation set as a test set to evaluate final results of parameter tuning.
+ 
+As an error measure we use  Area Under Curve , or AUC, which was</p><p>5 0.05834173 <a title="61-tfidf-5" href="../fast_ml-2013/fast_ml-2013-01-12-Intro_to_random_forests.html">16 fast ml-2013-01-12-Intro to random forests</a></p>
+<p>Introduction: Let’s step back from forays into cutting edge topics and look at a random forest, one of the most popular machine learning techniques today. Why is it so attractive?
+   
+First of all, decision tree ensembles have been found by  Caruana et al.  as the best overall approach for a variety of problems. Random forests, specifically, perform well both in low dimensional and high dimensional tasks.
+ 
+There are basically two kinds of tree ensembles: bagged trees and boosted trees. Bagging means that when building each subsequent tree, we don’t look at the earlier trees, while in boosting we consider the earlier trees and strive to compensate for their weaknesses (which may lead to overfitting).
+ 
+Random forest is an example of the bagging approach, less prone to overfit. Gradient boosted trees (notably  GBM package  in R) represent the other one. Both are very successful in many applications. Trees are also relatively fast to train, compared to some more involved methods.
+ 
+Besides effectivnes</p><p>6 0.052115381 <a title="61-tfidf-6" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>7 0.051072843 <a title="61-tfidf-7" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>8 0.051072437 <a title="61-tfidf-8" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>9 0.049521089 <a title="61-tfidf-9" href="../fast_ml-2014/fast_ml-2014-04-21-Predicting_happiness_from_demographics_and_poll_answers.html">59 fast ml-2014-04-21-Predicting happiness from demographics and poll answers</a></p>
+<p>10 0.044602346 <a title="61-tfidf-10" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>11 0.043230008 <a title="61-tfidf-11" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>12 0.042430185 <a title="61-tfidf-12" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>13 0.039949249 <a title="61-tfidf-13" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>14 0.03896961 <a title="61-tfidf-14" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<p>15 0.038359288 <a title="61-tfidf-15" href="../fast_ml-2013/fast_ml-2013-09-19-What_you_wanted_to_know_about_AUC.html">39 fast ml-2013-09-19-What you wanted to know about AUC</a></p>
+<p>16 0.038196709 <a title="61-tfidf-16" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>17 0.037454341 <a title="61-tfidf-17" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>18 0.036382988 <a title="61-tfidf-18" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>19 0.036234308 <a title="61-tfidf-19" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>20 0.036081709 <a title="61-tfidf-20" href="../fast_ml-2012/fast_ml-2012-09-19-Best_Buy_mobile_contest_-_big_data.html">5 fast ml-2012-09-19-Best Buy mobile contest - big data</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.167), (1, 0.002), (2, -0.026), (3, -0.029), (4, -0.038), (5, 0.013), (6, -0.043), (7, -0.026), (8, 0.052), (9, 0.078), (10, -0.039), (11, -0.183), (12, -0.203), (13, -0.131), (14, -0.212), (15, 0.397), (16, -0.093), (17, 0.18), (18, 0.04), (19, -0.043), (20, 0.013), (21, -0.332), (22, 0.048), (23, 0.027), (24, 0.001), (25, 0.206), (26, -0.104), (27, 0.407), (28, 0.104), (29, -0.202), (30, -0.198), (31, 0.055), (32, -0.169), (33, -0.088), (34, -0.028), (35, -0.209), (36, 0.054), (37, -0.222), (38, 0.042), (39, -0.027), (40, 0.03), (41, 0.084), (42, 0.1), (43, 0.144), (44, 0.004), (45, 0.023), (46, -0.058), (47, -0.021), (48, -0.064), (49, -0.062)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.9738676 <a title="61-lsi-1" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>Introduction: One of the ways to deal with missing values in data is to impute them. We use Amelia R package on  The Analytics Edge competition  data. Since one typically gets many imputed sets, we bag them with good results. So good that it seems we would have won the contest if not for a bug in our code.
+    The competition  
+Much to our surprise, we ranked 17th out of almost 1700 competitors - from the public leaderboard score we expected to be in top 10%, barely. The contest turned out to be one with huge overfitting possibilities, and people overfitted badly - some preliminary leaders ended up down the middle of the pack, while we soared up the ranks.
+ 
+But wait! There’s more. When preparing this article, we discovered a bug - apparently we used only 1980 points for training:
+   points_in_test = 1980
+train = data.iloc[:points_in_test,]     # should be [:-points_in_test,]
+test = data.iloc[-points_in_test:,]
+   
+If not for this little bug, we would have won, apparently.
+ 
+ 
+  Imputing data  
+A</p><p>2 0.14564645 <a title="61-lsi-2" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>Introduction: Many machine learning tools will only accept numbers as input. This may be a problem if you want to use such tool but your data includes categorical features. To represent them as numbers typically one converts each categorical feature using “one-hot encoding”, that is from a value like “BMW” or “Mercedes” to a vector of zeros and one  1 .
+ 
+This  functionality  is available in some software libraries. We load data using Pandas, then convert categorical columns with  DictVectorizer  from scikit-learn.
+   
+ Pandas  is a popular Python library inspired by data frames in R. It allows easier manipulation of tabular numeric and non-numeric data. Downsides: not very intuitive, somewhat steep learning curve. For any questions you may have, Google + StackOverflow combo works well as a source of answers.
+ 
+ UPDATE:  Turns out that Pandas has  get_dummies()  function which does what we’re after. More on this in a while.
+ 
+We’ll use Pandas to load the data, do some cleaning and send it to Scikit-</p><p>3 0.12518725 <a title="61-lsi-3" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>Introduction: There’s a contest at Kaggle held by Qatar University. They want to be able to discriminate men from women based on handwriting. For a thousand bucks, well, why not?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+ 
+ 
+As  Sashi noticed on the forums , it’s not difficult to improve on the benchmarks a little bit. In particular, he mentioned feature selection, normalizing the data and using a regularized linear model. Here’s our version of the story.
+ 
+Let’s start with normalizing. There’s a nice function for that in R,  scale() . The dataset is small, 1128 examples, so we can go ahead and use R.
+ 
+Turns out that in its raw form, the data won’t scale. That’s because apparently there are some columns with zeros only. That makes it difficult to divide.
+ 
+Fortunately, we know just the right tool for the task. We learned about it on Kaggle forums too. It’s a function in   caret  package  called  nearZeroVar() . It will give you indexes of all the columns which have near zero var</p><p>4 0.11255047 <a title="61-lsi-4" href="../fast_ml-2014/fast_ml-2014-04-21-Predicting_happiness_from_demographics_and_poll_answers.html">59 fast ml-2014-04-21-Predicting happiness from demographics and poll answers</a></p>
+<p>Introduction: This time we attempt to predict if poll responders said they’re happy or not. We also take a look at what features are the most important for that prediction.
+   
+There is a private  competition  at Kaggle for students of  The Analytics Edge  MOOC. You can get the invitation link by signing up for the course and going to the week seven front page. It’s an entry-level, educational contest - there’s no prizes and the data is small.
+ 
+The competition is based on data from the  Show of Hands , a mobile polling application for US residents. The link between the app and the MOOC is MIT: it’s an MIT’s class and MIT’s alumnus’ app. You get a few thousand examples. Each consists of some demographics:
+  
+ year of birth 
+ gender 
+ income 
+ household status 
+ education level 
+ party preference 
+  
+Plus a number of answers to yes/no poll questions from the Show of Hands. Here’s a sample:
+  
+ Are you good at math? 
+ Have you cried in the past 60 days? 
+ Do you brush your teeth two or more times ever</p><p>5 0.11231726 <a title="61-lsi-5" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>Introduction: Little Spearmint couldn’t sleep that night.  I was so close…  - he was thinking. It seemed that he had found a better than default value for one of the random forest hyperparams, but it turned out to be false. He made a decision as he fell asleep:  Next time, I will show them! 
+   
+The way to do this is to use a dataset that is known to produce lower error with high  mtry  values, namely previously mentioned  Madelon  from NIPS 2003 Feature Selection Challenge. Among 500 attributes, only 20 are informative, the rest are noise. That’s the reason why high  mtry  is good here: you have to consider a lot of features to find a meaningful one.
+ 
+The dataset consists of a train, validation and test parts, with labels being available for train and validation. We will further split the training set into our train and validation sets, and use the original validation set as a test set to evaluate final results of parameter tuning.
+ 
+As an error measure we use  Area Under Curve , or AUC, which was</p><p>6 0.11062521 <a title="61-lsi-6" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>7 0.106943 <a title="61-lsi-7" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>8 0.089825071 <a title="61-lsi-8" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>9 0.089257821 <a title="61-lsi-9" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>10 0.088259794 <a title="61-lsi-10" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>11 0.086943097 <a title="61-lsi-11" href="../fast_ml-2013/fast_ml-2013-01-12-Intro_to_random_forests.html">16 fast ml-2013-01-12-Intro to random forests</a></p>
+<p>12 0.081383303 <a title="61-lsi-12" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>13 0.078961164 <a title="61-lsi-13" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>14 0.078201652 <a title="61-lsi-14" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>15 0.076006621 <a title="61-lsi-15" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<p>16 0.075020455 <a title="61-lsi-16" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>17 0.072185397 <a title="61-lsi-17" href="../fast_ml-2012/fast_ml-2012-09-19-Best_Buy_mobile_contest_-_big_data.html">5 fast ml-2012-09-19-Best Buy mobile contest - big data</a></p>
+<p>18 0.07159251 <a title="61-lsi-18" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>19 0.068768673 <a title="61-lsi-19" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>20 0.068164974 <a title="61-lsi-20" href="../fast_ml-2014/fast_ml-2014-04-12-Deep_learning_these_days.html">58 fast ml-2014-04-12-Deep learning these days</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(26, 0.064), (31, 0.074), (35, 0.026), (37, 0.026), (55, 0.01), (62, 0.43), (67, 0.012), (69, 0.126), (71, 0.023), (78, 0.014), (79, 0.031), (99, 0.053)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.84693199 <a title="61-lda-1" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>Introduction: One of the ways to deal with missing values in data is to impute them. We use Amelia R package on  The Analytics Edge competition  data. Since one typically gets many imputed sets, we bag them with good results. So good that it seems we would have won the contest if not for a bug in our code.
+    The competition  
+Much to our surprise, we ranked 17th out of almost 1700 competitors - from the public leaderboard score we expected to be in top 10%, barely. The contest turned out to be one with huge overfitting possibilities, and people overfitted badly - some preliminary leaders ended up down the middle of the pack, while we soared up the ranks.
+ 
+But wait! There’s more. When preparing this article, we discovered a bug - apparently we used only 1980 points for training:
+   points_in_test = 1980
+train = data.iloc[:points_in_test,]     # should be [:-points_in_test,]
+test = data.iloc[-points_in_test:,]
+   
+If not for this little bug, we would have won, apparently.
+ 
+ 
+  Imputing data  
+A</p><p>2 0.32821774 <a title="61-lda-2" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>3 0.3141652 <a title="61-lda-3" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<p>Introduction: We have already written  a few articles about Pylearn2 . Today we’ll look at PyBrain. It is another Python neural networks library, and this is where similiarites end.
+   
+They’re like day and night: Pylearn2 - Byzantinely complicated,  PyBrain  - simple. We attempted to train a regression model and succeeded at first take (more on this below). Try this with Pylearn2.
+  
+While there are a few machine learning libraries out there, PyBrain aims to be a very easy-to-use modular library that can be used by entry-level students but still offers the flexibility and algorithms for state-of-the-art research.
+  
+The library features classic perceptron as well as recurrent neural networks and other things, some of which, for example  Evolino , would be hard to find elsewhere.
+ 
+On the downside, PyBrain feels unfinished, abandoned. It is no longer actively developed and the  documentation  is skimpy. There’s no modern gimmicks like dropout and rectified linear units - just good ol’ sigmoid and ta</p><p>4 0.31087872 <a title="61-lda-4" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>Introduction: There’s a contest at Kaggle held by Qatar University. They want to be able to discriminate men from women based on handwriting. For a thousand bucks, well, why not?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+ 
+ 
+As  Sashi noticed on the forums , it’s not difficult to improve on the benchmarks a little bit. In particular, he mentioned feature selection, normalizing the data and using a regularized linear model. Here’s our version of the story.
+ 
+Let’s start with normalizing. There’s a nice function for that in R,  scale() . The dataset is small, 1128 examples, so we can go ahead and use R.
+ 
+Turns out that in its raw form, the data won’t scale. That’s because apparently there are some columns with zeros only. That makes it difficult to divide.
+ 
+Fortunately, we know just the right tool for the task. We learned about it on Kaggle forums too. It’s a function in   caret  package  called  nearZeroVar() . It will give you indexes of all the columns which have near zero var</p><p>5 0.31031036 <a title="61-lda-5" href="../fast_ml-2013/fast_ml-2013-12-28-Regularizing_neural_networks_with_dropout_and_with_DropConnect.html">48 fast ml-2013-12-28-Regularizing neural networks with dropout and with DropConnect</a></p>
+<p>Introduction: We continue with CIFAR-10-based competition at Kaggle to get to know DropConnect. It’s supposed to be an improvement over dropout. And dropout is certainly one of the bigger steps forward in neural network development. Is DropConnect really better than dropout?
+   
+ TL;DR  DropConnect seems to offer results similiar to dropout. State of the art scores reported in the paper come from model ensembling.
+  Dropout  
+ Dropout , by Hinton et al., is perhaps a biggest invention in the field of neural networks in recent years. It adresses the main problem in machine learning, that is overfitting. It does so by “dropping out” some unit activations in a given layer, that is setting them to zero.  Thus it prevents co-adaptation of units and can also be seen as a method of ensembling many networks sharing the same weights. For each training example a different set of units to drop is randomly chosen.
+ 
+The idea has a  biological inspiration . When a child is conceived, it receives half its genes f</p><p>6 0.31001773 <a title="61-lda-6" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>7 0.30886167 <a title="61-lda-7" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>8 0.30563739 <a title="61-lda-8" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>9 0.29873759 <a title="61-lda-9" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>10 0.29851967 <a title="61-lda-10" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>11 0.29544657 <a title="61-lda-11" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>12 0.29379761 <a title="61-lda-12" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>13 0.29346371 <a title="61-lda-13" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>14 0.2927568 <a title="61-lda-14" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>15 0.29262564 <a title="61-lda-15" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>16 0.28894186 <a title="61-lda-16" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>17 0.28639293 <a title="61-lda-17" href="../fast_ml-2013/fast_ml-2013-01-12-Intro_to_random_forests.html">16 fast ml-2013-01-12-Intro to random forests</a></p>
+<p>18 0.2850849 <a title="61-lda-18" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>19 0.28323433 <a title="61-lda-19" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>20 0.28247797 <a title="61-lda-20" href="../fast_ml-2012/fast_ml-2012-08-09-What_you_wanted_to_know_about_Mean_Average_Precision.html">1 fast ml-2012-08-09-What you wanted to know about Mean Average Precision</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

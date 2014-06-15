@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2013" href="../home/fast_ml-2013_home.html">fast_ml-2013</a> <a title="fast_ml-2013-38" href="#">fast_ml-2013-38</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2013-38-html" href="http://fastml.com//predicting-solar-energy-from-weather-forecasts-plus-a-netcdf4-tutorial/">html</a></p><p>Introduction: Kaggle again. This time, solar energy prediction. We will show how to get data out of NetCDF4 files in Python and then beat the benchmark.
+   
+The goal of this  competition  is to predict solar energy at Oklahoma Mesonet stations (red dots) from weather forecasts for GEFS points (blue dots):
+ 
+ 
+ 
+We’re getting a number of NetCDF files, each holding info about one variable, like expected temperature or precipitation. These variables have a few dimensions:
+  
+ time: the training set contains information about 5113 consecutive days. For each day there are five forecasts for different hours. 
+ location: location is described by latitude and longitude of GEFS points 
+ weather models: there are 11 forecasting models, called  ensembles  
+   NetCDF4 tutorial  
+The data is in NetCDF files, binary format apparently popular for storing scientific data. We will access it from Python using  netcdf4-python . To use it, you will need to install  HDF5  and  NetCDF4  libraries first. If you’re on Wind</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The goal of this  competition  is to predict solar energy at Oklahoma Mesonet stations (red dots) from weather forecasts for GEFS points (blue dots):       We’re getting a number of NetCDF files, each holding info about one variable, like expected temperature or precipitation. [sent-4, score-0.801]
+</p><p>2 These variables have a few dimensions:     time: the training set contains information about 5113 consecutive days. [sent-5, score-0.123]
+</p><p>3 For each day there are five forecasts for different hours. [sent-6, score-0.206]
+</p><p>4 location: location is described by latitude and longitude of GEFS points   weather models: there are 11 forecasting models, called  ensembles      NetCDF4 tutorial   The data is in NetCDF files, binary format apparently popular for storing scientific data. [sent-7, score-0.668]
+</p><p>5 >>> import numpy as np >>> import netCDF4 as nc >>> data = nc. [sent-12, score-0.195]
+</p><p>6 This data structure is a cross between a dictionary and a list, meaning that you can access elements both by name and by index. [sent-15, score-0.431]
+</p><p>7 print v  time intTime lat lon ens fhour intValidTime Total_precipitation          The variable of interest always comes last in the contest data, the rest are mostly dimensions of the main variable. [sent-21, score-0.384]
+</p><p>8 shape() (5113, 11, 5, 9, 16)     As you can see, there are 5113 days, 11 models, 5 times each day and 9 x 16 grid of points. [sent-26, score-0.258]
+</p><p>9 print d: name = 'time', size = 5113: name = 'lat', size = 9: name = 'lon', size = 16: name = 'ens', size = 11: name = 'fhour', size = 5         You can access a variable by name:    >>> lat = data. [sent-33, score-2.47]
+</p><p>10 )[0][0] 2     So now we know that if we are interested in latitude value 33, the relevant index will be 2. [sent-49, score-0.132]
+</p><p>11 The same thing with longitude:    >>> lon = data. [sent-50, score-0.263]
+</p><p>12 The appropriate indexes are 2 and 6:    >>> p_33_260 = precip[:,:,:,2,6]     This reduces the dimensionality to days, models and hours:    >>> p_33_260. [sent-70, score-0.367]
+</p><p>13 One way would be to average predictions from each model:    >>> p = np. [sent-72, score-0.127]
+</p><p>14 Another possibility is to keep both model and hour dimensions but reshape data to 2D:    >>> p = p_33_260. [sent-75, score-0.274]
+</p><p>15 One nice thing about Ridge is that it can predict multiple targets simultenously, meaning we can train and predict for all stations in one go:    y : array-like, shape = [n_samples] or [n_samples, n_targets]     As usual, the  code  is available at Github. [sent-97, score-0.551]
+</p><p>16 Our contribution here is twofold:     we do not average over hours   we use fewer GEFS points for predictions (10x4 grid instead of 16x9)     The first factor increases dimensionality five times, the second reduces dimensionality 3. [sent-98, score-0.82]
+</p><p>17 6 times , so overall dimensionality goes up by 38%, to 3000. [sent-99, score-0.194]
+</p><p>18 Our game plan and results   Here’s a game plan we thought might produce good results. [sent-103, score-0.32]
+</p><p>19 For each station:     extract data for up to four nearest GEFS points, as described above   stack it horizontally, add targets for the station   train your non-linear regressor     Then combine predictions for each variable into a submission file. [sent-104, score-0.502]
+</p><p>20 It seems that reduced dimensionality doesn’t bring immediate rewards here. [sent-108, score-0.119]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('gefs', 0.329), ('lat', 0.263), ('lon', 0.263), ('size', 0.201), ('netcdf', 0.197), ('name', 0.174), ('dimensions', 0.164), ('array', 0.145), ('dots', 0.132), ('forecasts', 0.132), ('latitude', 0.132), ('longitude', 0.132), ('precip', 0.132), ('reduces', 0.132), ('solar', 0.132), ('station', 0.132), ('stations', 0.132), ('targets', 0.132), ('weather', 0.132), ('variable', 0.123), ('dimensionality', 0.119), ('models', 0.116), ('access', 0.112), ('hours', 0.109), ('grid', 0.109), ('dtype', 0.109), ('location', 0.109), ('points', 0.105), ('days', 0.104), ('print', 0.097), ('energy', 0.097), ('cross', 0.087), ('shape', 0.087), ('ridge', 0.087), ('game', 0.08), ('plan', 0.08), ('times', 0.075), ('day', 0.074), ('predict', 0.071), ('average', 0.07), ('contains', 0.065), ('import', 0.065), ('numpy', 0.065), ('meaning', 0.058), ('described', 0.058), ('variables', 0.058), ('predictions', 0.057), ('hour', 0.055), ('mixed', 0.055), ('keep', 0.055)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000001 <a title="38-tfidf-1" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>Introduction: Kaggle again. This time, solar energy prediction. We will show how to get data out of NetCDF4 files in Python and then beat the benchmark.
+   
+The goal of this  competition  is to predict solar energy at Oklahoma Mesonet stations (red dots) from weather forecasts for GEFS points (blue dots):
+ 
+ 
+ 
+We’re getting a number of NetCDF files, each holding info about one variable, like expected temperature or precipitation. These variables have a few dimensions:
+  
+ time: the training set contains information about 5113 consecutive days. For each day there are five forecasts for different hours. 
+ location: location is described by latitude and longitude of GEFS points 
+ weather models: there are 11 forecasting models, called  ensembles  
+   NetCDF4 tutorial  
+The data is in NetCDF files, binary format apparently popular for storing scientific data. We will access it from Python using  netcdf4-python . To use it, you will need to install  HDF5  and  NetCDF4  libraries first. If you’re on Wind</p><p>2 0.089732103 <a title="38-tfidf-2" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>3 0.074503176 <a title="38-tfidf-3" href="../fast_ml-2012/fast_ml-2012-11-17-The_Facebook_challenge_HOWTO.html">10 fast ml-2012-11-17-The Facebook challenge HOWTO</a></p>
+<p>Introduction: Last time we wrote about  the Facebook challenge . Now it’s time for some more details. The main concept is this: in its original state, the data is useless. That’s because there are many names referring to the same entity. Precisely, there are about 350k unique names, and the total number of entities is maybe 20k. So cleaning the data is the first and most important step.
+    Data cleaning  
+That’s the things we do, in order:
+  
+ extract all the names, including numbers, from the graph files and the paths file 
+ compute a fingerprint for each name. We used fingerprints similar to  ones in Google Refine . Ours not only had sorted tokens (words) in a name, but also sorted letters in a token. 
+  
+Names with the same fingerprint are very likely the same. Remaining distortions are mostly in the form of word combinations:
+   a name
+a longer name
+a still longer name
+    
+ this can be dealt with by checking if a given name is a subset of any other name. If it is a subset of only one other</p><p>4 0.071886733 <a title="38-tfidf-4" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>Introduction: What do you get when you mix one part brilliant and one part daft? You get Pylearn2, a cutting edge neural networks library from Montreal that’s rather hard to use. Here we’ll show how to get through the daft part with your mental health relatively intact.
+   
+ Pylearn2  comes from the  Lisa Lab  in  Montreal , led by Yoshua Bengio. Those are pretty smart guys and they concern themselves with deep learning. Recently they published a paper entitled  Pylearn2: a machine learning research library   [arxiv] . Here’s a quote:
+  
+ Pylearn2 is a machine learning research library - its users are researchers . This means (…) it is acceptable to assume that the user has some technical sophistication and knowledge of machine learning.
+  
+The word  research  is possibly the most common word in the paper. There’s a reason for that: the library is certainly not production-ready. OK, it’s not that bad. There are only two difficult things:
+  
+ getting your data in 
+  getting predictions out  
+  
+What’</p><p>5 0.071504734 <a title="38-tfidf-5" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>6 0.06680014 <a title="38-tfidf-6" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>7 0.065106377 <a title="38-tfidf-7" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>8 0.063661858 <a title="38-tfidf-8" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>9 0.059686109 <a title="38-tfidf-9" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>10 0.059372228 <a title="38-tfidf-10" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>11 0.058747239 <a title="38-tfidf-11" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>12 0.058235444 <a title="38-tfidf-12" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>13 0.057750512 <a title="38-tfidf-13" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>14 0.055446159 <a title="38-tfidf-14" href="../fast_ml-2013/fast_ml-2013-07-05-Processing_large_files%2C_line_by_line.html">32 fast ml-2013-07-05-Processing large files, line by line</a></p>
+<p>15 0.054126449 <a title="38-tfidf-15" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>16 0.053122103 <a title="38-tfidf-16" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>17 0.053018004 <a title="38-tfidf-17" href="../fast_ml-2012/fast_ml-2012-09-17-Best_Buy_mobile_contest.html">4 fast ml-2012-09-17-Best Buy mobile contest</a></p>
+<p>18 0.0511177 <a title="38-tfidf-18" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>19 0.051087283 <a title="38-tfidf-19" href="../fast_ml-2012/fast_ml-2012-09-19-Best_Buy_mobile_contest_-_big_data.html">5 fast ml-2012-09-19-Best Buy mobile contest - big data</a></p>
+<p>20 0.050395854 <a title="38-tfidf-20" href="../fast_ml-2013/fast_ml-2013-03-07-Choosing_a_machine_learning_algorithm.html">22 fast ml-2013-03-07-Choosing a machine learning algorithm</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.219), (1, -0.038), (2, -0.009), (3, -0.101), (4, -0.025), (5, 0.022), (6, -0.114), (7, -0.044), (8, -0.038), (9, 0.138), (10, -0.055), (11, -0.036), (12, -0.022), (13, -0.039), (14, -0.143), (15, -0.02), (16, 0.232), (17, -0.043), (18, 0.013), (19, -0.411), (20, -0.035), (21, -0.035), (22, 0.027), (23, -0.369), (24, 0.269), (25, 0.072), (26, -0.117), (27, -0.136), (28, 0.288), (29, 0.264), (30, -0.34), (31, -0.007), (32, -0.048), (33, 0.004), (34, 0.041), (35, 0.088), (36, 0.064), (37, 0.114), (38, 0.06), (39, 0.007), (40, 0.078), (41, -0.006), (42, -0.166), (43, -0.149), (44, -0.02), (45, 0.162), (46, -0.046), (47, -0.072), (48, 0.062), (49, -0.037)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97214234 <a title="38-lsi-1" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>Introduction: Kaggle again. This time, solar energy prediction. We will show how to get data out of NetCDF4 files in Python and then beat the benchmark.
+   
+The goal of this  competition  is to predict solar energy at Oklahoma Mesonet stations (red dots) from weather forecasts for GEFS points (blue dots):
+ 
+ 
+ 
+We’re getting a number of NetCDF files, each holding info about one variable, like expected temperature or precipitation. These variables have a few dimensions:
+  
+ time: the training set contains information about 5113 consecutive days. For each day there are five forecasts for different hours. 
+ location: location is described by latitude and longitude of GEFS points 
+ weather models: there are 11 forecasting models, called  ensembles  
+   NetCDF4 tutorial  
+The data is in NetCDF files, binary format apparently popular for storing scientific data. We will access it from Python using  netcdf4-python . To use it, you will need to install  HDF5  and  NetCDF4  libraries first. If you’re on Wind</p><p>2 0.18311243 <a title="38-lsi-2" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>3 0.14063652 <a title="38-lsi-3" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>4 0.13453411 <a title="38-lsi-4" href="../fast_ml-2012/fast_ml-2012-11-17-The_Facebook_challenge_HOWTO.html">10 fast ml-2012-11-17-The Facebook challenge HOWTO</a></p>
+<p>Introduction: Last time we wrote about  the Facebook challenge . Now it’s time for some more details. The main concept is this: in its original state, the data is useless. That’s because there are many names referring to the same entity. Precisely, there are about 350k unique names, and the total number of entities is maybe 20k. So cleaning the data is the first and most important step.
+    Data cleaning  
+That’s the things we do, in order:
+  
+ extract all the names, including numbers, from the graph files and the paths file 
+ compute a fingerprint for each name. We used fingerprints similar to  ones in Google Refine . Ours not only had sorted tokens (words) in a name, but also sorted letters in a token. 
+  
+Names with the same fingerprint are very likely the same. Remaining distortions are mostly in the form of word combinations:
+   a name
+a longer name
+a still longer name
+    
+ this can be dealt with by checking if a given name is a subset of any other name. If it is a subset of only one other</p><p>5 0.13410406 <a title="38-lsi-5" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>Introduction: Out of 215 contestants, we placed 8th in the Cats and Dogs competition at Kaggle. The top ten finish gave us the master badge. The competition was about discerning the animals in images and here’s how we did it.
+   
+We extracted the features using pre-trained deep convolutional networks, specifically  decaf  and  OverFeat . Then we trained some classifiers on these features. The whole thing was inspired by Kyle Kastner’s  decaf  +  pylearn2  combo and we expanded this idea. The classifiers were linear models from  scikit-learn  and a neural network from  Pylearn2 . At the end we created a voting ensemble of the individual models.
+  OverFeat features  
+ 
+ 
+We touched on OverFeat in  Classifying images with a pre-trained deep network . A better way to use it in this competition’s context is to extract the features from the layer before the classifier, as Pierre Sermanet suggested in the comments.
+ 
+Concretely, in the larger OverFeat model ( -l ) layer 24 is the softmax, at least  in the</p><p>6 0.13267896 <a title="38-lsi-6" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>7 0.13253704 <a title="38-lsi-7" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>8 0.13063474 <a title="38-lsi-8" href="../fast_ml-2012/fast_ml-2012-09-17-Best_Buy_mobile_contest.html">4 fast ml-2012-09-17-Best Buy mobile contest</a></p>
+<p>9 0.12982899 <a title="38-lsi-9" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>10 0.12941922 <a title="38-lsi-10" href="../fast_ml-2014/fast_ml-2014-04-21-Predicting_happiness_from_demographics_and_poll_answers.html">59 fast ml-2014-04-21-Predicting happiness from demographics and poll answers</a></p>
+<p>11 0.11628258 <a title="38-lsi-11" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>12 0.11359049 <a title="38-lsi-12" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>13 0.11092111 <a title="38-lsi-13" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>14 0.10937108 <a title="38-lsi-14" href="../fast_ml-2013/fast_ml-2013-09-03-Our_followers_and_who_else_they_follow.html">37 fast ml-2013-09-03-Our followers and who else they follow</a></p>
+<p>15 0.1051164 <a title="38-lsi-15" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>16 0.10473268 <a title="38-lsi-16" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>17 0.10454333 <a title="38-lsi-17" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>18 0.1037451 <a title="38-lsi-18" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<p>19 0.10322903 <a title="38-lsi-19" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>20 0.10257398 <a title="38-lsi-20" href="../fast_ml-2012/fast_ml-2012-09-19-Best_Buy_mobile_contest_-_big_data.html">5 fast ml-2012-09-19-Best Buy mobile contest - big data</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(26, 0.693), (35, 0.017), (43, 0.019), (55, 0.025), (69, 0.078), (71, 0.022), (99, 0.056)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.96177369 <a title="38-lda-1" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>Introduction: Kaggle again. This time, solar energy prediction. We will show how to get data out of NetCDF4 files in Python and then beat the benchmark.
+   
+The goal of this  competition  is to predict solar energy at Oklahoma Mesonet stations (red dots) from weather forecasts for GEFS points (blue dots):
+ 
+ 
+ 
+We’re getting a number of NetCDF files, each holding info about one variable, like expected temperature or precipitation. These variables have a few dimensions:
+  
+ time: the training set contains information about 5113 consecutive days. For each day there are five forecasts for different hours. 
+ location: location is described by latitude and longitude of GEFS points 
+ weather models: there are 11 forecasting models, called  ensembles  
+   NetCDF4 tutorial  
+The data is in NetCDF files, binary format apparently popular for storing scientific data. We will access it from Python using  netcdf4-python . To use it, you will need to install  HDF5  and  NetCDF4  libraries first. If you’re on Wind</p><p>2 0.95165515 <a title="38-lda-2" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>Introduction: This is about  Amazon access control challenge  at Kaggle. Either we’re getting smarter, or the competition is easy. Or maybe both. You can beat the benchmark quite easily and with AUC of 0.875 you’d be comfortably in the top twenty percent at the moment. We scored fourth in our first attempt - the model was quick to develop and back then there were fewer competitors.
+   
+ 
+ 
+Traditionally we use  Vowpal Wabbit . Just simple binary classification with the logistic loss function and 10 passes over the data.
+ 
+It seems to work pretty well even though the classes are very unbalanced: there’s only a handful of negatives when compared to positives. Apparently Amazon employees usually get the access they request, even though sometimes they are refused.
+ 
+Let’s look at the data. First a label and then a bunch of IDs.
+   1,39353,85475,117961,118300,123472,117905,117906,290919,117908
+1,17183,1540,117961,118343,123125,118536,118536,308574,118539
+1,36724,14457,118219,118220,117884,117879,267952</p><p>3 0.41232288 <a title="38-lda-3" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>4 0.35356617 <a title="38-lda-4" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>Introduction: Much of data in machine learning is sparse, that is mostly zeros, and often binary. The phenomenon may result from converting categorical variables to one-hot vectors, and from converting text to bag-of-words representation. If each feature is binary - either zero or one - then it holds exactly one bit of information. Surely we could somehow compress such data to fewer real numbers.
+   
+To do this, we turn to topic models, an area of research with roots in natural language processing. In NLP, a training set is called a corpus, and each document is like a row in the set. A document might be three pages of text, or just a few words, as in a tweet.
+ 
+The idea of topic modelling is that you can group words in your corpus into relatively few topics and represent each document as a mixture of these topics. It’s attractive because you can interpret the model by looking at words that form the topics. Sometimes they seem meaningful, sometimes not. A meaningful topic might be, for example: “cric</p><p>5 0.33849037 <a title="38-lda-5" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>Introduction: The job salary prediction contest at Kaggle  offers a highly-dimensional dataset: when you convert categorical values to binary features and text columns to a bag of words, you get roughly 240k features, a number very similiar to the number of examples.
+ 
+We present a way to select a few thousand relevant features using L1 (Lasso) regularization. A linear model seems to work just as well with those selected features as with the full set. This means we get roughly 40 times less features for a much more manageable, smaller data set.
+   
+  
+  What you wanted to know about Lasso and Ridge  
+L1 and L2 are both ways of regularization sometimes called  weight decay . Basically, we include parameter weights in a cost function. In effect, the model will try to minimize those weights by going “down the slope”. Example weights: in a linear model or in a neural network.
+ 
+L1 is known as Lasso and L2 is known as Ridge. These names may be confusing, because a chart of Lasso looks like a ridge and a</p><p>6 0.32658961 <a title="38-lda-6" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>7 0.32467023 <a title="38-lda-7" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>8 0.32206225 <a title="38-lda-8" href="../fast_ml-2013/fast_ml-2013-09-19-What_you_wanted_to_know_about_AUC.html">39 fast ml-2013-09-19-What you wanted to know about AUC</a></p>
+<p>9 0.31759381 <a title="38-lda-9" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>10 0.30711934 <a title="38-lda-10" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>11 0.30653787 <a title="38-lda-11" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>12 0.29453844 <a title="38-lda-12" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>13 0.28766406 <a title="38-lda-13" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>14 0.28568751 <a title="38-lda-14" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>15 0.26139235 <a title="38-lda-15" href="../fast_ml-2013/fast_ml-2013-07-14-Running_things_on_a_GPU.html">34 fast ml-2013-07-14-Running things on a GPU</a></p>
+<p>16 0.26099336 <a title="38-lda-16" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>17 0.25754765 <a title="38-lda-17" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>18 0.25740418 <a title="38-lda-18" href="../fast_ml-2013/fast_ml-2013-08-23-A_bag_of_words_and_a_nice_little_network.html">36 fast ml-2013-08-23-A bag of words and a nice little network</a></p>
+<p>19 0.25717872 <a title="38-lda-19" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>20 0.24797952 <a title="38-lda-20" href="../fast_ml-2013/fast_ml-2013-08-12-Accelerometer_Biometric_Competition.html">35 fast ml-2013-08-12-Accelerometer Biometric Competition</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

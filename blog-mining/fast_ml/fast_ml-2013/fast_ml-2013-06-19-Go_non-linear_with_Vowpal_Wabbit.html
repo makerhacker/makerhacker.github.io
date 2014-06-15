@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2013" href="../home/fast_ml-2013_home.html">fast_ml-2013</a> <a title="fast_ml-2013-31" href="#">fast_ml-2013-31</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2013-31-html" href="http://fastml.com//go-non-linear-with-vowpal-wabbit/">html</a></p><p>Introduction: Vowpal Wabbit now supports a few modes of non-linear supervised learning. They are:
+  
+ a neural network with a single hidden layer 
+ automatic creation of polynomial, specifically quadratic and cubic, features 
+ N-grams 
+  
+We describe how to use them, providing examples from the Kaggle Amazon competition and for the  kin8nm  dataset.
+    Neural network  
+The original motivation for creating  neural network code in VW   was to win some Kaggle competitions using only vee-dub , and that goal becomes much more feasible once you have a strong non-linear learner.
+ 
+The network seems to be a classic multi-layer perceptron with one sigmoidal hidden layer. More interestingly, it has dropout. Unfortunately, in a few tries we haven’t had much luck with the dropout.
+ 
+Here’s an example of how to create a network with 10 hidden units:
+ 
+ vw -d data.vw --nn 10 
+  Quadratic and cubic features  
+The idea of quadratic features is to create all possible combinations between original features, so that</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 They are:     a neural network with a single hidden layer   automatic creation of polynomial, specifically quadratic and cubic, features   N-grams     We describe how to use them, providing examples from the Kaggle Amazon competition and for the  kin8nm  dataset. [sent-2, score-0.94]
+</p><p>2 Neural network   The original motivation for creating  neural network code in VW   was to win some Kaggle competitions using only vee-dub , and that goal becomes much more feasible once you have a strong non-linear learner. [sent-3, score-0.517]
+</p><p>3 The network seems to be a classic multi-layer perceptron with one sigmoidal hidden layer. [sent-4, score-0.212]
+</p><p>4 Here’s an example of how to create a network with 10 hidden units:    vw -d data. [sent-7, score-0.695]
+</p><p>5 vw --nn 10    Quadratic and cubic features   The idea of quadratic features is to create all possible combinations between original features, so that instead of  d  features you end up with  d 2   features. [sent-8, score-1.625]
+</p><p>6 This poses a danger of overfitting if you have many features to start with. [sent-10, score-0.221]
+</p><p>7 A word of explanation about feature hashing and hash collisions: VW hashes feature names into a 2 b  dimensional space. [sent-13, score-0.531]
+</p><p>8 Fortunately you can increase a number of bits used for hashing so that you can get millions of features. [sent-16, score-0.492]
+</p><p>9 With polynomial features you need to supply a namespace. [sent-17, score-0.468]
+</p><p>10 The quick version is that you can have just one namespace and combine it with itself. [sent-20, score-0.171]
+</p><p>11 You could create quadratic features like this:    vw -d data. [sent-22, score-0.951]
+</p><p>12 vw -q nn    Cubic features must involve three sets:    vw -d data. [sent-23, score-0.853]
+</p><p>13 vw --cubic nnn    Polynomial features can be combined with a neural network or used separately. [sent-24, score-0.709]
+</p><p>14 They are useful for modelling text beyond a bag of words. [sent-26, score-0.121]
+</p><p>15 vw --ngram 2    Amazon Example   In  the previous article  we talked about the Amazon access control challenge at Kaggle. [sent-31, score-0.409]
+</p><p>16 vw -k -c -f data/model --loss_function logistic -b 25 --passes 20 -q ee --l2 0. [sent-35, score-0.496]
+</p><p>17 0000005    The changes are:     add quadratic features with  -q ee    increase a number of passes to 20 - a number we experimentally found to work pretty well   add some L2 regularization to avoid or at least reduce overfitting. [sent-36, score-1.244]
+</p><p>18 use 25 bits for hashing (or more, if you can) to reduce feature hash collisions. [sent-38, score-0.624]
+</p><p>19 kin8nm   This set is a highly non-linear, medium noisy version of simulated kinematics of a robot arm data. [sent-42, score-0.186]
+</p><p>20 When you add second order polynomial features with  -q , you can go below 0. [sent-57, score-0.499]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('vw', 0.347), ('quadratic', 0.309), ('cubic', 0.297), ('polynomial', 0.247), ('collisions', 0.223), ('hashing', 0.164), ('bits', 0.164), ('amazon', 0.164), ('increase', 0.164), ('features', 0.159), ('ee', 0.149), ('hash', 0.149), ('create', 0.136), ('network', 0.128), ('win', 0.124), ('namespace', 0.109), ('avoid', 0.109), ('won', 0.107), ('regularization', 0.099), ('add', 0.093), ('hidden', 0.084), ('feature', 0.078), ('neural', 0.075), ('unfortunately', 0.074), ('reduce', 0.069), ('talked', 0.062), ('poses', 0.062), ('promise', 0.062), ('dimensional', 0.062), ('kinematics', 0.062), ('medium', 0.062), ('modes', 0.062), ('quick', 0.062), ('beyond', 0.062), ('describe', 0.062), ('distinguish', 0.062), ('employ', 0.062), ('gaussian', 0.062), ('luck', 0.062), ('motivation', 0.062), ('presented', 0.062), ('providing', 0.062), ('simulated', 0.062), ('supply', 0.062), ('competition', 0.061), ('possible', 0.059), ('text', 0.059), ('vowpal', 0.056), ('wabbit', 0.056), ('forum', 0.055)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999982 <a title="31-tfidf-1" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>Introduction: Vowpal Wabbit now supports a few modes of non-linear supervised learning. They are:
+  
+ a neural network with a single hidden layer 
+ automatic creation of polynomial, specifically quadratic and cubic, features 
+ N-grams 
+  
+We describe how to use them, providing examples from the Kaggle Amazon competition and for the  kin8nm  dataset.
+    Neural network  
+The original motivation for creating  neural network code in VW   was to win some Kaggle competitions using only vee-dub , and that goal becomes much more feasible once you have a strong non-linear learner.
+ 
+The network seems to be a classic multi-layer perceptron with one sigmoidal hidden layer. More interestingly, it has dropout. Unfortunately, in a few tries we haven’t had much luck with the dropout.
+ 
+Here’s an example of how to create a network with 10 hidden units:
+ 
+ vw -d data.vw --nn 10 
+  Quadratic and cubic features  
+The idea of quadratic features is to create all possible combinations between original features, so that</p><p>2 0.22879194 <a title="31-tfidf-2" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>Introduction: This is about  Amazon access control challenge  at Kaggle. Either we’re getting smarter, or the competition is easy. Or maybe both. You can beat the benchmark quite easily and with AUC of 0.875 you’d be comfortably in the top twenty percent at the moment. We scored fourth in our first attempt - the model was quick to develop and back then there were fewer competitors.
+   
+ 
+ 
+Traditionally we use  Vowpal Wabbit . Just simple binary classification with the logistic loss function and 10 passes over the data.
+ 
+It seems to work pretty well even though the classes are very unbalanced: there’s only a handful of negatives when compared to positives. Apparently Amazon employees usually get the access they request, even though sometimes they are refused.
+ 
+Let’s look at the data. First a label and then a bunch of IDs.
+   1,39353,85475,117961,118300,123472,117905,117906,290919,117908
+1,17183,1540,117961,118343,123125,118536,118536,308574,118539
+1,36724,14457,118219,118220,117884,117879,267952</p><p>3 0.18825057 <a title="31-tfidf-3" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>4 0.17052232 <a title="31-tfidf-4" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>5 0.16600692 <a title="31-tfidf-5" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>Introduction: The Black Box challenge has just ended. We were thoroughly thrilled to learn that the winner,  doubleshot , used sparse filtering, apparently following our cue. His score in terms of accuracy is 0.702, ours 0.645, and the best benchmark 0.525.
+ 
+We ranked 15th out of 217, a few places ahead of the Toronto team consisting of  Charlie Tang  and  Nitish Srivastava . To their credit, Charlie has won the two remaining  Challenges in Representation Learning .
+    Not-so-deep learning  
+The difference to our previous, beating-the-benchmark attempt is twofold:
+  
+ one layer instead of two 
+ for supervised learning, VW instead of a random forest 
+  
+Somewhat suprisingly, one layer works better than two. Even more surprisingly, with enough units you can get 0.634 using a linear model (Vowpal Wabbit, of course, One-Against-All). In our understanding, that’s the point of overcomplete representations*, which Stanford people seem to care much about.
+ 
+Recall  The secret of the big guys  and the pape</p><p>6 0.14187422 <a title="31-tfidf-6" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>7 0.12234268 <a title="31-tfidf-7" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>8 0.090243548 <a title="31-tfidf-8" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>9 0.081546009 <a title="31-tfidf-9" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>10 0.080872275 <a title="31-tfidf-10" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>11 0.076142952 <a title="31-tfidf-11" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>12 0.072410099 <a title="31-tfidf-12" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>13 0.072376691 <a title="31-tfidf-13" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>14 0.070688225 <a title="31-tfidf-14" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>15 0.068612926 <a title="31-tfidf-15" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>16 0.067347601 <a title="31-tfidf-16" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>17 0.06549833 <a title="31-tfidf-17" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>18 0.06022865 <a title="31-tfidf-18" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>19 0.056593146 <a title="31-tfidf-19" href="../fast_ml-2014/fast_ml-2014-04-01-Exclusive_Geoff_Hinton_interview.html">57 fast ml-2014-04-01-Exclusive Geoff Hinton interview</a></p>
+<p>20 0.056478687 <a title="31-tfidf-20" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.315), (1, -0.254), (2, -0.027), (3, 0.178), (4, 0.054), (5, -0.14), (6, 0.237), (7, -0.167), (8, 0.136), (9, 0.02), (10, 0.034), (11, -0.031), (12, 0.048), (13, -0.095), (14, 0.001), (15, 0.035), (16, 0.083), (17, -0.156), (18, -0.096), (19, 0.128), (20, -0.01), (21, 0.062), (22, -0.024), (23, 0.087), (24, 0.117), (25, -0.045), (26, -0.076), (27, -0.054), (28, -0.06), (29, -0.056), (30, -0.125), (31, 0.044), (32, -0.091), (33, 0.075), (34, -0.023), (35, -0.115), (36, 0.072), (37, -0.128), (38, -0.273), (39, 0.113), (40, 0.248), (41, 0.02), (42, -0.18), (43, 0.06), (44, -0.103), (45, -0.172), (46, 0.196), (47, 0.095), (48, 0.346), (49, -0.21)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97738719 <a title="31-lsi-1" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>Introduction: Vowpal Wabbit now supports a few modes of non-linear supervised learning. They are:
+  
+ a neural network with a single hidden layer 
+ automatic creation of polynomial, specifically quadratic and cubic, features 
+ N-grams 
+  
+We describe how to use them, providing examples from the Kaggle Amazon competition and for the  kin8nm  dataset.
+    Neural network  
+The original motivation for creating  neural network code in VW   was to win some Kaggle competitions using only vee-dub , and that goal becomes much more feasible once you have a strong non-linear learner.
+ 
+The network seems to be a classic multi-layer perceptron with one sigmoidal hidden layer. More interestingly, it has dropout. Unfortunately, in a few tries we haven’t had much luck with the dropout.
+ 
+Here’s an example of how to create a network with 10 hidden units:
+ 
+ vw -d data.vw --nn 10 
+  Quadratic and cubic features  
+The idea of quadratic features is to create all possible combinations between original features, so that</p><p>2 0.39783511 <a title="31-lsi-2" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>Introduction: This is about  Amazon access control challenge  at Kaggle. Either we’re getting smarter, or the competition is easy. Or maybe both. You can beat the benchmark quite easily and with AUC of 0.875 you’d be comfortably in the top twenty percent at the moment. We scored fourth in our first attempt - the model was quick to develop and back then there were fewer competitors.
+   
+ 
+ 
+Traditionally we use  Vowpal Wabbit . Just simple binary classification with the logistic loss function and 10 passes over the data.
+ 
+It seems to work pretty well even though the classes are very unbalanced: there’s only a handful of negatives when compared to positives. Apparently Amazon employees usually get the access they request, even though sometimes they are refused.
+ 
+Let’s look at the data. First a label and then a bunch of IDs.
+   1,39353,85475,117961,118300,123472,117905,117906,290919,117908
+1,17183,1540,117961,118343,123125,118536,118536,308574,118539
+1,36724,14457,118219,118220,117884,117879,267952</p><p>3 0.36148068 <a title="31-lsi-3" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>4 0.30498391 <a title="31-lsi-4" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>Introduction: The Black Box challenge has just ended. We were thoroughly thrilled to learn that the winner,  doubleshot , used sparse filtering, apparently following our cue. His score in terms of accuracy is 0.702, ours 0.645, and the best benchmark 0.525.
+ 
+We ranked 15th out of 217, a few places ahead of the Toronto team consisting of  Charlie Tang  and  Nitish Srivastava . To their credit, Charlie has won the two remaining  Challenges in Representation Learning .
+    Not-so-deep learning  
+The difference to our previous, beating-the-benchmark attempt is twofold:
+  
+ one layer instead of two 
+ for supervised learning, VW instead of a random forest 
+  
+Somewhat suprisingly, one layer works better than two. Even more surprisingly, with enough units you can get 0.634 using a linear model (Vowpal Wabbit, of course, One-Against-All). In our understanding, that’s the point of overcomplete representations*, which Stanford people seem to care much about.
+ 
+Recall  The secret of the big guys  and the pape</p><p>5 0.24561049 <a title="31-lsi-5" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>Introduction: The job salary prediction contest at Kaggle  offers a highly-dimensional dataset: when you convert categorical values to binary features and text columns to a bag of words, you get roughly 240k features, a number very similiar to the number of examples.
+ 
+We present a way to select a few thousand relevant features using L1 (Lasso) regularization. A linear model seems to work just as well with those selected features as with the full set. This means we get roughly 40 times less features for a much more manageable, smaller data set.
+   
+  
+  What you wanted to know about Lasso and Ridge  
+L1 and L2 are both ways of regularization sometimes called  weight decay . Basically, we include parameter weights in a cost function. In effect, the model will try to minimize those weights by going “down the slope”. Example weights: in a linear model or in a neural network.
+ 
+L1 is known as Lasso and L2 is known as Ridge. These names may be confusing, because a chart of Lasso looks like a ridge and a</p><p>6 0.18895163 <a title="31-lsi-6" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>7 0.18544386 <a title="31-lsi-7" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>8 0.17993467 <a title="31-lsi-8" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>9 0.17356458 <a title="31-lsi-9" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>10 0.16703765 <a title="31-lsi-10" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>11 0.15298253 <a title="31-lsi-11" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>12 0.14751555 <a title="31-lsi-12" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>13 0.14445718 <a title="31-lsi-13" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>14 0.14135629 <a title="31-lsi-14" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>15 0.14058805 <a title="31-lsi-15" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>16 0.13327205 <a title="31-lsi-16" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>17 0.130491 <a title="31-lsi-17" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>18 0.12845179 <a title="31-lsi-18" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>19 0.12179776 <a title="31-lsi-19" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>20 0.11381189 <a title="31-lsi-20" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(26, 0.055), (31, 0.077), (35, 0.034), (48, 0.021), (55, 0.02), (69, 0.117), (71, 0.023), (73, 0.013), (79, 0.509), (99, 0.052)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.90610045 <a title="31-lda-1" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>Introduction: Vowpal Wabbit now supports a few modes of non-linear supervised learning. They are:
+  
+ a neural network with a single hidden layer 
+ automatic creation of polynomial, specifically quadratic and cubic, features 
+ N-grams 
+  
+We describe how to use them, providing examples from the Kaggle Amazon competition and for the  kin8nm  dataset.
+    Neural network  
+The original motivation for creating  neural network code in VW   was to win some Kaggle competitions using only vee-dub , and that goal becomes much more feasible once you have a strong non-linear learner.
+ 
+The network seems to be a classic multi-layer perceptron with one sigmoidal hidden layer. More interestingly, it has dropout. Unfortunately, in a few tries we haven’t had much luck with the dropout.
+ 
+Here’s an example of how to create a network with 10 hidden units:
+ 
+ vw -d data.vw --nn 10 
+  Quadratic and cubic features  
+The idea of quadratic features is to create all possible combinations between original features, so that</p><p>2 0.68446594 <a title="31-lda-2" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>3 0.34876078 <a title="31-lda-3" href="../fast_ml-2013/fast_ml-2013-08-23-A_bag_of_words_and_a_nice_little_network.html">36 fast ml-2013-08-23-A bag of words and a nice little network</a></p>
+<p>Introduction: In this installment we will demonstrate how to turn text into numbers by a method known as a  bag of words . We will also show how to train a simple neural network on resulting sparse data for binary classification. We will achieve the first feat with Python and scikit-learn, the second one with  sparsenn . The example data comes from a Kaggle competition, specifically Stumbleupon Evergreen.
+   
+The subject of  the contest  is to classify webpage content as either evergreen or not. The train set consist of about 7k examples. For each example we have a title and a body for a webpage and then about 20 numeric features describing the content (usually, because some tidbits are missing).
+ 
+We will use text only: extract body and turn it into a bag of words in  libsvm  format. In case you don’t know,  libsvm  is pretty popular for storing sparse data as text. It looks like this:
+ 
+ 1 94:1 298:1 474:1 492:1 1213:1 1536:1 (...) 
+ 
+First goes the label and then indexes of non-zero features. It’</p><p>4 0.33046824 <a title="31-lda-4" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>Introduction: One of the ways to deal with missing values in data is to impute them. We use Amelia R package on  The Analytics Edge competition  data. Since one typically gets many imputed sets, we bag them with good results. So good that it seems we would have won the contest if not for a bug in our code.
+    The competition  
+Much to our surprise, we ranked 17th out of almost 1700 competitors - from the public leaderboard score we expected to be in top 10%, barely. The contest turned out to be one with huge overfitting possibilities, and people overfitted badly - some preliminary leaders ended up down the middle of the pack, while we soared up the ranks.
+ 
+But wait! There’s more. When preparing this article, we discovered a bug - apparently we used only 1980 points for training:
+   points_in_test = 1980
+train = data.iloc[:points_in_test,]     # should be [:-points_in_test,]
+test = data.iloc[-points_in_test:,]
+   
+If not for this little bug, we would have won, apparently.
+ 
+ 
+  Imputing data  
+A</p><p>5 0.32759544 <a title="31-lda-5" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>Introduction: Once upon a time we were browsing machine learning papers and software. We were interested in autoencoders and found a rather unusual one. It was called  marginalized Stacked Denoising Autoencoder  and the author claimed that it  preserves the strong feature learning capacity of Stacked Denoising Autoencoders, but is orders of magnitudes faster.  We like all things fast, so we were hooked.
+    About autoencoders  
+ Wikipedia says  that  an autoencoder is an artificial neural network and its aim is to learn a compressed representation for a set of data. This means it is being used for dimensionality reduction . In other words, an autoencoder is a neural network meant to replicate the input. It would be trivial with a big enough number of units in a hidden layer: the network would just find an identity mapping. Hence dimensionality reduction: a hidden layer size is typically smaller than input layer.
+ 
+mSDA is a curious specimen: it is not a neural network and it doesn’t reduce dimension</p><p>6 0.31985095 <a title="31-lda-6" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>7 0.31205612 <a title="31-lda-7" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>8 0.30478442 <a title="31-lda-8" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>9 0.30173084 <a title="31-lda-9" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>10 0.29875636 <a title="31-lda-10" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>11 0.29527617 <a title="31-lda-11" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>12 0.27863541 <a title="31-lda-12" href="../fast_ml-2013/fast_ml-2013-05-12-And_deliver_us_from_Weka.html">28 fast ml-2013-05-12-And deliver us from Weka</a></p>
+<p>13 0.27792186 <a title="31-lda-13" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>14 0.27767673 <a title="31-lda-14" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>15 0.27606332 <a title="31-lda-15" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>16 0.27154571 <a title="31-lda-16" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>17 0.26998296 <a title="31-lda-17" href="../fast_ml-2013/fast_ml-2013-09-19-What_you_wanted_to_know_about_AUC.html">39 fast ml-2013-09-19-What you wanted to know about AUC</a></p>
+<p>18 0.26883727 <a title="31-lda-18" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<p>19 0.26368269 <a title="31-lda-19" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>20 0.26304966 <a title="31-lda-20" href="../fast_ml-2013/fast_ml-2013-07-14-Running_things_on_a_GPU.html">34 fast ml-2013-07-14-Running things on a GPU</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

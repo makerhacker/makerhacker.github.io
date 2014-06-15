@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>10 fast ml-2012-11-17-The Facebook challenge HOWTO</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2012" href="../home/fast_ml-2012_home.html">fast_ml-2012</a> <a title="fast_ml-2012-10" href="#">fast_ml-2012-10</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>10 fast ml-2012-11-17-The Facebook challenge HOWTO</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2012-10-html" href="http://fastml.com//the-facebook-challenge-howto/">html</a></p><p>Introduction: Last time we wrote about  the Facebook challenge . Now it’s time for some more details. The main concept is this: in its original state, the data is useless. That’s because there are many names referring to the same entity. Precisely, there are about 350k unique names, and the total number of entities is maybe 20k. So cleaning the data is the first and most important step.
+    Data cleaning  
+That’s the things we do, in order:
+  
+ extract all the names, including numbers, from the graph files and the paths file 
+ compute a fingerprint for each name. We used fingerprints similar to  ones in Google Refine . Ours not only had sorted tokens (words) in a name, but also sorted letters in a token. 
+  
+Names with the same fingerprint are very likely the same. Remaining distortions are mostly in the form of word combinations:
+   a name
+a longer name
+a still longer name
+    
+ this can be dealt with by checking if a given name is a subset of any other name. If it is a subset of only one other</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Last time we wrote about  the Facebook challenge . [sent-1, score-0.071]
+</p><p>2 That’s because there are many names referring to the same entity. [sent-4, score-0.243]
+</p><p>3 So cleaning the data is the first and most important step. [sent-6, score-0.242]
+</p><p>4 Data cleaning   That’s the things we do, in order:     extract all the names, including numbers, from the graph files and the paths file   compute a fingerprint for each name. [sent-7, score-0.92]
+</p><p>5 Ours not only had sorted tokens (words) in a name, but also sorted letters in a token. [sent-9, score-0.388]
+</p><p>6 Names with the same fingerprint are very likely the same. [sent-10, score-0.312]
+</p><p>7 Remaining distortions are mostly in the form of word combinations:    a name a longer name a still longer name       this can be dealt with by checking if a given name is a subset of any other name. [sent-11, score-0.676]
+</p><p>8 If it is a subset of only one other name, it’s a good bet that they refer to the same entity. [sent-12, score-0.118]
+</p><p>9 By applying this iteratively, you will find that the three names above are likely the same. [sent-13, score-0.506]
+</p><p>10 finally, map the (still noisy) resulting canonical names to numbers. [sent-14, score-0.383]
+</p><p>11 Using numbers in search will be more efficient than using names. [sent-15, score-0.53]
+</p><p>12 Search   Now we take each path and search each graph for alternative paths to determine a given path’s optimality. [sent-16, score-1.344]
+</p><p>13 If the cost is zero, the path is optimal by definition, so that’s it. [sent-18, score-0.672]
+</p><p>14 If the cost is bigger than zero, we search for paths with a smaller cost (effectively, the cost - 1). [sent-19, score-1.521]
+</p><p>15 If we find such path, it’s clear that the given path is not optimal, and vice versa. [sent-20, score-0.573]
+</p><p>16 If you have some experience with search algorithms, it’s relatively easy to roll your own code for the task. [sent-21, score-0.51]
+</p><p>17 You can also use graph libraries like  Networkx  or  igraph , which have built-in search functionality and potentially might be faster. [sent-23, score-0.816]
+</p><p>18 The search was the most computer-time-consuming part for us: it took a few hours to check all paths. [sent-24, score-0.53]
+</p><p>19 This will let us know how good the data cleaning process was. [sent-26, score-0.242]
+</p><p>20 Markov chain predictions are better still, and that’s were we ended up, with 0. [sent-31, score-0.142]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('search', 0.358), ('cost', 0.307), ('path', 0.274), ('names', 0.243), ('graph', 0.242), ('paths', 0.242), ('cleaning', 0.242), ('name', 0.22), ('fingerprint', 0.194), ('sorted', 0.194), ('likely', 0.118), ('mode', 0.118), ('subset', 0.118), ('check', 0.091), ('longer', 0.091), ('numbers', 0.091), ('optimal', 0.091), ('given', 0.083), ('refine', 0.081), ('vice', 0.081), ('applying', 0.081), ('canonical', 0.081), ('determine', 0.081), ('efficient', 0.081), ('hours', 0.081), ('perfect', 0.081), ('potentially', 0.081), ('roll', 0.081), ('uniform', 0.081), ('still', 0.073), ('unique', 0.071), ('experience', 0.071), ('chain', 0.071), ('markov', 0.071), ('clear', 0.071), ('concept', 0.071), ('ended', 0.071), ('functionality', 0.071), ('precisely', 0.071), ('wrote', 0.071), ('remaining', 0.064), ('alternative', 0.064), ('combinations', 0.064), ('definition', 0.064), ('gives', 0.064), ('libraries', 0.064), ('noisy', 0.064), ('zero', 0.064), ('find', 0.064), ('map', 0.059)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000002 <a title="10-tfidf-1" href="../fast_ml-2012/fast_ml-2012-11-17-The_Facebook_challenge_HOWTO.html">10 fast ml-2012-11-17-The Facebook challenge HOWTO</a></p>
+<p>Introduction: Last time we wrote about  the Facebook challenge . Now it’s time for some more details. The main concept is this: in its original state, the data is useless. That’s because there are many names referring to the same entity. Precisely, there are about 350k unique names, and the total number of entities is maybe 20k. So cleaning the data is the first and most important step.
+    Data cleaning  
+That’s the things we do, in order:
+  
+ extract all the names, including numbers, from the graph files and the paths file 
+ compute a fingerprint for each name. We used fingerprints similar to  ones in Google Refine . Ours not only had sorted tokens (words) in a name, but also sorted letters in a token. 
+  
+Names with the same fingerprint are very likely the same. Remaining distortions are mostly in the form of word combinations:
+   a name
+a longer name
+a still longer name
+    
+ this can be dealt with by checking if a given name is a subset of any other name. If it is a subset of only one other</p><p>2 0.2097194 <a title="10-tfidf-2" href="../fast_ml-2012/fast_ml-2012-09-25-Best_Buy_mobile_contest_-_full_disclosure.html">6 fast ml-2012-09-25-Best Buy mobile contest - full disclosure</a></p>
+<p>Introduction: Here’s the final version of the script, with two ideas improving on our previous take: searching in product names and spelling correction.
+   
+As far as product names go, we will use product data available in XML format to extract SKU and name for each product:
+   8564564 Ace Combat 6: Fires of Liberation Platinum Hits
+2755149 Ace Combat: Assault Horizon
+1208344 Adrenalin Misfits
+   
+Further, we will process the names in the same way we processed queries:
+   8564564 acecombat6firesofliberationplatinumhits
+2755149 acecombatassaulthorizon
+1208344 adrenalinmisfits
+   
+When we need to fill in some predictions, instead of taking them from the benchmark, we will search in names. If that is not enough, then we go to the benchmark.
+ 
+But wait! There’s more. We will spell-correct test queries when looking in our  query -> sku  mapping. For example, we may have a SKU for  L.A. Noire  ( lanoire ), but not for  L.A. Noir  ( lanoir ). It is easy to see that this is basically the same query, o</p><p>3 0.14651568 <a title="10-tfidf-3" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>Introduction: Good news, everyone! There’s a new contest on Kaggle -  Facebook is looking for talent . They won’t pay, but just might interview.
+ 
+This post is in a way a bonus for active readers because most visitors of fastml.com originally come from Kaggle forums. For this competition the forums are disabled to encourage  own work . To honor this, we won’t publish any code. But  own work  doesn’t mean  original work , and we wouldn’t want to reinvent the wheel, would we?
+   
+The contest differs substantially from a Kaggle stereotype, if there is such a thing, in three major ways:
+  
+ there’s no money prizes, as mentioned above 
+ it’s not a real world problem, but rather an assignment to screen job candidates (this has important consequences, described below) 
+ it’s not a typical machine learning project, but rather a broader AI exercise 
+  
+You are given a graph of the internet, actually a snapshot of the graph for each of 15 time steps. You are also given a bunch of paths in this graph, which  a</p><p>4 0.08619158 <a title="10-tfidf-4" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>Introduction: What do you get when you mix one part brilliant and one part daft? You get Pylearn2, a cutting edge neural networks library from Montreal that’s rather hard to use. Here we’ll show how to get through the daft part with your mental health relatively intact.
+   
+ Pylearn2  comes from the  Lisa Lab  in  Montreal , led by Yoshua Bengio. Those are pretty smart guys and they concern themselves with deep learning. Recently they published a paper entitled  Pylearn2: a machine learning research library   [arxiv] . Here’s a quote:
+  
+ Pylearn2 is a machine learning research library - its users are researchers . This means (…) it is acceptable to assume that the user has some technical sophistication and knowledge of machine learning.
+  
+The word  research  is possibly the most common word in the paper. There’s a reason for that: the library is certainly not production-ready. OK, it’s not that bad. There are only two difficult things:
+  
+ getting your data in 
+  getting predictions out  
+  
+What’</p><p>5 0.074503176 <a title="10-tfidf-5" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>Introduction: Kaggle again. This time, solar energy prediction. We will show how to get data out of NetCDF4 files in Python and then beat the benchmark.
+   
+The goal of this  competition  is to predict solar energy at Oklahoma Mesonet stations (red dots) from weather forecasts for GEFS points (blue dots):
+ 
+ 
+ 
+We’re getting a number of NetCDF files, each holding info about one variable, like expected temperature or precipitation. These variables have a few dimensions:
+  
+ time: the training set contains information about 5113 consecutive days. For each day there are five forecasts for different hours. 
+ location: location is described by latitude and longitude of GEFS points 
+ weather models: there are 11 forecasting models, called  ensembles  
+   NetCDF4 tutorial  
+The data is in NetCDF files, binary format apparently popular for storing scientific data. We will access it from Python using  netcdf4-python . To use it, you will need to install  HDF5  and  NetCDF4  libraries first. If you’re on Wind</p><p>6 0.063663423 <a title="10-tfidf-6" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>7 0.063517004 <a title="10-tfidf-7" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>8 0.060214791 <a title="10-tfidf-8" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>9 0.055646732 <a title="10-tfidf-9" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>10 0.05384519 <a title="10-tfidf-10" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>11 0.050639577 <a title="10-tfidf-11" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>12 0.050431527 <a title="10-tfidf-12" href="../fast_ml-2012/fast_ml-2012-09-17-Best_Buy_mobile_contest.html">4 fast ml-2012-09-17-Best Buy mobile contest</a></p>
+<p>13 0.049690016 <a title="10-tfidf-13" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>14 0.0496433 <a title="10-tfidf-14" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>15 0.046222329 <a title="10-tfidf-15" href="../fast_ml-2013/fast_ml-2013-08-12-Accelerometer_Biometric_Competition.html">35 fast ml-2013-08-12-Accelerometer Biometric Competition</a></p>
+<p>16 0.044680864 <a title="10-tfidf-16" href="../fast_ml-2013/fast_ml-2013-07-09-Introducing_phraug.html">33 fast ml-2013-07-09-Introducing phraug</a></p>
+<p>17 0.04457552 <a title="10-tfidf-17" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>18 0.044453893 <a title="10-tfidf-18" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>19 0.043716248 <a title="10-tfidf-19" href="../fast_ml-2014/fast_ml-2014-04-12-Deep_learning_these_days.html">58 fast ml-2014-04-12-Deep learning these days</a></p>
+<p>20 0.042849842 <a title="10-tfidf-20" href="../fast_ml-2013/fast_ml-2013-09-19-What_you_wanted_to_know_about_AUC.html">39 fast ml-2013-09-19-What you wanted to know about AUC</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.19), (1, -0.068), (2, 0.017), (3, -0.291), (4, 0.012), (5, -0.063), (6, -0.009), (7, -0.016), (8, -0.151), (9, 0.498), (10, 0.01), (11, -0.094), (12, 0.374), (13, -0.023), (14, 0.065), (15, -0.019), (16, -0.097), (17, 0.116), (18, 0.086), (19, 0.024), (20, 0.036), (21, 0.055), (22, -0.002), (23, -0.054), (24, 0.017), (25, -0.009), (26, 0.068), (27, 0.015), (28, 0.1), (29, 0.038), (30, -0.023), (31, 0.099), (32, -0.008), (33, 0.164), (34, -0.044), (35, 0.084), (36, 0.099), (37, -0.107), (38, 0.072), (39, -0.04), (40, 0.178), (41, -0.059), (42, 0.093), (43, 0.116), (44, 0.192), (45, -0.208), (46, 0.14), (47, 0.08), (48, 0.044), (49, 0.261)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99257421 <a title="10-lsi-1" href="../fast_ml-2012/fast_ml-2012-11-17-The_Facebook_challenge_HOWTO.html">10 fast ml-2012-11-17-The Facebook challenge HOWTO</a></p>
+<p>Introduction: Last time we wrote about  the Facebook challenge . Now it’s time for some more details. The main concept is this: in its original state, the data is useless. That’s because there are many names referring to the same entity. Precisely, there are about 350k unique names, and the total number of entities is maybe 20k. So cleaning the data is the first and most important step.
+    Data cleaning  
+That’s the things we do, in order:
+  
+ extract all the names, including numbers, from the graph files and the paths file 
+ compute a fingerprint for each name. We used fingerprints similar to  ones in Google Refine . Ours not only had sorted tokens (words) in a name, but also sorted letters in a token. 
+  
+Names with the same fingerprint are very likely the same. Remaining distortions are mostly in the form of word combinations:
+   a name
+a longer name
+a still longer name
+    
+ this can be dealt with by checking if a given name is a subset of any other name. If it is a subset of only one other</p><p>2 0.48901522 <a title="10-lsi-2" href="../fast_ml-2012/fast_ml-2012-09-25-Best_Buy_mobile_contest_-_full_disclosure.html">6 fast ml-2012-09-25-Best Buy mobile contest - full disclosure</a></p>
+<p>Introduction: Here’s the final version of the script, with two ideas improving on our previous take: searching in product names and spelling correction.
+   
+As far as product names go, we will use product data available in XML format to extract SKU and name for each product:
+   8564564 Ace Combat 6: Fires of Liberation Platinum Hits
+2755149 Ace Combat: Assault Horizon
+1208344 Adrenalin Misfits
+   
+Further, we will process the names in the same way we processed queries:
+   8564564 acecombat6firesofliberationplatinumhits
+2755149 acecombatassaulthorizon
+1208344 adrenalinmisfits
+   
+When we need to fill in some predictions, instead of taking them from the benchmark, we will search in names. If that is not enough, then we go to the benchmark.
+ 
+But wait! There’s more. We will spell-correct test queries when looking in our  query -> sku  mapping. For example, we may have a SKU for  L.A. Noire  ( lanoire ), but not for  L.A. Noir  ( lanoir ). It is easy to see that this is basically the same query, o</p><p>3 0.26070642 <a title="10-lsi-3" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>Introduction: Good news, everyone! There’s a new contest on Kaggle -  Facebook is looking for talent . They won’t pay, but just might interview.
+ 
+This post is in a way a bonus for active readers because most visitors of fastml.com originally come from Kaggle forums. For this competition the forums are disabled to encourage  own work . To honor this, we won’t publish any code. But  own work  doesn’t mean  original work , and we wouldn’t want to reinvent the wheel, would we?
+   
+The contest differs substantially from a Kaggle stereotype, if there is such a thing, in three major ways:
+  
+ there’s no money prizes, as mentioned above 
+ it’s not a real world problem, but rather an assignment to screen job candidates (this has important consequences, described below) 
+ it’s not a typical machine learning project, but rather a broader AI exercise 
+  
+You are given a graph of the internet, actually a snapshot of the graph for each of 15 time steps. You are also given a bunch of paths in this graph, which  a</p><p>4 0.15713163 <a title="10-lsi-4" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>Introduction: Kaggle again. This time, solar energy prediction. We will show how to get data out of NetCDF4 files in Python and then beat the benchmark.
+   
+The goal of this  competition  is to predict solar energy at Oklahoma Mesonet stations (red dots) from weather forecasts for GEFS points (blue dots):
+ 
+ 
+ 
+We’re getting a number of NetCDF files, each holding info about one variable, like expected temperature or precipitation. These variables have a few dimensions:
+  
+ time: the training set contains information about 5113 consecutive days. For each day there are five forecasts for different hours. 
+ location: location is described by latitude and longitude of GEFS points 
+ weather models: there are 11 forecasting models, called  ensembles  
+   NetCDF4 tutorial  
+The data is in NetCDF files, binary format apparently popular for storing scientific data. We will access it from Python using  netcdf4-python . To use it, you will need to install  HDF5  and  NetCDF4  libraries first. If you’re on Wind</p><p>5 0.14250669 <a title="10-lsi-5" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>Introduction: What do you get when you mix one part brilliant and one part daft? You get Pylearn2, a cutting edge neural networks library from Montreal that’s rather hard to use. Here we’ll show how to get through the daft part with your mental health relatively intact.
+   
+ Pylearn2  comes from the  Lisa Lab  in  Montreal , led by Yoshua Bengio. Those are pretty smart guys and they concern themselves with deep learning. Recently they published a paper entitled  Pylearn2: a machine learning research library   [arxiv] . Here’s a quote:
+  
+ Pylearn2 is a machine learning research library - its users are researchers . This means (…) it is acceptable to assume that the user has some technical sophistication and knowledge of machine learning.
+  
+The word  research  is possibly the most common word in the paper. There’s a reason for that: the library is certainly not production-ready. OK, it’s not that bad. There are only two difficult things:
+  
+ getting your data in 
+  getting predictions out  
+  
+What’</p><p>6 0.12923074 <a title="10-lsi-6" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>7 0.12190913 <a title="10-lsi-7" href="../fast_ml-2012/fast_ml-2012-08-09-What_you_wanted_to_know_about_Mean_Average_Precision.html">1 fast ml-2012-08-09-What you wanted to know about Mean Average Precision</a></p>
+<p>8 0.12073603 <a title="10-lsi-8" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>9 0.11591917 <a title="10-lsi-9" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>10 0.11035814 <a title="10-lsi-10" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>11 0.10365272 <a title="10-lsi-11" href="../fast_ml-2013/fast_ml-2013-07-05-Processing_large_files%2C_line_by_line.html">32 fast ml-2013-07-05-Processing large files, line by line</a></p>
+<p>12 0.1007999 <a title="10-lsi-12" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>13 0.1006875 <a title="10-lsi-13" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>14 0.098210484 <a title="10-lsi-14" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>15 0.097485572 <a title="10-lsi-15" href="../fast_ml-2014/fast_ml-2014-04-12-Deep_learning_these_days.html">58 fast ml-2014-04-12-Deep learning these days</a></p>
+<p>16 0.097471774 <a title="10-lsi-16" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>17 0.094937086 <a title="10-lsi-17" href="../fast_ml-2013/fast_ml-2013-08-12-Accelerometer_Biometric_Competition.html">35 fast ml-2013-08-12-Accelerometer Biometric Competition</a></p>
+<p>18 0.090663098 <a title="10-lsi-18" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>19 0.086693875 <a title="10-lsi-19" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>20 0.086269006 <a title="10-lsi-20" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(26, 0.013), (35, 0.71), (55, 0.013), (69, 0.09), (71, 0.015), (99, 0.055)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.96754807 <a title="10-lda-1" href="../fast_ml-2012/fast_ml-2012-11-17-The_Facebook_challenge_HOWTO.html">10 fast ml-2012-11-17-The Facebook challenge HOWTO</a></p>
+<p>Introduction: Last time we wrote about  the Facebook challenge . Now it’s time for some more details. The main concept is this: in its original state, the data is useless. That’s because there are many names referring to the same entity. Precisely, there are about 350k unique names, and the total number of entities is maybe 20k. So cleaning the data is the first and most important step.
+    Data cleaning  
+That’s the things we do, in order:
+  
+ extract all the names, including numbers, from the graph files and the paths file 
+ compute a fingerprint for each name. We used fingerprints similar to  ones in Google Refine . Ours not only had sorted tokens (words) in a name, but also sorted letters in a token. 
+  
+Names with the same fingerprint are very likely the same. Remaining distortions are mostly in the form of word combinations:
+   a name
+a longer name
+a still longer name
+    
+ this can be dealt with by checking if a given name is a subset of any other name. If it is a subset of only one other</p><p>2 0.8653723 <a title="10-lda-2" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>Introduction: Out of 215 contestants, we placed 8th in the Cats and Dogs competition at Kaggle. The top ten finish gave us the master badge. The competition was about discerning the animals in images and here’s how we did it.
+   
+We extracted the features using pre-trained deep convolutional networks, specifically  decaf  and  OverFeat . Then we trained some classifiers on these features. The whole thing was inspired by Kyle Kastner’s  decaf  +  pylearn2  combo and we expanded this idea. The classifiers were linear models from  scikit-learn  and a neural network from  Pylearn2 . At the end we created a voting ensemble of the individual models.
+  OverFeat features  
+ 
+ 
+We touched on OverFeat in  Classifying images with a pre-trained deep network . A better way to use it in this competition’s context is to extract the features from the layer before the classifier, as Pierre Sermanet suggested in the comments.
+ 
+Concretely, in the larger OverFeat model ( -l ) layer 24 is the softmax, at least  in the</p><p>3 0.65002793 <a title="10-lda-3" href="../fast_ml-2014/fast_ml-2014-01-10-Classifying_images_with_a_pre-trained_deep_network.html">49 fast ml-2014-01-10-Classifying images with a pre-trained deep network</a></p>
+<p>Introduction: Recently at least two research teams made their pre-trained deep convolutional networks available, so you can classify your images right away. We’ll see how to go about it, with data from the Cats & Dogs competition at Kaggle as an example.
+   
+We’ll be using  OverFeat , a classifier and feature extractor from the New York guys lead by  Yann LeCun  and Rob Fergus. The principal author, Pierre Sermanet, is currently first on the  Dogs vs. Cats leaderboard .
+ 
+The other available implementation we know of comes from Berkeley. It’s called  Caffe  and is a successor to  decaf .  Yangqing Jia , the main author of these, is also near the top of the leaderboard.
+ 
+Both networks were trained on  ImageNet , which is  an image database organized according to the  WordNet  hierarchy . It was the ImageNet Large Scale Visual Recognition Challenge 2012 in which Alex Krizhevsky  crushed the competition  with his network. His error was 16%, the second best - 26%.
+  Data  
+The Kaggle competition featur</p><p>4 0.46819669 <a title="10-lda-4" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>Introduction: Good news, everyone! There’s a new contest on Kaggle -  Facebook is looking for talent . They won’t pay, but just might interview.
+ 
+This post is in a way a bonus for active readers because most visitors of fastml.com originally come from Kaggle forums. For this competition the forums are disabled to encourage  own work . To honor this, we won’t publish any code. But  own work  doesn’t mean  original work , and we wouldn’t want to reinvent the wheel, would we?
+   
+The contest differs substantially from a Kaggle stereotype, if there is such a thing, in three major ways:
+  
+ there’s no money prizes, as mentioned above 
+ it’s not a real world problem, but rather an assignment to screen job candidates (this has important consequences, described below) 
+ it’s not a typical machine learning project, but rather a broader AI exercise 
+  
+You are given a graph of the internet, actually a snapshot of the graph for each of 15 time steps. You are also given a bunch of paths in this graph, which  a</p><p>5 0.40948761 <a title="10-lda-5" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>Introduction: Object recognition in images is where deep learning, and specifically convolutional neural networks, are often applied and benchmarked these days. To get a piece of the action, we’ll be using Alex Krizhevsky’s  cuda-convnet , a shining diamond of machine learning software, in a Kaggle competition.
+   
+Continuing to run things on a GPU, we turn to applying  convolutional neural networks  for object recognition. This kind of network was developed by Yann LeCun and it’s powerful, but a bit complicated:
+ 
+  
+ Image credit:  EBLearn tutorial  
+ 
+A typical convolutional network has two parts. The first is responsible for feature extraction and consists of one or more pairs of convolution and subsampling/max-pooling layers, as you can see above. The second part is just a classic fully-connected multilayer perceptron taking extracted features as input. For a detailed explanation of all this see unit 9 in Hugo LaRochelle’s  neural networks course .
+ 
+Daniel Nouri has an interesting story about</p><p>6 0.31407255 <a title="10-lda-6" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>7 0.29174712 <a title="10-lda-7" href="../fast_ml-2013/fast_ml-2013-12-28-Regularizing_neural_networks_with_dropout_and_with_DropConnect.html">48 fast ml-2013-12-28-Regularizing neural networks with dropout and with DropConnect</a></p>
+<p>8 0.2877031 <a title="10-lda-8" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>9 0.27465421 <a title="10-lda-9" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>10 0.26915973 <a title="10-lda-10" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>11 0.26487681 <a title="10-lda-11" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>12 0.26370627 <a title="10-lda-12" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>13 0.25011373 <a title="10-lda-13" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>14 0.24840288 <a title="10-lda-14" href="../fast_ml-2013/fast_ml-2013-09-19-What_you_wanted_to_know_about_AUC.html">39 fast ml-2013-09-19-What you wanted to know about AUC</a></p>
+<p>15 0.22670627 <a title="10-lda-15" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>16 0.22117265 <a title="10-lda-16" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>17 0.22114135 <a title="10-lda-17" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>18 0.21903728 <a title="10-lda-18" href="../fast_ml-2014/fast_ml-2014-04-12-Deep_learning_these_days.html">58 fast ml-2014-04-12-Deep learning these days</a></p>
+<p>19 0.21367118 <a title="10-lda-19" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>20 0.21025471 <a title="10-lda-20" href="../fast_ml-2014/fast_ml-2014-02-20-Are_stocks_predictable%3F.html">53 fast ml-2014-02-20-Are stocks predictable?</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

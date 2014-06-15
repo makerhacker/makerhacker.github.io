@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>18 fast ml-2013-01-17-A very fast denoising autoencoder</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2013" href="../home/fast_ml-2013_home.html">fast_ml-2013</a> <a title="fast_ml-2013-18" href="#">fast_ml-2013-18</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>18 fast ml-2013-01-17-A very fast denoising autoencoder</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2013-18-html" href="http://fastml.com//very-fast-denoising-autoencoder-with-a-robot-arm/">html</a></p><p>Introduction: Once upon a time we were browsing machine learning papers and software. We were interested in autoencoders and found a rather unusual one. It was called  marginalized Stacked Denoising Autoencoder  and the author claimed that it  preserves the strong feature learning capacity of Stacked Denoising Autoencoders, but is orders of magnitudes faster.  We like all things fast, so we were hooked.
+    About autoencoders  
+ Wikipedia says  that  an autoencoder is an artificial neural network and its aim is to learn a compressed representation for a set of data. This means it is being used for dimensionality reduction . In other words, an autoencoder is a neural network meant to replicate the input. It would be trivial with a big enough number of units in a hidden layer: the network would just find an identity mapping. Hence dimensionality reduction: a hidden layer size is typically smaller than input layer.
+ 
+mSDA is a curious specimen: it is not a neural network and it doesn’t reduce dimension</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 About autoencoders    Wikipedia says  that  an autoencoder is an artificial neural network and its aim is to learn a compressed representation for a set of data. [sent-5, score-0.248]
+</p><p>2 mDA takes a matrix of observations, makes it noisy and finds optimal weights for a linear transformation to reconstruct the original values. [sent-14, score-0.394]
+</p><p>3 The main trick of mSDA is marginalizing noise - it means that noise is never actually introduced to the data. [sent-20, score-1.211]
+</p><p>4 Instead, by marginalizing, the algorithm is  effectively using infinitely many copies of noisy data to compute the denoising transformation  [ Chen ]. [sent-21, score-0.325]
+</p><p>5 We will run  Spearmint  to optimize two mSDA parameters: a number of stacked layers and a noise level. [sent-59, score-1.142]
+</p><p>6 For now, the noise level will be the same for each layer. [sent-60, score-0.615]
+</p><p>7 If it works, we might check if denoising the sets separately makes any sense. [sent-73, score-0.24]
+</p><p>8 The experiments   For starters, we will try 1-10 layers (the original paper used five) and noise in 0. [sent-74, score-0.966]
+</p><p>9 It looks like the optimal noise level is inversely correlated with a number of layers: the more layers, the less noise needed. [sent-85, score-1.333]
+</p><p>10 We will use ten layers and optimize noise separately for each layer - so that there is 10 hyperparams to tune now. [sent-90, score-1.423]
+</p><p>11 To summarize:     first layer: low noise   layers 1-5: high noise   layers 6-10: medium noise     However, in 69 tries we didn’t exceed the best results from the constant scenario. [sent-92, score-2.571]
+</p><p>12 It may be that we need more tries to optimize ten hyperparams, but for now it seems that varying noise isn’t going to give us any mega-improvements, so we’ll stick with the simpler constant noise model. [sent-93, score-1.642]
+</p><p>13 Let’s see how it goes with more layers:       From the second run we conclude that there are several good settings for layers and noise, provided that there is at least 10 layers. [sent-94, score-0.409]
+</p><p>14 What’s important is to consider the two hyperparams together, because optimal noise for 10 layers will differ from optimal noise for 14 layers. [sent-97, score-1.74]
+</p><p>15 142 for a random forest trained on original data, and 0. [sent-100, score-0.226]
+</p><p>16 UPDATE    However, as Andy points out in the comments, better results can be achieved by feeding all layers to a random forest. [sent-107, score-0.475]
+</p><p>17 That is, not only original and final denoised features, but intermediate layers as well. [sent-108, score-0.53]
+</p><p>18 m :    x2 = allhx'; % x2 = x2(:, start_i:end_i );       % <--- this one     Of course, the dimensionality goes up: ten times with ten layers. [sent-115, score-0.302]
+</p><p>19 Most of the time in optimizing is spent learning random forest models. [sent-119, score-0.231]
+</p><p>20 The conclusion is that if we want to use a random forest for predicting, we need to optimize mSDA hyperparams for a random forest. [sent-125, score-0.443]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('noise', 0.563), ('layers', 0.337), ('msda', 0.212), ('err', 0.17), ('denoising', 0.156), ('spearmint', 0.155), ('optimize', 0.129), ('denoised', 0.127), ('layer', 0.118), ('ten', 0.113), ('noisy', 0.113), ('stacked', 0.113), ('autoencoder', 0.106), ('optimal', 0.099), ('autoencoders', 0.093), ('unlabeled', 0.093), ('forest', 0.085), ('andy', 0.085), ('constant', 0.085), ('filtered', 0.085), ('marginalizing', 0.085), ('mda', 0.085), ('varying', 0.085), ('separately', 0.084), ('hyperparams', 0.079), ('dimensionality', 0.076), ('random', 0.075), ('settings', 0.072), ('optimizing', 0.071), ('medium', 0.071), ('regression', 0.067), ('rmse', 0.067), ('original', 0.066), ('achieved', 0.063), ('robot', 0.062), ('arm', 0.062), ('linear', 0.06), ('green', 0.056), ('theory', 0.056), ('transformation', 0.056), ('looks', 0.056), ('dataset', 0.053), ('together', 0.052), ('world', 0.052), ('blue', 0.052), ('tries', 0.052), ('level', 0.052), ('care', 0.052), ('simpler', 0.052), ('network', 0.049)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000001 <a title="18-tfidf-1" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>Introduction: Once upon a time we were browsing machine learning papers and software. We were interested in autoencoders and found a rather unusual one. It was called  marginalized Stacked Denoising Autoencoder  and the author claimed that it  preserves the strong feature learning capacity of Stacked Denoising Autoencoders, but is orders of magnitudes faster.  We like all things fast, so we were hooked.
+    About autoencoders  
+ Wikipedia says  that  an autoencoder is an artificial neural network and its aim is to learn a compressed representation for a set of data. This means it is being used for dimensionality reduction . In other words, an autoencoder is a neural network meant to replicate the input. It would be trivial with a big enough number of units in a hidden layer: the network would just find an identity mapping. Hence dimensionality reduction: a hidden layer size is typically smaller than input layer.
+ 
+mSDA is a curious specimen: it is not a neural network and it doesn’t reduce dimension</p><p>2 0.1644346 <a title="18-tfidf-2" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>3 0.15769172 <a title="18-tfidf-3" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>Introduction: Little Spearmint couldn’t sleep that night.  I was so close…  - he was thinking. It seemed that he had found a better than default value for one of the random forest hyperparams, but it turned out to be false. He made a decision as he fell asleep:  Next time, I will show them! 
+   
+The way to do this is to use a dataset that is known to produce lower error with high  mtry  values, namely previously mentioned  Madelon  from NIPS 2003 Feature Selection Challenge. Among 500 attributes, only 20 are informative, the rest are noise. That’s the reason why high  mtry  is good here: you have to consider a lot of features to find a meaningful one.
+ 
+The dataset consists of a train, validation and test parts, with labels being available for train and validation. We will further split the training set into our train and validation sets, and use the original validation set as a test set to evaluate final results of parameter tuning.
+ 
+As an error measure we use  Area Under Curve , or AUC, which was</p><p>4 0.15169109 <a title="18-tfidf-4" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>Introduction: Now that we have  Spearmint basics  nailed, we’ll try tuning a random forest, and specifically two hyperparams: a number of trees ( ntrees ) and a number of candidate features at each split ( mtry ). Here’s  some code .
+ 
+We’re going to use a red  wine quality  dataset. It has about 1600 examples and our goal will be to predict a rating for a wine given all the other properties.   This is a regression* task, as ratings are in (0,10) range.
+ 
+We will split the data 80/10/10 into train, validation and test set, and use the first two to establish optimal hyperparams and then predict on the test set. As an error measure we will use RMSE.
+ 
+At first, we will try  ntrees  between 10 and 200 and  mtry  between 3 and 11 (there’s eleven features total, so that’s the upper bound). Here are the results of two Spearmint runs with 71 and 95 tries respectively. Colors denote a validation error value:
+  
+  green : RMSE < 0.57 
+  blue : RMSE < 0.58 
+  black : RMSE >= 0.58 
+  
+Turns out that some diffe</p><p>5 0.13589999 <a title="18-tfidf-5" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>Introduction: Out of 215 contestants, we placed 8th in the Cats and Dogs competition at Kaggle. The top ten finish gave us the master badge. The competition was about discerning the animals in images and here’s how we did it.
+   
+We extracted the features using pre-trained deep convolutional networks, specifically  decaf  and  OverFeat . Then we trained some classifiers on these features. The whole thing was inspired by Kyle Kastner’s  decaf  +  pylearn2  combo and we expanded this idea. The classifiers were linear models from  scikit-learn  and a neural network from  Pylearn2 . At the end we created a voting ensemble of the individual models.
+  OverFeat features  
+ 
+ 
+We touched on OverFeat in  Classifying images with a pre-trained deep network . A better way to use it in this competition’s context is to extract the features from the layer before the classifier, as Pierre Sermanet suggested in the comments.
+ 
+Concretely, in the larger OverFeat model ( -l ) layer 24 is the softmax, at least  in the</p><p>6 0.13447101 <a title="18-tfidf-6" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>7 0.097853512 <a title="18-tfidf-7" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>8 0.091423213 <a title="18-tfidf-8" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>9 0.090308689 <a title="18-tfidf-9" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>10 0.087724179 <a title="18-tfidf-10" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>11 0.086175598 <a title="18-tfidf-11" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>12 0.085501149 <a title="18-tfidf-12" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>13 0.082152449 <a title="18-tfidf-13" href="../fast_ml-2013/fast_ml-2013-01-12-Intro_to_random_forests.html">16 fast ml-2013-01-12-Intro to random forests</a></p>
+<p>14 0.081546009 <a title="18-tfidf-14" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>15 0.07148876 <a title="18-tfidf-15" href="../fast_ml-2014/fast_ml-2014-05-26-Yann_LeCun%27s_answers_from_the_Reddit_AMA.html">62 fast ml-2014-05-26-Yann LeCun's answers from the Reddit AMA</a></p>
+<p>16 0.070475429 <a title="18-tfidf-16" href="../fast_ml-2013/fast_ml-2013-12-15-A-B_testing_with_bayesian_bandits_in_Google_Analytics.html">47 fast ml-2013-12-15-A-B testing with bayesian bandits in Google Analytics</a></p>
+<p>17 0.067301735 <a title="18-tfidf-17" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>18 0.06451416 <a title="18-tfidf-18" href="../fast_ml-2014/fast_ml-2014-02-20-Are_stocks_predictable%3F.html">53 fast ml-2014-02-20-Are stocks predictable?</a></p>
+<p>19 0.063447498 <a title="18-tfidf-19" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>20 0.060931906 <a title="18-tfidf-20" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.312), (1, 0.204), (2, -0.136), (3, 0.024), (4, 0.031), (5, -0.102), (6, 0.01), (7, -0.08), (8, 0.017), (9, -0.019), (10, 0.126), (11, -0.008), (12, 0.106), (13, -0.179), (14, -0.118), (15, -0.15), (16, 0.055), (17, -0.008), (18, 0.18), (19, 0.012), (20, 0.069), (21, 0.03), (22, 0.027), (23, -0.176), (24, 0.023), (25, 0.083), (26, -0.065), (27, 0.014), (28, -0.217), (29, 0.134), (30, 0.019), (31, 0.174), (32, 0.117), (33, -0.013), (34, 0.177), (35, -0.293), (36, 0.193), (37, 0.047), (38, -0.357), (39, 0.049), (40, -0.155), (41, 0.146), (42, 0.269), (43, -0.186), (44, 0.123), (45, -0.038), (46, 0.077), (47, -0.014), (48, -0.178), (49, 0.013)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97332442 <a title="18-lsi-1" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>Introduction: Once upon a time we were browsing machine learning papers and software. We were interested in autoencoders and found a rather unusual one. It was called  marginalized Stacked Denoising Autoencoder  and the author claimed that it  preserves the strong feature learning capacity of Stacked Denoising Autoencoders, but is orders of magnitudes faster.  We like all things fast, so we were hooked.
+    About autoencoders  
+ Wikipedia says  that  an autoencoder is an artificial neural network and its aim is to learn a compressed representation for a set of data. This means it is being used for dimensionality reduction . In other words, an autoencoder is a neural network meant to replicate the input. It would be trivial with a big enough number of units in a hidden layer: the network would just find an identity mapping. Hence dimensionality reduction: a hidden layer size is typically smaller than input layer.
+ 
+mSDA is a curious specimen: it is not a neural network and it doesn’t reduce dimension</p><p>2 0.3321034 <a title="18-lsi-2" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>Introduction: Out of 215 contestants, we placed 8th in the Cats and Dogs competition at Kaggle. The top ten finish gave us the master badge. The competition was about discerning the animals in images and here’s how we did it.
+   
+We extracted the features using pre-trained deep convolutional networks, specifically  decaf  and  OverFeat . Then we trained some classifiers on these features. The whole thing was inspired by Kyle Kastner’s  decaf  +  pylearn2  combo and we expanded this idea. The classifiers were linear models from  scikit-learn  and a neural network from  Pylearn2 . At the end we created a voting ensemble of the individual models.
+  OverFeat features  
+ 
+ 
+We touched on OverFeat in  Classifying images with a pre-trained deep network . A better way to use it in this competition’s context is to extract the features from the layer before the classifier, as Pierre Sermanet suggested in the comments.
+ 
+Concretely, in the larger OverFeat model ( -l ) layer 24 is the softmax, at least  in the</p><p>3 0.33103245 <a title="18-lsi-3" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>4 0.25862524 <a title="18-lsi-4" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>Introduction: As usual, there’s an interesting competition at Kaggle: The Black Box. It’s connected to ICML 2013 Workshop on Challenges in Representation Learning, held by the deep learning guys from Montreal.
+ 
+There are a couple benchmarks for this competition and the best one is unusually hard to beat 1  - only less than a fourth of those taking part managed to do so. We’re among them. Here’s how.
+   
+The key ingredient in our success is a recently developed secret Stanford technology for deep unsupervised learning:  sparse filtering  by  Jiquan Ngiam  et al. Actually, it’s not secret. It’s  available at Github , and has one or two very appealling properties. Let us explain.
+ 
+The main idea of deep unsupervised learning, as we understand it, is feature extraction. One of the most common applications is in  multimedia. The reason for that is that multimedia tasks, for example object recognition, are easy for humans, but difficult for computers 2 .
+ 
+Geoff Hinton from Toronto talks about  two ends</p><p>5 0.23087616 <a title="18-lsi-5" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>Introduction: Now that we have  Spearmint basics  nailed, we’ll try tuning a random forest, and specifically two hyperparams: a number of trees ( ntrees ) and a number of candidate features at each split ( mtry ). Here’s  some code .
+ 
+We’re going to use a red  wine quality  dataset. It has about 1600 examples and our goal will be to predict a rating for a wine given all the other properties.   This is a regression* task, as ratings are in (0,10) range.
+ 
+We will split the data 80/10/10 into train, validation and test set, and use the first two to establish optimal hyperparams and then predict on the test set. As an error measure we will use RMSE.
+ 
+At first, we will try  ntrees  between 10 and 200 and  mtry  between 3 and 11 (there’s eleven features total, so that’s the upper bound). Here are the results of two Spearmint runs with 71 and 95 tries respectively. Colors denote a validation error value:
+  
+  green : RMSE < 0.57 
+  blue : RMSE < 0.58 
+  black : RMSE >= 0.58 
+  
+Turns out that some diffe</p><p>6 0.21541867 <a title="18-lsi-6" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>7 0.1721743 <a title="18-lsi-7" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>8 0.1709376 <a title="18-lsi-8" href="../fast_ml-2013/fast_ml-2013-01-12-Intro_to_random_forests.html">16 fast ml-2013-01-12-Intro to random forests</a></p>
+<p>9 0.16852251 <a title="18-lsi-9" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>10 0.16734657 <a title="18-lsi-10" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>11 0.16601253 <a title="18-lsi-11" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>12 0.15579653 <a title="18-lsi-12" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>13 0.15554859 <a title="18-lsi-13" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>14 0.153083 <a title="18-lsi-14" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>15 0.14250137 <a title="18-lsi-15" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>16 0.14011133 <a title="18-lsi-16" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>17 0.1397201 <a title="18-lsi-17" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>18 0.13606307 <a title="18-lsi-18" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<p>19 0.13290167 <a title="18-lsi-19" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>20 0.13144377 <a title="18-lsi-20" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(3, 0.013), (26, 0.046), (31, 0.062), (35, 0.048), (45, 0.34), (50, 0.023), (58, 0.013), (69, 0.206), (71, 0.056), (78, 0.028), (79, 0.039), (99, 0.033)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.86465812 <a title="18-lda-1" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>Introduction: Once upon a time we were browsing machine learning papers and software. We were interested in autoencoders and found a rather unusual one. It was called  marginalized Stacked Denoising Autoencoder  and the author claimed that it  preserves the strong feature learning capacity of Stacked Denoising Autoencoders, but is orders of magnitudes faster.  We like all things fast, so we were hooked.
+    About autoencoders  
+ Wikipedia says  that  an autoencoder is an artificial neural network and its aim is to learn a compressed representation for a set of data. This means it is being used for dimensionality reduction . In other words, an autoencoder is a neural network meant to replicate the input. It would be trivial with a big enough number of units in a hidden layer: the network would just find an identity mapping. Hence dimensionality reduction: a hidden layer size is typically smaller than input layer.
+ 
+mSDA is a curious specimen: it is not a neural network and it doesn’t reduce dimension</p><p>2 0.53379583 <a title="18-lda-2" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>Introduction: As usual, there’s an interesting competition at Kaggle: The Black Box. It’s connected to ICML 2013 Workshop on Challenges in Representation Learning, held by the deep learning guys from Montreal.
+ 
+There are a couple benchmarks for this competition and the best one is unusually hard to beat 1  - only less than a fourth of those taking part managed to do so. We’re among them. Here’s how.
+   
+The key ingredient in our success is a recently developed secret Stanford technology for deep unsupervised learning:  sparse filtering  by  Jiquan Ngiam  et al. Actually, it’s not secret. It’s  available at Github , and has one or two very appealling properties. Let us explain.
+ 
+The main idea of deep unsupervised learning, as we understand it, is feature extraction. One of the most common applications is in  multimedia. The reason for that is that multimedia tasks, for example object recognition, are easy for humans, but difficult for computers 2 .
+ 
+Geoff Hinton from Toronto talks about  two ends</p><p>3 0.52955371 <a title="18-lda-3" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>4 0.52934581 <a title="18-lda-4" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>Introduction: Now that we have  Spearmint basics  nailed, we’ll try tuning a random forest, and specifically two hyperparams: a number of trees ( ntrees ) and a number of candidate features at each split ( mtry ). Here’s  some code .
+ 
+We’re going to use a red  wine quality  dataset. It has about 1600 examples and our goal will be to predict a rating for a wine given all the other properties.   This is a regression* task, as ratings are in (0,10) range.
+ 
+We will split the data 80/10/10 into train, validation and test set, and use the first two to establish optimal hyperparams and then predict on the test set. As an error measure we will use RMSE.
+ 
+At first, we will try  ntrees  between 10 and 200 and  mtry  between 3 and 11 (there’s eleven features total, so that’s the upper bound). Here are the results of two Spearmint runs with 71 and 95 tries respectively. Colors denote a validation error value:
+  
+  green : RMSE < 0.57 
+  blue : RMSE < 0.58 
+  black : RMSE >= 0.58 
+  
+Turns out that some diffe</p><p>5 0.50848758 <a title="18-lda-5" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>Introduction: Little Spearmint couldn’t sleep that night.  I was so close…  - he was thinking. It seemed that he had found a better than default value for one of the random forest hyperparams, but it turned out to be false. He made a decision as he fell asleep:  Next time, I will show them! 
+   
+The way to do this is to use a dataset that is known to produce lower error with high  mtry  values, namely previously mentioned  Madelon  from NIPS 2003 Feature Selection Challenge. Among 500 attributes, only 20 are informative, the rest are noise. That’s the reason why high  mtry  is good here: you have to consider a lot of features to find a meaningful one.
+ 
+The dataset consists of a train, validation and test parts, with labels being available for train and validation. We will further split the training set into our train and validation sets, and use the original validation set as a test set to evaluate final results of parameter tuning.
+ 
+As an error measure we use  Area Under Curve , or AUC, which was</p><p>6 0.506046 <a title="18-lda-6" href="../fast_ml-2012/fast_ml-2012-08-09-What_you_wanted_to_know_about_Mean_Average_Precision.html">1 fast ml-2012-08-09-What you wanted to know about Mean Average Precision</a></p>
+<p>7 0.49591574 <a title="18-lda-7" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>8 0.49519584 <a title="18-lda-8" href="../fast_ml-2013/fast_ml-2013-12-28-Regularizing_neural_networks_with_dropout_and_with_DropConnect.html">48 fast ml-2013-12-28-Regularizing neural networks with dropout and with DropConnect</a></p>
+<p>9 0.49081901 <a title="18-lda-9" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>10 0.48840865 <a title="18-lda-10" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>11 0.48016232 <a title="18-lda-11" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>12 0.4796446 <a title="18-lda-12" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>13 0.47046506 <a title="18-lda-13" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>14 0.46288022 <a title="18-lda-14" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>15 0.45790502 <a title="18-lda-15" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>16 0.4514232 <a title="18-lda-16" href="../fast_ml-2013/fast_ml-2013-01-12-Intro_to_random_forests.html">16 fast ml-2013-01-12-Intro to random forests</a></p>
+<p>17 0.4476687 <a title="18-lda-17" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>18 0.4404372 <a title="18-lda-18" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>19 0.44028583 <a title="18-lda-19" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>20 0.43860102 <a title="18-lda-20" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

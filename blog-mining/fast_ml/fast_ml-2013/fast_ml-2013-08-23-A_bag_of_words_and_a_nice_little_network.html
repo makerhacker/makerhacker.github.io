@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>36 fast ml-2013-08-23-A bag of words and a nice little network</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2013" href="../home/fast_ml-2013_home.html">fast_ml-2013</a> <a title="fast_ml-2013-36" href="#">fast_ml-2013-36</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>36 fast ml-2013-08-23-A bag of words and a nice little network</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2013-36-html" href="http://fastml.com//a-bag-of-words-and-a-nice-little-network/">html</a></p><p>Introduction: In this installment we will demonstrate how to turn text into numbers by a method known as a  bag of words . We will also show how to train a simple neural network on resulting sparse data for binary classification. We will achieve the first feat with Python and scikit-learn, the second one with  sparsenn . The example data comes from a Kaggle competition, specifically Stumbleupon Evergreen.
+   
+The subject of  the contest  is to classify webpage content as either evergreen or not. The train set consist of about 7k examples. For each example we have a title and a body for a webpage and then about 20 numeric features describing the content (usually, because some tidbits are missing).
+ 
+We will use text only: extract body and turn it into a bag of words in  libsvm  format. In case you don’t know,  libsvm  is pretty popular for storing sparse data as text. It looks like this:
+ 
+ 1 94:1 298:1 474:1 492:1 1213:1 1536:1 (...) 
+ 
+First goes the label and then indexes of non-zero features. It’</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 In this installment we will demonstrate how to turn text into numbers by a method known as a  bag of words . [sent-1, score-0.205]
+</p><p>2 We will also show how to train a simple neural network on resulting sparse data for binary classification. [sent-2, score-0.135]
+</p><p>3 We will achieve the first feat with Python and scikit-learn, the second one with  sparsenn . [sent-3, score-0.124]
+</p><p>4 The subject of  the contest  is to classify webpage content as either evergreen or not. [sent-5, score-0.107]
+</p><p>5 For each example we have a title and a body for a webpage and then about 20 numeric features describing the content (usually, because some tidbits are missing). [sent-7, score-0.208]
+</p><p>6 We will use text only: extract body and turn it into a bag of words in  libsvm  format. [sent-8, score-0.245]
+</p><p>7 It’s not that difficult to write the conversion code by hand, but this time we will use a  vectorizer  from scikit-learn. [sent-14, score-0.107]
+</p><p>8 vectorizer = CountVectorizer( binary = True ) X = vectorizer. [sent-16, score-0.156]
+</p><p>9 fit_transform( data )     You give it data as an iterable (a list, for example) and it produces a sparse matrix X. [sent-17, score-0.145]
+</p><p>10 Recall that the vectorizer expects its input data as an iterable. [sent-21, score-0.107]
+</p><p>11 The point of all that is that the reader will read the file line by line, extract the text we need and pass it to the vectorizer. [sent-26, score-0.396]
+</p><p>12 The vectorizer will hopefuly also process the text in a similiar, bit-by-bit fashion, reducing a memory footprint. [sent-27, score-0.188]
+</p><p>13 The technique of hashing feature names is known as a hashing trick and comes from the authors of Vowpal Wabbit as far as we know. [sent-29, score-0.132]
+</p><p>14 There is a piece of software we have in mind: it’s called  sparsenn  and its purpose is binary classification of sparse data. [sent-31, score-0.195]
+</p><p>15 Overall  sparsenn  is a simple program with effectively just two params to choose: a number of hidden units and a learning rate. [sent-33, score-0.134]
+</p><p>16 First you run  nnlearn  to train a model and then  nnclassify  to predict. [sent-34, score-0.224]
+</p><p>17 1nnclassifyNote that  nnlearn  takes a validation file as a second argument. [sent-36, score-0.208]
+</p><p>18 Output looks like this - of interest is  sauc , or validation AUC:    pass 0 tacc 0. [sent-41, score-1.086]
+</p><p>19 In fact it will produce even better results, judging from the validation score:    pass 70 tacc 0. [sent-127, score-0.672]
+</p><p>20 87807    The network with many hidden units converges slightly faster and subsequently overfits a little more. [sent-133, score-0.128]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('sauc', 0.386), ('sacc', 0.354), ('srms', 0.354), ('tacc', 0.354), ('tauc', 0.354), ('trms', 0.354), ('pass', 0.278), ('nnlearn', 0.129), ('vectorizer', 0.107), ('sparsenn', 0.097), ('iterable', 0.064), ('nnclassify', 0.064), ('webpage', 0.064), ('auc', 0.064), ('text', 0.051), ('sparse', 0.049), ('binary', 0.049), ('body', 0.047), ('hashing', 0.047), ('content', 0.043), ('turn', 0.043), ('libsvm', 0.04), ('validation', 0.04), ('file', 0.039), ('function', 0.039), ('known', 0.038), ('network', 0.037), ('hidden', 0.037), ('method', 0.037), ('bag', 0.036), ('iterations', 0.036), ('usually', 0.033), ('give', 0.032), ('model', 0.031), ('memory', 0.03), ('looks', 0.028), ('extract', 0.028), ('monitor', 0.027), ('highest', 0.027), ('subsequently', 0.027), ('describing', 0.027), ('starts', 0.027), ('fancy', 0.027), ('feat', 0.027), ('converges', 0.027), ('according', 0.027), ('grisel', 0.027), ('numeric', 0.027), ('ordinary', 0.027), ('runtime', 0.027)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999982 <a title="36-tfidf-1" href="../fast_ml-2013/fast_ml-2013-08-23-A_bag_of_words_and_a_nice_little_network.html">36 fast ml-2013-08-23-A bag of words and a nice little network</a></p>
+<p>Introduction: In this installment we will demonstrate how to turn text into numbers by a method known as a  bag of words . We will also show how to train a simple neural network on resulting sparse data for binary classification. We will achieve the first feat with Python and scikit-learn, the second one with  sparsenn . The example data comes from a Kaggle competition, specifically Stumbleupon Evergreen.
+   
+The subject of  the contest  is to classify webpage content as either evergreen or not. The train set consist of about 7k examples. For each example we have a title and a body for a webpage and then about 20 numeric features describing the content (usually, because some tidbits are missing).
+ 
+We will use text only: extract body and turn it into a bag of words in  libsvm  format. In case you don’t know,  libsvm  is pretty popular for storing sparse data as text. It looks like this:
+ 
+ 1 94:1 298:1 474:1 492:1 1213:1 1536:1 (...) 
+ 
+First goes the label and then indexes of non-zero features. It’</p><p>2 0.077358507 <a title="36-tfidf-2" href="../fast_ml-2013/fast_ml-2013-07-05-Processing_large_files%2C_line_by_line.html">32 fast ml-2013-07-05-Processing large files, line by line</a></p>
+<p>Introduction: Perhaps the most common format of data for machine learning is text files. Often data is too large to fit in memory; this is sometimes referred to as big data. But do you need to load the whole data into memory? Maybe you could at least pre-process it line by line. We show how to do this with Python. Prepare to read and possibly write some code.
+   
+The most common format for text files is probably CSV. For sparse data,  libsvm  format is popular. Both can be processed using csv module in Python.
+   import csv
+
+i_f = open( input_file, 'r' )
+reader = csv.reader( i_f )
+   
+For  libsvm  you just set the delimiter to space:
+   reader = csv.reader( i_f, delimiter = ' ' )
+   
+Then you go over the file contents. Each line is a list of strings:
+   for line in reader:
+
+    # do something with the line, for example:
+    label = float( line[0] )
+    # ....
+
+    writer.writerow( line )
+   
+If you need to do a second pass, you just rewind the input file:
+   i_f.seek( 0 )
+for line in re</p><p>3 0.061937504 <a title="36-tfidf-3" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>4 0.058931444 <a title="36-tfidf-4" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>5 0.054059297 <a title="36-tfidf-5" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>Introduction: Many machine learning tools will only accept numbers as input. This may be a problem if you want to use such tool but your data includes categorical features. To represent them as numbers typically one converts each categorical feature using “one-hot encoding”, that is from a value like “BMW” or “Mercedes” to a vector of zeros and one  1 .
+ 
+This  functionality  is available in some software libraries. We load data using Pandas, then convert categorical columns with  DictVectorizer  from scikit-learn.
+   
+ Pandas  is a popular Python library inspired by data frames in R. It allows easier manipulation of tabular numeric and non-numeric data. Downsides: not very intuitive, somewhat steep learning curve. For any questions you may have, Google + StackOverflow combo works well as a source of answers.
+ 
+ UPDATE:  Turns out that Pandas has  get_dummies()  function which does what we’re after. More on this in a while.
+ 
+We’ll use Pandas to load the data, do some cleaning and send it to Scikit-</p><p>6 0.051355809 <a title="36-tfidf-6" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>7 0.050003886 <a title="36-tfidf-7" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>8 0.047778368 <a title="36-tfidf-8" href="../fast_ml-2013/fast_ml-2013-07-09-Introducing_phraug.html">33 fast ml-2013-07-09-Introducing phraug</a></p>
+<p>9 0.047686607 <a title="36-tfidf-9" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>10 0.045985762 <a title="36-tfidf-10" href="../fast_ml-2013/fast_ml-2013-09-19-What_you_wanted_to_know_about_AUC.html">39 fast ml-2013-09-19-What you wanted to know about AUC</a></p>
+<p>11 0.045365781 <a title="36-tfidf-11" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>12 0.044598561 <a title="36-tfidf-12" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>13 0.043560673 <a title="36-tfidf-13" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>14 0.041308641 <a title="36-tfidf-14" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>15 0.039056197 <a title="36-tfidf-15" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>16 0.038475785 <a title="36-tfidf-16" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>17 0.037680969 <a title="36-tfidf-17" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>18 0.037506502 <a title="36-tfidf-18" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>19 0.036982678 <a title="36-tfidf-19" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>20 0.036567912 <a title="36-tfidf-20" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.155), (1, -0.073), (2, -0.009), (3, 0.012), (4, 0.003), (5, 0.049), (6, -0.074), (7, 0.069), (8, -0.087), (9, -0.017), (10, 0.082), (11, -0.03), (12, -0.032), (13, -0.181), (14, 0.018), (15, 0.065), (16, -0.071), (17, 0.043), (18, -0.361), (19, 0.225), (20, -0.261), (21, 0.355), (22, -0.058), (23, -0.505), (24, 0.054), (25, 0.051), (26, 0.181), (27, 0.07), (28, 0.059), (29, -0.301), (30, 0.07), (31, -0.083), (32, -0.224), (33, 0.056), (34, 0.099), (35, -0.003), (36, -0.049), (37, 0.003), (38, -0.035), (39, -0.139), (40, -0.056), (41, -0.024), (42, 0.027), (43, -0.096), (44, -0.05), (45, 0.003), (46, 0.009), (47, 0.004), (48, -0.063), (49, -0.016)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97277135 <a title="36-lsi-1" href="../fast_ml-2013/fast_ml-2013-08-23-A_bag_of_words_and_a_nice_little_network.html">36 fast ml-2013-08-23-A bag of words and a nice little network</a></p>
+<p>Introduction: In this installment we will demonstrate how to turn text into numbers by a method known as a  bag of words . We will also show how to train a simple neural network on resulting sparse data for binary classification. We will achieve the first feat with Python and scikit-learn, the second one with  sparsenn . The example data comes from a Kaggle competition, specifically Stumbleupon Evergreen.
+   
+The subject of  the contest  is to classify webpage content as either evergreen or not. The train set consist of about 7k examples. For each example we have a title and a body for a webpage and then about 20 numeric features describing the content (usually, because some tidbits are missing).
+ 
+We will use text only: extract body and turn it into a bag of words in  libsvm  format. In case you don’t know,  libsvm  is pretty popular for storing sparse data as text. It looks like this:
+ 
+ 1 94:1 298:1 474:1 492:1 1213:1 1536:1 (...) 
+ 
+First goes the label and then indexes of non-zero features. It’</p><p>2 0.14145193 <a title="36-lsi-2" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>3 0.1272189 <a title="36-lsi-3" href="../fast_ml-2013/fast_ml-2013-07-05-Processing_large_files%2C_line_by_line.html">32 fast ml-2013-07-05-Processing large files, line by line</a></p>
+<p>Introduction: Perhaps the most common format of data for machine learning is text files. Often data is too large to fit in memory; this is sometimes referred to as big data. But do you need to load the whole data into memory? Maybe you could at least pre-process it line by line. We show how to do this with Python. Prepare to read and possibly write some code.
+   
+The most common format for text files is probably CSV. For sparse data,  libsvm  format is popular. Both can be processed using csv module in Python.
+   import csv
+
+i_f = open( input_file, 'r' )
+reader = csv.reader( i_f )
+   
+For  libsvm  you just set the delimiter to space:
+   reader = csv.reader( i_f, delimiter = ' ' )
+   
+Then you go over the file contents. Each line is a list of strings:
+   for line in reader:
+
+    # do something with the line, for example:
+    label = float( line[0] )
+    # ....
+
+    writer.writerow( line )
+   
+If you need to do a second pass, you just rewind the input file:
+   i_f.seek( 0 )
+for line in re</p><p>4 0.11746377 <a title="36-lsi-4" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>5 0.102584 <a title="36-lsi-5" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>Introduction: The Black Box challenge has just ended. We were thoroughly thrilled to learn that the winner,  doubleshot , used sparse filtering, apparently following our cue. His score in terms of accuracy is 0.702, ours 0.645, and the best benchmark 0.525.
+ 
+We ranked 15th out of 217, a few places ahead of the Toronto team consisting of  Charlie Tang  and  Nitish Srivastava . To their credit, Charlie has won the two remaining  Challenges in Representation Learning .
+    Not-so-deep learning  
+The difference to our previous, beating-the-benchmark attempt is twofold:
+  
+ one layer instead of two 
+ for supervised learning, VW instead of a random forest 
+  
+Somewhat suprisingly, one layer works better than two. Even more surprisingly, with enough units you can get 0.634 using a linear model (Vowpal Wabbit, of course, One-Against-All). In our understanding, that’s the point of overcomplete representations*, which Stanford people seem to care much about.
+ 
+Recall  The secret of the big guys  and the pape</p><p>6 0.095305711 <a title="36-lsi-6" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>7 0.090743646 <a title="36-lsi-7" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>8 0.088174514 <a title="36-lsi-8" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>9 0.086538255 <a title="36-lsi-9" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>10 0.085983627 <a title="36-lsi-10" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>11 0.083387136 <a title="36-lsi-11" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>12 0.083274744 <a title="36-lsi-12" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<p>13 0.076176219 <a title="36-lsi-13" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>14 0.07563746 <a title="36-lsi-14" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>15 0.073475078 <a title="36-lsi-15" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>16 0.071916372 <a title="36-lsi-16" href="../fast_ml-2013/fast_ml-2013-09-19-What_you_wanted_to_know_about_AUC.html">39 fast ml-2013-09-19-What you wanted to know about AUC</a></p>
+<p>17 0.070378467 <a title="36-lsi-17" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>18 0.070115343 <a title="36-lsi-18" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>19 0.068562135 <a title="36-lsi-19" href="../fast_ml-2013/fast_ml-2013-08-12-Accelerometer_Biometric_Competition.html">35 fast ml-2013-08-12-Accelerometer Biometric Competition</a></p>
+<p>20 0.067787662 <a title="36-lsi-20" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(3, 0.014), (26, 0.043), (31, 0.052), (35, 0.02), (48, 0.015), (55, 0.039), (69, 0.108), (71, 0.025), (78, 0.015), (79, 0.05), (81, 0.01), (84, 0.019), (96, 0.436), (99, 0.031)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.90682805 <a title="36-lda-1" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>Introduction: Recently Rob Zinkov published his  selection of interesting-looking NIPS papers . Inspired by this, we list some more. Rob seems to like Bayesian stuff, we’re more into neural networks. If you feel like browsing, Andrej Karpathy has a  page with all NIPS 2013 papers . They are categorized by topics discovered by running LDA. When you see an interesting paper, you can discover ones ranked similiar by TF-IDF. Here’s what we found.
+     Understanding Dropout   
+Pierre Baldi, Peter J. Sadowski
+ 
+Dropout is a relatively new algorithm for training neural networks which relies on stochastically dropping out neurons during training in order to avoid the co-adaptation of feature detectors. We introduce a general formalism for studying dropout on either units or connections, with arbitrary probability values, and use it to analyze the averaging and regularizing properties of dropout in both linear and non-linear networks. For deep neural networks, the averaging properties of dropout are characte</p><p>same-blog 2 0.85066295 <a title="36-lda-2" href="../fast_ml-2013/fast_ml-2013-08-23-A_bag_of_words_and_a_nice_little_network.html">36 fast ml-2013-08-23-A bag of words and a nice little network</a></p>
+<p>Introduction: In this installment we will demonstrate how to turn text into numbers by a method known as a  bag of words . We will also show how to train a simple neural network on resulting sparse data for binary classification. We will achieve the first feat with Python and scikit-learn, the second one with  sparsenn . The example data comes from a Kaggle competition, specifically Stumbleupon Evergreen.
+   
+The subject of  the contest  is to classify webpage content as either evergreen or not. The train set consist of about 7k examples. For each example we have a title and a body for a webpage and then about 20 numeric features describing the content (usually, because some tidbits are missing).
+ 
+We will use text only: extract body and turn it into a bag of words in  libsvm  format. In case you don’t know,  libsvm  is pretty popular for storing sparse data as text. It looks like this:
+ 
+ 1 94:1 298:1 474:1 492:1 1213:1 1536:1 (...) 
+ 
+First goes the label and then indexes of non-zero features. It’</p><p>3 0.30553517 <a title="36-lda-3" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>4 0.28657594 <a title="36-lda-4" href="../fast_ml-2014/fast_ml-2014-05-26-Yann_LeCun%27s_answers_from_the_Reddit_AMA.html">62 fast ml-2014-05-26-Yann LeCun's answers from the Reddit AMA</a></p>
+<p>Introduction: On May 15th Yann LeCun answered “ask me anything” questions on  Reddit . We hand-picked some of his thoughts and grouped them by topic for your enjoyment.
+    Toronto, Montreal and New York  
+All three groups are strong and complementary.
+ 
+Geoff (who spends more time at Google than in Toronto now) and Russ Salakhutdinov like RBMs and deep Boltzmann machines. I like the idea of Boltzmann machines (it’s a beautifully simple concept) but it doesn’t scale well. Also, I totally hate sampling.
+ 
+Yoshua and his colleagues have focused a lot on various unsupervised learning, including denoising auto-encoders, contracting auto-encoders. They are not allergic to sampling like I am. On the application side, they have worked on text, not so much on images.
+ 
+In our lab at NYU (Rob Fergus, David Sontag, me and our students and postdocs), we have been focusing on sparse auto-encoders for unsupervised learning. They have the advantage of scaling well. We have also worked on applications, mostly to v</p><p>5 0.28025272 <a title="36-lda-5" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>Introduction: Vowpal Wabbit now supports a few modes of non-linear supervised learning. They are:
+  
+ a neural network with a single hidden layer 
+ automatic creation of polynomial, specifically quadratic and cubic, features 
+ N-grams 
+  
+We describe how to use them, providing examples from the Kaggle Amazon competition and for the  kin8nm  dataset.
+    Neural network  
+The original motivation for creating  neural network code in VW   was to win some Kaggle competitions using only vee-dub , and that goal becomes much more feasible once you have a strong non-linear learner.
+ 
+The network seems to be a classic multi-layer perceptron with one sigmoidal hidden layer. More interestingly, it has dropout. Unfortunately, in a few tries we haven’t had much luck with the dropout.
+ 
+Here’s an example of how to create a network with 10 hidden units:
+ 
+ vw -d data.vw --nn 10 
+  Quadratic and cubic features  
+The idea of quadratic features is to create all possible combinations between original features, so that</p><p>6 0.266738 <a title="36-lda-6" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>7 0.26489165 <a title="36-lda-7" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>8 0.26384649 <a title="36-lda-8" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>9 0.26314861 <a title="36-lda-9" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>10 0.26207152 <a title="36-lda-10" href="../fast_ml-2013/fast_ml-2013-12-28-Regularizing_neural_networks_with_dropout_and_with_DropConnect.html">48 fast ml-2013-12-28-Regularizing neural networks with dropout and with DropConnect</a></p>
+<p>11 0.26188499 <a title="36-lda-11" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>12 0.26009011 <a title="36-lda-12" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>13 0.25712937 <a title="36-lda-13" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>14 0.25672901 <a title="36-lda-14" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>15 0.255896 <a title="36-lda-15" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>16 0.25505275 <a title="36-lda-16" href="../fast_ml-2014/fast_ml-2014-01-10-Classifying_images_with_a_pre-trained_deep_network.html">49 fast ml-2014-01-10-Classifying images with a pre-trained deep network</a></p>
+<p>17 0.25468951 <a title="36-lda-17" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>18 0.25228378 <a title="36-lda-18" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>19 0.25167561 <a title="36-lda-19" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>20 0.2503112 <a title="36-lda-20" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

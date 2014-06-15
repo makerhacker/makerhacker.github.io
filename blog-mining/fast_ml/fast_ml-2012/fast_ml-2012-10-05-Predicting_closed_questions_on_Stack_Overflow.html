@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2012" href="../home/fast_ml-2012_home.html">fast_ml-2012</a> <a title="fast_ml-2012-7" href="#">fast_ml-2012-7</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2012-7-html" href="http://fastml.com//predicting-closed-questions-on-stack-overflow/">html</a></p><p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 We would prefer a tool able to perform multiclass classification by itself. [sent-3, score-0.397]
+</p><p>2 It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. [sent-4, score-0.313]
+</p><p>3 Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification. [sent-5, score-0.269]
+</p><p>4 Or maybe, after some pre-processing, in robot speak:    1 | id like to have an argument please    More readable than numbers, isn’t it? [sent-12, score-0.284]
+</p><p>5 Here is the game plan:     pre-process CSV data   convert it into VW format   run learning and prediction   convert output into submission format   profit     If you’d like to do some tweaking, validation is a must. [sent-13, score-0.489]
+</p><p>6 A metric for this contest is multiclass logarithmic loss, which is easy enough to implement - see  the code . [sent-15, score-0.267]
+</p><p>7 We will use words (title, body, tags) as features, and also user reputation and post count. [sent-24, score-0.233]
+</p><p>8 If you’re short on disk space, you can get rid of post bodies and still do OK. [sent-25, score-0.22]
+</p><p>9 vw    Now it’s time to train:    vw --loss_function logistic --oaa 5 -d train. [sent-32, score-0.568]
+</p><p>10 vw -f model    It means: use logistic loss function,  one against all  classification with five classes, data from train. [sent-33, score-0.998]
+</p><p>11 vw and save the resulting model in a file called  model . [sent-34, score-0.456]
+</p><p>12 At this point, you get some numbers:    average    since         example     example  current  current  current loss       last          counter      weight    label  predict features 0. [sent-35, score-0.774]
+</p><p>13 0          4        4       10  finished run     Probably the most important is the first column, called  average loss . [sent-98, score-0.61]
+</p><p>14 It shows the value of loss function as the learner goes along with example counter. [sent-99, score-0.548]
+</p><p>15 We’ll use the model to get predictions:    vw --loss_function logistic --oaa 5 -i model -t -d test. [sent-102, score-0.6]
+</p><p>16 txt    The switches are: -i for model file, -t means “do not train, just predict”, and -r specifies the file to output raw predictions. [sent-104, score-0.368]
+</p><p>17 The raw predictions look as follows - first a line with values for each class, then a line with post id (we saved post id earlier):    1:-1. [sent-106, score-0.898]
+</p><p>18 38332  231     All we need now is to run these raw values through sigmoid function to obtain probabilities, and optionally normalize them so they sum up to one (Kaggle will do this automatically, but for validation the task is upon us). [sent-121, score-0.389]
+</p><p>19 The numbers in training look slightly worse:    (. [sent-144, score-0.239]
+</p><p>20 0         4        4       90  finished run     But good enough for 11th place, if we did this a bit earlier:       Only recently have we learned that Marco Lui in 10th built on our approach and also  shared his improvements and code . [sent-156, score-0.461]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('loss', 0.332), ('vw', 0.212), ('multiclass', 0.2), ('finished', 0.182), ('id', 0.181), ('numbers', 0.17), ('raw', 0.17), ('post', 0.144), ('logistic', 0.144), ('vowpal', 0.137), ('wabbit', 0.137), ('csv', 0.135), ('current', 0.135), ('earlier', 0.133), ('model', 0.122), ('tool', 0.103), ('argument', 0.103), ('convert', 0.098), ('average', 0.096), ('five', 0.094), ('classification', 0.094), ('words', 0.089), ('function', 0.082), ('predictions', 0.078), ('format', 0.078), ('class', 0.076), ('counter', 0.076), ('disk', 0.076), ('fitting', 0.076), ('lots', 0.076), ('shared', 0.076), ('sound', 0.076), ('specifies', 0.076), ('tricky', 0.076), ('run', 0.069), ('recently', 0.069), ('slightly', 0.069), ('validation', 0.068), ('yahoo', 0.067), ('minutes', 0.067), ('along', 0.067), ('body', 0.067), ('built', 0.067), ('combining', 0.067), ('hashing', 0.067), ('implement', 0.067), ('improvements', 0.067), ('langford', 0.067), ('learner', 0.067), ('microsoft', 0.067)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999982 <a title="7-tfidf-1" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>2 0.31652451 <a title="7-tfidf-2" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>Introduction: This is about  Amazon access control challenge  at Kaggle. Either we’re getting smarter, or the competition is easy. Or maybe both. You can beat the benchmark quite easily and with AUC of 0.875 you’d be comfortably in the top twenty percent at the moment. We scored fourth in our first attempt - the model was quick to develop and back then there were fewer competitors.
+   
+ 
+ 
+Traditionally we use  Vowpal Wabbit . Just simple binary classification with the logistic loss function and 10 passes over the data.
+ 
+It seems to work pretty well even though the classes are very unbalanced: there’s only a handful of negatives when compared to positives. Apparently Amazon employees usually get the access they request, even though sometimes they are refused.
+ 
+Let’s look at the data. First a label and then a bunch of IDs.
+   1,39353,85475,117961,118300,123472,117905,117906,290919,117908
+1,17183,1540,117961,118343,123125,118536,118536,308574,118539
+1,36724,14457,118219,118220,117884,117879,267952</p><p>3 0.23419137 <a title="7-tfidf-3" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>4 0.20129505 <a title="7-tfidf-4" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>Introduction: The job salary prediction contest at Kaggle  offers a highly-dimensional dataset: when you convert categorical values to binary features and text columns to a bag of words, you get roughly 240k features, a number very similiar to the number of examples.
+ 
+We present a way to select a few thousand relevant features using L1 (Lasso) regularization. A linear model seems to work just as well with those selected features as with the full set. This means we get roughly 40 times less features for a much more manageable, smaller data set.
+   
+  
+  What you wanted to know about Lasso and Ridge  
+L1 and L2 are both ways of regularization sometimes called  weight decay . Basically, we include parameter weights in a cost function. In effect, the model will try to minimize those weights by going “down the slope”. Example weights: in a linear model or in a neural network.
+ 
+L1 is known as Lasso and L2 is known as Ridge. These names may be confusing, because a chart of Lasso looks like a ridge and a</p><p>5 0.19045116 <a title="7-tfidf-5" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>Introduction: An interesting development occured in  Job salary prediction  at Kaggle:  the guy who ranked 3rd used logistic regression , in spite of the task being regression, not classification. We attempt to replicate the experiment.
+   
+The idea is to discretize salaries into a number of bins, just like with a histogram.  Guocong Song , the man, used 30 bins. We like a convenient uniform bin width of 0.1, as a minimum log salary in the training set is 8.5 and a maximum is 12.2. Since there are few examples in the high end, we stop at 12.0, so that gives us 36 bins. Here’s the code:
+   import numpy as np
+
+min_salary = 8.5
+max_salary = 12.0 
+interval = 0.1
+
+a_range = np.arange( min_salary, max_salary + interval, interval )
+class_mapping = {}
+for i, n in enumerate( a_range ):
+    n = round( n, 1 )
+    class_mapping[n] = i + 1
+   
+This way we get a mapping from log salaries to classes. Class labels start with 1, because Vowpal Wabbit expects that, and we intend to use VW. The code can be</p><p>6 0.17408623 <a title="7-tfidf-6" href="../fast_ml-2013/fast_ml-2013-07-09-Introducing_phraug.html">33 fast ml-2013-07-09-Introducing phraug</a></p>
+<p>7 0.17052232 <a title="7-tfidf-7" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>8 0.15235405 <a title="7-tfidf-8" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>9 0.14837043 <a title="7-tfidf-9" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>10 0.12691852 <a title="7-tfidf-10" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>11 0.12113781 <a title="7-tfidf-11" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>12 0.1140347 <a title="7-tfidf-12" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>13 0.1139646 <a title="7-tfidf-13" href="../fast_ml-2013/fast_ml-2013-07-05-Processing_large_files%2C_line_by_line.html">32 fast ml-2013-07-05-Processing large files, line by line</a></p>
+<p>14 0.11113225 <a title="7-tfidf-14" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>15 0.099793956 <a title="7-tfidf-15" href="../fast_ml-2012/fast_ml-2012-10-15-Merck_challenge.html">8 fast ml-2012-10-15-Merck challenge</a></p>
+<p>16 0.092318006 <a title="7-tfidf-16" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>17 0.089898385 <a title="7-tfidf-17" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>18 0.087247275 <a title="7-tfidf-18" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>19 0.084529556 <a title="7-tfidf-19" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>20 0.078080341 <a title="7-tfidf-20" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.43), (1, -0.414), (2, -0.019), (3, 0.173), (4, 0.017), (5, -0.018), (6, 0.135), (7, -0.037), (8, 0.029), (9, 0.048), (10, -0.057), (11, 0.072), (12, 0.027), (13, 0.036), (14, -0.052), (15, -0.082), (16, -0.031), (17, 0.061), (18, -0.114), (19, -0.014), (20, -0.09), (21, -0.064), (22, 0.094), (23, 0.049), (24, -0.063), (25, 0.018), (26, -0.017), (27, 0.057), (28, 0.053), (29, 0.124), (30, 0.001), (31, -0.161), (32, 0.138), (33, 0.021), (34, -0.005), (35, -0.008), (36, -0.053), (37, 0.09), (38, -0.017), (39, -0.187), (40, -0.031), (41, -0.008), (42, 0.107), (43, 0.018), (44, -0.066), (45, 0.022), (46, -0.064), (47, -0.042), (48, -0.196), (49, 0.122)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.97917604 <a title="7-lsi-1" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>2 0.8524074 <a title="7-lsi-2" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>Introduction: This is about  Amazon access control challenge  at Kaggle. Either we’re getting smarter, or the competition is easy. Or maybe both. You can beat the benchmark quite easily and with AUC of 0.875 you’d be comfortably in the top twenty percent at the moment. We scored fourth in our first attempt - the model was quick to develop and back then there were fewer competitors.
+   
+ 
+ 
+Traditionally we use  Vowpal Wabbit . Just simple binary classification with the logistic loss function and 10 passes over the data.
+ 
+It seems to work pretty well even though the classes are very unbalanced: there’s only a handful of negatives when compared to positives. Apparently Amazon employees usually get the access they request, even though sometimes they are refused.
+ 
+Let’s look at the data. First a label and then a bunch of IDs.
+   1,39353,85475,117961,118300,123472,117905,117906,290919,117908
+1,17183,1540,117961,118343,123125,118536,118536,308574,118539
+1,36724,14457,118219,118220,117884,117879,267952</p><p>3 0.46697989 <a title="7-lsi-3" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>Introduction: The job salary prediction contest at Kaggle  offers a highly-dimensional dataset: when you convert categorical values to binary features and text columns to a bag of words, you get roughly 240k features, a number very similiar to the number of examples.
+ 
+We present a way to select a few thousand relevant features using L1 (Lasso) regularization. A linear model seems to work just as well with those selected features as with the full set. This means we get roughly 40 times less features for a much more manageable, smaller data set.
+   
+  
+  What you wanted to know about Lasso and Ridge  
+L1 and L2 are both ways of regularization sometimes called  weight decay . Basically, we include parameter weights in a cost function. In effect, the model will try to minimize those weights by going “down the slope”. Example weights: in a linear model or in a neural network.
+ 
+L1 is known as Lasso and L2 is known as Ridge. These names may be confusing, because a chart of Lasso looks like a ridge and a</p><p>4 0.41657564 <a title="7-lsi-4" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>5 0.40197402 <a title="7-lsi-5" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>Introduction: An interesting development occured in  Job salary prediction  at Kaggle:  the guy who ranked 3rd used logistic regression , in spite of the task being regression, not classification. We attempt to replicate the experiment.
+   
+The idea is to discretize salaries into a number of bins, just like with a histogram.  Guocong Song , the man, used 30 bins. We like a convenient uniform bin width of 0.1, as a minimum log salary in the training set is 8.5 and a maximum is 12.2. Since there are few examples in the high end, we stop at 12.0, so that gives us 36 bins. Here’s the code:
+   import numpy as np
+
+min_salary = 8.5
+max_salary = 12.0 
+interval = 0.1
+
+a_range = np.arange( min_salary, max_salary + interval, interval )
+class_mapping = {}
+for i, n in enumerate( a_range ):
+    n = round( n, 1 )
+    class_mapping[n] = i + 1
+   
+This way we get a mapping from log salaries to classes. Class labels start with 1, because Vowpal Wabbit expects that, and we intend to use VW. The code can be</p><p>6 0.35439363 <a title="7-lsi-6" href="../fast_ml-2013/fast_ml-2013-07-09-Introducing_phraug.html">33 fast ml-2013-07-09-Introducing phraug</a></p>
+<p>7 0.35288405 <a title="7-lsi-7" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>8 0.30744284 <a title="7-lsi-8" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>9 0.3047398 <a title="7-lsi-9" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>10 0.27955994 <a title="7-lsi-10" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>11 0.27941892 <a title="7-lsi-11" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>12 0.25478578 <a title="7-lsi-12" href="../fast_ml-2012/fast_ml-2012-10-15-Merck_challenge.html">8 fast ml-2012-10-15-Merck challenge</a></p>
+<p>13 0.25176927 <a title="7-lsi-13" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>14 0.251095 <a title="7-lsi-14" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>15 0.24115084 <a title="7-lsi-15" href="../fast_ml-2013/fast_ml-2013-07-05-Processing_large_files%2C_line_by_line.html">32 fast ml-2013-07-05-Processing large files, line by line</a></p>
+<p>16 0.2370531 <a title="7-lsi-16" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>17 0.23642923 <a title="7-lsi-17" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>18 0.21793371 <a title="7-lsi-18" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>19 0.20886667 <a title="7-lsi-19" href="../fast_ml-2013/fast_ml-2013-08-23-A_bag_of_words_and_a_nice_little_network.html">36 fast ml-2013-08-23-A bag of words and a nice little network</a></p>
+<p>20 0.20630759 <a title="7-lsi-20" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(6, 0.4), (26, 0.12), (31, 0.07), (35, 0.024), (55, 0.052), (69, 0.127), (71, 0.036), (78, 0.016), (79, 0.035), (99, 0.039)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.90036297 <a title="7-lda-1" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>2 0.41471022 <a title="7-lda-2" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>Introduction: Much of data in machine learning is sparse, that is mostly zeros, and often binary. The phenomenon may result from converting categorical variables to one-hot vectors, and from converting text to bag-of-words representation. If each feature is binary - either zero or one - then it holds exactly one bit of information. Surely we could somehow compress such data to fewer real numbers.
+   
+To do this, we turn to topic models, an area of research with roots in natural language processing. In NLP, a training set is called a corpus, and each document is like a row in the set. A document might be three pages of text, or just a few words, as in a tweet.
+ 
+The idea of topic modelling is that you can group words in your corpus into relatively few topics and represent each document as a mixture of these topics. It’s attractive because you can interpret the model by looking at words that form the topics. Sometimes they seem meaningful, sometimes not. A meaningful topic might be, for example: “cric</p><p>3 0.41464913 <a title="7-lda-3" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>4 0.41232195 <a title="7-lda-4" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>Introduction: What do you get when you mix one part brilliant and one part daft? You get Pylearn2, a cutting edge neural networks library from Montreal that’s rather hard to use. Here we’ll show how to get through the daft part with your mental health relatively intact.
+   
+ Pylearn2  comes from the  Lisa Lab  in  Montreal , led by Yoshua Bengio. Those are pretty smart guys and they concern themselves with deep learning. Recently they published a paper entitled  Pylearn2: a machine learning research library   [arxiv] . Here’s a quote:
+  
+ Pylearn2 is a machine learning research library - its users are researchers . This means (…) it is acceptable to assume that the user has some technical sophistication and knowledge of machine learning.
+  
+The word  research  is possibly the most common word in the paper. There’s a reason for that: the library is certainly not production-ready. OK, it’s not that bad. There are only two difficult things:
+  
+ getting your data in 
+  getting predictions out  
+  
+What’</p><p>5 0.41050786 <a title="7-lda-5" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>6 0.40330437 <a title="7-lda-6" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>7 0.38987723 <a title="7-lda-7" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>8 0.388861 <a title="7-lda-8" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>9 0.38858494 <a title="7-lda-9" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>10 0.38157168 <a title="7-lda-10" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>11 0.37971738 <a title="7-lda-11" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>12 0.37531856 <a title="7-lda-12" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>13 0.37495139 <a title="7-lda-13" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>14 0.36746252 <a title="7-lda-14" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>15 0.3613649 <a title="7-lda-15" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>16 0.36072916 <a title="7-lda-16" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>17 0.35736451 <a title="7-lda-17" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>18 0.34633833 <a title="7-lda-18" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>19 0.34294471 <a title="7-lda-19" href="../fast_ml-2013/fast_ml-2013-08-23-A_bag_of_words_and_a_nice_little_network.html">36 fast ml-2013-08-23-A bag of words and a nice little network</a></p>
+<p>20 0.34067491 <a title="7-lda-20" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

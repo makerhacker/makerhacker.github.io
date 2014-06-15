@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2014" href="../home/fast_ml-2014_home.html">fast_ml-2014</a> <a title="fast_ml-2014-52" href="#">fast_ml-2014-52</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2014-52-html" href="http://fastml.com//yesterday-a-kaggler-today-a-kaggle-master-a-wrap-up-of-the-cats-and-dogs-competition/">html</a></p><p>Introduction: Out of 215 contestants, we placed 8th in the Cats and Dogs competition at Kaggle. The top ten finish gave us the master badge. The competition was about discerning the animals in images and here’s how we did it.
+   
+We extracted the features using pre-trained deep convolutional networks, specifically  decaf  and  OverFeat . Then we trained some classifiers on these features. The whole thing was inspired by Kyle Kastner’s  decaf  +  pylearn2  combo and we expanded this idea. The classifiers were linear models from  scikit-learn  and a neural network from  Pylearn2 . At the end we created a voting ensemble of the individual models.
+  OverFeat features  
+ 
+ 
+We touched on OverFeat in  Classifying images with a pre-trained deep network . A better way to use it in this competition’s context is to extract the features from the layer before the classifier, as Pierre Sermanet suggested in the comments.
+ 
+Concretely, in the larger OverFeat model ( -l ) layer 24 is the softmax, at least  in the</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The competition was about discerning the animals in images and here’s how we did it. [sent-3, score-0.277]
+</p><p>2 We extracted the features using pre-trained deep convolutional networks, specifically  decaf  and  OverFeat . [sent-4, score-0.444]
+</p><p>3 The classifiers were linear models from  scikit-learn  and a neural network from  Pylearn2 . [sent-7, score-0.23]
+</p><p>4 OverFeat features       We touched on OverFeat in  Classifying images with a pre-trained deep network . [sent-9, score-0.348]
+</p><p>5 A better way to use it in this competition’s context is to extract the features from the layer before the classifier, as Pierre Sermanet suggested in the comments. [sent-10, score-0.412]
+</p><p>6 Concretely, in the larger OverFeat model ( -l ) layer 24 is the softmax, at least  in the version we’d been using, which seems to be 3. [sent-11, score-0.311]
+</p><p>7 You can see that by extracting features from this layer: they are 1000-dimensional, and that’s the number of ImageNet classes:    $ cd data $ path/to/overfeat -l -L 24 train/cat. [sent-13, score-0.252]
+</p><p>8 jpg | head -1 1000 1 1     By the way, the meaning of “layer” here is not the usual one, because an OverFeat layer refers to things like non-linear activation too. [sent-15, score-0.362]
+</p><p>9 You can see this by comparing features from layer 22 and 23. [sent-17, score-0.362]
+</p><p>10 The latter differ from the former only by replacing negative values with zero:    $ overfeat -l -L 22 train/cat. [sent-18, score-0.606]
+</p><p>11 The layers below 20 produce bigger windows and we didn’t try them. [sent-42, score-0.339]
+</p><p>12 The number of features, or more accurately, feature maps is set in the model, but the dimensionality of the maps (windows) depends on image shape. [sent-44, score-0.242]
+</p><p>13 The top layers will yield 1x1 windows for square images, 1xn windows for “horizontal” images and nx1 windows for “vertical” images:    $ cd overfeat $ . [sent-45, score-0.999]
+</p><p>14 jpg | head -1 4096 4 1     This begs the question of how to use the features from non-square images. [sent-49, score-0.242]
+</p><p>15 One solution would be to crop the images square to get 1x1 features. [sent-50, score-0.308]
+</p><p>16 amax( data, 1 ), 1 )     # max over columns and rows     After max-pooling you get 4096 scalar features for each image. [sent-60, score-0.282]
+</p><p>17 fit_transform( x )     Only in case of logistic regression with  decaf  features scaling helped a tiniest little bit (< 0. [sent-75, score-0.427]
+</p><p>18 3764019012     As regards OverFeat layer 22 features, they were better behaved already:    min/avg/max scaler. [sent-88, score-0.241]
+</p><p>19 29119926156     Bagging   At this point we have three sets of features: one from decaf and two from OverFeat layers 20 and 22. [sent-104, score-0.329]
+</p><p>20 Here are sample images about which the ensemble members disagreed the most, some rescaled:                               Some are harder - “no photo available” appeared four times - some seem to be straightforward. [sent-121, score-0.429]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('overfeat', 0.606), ('layer', 0.241), ('images', 0.227), ('decaf', 0.178), ('standardizing', 0.151), ('layers', 0.151), ('windows', 0.134), ('dims', 0.121), ('maps', 0.121), ('standardscaler', 0.121), ('head', 0.121), ('features', 0.121), ('ensemble', 0.101), ('voting', 0.101), ('didn', 0.096), ('seemed', 0.089), ('max', 0.089), ('classifiers', 0.089), ('classifying', 0.089), ('cd', 0.081), ('extracted', 0.081), ('square', 0.081), ('bagging', 0.081), ('models', 0.08), ('hyperparam', 0.074), ('columns', 0.072), ('model', 0.07), ('scores', 0.066), ('logistic', 0.064), ('convolutional', 0.064), ('scaling', 0.064), ('linear', 0.061), ('top', 0.057), ('bigger', 0.054), ('four', 0.051), ('flavours', 0.05), ('contestants', 0.05), ('gave', 0.05), ('nine', 0.05), ('suggested', 0.05), ('reasonably', 0.05), ('weigh', 0.05), ('appeared', 0.05), ('dimensions', 0.05), ('extracting', 0.05), ('rows', 0.05), ('daniel', 0.05), ('nouri', 0.05), ('accurately', 0.05), ('animals', 0.05)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.9999997 <a title="52-tfidf-1" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>Introduction: Out of 215 contestants, we placed 8th in the Cats and Dogs competition at Kaggle. The top ten finish gave us the master badge. The competition was about discerning the animals in images and here’s how we did it.
+   
+We extracted the features using pre-trained deep convolutional networks, specifically  decaf  and  OverFeat . Then we trained some classifiers on these features. The whole thing was inspired by Kyle Kastner’s  decaf  +  pylearn2  combo and we expanded this idea. The classifiers were linear models from  scikit-learn  and a neural network from  Pylearn2 . At the end we created a voting ensemble of the individual models.
+  OverFeat features  
+ 
+ 
+We touched on OverFeat in  Classifying images with a pre-trained deep network . A better way to use it in this competition’s context is to extract the features from the layer before the classifier, as Pierre Sermanet suggested in the comments.
+ 
+Concretely, in the larger OverFeat model ( -l ) layer 24 is the softmax, at least  in the</p><p>2 0.36842251 <a title="52-tfidf-2" href="../fast_ml-2014/fast_ml-2014-01-10-Classifying_images_with_a_pre-trained_deep_network.html">49 fast ml-2014-01-10-Classifying images with a pre-trained deep network</a></p>
+<p>Introduction: Recently at least two research teams made their pre-trained deep convolutional networks available, so you can classify your images right away. We’ll see how to go about it, with data from the Cats & Dogs competition at Kaggle as an example.
+   
+We’ll be using  OverFeat , a classifier and feature extractor from the New York guys lead by  Yann LeCun  and Rob Fergus. The principal author, Pierre Sermanet, is currently first on the  Dogs vs. Cats leaderboard .
+ 
+The other available implementation we know of comes from Berkeley. It’s called  Caffe  and is a successor to  decaf .  Yangqing Jia , the main author of these, is also near the top of the leaderboard.
+ 
+Both networks were trained on  ImageNet , which is  an image database organized according to the  WordNet  hierarchy . It was the ImageNet Large Scale Visual Recognition Challenge 2012 in which Alex Krizhevsky  crushed the competition  with his network. His error was 16%, the second best - 26%.
+  Data  
+The Kaggle competition featur</p><p>3 0.14511053 <a title="52-tfidf-3" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>Introduction: Object recognition in images is where deep learning, and specifically convolutional neural networks, are often applied and benchmarked these days. To get a piece of the action, we’ll be using Alex Krizhevsky’s  cuda-convnet , a shining diamond of machine learning software, in a Kaggle competition.
+   
+Continuing to run things on a GPU, we turn to applying  convolutional neural networks  for object recognition. This kind of network was developed by Yann LeCun and it’s powerful, but a bit complicated:
+ 
+  
+ Image credit:  EBLearn tutorial  
+ 
+A typical convolutional network has two parts. The first is responsible for feature extraction and consists of one or more pairs of convolution and subsampling/max-pooling layers, as you can see above. The second part is just a classic fully-connected multilayer perceptron taking extracted features as input. For a detailed explanation of all this see unit 9 in Hugo LaRochelle’s  neural networks course .
+ 
+Daniel Nouri has an interesting story about</p><p>4 0.13589999 <a title="52-tfidf-4" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>Introduction: Once upon a time we were browsing machine learning papers and software. We were interested in autoencoders and found a rather unusual one. It was called  marginalized Stacked Denoising Autoencoder  and the author claimed that it  preserves the strong feature learning capacity of Stacked Denoising Autoencoders, but is orders of magnitudes faster.  We like all things fast, so we were hooked.
+    About autoencoders  
+ Wikipedia says  that  an autoencoder is an artificial neural network and its aim is to learn a compressed representation for a set of data. This means it is being used for dimensionality reduction . In other words, an autoencoder is a neural network meant to replicate the input. It would be trivial with a big enough number of units in a hidden layer: the network would just find an identity mapping. Hence dimensionality reduction: a hidden layer size is typically smaller than input layer.
+ 
+mSDA is a curious specimen: it is not a neural network and it doesn’t reduce dimension</p><p>5 0.12154675 <a title="52-tfidf-5" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>Introduction: As usual, there’s an interesting competition at Kaggle: The Black Box. It’s connected to ICML 2013 Workshop on Challenges in Representation Learning, held by the deep learning guys from Montreal.
+ 
+There are a couple benchmarks for this competition and the best one is unusually hard to beat 1  - only less than a fourth of those taking part managed to do so. We’re among them. Here’s how.
+   
+The key ingredient in our success is a recently developed secret Stanford technology for deep unsupervised learning:  sparse filtering  by  Jiquan Ngiam  et al. Actually, it’s not secret. It’s  available at Github , and has one or two very appealling properties. Let us explain.
+ 
+The main idea of deep unsupervised learning, as we understand it, is feature extraction. One of the most common applications is in  multimedia. The reason for that is that multimedia tasks, for example object recognition, are easy for humans, but difficult for computers 2 .
+ 
+Geoff Hinton from Toronto talks about  two ends</p><p>6 0.11671974 <a title="52-tfidf-6" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>7 0.10789977 <a title="52-tfidf-7" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>8 0.10788362 <a title="52-tfidf-8" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>9 0.08386416 <a title="52-tfidf-9" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>10 0.082663491 <a title="52-tfidf-10" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>11 0.078551278 <a title="52-tfidf-11" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>12 0.075315043 <a title="52-tfidf-12" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>13 0.072775565 <a title="52-tfidf-13" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>14 0.071655646 <a title="52-tfidf-14" href="../fast_ml-2012/fast_ml-2012-09-01-Running_Unix_apps_on_Windows.html">3 fast ml-2012-09-01-Running Unix apps on Windows</a></p>
+<p>15 0.071649611 <a title="52-tfidf-15" href="../fast_ml-2013/fast_ml-2013-03-07-Choosing_a_machine_learning_algorithm.html">22 fast ml-2013-03-07-Choosing a machine learning algorithm</a></p>
+<p>16 0.070210397 <a title="52-tfidf-16" href="../fast_ml-2014/fast_ml-2014-05-26-Yann_LeCun%27s_answers_from_the_Reddit_AMA.html">62 fast ml-2014-05-26-Yann LeCun's answers from the Reddit AMA</a></p>
+<p>17 0.069807045 <a title="52-tfidf-17" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>18 0.067347601 <a title="52-tfidf-18" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>19 0.067041054 <a title="52-tfidf-19" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>20 0.066992804 <a title="52-tfidf-20" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.3), (1, 0.137), (2, 0.109), (3, 0.153), (4, -0.211), (5, -0.461), (6, -0.346), (7, -0.208), (8, 0.121), (9, -0.077), (10, -0.038), (11, -0.03), (12, 0.02), (13, 0.013), (14, 0.083), (15, -0.029), (16, -0.046), (17, 0.137), (18, 0.021), (19, -0.051), (20, 0.015), (21, -0.041), (22, -0.045), (23, -0.07), (24, -0.102), (25, -0.016), (26, -0.026), (27, 0.013), (28, -0.057), (29, -0.014), (30, -0.063), (31, 0.032), (32, 0.025), (33, 0.047), (34, 0.143), (35, 0.071), (36, 0.001), (37, 0.047), (38, -0.071), (39, -0.051), (40, -0.01), (41, 0.033), (42, -0.03), (43, 0.082), (44, 0.033), (45, 0.041), (46, 0.039), (47, -0.049), (48, -0.006), (49, 0.027)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.96375257 <a title="52-lsi-1" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>Introduction: Out of 215 contestants, we placed 8th in the Cats and Dogs competition at Kaggle. The top ten finish gave us the master badge. The competition was about discerning the animals in images and here’s how we did it.
+   
+We extracted the features using pre-trained deep convolutional networks, specifically  decaf  and  OverFeat . Then we trained some classifiers on these features. The whole thing was inspired by Kyle Kastner’s  decaf  +  pylearn2  combo and we expanded this idea. The classifiers were linear models from  scikit-learn  and a neural network from  Pylearn2 . At the end we created a voting ensemble of the individual models.
+  OverFeat features  
+ 
+ 
+We touched on OverFeat in  Classifying images with a pre-trained deep network . A better way to use it in this competition’s context is to extract the features from the layer before the classifier, as Pierre Sermanet suggested in the comments.
+ 
+Concretely, in the larger OverFeat model ( -l ) layer 24 is the softmax, at least  in the</p><p>2 0.88223779 <a title="52-lsi-2" href="../fast_ml-2014/fast_ml-2014-01-10-Classifying_images_with_a_pre-trained_deep_network.html">49 fast ml-2014-01-10-Classifying images with a pre-trained deep network</a></p>
+<p>Introduction: Recently at least two research teams made their pre-trained deep convolutional networks available, so you can classify your images right away. We’ll see how to go about it, with data from the Cats & Dogs competition at Kaggle as an example.
+   
+We’ll be using  OverFeat , a classifier and feature extractor from the New York guys lead by  Yann LeCun  and Rob Fergus. The principal author, Pierre Sermanet, is currently first on the  Dogs vs. Cats leaderboard .
+ 
+The other available implementation we know of comes from Berkeley. It’s called  Caffe  and is a successor to  decaf .  Yangqing Jia , the main author of these, is also near the top of the leaderboard.
+ 
+Both networks were trained on  ImageNet , which is  an image database organized according to the  WordNet  hierarchy . It was the ImageNet Large Scale Visual Recognition Challenge 2012 in which Alex Krizhevsky  crushed the competition  with his network. His error was 16%, the second best - 26%.
+  Data  
+The Kaggle competition featur</p><p>3 0.31662381 <a title="52-lsi-3" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>Introduction: Once upon a time we were browsing machine learning papers and software. We were interested in autoencoders and found a rather unusual one. It was called  marginalized Stacked Denoising Autoencoder  and the author claimed that it  preserves the strong feature learning capacity of Stacked Denoising Autoencoders, but is orders of magnitudes faster.  We like all things fast, so we were hooked.
+    About autoencoders  
+ Wikipedia says  that  an autoencoder is an artificial neural network and its aim is to learn a compressed representation for a set of data. This means it is being used for dimensionality reduction . In other words, an autoencoder is a neural network meant to replicate the input. It would be trivial with a big enough number of units in a hidden layer: the network would just find an identity mapping. Hence dimensionality reduction: a hidden layer size is typically smaller than input layer.
+ 
+mSDA is a curious specimen: it is not a neural network and it doesn’t reduce dimension</p><p>4 0.28803089 <a title="52-lsi-4" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>Introduction: As usual, there’s an interesting competition at Kaggle: The Black Box. It’s connected to ICML 2013 Workshop on Challenges in Representation Learning, held by the deep learning guys from Montreal.
+ 
+There are a couple benchmarks for this competition and the best one is unusually hard to beat 1  - only less than a fourth of those taking part managed to do so. We’re among them. Here’s how.
+   
+The key ingredient in our success is a recently developed secret Stanford technology for deep unsupervised learning:  sparse filtering  by  Jiquan Ngiam  et al. Actually, it’s not secret. It’s  available at Github , and has one or two very appealling properties. Let us explain.
+ 
+The main idea of deep unsupervised learning, as we understand it, is feature extraction. One of the most common applications is in  multimedia. The reason for that is that multimedia tasks, for example object recognition, are easy for humans, but difficult for computers 2 .
+ 
+Geoff Hinton from Toronto talks about  two ends</p><p>5 0.25277647 <a title="52-lsi-5" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>Introduction: Object recognition in images is where deep learning, and specifically convolutional neural networks, are often applied and benchmarked these days. To get a piece of the action, we’ll be using Alex Krizhevsky’s  cuda-convnet , a shining diamond of machine learning software, in a Kaggle competition.
+   
+Continuing to run things on a GPU, we turn to applying  convolutional neural networks  for object recognition. This kind of network was developed by Yann LeCun and it’s powerful, but a bit complicated:
+ 
+  
+ Image credit:  EBLearn tutorial  
+ 
+A typical convolutional network has two parts. The first is responsible for feature extraction and consists of one or more pairs of convolution and subsampling/max-pooling layers, as you can see above. The second part is just a classic fully-connected multilayer perceptron taking extracted features as input. For a detailed explanation of all this see unit 9 in Hugo LaRochelle’s  neural networks course .
+ 
+Daniel Nouri has an interesting story about</p><p>6 0.2484879 <a title="52-lsi-6" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>7 0.24539988 <a title="52-lsi-7" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>8 0.21688366 <a title="52-lsi-8" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>9 0.20065373 <a title="52-lsi-9" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>10 0.19935691 <a title="52-lsi-10" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>11 0.18580204 <a title="52-lsi-11" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>12 0.17539454 <a title="52-lsi-12" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>13 0.17464282 <a title="52-lsi-13" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>14 0.16294178 <a title="52-lsi-14" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>15 0.162424 <a title="52-lsi-15" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>16 0.16076784 <a title="52-lsi-16" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>17 0.15268923 <a title="52-lsi-17" href="../fast_ml-2012/fast_ml-2012-09-01-Running_Unix_apps_on_Windows.html">3 fast ml-2012-09-01-Running Unix apps on Windows</a></p>
+<p>18 0.15183845 <a title="52-lsi-18" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>19 0.15026343 <a title="52-lsi-19" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>20 0.14948311 <a title="52-lsi-20" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(6, 0.015), (26, 0.053), (31, 0.058), (35, 0.51), (48, 0.021), (69, 0.135), (71, 0.058), (78, 0.022), (99, 0.031)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>1 0.97235942 <a title="52-lda-1" href="../fast_ml-2012/fast_ml-2012-11-17-The_Facebook_challenge_HOWTO.html">10 fast ml-2012-11-17-The Facebook challenge HOWTO</a></p>
+<p>Introduction: Last time we wrote about  the Facebook challenge . Now it’s time for some more details. The main concept is this: in its original state, the data is useless. That’s because there are many names referring to the same entity. Precisely, there are about 350k unique names, and the total number of entities is maybe 20k. So cleaning the data is the first and most important step.
+    Data cleaning  
+That’s the things we do, in order:
+  
+ extract all the names, including numbers, from the graph files and the paths file 
+ compute a fingerprint for each name. We used fingerprints similar to  ones in Google Refine . Ours not only had sorted tokens (words) in a name, but also sorted letters in a token. 
+  
+Names with the same fingerprint are very likely the same. Remaining distortions are mostly in the form of word combinations:
+   a name
+a longer name
+a still longer name
+    
+ this can be dealt with by checking if a given name is a subset of any other name. If it is a subset of only one other</p><p>same-blog 2 0.94255507 <a title="52-lda-2" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>Introduction: Out of 215 contestants, we placed 8th in the Cats and Dogs competition at Kaggle. The top ten finish gave us the master badge. The competition was about discerning the animals in images and here’s how we did it.
+   
+We extracted the features using pre-trained deep convolutional networks, specifically  decaf  and  OverFeat . Then we trained some classifiers on these features. The whole thing was inspired by Kyle Kastner’s  decaf  +  pylearn2  combo and we expanded this idea. The classifiers were linear models from  scikit-learn  and a neural network from  Pylearn2 . At the end we created a voting ensemble of the individual models.
+  OverFeat features  
+ 
+ 
+We touched on OverFeat in  Classifying images with a pre-trained deep network . A better way to use it in this competition’s context is to extract the features from the layer before the classifier, as Pierre Sermanet suggested in the comments.
+ 
+Concretely, in the larger OverFeat model ( -l ) layer 24 is the softmax, at least  in the</p><p>3 0.73716879 <a title="52-lda-3" href="../fast_ml-2014/fast_ml-2014-01-10-Classifying_images_with_a_pre-trained_deep_network.html">49 fast ml-2014-01-10-Classifying images with a pre-trained deep network</a></p>
+<p>Introduction: Recently at least two research teams made their pre-trained deep convolutional networks available, so you can classify your images right away. We’ll see how to go about it, with data from the Cats & Dogs competition at Kaggle as an example.
+   
+We’ll be using  OverFeat , a classifier and feature extractor from the New York guys lead by  Yann LeCun  and Rob Fergus. The principal author, Pierre Sermanet, is currently first on the  Dogs vs. Cats leaderboard .
+ 
+The other available implementation we know of comes from Berkeley. It’s called  Caffe  and is a successor to  decaf .  Yangqing Jia , the main author of these, is also near the top of the leaderboard.
+ 
+Both networks were trained on  ImageNet , which is  an image database organized according to the  WordNet  hierarchy . It was the ImageNet Large Scale Visual Recognition Challenge 2012 in which Alex Krizhevsky  crushed the competition  with his network. His error was 16%, the second best - 26%.
+  Data  
+The Kaggle competition featur</p><p>4 0.57928079 <a title="52-lda-4" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>Introduction: Good news, everyone! There’s a new contest on Kaggle -  Facebook is looking for talent . They won’t pay, but just might interview.
+ 
+This post is in a way a bonus for active readers because most visitors of fastml.com originally come from Kaggle forums. For this competition the forums are disabled to encourage  own work . To honor this, we won’t publish any code. But  own work  doesn’t mean  original work , and we wouldn’t want to reinvent the wheel, would we?
+   
+The contest differs substantially from a Kaggle stereotype, if there is such a thing, in three major ways:
+  
+ there’s no money prizes, as mentioned above 
+ it’s not a real world problem, but rather an assignment to screen job candidates (this has important consequences, described below) 
+ it’s not a typical machine learning project, but rather a broader AI exercise 
+  
+You are given a graph of the internet, actually a snapshot of the graph for each of 15 time steps. You are also given a bunch of paths in this graph, which  a</p><p>5 0.52403629 <a title="52-lda-5" href="../fast_ml-2013/fast_ml-2013-11-27-Object_recognition_in_images_with_cuda-convnet.html">45 fast ml-2013-11-27-Object recognition in images with cuda-convnet</a></p>
+<p>Introduction: Object recognition in images is where deep learning, and specifically convolutional neural networks, are often applied and benchmarked these days. To get a piece of the action, we’ll be using Alex Krizhevsky’s  cuda-convnet , a shining diamond of machine learning software, in a Kaggle competition.
+   
+Continuing to run things on a GPU, we turn to applying  convolutional neural networks  for object recognition. This kind of network was developed by Yann LeCun and it’s powerful, but a bit complicated:
+ 
+  
+ Image credit:  EBLearn tutorial  
+ 
+A typical convolutional network has two parts. The first is responsible for feature extraction and consists of one or more pairs of convolution and subsampling/max-pooling layers, as you can see above. The second part is just a classic fully-connected multilayer perceptron taking extracted features as input. For a detailed explanation of all this see unit 9 in Hugo LaRochelle’s  neural networks course .
+ 
+Daniel Nouri has an interesting story about</p><p>6 0.44112507 <a title="52-lda-6" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>7 0.42584434 <a title="52-lda-7" href="../fast_ml-2013/fast_ml-2013-12-28-Regularizing_neural_networks_with_dropout_and_with_DropConnect.html">48 fast ml-2013-12-28-Regularizing neural networks with dropout and with DropConnect</a></p>
+<p>8 0.41681826 <a title="52-lda-8" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>9 0.41191581 <a title="52-lda-9" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>10 0.40941226 <a title="52-lda-10" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>11 0.39900023 <a title="52-lda-11" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>12 0.38407844 <a title="52-lda-12" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>13 0.37071487 <a title="52-lda-13" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>14 0.36523387 <a title="52-lda-14" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>15 0.35875133 <a title="52-lda-15" href="../fast_ml-2013/fast_ml-2013-09-19-What_you_wanted_to_know_about_AUC.html">39 fast ml-2013-09-19-What you wanted to know about AUC</a></p>
+<p>16 0.35751611 <a title="52-lda-16" href="../fast_ml-2013/fast_ml-2013-06-19-Go_non-linear_with_Vowpal_Wabbit.html">31 fast ml-2013-06-19-Go non-linear with Vowpal Wabbit</a></p>
+<p>17 0.35487056 <a title="52-lda-17" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>18 0.34670085 <a title="52-lda-18" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>19 0.34426194 <a title="52-lda-19" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>20 0.33603671 <a title="52-lda-20" href="../fast_ml-2014/fast_ml-2014-04-12-Deep_learning_these_days.html">58 fast ml-2014-04-12-Deep learning these days</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

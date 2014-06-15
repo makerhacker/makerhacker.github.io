@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2013" href="../home/fast_ml-2013_home.html">fast_ml-2013</a> <a title="fast_ml-2013-24" href="#">fast_ml-2013-24</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2013-24-html" href="http://fastml.com//dimensionality-reduction-for-sparse-binary-data-an-overview/">html</a></p><p>Introduction: Last time we explored dimensionality reduction in practice using Gensim’s LSI and LDA. Now, having spent some time researching the subject matter, we will give an overview of other options.
+   
+ UPDATE : We now consider the topic quite irrelevant, because sparse high-dimensional data is precisely where linear models shine. See  Amazon aspires to automate access control ,  Predicting advertised salaries  and  Predicting closed questions on Stack Overflow .
+ 
+And the few most popular methods are:
+  
+ LSI/LSA - a multinomial PCA 
+ LDA - Latent Dirichlet Allocation 
+ matrix factorization, in particular non-negative variants: NMF 
+ ICA, or Independent Components Analysis 
+ mixtures of Bernoullis 
+ stacked RBMs 
+ correlated topic models, an extension of LDA 
+  
+We  tried the first two  before.
+ 
+As regards matrix factorization, you do the same stuff as with movie recommendations (think Netflix challenge). The difference is, now all the matrix elements are known and we are only interested in</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 UPDATE : We now consider the topic quite irrelevant, because sparse high-dimensional data is precisely where linear models shine. [sent-3, score-0.256]
+</p><p>2 As regards matrix factorization, you do the same stuff as with movie recommendations (think Netflix challenge). [sent-6, score-0.253]
+</p><p>3 The difference is, now all the matrix elements are known and we are only interested in factors for each row, because we represent a row by these factors. [sent-7, score-0.313]
+</p><p>4 There’s a popular algorithm called  FastICA  and indeed it’s pretty fast, at least on  adult  dataset. [sent-10, score-0.087]
+</p><p>5 RBMs, or Restriced Boltzmann Machines, we haven’t tried yet. [sent-13, score-0.09]
+</p><p>6 The idea is that each example comes from one of a handful of Bernoulli distributions, or components - a component is like a topic in LDA. [sent-17, score-0.477]
+</p><p>7 The downside of this method is that each row is supposed to come from exactly one component. [sent-18, score-0.147]
+</p><p>8 Therefore it will give you a row of probabilities that an example (row) comes from a given component (columns), which might be OK after all. [sent-19, score-0.214]
+</p><p>9 We also tried Blei’s  correlated topic model , which we think of as improved LDA. [sent-23, score-0.336]
+</p><p>10 The supervised score apparently is better when these techniques are applied on TF-IDF transformed data. [sent-26, score-0.072]
+</p><p>11 With binary data TF-IDF effectively becomes IDF, because term frequency is always either one or zero. [sent-30, score-0.177]
+</p><p>12 Inverse document frequency means that rare features weigh more than frequent ones. [sent-31, score-0.136]
+</p><p>13 This means that the distinction between methods for binary/continuous data blurs. [sent-33, score-0.15]
+</p><p>14 269577     Here are some visualizations of the impact on principal components:      Principal components of  adult  as shown by FastICA       Principal components for data pre-processed with TF-IDF    Conclusions   To sum up, one guy called LiangJie Hong, a research scientist at Yahoo! [sent-39, score-0.667]
+</p><p>15 Labs, reviewed a few papers on  binary matrix decomposition  and his punch line is this:    In all, it seems that the performance advantages of specifically designed binary data models are small. [sent-40, score-0.526]
+</p><p>16 All methods we have tried seem to be rather close to each other as regards the supervised score they achieve. [sent-44, score-0.394]
+</p><p>17 As far as scalability goes, online methods have the upper hand here, because some data sets are too big to fit in memory. [sent-46, score-0.229]
+</p><p>18 An additional advantage of LSI/PCA is that once you decompose the data, you can take as many components as you want, without re-running. [sent-53, score-0.236]
+</p><p>19 Finally, we would like to mention Graphlab/ Graphchi , one of a few tools on par with Vowpal Wabbit for large scale learning. [sent-61, score-0.099]
+</p><p>20 Danny Bickson wrote a few matrix factorization routines for both, including NMF and RBMs. [sent-63, score-0.363]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('nmf', 0.356), ('lda', 0.247), ('ica', 0.237), ('components', 0.236), ('gensim', 0.197), ('factorization', 0.197), ('bernoulli', 0.178), ('graphchi', 0.178), ('matrix', 0.166), ('methods', 0.15), ('lsi', 0.148), ('row', 0.147), ('models', 0.131), ('topic', 0.125), ('bernoullis', 0.119), ('fastica', 0.119), ('spams', 0.119), ('pca', 0.108), ('principal', 0.108), ('par', 0.099), ('binary', 0.09), ('tried', 0.09), ('adult', 0.087), ('frequency', 0.087), ('rbms', 0.087), ('regards', 0.087), ('extension', 0.079), ('bayesian', 0.079), ('online', 0.079), ('correlated', 0.072), ('techniques', 0.072), ('machines', 0.072), ('component', 0.067), ('seem', 0.067), ('unfortunately', 0.059), ('predicting', 0.055), ('matlab', 0.05), ('irrelevant', 0.049), ('graphlab', 0.049), ('netflix', 0.049), ('explored', 0.049), ('craze', 0.049), ('allocation', 0.049), ('multinomial', 0.049), ('advantages', 0.049), ('aspect', 0.049), ('fancy', 0.049), ('frequent', 0.049), ('handful', 0.049), ('improved', 0.049)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.99999899 <a title="24-tfidf-1" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>Introduction: Last time we explored dimensionality reduction in practice using Gensim’s LSI and LDA. Now, having spent some time researching the subject matter, we will give an overview of other options.
+   
+ UPDATE : We now consider the topic quite irrelevant, because sparse high-dimensional data is precisely where linear models shine. See  Amazon aspires to automate access control ,  Predicting advertised salaries  and  Predicting closed questions on Stack Overflow .
+ 
+And the few most popular methods are:
+  
+ LSI/LSA - a multinomial PCA 
+ LDA - Latent Dirichlet Allocation 
+ matrix factorization, in particular non-negative variants: NMF 
+ ICA, or Independent Components Analysis 
+ mixtures of Bernoullis 
+ stacked RBMs 
+ correlated topic models, an extension of LDA 
+  
+We  tried the first two  before.
+ 
+As regards matrix factorization, you do the same stuff as with movie recommendations (think Netflix challenge). The difference is, now all the matrix elements are known and we are only interested in</p><p>2 0.35186306 <a title="24-tfidf-2" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>Introduction: Much of data in machine learning is sparse, that is mostly zeros, and often binary. The phenomenon may result from converting categorical variables to one-hot vectors, and from converting text to bag-of-words representation. If each feature is binary - either zero or one - then it holds exactly one bit of information. Surely we could somehow compress such data to fewer real numbers.
+   
+To do this, we turn to topic models, an area of research with roots in natural language processing. In NLP, a training set is called a corpus, and each document is like a row in the set. A document might be three pages of text, or just a few words, as in a tweet.
+ 
+The idea of topic modelling is that you can group words in your corpus into relatively few topics and represent each document as a mixture of these topics. It’s attractive because you can interpret the model by looking at words that form the topics. Sometimes they seem meaningful, sometimes not. A meaningful topic might be, for example: “cric</p><p>3 0.13904783 <a title="24-tfidf-3" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>Introduction: How to represent features for machine learning is an important business. For example, deep learning is all about finding good representations. What exactly they are depends on a task at hand. We investigate how to use available labels to obtain good representations.
+    Motivation  
+The paper that inspired us a while ago was  Nonparametric Guidance of Autoencoder Representations using Label Information  by Snoek, Adams and LaRochelle. It’s about autoencoders, but contains a greater idea:
+  
+Discriminative algorithms often work best with highly-informative features; remarkably, such features can often be learned without the labels. (…) However, pure unsupervised learning (…) can find representations that may or may not be useful for the ultimate discriminative task. (…)   
+
+
+In this work, we are interested in the discovery of latent features which can be later used as alternate representations of data for discriminative tasks. That is, we wish to find ways to extract statistical structu</p><p>4 0.12117848 <a title="24-tfidf-4" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>Introduction: Recently Rob Zinkov published his  selection of interesting-looking NIPS papers . Inspired by this, we list some more. Rob seems to like Bayesian stuff, we’re more into neural networks. If you feel like browsing, Andrej Karpathy has a  page with all NIPS 2013 papers . They are categorized by topics discovered by running LDA. When you see an interesting paper, you can discover ones ranked similiar by TF-IDF. Here’s what we found.
+     Understanding Dropout   
+Pierre Baldi, Peter J. Sadowski
+ 
+Dropout is a relatively new algorithm for training neural networks which relies on stochastically dropping out neurons during training in order to avoid the co-adaptation of feature detectors. We introduce a general formalism for studying dropout on either units or connections, with arbitrary probability values, and use it to analyze the averaging and regularizing properties of dropout in both linear and non-linear networks. For deep neural networks, the averaging properties of dropout are characte</p><p>5 0.092817739 <a title="24-tfidf-5" href="../fast_ml-2014/fast_ml-2014-05-26-Yann_LeCun%27s_answers_from_the_Reddit_AMA.html">62 fast ml-2014-05-26-Yann LeCun's answers from the Reddit AMA</a></p>
+<p>Introduction: On May 15th Yann LeCun answered “ask me anything” questions on  Reddit . We hand-picked some of his thoughts and grouped them by topic for your enjoyment.
+    Toronto, Montreal and New York  
+All three groups are strong and complementary.
+ 
+Geoff (who spends more time at Google than in Toronto now) and Russ Salakhutdinov like RBMs and deep Boltzmann machines. I like the idea of Boltzmann machines (it’s a beautifully simple concept) but it doesn’t scale well. Also, I totally hate sampling.
+ 
+Yoshua and his colleagues have focused a lot on various unsupervised learning, including denoising auto-encoders, contracting auto-encoders. They are not allergic to sampling like I am. On the application side, they have worked on text, not so much on images.
+ 
+In our lab at NYU (Rob Fergus, David Sontag, me and our students and postdocs), we have been focusing on sparse auto-encoders for unsupervised learning. They have the advantage of scaling well. We have also worked on applications, mostly to v</p><p>6 0.091847539 <a title="24-tfidf-6" href="../fast_ml-2013/fast_ml-2013-03-07-Choosing_a_machine_learning_algorithm.html">22 fast ml-2013-03-07-Choosing a machine learning algorithm</a></p>
+<p>7 0.087798342 <a title="24-tfidf-7" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>8 0.076312631 <a title="24-tfidf-8" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>9 0.074684799 <a title="24-tfidf-9" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>10 0.07297837 <a title="24-tfidf-10" href="../fast_ml-2013/fast_ml-2013-01-07-Machine_learning_courses_online.html">15 fast ml-2013-01-07-Machine learning courses online</a></p>
+<p>11 0.071906924 <a title="24-tfidf-11" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>12 0.071861103 <a title="24-tfidf-12" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>13 0.067874238 <a title="24-tfidf-13" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>14 0.066061266 <a title="24-tfidf-14" href="../fast_ml-2014/fast_ml-2014-04-12-Deep_learning_these_days.html">58 fast ml-2014-04-12-Deep learning these days</a></p>
+<p>15 0.061266229 <a title="24-tfidf-15" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>16 0.05533918 <a title="24-tfidf-16" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>17 0.055270601 <a title="24-tfidf-17" href="../fast_ml-2012/fast_ml-2012-12-07-Predicting_wine_quality.html">11 fast ml-2012-12-07-Predicting wine quality</a></p>
+<p>18 0.054126449 <a title="24-tfidf-18" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>19 0.052897383 <a title="24-tfidf-19" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>20 0.051545501 <a title="24-tfidf-20" href="../fast_ml-2013/fast_ml-2013-10-09-Big_data_made_easy.html">41 fast ml-2013-10-09-Big data made easy</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.275), (1, 0.035), (2, 0.161), (3, 0.079), (4, 0.184), (5, 0.323), (6, -0.23), (7, -0.431), (8, -0.216), (9, -0.036), (10, 0.131), (11, 0.191), (12, 0.012), (13, 0.075), (14, 0.114), (15, 0.14), (16, -0.088), (17, -0.062), (18, 0.103), (19, -0.048), (20, -0.038), (21, -0.034), (22, 0.049), (23, -0.006), (24, 0.006), (25, 0.014), (26, -0.03), (27, -0.055), (28, -0.077), (29, 0.002), (30, 0.012), (31, 0.033), (32, -0.14), (33, 0.024), (34, -0.043), (35, -0.027), (36, 0.004), (37, 0.002), (38, 0.035), (39, -0.014), (40, -0.015), (41, 0.035), (42, -0.095), (43, -0.015), (44, 0.004), (45, -0.101), (46, 0.042), (47, 0.046), (48, 0.015), (49, 0.094)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.96987677 <a title="24-lsi-1" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>Introduction: Last time we explored dimensionality reduction in practice using Gensim’s LSI and LDA. Now, having spent some time researching the subject matter, we will give an overview of other options.
+   
+ UPDATE : We now consider the topic quite irrelevant, because sparse high-dimensional data is precisely where linear models shine. See  Amazon aspires to automate access control ,  Predicting advertised salaries  and  Predicting closed questions on Stack Overflow .
+ 
+And the few most popular methods are:
+  
+ LSI/LSA - a multinomial PCA 
+ LDA - Latent Dirichlet Allocation 
+ matrix factorization, in particular non-negative variants: NMF 
+ ICA, or Independent Components Analysis 
+ mixtures of Bernoullis 
+ stacked RBMs 
+ correlated topic models, an extension of LDA 
+  
+We  tried the first two  before.
+ 
+As regards matrix factorization, you do the same stuff as with movie recommendations (think Netflix challenge). The difference is, now all the matrix elements are known and we are only interested in</p><p>2 0.83530128 <a title="24-lsi-2" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>Introduction: Much of data in machine learning is sparse, that is mostly zeros, and often binary. The phenomenon may result from converting categorical variables to one-hot vectors, and from converting text to bag-of-words representation. If each feature is binary - either zero or one - then it holds exactly one bit of information. Surely we could somehow compress such data to fewer real numbers.
+   
+To do this, we turn to topic models, an area of research with roots in natural language processing. In NLP, a training set is called a corpus, and each document is like a row in the set. A document might be three pages of text, or just a few words, as in a tweet.
+ 
+The idea of topic modelling is that you can group words in your corpus into relatively few topics and represent each document as a mixture of these topics. It’s attractive because you can interpret the model by looking at words that form the topics. Sometimes they seem meaningful, sometimes not. A meaningful topic might be, for example: “cric</p><p>3 0.29786924 <a title="24-lsi-3" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>Introduction: How to represent features for machine learning is an important business. For example, deep learning is all about finding good representations. What exactly they are depends on a task at hand. We investigate how to use available labels to obtain good representations.
+    Motivation  
+The paper that inspired us a while ago was  Nonparametric Guidance of Autoencoder Representations using Label Information  by Snoek, Adams and LaRochelle. It’s about autoencoders, but contains a greater idea:
+  
+Discriminative algorithms often work best with highly-informative features; remarkably, such features can often be learned without the labels. (…) However, pure unsupervised learning (…) can find representations that may or may not be useful for the ultimate discriminative task. (…)   
+
+
+In this work, we are interested in the discovery of latent features which can be later used as alternate representations of data for discriminative tasks. That is, we wish to find ways to extract statistical structu</p><p>4 0.21711019 <a title="24-lsi-4" href="../fast_ml-2014/fast_ml-2014-05-26-Yann_LeCun%27s_answers_from_the_Reddit_AMA.html">62 fast ml-2014-05-26-Yann LeCun's answers from the Reddit AMA</a></p>
+<p>Introduction: On May 15th Yann LeCun answered “ask me anything” questions on  Reddit . We hand-picked some of his thoughts and grouped them by topic for your enjoyment.
+    Toronto, Montreal and New York  
+All three groups are strong and complementary.
+ 
+Geoff (who spends more time at Google than in Toronto now) and Russ Salakhutdinov like RBMs and deep Boltzmann machines. I like the idea of Boltzmann machines (it’s a beautifully simple concept) but it doesn’t scale well. Also, I totally hate sampling.
+ 
+Yoshua and his colleagues have focused a lot on various unsupervised learning, including denoising auto-encoders, contracting auto-encoders. They are not allergic to sampling like I am. On the application side, they have worked on text, not so much on images.
+ 
+In our lab at NYU (Rob Fergus, David Sontag, me and our students and postdocs), we have been focusing on sparse auto-encoders for unsupervised learning. They have the advantage of scaling well. We have also worked on applications, mostly to v</p><p>5 0.21466893 <a title="24-lsi-5" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>Introduction: Recently Rob Zinkov published his  selection of interesting-looking NIPS papers . Inspired by this, we list some more. Rob seems to like Bayesian stuff, we’re more into neural networks. If you feel like browsing, Andrej Karpathy has a  page with all NIPS 2013 papers . They are categorized by topics discovered by running LDA. When you see an interesting paper, you can discover ones ranked similiar by TF-IDF. Here’s what we found.
+     Understanding Dropout   
+Pierre Baldi, Peter J. Sadowski
+ 
+Dropout is a relatively new algorithm for training neural networks which relies on stochastically dropping out neurons during training in order to avoid the co-adaptation of feature detectors. We introduce a general formalism for studying dropout on either units or connections, with arbitrary probability values, and use it to analyze the averaging and regularizing properties of dropout in both linear and non-linear networks. For deep neural networks, the averaging properties of dropout are characte</p><p>6 0.17220086 <a title="24-lsi-6" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>7 0.16827512 <a title="24-lsi-7" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>8 0.1650494 <a title="24-lsi-8" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>9 0.16250466 <a title="24-lsi-9" href="../fast_ml-2013/fast_ml-2013-03-07-Choosing_a_machine_learning_algorithm.html">22 fast ml-2013-03-07-Choosing a machine learning algorithm</a></p>
+<p>10 0.15400815 <a title="24-lsi-10" href="../fast_ml-2013/fast_ml-2013-01-07-Machine_learning_courses_online.html">15 fast ml-2013-01-07-Machine learning courses online</a></p>
+<p>11 0.14572728 <a title="24-lsi-11" href="../fast_ml-2013/fast_ml-2013-05-25-More_on_sparse_filtering_and_the_Black_Box_competition.html">29 fast ml-2013-05-25-More on sparse filtering and the Black Box competition</a></p>
+<p>12 0.14268027 <a title="24-lsi-12" href="../fast_ml-2014/fast_ml-2014-02-02-Yesterday_a_kaggler%2C_today_a_Kaggle_master%3A_a_wrap-up_of_the_cats_and_dogs_competition.html">52 fast ml-2014-02-02-Yesterday a kaggler, today a Kaggle master: a wrap-up of the cats and dogs competition</a></p>
+<p>13 0.14164944 <a title="24-lsi-13" href="../fast_ml-2014/fast_ml-2014-04-12-Deep_learning_these_days.html">58 fast ml-2014-04-12-Deep learning these days</a></p>
+<p>14 0.14105944 <a title="24-lsi-14" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>15 0.13833761 <a title="24-lsi-15" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>16 0.13093261 <a title="24-lsi-16" href="../fast_ml-2012/fast_ml-2012-12-07-Predicting_wine_quality.html">11 fast ml-2012-12-07-Predicting wine quality</a></p>
+<p>17 0.12798557 <a title="24-lsi-17" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>18 0.12641636 <a title="24-lsi-18" href="../fast_ml-2012/fast_ml-2012-10-15-Merck_challenge.html">8 fast ml-2012-10-15-Merck challenge</a></p>
+<p>19 0.12422092 <a title="24-lsi-19" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<p>20 0.12348539 <a title="24-lsi-20" href="../fast_ml-2012/fast_ml-2012-09-19-Best_Buy_mobile_contest_-_big_data.html">5 fast ml-2012-09-19-Best Buy mobile contest - big data</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(22, 0.41), (26, 0.057), (31, 0.054), (35, 0.037), (50, 0.037), (51, 0.02), (55, 0.027), (69, 0.113), (71, 0.046), (78, 0.043), (81, 0.014), (96, 0.018), (99, 0.043)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.87209368 <a title="24-lda-1" href="../fast_ml-2013/fast_ml-2013-03-25-Dimensionality_reduction_for_sparse_binary_data_-_an_overview.html">24 fast ml-2013-03-25-Dimensionality reduction for sparse binary data - an overview</a></p>
+<p>Introduction: Last time we explored dimensionality reduction in practice using Gensim’s LSI and LDA. Now, having spent some time researching the subject matter, we will give an overview of other options.
+   
+ UPDATE : We now consider the topic quite irrelevant, because sparse high-dimensional data is precisely where linear models shine. See  Amazon aspires to automate access control ,  Predicting advertised salaries  and  Predicting closed questions on Stack Overflow .
+ 
+And the few most popular methods are:
+  
+ LSI/LSA - a multinomial PCA 
+ LDA - Latent Dirichlet Allocation 
+ matrix factorization, in particular non-negative variants: NMF 
+ ICA, or Independent Components Analysis 
+ mixtures of Bernoullis 
+ stacked RBMs 
+ correlated topic models, an extension of LDA 
+  
+We  tried the first two  before.
+ 
+As regards matrix factorization, you do the same stuff as with movie recommendations (think Netflix challenge). The difference is, now all the matrix elements are known and we are only interested in</p><p>2 0.33804387 <a title="24-lda-2" href="../fast_ml-2013/fast_ml-2013-02-27-Dimensionality_reduction_for_sparse_binary_data.html">21 fast ml-2013-02-27-Dimensionality reduction for sparse binary data</a></p>
+<p>Introduction: Much of data in machine learning is sparse, that is mostly zeros, and often binary. The phenomenon may result from converting categorical variables to one-hot vectors, and from converting text to bag-of-words representation. If each feature is binary - either zero or one - then it holds exactly one bit of information. Surely we could somehow compress such data to fewer real numbers.
+   
+To do this, we turn to topic models, an area of research with roots in natural language processing. In NLP, a training set is called a corpus, and each document is like a row in the set. A document might be three pages of text, or just a few words, as in a tweet.
+ 
+The idea of topic modelling is that you can group words in your corpus into relatively few topics and represent each document as a mixture of these topics. It’s attractive because you can interpret the model by looking at words that form the topics. Sometimes they seem meaningful, sometimes not. A meaningful topic might be, for example: “cric</p><p>3 0.33725077 <a title="24-lda-3" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>Introduction: Are you interested in linear models, or K-means clustering? Probably not much. These are very basic techniques with fancier alternatives. But here’s the bomb: when you combine those two methods for supervised learning, you can get better results than from a random forest. And maybe even faster.
+   
+We have already written about  Vowpal Wabbit , a fast linear learner from Yahoo/Microsoft.  Google’s response (or at least, a Google’s guy response) seems to be  Sofia-ML . The software consists of two parts: a linear learner and K-means clustering. We found Sofia a while ago and wondered about K-means: who needs K-means?
+ 
+Here’s a clue:
+  
+This package can be used for learning cluster centers (…) and for mapping a given data set onto a new feature space based on the learned cluster centers.
+  
+Our eyes only opened when we read a certain paper, namely  An Analysis of Single-Layer Networks in Unsupervised Feature Learning  ( PDF ). The paper, by  Coates , Lee  and Ng, is about object recogni</p><p>4 0.32457203 <a title="24-lda-4" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>5 0.30585048 <a title="24-lda-5" href="../fast_ml-2013/fast_ml-2013-12-28-Regularizing_neural_networks_with_dropout_and_with_DropConnect.html">48 fast ml-2013-12-28-Regularizing neural networks with dropout and with DropConnect</a></p>
+<p>Introduction: We continue with CIFAR-10-based competition at Kaggle to get to know DropConnect. It’s supposed to be an improvement over dropout. And dropout is certainly one of the bigger steps forward in neural network development. Is DropConnect really better than dropout?
+   
+ TL;DR  DropConnect seems to offer results similiar to dropout. State of the art scores reported in the paper come from model ensembling.
+  Dropout  
+ Dropout , by Hinton et al., is perhaps a biggest invention in the field of neural networks in recent years. It adresses the main problem in machine learning, that is overfitting. It does so by “dropping out” some unit activations in a given layer, that is setting them to zero.  Thus it prevents co-adaptation of units and can also be seen as a method of ensembling many networks sharing the same weights. For each training example a different set of units to drop is randomly chosen.
+ 
+The idea has a  biological inspiration . When a child is conceived, it receives half its genes f</p><p>6 0.30491143 <a title="24-lda-6" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>7 0.3044472 <a title="24-lda-7" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>8 0.29986396 <a title="24-lda-8" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>9 0.29918724 <a title="24-lda-9" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>10 0.29815799 <a title="24-lda-10" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>11 0.29768857 <a title="24-lda-11" href="../fast_ml-2013/fast_ml-2013-01-12-Intro_to_random_forests.html">16 fast ml-2013-01-12-Intro to random forests</a></p>
+<p>12 0.29451749 <a title="24-lda-12" href="../fast_ml-2013/fast_ml-2013-12-07-13_NIPS_papers_that_caught_our_eye.html">46 fast ml-2013-12-07-13 NIPS papers that caught our eye</a></p>
+<p>13 0.29323769 <a title="24-lda-13" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>14 0.29146719 <a title="24-lda-14" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>15 0.28677762 <a title="24-lda-15" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>16 0.28621641 <a title="24-lda-16" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>17 0.28618523 <a title="24-lda-17" href="../fast_ml-2014/fast_ml-2014-05-26-Yann_LeCun%27s_answers_from_the_Reddit_AMA.html">62 fast ml-2014-05-26-Yann LeCun's answers from the Reddit AMA</a></p>
+<p>18 0.2853471 <a title="24-lda-18" href="../fast_ml-2013/fast_ml-2013-04-17-Regression_as_classification.html">26 fast ml-2013-04-17-Regression as classification</a></p>
+<p>19 0.28512993 <a title="24-lda-19" href="../fast_ml-2014/fast_ml-2014-03-20-Good_representations%2C_distance%2C_metric_learning_and_supervised_dimensionality_reduction.html">55 fast ml-2014-03-20-Good representations, distance, metric learning and supervised dimensionality reduction</a></p>
+<p>20 0.28392166 <a title="24-lda-20" href="../fast_ml-2013/fast_ml-2013-08-23-A_bag_of_words_and_a_nice_little_network.html">36 fast ml-2013-08-23-A bag of words and a nice little network</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>

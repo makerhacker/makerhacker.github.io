@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>25 fast ml-2013-04-10-Gender discrimination</title>
+</head>
+
+<body>
+<p><a title="fast_ml" href="../fast_ml_home.html">fast_ml</a> <a title="fast_ml-2013" href="../home/fast_ml-2013_home.html">fast_ml-2013</a> <a title="fast_ml-2013-25" href="#">fast_ml-2013-25</a> knowledge-graph by maker-knowledge-mining</p><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- maker adsense -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-5027806277543591"
+     data-ad-slot="4192012269"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<h1>25 fast ml-2013-04-10-Gender discrimination</h1>
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="fast_ml-2013-25-html" href="http://fastml.com//gender-discrimination/">html</a></p><p>Introduction: There’s a contest at Kaggle held by Qatar University. They want to be able to discriminate men from women based on handwriting. For a thousand bucks, well, why not?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+ 
+ 
+As  Sashi noticed on the forums , it’s not difficult to improve on the benchmarks a little bit. In particular, he mentioned feature selection, normalizing the data and using a regularized linear model. Here’s our version of the story.
+ 
+Let’s start with normalizing. There’s a nice function for that in R,  scale() . The dataset is small, 1128 examples, so we can go ahead and use R.
+ 
+Turns out that in its raw form, the data won’t scale. That’s because apparently there are some columns with zeros only. That makes it difficult to divide.
+ 
+Fortunately, we know just the right tool for the task. We learned about it on Kaggle forums too. It’s a function in   caret  package  called  nearZeroVar() . It will give you indexes of all the columns which have near zero var</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 They want to be able to discriminate men from women based on handwriting. [sent-2, score-0.356]
+</p><p>2 As  Sashi noticed on the forums , it’s not difficult to improve on the benchmarks a little bit. [sent-6, score-0.305]
+</p><p>3 In particular, he mentioned feature selection, normalizing the data and using a regularized linear model. [sent-7, score-0.186]
+</p><p>4 It will give you indexes of all the columns which have near zero variance, so you can delete them:    nzv_i = nearZeroVar( data ) data = data[,-nzv_i]     Easy as that. [sent-18, score-0.142]
+</p><p>5 We’ll just represent Arabic/English as 0/1 and get rid of writer IDs before scaling. [sent-23, score-0.37]
+</p><p>6 Feature selection   The dataset has a thousand examples and seven thousand features. [sent-26, score-0.525]
+</p><p>7 We use mRMR, as described in  Feature selection in practice . [sent-33, score-0.157]
+</p><p>8 Training a classifier   Regularized linear model works better than GLM. [sent-34, score-0.227]
+</p><p>9 Its advantage is an ability to determine  lambda  automatically. [sent-36, score-0.339]
+</p><p>10 , train )    # V1 is y, or gender p = predict( model, test ) # normalize p to <0,1> range here,  # or just cut down values outside this range     or maybe  logisticRidge , which is a bit slower:    model = logisticRidge( V1 ~ . [sent-39, score-0.425]
+</p><p>11 , train ) p = predict( model, test ) p = sigmoid( p )     Random forest works similiarly well. [sent-40, score-0.155]
+</p><p>12 Validation   There’s a sneaky issue with this data set: if you want realistic metrics from validation, you need to validate a certain way. [sent-43, score-0.293]
+</p><p>13 Namely, you need to split the set so that the writers which are in the train part are not in the test part. [sent-44, score-0.309]
+</p><p>14 Otherwise any powerful classifier like random forest will learn to discriminate on particular writer’s style. [sent-45, score-0.415]
+</p><p>15 This will result in overly optimistic score, as the real test set will consist only of unknown writers. [sent-47, score-0.155]
+</p><p>16 We provide a Python script  for randomly splitting the data taking the writer issue into account. [sent-48, score-0.642]
+</p><p>17 9    The first argument is the original training file with a writers column. [sent-55, score-0.32]
+</p><p>18 And the reason that these are different is that you may want to split a file with writers info already stripped. [sent-57, score-0.409]
+</p><p>19 The third and fourth arguments are output files and the fifth is a ratio between these files - a probability, by default 0. [sent-58, score-0.424]
+</p><p>20 If instead of splitting you’d like to divide a file into a few same-sized chunks, use this:    chunk_by_writers. [sent-60, score-0.293]
+</p>
+<br/>
+<h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
+<p>[('writer', 0.37), ('writers', 0.231), ('discriminate', 0.185), ('lambda', 0.185), ('logisticridge', 0.185), ('nearzerovar', 0.185), ('weren', 0.185), ('thousand', 0.184), ('selection', 0.157), ('ratio', 0.154), ('classifier', 0.138), ('forums', 0.136), ('issue', 0.136), ('splitting', 0.136), ('ids', 0.113), ('range', 0.113), ('regularized', 0.113), ('files', 0.101), ('package', 0.098), ('difficult', 0.092), ('particular', 0.092), ('model', 0.089), ('want', 0.089), ('file', 0.089), ('based', 0.082), ('test', 0.078), ('scale', 0.077), ('determine', 0.077), ('cut', 0.077), ('ability', 0.077), ('ceiling', 0.077), ('congratulations', 0.077), ('spotted', 0.077), ('chunks', 0.077), ('held', 0.077), ('noticed', 0.077), ('similiarly', 0.077), ('unknown', 0.077), ('columns', 0.074), ('feature', 0.073), ('validation', 0.07), ('divide', 0.068), ('normalize', 0.068), ('validate', 0.068), ('mrmr', 0.068), ('variance', 0.068), ('delete', 0.068), ('ahead', 0.068), ('arbitrary', 0.068), ('arguments', 0.068)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 1.0000002 <a title="25-tfidf-1" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>Introduction: There’s a contest at Kaggle held by Qatar University. They want to be able to discriminate men from women based on handwriting. For a thousand bucks, well, why not?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+ 
+ 
+As  Sashi noticed on the forums , it’s not difficult to improve on the benchmarks a little bit. In particular, he mentioned feature selection, normalizing the data and using a regularized linear model. Here’s our version of the story.
+ 
+Let’s start with normalizing. There’s a nice function for that in R,  scale() . The dataset is small, 1128 examples, so we can go ahead and use R.
+ 
+Turns out that in its raw form, the data won’t scale. That’s because apparently there are some columns with zeros only. That makes it difficult to divide.
+ 
+Fortunately, we know just the right tool for the task. We learned about it on Kaggle forums too. It’s a function in   caret  package  called  nearZeroVar() . It will give you indexes of all the columns which have near zero var</p><p>2 0.1461945 <a title="25-tfidf-2" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>3 0.1364352 <a title="25-tfidf-3" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>Introduction: Lately we’ve been working with the Madelon dataset. It was originally prepared for a feature selection challenge, so while we’re at it, let’s select some features. Madelon has 500 attributes, 20 of which are real, the rest being noise. Hence the ideal scenario would be to select just those 20 features.
+   
+Fortunately we know just the right software for this task. It’s called  mRMR , for  minimum Redundancy Maximum Relevance , and is available in C and Matlab versions for various platforms. mRMR expects a CSV file with labels in the first column and feature names in the first row. So the game plan is:
+  
+ combine training and validation sets into a format expected by mRMR 
+ run selection 
+ filter the original datasets, discarding all features but the selected ones 
+ evaluate the results on the validation set 
+ if all goes well, prepare and submit files for  the competition  
+  
+We’ll use  R scripts  for all the steps but feature selection. Now a few words about mRMR. It will show you p</p><p>4 0.133012 <a title="25-tfidf-4" href="../fast_ml-2013/fast_ml-2013-07-05-Processing_large_files%2C_line_by_line.html">32 fast ml-2013-07-05-Processing large files, line by line</a></p>
+<p>Introduction: Perhaps the most common format of data for machine learning is text files. Often data is too large to fit in memory; this is sometimes referred to as big data. But do you need to load the whole data into memory? Maybe you could at least pre-process it line by line. We show how to do this with Python. Prepare to read and possibly write some code.
+   
+The most common format for text files is probably CSV. For sparse data,  libsvm  format is popular. Both can be processed using csv module in Python.
+   import csv
+
+i_f = open( input_file, 'r' )
+reader = csv.reader( i_f )
+   
+For  libsvm  you just set the delimiter to space:
+   reader = csv.reader( i_f, delimiter = ' ' )
+   
+Then you go over the file contents. Each line is a list of strings:
+   for line in reader:
+
+    # do something with the line, for example:
+    label = float( line[0] )
+    # ....
+
+    writer.writerow( line )
+   
+If you need to do a second pass, you just rewind the input file:
+   i_f.seek( 0 )
+for line in re</p><p>5 0.11113225 <a title="25-tfidf-5" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>6 0.10777096 <a title="25-tfidf-6" href="../fast_ml-2013/fast_ml-2013-07-09-Introducing_phraug.html">33 fast ml-2013-07-09-Introducing phraug</a></p>
+<p>7 0.10389057 <a title="25-tfidf-7" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>8 0.09807732 <a title="25-tfidf-8" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>9 0.091429599 <a title="25-tfidf-9" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>10 0.085884161 <a title="25-tfidf-10" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>11 0.083692372 <a title="25-tfidf-11" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>12 0.082263641 <a title="25-tfidf-12" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>13 0.074314132 <a title="25-tfidf-13" href="../fast_ml-2013/fast_ml-2013-10-28-How_much_data_is_enough%3F.html">42 fast ml-2013-10-28-How much data is enough?</a></p>
+<p>14 0.072276875 <a title="25-tfidf-14" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>15 0.070613503 <a title="25-tfidf-15" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>16 0.069915958 <a title="25-tfidf-16" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>17 0.069335684 <a title="25-tfidf-17" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>18 0.067094244 <a title="25-tfidf-18" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>19 0.06680014 <a title="25-tfidf-19" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>20 0.061322924 <a title="25-tfidf-20" href="../fast_ml-2013/fast_ml-2013-09-19-What_you_wanted_to_know_about_AUC.html">39 fast ml-2013-09-19-What you wanted to know about AUC</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lsi-model" href="../home/fast_ml_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
+<p>[(0, 0.301), (1, -0.132), (2, -0.088), (3, -0.055), (4, -0.052), (5, 0.036), (6, -0.135), (7, 0.172), (8, -0.075), (9, -0.056), (10, 0.018), (11, -0.169), (12, -0.169), (13, -0.161), (14, -0.048), (15, 0.01), (16, 0.159), (17, 0.082), (18, 0.13), (19, -0.12), (20, 0.145), (21, -0.097), (22, -0.004), (23, 0.13), (24, 0.031), (25, -0.29), (26, 0.093), (27, 0.084), (28, 0.016), (29, -0.051), (30, 0.039), (31, 0.045), (32, -0.154), (33, 0.101), (34, -0.116), (35, -0.109), (36, -0.341), (37, 0.196), (38, -0.069), (39, -0.214), (40, -0.145), (41, -0.124), (42, -0.098), (43, -0.233), (44, 0.109), (45, -0.289), (46, 0.047), (47, -0.043), (48, 0.063), (49, 0.103)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.9619835 <a title="25-lsi-1" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>Introduction: There’s a contest at Kaggle held by Qatar University. They want to be able to discriminate men from women based on handwriting. For a thousand bucks, well, why not?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+ 
+ 
+As  Sashi noticed on the forums , it’s not difficult to improve on the benchmarks a little bit. In particular, he mentioned feature selection, normalizing the data and using a regularized linear model. Here’s our version of the story.
+ 
+Let’s start with normalizing. There’s a nice function for that in R,  scale() . The dataset is small, 1128 examples, so we can go ahead and use R.
+ 
+Turns out that in its raw form, the data won’t scale. That’s because apparently there are some columns with zeros only. That makes it difficult to divide.
+ 
+Fortunately, we know just the right tool for the task. We learned about it on Kaggle forums too. It’s a function in   caret  package  called  nearZeroVar() . It will give you indexes of all the columns which have near zero var</p><p>2 0.35960218 <a title="25-lsi-2" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>3 0.24277633 <a title="25-lsi-3" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>Introduction: The promise  
+What’s attractive in machine learning? That a machine is learning, instead of a human. But an operator still has a lot of work to do. First, he has to learn how to teach a machine, in general. Then, when it comes to a concrete task, there are two main areas where a human needs to do the work (and remember, laziness is a virtue, at least for a programmer, so we’d like to minimize amount of work done by a human):
+  
+ data preparation 
+ model tuning 
+  
+This story is about model tuning.
+   
+
+ 
+Typically, to achieve satisfactory results, first we need to convert raw data into format accepted by the model we would like to use, and then tune a few hyperparameters of the model.
+ 
+For example, some hyperparams to tune for a random forest may be a number of trees to grow and a number of candidate features at each split ( mtry  in R randomForest). For a neural network, there are quite a lot of hyperparams: number of layers, number of neurons in each layer (specifically, in each hid</p><p>4 0.2368509 <a title="25-lsi-4" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>Introduction: Lately we’ve been working with the Madelon dataset. It was originally prepared for a feature selection challenge, so while we’re at it, let’s select some features. Madelon has 500 attributes, 20 of which are real, the rest being noise. Hence the ideal scenario would be to select just those 20 features.
+   
+Fortunately we know just the right software for this task. It’s called  mRMR , for  minimum Redundancy Maximum Relevance , and is available in C and Matlab versions for various platforms. mRMR expects a CSV file with labels in the first column and feature names in the first row. So the game plan is:
+  
+ combine training and validation sets into a format expected by mRMR 
+ run selection 
+ filter the original datasets, discarding all features but the selected ones 
+ evaluate the results on the validation set 
+ if all goes well, prepare and submit files for  the competition  
+  
+We’ll use  R scripts  for all the steps but feature selection. Now a few words about mRMR. It will show you p</p><p>5 0.23291393 <a title="25-lsi-5" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>Introduction: This time we enter the  Stack Overflow challenge , which is about predicting a status of a given question on SO. There are five possible statuses, so it’s a multi-class classification problem.
+ 
+We would prefer a tool able to perform multiclass classification by itself. It can be done by hand by constructing five datasets, each with binary labels (one class against all others), and then combining predictions, but it might be a bit tricky to get right - we tried. Fortunately, nice people at Yahoo, excuse us, Microsoft, recently relased a new version of  Vowpal Wabbit , and this new version supports multiclass classification.
+   
+In case you’re wondering, Vowpal Wabbit is a fast linear learner. We like the “fast” part and “linear” is OK for dealing with lots of words, as in this contest. In any case, with more than three million data points it wouldn’t be that easy to train a kernel SVM, a neural net or what have you.
+ 
+VW, being a well-polished tool, has a few very convenient features.</p><p>6 0.23216921 <a title="25-lsi-6" href="../fast_ml-2013/fast_ml-2013-07-05-Processing_large_files%2C_line_by_line.html">32 fast ml-2013-07-05-Processing large files, line by line</a></p>
+<p>7 0.21599293 <a title="25-lsi-7" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>8 0.19261011 <a title="25-lsi-8" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>9 0.17532733 <a title="25-lsi-9" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>10 0.17110561 <a title="25-lsi-10" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>11 0.16864641 <a title="25-lsi-11" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>12 0.1671581 <a title="25-lsi-12" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>13 0.15985937 <a title="25-lsi-13" href="../fast_ml-2013/fast_ml-2013-09-09-Predicting_solar_energy_from_weather_forecasts_plus_a_NetCDF4_tutorial.html">38 fast ml-2013-09-09-Predicting solar energy from weather forecasts plus a NetCDF4 tutorial</a></p>
+<p>14 0.15937267 <a title="25-lsi-14" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<p>15 0.15660562 <a title="25-lsi-15" href="../fast_ml-2014/fast_ml-2014-04-21-Predicting_happiness_from_demographics_and_poll_answers.html">59 fast ml-2014-04-21-Predicting happiness from demographics and poll answers</a></p>
+<p>16 0.14622393 <a title="25-lsi-16" href="../fast_ml-2013/fast_ml-2013-06-01-Amazon_aspires_to_automate_access_control.html">30 fast ml-2013-06-01-Amazon aspires to automate access control</a></p>
+<p>17 0.14571519 <a title="25-lsi-17" href="../fast_ml-2014/fast_ml-2014-01-20-How_to_get_predictions_from_Pylearn2.html">50 fast ml-2014-01-20-How to get predictions from Pylearn2</a></p>
+<p>18 0.14548014 <a title="25-lsi-18" href="../fast_ml-2014/fast_ml-2014-03-06-PyBrain_-_a_simple_neural_networks_library_in_Python.html">54 fast ml-2014-03-06-PyBrain - a simple neural networks library in Python</a></p>
+<p>19 0.14486431 <a title="25-lsi-19" href="../fast_ml-2014/fast_ml-2014-04-30-Converting_categorical_data_into_numbers_with_Pandas_and_Scikit-learn.html">60 fast ml-2014-04-30-Converting categorical data into numbers with Pandas and Scikit-learn</a></p>
+<p>20 0.14274617 <a title="25-lsi-20" href="../fast_ml-2013/fast_ml-2013-10-28-How_much_data_is_enough%3F.html">42 fast ml-2013-10-28-How much data is enough?</a></p>
+<br/>
+<h2>similar blogs computed by <a title="lda-model" href="../home/fast_ml_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
+<p>[(6, 0.024), (26, 0.063), (31, 0.045), (35, 0.018), (37, 0.412), (55, 0.079), (58, 0.013), (69, 0.141), (71, 0.031), (81, 0.012), (85, 0.014), (99, 0.065)]</p>
+<h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
+<p>same-blog 1 0.86045218 <a title="25-lda-1" href="../fast_ml-2013/fast_ml-2013-04-10-Gender_discrimination.html">25 fast ml-2013-04-10-Gender discrimination</a></p>
+<p>Introduction: There’s a contest at Kaggle held by Qatar University. They want to be able to discriminate men from women based on handwriting. For a thousand bucks, well, why not?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+ 
+ 
+As  Sashi noticed on the forums , it’s not difficult to improve on the benchmarks a little bit. In particular, he mentioned feature selection, normalizing the data and using a regularized linear model. Here’s our version of the story.
+ 
+Let’s start with normalizing. There’s a nice function for that in R,  scale() . The dataset is small, 1128 examples, so we can go ahead and use R.
+ 
+Turns out that in its raw form, the data won’t scale. That’s because apparently there are some columns with zeros only. That makes it difficult to divide.
+ 
+Fortunately, we know just the right tool for the task. We learned about it on Kaggle forums too. It’s a function in   caret  package  called  nearZeroVar() . It will give you indexes of all the columns which have near zero var</p><p>2 0.37702295 <a title="25-lda-2" href="../fast_ml-2013/fast_ml-2013-07-05-Processing_large_files%2C_line_by_line.html">32 fast ml-2013-07-05-Processing large files, line by line</a></p>
+<p>Introduction: Perhaps the most common format of data for machine learning is text files. Often data is too large to fit in memory; this is sometimes referred to as big data. But do you need to load the whole data into memory? Maybe you could at least pre-process it line by line. We show how to do this with Python. Prepare to read and possibly write some code.
+   
+The most common format for text files is probably CSV. For sparse data,  libsvm  format is popular. Both can be processed using csv module in Python.
+   import csv
+
+i_f = open( input_file, 'r' )
+reader = csv.reader( i_f )
+   
+For  libsvm  you just set the delimiter to space:
+   reader = csv.reader( i_f, delimiter = ' ' )
+   
+Then you go over the file contents. Each line is a list of strings:
+   for line in reader:
+
+    # do something with the line, for example:
+    label = float( line[0] )
+    # ....
+
+    writer.writerow( line )
+   
+If you need to do a second pass, you just rewind the input file:
+   i_f.seek( 0 )
+for line in re</p><p>3 0.37017035 <a title="25-lda-3" href="../fast_ml-2013/fast_ml-2013-01-12-Intro_to_random_forests.html">16 fast ml-2013-01-12-Intro to random forests</a></p>
+<p>Introduction: Let’s step back from forays into cutting edge topics and look at a random forest, one of the most popular machine learning techniques today. Why is it so attractive?
+   
+First of all, decision tree ensembles have been found by  Caruana et al.  as the best overall approach for a variety of problems. Random forests, specifically, perform well both in low dimensional and high dimensional tasks.
+ 
+There are basically two kinds of tree ensembles: bagged trees and boosted trees. Bagging means that when building each subsequent tree, we don’t look at the earlier trees, while in boosting we consider the earlier trees and strive to compensate for their weaknesses (which may lead to overfitting).
+ 
+Random forest is an example of the bagging approach, less prone to overfit. Gradient boosted trees (notably  GBM package  in R) represent the other one. Both are very successful in many applications. Trees are also relatively fast to train, compared to some more involved methods.
+ 
+Besides effectivnes</p><p>4 0.36870518 <a title="25-lda-4" href="../fast_ml-2014/fast_ml-2014-05-08-Impute_missing_values_with_Amelia.html">61 fast ml-2014-05-08-Impute missing values with Amelia</a></p>
+<p>Introduction: One of the ways to deal with missing values in data is to impute them. We use Amelia R package on  The Analytics Edge competition  data. Since one typically gets many imputed sets, we bag them with good results. So good that it seems we would have won the contest if not for a bug in our code.
+    The competition  
+Much to our surprise, we ranked 17th out of almost 1700 competitors - from the public leaderboard score we expected to be in top 10%, barely. The contest turned out to be one with huge overfitting possibilities, and people overfitted badly - some preliminary leaders ended up down the middle of the pack, while we soared up the ranks.
+ 
+But wait! There’s more. When preparing this article, we discovered a bug - apparently we used only 1980 points for training:
+   points_in_test = 1980
+train = data.iloc[:points_in_test,]     # should be [:-points_in_test,]
+test = data.iloc[-points_in_test:,]
+   
+If not for this little bug, we would have won, apparently.
+ 
+ 
+  Imputing data  
+A</p><p>5 0.35574716 <a title="25-lda-5" href="../fast_ml-2013/fast_ml-2013-02-18-Predicting_advertised_salaries.html">20 fast ml-2013-02-18-Predicting advertised salaries</a></p>
+<p>Introduction: We’re back to Kaggle competitions. This time we will attempt to predict advertised salaries from job ads and of course beat the benchmark. The benchmark is, as usual, a random forest result. For starters, we’ll use a linear model without much preprocessing. Will it be enough?
+   
+  
+ Congratulations! You have spotted the ceiling cat. 
+ 
+A linear model better than a random forest - how so? Well, to train a random forest on data this big, the benchmark code extracts only 100 most common words as features, and we will use all. This approach is similiar to the one we applied in  Merck challenge . More data beats a cleverer algorithm, especially when a cleverer algorithm is unable to handle all of data (on your machine, anyway).
+ 
+The competition is about predicting salaries from job adverts. Of course the figures usually appear in the text, so they were removed. An error metric is mean absolute error (MAE) - how refreshing to see so intuitive one.
+ 
+The data for  Job salary prediction  con</p><p>6 0.34964687 <a title="25-lda-6" href="../fast_ml-2013/fast_ml-2013-01-14-Feature_selection_in_practice.html">17 fast ml-2013-01-14-Feature selection in practice</a></p>
+<p>7 0.34689611 <a title="25-lda-7" href="../fast_ml-2012/fast_ml-2012-10-05-Predicting_closed_questions_on_Stack_Overflow.html">7 fast ml-2012-10-05-Predicting closed questions on Stack Overflow</a></p>
+<p>8 0.34490696 <a title="25-lda-8" href="../fast_ml-2013/fast_ml-2013-12-28-Regularizing_neural_networks_with_dropout_and_with_DropConnect.html">48 fast ml-2013-12-28-Regularizing neural networks with dropout and with DropConnect</a></p>
+<p>9 0.34342158 <a title="25-lda-9" href="../fast_ml-2013/fast_ml-2013-05-01-Deep_learning_made_easy.html">27 fast ml-2013-05-01-Deep learning made easy</a></p>
+<p>10 0.34325314 <a title="25-lda-10" href="../fast_ml-2012/fast_ml-2012-12-21-Tuning_hyperparams_automatically_with_Spearmint.html">12 fast ml-2012-12-21-Tuning hyperparams automatically with Spearmint</a></p>
+<p>11 0.34124497 <a title="25-lda-11" href="../fast_ml-2013/fast_ml-2013-10-06-Pylearn2_in_practice.html">40 fast ml-2013-10-06-Pylearn2 in practice</a></p>
+<p>12 0.33893454 <a title="25-lda-12" href="../fast_ml-2012/fast_ml-2012-10-25-So_you_want_to_work_for_Facebook.html">9 fast ml-2012-10-25-So you want to work for Facebook</a></p>
+<p>13 0.33747435 <a title="25-lda-13" href="../fast_ml-2013/fast_ml-2013-03-18-Large_scale_L1_feature_selection_with_Vowpal_Wabbit.html">23 fast ml-2013-03-18-Large scale L1 feature selection with Vowpal Wabbit</a></p>
+<p>14 0.33616656 <a title="25-lda-14" href="../fast_ml-2012/fast_ml-2012-12-27-Spearmint_with_a_random_forest.html">13 fast ml-2012-12-27-Spearmint with a random forest</a></p>
+<p>15 0.33237523 <a title="25-lda-15" href="../fast_ml-2013/fast_ml-2013-01-17-A_very_fast_denoising_autoencoder.html">18 fast ml-2013-01-17-A very fast denoising autoencoder</a></p>
+<p>16 0.33193752 <a title="25-lda-16" href="../fast_ml-2013/fast_ml-2013-02-07-The_secret_of_the_big_guys.html">19 fast ml-2013-02-07-The secret of the big guys</a></p>
+<p>17 0.33163399 <a title="25-lda-17" href="../fast_ml-2013/fast_ml-2013-11-02-Maxing_out_the_digits.html">43 fast ml-2013-11-02-Maxing out the digits</a></p>
+<p>18 0.32614601 <a title="25-lda-18" href="../fast_ml-2013/fast_ml-2013-08-12-Accelerometer_Biometric_Competition.html">35 fast ml-2013-08-12-Accelerometer Biometric Competition</a></p>
+<p>19 0.32152048 <a title="25-lda-19" href="../fast_ml-2012/fast_ml-2012-08-09-What_you_wanted_to_know_about_Mean_Average_Precision.html">1 fast ml-2012-08-09-What you wanted to know about Mean Average Precision</a></p>
+<p>20 0.32118806 <a title="25-lda-20" href="../fast_ml-2013/fast_ml-2013-01-04-Madelon%3A_Spearmint%27s_revenge.html">14 fast ml-2013-01-04-Madelon: Spearmint's revenge</a></p>
+<br/><br/><br/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48522588-1', 'makerhacker.github.io');
+ga('send', 'pageview');
+</script>
+
+</body>
+</html>
