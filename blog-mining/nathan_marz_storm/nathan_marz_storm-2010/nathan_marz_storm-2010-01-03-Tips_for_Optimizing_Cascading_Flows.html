@@ -16,36 +16,29 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="nathan_marz_storm-2010-2-html" href="http://nathanmarz.com//blog/tips-for-optimizing-cascading-flows.html">html</a></p><p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend
-checking out"7 Tips for Improving MapReduce Performance"for general MapReduce
-optimization tips.1. Filter data as early as possibleLess data equals less
-work. Sometimes you can easily filter data out early by moving filters earlier
-in your flow. Other times, it can be more complicated.One important use case
-that can be heavily optimized is querying a set of records for matches against
-a large set of keys - also known as abatch query. You can read more about the
-mechanics of batch querieshere. You can find the source code for batch
-queryinghere. The implementation utilizes a bloom filter to filter data out of
-the flow before using a join to complete the logic for the query.Another wide-
-range of use cases involves keeping data in memory within each task for
-querying. For example, let's say you have a bunch of key-value pairs in HDFS,
-and you want all the pairs where the keydoes notbelong in a separate list of
-30,000</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 One important use case that can be heavily optimized is querying a set of records for matches against a large set of keys - also known as abatch query. [sent-7, score-0.425]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="nathan_marz_storm-2010-2-html" href="http://nathanmarz.com//blog/tips-for-optimizing-cascading-flows.html">html</a></p><p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend checking out  "7 Tips for Improving MapReduce Performance"  for general MapReduce optimization tips.
+  1. Filter data as early as possible  
+Less data equals less work. Sometimes you can easily filter data out early by moving filters earlier in your flow. Other times, it can be more complicated.
+ 
+One important use case that can be heavily optimized is querying a set of records for matches against a large set of keys - also known as a  batch query . You can read more about the mechanics of batch queries  here . You can find the source code for batch querying  here . The implementation utilizes a bloom filter to filter data out of the flow before using a join to complete the logic for the query.
+ 
+Another wide-range of use cases involves keeping data in memory within each task for querying. For example, let's say you have a bunch of key-value pairs in HDFS, and you want all the pairs where the key  does not  belong</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 One important use case that can be heavily optimized is querying a set of records for matches against a large set of keys - also known as a  batch query . [sent-7, score-0.488]
 </p><p>2 The implementation utilizes a bloom filter to filter data out of the flow before using a join to complete the logic for the query. [sent-10, score-0.512]
-</p><p>3 The naive way to do this would be to do a left join, and then keep all key-value pairs that joined to null. [sent-13, score-0.279]
-</p><p>4 Since the key set we're joining against is so small, we can try just putting the entire key-set in memory and do a map-only job. [sent-15, score-0.402]
-</p><p>5 Your first attempt may be to pass the keys into the constructor of a custom function and store the keys as as instance variable, like so:pipe = new Each(pipe, new MyCustomFilter(keys));You'll be in for a rude surprise though. [sent-17, score-1.012]
-</p><p>6 What you want to do is read the keys in dynamically for every task. [sent-20, score-0.335]
-</p><p>7 To do this, use Hadoop's distributed cache to distribute the keys to each machine, and then use JVM reuse to minimize the number of times the keys get read into memory. [sent-21, score-0.605]
-</p><p>8 To combine reduces together, you'll want to make use of "MultiGroupBy", a new pipe type I hacked together and originally wrote abouthere. [sent-54, score-0.737]
-</p><p>9 For example, you may have one pipe containing ("id", "age", "gender"), another pipe containing ("id", "friend_id"), and may want the age, gender, and friends count for each "person_id". [sent-57, score-0.851]
-</p><p>10 Dealing with unbalanced joinsThis tip will benefit joins that have a small amount of values per key for one side of the join and a large amount of values per key for the other side of the join. [sent-82, score-1.075]
-</p><p>11 You can think of a Cascading join as being a nested for-loop, like:for(int i=0; i < leftSide. [sent-83, score-0.244]
-</p><p>12 }}Cascading stores each side of the join in a "SpillableTupleList". [sent-88, score-0.32]
+</p><p>3 For example, let's say you have a bunch of key-value pairs in HDFS, and you want all the pairs where the key  does not  belong in a separate list of 30,000 keys. [sent-12, score-0.334]
+</p><p>4 The naive way to do this would be to do a left join, and then keep all key-value pairs that joined to null. [sent-13, score-0.279]
+</p><p>5 Since the key set we're joining against is so small, we can try just putting the entire key-set in memory and do a map-only job. [sent-15, score-0.402]
+</p><p>6 Your first attempt may be to pass the keys into the constructor of a custom function and store the keys as as instance variable, like so:   pipe = new Each(pipe, new MyCustomFilter(keys));   You'll be in for a rude surprise though. [sent-17, score-1.322]
+</p><p>7 What you want to do is read the keys in dynamically for every task. [sent-20, score-0.335]
+</p><p>8 To do this, use Hadoop's distributed cache to distribute the keys to each machine, and then use JVM reuse to minimize the number of times the keys get read into memory. [sent-21, score-0.605]
+</p><p>9 To combine reduces together, you'll want to make use of "MultiGroupBy", a new pipe type I hacked together and originally wrote about  here . [sent-54, score-0.737]
+</p><p>10 For example, you may have one pipe containing ("id", "age", "gender"), another pipe containing ("id", "friend_id"), and may want the age, gender, and friends count for each "person_id". [sent-57, score-0.851]
+</p><p>11 Dealing with unbalanced joins   This tip will benefit joins that have a small amount of values per key for one side of the join and a large amount of values per key for the other side of the join. [sent-82, score-1.075]
+</p><p>12 } }    Cascading stores each side of the join in a "SpillableTupleList". [sent-88, score-0.32]
 </p><p>13 A "SpillableTupleList" keeps tuples in memory up to a certain amount and spills to disk once the amount of tuples gets above a certain threshold. [sent-89, score-0.393]
 </p><p>14 In the nested for-loop, the right side of the join gets iterated over once for every element on the left side. [sent-90, score-0.59]
 </p><p>15 When the left side is small and the right side is large this is hugely inefficient, because you end up doing disk operations over and over to access the tuples from the right side of the join. [sent-91, score-0.816]
 </p><p>16 It's much more efficient to keep the set of tuples that fits in memory on the inside of the for-loop. [sent-92, score-0.312]
-</p><p>17 Doing this in code is really simple - just put the smaller part of your join on the right side of your CoGroup, like so:joined = new CoGroup(largeSide, new Fields("key"),smallSide, new Fields("key"), . [sent-93, score-0.904]
+</p><p>17 Doing this in code is really simple - just put the smaller part of your join on the right side of your CoGroup, like so:   joined = new CoGroup(largeSide, new Fields("key"),                smallSide, new Fields("key"), . [sent-93, score-1.041]
 </p><p>18 First, if you find that your CoGroup job has one reducer taking way longer than the rest, then you may have one key which is particularly imbalanced. [sent-97, score-0.308]
 </p><p>19 That key is a huge outlier in terms of being unbalanced and causes tons of spilling which causes one task to take much longer. [sent-98, score-0.377]
 </p><p>20 The second symptom to look for are lots of log messages in the reducer task logs of the form "spilling tuple list to file number X" - an indication that at least one side of the join has lots of values. [sent-99, score-0.542]
@@ -55,76 +48,46 @@ and you want all the pairs where the keydoes notbelong in a separate list of
 <p>[('id', 0.315), ('pipe', 0.31), ('cogroup', 0.271), ('keys', 0.271), ('groupby', 0.194), ('fields', 0.176), ('new', 0.172), ('key', 0.17), ('join', 0.166), ('memory', 0.155), ('multigroupby', 0.155), ('cascading', 0.154), ('side', 0.154), ('joined', 0.137), ('flow', 0.126), ('gender', 0.122), ('mappings', 0.116), ('token', 0.116), ('count', 0.111), ('age', 0.11), ('filter', 0.11), ('static', 0.095), ('pairs', 0.082), ('tuples', 0.08), ('classname', 0.078), ('disk', 0.078), ('int', 0.078), ('jvm', 0.078), ('nested', 0.078), ('qualified', 0.078), ('reducer', 0.078), ('spillabletuplelist', 0.078), ('spilling', 0.078), ('tip', 0.078), ('tuple', 0.078), ('set', 0.077), ('right', 0.068), ('task', 0.066), ('custom', 0.066), ('together', 0.066), ('every', 0.064), ('cache', 0.063), ('batch', 0.063), ('combine', 0.063), ('reduces', 0.063), ('type', 0.063), ('unbalanced', 0.063), ('left', 0.06), ('values', 0.06), ('may', 0.06)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.0000001 <a title="2-tfidf-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
-<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend
-checking out"7 Tips for Improving MapReduce Performance"for general MapReduce
-optimization tips.1. Filter data as early as possibleLess data equals less
-work. Sometimes you can easily filter data out early by moving filters earlier
-in your flow. Other times, it can be more complicated.One important use case
-that can be heavily optimized is querying a set of records for matches against
-a large set of keys - also known as abatch query. You can read more about the
-mechanics of batch querieshere. You can find the source code for batch
-queryinghere. The implementation utilizes a bloom filter to filter data out of
-the flow before using a join to complete the logic for the query.Another wide-
-range of use cases involves keeping data in memory within each task for
-querying. For example, let's say you have a bunch of key-value pairs in HDFS,
-and you want all the pairs where the keydoes notbelong in a separate list of
-30,000</p><p>2 0.15300345 <a title="2-tfidf-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
-<p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful
-features: joins, aggregates, subqueries, custom operations, and more. Since
-Cascalog's release a couple weeks ago, I've added a number of new features to
-Cascalog that seriously increase the expressiveness and performance of the
-language without compromising its simplicity or flexibility.Like the first
-tutorial, go ahead and load up the playground by issuing the following
-commands:lein compile-java && lein compilelein repluser=> (use
-'cascalog.playground) (bootstrap)moreOuter joinsAs we saw in the first
-tutorial, you can join together multiple sources of data in Cascalog by using
-the same variable name in multiple sources of data. For example, given "age"
-and "gender" sources, we can get the age and gender for each person by
-running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
-?person ?gender))This is aninner join. We will only have results for people
-that appear in both sets of data. We</p><p>3 0.15163445 <a title="2-tfidf-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
-<p>Introduction: I'm very excited to be releasingCascalogas open-source today. Cascalog is a
-Clojure-based query language for Hadoop inspired byDatalog.HighlightsSimple-
-Functions, filters, and aggregators all use the same syntax. Joins are
-implicit and natural.Expressive- Logical composition is very powerful, and you
-can run arbitrary Clojure code in your query with little effort.Interactive-
-Run queries from the Clojure REPL.Scalable- Cascalog queries run as a series
-of MapReduce jobs.Query anything- Query HDFS data, database data, and/or local
-data by making use of Cascading's "Tap" abstractionCareful handling of null
-values- Null values can make life difficult. Cascalog has a feature called
-"non-nullable variables" that makes dealing with nulls painless.First class
-interoperability with Cascading- Operations defined for Cascalog can be used
-in a Cascading flow and vice-versaFirst class interoperability with Clojure-
-Can use regular Clojure functions as operations or filters, and since Cascalog
-is a</p><p>4 0.14030829 <a title="2-tfidf-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
-<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what
-kind of data you can put in it. A lot of people think that Hadoop is meant for
-unstructured data like log files. While Hadoop is great for log files, it's
-alsofantasticfor strongly typed, structured data.In this post I'll discuss how
-you can use a tool likeThriftto store strongly typed data in Hadoop while
-retaining the flexibility to evolve your schema. We'll look at graph-based
-schemas and see why they are an ideal fit for many Hadoop-based
-applications.OK, so what kind of "structured" data can you put in
-Hadoop?Anything! AtBackTypewe put data about news, conversations, and people
-into Hadoop as structured objects. You can easily push structured information
-about social graphs, financial information, or anything you want into Hadoop.
-That sounds all well and good, but why not just use JSON as the data
-format?JSON doesn't give you a real schema and doesn't protect against data
-inconsistency. For example, if you</p><p>5 0.10443252 <a title="2-tfidf-5" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
-<p>Introduction: The CAP theorem states a database cannot guarantee consistency, availability,
-and partition-tolerance at the same time. But you can't sacrifice partition-
-tolerance (seehereandhere), so you must make a tradeoff between availability
-and consistency. Managing this tradeoff is a central focus of the NoSQL
-movement.Consistency means that after you do a successful write, future reads
-will always take that write into account. Availability means that you can
-always read and write to the system. During a partition, you can only have one
-of these properties.Systems that choose consistency over availability have to
-deal with some awkward issues. What do you do when the database isn't
-available? You can try buffering writes for later, but you risk losing those
-writes if you lose the machine with the buffer. Also, buffering writes can be
-a form of inconsistency because a client thinks a write has succeeded but the
-write isn't in the database yet. Alternatively, you can return errors back to
-the cl</p><p>6 0.075396717 <a title="2-tfidf-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
+<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend checking out  "7 Tips for Improving MapReduce Performance"  for general MapReduce optimization tips.
+  1. Filter data as early as possible  
+Less data equals less work. Sometimes you can easily filter data out early by moving filters earlier in your flow. Other times, it can be more complicated.
+ 
+One important use case that can be heavily optimized is querying a set of records for matches against a large set of keys - also known as a  batch query . You can read more about the mechanics of batch queries  here . You can find the source code for batch querying  here . The implementation utilizes a bloom filter to filter data out of the flow before using a join to complete the logic for the query.
+ 
+Another wide-range of use cases involves keeping data in memory within each task for querying. For example, let's say you have a bunch of key-value pairs in HDFS, and you want all the pairs where the key  does not  belong</p><p>2 0.15300345 <a title="2-tfidf-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
+<p>Introduction: In the  first tutorial  for  Cascalog , I showed off many of Cascalog's powerful features: joins, aggregates, subqueries, custom operations, and more. Since Cascalog's release a couple weeks ago, I've added a number of new features to Cascalog that seriously increase the expressiveness and performance of the language without compromising its simplicity or flexibility.
+ 
+Like the first tutorial, go ahead and load up the playground by issuing the following commands:
+  lein compile-java && lein compile lein repl user=> (use 'cascalog.playground) (bootstrap)     Outer joins  
+As we saw in the first tutorial, you can join together multiple sources of data in Cascalog by using the same variable name in multiple sources of data. For example, given "age" and "gender" sources, we can get the age and gender for each person by running:
+  user=> (?<- (stdout) [?person ?age ?gender]           (age ?person ?age) (gender ?person ?gender))   
+This is an  inner join . We will only have results for peop</p><p>3 0.15163445 <a title="2-tfidf-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
+<p>Introduction: I'm very excited to be releasing  Cascalog  as open-source today. Cascalog is a Clojure-based query language for Hadoop inspired by  Datalog .
+  Highlights   
+  Simple  - Functions, filters, and aggregators all use the same syntax. Joins are implicit and natural. 
+  Expressive  - Logical composition is very powerful, and you can run arbitrary Clojure code in your query with little effort. 
+  Interactive  - Run queries from the Clojure REPL. 
+  Scalable  - Cascalog queries run as a series of MapReduce jobs. 
+  Query anything  - Query HDFS data, database data, and/or local data by making use of Cascading's "Tap" abstraction 
+  Careful handling of null values  - Null values can make life difficult. Cascalog has a feature called "non-nullable variables" that makes dealing with nulls painless. 
+  First class interoperability with Cascading  - Operations defined for Cascalog can be used in a Cascading flow and vice-versa 
+  First class interoperability with Clojure  - Can use regular Clojure</p><p>4 0.14030829 <a title="2-tfidf-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
+<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what kind of data you can put in it. A lot of people think that Hadoop is meant for unstructured data like log files. While Hadoop is great for log files, it's also  fantastic  for strongly typed, structured data.
+ 
+In this post I'll discuss how you can use a tool like  Thrift  to store strongly typed data in Hadoop while retaining the flexibility to evolve your schema. We'll look at graph-based schemas and see why they are an ideal fit for many Hadoop-based applications.
+ 
+ OK, so what kind of "structured" data can you put in Hadoop? 
+ 
+Anything! At  BackType  we put data about news, conversations, and people into Hadoop as structured objects. You can easily push structured information about social graphs, financial information, or anything you want into Hadoop. Â  
+ 
+ That sounds all well and good, but why not just use JSON as the data format? 
+ 
+JSON doesn't give you a real schema and doesn't protect against data i</p><p>5 0.10443252 <a title="2-tfidf-5" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
+<p>Introduction: The CAP theorem states a database cannot guarantee consistency, availability, and partition-tolerance at the same time. But you can't sacrifice partition-tolerance (see  here  and  here ), so you must make a tradeoff between availability and consistency. Managing this tradeoff is a central focus of the NoSQL movement.
+ 
+Consistency means that after you do a successful write, future reads will always take that write into account. Availability means that you can always read and write to the system. During a partition, you can only have one of these properties.
+ 
+Systems that choose consistency over availability have to deal with some awkward issues. What do you do when the database isn't available? You can try buffering writes for later, but you risk losing those writes if you lose the machine with the buffer. Also, buffering writes can be a form of inconsistency because a client thinks a write has succeeded but the write isn't in the database yet. Alternatively, you can return errors ba</p><p>6 0.075396717 <a title="2-tfidf-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
 <p>7 0.073585749 <a title="2-tfidf-7" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-12-Interview_with_%22Programmer_Magazine%22.html">39 nathan marz storm-2014-02-12-Interview with "Programmer Magazine"</a></p>
 <p>8 0.066994049 <a title="2-tfidf-8" href="../nathan_marz_storm-2012/nathan_marz_storm-2012-02-06-Suffering-oriented_programming.html">33 nathan marz storm-2012-02-06-Suffering-oriented programming</a></p>
 <p>9 0.06562148 <a title="2-tfidf-9" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-07-12-My_experience_as_the_first_employee_of_a_Y_Combinator_startup.html">19 nathan marz storm-2010-07-12-My experience as the first employee of a Y Combinator startup</a></p>
@@ -144,76 +107,46 @@ the cl</p><p>6 0.075396717 <a title="2-tfidf-6" href="../nathan_marz_storm-2010/
 <p>[(0, 0.258), (1, -0.228), (2, -0.012), (3, -0.006), (4, -0.08), (5, 0.252), (6, -0.192), (7, 0.109), (8, 0.008), (9, -0.1), (10, -0.075), (11, -0.061), (12, -0.171), (13, -0.306), (14, 0.083), (15, -0.131), (16, 0.052), (17, -0.099), (18, -0.045), (19, 0.046), (20, -0.264), (21, 0.162), (22, -0.107), (23, -0.046), (24, -0.07), (25, 0.137), (26, -0.454), (27, -0.199), (28, -0.118), (29, -0.142), (30, 0.369), (31, -0.062), (32, -0.028), (33, -0.008), (34, 0.151), (35, -0.001), (36, -0.021), (37, -0.043), (38, -0.017), (39, -0.003), (40, 0.009)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.98892713 <a title="2-lsi-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
-<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend
-checking out"7 Tips for Improving MapReduce Performance"for general MapReduce
-optimization tips.1. Filter data as early as possibleLess data equals less
-work. Sometimes you can easily filter data out early by moving filters earlier
-in your flow. Other times, it can be more complicated.One important use case
-that can be heavily optimized is querying a set of records for matches against
-a large set of keys - also known as abatch query. You can read more about the
-mechanics of batch querieshere. You can find the source code for batch
-queryinghere. The implementation utilizes a bloom filter to filter data out of
-the flow before using a join to complete the logic for the query.Another wide-
-range of use cases involves keeping data in memory within each task for
-querying. For example, let's say you have a bunch of key-value pairs in HDFS,
-and you want all the pairs where the keydoes notbelong in a separate list of
-30,000</p><p>2 0.20462583 <a title="2-lsi-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
-<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what
-kind of data you can put in it. A lot of people think that Hadoop is meant for
-unstructured data like log files. While Hadoop is great for log files, it's
-alsofantasticfor strongly typed, structured data.In this post I'll discuss how
-you can use a tool likeThriftto store strongly typed data in Hadoop while
-retaining the flexibility to evolve your schema. We'll look at graph-based
-schemas and see why they are an ideal fit for many Hadoop-based
-applications.OK, so what kind of "structured" data can you put in
-Hadoop?Anything! AtBackTypewe put data about news, conversations, and people
-into Hadoop as structured objects. You can easily push structured information
-about social graphs, financial information, or anything you want into Hadoop.
-That sounds all well and good, but why not just use JSON as the data
-format?JSON doesn't give you a real schema and doesn't protect against data
-inconsistency. For example, if you</p><p>3 0.17861535 <a title="2-lsi-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
-<p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful
-features: joins, aggregates, subqueries, custom operations, and more. Since
-Cascalog's release a couple weeks ago, I've added a number of new features to
-Cascalog that seriously increase the expressiveness and performance of the
-language without compromising its simplicity or flexibility.Like the first
-tutorial, go ahead and load up the playground by issuing the following
-commands:lein compile-java && lein compilelein repluser=> (use
-'cascalog.playground) (bootstrap)moreOuter joinsAs we saw in the first
-tutorial, you can join together multiple sources of data in Cascalog by using
-the same variable name in multiple sources of data. For example, given "age"
-and "gender" sources, we can get the age and gender for each person by
-running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
-?person ?gender))This is aninner join. We will only have results for people
-that appear in both sets of data. We</p><p>4 0.16932698 <a title="2-lsi-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
-<p>Introduction: I'm very excited to be releasingCascalogas open-source today. Cascalog is a
-Clojure-based query language for Hadoop inspired byDatalog.HighlightsSimple-
-Functions, filters, and aggregators all use the same syntax. Joins are
-implicit and natural.Expressive- Logical composition is very powerful, and you
-can run arbitrary Clojure code in your query with little effort.Interactive-
-Run queries from the Clojure REPL.Scalable- Cascalog queries run as a series
-of MapReduce jobs.Query anything- Query HDFS data, database data, and/or local
-data by making use of Cascading's "Tap" abstractionCareful handling of null
-values- Null values can make life difficult. Cascalog has a feature called
-"non-nullable variables" that makes dealing with nulls painless.First class
-interoperability with Cascading- Operations defined for Cascalog can be used
-in a Cascading flow and vice-versaFirst class interoperability with Clojure-
-Can use regular Clojure functions as operations or filters, and since Cascalog
-is a</p><p>5 0.15200113 <a title="2-lsi-5" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
-<p>Introduction: The CAP theorem states a database cannot guarantee consistency, availability,
-and partition-tolerance at the same time. But you can't sacrifice partition-
-tolerance (seehereandhere), so you must make a tradeoff between availability
-and consistency. Managing this tradeoff is a central focus of the NoSQL
-movement.Consistency means that after you do a successful write, future reads
-will always take that write into account. Availability means that you can
-always read and write to the system. During a partition, you can only have one
-of these properties.Systems that choose consistency over availability have to
-deal with some awkward issues. What do you do when the database isn't
-available? You can try buffering writes for later, but you risk losing those
-writes if you lose the machine with the buffer. Also, buffering writes can be
-a form of inconsistency because a client thinks a write has succeeded but the
-write isn't in the database yet. Alternatively, you can return errors back to
-the cl</p><p>6 0.12883222 <a title="2-lsi-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
+<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend checking out  "7 Tips for Improving MapReduce Performance"  for general MapReduce optimization tips.
+  1. Filter data as early as possible  
+Less data equals less work. Sometimes you can easily filter data out early by moving filters earlier in your flow. Other times, it can be more complicated.
+ 
+One important use case that can be heavily optimized is querying a set of records for matches against a large set of keys - also known as a  batch query . You can read more about the mechanics of batch queries  here . You can find the source code for batch querying  here . The implementation utilizes a bloom filter to filter data out of the flow before using a join to complete the logic for the query.
+ 
+Another wide-range of use cases involves keeping data in memory within each task for querying. For example, let's say you have a bunch of key-value pairs in HDFS, and you want all the pairs where the key  does not  belong</p><p>2 0.20462583 <a title="2-lsi-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
+<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what kind of data you can put in it. A lot of people think that Hadoop is meant for unstructured data like log files. While Hadoop is great for log files, it's also  fantastic  for strongly typed, structured data.
+ 
+In this post I'll discuss how you can use a tool like  Thrift  to store strongly typed data in Hadoop while retaining the flexibility to evolve your schema. We'll look at graph-based schemas and see why they are an ideal fit for many Hadoop-based applications.
+ 
+ OK, so what kind of "structured" data can you put in Hadoop? 
+ 
+Anything! At  BackType  we put data about news, conversations, and people into Hadoop as structured objects. You can easily push structured information about social graphs, financial information, or anything you want into Hadoop. Â  
+ 
+ That sounds all well and good, but why not just use JSON as the data format? 
+ 
+JSON doesn't give you a real schema and doesn't protect against data i</p><p>3 0.17861535 <a title="2-lsi-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
+<p>Introduction: In the  first tutorial  for  Cascalog , I showed off many of Cascalog's powerful features: joins, aggregates, subqueries, custom operations, and more. Since Cascalog's release a couple weeks ago, I've added a number of new features to Cascalog that seriously increase the expressiveness and performance of the language without compromising its simplicity or flexibility.
+ 
+Like the first tutorial, go ahead and load up the playground by issuing the following commands:
+  lein compile-java && lein compile lein repl user=> (use 'cascalog.playground) (bootstrap)     Outer joins  
+As we saw in the first tutorial, you can join together multiple sources of data in Cascalog by using the same variable name in multiple sources of data. For example, given "age" and "gender" sources, we can get the age and gender for each person by running:
+  user=> (?<- (stdout) [?person ?age ?gender]           (age ?person ?age) (gender ?person ?gender))   
+This is an  inner join . We will only have results for peop</p><p>4 0.16932698 <a title="2-lsi-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
+<p>Introduction: I'm very excited to be releasing  Cascalog  as open-source today. Cascalog is a Clojure-based query language for Hadoop inspired by  Datalog .
+  Highlights   
+  Simple  - Functions, filters, and aggregators all use the same syntax. Joins are implicit and natural. 
+  Expressive  - Logical composition is very powerful, and you can run arbitrary Clojure code in your query with little effort. 
+  Interactive  - Run queries from the Clojure REPL. 
+  Scalable  - Cascalog queries run as a series of MapReduce jobs. 
+  Query anything  - Query HDFS data, database data, and/or local data by making use of Cascading's "Tap" abstraction 
+  Careful handling of null values  - Null values can make life difficult. Cascalog has a feature called "non-nullable variables" that makes dealing with nulls painless. 
+  First class interoperability with Cascading  - Operations defined for Cascalog can be used in a Cascading flow and vice-versa 
+  First class interoperability with Clojure  - Can use regular Clojure</p><p>5 0.15200113 <a title="2-lsi-5" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
+<p>Introduction: The CAP theorem states a database cannot guarantee consistency, availability, and partition-tolerance at the same time. But you can't sacrifice partition-tolerance (see  here  and  here ), so you must make a tradeoff between availability and consistency. Managing this tradeoff is a central focus of the NoSQL movement.
+ 
+Consistency means that after you do a successful write, future reads will always take that write into account. Availability means that you can always read and write to the system. During a partition, you can only have one of these properties.
+ 
+Systems that choose consistency over availability have to deal with some awkward issues. What do you do when the database isn't available? You can try buffering writes for later, but you risk losing those writes if you lose the machine with the buffer. Also, buffering writes can be a form of inconsistency because a client thinks a write has succeeded but the write isn't in the database yet. Alternatively, you can return errors ba</p><p>6 0.12883222 <a title="2-lsi-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
 <p>7 0.10781195 <a title="2-lsi-7" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-12-Interview_with_%22Programmer_Magazine%22.html">39 nathan marz storm-2014-02-12-Interview with "Programmer Magazine"</a></p>
 <p>8 0.10597868 <a title="2-lsi-8" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-07-12-My_experience_as_the_first_employee_of_a_Y_Combinator_startup.html">19 nathan marz storm-2010-07-12-My experience as the first employee of a Y Combinator startup</a></p>
 <p>9 0.10263073 <a title="2-lsi-9" href="../nathan_marz_storm-2012/nathan_marz_storm-2012-02-06-Suffering-oriented_programming.html">33 nathan marz storm-2012-02-06-Suffering-oriented programming</a></p>
@@ -233,76 +166,46 @@ the cl</p><p>6 0.12883222 <a title="2-lsi-6" href="../nathan_marz_storm-2010/nat
 <p>[(0, 0.017), (5, 0.589), (10, 0.024), (26, 0.023), (41, 0.058), (59, 0.03), (68, 0.021), (76, 0.026), (78, 0.062), (82, 0.018), (84, 0.013), (88, 0.024)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.98691827 <a title="2-lda-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
-<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend
-checking out"7 Tips for Improving MapReduce Performance"for general MapReduce
-optimization tips.1. Filter data as early as possibleLess data equals less
-work. Sometimes you can easily filter data out early by moving filters earlier
-in your flow. Other times, it can be more complicated.One important use case
-that can be heavily optimized is querying a set of records for matches against
-a large set of keys - also known as abatch query. You can read more about the
-mechanics of batch querieshere. You can find the source code for batch
-queryinghere. The implementation utilizes a bloom filter to filter data out of
-the flow before using a join to complete the logic for the query.Another wide-
-range of use cases involves keeping data in memory within each task for
-querying. For example, let's say you have a bunch of key-value pairs in HDFS,
-and you want all the pairs where the keydoes notbelong in a separate list of
-30,000</p><p>2 0.3040531 <a title="2-lda-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
-<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what
-kind of data you can put in it. A lot of people think that Hadoop is meant for
-unstructured data like log files. While Hadoop is great for log files, it's
-alsofantasticfor strongly typed, structured data.In this post I'll discuss how
-you can use a tool likeThriftto store strongly typed data in Hadoop while
-retaining the flexibility to evolve your schema. We'll look at graph-based
-schemas and see why they are an ideal fit for many Hadoop-based
-applications.OK, so what kind of "structured" data can you put in
-Hadoop?Anything! AtBackTypewe put data about news, conversations, and people
-into Hadoop as structured objects. You can easily push structured information
-about social graphs, financial information, or anything you want into Hadoop.
-That sounds all well and good, but why not just use JSON as the data
-format?JSON doesn't give you a real schema and doesn't protect against data
-inconsistency. For example, if you</p><p>3 0.25352451 <a title="2-lda-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
-<p>Introduction: I'm very excited to be releasingCascalogas open-source today. Cascalog is a
-Clojure-based query language for Hadoop inspired byDatalog.HighlightsSimple-
-Functions, filters, and aggregators all use the same syntax. Joins are
-implicit and natural.Expressive- Logical composition is very powerful, and you
-can run arbitrary Clojure code in your query with little effort.Interactive-
-Run queries from the Clojure REPL.Scalable- Cascalog queries run as a series
-of MapReduce jobs.Query anything- Query HDFS data, database data, and/or local
-data by making use of Cascading's "Tap" abstractionCareful handling of null
-values- Null values can make life difficult. Cascalog has a feature called
-"non-nullable variables" that makes dealing with nulls painless.First class
-interoperability with Cascading- Operations defined for Cascalog can be used
-in a Cascading flow and vice-versaFirst class interoperability with Clojure-
-Can use regular Clojure functions as operations or filters, and since Cascalog
-is a</p><p>4 0.17943612 <a title="2-lda-4" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
-<p>Introduction: The CAP theorem states a database cannot guarantee consistency, availability,
-and partition-tolerance at the same time. But you can't sacrifice partition-
-tolerance (seehereandhere), so you must make a tradeoff between availability
-and consistency. Managing this tradeoff is a central focus of the NoSQL
-movement.Consistency means that after you do a successful write, future reads
-will always take that write into account. Availability means that you can
-always read and write to the system. During a partition, you can only have one
-of these properties.Systems that choose consistency over availability have to
-deal with some awkward issues. What do you do when the database isn't
-available? You can try buffering writes for later, but you risk losing those
-writes if you lose the machine with the buffer. Also, buffering writes can be
-a form of inconsistency because a client thinks a write has succeeded but the
-write isn't in the database yet. Alternatively, you can return errors back to
-the cl</p><p>5 0.1595148 <a title="2-lda-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
-<p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful
-features: joins, aggregates, subqueries, custom operations, and more. Since
-Cascalog's release a couple weeks ago, I've added a number of new features to
-Cascalog that seriously increase the expressiveness and performance of the
-language without compromising its simplicity or flexibility.Like the first
-tutorial, go ahead and load up the playground by issuing the following
-commands:lein compile-java && lein compilelein repluser=> (use
-'cascalog.playground) (bootstrap)moreOuter joinsAs we saw in the first
-tutorial, you can join together multiple sources of data in Cascalog by using
-the same variable name in multiple sources of data. For example, given "age"
-and "gender" sources, we can get the age and gender for each person by
-running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
-?person ?gender))This is aninner join. We will only have results for people
-that appear in both sets of data. We</p><p>6 0.14879657 <a title="2-lda-6" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-12-Interview_with_%22Programmer_Magazine%22.html">39 nathan marz storm-2014-02-12-Interview with "Programmer Magazine"</a></p>
+<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend checking out  "7 Tips for Improving MapReduce Performance"  for general MapReduce optimization tips.
+  1. Filter data as early as possible  
+Less data equals less work. Sometimes you can easily filter data out early by moving filters earlier in your flow. Other times, it can be more complicated.
+ 
+One important use case that can be heavily optimized is querying a set of records for matches against a large set of keys - also known as a  batch query . You can read more about the mechanics of batch queries  here . You can find the source code for batch querying  here . The implementation utilizes a bloom filter to filter data out of the flow before using a join to complete the logic for the query.
+ 
+Another wide-range of use cases involves keeping data in memory within each task for querying. For example, let's say you have a bunch of key-value pairs in HDFS, and you want all the pairs where the key  does not  belong</p><p>2 0.3040531 <a title="2-lda-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
+<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what kind of data you can put in it. A lot of people think that Hadoop is meant for unstructured data like log files. While Hadoop is great for log files, it's also  fantastic  for strongly typed, structured data.
+ 
+In this post I'll discuss how you can use a tool like  Thrift  to store strongly typed data in Hadoop while retaining the flexibility to evolve your schema. We'll look at graph-based schemas and see why they are an ideal fit for many Hadoop-based applications.
+ 
+ OK, so what kind of "structured" data can you put in Hadoop? 
+ 
+Anything! At  BackType  we put data about news, conversations, and people into Hadoop as structured objects. You can easily push structured information about social graphs, financial information, or anything you want into Hadoop. Â  
+ 
+ That sounds all well and good, but why not just use JSON as the data format? 
+ 
+JSON doesn't give you a real schema and doesn't protect against data i</p><p>3 0.25352451 <a title="2-lda-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
+<p>Introduction: I'm very excited to be releasing  Cascalog  as open-source today. Cascalog is a Clojure-based query language for Hadoop inspired by  Datalog .
+  Highlights   
+  Simple  - Functions, filters, and aggregators all use the same syntax. Joins are implicit and natural. 
+  Expressive  - Logical composition is very powerful, and you can run arbitrary Clojure code in your query with little effort. 
+  Interactive  - Run queries from the Clojure REPL. 
+  Scalable  - Cascalog queries run as a series of MapReduce jobs. 
+  Query anything  - Query HDFS data, database data, and/or local data by making use of Cascading's "Tap" abstraction 
+  Careful handling of null values  - Null values can make life difficult. Cascalog has a feature called "non-nullable variables" that makes dealing with nulls painless. 
+  First class interoperability with Cascading  - Operations defined for Cascalog can be used in a Cascading flow and vice-versa 
+  First class interoperability with Clojure  - Can use regular Clojure</p><p>4 0.17943612 <a title="2-lda-4" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
+<p>Introduction: The CAP theorem states a database cannot guarantee consistency, availability, and partition-tolerance at the same time. But you can't sacrifice partition-tolerance (see  here  and  here ), so you must make a tradeoff between availability and consistency. Managing this tradeoff is a central focus of the NoSQL movement.
+ 
+Consistency means that after you do a successful write, future reads will always take that write into account. Availability means that you can always read and write to the system. During a partition, you can only have one of these properties.
+ 
+Systems that choose consistency over availability have to deal with some awkward issues. What do you do when the database isn't available? You can try buffering writes for later, but you risk losing those writes if you lose the machine with the buffer. Also, buffering writes can be a form of inconsistency because a client thinks a write has succeeded but the write isn't in the database yet. Alternatively, you can return errors ba</p><p>5 0.1595148 <a title="2-lda-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
+<p>Introduction: In the  first tutorial  for  Cascalog , I showed off many of Cascalog's powerful features: joins, aggregates, subqueries, custom operations, and more. Since Cascalog's release a couple weeks ago, I've added a number of new features to Cascalog that seriously increase the expressiveness and performance of the language without compromising its simplicity or flexibility.
+ 
+Like the first tutorial, go ahead and load up the playground by issuing the following commands:
+  lein compile-java && lein compile lein repl user=> (use 'cascalog.playground) (bootstrap)     Outer joins  
+As we saw in the first tutorial, you can join together multiple sources of data in Cascalog by using the same variable name in multiple sources of data. For example, given "age" and "gender" sources, we can get the age and gender for each person by running:
+  user=> (?<- (stdout) [?person ?age ?gender]           (age ?person ?age) (gender ?person ?gender))   
+This is an  inner join . We will only have results for peop</p><p>6 0.14879657 <a title="2-lda-6" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-12-Interview_with_%22Programmer_Magazine%22.html">39 nathan marz storm-2014-02-12-Interview with "Programmer Magazine"</a></p>
 <p>7 0.14380723 <a title="2-lda-7" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-06-16-Your_company_has_a_knowledge_debt_problem.html">18 nathan marz storm-2010-06-16-Your company has a knowledge debt problem</a></p>
 <p>8 0.14259055 <a title="2-lda-8" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-08-Follow-up_to_%22The_mathematics_behind_Hadoop-based_systems%22.html">8 nathan marz storm-2010-03-08-Follow-up to "The mathematics behind Hadoop-based systems"</a></p>
 <p>9 0.12875773 <a title="2-lda-9" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-07-12-My_experience_as_the_first_employee_of_a_Y_Combinator_startup.html">19 nathan marz storm-2010-07-12-My experience as the first employee of a Y Combinator startup</a></p>

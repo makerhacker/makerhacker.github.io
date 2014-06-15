@@ -16,103 +16,71 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="nathan_marz_storm-2010-14-html" href="http://nathanmarz.com//blog/new-cascalog-features-outer-joins-combiners-sorting-and-more.html">html</a></p><p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful
-features: joins, aggregates, subqueries, custom operations, and more. Since
-Cascalog's release a couple weeks ago, I've added a number of new features to
-Cascalog that seriously increase the expressiveness and performance of the
-language without compromising its simplicity or flexibility.Like the first
-tutorial, go ahead and load up the playground by issuing the following
-commands:lein compile-java && lein compilelein repluser=> (use
-'cascalog.playground) (bootstrap)moreOuter joinsAs we saw in the first
-tutorial, you can join together multiple sources of data in Cascalog by using
-the same variable name in multiple sources of data. For example, given "age"
-and "gender" sources, we can get the age and gender for each person by
-running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
-?person ?gender))This is aninner join. We will only have results for people
-that appear in both sets of data. We</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 For example, given "age" and "gender" sources, we can get the age and gender for each person by running:user=> (? [sent-5, score-0.722]
-</p><p>2 A predicate that contains an ungrounding variable is called an "unground predicate", and a predicate that does not contain an ungrounding variable is called a "ground predicate". [sent-32, score-1.026]
-</p><p>3 Joining together two unground predicates results in a full outer join, while joining a ground predicate to an unground predicate results in a left join. [sent-33, score-0.957]
-</p><p>4 To get all the follow relationships for each person in our dataset, or null if the person has no follow relationships, we run:user=> (? [sent-35, score-0.598]
-</p><p>5 Now let's say we want the follows count for each person. [sent-59, score-0.424]
-</p><p>6 A normal "count" aggregation won't work because it counts the number of tuples and doesn't distinguish between null and non-null follows. [sent-60, score-0.332]
-</p><p>7 In this case, we want null follows to be counted as 0 and non-null follows to be counted as 1. [sent-61, score-0.624]
-</p><p>8 count))People that don't have a follows relationship will have a count of 0. [sent-74, score-0.424]
-</p><p>9 An ungrounding variable may only appear within a query one time. [sent-75, score-0.364]
-</p><p>10 Combiners and "Parallel Aggregators"A regular aggregator transfers all tuples for a group to a single machine and computes the aggregation in a single pass over the data. [sent-77, score-0.373]
-</p><p>11 For example, to compute "sum", you can split the tuples into subsets, compute the sum of each subset, and then sum the sums together to get your final answer. [sent-79, score-0.605]
-</p><p>12 There are many other aggregators that can be computed this way, such as min, max, and count. [sent-80, score-0.251]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="nathan_marz_storm-2010-14-html" href="http://nathanmarz.com//blog/new-cascalog-features-outer-joins-combiners-sorting-and-more.html">html</a></p><p>Introduction: In the  first tutorial  for  Cascalog , I showed off many of Cascalog's powerful features: joins, aggregates, subqueries, custom operations, and more. Since Cascalog's release a couple weeks ago, I've added a number of new features to Cascalog that seriously increase the expressiveness and performance of the language without compromising its simplicity or flexibility.
+ 
+Like the first tutorial, go ahead and load up the playground by issuing the following commands:
+  lein compile-java && lein compile lein repl user=> (use 'cascalog.playground) (bootstrap)     Outer joins  
+As we saw in the first tutorial, you can join together multiple sources of data in Cascalog by using the same variable name in multiple sources of data. For example, given "age" and "gender" sources, we can get the age and gender for each person by running:
+  user=> (?<- (stdout) [?person ?age ?gender]           (age ?person ?age) (gender ?person ?gender))   
+This is an  inner join . We will only have results for peop</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 playground) (bootstrap)     Outer joins   As we saw in the first tutorial, you can join together multiple sources of data in Cascalog by using the same variable name in multiple sources of data. [sent-4, score-0.304]
+</p><p>2 For example, given "age" and "gender" sources, we can get the age and gender for each person by running:   user=> (? [sent-5, score-0.722]
+</p><p>3 A predicate that contains an ungrounding variable is called an "unground predicate", and a predicate that does not contain an ungrounding variable is called a "ground predicate". [sent-32, score-1.026]
+</p><p>4 Joining together two unground predicates results in a full outer join, while joining a ground predicate to an unground predicate results in a left join. [sent-33, score-0.957]
+</p><p>5 To get all the follow relationships for each person in our dataset, or null if the person has no follow relationships, we run:   user=> (? [sent-35, score-0.598]
+</p><p>6 Now let's say we want the follows count for each person. [sent-59, score-0.424]
+</p><p>7 A normal "count" aggregation won't work because it counts the number of tuples and doesn't distinguish between null and non-null follows. [sent-60, score-0.332]
+</p><p>8 In this case, we want null follows to be counted as 0 and non-null follows to be counted as 1. [sent-61, score-0.624]
+</p><p>9 count))    People that don't have a follows relationship will have a count of 0. [sent-74, score-0.424]
+</p><p>10 An ungrounding variable may only appear within a query one time. [sent-75, score-0.364]
+</p><p>11 Combiners and "Parallel Aggregators"   A regular aggregator transfers all tuples for a group to a single machine and computes the aggregation in a single pass over the data. [sent-77, score-0.373]
+</p><p>12 For example, to compute "sum", you can split the tuples into subsets, compute the sum of each subset, and then sum the sums together to get your final answer. [sent-79, score-0.605]
 </p><p>13 Cascalog is even able to insert combiners when you use multiple parallel aggregators, such as both a count and a sum. [sent-83, score-0.596]
-</p><p>14 If you try to use a parallel aggregator with a regular aggregator defined using defaggregateop or defbufferop, Cascalog will be unable to insert combiners and all the aggregation will happen in the reduce task. [sent-92, score-0.783]
-</p><p>15 For example, the next query that makes use of a custom aggregator will do all the aggregation in the reduce phase:user=> (defaggregateop product([] 1)([total val] (* total val))([total] [total]))user=> (? [sent-93, score-0.426]
-</p><p>16 Implicit equality constraintsThe "implicit equality constraints" feature is a neat way to specify equality constraints. [sent-104, score-0.275]
-</p><p>17 n variable and will automatically filter out tuples where the output of the * predicate is not equal to the input. [sent-114, score-0.437]
-</p><p>18 For example, let's find the youngest person each person follows:user=> (defbufferop first-tuple [tuples] (take 1 tuples))user=> (? [sent-130, score-0.687]
-</p><p>19 youngest))To find the oldest person each person follows, we simply add a :reverse predicate:user=> (? [sent-140, score-0.524]
-</p><p>20 youngest))Duplicate eliminationIf your query doesn't have any aggregators, Cascalog will by default insert a reduce step to remove all duplicate tuples from your output. [sent-150, score-0.491]
+</p><p>14 If you try to use a parallel aggregator with a regular aggregator defined using defaggregateop or defbufferop,  Cascalog will be unable to insert combiners and all the aggregation will happen in the reduce task. [sent-92, score-0.783]
+</p><p>15 For example, the next query that makes use of a custom aggregator will do all the aggregation in the reduce phase:   user=> (defaggregateop product          ([] 1)          ([total val] (* total val))          ([total] [total])) user=> (? [sent-93, score-0.426]
+</p><p>16 n variable and will automatically filter out tuples where the output of the * predicate is not equal to the input. [sent-114, score-0.437]
+</p><p>17 Sorting   By default, aggregators receive tuples in some arbitrary order. [sent-128, score-0.338]
+</p><p>18 For example, let's find the youngest person each person follows:   user=> (defbufferop first-tuple [tuples] (take 1 tuples)) user=> (? [sent-130, score-0.687]
+</p><p>19 youngest))    To find the oldest person each person follows, we simply add a :reverse predicate:   user=> (? [sent-140, score-0.524]
+</p><p>20 youngest))    Duplicate elimination   If your query doesn't have any aggregators, Cascalog will by default insert a reduce step to remove all duplicate tuples from your output. [sent-150, score-0.491]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
 <p>[('stdout', 0.322), ('age', 0.296), ('person', 0.262), ('user', 0.23), ('follows', 0.222), ('cascalog', 0.222), ('predicate', 0.207), ('count', 0.202), ('aggregators', 0.186), ('gender', 0.164), ('combiners', 0.163), ('ungrounding', 0.163), ('youngest', 0.163), ('tuples', 0.152), ('sum', 0.138), ('parallel', 0.133), ('query', 0.123), ('aggregator', 0.115), ('aggregation', 0.106), ('outer', 0.106), ('insert', 0.098), ('unground', 0.098), ('integer', 0.092), ('total', 0.082), ('aggregations', 0.08), ('ground', 0.08), ('reverse', 0.08), ('variable', 0.078), ('null', 0.074), ('equality', 0.069), ('feature', 0.068), ('computed', 0.065), ('duplicate', 0.065), ('prod', 0.065), ('val', 0.065), ('called', 0.065), ('variables', 0.062), ('joins', 0.061), ('compute', 0.061), ('sort', 0.061), ('together', 0.055), ('sources', 0.055), ('example', 0.054), ('run', 0.053), ('results', 0.053), ('default', 0.053), ('nil', 0.053), ('counted', 0.053), ('defaggregateop', 0.053), ('max', 0.053)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 1.000001 <a title="14-tfidf-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
-<p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful
-features: joins, aggregates, subqueries, custom operations, and more. Since
-Cascalog's release a couple weeks ago, I've added a number of new features to
-Cascalog that seriously increase the expressiveness and performance of the
-language without compromising its simplicity or flexibility.Like the first
-tutorial, go ahead and load up the playground by issuing the following
-commands:lein compile-java && lein compilelein repluser=> (use
-'cascalog.playground) (bootstrap)moreOuter joinsAs we saw in the first
-tutorial, you can join together multiple sources of data in Cascalog by using
-the same variable name in multiple sources of data. For example, given "age"
-and "gender" sources, we can get the age and gender for each person by
-running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
-?person ?gender))This is aninner join. We will only have results for people
-that appear in both sets of data. We</p><p>2 0.64353138 <a title="14-tfidf-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
-<p>Introduction: I'm very excited to be releasingCascalogas open-source today. Cascalog is a
-Clojure-based query language for Hadoop inspired byDatalog.HighlightsSimple-
-Functions, filters, and aggregators all use the same syntax. Joins are
-implicit and natural.Expressive- Logical composition is very powerful, and you
-can run arbitrary Clojure code in your query with little effort.Interactive-
-Run queries from the Clojure REPL.Scalable- Cascalog queries run as a series
-of MapReduce jobs.Query anything- Query HDFS data, database data, and/or local
-data by making use of Cascading's "Tap" abstractionCareful handling of null
-values- Null values can make life difficult. Cascalog has a feature called
-"non-nullable variables" that makes dealing with nulls painless.First class
-interoperability with Cascading- Operations defined for Cascalog can be used
-in a Cascading flow and vice-versaFirst class interoperability with Clojure-
-Can use regular Clojure functions as operations or filters, and since Cascalog
-is a</p><p>3 0.17352238 <a title="14-tfidf-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
-<p>Introduction: In this tutorial forCascalog, we are going to create part of the back-end for
-a simplified version of a Facebook-like news feed. In doing so we are going to
-walk through an end-to-end example of running Cascalog on a production
-cluster. If you're new to Cascalog, you should first look at the introductory
-tutorialshereandhere.The code and sample data for the example presented in
-this tutorial can be found onGithub.Problem descriptionA news feed ranks
-events happening in your social network. Our program will take as input two
-sources of data. The first is "follows" relationships which are stored in text
-format:nathan bobchris mikemike chrismichelle nathanFollows relationships are
-2-tuples of (username, username) with fields separated by whitespace.Our
-second source of data is "action" data which is also stored in text
-format:nathan status=good 1273094927000nathan birthday 1273026922000david
-newjob 1273096922000david travelling 1273094927000bob status=tired
-1273026922000dan basketball-cap</p><p>4 0.15300345 <a title="14-tfidf-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
-<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend
-checking out"7 Tips for Improving MapReduce Performance"for general MapReduce
-optimization tips.1. Filter data as early as possibleLess data equals less
-work. Sometimes you can easily filter data out early by moving filters earlier
-in your flow. Other times, it can be more complicated.One important use case
-that can be heavily optimized is querying a set of records for matches against
-a large set of keys - also known as abatch query. You can read more about the
-mechanics of batch querieshere. You can find the source code for batch
-queryinghere. The implementation utilizes a bloom filter to filter data out of
-the flow before using a join to complete the logic for the query.Another wide-
-range of use cases involves keeping data in memory within each task for
-querying. For example, let's say you have a bunch of key-value pairs in HDFS,
-and you want all the pairs where the keydoes notbelong in a separate list of
-30,000</p><p>5 0.14952071 <a title="14-tfidf-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-07-Cascalog_Presentation_at_Bay_Area_Clojure_User_Group.html">15 nathan marz storm-2010-05-07-Cascalog Presentation at Bay Area Clojure User Group</a></p>
-<p>Introduction: Here are the slides from my presentation about Cascalog at the Bay Area
-Clojure User Group last night:</p><p>6 0.14204553 <a title="14-tfidf-6" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-01-11-Cascalog_workshop.html">28 nathan marz storm-2011-01-11-Cascalog workshop</a></p>
+<p>Introduction: In the  first tutorial  for  Cascalog , I showed off many of Cascalog's powerful features: joins, aggregates, subqueries, custom operations, and more. Since Cascalog's release a couple weeks ago, I've added a number of new features to Cascalog that seriously increase the expressiveness and performance of the language without compromising its simplicity or flexibility.
+ 
+Like the first tutorial, go ahead and load up the playground by issuing the following commands:
+  lein compile-java && lein compile lein repl user=> (use 'cascalog.playground) (bootstrap)     Outer joins  
+As we saw in the first tutorial, you can join together multiple sources of data in Cascalog by using the same variable name in multiple sources of data. For example, given "age" and "gender" sources, we can get the age and gender for each person by running:
+  user=> (?<- (stdout) [?person ?age ?gender]           (age ?person ?age) (gender ?person ?gender))   
+This is an  inner join . We will only have results for peop</p><p>2 0.64353138 <a title="14-tfidf-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
+<p>Introduction: I'm very excited to be releasing  Cascalog  as open-source today. Cascalog is a Clojure-based query language for Hadoop inspired by  Datalog .
+  Highlights   
+  Simple  - Functions, filters, and aggregators all use the same syntax. Joins are implicit and natural. 
+  Expressive  - Logical composition is very powerful, and you can run arbitrary Clojure code in your query with little effort. 
+  Interactive  - Run queries from the Clojure REPL. 
+  Scalable  - Cascalog queries run as a series of MapReduce jobs. 
+  Query anything  - Query HDFS data, database data, and/or local data by making use of Cascading's "Tap" abstraction 
+  Careful handling of null values  - Null values can make life difficult. Cascalog has a feature called "non-nullable variables" that makes dealing with nulls painless. 
+  First class interoperability with Cascading  - Operations defined for Cascalog can be used in a Cascading flow and vice-versa 
+  First class interoperability with Clojure  - Can use regular Clojure</p><p>3 0.17352238 <a title="14-tfidf-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
+<p>Introduction: In this tutorial for  Cascalog , we are going to create part of the back-end for a simplified version of a Facebook-like news feed. In doing so we are going to walk through an end-to-end example of running Cascalog on a production cluster. If you're new to Cascalog, you should first look at the introductory tutorials  here  and  here .  The code and sample data for the example presented in this tutorial can be found on  Github .
+  Problem description  
+A news feed ranks events happening in your social network. Our program will take as input two sources of data. The first is "follows" relationships which are stored in text format:
+  nathan bob chris mike mike chris michelle nathan   
+Follows relationships are 2-tuples of (username, username) with fields separated by whitespace.
+ 
+Our second source of data is "action" data which is also stored in text format:
+  nathan status=good 1273094927000 nathan birthday  1273026922000 david newjob 1273096922000 david travelling 1273094927000 bob st</p><p>4 0.15300345 <a title="14-tfidf-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
+<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend checking out  "7 Tips for Improving MapReduce Performance"  for general MapReduce optimization tips.
+  1. Filter data as early as possible  
+Less data equals less work. Sometimes you can easily filter data out early by moving filters earlier in your flow. Other times, it can be more complicated.
+ 
+One important use case that can be heavily optimized is querying a set of records for matches against a large set of keys - also known as a  batch query . You can read more about the mechanics of batch queries  here . You can find the source code for batch querying  here . The implementation utilizes a bloom filter to filter data out of the flow before using a join to complete the logic for the query.
+ 
+Another wide-range of use cases involves keeping data in memory within each task for querying. For example, let's say you have a bunch of key-value pairs in HDFS, and you want all the pairs where the key  does not  belong</p><p>5 0.14952071 <a title="14-tfidf-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-07-Cascalog_Presentation_at_Bay_Area_Clojure_User_Group.html">15 nathan marz storm-2010-05-07-Cascalog Presentation at Bay Area Clojure User Group</a></p>
+<p>Introduction: Here are the slides from my presentation about Cascalog at the Bay Area Clojure User Group last night:</p><p>6 0.14204553 <a title="14-tfidf-6" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-01-11-Cascalog_workshop.html">28 nathan marz storm-2011-01-11-Cascalog workshop</a></p>
 <p>7 0.12261044 <a title="14-tfidf-7" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
 <p>8 0.068816535 <a title="14-tfidf-8" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
 <p>9 0.064626597 <a title="14-tfidf-9" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-10-Fun_with_equality_in_Clojure.html">12 nathan marz storm-2010-04-10-Fun with equality in Clojure</a></p>
@@ -132,76 +100,49 @@ Clojure User Group last night:</p><p>6 0.14204553 <a title="14-tfidf-6" href="..
 <p>[(0, 0.332), (1, -0.727), (2, -0.154), (3, -0.111), (4, -0.044), (5, 0.005), (6, 0.022), (7, -0.026), (8, 0.049), (9, 0.003), (10, -0.025), (11, 0.017), (12, -0.051), (13, 0.071), (14, 0.022), (15, -0.018), (16, -0.005), (17, 0.068), (18, 0.209), (19, -0.027), (20, -0.023), (21, -0.07), (22, -0.03), (23, -0.009), (24, 0.055), (25, -0.05), (26, -0.072), (27, 0.243), (28, 0.082), (29, 0.071), (30, -0.069), (31, -0.029), (32, 0.005), (33, 0.049), (34, 0.017), (35, 0.005), (36, -0.041), (37, 0.009), (38, 0.028), (39, -0.023), (40, -0.402)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99241471 <a title="14-lsi-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
-<p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful
-features: joins, aggregates, subqueries, custom operations, and more. Since
-Cascalog's release a couple weeks ago, I've added a number of new features to
-Cascalog that seriously increase the expressiveness and performance of the
-language without compromising its simplicity or flexibility.Like the first
-tutorial, go ahead and load up the playground by issuing the following
-commands:lein compile-java && lein compilelein repluser=> (use
-'cascalog.playground) (bootstrap)moreOuter joinsAs we saw in the first
-tutorial, you can join together multiple sources of data in Cascalog by using
-the same variable name in multiple sources of data. For example, given "age"
-and "gender" sources, we can get the age and gender for each person by
-running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
-?person ?gender))This is aninner join. We will only have results for people
-that appear in both sets of data. We</p><p>2 0.67548144 <a title="14-lsi-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
-<p>Introduction: I'm very excited to be releasingCascalogas open-source today. Cascalog is a
-Clojure-based query language for Hadoop inspired byDatalog.HighlightsSimple-
-Functions, filters, and aggregators all use the same syntax. Joins are
-implicit and natural.Expressive- Logical composition is very powerful, and you
-can run arbitrary Clojure code in your query with little effort.Interactive-
-Run queries from the Clojure REPL.Scalable- Cascalog queries run as a series
-of MapReduce jobs.Query anything- Query HDFS data, database data, and/or local
-data by making use of Cascading's "Tap" abstractionCareful handling of null
-values- Null values can make life difficult. Cascalog has a feature called
-"non-nullable variables" that makes dealing with nulls painless.First class
-interoperability with Cascading- Operations defined for Cascalog can be used
-in a Cascading flow and vice-versaFirst class interoperability with Clojure-
-Can use regular Clojure functions as operations or filters, and since Cascalog
-is a</p><p>3 0.24501231 <a title="14-lsi-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
-<p>Introduction: In this tutorial forCascalog, we are going to create part of the back-end for
-a simplified version of a Facebook-like news feed. In doing so we are going to
-walk through an end-to-end example of running Cascalog on a production
-cluster. If you're new to Cascalog, you should first look at the introductory
-tutorialshereandhere.The code and sample data for the example presented in
-this tutorial can be found onGithub.Problem descriptionA news feed ranks
-events happening in your social network. Our program will take as input two
-sources of data. The first is "follows" relationships which are stored in text
-format:nathan bobchris mikemike chrismichelle nathanFollows relationships are
-2-tuples of (username, username) with fields separated by whitespace.Our
-second source of data is "action" data which is also stored in text
-format:nathan status=good 1273094927000nathan birthday 1273026922000david
-newjob 1273096922000david travelling 1273094927000bob status=tired
-1273026922000dan basketball-cap</p><p>4 0.20224425 <a title="14-lsi-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
-<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend
-checking out"7 Tips for Improving MapReduce Performance"for general MapReduce
-optimization tips.1. Filter data as early as possibleLess data equals less
-work. Sometimes you can easily filter data out early by moving filters earlier
-in your flow. Other times, it can be more complicated.One important use case
-that can be heavily optimized is querying a set of records for matches against
-a large set of keys - also known as abatch query. You can read more about the
-mechanics of batch querieshere. You can find the source code for batch
-queryinghere. The implementation utilizes a bloom filter to filter data out of
-the flow before using a join to complete the logic for the query.Another wide-
-range of use cases involves keeping data in memory within each task for
-querying. For example, let's say you have a bunch of key-value pairs in HDFS,
-and you want all the pairs where the keydoes notbelong in a separate list of
-30,000</p><p>5 0.19767882 <a title="14-lsi-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
-<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what
-kind of data you can put in it. A lot of people think that Hadoop is meant for
-unstructured data like log files. While Hadoop is great for log files, it's
-alsofantasticfor strongly typed, structured data.In this post I'll discuss how
-you can use a tool likeThriftto store strongly typed data in Hadoop while
-retaining the flexibility to evolve your schema. We'll look at graph-based
-schemas and see why they are an ideal fit for many Hadoop-based
-applications.OK, so what kind of "structured" data can you put in
-Hadoop?Anything! AtBackTypewe put data about news, conversations, and people
-into Hadoop as structured objects. You can easily push structured information
-about social graphs, financial information, or anything you want into Hadoop.
-That sounds all well and good, but why not just use JSON as the data
-format?JSON doesn't give you a real schema and doesn't protect against data
-inconsistency. For example, if you</p><p>6 0.16918907 <a title="14-lsi-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-07-Cascalog_Presentation_at_Bay_Area_Clojure_User_Group.html">15 nathan marz storm-2010-05-07-Cascalog Presentation at Bay Area Clojure User Group</a></p>
+<p>Introduction: In the  first tutorial  for  Cascalog , I showed off many of Cascalog's powerful features: joins, aggregates, subqueries, custom operations, and more. Since Cascalog's release a couple weeks ago, I've added a number of new features to Cascalog that seriously increase the expressiveness and performance of the language without compromising its simplicity or flexibility.
+ 
+Like the first tutorial, go ahead and load up the playground by issuing the following commands:
+  lein compile-java && lein compile lein repl user=> (use 'cascalog.playground) (bootstrap)     Outer joins  
+As we saw in the first tutorial, you can join together multiple sources of data in Cascalog by using the same variable name in multiple sources of data. For example, given "age" and "gender" sources, we can get the age and gender for each person by running:
+  user=> (?<- (stdout) [?person ?age ?gender]           (age ?person ?age) (gender ?person ?gender))   
+This is an  inner join . We will only have results for peop</p><p>2 0.67548144 <a title="14-lsi-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
+<p>Introduction: I'm very excited to be releasing  Cascalog  as open-source today. Cascalog is a Clojure-based query language for Hadoop inspired by  Datalog .
+  Highlights   
+  Simple  - Functions, filters, and aggregators all use the same syntax. Joins are implicit and natural. 
+  Expressive  - Logical composition is very powerful, and you can run arbitrary Clojure code in your query with little effort. 
+  Interactive  - Run queries from the Clojure REPL. 
+  Scalable  - Cascalog queries run as a series of MapReduce jobs. 
+  Query anything  - Query HDFS data, database data, and/or local data by making use of Cascading's "Tap" abstraction 
+  Careful handling of null values  - Null values can make life difficult. Cascalog has a feature called "non-nullable variables" that makes dealing with nulls painless. 
+  First class interoperability with Cascading  - Operations defined for Cascalog can be used in a Cascading flow and vice-versa 
+  First class interoperability with Clojure  - Can use regular Clojure</p><p>3 0.24501231 <a title="14-lsi-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
+<p>Introduction: In this tutorial for  Cascalog , we are going to create part of the back-end for a simplified version of a Facebook-like news feed. In doing so we are going to walk through an end-to-end example of running Cascalog on a production cluster. If you're new to Cascalog, you should first look at the introductory tutorials  here  and  here .  The code and sample data for the example presented in this tutorial can be found on  Github .
+  Problem description  
+A news feed ranks events happening in your social network. Our program will take as input two sources of data. The first is "follows" relationships which are stored in text format:
+  nathan bob chris mike mike chris michelle nathan   
+Follows relationships are 2-tuples of (username, username) with fields separated by whitespace.
+ 
+Our second source of data is "action" data which is also stored in text format:
+  nathan status=good 1273094927000 nathan birthday  1273026922000 david newjob 1273096922000 david travelling 1273094927000 bob st</p><p>4 0.20224425 <a title="14-lsi-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
+<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend checking out  "7 Tips for Improving MapReduce Performance"  for general MapReduce optimization tips.
+  1. Filter data as early as possible  
+Less data equals less work. Sometimes you can easily filter data out early by moving filters earlier in your flow. Other times, it can be more complicated.
+ 
+One important use case that can be heavily optimized is querying a set of records for matches against a large set of keys - also known as a  batch query . You can read more about the mechanics of batch queries  here . You can find the source code for batch querying  here . The implementation utilizes a bloom filter to filter data out of the flow before using a join to complete the logic for the query.
+ 
+Another wide-range of use cases involves keeping data in memory within each task for querying. For example, let's say you have a bunch of key-value pairs in HDFS, and you want all the pairs where the key  does not  belong</p><p>5 0.19767882 <a title="14-lsi-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
+<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what kind of data you can put in it. A lot of people think that Hadoop is meant for unstructured data like log files. While Hadoop is great for log files, it's also  fantastic  for strongly typed, structured data.
+ 
+In this post I'll discuss how you can use a tool like  Thrift  to store strongly typed data in Hadoop while retaining the flexibility to evolve your schema. We'll look at graph-based schemas and see why they are an ideal fit for many Hadoop-based applications.
+ 
+ OK, so what kind of "structured" data can you put in Hadoop? 
+ 
+Anything! At  BackType  we put data about news, conversations, and people into Hadoop as structured objects. You can easily push structured information about social graphs, financial information, or anything you want into Hadoop. Â  
+ 
+ That sounds all well and good, but why not just use JSON as the data format? 
+ 
+JSON doesn't give you a real schema and doesn't protect against data i</p><p>6 0.16918907 <a title="14-lsi-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-07-Cascalog_Presentation_at_Bay_Area_Clojure_User_Group.html">15 nathan marz storm-2010-05-07-Cascalog Presentation at Bay Area Clojure User Group</a></p>
 <p>7 0.16429493 <a title="14-lsi-7" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-01-11-Cascalog_workshop.html">28 nathan marz storm-2011-01-11-Cascalog workshop</a></p>
 <p>8 0.10691191 <a title="14-lsi-8" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-10-Fun_with_equality_in_Clojure.html">12 nathan marz storm-2010-04-10-Fun with equality in Clojure</a></p>
 <p>9 0.089789294 <a title="14-lsi-9" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
@@ -221,76 +162,49 @@ inconsistency. For example, if you</p><p>6 0.16918907 <a title="14-lsi-6" href="
 <p>[(0, 0.013), (5, 0.018), (10, 0.013), (26, 0.014), (33, 0.053), (41, 0.025), (59, 0.065), (68, 0.032), (76, 0.01), (78, 0.644), (88, 0.014)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99402905 <a title="14-lda-1" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-27-New_Cascalog_features%3A_outer_joins%2C_combiners%2C_sorting%2C_and_more.html">14 nathan marz storm-2010-04-27-New Cascalog features: outer joins, combiners, sorting, and more</a></p>
-<p>Introduction: In thefirst tutorialforCascalog, I showed off many of Cascalog's powerful
-features: joins, aggregates, subqueries, custom operations, and more. Since
-Cascalog's release a couple weeks ago, I've added a number of new features to
-Cascalog that seriously increase the expressiveness and performance of the
-language without compromising its simplicity or flexibility.Like the first
-tutorial, go ahead and load up the playground by issuing the following
-commands:lein compile-java && lein compilelein repluser=> (use
-'cascalog.playground) (bootstrap)moreOuter joinsAs we saw in the first
-tutorial, you can join together multiple sources of data in Cascalog by using
-the same variable name in multiple sources of data. For example, given "age"
-and "gender" sources, we can get the age and gender for each person by
-running:user=> (?<\- (stdout) [?person ?age ?gender](age ?person ?age) (gender
-?person ?gender))This is aninner join. We will only have results for people
-that appear in both sets of data. We</p><p>2 0.8682918 <a title="14-lda-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
-<p>Introduction: I'm very excited to be releasingCascalogas open-source today. Cascalog is a
-Clojure-based query language for Hadoop inspired byDatalog.HighlightsSimple-
-Functions, filters, and aggregators all use the same syntax. Joins are
-implicit and natural.Expressive- Logical composition is very powerful, and you
-can run arbitrary Clojure code in your query with little effort.Interactive-
-Run queries from the Clojure REPL.Scalable- Cascalog queries run as a series
-of MapReduce jobs.Query anything- Query HDFS data, database data, and/or local
-data by making use of Cascading's "Tap" abstractionCareful handling of null
-values- Null values can make life difficult. Cascalog has a feature called
-"non-nullable variables" that makes dealing with nulls painless.First class
-interoperability with Cascading- Operations defined for Cascalog can be used
-in a Cascading flow and vice-versaFirst class interoperability with Clojure-
-Can use regular Clojure functions as operations or filters, and since Cascalog
-is a</p><p>3 0.28696847 <a title="14-lda-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
-<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what
-kind of data you can put in it. A lot of people think that Hadoop is meant for
-unstructured data like log files. While Hadoop is great for log files, it's
-alsofantasticfor strongly typed, structured data.In this post I'll discuss how
-you can use a tool likeThriftto store strongly typed data in Hadoop while
-retaining the flexibility to evolve your schema. We'll look at graph-based
-schemas and see why they are an ideal fit for many Hadoop-based
-applications.OK, so what kind of "structured" data can you put in
-Hadoop?Anything! AtBackTypewe put data about news, conversations, and people
-into Hadoop as structured objects. You can easily push structured information
-about social graphs, financial information, or anything you want into Hadoop.
-That sounds all well and good, but why not just use JSON as the data
-format?JSON doesn't give you a real schema and doesn't protect against data
-inconsistency. For example, if you</p><p>4 0.25752431 <a title="14-lda-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
-<p>Introduction: In this tutorial forCascalog, we are going to create part of the back-end for
-a simplified version of a Facebook-like news feed. In doing so we are going to
-walk through an end-to-end example of running Cascalog on a production
-cluster. If you're new to Cascalog, you should first look at the introductory
-tutorialshereandhere.The code and sample data for the example presented in
-this tutorial can be found onGithub.Problem descriptionA news feed ranks
-events happening in your social network. Our program will take as input two
-sources of data. The first is "follows" relationships which are stored in text
-format:nathan bobchris mikemike chrismichelle nathanFollows relationships are
-2-tuples of (username, username) with fields separated by whitespace.Our
-second source of data is "action" data which is also stored in text
-format:nathan status=good 1273094927000nathan birthday 1273026922000david
-newjob 1273096922000david travelling 1273094927000bob status=tired
-1273026922000dan basketball-cap</p><p>5 0.18312904 <a title="14-lda-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
-<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend
-checking out"7 Tips for Improving MapReduce Performance"for general MapReduce
-optimization tips.1. Filter data as early as possibleLess data equals less
-work. Sometimes you can easily filter data out early by moving filters earlier
-in your flow. Other times, it can be more complicated.One important use case
-that can be heavily optimized is querying a set of records for matches against
-a large set of keys - also known as abatch query. You can read more about the
-mechanics of batch querieshere. You can find the source code for batch
-queryinghere. The implementation utilizes a bloom filter to filter data out of
-the flow before using a join to complete the logic for the query.Another wide-
-range of use cases involves keeping data in memory within each task for
-querying. For example, let's say you have a bunch of key-value pairs in HDFS,
-and you want all the pairs where the keydoes notbelong in a separate list of
-30,000</p><p>6 0.14600034 <a title="14-lda-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-10-Fun_with_equality_in_Clojure.html">12 nathan marz storm-2010-04-10-Fun with equality in Clojure</a></p>
+<p>Introduction: In the  first tutorial  for  Cascalog , I showed off many of Cascalog's powerful features: joins, aggregates, subqueries, custom operations, and more. Since Cascalog's release a couple weeks ago, I've added a number of new features to Cascalog that seriously increase the expressiveness and performance of the language without compromising its simplicity or flexibility.
+ 
+Like the first tutorial, go ahead and load up the playground by issuing the following commands:
+  lein compile-java && lein compile lein repl user=> (use 'cascalog.playground) (bootstrap)     Outer joins  
+As we saw in the first tutorial, you can join together multiple sources of data in Cascalog by using the same variable name in multiple sources of data. For example, given "age" and "gender" sources, we can get the age and gender for each person by running:
+  user=> (?<- (stdout) [?person ?age ?gender]           (age ?person ?age) (gender ?person ?gender))   
+This is an  inner join . We will only have results for peop</p><p>2 0.8682918 <a title="14-lda-2" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-14-Introducing_Cascalog%3A_a_Clojure-based_query_language_for_Hadoop.html">13 nathan marz storm-2010-04-14-Introducing Cascalog: a Clojure-based query language for Hadoop</a></p>
+<p>Introduction: I'm very excited to be releasing  Cascalog  as open-source today. Cascalog is a Clojure-based query language for Hadoop inspired by  Datalog .
+  Highlights   
+  Simple  - Functions, filters, and aggregators all use the same syntax. Joins are implicit and natural. 
+  Expressive  - Logical composition is very powerful, and you can run arbitrary Clojure code in your query with little effort. 
+  Interactive  - Run queries from the Clojure REPL. 
+  Scalable  - Cascalog queries run as a series of MapReduce jobs. 
+  Query anything  - Query HDFS data, database data, and/or local data by making use of Cascading's "Tap" abstraction 
+  Careful handling of null values  - Null values can make life difficult. Cascalog has a feature called "non-nullable variables" that makes dealing with nulls painless. 
+  First class interoperability with Cascading  - Operations defined for Cascalog can be used in a Cascading flow and vice-versa 
+  First class interoperability with Clojure  - Can use regular Clojure</p><p>3 0.28696847 <a title="14-lda-3" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-03-10-Thrift_%2B_Graphs_%3D_Strong%2C_flexible_schemas_on_Hadoop.html">9 nathan marz storm-2010-03-10-Thrift + Graphs = Strong, flexible schemas on Hadoop</a></p>
+<p>Introduction: There are a lot of misconceptions about what Hadoop is useful for and what kind of data you can put in it. A lot of people think that Hadoop is meant for unstructured data like log files. While Hadoop is great for log files, it's also  fantastic  for strongly typed, structured data.
+ 
+In this post I'll discuss how you can use a tool like  Thrift  to store strongly typed data in Hadoop while retaining the flexibility to evolve your schema. We'll look at graph-based schemas and see why they are an ideal fit for many Hadoop-based applications.
+ 
+ OK, so what kind of "structured" data can you put in Hadoop? 
+ 
+Anything! At  BackType  we put data about news, conversations, and people into Hadoop as structured objects. You can easily push structured information about social graphs, financial information, or anything you want into Hadoop. Â  
+ 
+ That sounds all well and good, but why not just use JSON as the data format? 
+ 
+JSON doesn't give you a real schema and doesn't protect against data i</p><p>4 0.25752431 <a title="14-lda-4" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-05-08-News_Feed_in_38_lines_of_code_using_Cascalog.html">16 nathan marz storm-2010-05-08-News Feed in 38 lines of code using Cascalog</a></p>
+<p>Introduction: In this tutorial for  Cascalog , we are going to create part of the back-end for a simplified version of a Facebook-like news feed. In doing so we are going to walk through an end-to-end example of running Cascalog on a production cluster. If you're new to Cascalog, you should first look at the introductory tutorials  here  and  here .  The code and sample data for the example presented in this tutorial can be found on  Github .
+  Problem description  
+A news feed ranks events happening in your social network. Our program will take as input two sources of data. The first is "follows" relationships which are stored in text format:
+  nathan bob chris mike mike chris michelle nathan   
+Follows relationships are 2-tuples of (username, username) with fields separated by whitespace.
+ 
+Our second source of data is "action" data which is also stored in text format:
+  nathan status=good 1273094927000 nathan birthday  1273026922000 david newjob 1273096922000 david travelling 1273094927000 bob st</p><p>5 0.18312904 <a title="14-lda-5" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-01-03-Tips_for_Optimizing_Cascading_Flows.html">2 nathan marz storm-2010-01-03-Tips for Optimizing Cascading Flows</a></p>
+<p>Introduction: Here's a few tips for optimizing your Cascading flows. I also recommend checking out  "7 Tips for Improving MapReduce Performance"  for general MapReduce optimization tips.
+  1. Filter data as early as possible  
+Less data equals less work. Sometimes you can easily filter data out early by moving filters earlier in your flow. Other times, it can be more complicated.
+ 
+One important use case that can be heavily optimized is querying a set of records for matches against a large set of keys - also known as a  batch query . You can read more about the mechanics of batch queries  here . You can find the source code for batch querying  here . The implementation utilizes a bloom filter to filter data out of the flow before using a join to complete the logic for the query.
+ 
+Another wide-range of use cases involves keeping data in memory within each task for querying. For example, let's say you have a bunch of key-value pairs in HDFS, and you want all the pairs where the key  does not  belong</p><p>6 0.14600034 <a title="14-lda-6" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-04-10-Fun_with_equality_in_Clojure.html">12 nathan marz storm-2010-04-10-Fun with equality in Clojure</a></p>
 <p>7 0.11414718 <a title="14-lda-7" href="../nathan_marz_storm-2010/nathan_marz_storm-2010-07-12-My_experience_as_the_first_employee_of_a_Y_Combinator_startup.html">19 nathan marz storm-2010-07-12-My experience as the first employee of a Y Combinator startup</a></p>
 <p>8 0.10569354 <a title="14-lda-8" href="../nathan_marz_storm-2011/nathan_marz_storm-2011-10-13-How_to_beat_the_CAP_theorem.html">31 nathan marz storm-2011-10-13-How to beat the CAP theorem</a></p>
 <p>9 0.10502411 <a title="14-lda-9" href="../nathan_marz_storm-2014/nathan_marz_storm-2014-02-24-The_inexplicable_rise_of_open_floor_plans_in_tech_companies.html">40 nathan marz storm-2014-02-24-The inexplicable rise of open floor plans in tech companies</a></p>
