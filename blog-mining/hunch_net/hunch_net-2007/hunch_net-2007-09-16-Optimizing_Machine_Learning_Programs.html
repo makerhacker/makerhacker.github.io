@@ -16,297 +16,214 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>262 hunch net-2007-09-16-Optimizing Machine Learning Programs</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="hunch_net-2007-262-html" href="http://hunch.net/?p=290">html</a></p><p>Introduction: Machine learning is often computationally bounded which implies that the
-ability to write fast code becomes important if you ever want to implement a
-machine learning algorithm. Basic tactical optimizations are covered
-wellelsewhere, but I haven't seen a reasonable guide to higher level
-optimizations, which are the most important in my experience. Here are some of
-the higher level optimizations I've often found useful.Algorithmic Improvement
-First. This is Hard, but it is the most important consideration, and typically
-yields the most benefits. Good optimizations here are publishable. In the
-context of machine learning, you should be familiar with the arguments for
-online vs. batch learning.Choice of Language. There are many arguments about
-thechoice of language. Sometimes you don't have a choice when interfacing with
-other people. Personally, I favor C/C++ when I want to write fast code. This
-(admittedly) makes me a slower programmer than when using higher level
-languages. (Sometimes</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Machine learning is often computationally bounded which implies that the ability to write fast code becomes important if you ever want to implement a machine learning algorithm. [sent-1, score-0.586]
-</p><p>2 Basic tactical optimizations are covered wellelsewhere, but I haven't seen a reasonable guide to higher level optimizations, which are the most important in my experience. [sent-2, score-0.484]
-</p><p>3 Here are some of the higher level optimizations I've often found useful. [sent-3, score-0.565]
-</p><p>4 Personally, I favor C/C++ when I want to write fast code. [sent-12, score-0.282]
-</p><p>5 My rule of thumb is "for fast programs, it's all arrays in the end". [sent-18, score-0.457]
-</p><p>6 Where a hash_map works, it's common to observe an order-of-magnitude improvement in performance over a map. [sent-21, score-0.285]
-</p><p>7 The Googledense_hash_mapreplaces the array of pointers with a plain old array and (unsurprisingly) is even faster. [sent-23, score-0.651]
-</p><p>8 What's fundamentally happening here is locality: dereferencing pointers is a very expensive operation on modern computers because the CPU runs much faster than the latency to RAM. [sent-24, score-0.435]
-</p><p>9 Converting things into an array is not always easy, but it is often possible with a little bit of thought and care. [sent-26, score-0.388]
-</p><p>10 Unfortunately, the computational process of reading and parsing the data is often intensive. [sent-29, score-0.299]
-</p><p>11 By caching parsed examples in a machine representation format (either in RAM or on disk), a substantial performance boost is achievable. [sent-30, score-0.5]
-</p><p>12 The machine representation can be more concise implying improved system caching effects. [sent-32, score-0.331]
-</p><p>13 There are many reasons to write less code where you can. [sent-38, score-0.331]
-</p><p>14 For the purposes of optimization, having less code in the bottleneck is the surest way to reduce work in the bottleneck. [sent-39, score-0.406]
-</p><p>15 In particular, don't trust library calls inside the bottleneck. [sent-42, score-0.307]
-</p><p>16 It's often the case that a library function is general purpose while you can get away with a much faster hand-crafted (and inlined) function. [sent-43, score-0.35]
-</p><p>17 There is a huge difference in performance between reading and writing directly from the disk and doing this through a buffering layer. [sent-45, score-0.53]
-</p><p>18 You can experiment, or implement your own buffering system. [sent-47, score-0.259]
-</p><p>19 C++ I/O libraries seem to handle this better than C libraries in general. [sent-48, score-0.284]
-</p><p>20 A reasonable rule of thumb is to spend time on optimization when you are waiting for the program to finish running. [sent-55, score-0.548]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="hunch_net-2007-262-html" href="http://hunch.net/?p=290">html</a></p><p>Introduction: Machine learning is often computationally bounded which implies that the ability to write fast code becomes important if you ever want to implement a machine learning algorithm.  Basic tactical optimizations are covered well  elsewhere , but I haven’t seen a reasonable guide to higher level optimizations, which are the most important in my experience.  Here are some of the higher level optimizations I’ve often found useful.
+  
+  Algorithmic Improvement First . This is Hard, but it is the most important consideration, and typically yields the most benefits.  Good optimizations here are publishable.  In the context of machine learning, you should be familiar with the arguments for online vs. batch learning. 
+  Choice of Language . There are many arguments about the  choice of language .  Sometimes you don’t have a choice when interfacing with other people.  Personally, I favor C/C++ when I want to write fast code.  This (admittedly) makes me a slower programmer than when using higher lev</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Machine learning is often computationally bounded which implies that the ability to write fast code becomes important if you ever want to implement a machine learning algorithm. [sent-1, score-0.61]
+</p><p>2 Basic tactical optimizations are covered well  elsewhere , but I haven’t seen a reasonable guide to higher level optimizations, which are the most important in my experience. [sent-2, score-0.452]
+</p><p>3 Here are some of the higher level optimizations I’ve often found useful. [sent-3, score-0.526]
+</p><p>4 There are many arguments about the  choice of language . [sent-10, score-0.287]
+</p><p>5 Personally, I favor C/C++ when I want to write fast code. [sent-12, score-0.296]
+</p><p>6 My rule of thumb is “for fast programs, it’s all arrays in the end”. [sent-18, score-0.419]
+</p><p>7 The Google  dense_hash_map  replaces the array of pointers with a plain old array and (unsurprisingly) is even faster. [sent-23, score-0.541]
+</p><p>8 What’s fundamentally happening here is locality: dereferencing pointers is a very expensive operation on modern computers because the CPU runs much faster than the latency to RAM. [sent-24, score-0.403]
+</p><p>9 Converting things into an array is not always easy, but it is often possible with a little bit of thought and care. [sent-26, score-0.358]
+</p><p>10 Unfortunately, the computational process of reading and parsing the data is often intensive. [sent-29, score-0.331]
+</p><p>11 By caching parsed examples in a machine representation format (either in RAM or on disk), a substantial performance boost is achievable. [sent-30, score-0.465]
+</p><p>12 The machine representation can be more concise implying improved system caching effects. [sent-32, score-0.308]
+</p><p>13 There are many reasons to write less code where you can. [sent-38, score-0.375]
+</p><p>14 For the purposes of optimization, having less code in the bottleneck is the surest way to reduce work in the bottleneck. [sent-39, score-0.336]
+</p><p>15 In particular, don’t trust library calls inside the bottleneck. [sent-42, score-0.287]
+</p><p>16 It’s often the case that a library function is general purpose while you can get away with a much faster hand-crafted (and inlined) function. [sent-43, score-0.324]
+</p><p>17 There is a huge difference in performance between reading and writing directly from the disk and doing this through a buffering layer. [sent-45, score-0.494]
+</p><p>18 C++ I/O libraries seem to handle this better than C libraries in general. [sent-48, score-0.398]
+</p><p>19 A reasonable rule of thumb is to spend time on optimization when you are waiting for the program to finish running. [sent-55, score-0.436]
+</p><p>20 In all program optimization, it is critical to know where the bottleneck is, and optimize preferentially there. [sent-57, score-0.293]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('optimizations', 0.256), ('array', 0.223), ('disk', 0.201), ('library', 0.184), ('copying', 0.173), ('buffering', 0.153), ('optimization', 0.151), ('fast', 0.146), ('libraries', 0.142), ('thumb', 0.142), ('write', 0.136), ('parsing', 0.134), ('bottleneck', 0.134), ('pointers', 0.134), ('caching', 0.134), ('converting', 0.134), ('higher', 0.132), ('trust', 0.123), ('representation', 0.12), ('latency', 0.119), ('code', 0.117), ('observe', 0.109), ('arguments', 0.106), ('implement', 0.106), ('modern', 0.097), ('level', 0.096), ('program', 0.092), ('rule', 0.092), ('performance', 0.092), ('faster', 0.085), ('reading', 0.084), ('improvement', 0.084), ('always', 0.084), ('often', 0.081), ('less', 0.078), ('computation', 0.077), ('locality', 0.077), ('dramatic', 0.077), ('boost', 0.077), ('arrays', 0.077), ('concise', 0.077), ('substitute', 0.077), ('amortized', 0.077), ('parsed', 0.077), ('surest', 0.077), ('syntactic', 0.077), ('sometimes', 0.073), ('plain', 0.071), ('admittedly', 0.071), ('waiting', 0.071)]</p>
+<p>[('optimizations', 0.239), ('array', 0.208), ('libraries', 0.199), ('disk', 0.188), ('parsing', 0.179), ('library', 0.172), ('write', 0.164), ('amortization', 0.161), ('copying', 0.161), ('buffering', 0.143), ('code', 0.139), ('optimization', 0.138), ('thumb', 0.133), ('fast', 0.132), ('bottleneck', 0.125), ('pointers', 0.125), ('caching', 0.125), ('higher', 0.123), ('converting', 0.119), ('trust', 0.115), ('latency', 0.111), ('representation', 0.111), ('language', 0.104), ('implement', 0.101), ('observe', 0.099), ('arguments', 0.097), ('avoid', 0.093), ('level', 0.09), ('modern', 0.089), ('choice', 0.086), ('performance', 0.085), ('optimize', 0.085), ('program', 0.083), ('rule', 0.082), ('improvement', 0.079), ('reading', 0.078), ('faster', 0.078), ('always', 0.076), ('often', 0.074), ('less', 0.072), ('locality', 0.072), ('dramatic', 0.072), ('boost', 0.072), ('arrays', 0.072), ('concise', 0.072), ('ocaml', 0.072), ('substitute', 0.072), ('amortized', 0.072), ('cached', 0.072), ('parsed', 0.072)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>same-blog 1 0.99999994 <a title="262-tfidf-1" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
-<p>Introduction: Machine learning is often computationally bounded which implies that the
-ability to write fast code becomes important if you ever want to implement a
-machine learning algorithm. Basic tactical optimizations are covered
-wellelsewhere, but I haven't seen a reasonable guide to higher level
-optimizations, which are the most important in my experience. Here are some of
-the higher level optimizations I've often found useful.Algorithmic Improvement
-First. This is Hard, but it is the most important consideration, and typically
-yields the most benefits. Good optimizations here are publishable. In the
-context of machine learning, you should be familiar with the arguments for
-online vs. batch learning.Choice of Language. There are many arguments about
-thechoice of language. Sometimes you don't have a choice when interfacing with
-other people. Personally, I favor C/C++ when I want to write fast code. This
-(admittedly) makes me a slower programmer than when using higher level
-languages. (Sometimes</p><p>2 0.2181388 <a title="262-tfidf-2" href="../hunch_net-2006/hunch_net-2006-09-28-Programming_Languages_for_Machine_Learning_Implementations.html">210 hunch net-2006-09-28-Programming Languages for Machine Learning Implementations</a></p>
-<p>Introduction: Machine learning algorithms have a much better chance of being widely adopted
-if they are implemented in some easy-to-use code. There are several important
-concerns associated with machine learning which stress programming languages
-on the ease-of-use vs. speed frontier.SpeedThe rate at which data sources are
-growing seems to be outstripping the rate at which computational power is
-growing, so it is important that we be able to eak out every bit of
-computational power. Garbage collected languages (java,ocaml,perlandpython)
-often have several issues here.Garbage collection often implies that floating
-point numbers are "boxed": every float is represented by a pointer to a float.
-Boxing can cause an order of magnitude slowdown because an extra nonlocalized
-memory reference is made, and accesses to main memory can are many CPU cycles
-long.Garbage collection often implies that considerably more memory is used
-than is necessary. This has a variable effect. In some circumstances it
-results in</p><p>3 0.15615465 <a title="262-tfidf-3" href="../hunch_net-2009/hunch_net-2009-07-31-Vowpal_Wabbit_Open_Source_Project.html">365 hunch net-2009-07-31-Vowpal Wabbit Open Source Project</a></p>
-<p>Introduction: Today brings a new release of theVowpal Wabbitfast online learning software.
-This time, unlike the previous release, the project itself is going open
-source, developing viagithub. For example, the lastest and greatest can be
-downloaded via:git clone git://github.com/JohnLangford/vowpal_wabbit.gitIf you
-aren't familiar withgit, it's a distributed version control system which
-supports quick and easy branching, as well as reconciliation.This version of
-the code is confirmed to compile without complaint on at least some flavors of
-OSX as well as Linux boxes.As much of the point of this project is pushing the
-limits of fast and effective machine learning, let me mention a few datapoints
-from my experience.The program can effectively scale up to batch-style
-training on sparse terafeature (i.e. 1012sparse feature) size datasets. The
-limiting factor is typically i/o.I started using the the real datasets from
-thelarge-scale learningworkshop as a convenient benchmark. The largest dataset
-takes a</p><p>4 0.1410531 <a title="262-tfidf-4" href="../hunch_net-2012/hunch_net-2012-08-24-Patterns_for_research_in_machine_learning.html">471 hunch net-2012-08-24-Patterns for research in machine learning</a></p>
-<p>Introduction: There area handful of basic code patternsthat I wish I was more aware of when
-I started research in machine learning. Each on its own may seem pointless,
-but collectively they go a long way towards making the typical research
-workflow more efficient. Here they are:Separate code from data.Separate input
-data, working data and output data.Save everything to disk frequently.Separate
-options from parameters.Do not use global variables.Record the options used to
-generate each run of the algorithm.Make it easy to sweep options.Make it easy
-to execute only portions of the code.Use checkpointing.Write demos and
-tests.Clickherefor discussion and examples for each item. Also seeCharles
-Sutton'sandHackerNews'thoughts on the same topic.My guess is that these
-patterns will not only be useful for machine learning, but also any other
-computational work that involves either a) processing large amounts of data,
-or b) algorithms that take a significant amount of time to execute. Share this
-list with you</p><p>5 0.12760866 <a title="262-tfidf-5" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
-<p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries
-in a datamatrix), and want to learn a good linear predictor in a reasonable
-amount of time. How do you do it? As a learning theorist, the first thing you
-do is pray that this is too much data for the number of parameters--but that's
-not the case, there are around 16 billion examples, 16 million parameters, and
-people really care about a high quality predictor, so subsampling is not a
-good strategy.Alekhvisited us last summer, and we had a breakthrough
-(seeherefor details), coming up with the first learning algorithm I've seen
-that is provably faster thanany futuresingle machine learning algorithm. The
-proof of this is simple: We can output a optimal-up-to-precision linear
-predictor faster than the data can be streamed through the network interface
-of any single machine involved in the computation.It is necessary but not
-sufficient to have an effective communication infrastructure. It is necessary
-but not suff</p><p>6 0.11181593 <a title="262-tfidf-6" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
-<p>7 0.10521714 <a title="262-tfidf-7" href="../hunch_net-2011/hunch_net-2011-03-19-The_Ideal_Large_Scale_Learning_Class.html">426 hunch net-2011-03-19-The Ideal Large Scale Learning Class</a></p>
-<p>8 0.1035127 <a title="262-tfidf-8" href="../hunch_net-2005/hunch_net-2005-02-14-Clever_Methods_of_Overfitting.html">19 hunch net-2005-02-14-Clever Methods of Overfitting</a></p>
-<p>9 0.10042642 <a title="262-tfidf-9" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
-<p>10 0.098567151 <a title="262-tfidf-10" href="../hunch_net-2009/hunch_net-2009-03-18-Parallel_ML_primitives.html">346 hunch net-2009-03-18-Parallel ML primitives</a></p>
-<p>11 0.098189704 <a title="262-tfidf-11" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
-<p>12 0.097747169 <a title="262-tfidf-12" href="../hunch_net-2007/hunch_net-2007-12-21-Vowpal_Wabbit_Code_Release.html">281 hunch net-2007-12-21-Vowpal Wabbit Code Release</a></p>
-<p>13 0.094086088 <a title="262-tfidf-13" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
-<p>14 0.093302295 <a title="262-tfidf-14" href="../hunch_net-2010/hunch_net-2010-04-14-MLcomp%3A_a_website_for_objectively_comparing_ML_algorithms.html">393 hunch net-2010-04-14-MLcomp: a website for objectively comparing ML algorithms</a></p>
-<p>15 0.093231581 <a title="262-tfidf-15" href="../hunch_net-2006/hunch_net-2006-01-30-Should_the_Input_Representation_be_a_Vector%3F.html">152 hunch net-2006-01-30-Should the Input Representation be a Vector?</a></p>
-<p>16 0.093081862 <a title="262-tfidf-16" href="../hunch_net-2006/hunch_net-2006-01-08-Debugging_Your_Brain.html">147 hunch net-2006-01-08-Debugging Your Brain</a></p>
-<p>17 0.088733889 <a title="262-tfidf-17" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
-<p>18 0.08827541 <a title="262-tfidf-18" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
-<p>19 0.088127144 <a title="262-tfidf-19" href="../hunch_net-2006/hunch_net-2006-01-13-Benchmarks_for_RL.html">148 hunch net-2006-01-13-Benchmarks for RL</a></p>
-<p>20 0.087443404 <a title="262-tfidf-20" href="../hunch_net-2009/hunch_net-2009-05-19-CI_Fellows.html">355 hunch net-2009-05-19-CI Fellows</a></p>
+<p>same-blog 1 0.9999997 <a title="262-tfidf-1" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
+<p>Introduction: Machine learning is often computationally bounded which implies that the ability to write fast code becomes important if you ever want to implement a machine learning algorithm.  Basic tactical optimizations are covered well  elsewhere , but I haven’t seen a reasonable guide to higher level optimizations, which are the most important in my experience.  Here are some of the higher level optimizations I’ve often found useful.
+  
+  Algorithmic Improvement First . This is Hard, but it is the most important consideration, and typically yields the most benefits.  Good optimizations here are publishable.  In the context of machine learning, you should be familiar with the arguments for online vs. batch learning. 
+  Choice of Language . There are many arguments about the  choice of language .  Sometimes you don’t have a choice when interfacing with other people.  Personally, I favor C/C++ when I want to write fast code.  This (admittedly) makes me a slower programmer than when using higher lev</p><p>2 0.21994746 <a title="262-tfidf-2" href="../hunch_net-2006/hunch_net-2006-09-28-Programming_Languages_for_Machine_Learning_Implementations.html">210 hunch net-2006-09-28-Programming Languages for Machine Learning Implementations</a></p>
+<p>Introduction: Machine learning algorithms have a much better chance of being widely adopted if they are implemented in some easy-to-use code.  There are several important concerns associated with machine learning which stress programming languages on the ease-of-use vs. speed frontier.
+  
+  Speed   The rate at which data sources are growing seems to be outstripping the rate at which computational power is growing, so it is important that we be able to eak out every bit of computational power.  Garbage collected languages ( java ,  ocaml ,  perl  and  python ) often have several issues here.
+ 
+ Garbage collection often implies that floating point numbers are “boxed”: every float is represented by a pointer to a float.  Boxing can cause an order of magnitude slowdown because an extra nonlocalized memory reference is made, and accesses to main memory can are many CPU cycles long. 
+ Garbage collection often implies that considerably more memory is used than is necessary.   This has a variable effect.  I</p><p>3 0.15375407 <a title="262-tfidf-3" href="../hunch_net-2009/hunch_net-2009-07-31-Vowpal_Wabbit_Open_Source_Project.html">365 hunch net-2009-07-31-Vowpal Wabbit Open Source Project</a></p>
+<p>Introduction: Today brings a new release of the  Vowpal Wabbit  fast online learning software.  This time, unlike the previous release, the project itself is going open source, developing via  github .  For example, the lastest and greatest can be downloaded via:
+  
+git clone git://github.com/JohnLangford/vowpal_wabbit.git
+  
+If you aren’t familiar with  git , it’s a distributed version control system which supports quick and easy branching, as well as reconciliation.
+ 
+This version of the code is confirmed to compile without complaint on at least some flavors of OSX as well as Linux boxes.
+ 
+As much of the point of this project is pushing the limits of fast and effective machine learning, let me mention a few datapoints from my experience.
+  
+ The program can effectively scale up to batch-style training on sparse terafeature (i.e. 10 12  sparse feature) size datasets.  The limiting factor is typically i/o. 
+ I started using the the real datasets from the  large-scale learning  workshop as a conve</p><p>4 0.12261014 <a title="262-tfidf-4" href="../hunch_net-2012/hunch_net-2012-08-24-Patterns_for_research_in_machine_learning.html">471 hunch net-2012-08-24-Patterns for research in machine learning</a></p>
+<p>Introduction: There are  a handful of basic code patterns  that I wish I was more aware of when I started research in machine learning. Each on its own may seem pointless, but collectively they go a long way towards making the typical research workflow more efficient. Here they are:
+  
+ Separate code from data. 
+ Separate input data, working data and output data. 
+ Save everything to disk frequently. 
+ Separate options from parameters. 
+ Do not use global variables. 
+ Record the options used to generate each run of the algorithm. 
+ Make it easy to sweep options. 
+ Make it easy to execute only portions of the code. 
+ Use checkpointing. 
+ Write demos and tests. 
+  
+Click  here  for discussion and examples for each item. Also see  Charles Sutton’s  and  HackerNews’  thoughts on the same topic. 
+ 
+My guess is that these patterns will not only be useful for machine learning, but also any other computational work that involves either a) processing large amounts of data, or b) algorithms that take a signif</p><p>5 0.12028599 <a title="262-tfidf-5" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
+<p>Introduction: Muthu  invited me to the workshop on  algorithms in the field , with the goal of providing a sense of where near-term research should go.  When the time came though, I bargained for a post instead, which provides a chance for many other people to comment.
+ 
+There are several things I didn’t fully understand when I went to Yahoo! about 5 years ago.  I’d like to repeat them as people in academia may not yet understand them intuitively.
+  
+ Almost all the big impact algorithms operate in pseudo-linear or better time.  Think about caching, hashing, sorting, filtering, etc… and you have a sense of what some of the most heavily used algorithms are.  This matters quite a bit to Machine Learning research, because people often work with superlinear time algorithms and languages.  Two very common examples of this are graphical models, where inference is often a superlinear operation—think about the  n 2   dependence on the number of states in a  Hidden Markov Model  and Kernelized  Support Vecto</p><p>6 0.11314935 <a title="262-tfidf-6" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
+<p>7 0.10921284 <a title="262-tfidf-7" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
+<p>8 0.099491082 <a title="262-tfidf-8" href="../hunch_net-2009/hunch_net-2009-03-18-Parallel_ML_primitives.html">346 hunch net-2009-03-18-Parallel ML primitives</a></p>
+<p>9 0.097941518 <a title="262-tfidf-9" href="../hunch_net-2007/hunch_net-2007-12-21-Vowpal_Wabbit_Code_Release.html">281 hunch net-2007-12-21-Vowpal Wabbit Code Release</a></p>
+<p>10 0.095017456 <a title="262-tfidf-10" href="../hunch_net-2005/hunch_net-2005-02-14-Clever_Methods_of_Overfitting.html">19 hunch net-2005-02-14-Clever Methods of Overfitting</a></p>
+<p>11 0.094682775 <a title="262-tfidf-11" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
+<p>12 0.090844437 <a title="262-tfidf-12" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
+<p>13 0.089997873 <a title="262-tfidf-13" href="../hunch_net-2005/hunch_net-2005-03-30-What_can_Type_Theory_teach_us_about_Machine_Learning%3F.html">49 hunch net-2005-03-30-What can Type Theory teach us about Machine Learning?</a></p>
+<p>14 0.089078784 <a title="262-tfidf-14" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
+<p>15 0.088767171 <a title="262-tfidf-15" href="../hunch_net-2012/hunch_net-2012-01-30-ICML_Posters_and_Scope.html">454 hunch net-2012-01-30-ICML Posters and Scope</a></p>
+<p>16 0.087614357 <a title="262-tfidf-16" href="../hunch_net-2012/hunch_net-2012-09-29-Vowpal_Wabbit%2C_version_7.0.html">473 hunch net-2012-09-29-Vowpal Wabbit, version 7.0</a></p>
+<p>17 0.086208999 <a title="262-tfidf-17" href="../hunch_net-2011/hunch_net-2011-07-10-ICML_2011_and_the_future.html">437 hunch net-2011-07-10-ICML 2011 and the future</a></p>
+<p>18 0.085871853 <a title="262-tfidf-18" href="../hunch_net-2006/hunch_net-2006-01-30-Should_the_Input_Representation_be_a_Vector%3F.html">152 hunch net-2006-01-30-Should the Input Representation be a Vector?</a></p>
+<p>19 0.085472807 <a title="262-tfidf-19" href="../hunch_net-2010/hunch_net-2010-04-14-MLcomp%3A_a_website_for_objectively_comparing_ML_algorithms.html">393 hunch net-2010-04-14-MLcomp: a website for objectively comparing ML algorithms</a></p>
+<p>20 0.084181644 <a title="262-tfidf-20" href="../hunch_net-2006/hunch_net-2006-01-13-Benchmarks_for_RL.html">148 hunch net-2006-01-13-Benchmarks for RL</a></p>
 <br/>
 <h2>similar blogs computed by <a title="lsi-model" href="../home/hunch_net_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
-<p>[(0, 0.239), (1, -0.041), (2, 0.06), (3, -0.033), (4, -0.028), (5, 0.095), (6, 0.021), (7, 0.053), (8, 0.062), (9, 0.101), (10, -0.022), (11, -0.001), (12, 0.002), (13, -0.134), (14, 0.011), (15, 0.026), (16, 0.056), (17, -0.044), (18, 0.071), (19, -0.02), (20, -0.036), (21, 0.032), (22, 0.058), (23, -0.028), (24, 0.01), (25, 0.029), (26, -0.071), (27, 0.01), (28, 0.026), (29, 0.001), (30, 0.045), (31, 0.045), (32, -0.033), (33, -0.093), (34, -0.033), (35, 0.009), (36, -0.011), (37, 0.01), (38, 0.04), (39, 0.006), (40, 0.036), (41, -0.034), (42, -0.019), (43, 0.009), (44, 0.01), (45, 0.028), (46, 0.065), (47, -0.008), (48, -0.044), (49, -0.008)]</p>
+<p>[(0, 0.229), (1, 0.045), (2, -0.055), (3, 0.054), (4, 0.009), (5, 0.012), (6, -0.067), (7, -0.002), (8, -0.015), (9, 0.042), (10, -0.107), (11, -0.057), (12, 0.029), (13, -0.034), (14, -0.007), (15, -0.095), (16, 0.071), (17, -0.03), (18, 0.013), (19, -0.07), (20, 0.062), (21, 0.017), (22, -0.026), (23, 0.005), (24, -0.054), (25, -0.021), (26, -0.032), (27, -0.045), (28, -0.007), (29, 0.022), (30, -0.139), (31, 0.074), (32, 0.105), (33, 0.087), (34, 0.018), (35, 0.005), (36, -0.002), (37, 0.035), (38, -0.036), (39, -0.046), (40, 0.049), (41, 0.018), (42, 0.045), (43, -0.014), (44, 0.016), (45, 0.005), (46, 0.035), (47, 0.015), (48, -0.015), (49, -0.007)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>same-blog 1 0.95395315 <a title="262-lsi-1" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
-<p>Introduction: Machine learning is often computationally bounded which implies that the
-ability to write fast code becomes important if you ever want to implement a
-machine learning algorithm. Basic tactical optimizations are covered
-wellelsewhere, but I haven't seen a reasonable guide to higher level
-optimizations, which are the most important in my experience. Here are some of
-the higher level optimizations I've often found useful.Algorithmic Improvement
-First. This is Hard, but it is the most important consideration, and typically
-yields the most benefits. Good optimizations here are publishable. In the
-context of machine learning, you should be familiar with the arguments for
-online vs. batch learning.Choice of Language. There are many arguments about
-thechoice of language. Sometimes you don't have a choice when interfacing with
-other people. Personally, I favor C/C++ when I want to write fast code. This
-(admittedly) makes me a slower programmer than when using higher level
-languages. (Sometimes</p><p>2 0.7990799 <a title="262-lsi-2" href="../hunch_net-2006/hunch_net-2006-09-28-Programming_Languages_for_Machine_Learning_Implementations.html">210 hunch net-2006-09-28-Programming Languages for Machine Learning Implementations</a></p>
-<p>Introduction: Machine learning algorithms have a much better chance of being widely adopted
-if they are implemented in some easy-to-use code. There are several important
-concerns associated with machine learning which stress programming languages
-on the ease-of-use vs. speed frontier.SpeedThe rate at which data sources are
-growing seems to be outstripping the rate at which computational power is
-growing, so it is important that we be able to eak out every bit of
-computational power. Garbage collected languages (java,ocaml,perlandpython)
-often have several issues here.Garbage collection often implies that floating
-point numbers are "boxed": every float is represented by a pointer to a float.
-Boxing can cause an order of magnitude slowdown because an extra nonlocalized
-memory reference is made, and accesses to main memory can are many CPU cycles
-long.Garbage collection often implies that considerably more memory is used
-than is necessary. This has a variable effect. In some circumstances it
-results in</p><p>3 0.75712168 <a title="262-lsi-3" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
-<p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries
-in a datamatrix), and want to learn a good linear predictor in a reasonable
-amount of time. How do you do it? As a learning theorist, the first thing you
-do is pray that this is too much data for the number of parameters--but that's
-not the case, there are around 16 billion examples, 16 million parameters, and
-people really care about a high quality predictor, so subsampling is not a
-good strategy.Alekhvisited us last summer, and we had a breakthrough
-(seeherefor details), coming up with the first learning algorithm I've seen
-that is provably faster thanany futuresingle machine learning algorithm. The
-proof of this is simple: We can output a optimal-up-to-precision linear
-predictor faster than the data can be streamed through the network interface
-of any single machine involved in the computation.It is necessary but not
-sufficient to have an effective communication infrastructure. It is necessary
-but not suff</p><p>4 0.7513743 <a title="262-lsi-4" href="../hunch_net-2005/hunch_net-2005-11-05-The_design_of_a_computing_cluster.html">128 hunch net-2005-11-05-The design of a computing cluster</a></p>
-<p>Introduction: This is about the design of a computing cluster from the viewpoint of applied
-machine learning using current technology. We just built a small one at TTI so
-this is some evidence of what is feasible and thoughts about the design
-choices.ArchitectureThere are several architectural choices.AMD Athlon64 based
-system. This seems to have the cheapest bang/buck. Maximum RAM is typically
-2-3GB.AMD Opteron based system. Opterons provide the additional capability to
-buy an SMP motherboard with two chips, and the motherboards often support 16GB
-of RAM. The RAM is also the more expensive error correcting type.Intel PIV or
-Xeon based system. The PIV and Xeon based systems are the intel analog of the
-above 2. Due to architectural design reasons, these chips tend to run a bit
-hotter and be a bit more expensive.Dual core chips. Both Intel and AMD have
-chips that actually have 2 processors embedded in them.In the end, we decided
-to go with option (2). Roughly speaking, the AMD system seemed like a bet</p><p>5 0.72438157 <a title="262-lsi-5" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
-<p>Introduction: Thelarge scale learning challengefor ICML interests me a great deal, although
-I have concerns about the way it is structured.From theinstructions page,
-several issues come up:Large DefinitionMy personal definition of dataset size
-is:smallA dataset is small if a human could look at the dataset and plausibly
-find a good solution.mediumA dataset is mediumsize if it fits in the RAM of a
-reasonably priced computer.largeA large dataset does not fit in the RAM of a
-reasonably priced computer.By this definition, all of the datasets are medium
-sized. This might sound like a pissing match over dataset size, but I believe
-it is more than that.The fundamental reason for these definitions is that they
-correspond to transitions in the sorts of approaches which are feasible. From
-small to medium, the ability to use a human as the learning algorithm
-degrades. From medium to large, it becomes essential to have learning
-algorithms that don't require random access to examples.No Loading TimeThe
-medium sc</p><p>6 0.70305872 <a title="262-lsi-6" href="../hunch_net-2012/hunch_net-2012-08-24-Patterns_for_research_in_machine_learning.html">471 hunch net-2012-08-24-Patterns for research in machine learning</a></p>
-<p>7 0.69744372 <a title="262-lsi-7" href="../hunch_net-2010/hunch_net-2010-04-14-MLcomp%3A_a_website_for_objectively_comparing_ML_algorithms.html">393 hunch net-2010-04-14-MLcomp: a website for objectively comparing ML algorithms</a></p>
-<p>8 0.67335826 <a title="262-lsi-8" href="../hunch_net-2009/hunch_net-2009-07-31-Vowpal_Wabbit_Open_Source_Project.html">365 hunch net-2009-07-31-Vowpal Wabbit Open Source Project</a></p>
-<p>9 0.64507765 <a title="262-lsi-9" href="../hunch_net-2006/hunch_net-2006-02-02-Introspectionism_as_a_Disease.html">153 hunch net-2006-02-02-Introspectionism as a Disease</a></p>
-<p>10 0.63454461 <a title="262-lsi-10" href="../hunch_net-2007/hunch_net-2007-01-26-Parallel_Machine_Learning_Problems.html">229 hunch net-2007-01-26-Parallel Machine Learning Problems</a></p>
-<p>11 0.62300253 <a title="262-lsi-11" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
-<p>12 0.59840357 <a title="262-lsi-12" href="../hunch_net-2011/hunch_net-2011-08-15-Vowpal_Wabbit_6.0.html">441 hunch net-2011-08-15-Vowpal Wabbit 6.0</a></p>
-<p>13 0.59448755 <a title="262-lsi-13" href="../hunch_net-2006/hunch_net-2006-01-08-Debugging_Your_Brain.html">147 hunch net-2006-01-08-Debugging Your Brain</a></p>
-<p>14 0.59297848 <a title="262-lsi-14" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
-<p>15 0.59187698 <a title="262-lsi-15" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
-<p>16 0.58929658 <a title="262-lsi-16" href="../hunch_net-2009/hunch_net-2009-01-21-Nearly_all_natural_problems_require_nonlinearity.html">337 hunch net-2009-01-21-Nearly all natural problems require nonlinearity</a></p>
-<p>17 0.58872962 <a title="262-lsi-17" href="../hunch_net-2005/hunch_net-2005-03-30-What_can_Type_Theory_teach_us_about_Machine_Learning%3F.html">49 hunch net-2005-03-30-What can Type Theory teach us about Machine Learning?</a></p>
-<p>18 0.58524084 <a title="262-lsi-18" href="../hunch_net-2005/hunch_net-2005-05-12-Math_on_the_Web.html">70 hunch net-2005-05-12-Math on the Web</a></p>
-<p>19 0.5846507 <a title="262-lsi-19" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
-<p>20 0.5841586 <a title="262-lsi-20" href="../hunch_net-2009/hunch_net-2009-03-18-Parallel_ML_primitives.html">346 hunch net-2009-03-18-Parallel ML primitives</a></p>
+<p>same-blog 1 0.95909894 <a title="262-lsi-1" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
+<p>Introduction: Machine learning is often computationally bounded which implies that the ability to write fast code becomes important if you ever want to implement a machine learning algorithm.  Basic tactical optimizations are covered well  elsewhere , but I haven’t seen a reasonable guide to higher level optimizations, which are the most important in my experience.  Here are some of the higher level optimizations I’ve often found useful.
+  
+  Algorithmic Improvement First . This is Hard, but it is the most important consideration, and typically yields the most benefits.  Good optimizations here are publishable.  In the context of machine learning, you should be familiar with the arguments for online vs. batch learning. 
+  Choice of Language . There are many arguments about the  choice of language .  Sometimes you don’t have a choice when interfacing with other people.  Personally, I favor C/C++ when I want to write fast code.  This (admittedly) makes me a slower programmer than when using higher lev</p><p>2 0.82236117 <a title="262-lsi-2" href="../hunch_net-2006/hunch_net-2006-09-28-Programming_Languages_for_Machine_Learning_Implementations.html">210 hunch net-2006-09-28-Programming Languages for Machine Learning Implementations</a></p>
+<p>Introduction: Machine learning algorithms have a much better chance of being widely adopted if they are implemented in some easy-to-use code.  There are several important concerns associated with machine learning which stress programming languages on the ease-of-use vs. speed frontier.
+  
+  Speed   The rate at which data sources are growing seems to be outstripping the rate at which computational power is growing, so it is important that we be able to eak out every bit of computational power.  Garbage collected languages ( java ,  ocaml ,  perl  and  python ) often have several issues here.
+ 
+ Garbage collection often implies that floating point numbers are “boxed”: every float is represented by a pointer to a float.  Boxing can cause an order of magnitude slowdown because an extra nonlocalized memory reference is made, and accesses to main memory can are many CPU cycles long. 
+ Garbage collection often implies that considerably more memory is used than is necessary.   This has a variable effect.  I</p><p>3 0.70609403 <a title="262-lsi-3" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
+<p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries in a datamatrix), and want to learn a good linear predictor in a reasonable amount of time.  How do you do it?  As a learning theorist, the first thing you do is pray that this is too much data for the number of parameters—but that’s not the case, there are around 16 billion examples, 16 million parameters, and people really care about a high quality predictor, so subsampling is not a good strategy.
+ 
+ Alekh  visited us last summer, and we had a breakthrough (see  here  for details), coming up with the first learning algorithm I’ve seen that is provably faster than  any future  single machine learning algorithm.  The proof of this is simple: We can output a optimal-up-to-precision linear predictor faster than the data can be streamed through the network interface of any single machine involved in the computation.
+ 
+It is necessary but not sufficient to have an effective communication infrastructure.  It is ne</p><p>4 0.69463271 <a title="262-lsi-4" href="../hunch_net-2009/hunch_net-2009-07-31-Vowpal_Wabbit_Open_Source_Project.html">365 hunch net-2009-07-31-Vowpal Wabbit Open Source Project</a></p>
+<p>Introduction: Today brings a new release of the  Vowpal Wabbit  fast online learning software.  This time, unlike the previous release, the project itself is going open source, developing via  github .  For example, the lastest and greatest can be downloaded via:
+  
+git clone git://github.com/JohnLangford/vowpal_wabbit.git
+  
+If you aren’t familiar with  git , it’s a distributed version control system which supports quick and easy branching, as well as reconciliation.
+ 
+This version of the code is confirmed to compile without complaint on at least some flavors of OSX as well as Linux boxes.
+ 
+As much of the point of this project is pushing the limits of fast and effective machine learning, let me mention a few datapoints from my experience.
+  
+ The program can effectively scale up to batch-style training on sparse terafeature (i.e. 10 12  sparse feature) size datasets.  The limiting factor is typically i/o. 
+ I started using the the real datasets from the  large-scale learning  workshop as a conve</p><p>5 0.6773302 <a title="262-lsi-5" href="../hunch_net-2012/hunch_net-2012-08-24-Patterns_for_research_in_machine_learning.html">471 hunch net-2012-08-24-Patterns for research in machine learning</a></p>
+<p>Introduction: There are  a handful of basic code patterns  that I wish I was more aware of when I started research in machine learning. Each on its own may seem pointless, but collectively they go a long way towards making the typical research workflow more efficient. Here they are:
+  
+ Separate code from data. 
+ Separate input data, working data and output data. 
+ Save everything to disk frequently. 
+ Separate options from parameters. 
+ Do not use global variables. 
+ Record the options used to generate each run of the algorithm. 
+ Make it easy to sweep options. 
+ Make it easy to execute only portions of the code. 
+ Use checkpointing. 
+ Write demos and tests. 
+  
+Click  here  for discussion and examples for each item. Also see  Charles Sutton’s  and  HackerNews’  thoughts on the same topic. 
+ 
+My guess is that these patterns will not only be useful for machine learning, but also any other computational work that involves either a) processing large amounts of data, or b) algorithms that take a signif</p><p>6 0.66661245 <a title="262-lsi-6" href="../hunch_net-2005/hunch_net-2005-11-05-The_design_of_a_computing_cluster.html">128 hunch net-2005-11-05-The design of a computing cluster</a></p>
+<p>7 0.65795714 <a title="262-lsi-7" href="../hunch_net-2005/hunch_net-2005-06-22-Languages__of_Learning.html">84 hunch net-2005-06-22-Languages  of Learning</a></p>
+<p>8 0.62673718 <a title="262-lsi-8" href="../hunch_net-2007/hunch_net-2007-01-26-Parallel_Machine_Learning_Problems.html">229 hunch net-2007-01-26-Parallel Machine Learning Problems</a></p>
+<p>9 0.61845863 <a title="262-lsi-9" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
+<p>10 0.60925204 <a title="262-lsi-10" href="../hunch_net-2009/hunch_net-2009-03-18-Parallel_ML_primitives.html">346 hunch net-2009-03-18-Parallel ML primitives</a></p>
+<p>11 0.60570771 <a title="262-lsi-11" href="../hunch_net-2006/hunch_net-2006-10-22-Exemplar_programming.html">215 hunch net-2006-10-22-Exemplar programming</a></p>
+<p>12 0.60192221 <a title="262-lsi-12" href="../hunch_net-2011/hunch_net-2011-08-15-Vowpal_Wabbit_6.0.html">441 hunch net-2011-08-15-Vowpal Wabbit 6.0</a></p>
+<p>13 0.59685457 <a title="262-lsi-13" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
+<p>14 0.59397495 <a title="262-lsi-14" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
+<p>15 0.59379816 <a title="262-lsi-15" href="../hunch_net-2009/hunch_net-2009-08-03-Carbon_in_Computer_Science_Research.html">366 hunch net-2009-08-03-Carbon in Computer Science Research</a></p>
+<p>16 0.58521438 <a title="262-lsi-16" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
+<p>17 0.58241469 <a title="262-lsi-17" href="../hunch_net-2008/hunch_net-2008-08-24-Mass_Customized_Medicine_in_the_Future%3F.html">314 hunch net-2008-08-24-Mass Customized Medicine in the Future?</a></p>
+<p>18 0.58061361 <a title="262-lsi-18" href="../hunch_net-2006/hunch_net-2006-02-02-Introspectionism_as_a_Disease.html">153 hunch net-2006-02-02-Introspectionism as a Disease</a></p>
+<p>19 0.57918543 <a title="262-lsi-19" href="../hunch_net-2009/hunch_net-2009-01-21-Nearly_all_natural_problems_require_nonlinearity.html">337 hunch net-2009-01-21-Nearly all natural problems require nonlinearity</a></p>
+<p>20 0.57536274 <a title="262-lsi-20" href="../hunch_net-2006/hunch_net-2006-03-09-Use_of_Notation.html">162 hunch net-2006-03-09-Use of Notation</a></p>
 <br/>
 <h2>similar blogs computed by <a title="lda-model" href="../home/hunch_net_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
-<p>[(35, 0.052), (42, 0.247), (45, 0.046), (48, 0.306), (68, 0.044), (69, 0.02), (74, 0.098), (76, 0.024), (88, 0.031), (95, 0.062)]</p>
+<p>[(0, 0.02), (3, 0.027), (27, 0.196), (38, 0.05), (48, 0.016), (49, 0.025), (51, 0.015), (53, 0.06), (55, 0.082), (64, 0.022), (91, 0.267), (94, 0.124), (95, 0.025)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>1 0.97399563 <a title="262-lda-1" href="../hunch_net-2005/hunch_net-2005-04-27-DARPA_project%3A_LAGR.html">63 hunch net-2005-04-27-DARPA project: LAGR</a></p>
-<p>Introduction: Larry Jackal has set up theLAGR("Learning Applied to Ground Robotics") project
-(and competition) which seems to be quite well designed. Features include:Many
-participants (8 going on 12?)Standardized hardware. In theDARPA grand
-challengecontestants entering with motorcycles are at a severe disadvantage to
-those entering with a Hummer. Similarly, contestants using more powerful
-sensors can gain huge advantages.Monthly contests, with full feedback (but
-since the hardware is standardized, only code is shipped). One of the premises
-of the program is that robust systems are desired. Monthly evaluations at
-different locations can help measure this and provide data.Attacks a known
-hard problem. (cross country driving)</p><p>2 0.92984635 <a title="262-lda-2" href="../hunch_net-2005/hunch_net-2005-04-14-Families_of_Learning_Theory_Statements.html">56 hunch net-2005-04-14-Families of Learning Theory Statements</a></p>
-<p>Introduction: The diagram above shows a very broad viewpoint of learning theory.arrowTypical
-statementExamplesPast->PastSome prediction algorithmAdoes almost as well as
-any of a set of algorithms.Weighted MajorityPast->FutureAssuming independent
-samples, past performance predicts future performance.PAC analysis, ERM
-analysisFuture->FutureFuture prediction performance on subproblems implies
-future prediction performance using algorithmA.ECOC, ProbingA basic question
-is: Are there other varieties of statements of this type?Avrimnoted that there
-are also "arrows between arrows": generic methods for transforming between
-Past->Past statements and Past->Future statements. Are there others?</p><p>3 0.91195244 <a title="262-lda-3" href="../hunch_net-2005/hunch_net-2005-09-14-The_Predictionist_Viewpoint.html">112 hunch net-2005-09-14-The Predictionist Viewpoint</a></p>
-<p>Introduction: Virtually every discipline of significant human endeavor has a way explaining
-itself as fundamental and important. In all the cases I know of, they are both
-right (they are vital) and wrong (they are not solely vital).Politics. This is
-the one that everyone is familiar with at the moment. "What could be more
-important than the process of making decisions?"Science and Technology. This
-is the one that we-the-academics are familiar with. "The loss of modern
-science and technology would be catastrophic."Military. "Without the military,
-a nation will be invaded and destroyed."(insert your favorite here)Within
-science and technology, the same thing happens again.Mathematics. "What could
-be more important than a precise language for establishing truths?"Physics.
-"Nothing is more fundamental than the laws which govern the universe.
-Understanding them is the key to understanding everything else."Biology.
-"Without life, we wouldn't be here, so clearly the study of life is
-fundamental."Computer S</p><p>same-blog 4 0.90545398 <a title="262-lda-4" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
-<p>Introduction: Machine learning is often computationally bounded which implies that the
-ability to write fast code becomes important if you ever want to implement a
-machine learning algorithm. Basic tactical optimizations are covered
-wellelsewhere, but I haven't seen a reasonable guide to higher level
-optimizations, which are the most important in my experience. Here are some of
-the higher level optimizations I've often found useful.Algorithmic Improvement
-First. This is Hard, but it is the most important consideration, and typically
-yields the most benefits. Good optimizations here are publishable. In the
-context of machine learning, you should be familiar with the arguments for
-online vs. batch learning.Choice of Language. There are many arguments about
-thechoice of language. Sometimes you don't have a choice when interfacing with
-other people. Personally, I favor C/C++ when I want to write fast code. This
-(admittedly) makes me a slower programmer than when using higher level
-languages. (Sometimes</p><p>5 0.88173622 <a title="262-lda-5" href="../hunch_net-2005/hunch_net-2005-05-17-A_Short_Guide_to_PhD_Graduate_Study.html">73 hunch net-2005-05-17-A Short Guide to PhD Graduate Study</a></p>
-<p>Introduction: Graduate study is a mysterious and uncertain process. This easiest way to see
-this is by noting that a very old advisor/student mechanism is preferred.
-There is no known succesful mechanism for "mass producing" PhDs as is done (in
-some sense) for undergraduate and masters study. Here are a few hints that
-might be useful to prospective or current students based on my own
-experience.Masters or PhD(a) You want a PhD if you want to do research. (b)
-You want a masters if you want to make money. People wanting (b) will be
-manifestly unhappy with (a) because it typically means years of low pay.
-People wanting (a) should try to avoid (b) because it prolongs an already long
-process.Attitude.Manystudents struggle for awhile with the wrong attitude
-towards research. Most students come into graduate school with 16-19 years of
-schooling where the principle means of success is proving that you know
-something via assignments, tests, etcâ&euro;Ś Research doesnotwork this way. Research
-is what a PhD is about.</p><p>6 0.85378331 <a title="262-lda-6" href="../hunch_net-2009/hunch_net-2009-08-03-Carbon_in_Computer_Science_Research.html">366 hunch net-2009-08-03-Carbon in Computer Science Research</a></p>
-<p>7 0.70199084 <a title="262-lda-7" href="../hunch_net-2006/hunch_net-2006-09-28-Programming_Languages_for_Machine_Learning_Implementations.html">210 hunch net-2006-09-28-Programming Languages for Machine Learning Implementations</a></p>
-<p>8 0.67226726 <a title="262-lda-8" href="../hunch_net-2005/hunch_net-2005-09-10-%26%238220%3BFailure%26%238221%3B_is_an_option.html">110 hunch net-2005-09-10-&#8220;Failure&#8221; is an option</a></p>
-<p>9 0.66996217 <a title="262-lda-9" href="../hunch_net-2005/hunch_net-2005-03-17-Going_all_the_Way%2C_Sometimes.html">42 hunch net-2005-03-17-Going all the Way, Sometimes</a></p>
-<p>10 0.66868711 <a title="262-lda-10" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
-<p>11 0.66534156 <a title="262-lda-11" href="../hunch_net-2009/hunch_net-2009-02-22-Effective_Research_Funding.html">344 hunch net-2009-02-22-Effective Research Funding</a></p>
-<p>12 0.66529065 <a title="262-lda-12" href="../hunch_net-2005/hunch_net-2005-02-19-Loss_Functions_for_Discriminative_Training_of_Energy-Based_Models.html">23 hunch net-2005-02-19-Loss Functions for Discriminative Training of Energy-Based Models</a></p>
-<p>13 0.66517395 <a title="262-lda-13" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
-<p>14 0.66516006 <a title="262-lda-14" href="../hunch_net-2009/hunch_net-2009-07-31-Vowpal_Wabbit_Open_Source_Project.html">365 hunch net-2009-07-31-Vowpal Wabbit Open Source Project</a></p>
-<p>15 0.66447961 <a title="262-lda-15" href="../hunch_net-2006/hunch_net-2006-06-14-Explorations_of_Exploration.html">183 hunch net-2006-06-14-Explorations of Exploration</a></p>
-<p>16 0.66345429 <a title="262-lda-16" href="../hunch_net-2006/hunch_net-2006-08-18-Report_of_MLSS_2006_Taipei.html">203 hunch net-2006-08-18-Report of MLSS 2006 Taipei</a></p>
-<p>17 0.66341364 <a title="262-lda-17" href="../hunch_net-2013/hunch_net-2013-12-01-NIPS_tutorials_and_Vowpal_Wabbit_7.4.html">492 hunch net-2013-12-01-NIPS tutorials and Vowpal Wabbit 7.4</a></p>
-<p>18 0.66308761 <a title="262-lda-18" href="../hunch_net-2008/hunch_net-2008-01-06-Research_Political_Issues.html">282 hunch net-2008-01-06-Research Political Issues</a></p>
-<p>19 0.66297263 <a title="262-lda-19" href="../hunch_net-2005/hunch_net-2005-08-23-%28Dis%29similarities_between_academia_and_open_source_programmers.html">105 hunch net-2005-08-23-(Dis)similarities between academia and open source programmers</a></p>
-<p>20 0.66295022 <a title="262-lda-20" href="../hunch_net-2011/hunch_net-2011-03-19-The_Ideal_Large_Scale_Learning_Class.html">426 hunch net-2011-03-19-The Ideal Large Scale Learning Class</a></p>
+<p>same-blog 1 0.89345586 <a title="262-lda-1" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
+<p>Introduction: Machine learning is often computationally bounded which implies that the ability to write fast code becomes important if you ever want to implement a machine learning algorithm.  Basic tactical optimizations are covered well  elsewhere , but I haven’t seen a reasonable guide to higher level optimizations, which are the most important in my experience.  Here are some of the higher level optimizations I’ve often found useful.
+  
+  Algorithmic Improvement First . This is Hard, but it is the most important consideration, and typically yields the most benefits.  Good optimizations here are publishable.  In the context of machine learning, you should be familiar with the arguments for online vs. batch learning. 
+  Choice of Language . There are many arguments about the  choice of language .  Sometimes you don’t have a choice when interfacing with other people.  Personally, I favor C/C++ when I want to write fast code.  This (admittedly) makes me a slower programmer than when using higher lev</p><p>2 0.86350805 <a title="262-lda-2" href="../hunch_net-2005/hunch_net-2005-08-18-SVM_Adaptability.html">103 hunch net-2005-08-18-SVM Adaptability</a></p>
+<p>Introduction: Several recent papers have shown that SVM-like optimizations can be used to handle several large family loss functions.
+ 
+This is a good thing because it is implausible that the  loss  function imposed by the world can not be taken into account in the process of solving a prediction problem.  Even people used to the hard-core  Bayesian  approach to learning often note that some approximations are almost inevitable in specifying a  prior  and/or integrating to achieve a posterior.  Taking into account how the system will be evaluated can allow both computational effort and design effort to be focused so as to improve performance.
+ 
+A current laundry list of capabilities includes:
+  
+ 2002  multiclass SVM including arbitrary cost matrices  
+  ICML 2003   Hidden Markov Models  
+  NIPS 2003   Markov Networks  (see some  discussion ) 
+  EMNLP 2004   Context free grammars  
+  ICML 2004   Any loss (with much computation)  
+  ICML 2005  Any  constrained linear prediction model  (thatâ&euro;&trade;s my own</p><p>3 0.68802178 <a title="262-lda-3" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
+<p>Introduction: Many people in Machine Learning don’t fully understand the impact of computation, as demonstrated by a lack of  big-O  analysis of new learning algorithms.  This is important—some current active research programs are fundamentally flawed w.r.t. computation, and other research programs are directly motivated by it.  When considering a learning algorithm, I think about the following questions:
+  
+ How does the learning algorithm scale with the number of examples  m ?  Any algorithm using all of the data is at least  O(m) , but in many cases this is  O(m 2 )  (naive nearest neighbor for self-prediction) or unknown (k-means or many other optimization algorithms).  The unknown case is very common, and it can mean (for example) that the algorithm isn’t convergent or simply that the amount of computation isn’t controlled. 
+ The above question can also be asked for test cases.  In some applications, test-time performance is of great importance. 
+ How does the algorithm scale with the number of</p><p>4 0.68610942 <a title="262-lda-4" href="../hunch_net-2009/hunch_net-2009-06-03-Functionally_defined_Nonlinear_Dynamic_Models.html">359 hunch net-2009-06-03-Functionally defined Nonlinear Dynamic Models</a></p>
+<p>Introduction: Suppose we have a set of observations over time  x 1 ,x 2 ,…,x t   and want to predict some future event  y t+1  .  An inevitable problem arises, because learning a predictor  h(x 1 ,…,x t )  of  y t+1   is generically intractable due to the size of the input.  To make this problem tractable, what’s necessary is a method for summarizing the relevant information in past observations for the purpose of prediction in the future.  In other words, state is required.
+ 
+Existing approaches for deriving state have some limitations.
+  
+  Hidden Markov models  learned with EM suffer from local minima, use tabular learning approaches which provide dubious generalization ability, and often require substantial a.priori specification of the observations. 
+  Kalman Filters  and  Particle Filters  are very parametric in the sense that substantial information must be specified up front. 
+ Dynamic Bayesian Networks ( graphical models  through time) require substantial a.priori specification and often re</p><p>5 0.67793423 <a title="262-lda-5" href="../hunch_net-2005/hunch_net-2005-07-14-What_Learning_Theory_might_do.html">95 hunch net-2005-07-14-What Learning Theory might do</a></p>
+<p>Introduction: I wanted to expand on this  post  and some of the previous  problems/research directions  about where learning theory might make large strides.  
+  
+  Why theory?   The essential reason for theory is “intuition extension”.  A very good applied learning person can master some particular application domain yielding the best computer algorithms for solving that problem.  A very good theory can take the intuitions discovered by this and other applied learning people and extend them to new domains in a relatively automatic fashion.  To do this, we take these basic intuitions and try to find a mathematical model that:
+ 
+ Explains the basic intuitions. 
+ Makes new testable predictions about how to learn. 
+ Succeeds in so learning. 
+ 
+
+This is “intuition extension”: taking what we have learned somewhere else and applying it in new domains.  It is fundamentally useful to everyone because it increases the level of automation in solving problems.
+
+ 
+  Where next for learning theory?  I like the a</p><p>6 0.67487925 <a title="262-lda-6" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
+<p>7 0.67194003 <a title="262-lda-7" href="../hunch_net-2009/hunch_net-2009-05-02-Wielding_a_New_Abstraction.html">351 hunch net-2009-05-02-Wielding a New Abstraction</a></p>
+<p>8 0.67190188 <a title="262-lda-8" href="../hunch_net-2007/hunch_net-2007-04-02-Contextual_Scaling.html">237 hunch net-2007-04-02-Contextual Scaling</a></p>
+<p>9 0.67079699 <a title="262-lda-9" href="../hunch_net-2006/hunch_net-2006-12-04-Structural_Problems_in_NIPS_Decision_Making.html">221 hunch net-2006-12-04-Structural Problems in NIPS Decision Making</a></p>
+<p>10 0.66826683 <a title="262-lda-10" href="../hunch_net-2009/hunch_net-2009-09-21-Netflix_finishes_%28and_starts%29.html">371 hunch net-2009-09-21-Netflix finishes (and starts)</a></p>
+<p>11 0.66681111 <a title="262-lda-11" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
+<p>12 0.66580468 <a title="262-lda-12" href="../hunch_net-2007/hunch_net-2007-01-26-Parallel_Machine_Learning_Problems.html">229 hunch net-2007-01-26-Parallel Machine Learning Problems</a></p>
+<p>13 0.6652723 <a title="262-lda-13" href="../hunch_net-2005/hunch_net-2005-12-27-Automated_Labeling.html">143 hunch net-2005-12-27-Automated Labeling</a></p>
+<p>14 0.66525888 <a title="262-lda-14" href="../hunch_net-2005/hunch_net-2005-07-27-Not_goal_metrics.html">98 hunch net-2005-07-27-Not goal metrics</a></p>
+<p>15 0.66505003 <a title="262-lda-15" href="../hunch_net-2005/hunch_net-2005-11-26-The_Design_of_an_Optimal_Research_Environment.html">132 hunch net-2005-11-26-The Design of an Optimal Research Environment</a></p>
+<p>16 0.66497105 <a title="262-lda-16" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
+<p>17 0.66434759 <a title="262-lda-17" href="../hunch_net-2005/hunch_net-2005-12-07-Is_the_Google_way_the_way_for_machine_learning%3F.html">136 hunch net-2005-12-07-Is the Google way the way for machine learning?</a></p>
+<p>18 0.66312271 <a title="262-lda-18" href="../hunch_net-2009/hunch_net-2009-02-18-Decision_by_Vetocracy.html">343 hunch net-2009-02-18-Decision by Vetocracy</a></p>
+<p>19 0.6623261 <a title="262-lda-19" href="../hunch_net-2008/hunch_net-2008-07-02-Proprietary_Data_in_Academic_Research%3F.html">306 hunch net-2008-07-02-Proprietary Data in Academic Research?</a></p>
+<p>20 0.6614123 <a title="262-lda-20" href="../hunch_net-2008/hunch_net-2008-04-22-Taking_the_next_step.html">297 hunch net-2008-04-22-Taking the next step</a></p>
 <br/><br/><br/>
 
 <script>

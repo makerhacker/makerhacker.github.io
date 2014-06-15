@@ -16,291 +16,201 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>463 hunch net-2012-05-02-ICML: Behind the Scenes</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="hunch_net-2012-463-html" href="http://hunch.net/?p=2407">html</a></p><p>Introduction: This is a rather long post, detailing the ICML 2012 review process. The goal
-is to make the process more transparent, help authors understand how we came
-to a decision, and discuss the strengths and weaknesses of this process for
-future conference organizers.Microsoft’s Conference Management Toolkit (CMT)We
-chose to useCMTover other conference management software mainly because of its
-rich toolkit. The interface is sub-optimal (to say the least!) but it has
-extensive capabilities (to handle bids, author response, resubmissions, etc.),
-good import/export mechanisms (to process the data elsewhere), excellent
-technical support (to answer late night emails, add new functionalities).
-Overall, it was the right choice, although we hope a designer will look at
-that interface sometime soon!Toronto Matching System (TMS)TMSis now being used
-by many major conferences in our field (including NIPS and UAI). It is an
-automated system (developed byLaurent CharlinandRich Zemelat U. Toronto) to
-match re</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Each of these area chairs was asked to nominate a list of potential reviewers. [sent-19, score-0.669]
-</p><p>2 BiddingAn unsupervised version of TMS was used to generate a list of candidate papers for each reviewer and area chair. [sent-29, score-0.776]
-</p><p>3 CMT did not have the functionality to show a good list of candidate papers to reviewers, so we crafted an interface to show this list and let reviewers use that in conjunction with CMT. [sent-31, score-0.889]
-</p><p>4 Another group received a list based on the matching between their subject area and that of the paper (referred to as the “relevance” score in CMT). [sent-37, score-0.845]
-</p><p>5 The third group received a list based on a mix of both TMS and relevance. [sent-38, score-0.498]
-</p><p>6 We can also see that those who were presented with a list based on TMS scores were more likely to find the list useful. [sent-64, score-0.54]
-</p><p>7 This is a real shortcoming when it comes to matching papers to reviewers, especially for those reviewers that did not bid often. [sent-68, score-0.696]
-</p><p>8 To mitigate this problem, we used the click information on the shortlist presented to the reviewers to find out which papers have been observed and ignored. [sent-69, score-0.537]
-</p><p>9 This is problematic because the tools used to do the actual reviewer-paper matching tend to assign the papers without any bids to the reviewers who did not bid, regardless of the match in expertise. [sent-72, score-0.771]
-</p><p>10 To deal with the wildly varying number of bids per person, we imputed zero bids, first from papers that were plausibly skipped over, and if necessary at random from papers not bid on such that each person had the same expected bid in the dataset. [sent-76, score-1.018]
-</p><p>11 This trained predictor was used to predict bid values for the full paper-reviewer bid matrix. [sent-80, score-0.533]
-</p><p>12 Automated Area Chair and First Reviewer AssignmentOnce we had the imputed paper-reviewer bidding matrix, CMT was used to generate the actual match between papers and area chairs, and (separately) between papers and reviewers. [sent-81, score-0.773]
-</p><p>13 Each paper had two area chairs (sometimes called “meta-reviewers” in CMT) assigned to it, one primary, one secondary, by running two rounds of assignments (so that the primary was usually the “better” match). [sent-82, score-0.615]
-</p><p>14 CMT provides proper load balancing, so that all area chairs and reviewers had similar loads. [sent-84, score-0.613]
-</p><p>15 Manual Checks of the Automated AssignmentsBefore finalizing the automated assignment, we manually looked through the list of papers to fix any potential problems that were not handled by the automated process. [sent-85, score-0.589]
-</p><p>16 The two major cases were papers that did not go through the TMS system (authors did not agree to do so), and cases of poor primary-secondary meta-reviewer pairs (when the two area chairs are judged to be too close to offer independent assessment, e. [sent-86, score-0.641]
-</p><p>17 Second and Third Reviewer AssignmentOnce the initial assignments were announced, we asked the two area chairs for a given paper to each manually assign another reviewer from the PC. [sent-89, score-0.737]
-</p><p>18 To help area chairs with this, we generated a shortlist of 10 recommended reviewers for each paper (using the estimated bid matrix and TMS score, with the CMT matching algorithm for load balancing of reviewer suggestions. [sent-90, score-1.341]
-</p><p>19 In a small number of regular submissions (less than 10), we received 2 very negative reviews and notified the third reviewer (who was usually late by this point! [sent-97, score-0.52]
-</p><p>20 Final DecisionsTo help us better decide on the quality of the papers, we asked the primary area chairs to provide a meta-review for each of their papers. [sent-107, score-0.494]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="hunch_net-2012-463-html" href="http://hunch.net/?p=2407">html</a></p><p>Introduction: This is a rather long post, detailing the ICML 2012 review process. The goal is to make the process more transparent, help authors understand how we came to a decision, and discuss the strengths and weaknesses of this process for future conference organizers.
+ 
+ Microsoft’s Conference Management Toolkit (CMT)  
+We chose to use  CMT  over other conference management software mainly because of its rich toolkit. The interface is sub-optimal (to say the least!) but it has extensive capabilities (to handle bids, author response, resubmissions, etc.), good import/export mechanisms (to process the data elsewhere), excellent technical support (to answer late night emails, add new functionalities).  Overall, it was the right choice, although we hope a designer will look at that interface sometime soon!
+ 
+ Toronto Matching System (TMS)  
+  TMS  is now being used by many major conferences in our field (including NIPS and UAI). It is an automated system (developed by  Laurent Charlin  and  Rich Ze</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 Each of these area chairs was asked to nominate a list of potential reviewers. [sent-19, score-0.557]
+</p><p>2 Bidding   An unsupervised version of TMS was used to generate a list of candidate papers for each reviewer and area chair. [sent-29, score-0.645]
+</p><p>3 CMT did not have the functionality to show a good list of candidate papers to reviewers, so we crafted an interface to show this list and let reviewers use that in conjunction with CMT. [sent-31, score-0.746]
+</p><p>4 Another group received a list based on the matching between their subject area and that of the paper (referred to as the “relevance” score in CMT). [sent-37, score-0.754]
+</p><p>5 The third group received a list based on a mix of both TMS and relevance. [sent-38, score-0.458]
+</p><p>6 We can also see that those who were presented with a list based on TMS scores were more likely to find the list useful. [sent-64, score-0.475]
+</p><p>7 This is a real shortcoming when it comes to matching papers to reviewers, especially for those reviewers that did not bid often. [sent-68, score-0.58]
+</p><p>8 To mitigate this problem, we used the click information on the shortlist presented to the reviewers to find out which papers have been observed and ignored. [sent-69, score-0.446]
+</p><p>9 This is problematic because the tools used to do the actual reviewer-paper matching tend to assign the papers without any bids to the reviewers who did not bid, regardless of the match in expertise. [sent-72, score-0.667]
+</p><p>10 To deal with the wildly varying number of bids per person, we imputed zero bids, first from papers that were plausibly skipped over, and if necessary at random from papers not bid on such that each person had the same expected bid in the dataset. [sent-76, score-0.872]
+</p><p>11 This trained predictor was used to predict bid values for the full paper-reviewer bid matrix. [sent-80, score-0.45]
+</p><p>12 Automated Area Chair and First Reviewer Assignment   Once we had the imputed paper-reviewer bidding matrix, CMT was used to generate the actual match between papers and area chairs, and (separately) between papers and reviewers. [sent-81, score-0.652]
+</p><p>13 Each paper had two area chairs (sometimes called “meta-reviewers” in CMT) assigned to it, one primary, one secondary, by running two rounds of assignments (so that the primary was usually the “better” match). [sent-82, score-0.559]
+</p><p>14 CMT provides proper load balancing, so that all area chairs and reviewers had similar loads. [sent-84, score-0.512]
+</p><p>15 Manual Checks of the Automated Assignments   Before finalizing the automated assignment, we manually looked through the list of papers to fix any potential problems that were not handled by the automated process. [sent-85, score-0.517]
+</p><p>16 The two major cases were papers that did not go through the TMS system (authors did not agree to do so), and cases of poor primary-secondary meta-reviewer pairs (when the two area chairs are judged to be too close to offer independent assessment, e. [sent-86, score-0.527]
+</p><p>17 Second and Third Reviewer Assignment   Once the initial assignments were announced, we asked the two area chairs for a given paper to each manually assign another reviewer from the PC. [sent-89, score-0.659]
+</p><p>18 To help area chairs with this, we generated a shortlist of 10 recommended reviewers for each paper (using the estimated bid matrix and TMS score, with the CMT matching algorithm for load balancing of reviewer suggestions. [sent-90, score-1.116]
+</p><p>19 In a small number of regular submissions (less than 10), we received 2 very negative reviews and notified the third reviewer (who was usually late by this point! [sent-97, score-0.447]
+</p><p>20 Final Decisions   To help us better decide on the quality of the papers, we asked the primary area chairs to provide a meta-review for each of their papers. [sent-107, score-0.409]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('tms', 0.456), ('cmt', 0.38), ('bid', 0.235), ('list', 0.231), ('reviewers', 0.2), ('chairs', 0.18), ('area', 0.179), ('bids', 0.171), ('papers', 0.16), ('reviewer', 0.143), ('received', 0.106), ('pc', 0.103), ('matching', 0.101), ('group', 0.097), ('reviews', 0.086), ('paper', 0.08), ('asked', 0.079), ('bidding', 0.078), ('scores', 0.078), ('manually', 0.076), ('match', 0.076), ('total', 0.07), ('review', 0.067), ('interface', 0.067), ('submissions', 0.064), ('third', 0.064), ('assigned', 0.063), ('used', 0.063), ('automated', 0.061), ('cases', 0.061), ('sent', 0.061), ('secondary', 0.059), ('assignmentonce', 0.057), ('balancing', 0.057), ('hectic', 0.057), ('imputed', 0.057), ('laurent', 0.057), ('mitigate', 0.057), ('shortlist', 0.057), ('toronto', 0.057), ('unanimous', 0.057), ('usually', 0.057), ('primary', 0.056), ('matrix', 0.055), ('load', 0.054), ('supervised', 0.052), ('score', 0.051), ('program', 0.051), ('qualified', 0.051), ('separately', 0.051)]</p>
+<p>[('tms', 0.509), ('cmt', 0.495), ('bid', 0.199), ('list', 0.196), ('reviewers', 0.17), ('bids', 0.17), ('area', 0.149), ('chairs', 0.148), ('papers', 0.128), ('reviewer', 0.12), ('group', 0.118), ('received', 0.09), ('pc', 0.085), ('matching', 0.083), ('bidding', 0.083), ('scores', 0.083), ('reviews', 0.083), ('laurent', 0.075), ('manually', 0.065), ('match', 0.064), ('authors', 0.064), ('automated', 0.064), ('asked', 0.064), ('paper', 0.061), ('sorting', 0.06), ('total', 0.059), ('score', 0.057), ('review', 0.057), ('interface', 0.056), ('assigned', 0.054), ('third', 0.054), ('committee', 0.054), ('submissions', 0.053), ('used', 0.052), ('assignments', 0.052), ('cases', 0.051), ('sent', 0.05), ('secondary', 0.05), ('balancing', 0.048), ('hectic', 0.048), ('imputed', 0.048), ('mitigate', 0.048), ('shortlist', 0.048), ('unanimous', 0.048), ('preferred', 0.048), ('assignment', 0.048), ('primary', 0.048), ('usually', 0.047), ('load', 0.045), ('matrix', 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>same-blog 1 1.0000002 <a title="463-tfidf-1" href="../hunch_net-2012/hunch_net-2012-05-02-ICML%3A_Behind_the_Scenes.html">463 hunch net-2012-05-02-ICML: Behind the Scenes</a></p>
-<p>Introduction: This is a rather long post, detailing the ICML 2012 review process. The goal
-is to make the process more transparent, help authors understand how we came
-to a decision, and discuss the strengths and weaknesses of this process for
-future conference organizers.Microsoft’s Conference Management Toolkit (CMT)We
-chose to useCMTover other conference management software mainly because of its
-rich toolkit. The interface is sub-optimal (to say the least!) but it has
-extensive capabilities (to handle bids, author response, resubmissions, etc.),
-good import/export mechanisms (to process the data elsewhere), excellent
-technical support (to answer late night emails, add new functionalities).
-Overall, it was the right choice, although we hope a designer will look at
-that interface sometime soon!Toronto Matching System (TMS)TMSis now being used
-by many major conferences in our field (including NIPS and UAI). It is an
-automated system (developed byLaurent CharlinandRich Zemelat U. Toronto) to
-match re</p><p>2 0.29780555 <a title="463-tfidf-2" href="../hunch_net-2008/hunch_net-2008-09-03-Bidding_Problems.html">315 hunch net-2008-09-03-Bidding Problems</a></p>
-<p>Introduction: One way that many conferences in machine learning assign reviewers to papers
-is via bidding, which has steps something like:Invite people to reviewAccept
-papersReviewers look at title and abstract and state the papers they are
-interested in reviewing.Some massaging happens, but reviewers often get
-approximately the papers they bid for.At the ICML business meeting,Andrew
-McCallumsuggested getting rid of bidding for papers. A couple reasons were
-given:PrivacyThe title and abstract of the entire set of papers is visible to
-every participating reviewer. Some authors might be uncomfortable about this
-for submitted papers. I'm not sympathetic to this reason: the point of
-submitting a paper to review is to publish it, so the value (if any) of not
-publishing a part of it a little bit earlier seems limited.CliquesA bidding
-system is gameable. If you have 3 buddies and you inform each other of your
-submissions, you can each bid for your friend's papers and express a
-disinterest in others. There</p><p>3 0.28802302 <a title="463-tfidf-3" href="../hunch_net-2013/hunch_net-2013-06-16-Representative_Reviewing.html">484 hunch net-2013-06-16-Representative Reviewing</a></p>
-<p>Introduction: When thinking about how best to review papers, it seems helpful to have some
-conception of what good reviewing is. As far as I can tell, this is almost
-always only discussed in the specific context of a paper (i.e. your rejected
-paper), or at most an area (i.e. what a "good paper" looks like for that area)
-rather than general principles. Neither individual papers or areas are
-sufficiently general for a large conference--every paper differs in the
-details, and what if you want to build a new area and/or cross areas?An
-unavoidable reason for reviewing is that the community of research is too
-large. In particular, it is not possible for a researcher to read every paper
-which someone thinks might be of interest. This reason for reviewing exists
-independent of constraints on rooms or scheduling formats of individual
-conferences. Indeed, history suggests that physical constraints are relatively
-meaningless over the long term -- growing conferences simply use more rooms
-and/or change formats</p><p>4 0.2232579 <a title="463-tfidf-4" href="../hunch_net-2011/hunch_net-2011-10-10-ML_Symposium_and_ICML_details.html">447 hunch net-2011-10-10-ML Symposium and ICML details</a></p>
-<p>Introduction: Everyone should have received notice forNY ML Symposiumabstracts. Check
-carefully, as one was lost by our system.The event itself is October 21, next
-week.Leon Bottou,Stephen Boyd, andYoav Freundare giving the invited talks this
-year, and there are many spotlights on local work spread throughout the
-day.Chris Wigginshas setup 6(!) ML-interested startups to follow the
-symposium, which should be of substantial interest to the employment
-interested.I also wanted to give an update onICML 2012. Unlike last year, our
-deadline is coordinated withAIStat(which is due this Friday). The paper
-deadline for ICML has been pushed back to February 24 which should allow
-significant time for finishing up papers after the winter break. Other details
-may interest people as well:We settled on usingCMTafter checking out the
-possibilities. I wasn't looking for this, because I've often found CMT clunky
-in terms of easy access to the right information. Nevertheless, the breadth of
-features and willingness to s</p><p>5 0.22222933 <a title="463-tfidf-5" href="../hunch_net-2009/hunch_net-2009-02-18-Decision_by_Vetocracy.html">343 hunch net-2009-02-18-Decision by Vetocracy</a></p>
-<p>Introduction: Few would mistake the process of academic paper review for a fair process, but
-sometimes the unfairness seems particularly striking. This is most easily seen
-by comparison:PaperBanditronOffset TreeNotesProblem ScopeMulticlass problems
-where only the loss of one choice can be probed.Strictly greater: Cost
-sensitive multiclass problems where only the loss of one choice can be
-probed.Often generalizations don't matter. That's not the case here, since
-every plausible application I've thought of involves loss functions
-substantially different from 0/1.What's newAnalysis and ExperimentsAlgorithm,
-Analysis, and ExperimentsAs far as I know, the essence of the more general
-problem was first stated and analyzed with theEXP4 algorithm (page 16)(1998).
-It's also the time horizon 1 simplification of the Reinforcement Learning
-setting for therandom trajectory method (page 15)(2002). The Banditron
-algorithm itself is functionally identical toOne-Step RL with Traces (page
-122)(2003) inBianca's thesis</p><p>6 0.21971744 <a title="463-tfidf-6" href="../hunch_net-2012/hunch_net-2012-04-09-ICML_author_feedback_is_open.html">461 hunch net-2012-04-09-ICML author feedback is open</a></p>
-<p>7 0.21686776 <a title="463-tfidf-7" href="../hunch_net-2006/hunch_net-2006-12-04-Structural_Problems_in_NIPS_Decision_Making.html">221 hunch net-2006-12-04-Structural Problems in NIPS Decision Making</a></p>
-<p>8 0.20794134 <a title="463-tfidf-8" href="../hunch_net-2008/hunch_net-2008-10-14-Who_is_Responsible_for_a_Bad_Review%3F.html">320 hunch net-2008-10-14-Who is Responsible for a Bad Review?</a></p>
-<p>9 0.19790164 <a title="463-tfidf-9" href="../hunch_net-2011/hunch_net-2011-07-10-ICML_2011_and_the_future.html">437 hunch net-2011-07-10-ICML 2011 and the future</a></p>
-<p>10 0.19205599 <a title="463-tfidf-10" href="../hunch_net-2012/hunch_net-2012-01-28-Why_COLT%3F.html">453 hunch net-2012-01-28-Why COLT?</a></p>
-<p>11 0.17421587 <a title="463-tfidf-11" href="../hunch_net-2008/hunch_net-2008-06-27-Reviewing_Horror_Stories.html">304 hunch net-2008-06-27-Reviewing Horror Stories</a></p>
-<p>12 0.16351715 <a title="463-tfidf-12" href="../hunch_net-2006/hunch_net-2006-09-12-Incentive_Compatible_Reviewing.html">207 hunch net-2006-09-12-Incentive Compatible Reviewing</a></p>
-<p>13 0.16014597 <a title="463-tfidf-13" href="../hunch_net-2008/hunch_net-2008-09-26-The_SODA_Program_Committee.html">318 hunch net-2008-09-26-The SODA Program Committee</a></p>
-<p>14 0.15934375 <a title="463-tfidf-14" href="../hunch_net-2005/hunch_net-2005-09-30-Research_in_conferences.html">116 hunch net-2005-09-30-Research in conferences</a></p>
-<p>15 0.15374647 <a title="463-tfidf-15" href="../hunch_net-2012/hunch_net-2012-01-30-ICML_Posters_and_Scope.html">454 hunch net-2012-01-30-ICML Posters and Scope</a></p>
-<p>16 0.14835575 <a title="463-tfidf-16" href="../hunch_net-2005/hunch_net-2005-03-13-Avoiding_Bad_Reviewing.html">40 hunch net-2005-03-13-Avoiding Bad Reviewing</a></p>
-<p>17 0.13390304 <a title="463-tfidf-17" href="../hunch_net-2012/hunch_net-2012-06-29-ICML_survey_and_comments.html">468 hunch net-2012-06-29-ICML survey and comments</a></p>
-<p>18 0.13326845 <a title="463-tfidf-18" href="../hunch_net-2005/hunch_net-2005-03-09-Bad_Reviewing.html">38 hunch net-2005-03-09-Bad Reviewing</a></p>
-<p>19 0.130576 <a title="463-tfidf-19" href="../hunch_net-2008/hunch_net-2008-12-27-Adversarial_Academia.html">333 hunch net-2008-12-27-Adversarial Academia</a></p>
-<p>20 0.13001247 <a title="463-tfidf-20" href="../hunch_net-2010/hunch_net-2010-07-18-ICML_%26%23038%3B_COLT_2010.html">403 hunch net-2010-07-18-ICML &#038; COLT 2010</a></p>
+<p>same-blog 1 1.0000001 <a title="463-tfidf-1" href="../hunch_net-2012/hunch_net-2012-05-02-ICML%3A_Behind_the_Scenes.html">463 hunch net-2012-05-02-ICML: Behind the Scenes</a></p>
+<p>Introduction: This is a rather long post, detailing the ICML 2012 review process. The goal is to make the process more transparent, help authors understand how we came to a decision, and discuss the strengths and weaknesses of this process for future conference organizers.
+ 
+ Microsoft’s Conference Management Toolkit (CMT)  
+We chose to use  CMT  over other conference management software mainly because of its rich toolkit. The interface is sub-optimal (to say the least!) but it has extensive capabilities (to handle bids, author response, resubmissions, etc.), good import/export mechanisms (to process the data elsewhere), excellent technical support (to answer late night emails, add new functionalities).  Overall, it was the right choice, although we hope a designer will look at that interface sometime soon!
+ 
+ Toronto Matching System (TMS)  
+  TMS  is now being used by many major conferences in our field (including NIPS and UAI). It is an automated system (developed by  Laurent Charlin  and  Rich Ze</p><p>2 0.28852075 <a title="463-tfidf-2" href="../hunch_net-2011/hunch_net-2011-10-10-ML_Symposium_and_ICML_details.html">447 hunch net-2011-10-10-ML Symposium and ICML details</a></p>
+<p>Introduction: Everyone should have received notice for  NY ML Symposium  abstracts.  Check carefully, as one was lost by our system.  
+ 
+The event itself is October 21, next week.   Leon Bottou ,  Stephen Boyd , and  Yoav Freund  are giving the invited talks this year, and there are many spotlights on local work spread throughout the day.   Chris Wiggins  has setup 6(!) ML-interested startups to follow the symposium, which should be of substantial interest to the employment interested.
+ 
+I also wanted to give an update on  ICML 2012 .  Unlike last year, our deadline is coordinated with  AIStat  (which is due this Friday).  The paper deadline for ICML has been pushed back to February 24 which should allow significant time for finishing up papers after the winter break.  Other details may interest people as well: 
+  
+ We settled on using  CMT  after checking out the possibilities.  I wasn’t looking for this, because I’ve  often found CMT clunky in terms of easy access to the right information.  Nevert</p><p>3 0.26844916 <a title="463-tfidf-3" href="../hunch_net-2008/hunch_net-2008-09-03-Bidding_Problems.html">315 hunch net-2008-09-03-Bidding Problems</a></p>
+<p>Introduction: One way that many conferences in machine learning assign reviewers to papers is via bidding, which has steps something like:
+  
+ Invite people to review 
+ Accept papers 
+ Reviewers look at title and abstract and state the papers they are interested in reviewing. 
+ Some massaging happens, but reviewers often get approximately the papers they bid for. 
+  
+At the ICML business meeting,  Andrew McCallum  suggested getting rid of bidding for papers.  A couple reasons were given:
+  
+  Privacy  The title and abstract of the entire set of papers is visible to every participating reviewer.  Some authors might be uncomfortable about this for submitted papers.  I’m not sympathetic to this reason: the point of submitting a paper to review is to publish it, so the value (if any) of not publishing a part of it a little bit earlier seems limited. 
+  Cliques   A bidding system is gameable.  If you have 3 buddies and you inform each other of your submissions, you can each bid for your friend’s papers a</p><p>4 0.25115946 <a title="463-tfidf-4" href="../hunch_net-2013/hunch_net-2013-06-16-Representative_Reviewing.html">484 hunch net-2013-06-16-Representative Reviewing</a></p>
+<p>Introduction: When thinking about how best to review papers, it seems helpful to have some conception of what good reviewing is.  As far as I can tell, this is almost always only discussed in the specific context of a paper (i.e. your rejected paper), or at most an area (i.e. what a “good paper” looks like for that area) rather than general principles.  Neither individual papers or areas are sufficiently general for a large conference—every paper differs in the details, and what if you want to build a new area and/or cross areas?
+ 
+An unavoidable reason for reviewing is that the community of research is too large.  In particular, it is not possible for a researcher to read every paper which someone thinks might be of interest.  This reason for reviewing exists independent of constraints on rooms or scheduling formats of individual conferences.  Indeed, history suggests that physical constraints are relatively meaningless over the long term — growing conferences simply use more rooms and/or change fo</p><p>5 0.19450437 <a title="463-tfidf-5" href="../hunch_net-2006/hunch_net-2006-12-04-Structural_Problems_in_NIPS_Decision_Making.html">221 hunch net-2006-12-04-Structural Problems in NIPS Decision Making</a></p>
+<p>Introduction: This is a very difficult post to write, because it is about a perenially touchy subject.  Nevertheless, it is an important one which needs to be thought about carefully.
+ 
+There are a few things which should be understood:
+  
+ The system is changing and responsive.  We-the-authors are we-the-reviewers, we-the-PC, and even we-the-NIPS-board.  NIPS has implemented ‘secondary program chairs’, ‘author response’, and ‘double blind reviewing’ in the last few years to help with the decision process, and more changes may happen in the future. 
+ Agreement creates a perception of correctness.  When any PC meets and makes a group decision about a paper, there is a strong tendency for the reinforcement inherent in a group decision to create the perception of correctness.  For the many people who have been on the NIPS PC it’s reasonable to entertain a healthy skepticism in the face of this reinforcing certainty. 
+ This post is about structural problems.  What problems arise because of the structure</p><p>6 0.19337027 <a title="463-tfidf-6" href="../hunch_net-2012/hunch_net-2012-04-09-ICML_author_feedback_is_open.html">461 hunch net-2012-04-09-ICML author feedback is open</a></p>
+<p>7 0.18783528 <a title="463-tfidf-7" href="../hunch_net-2009/hunch_net-2009-02-18-Decision_by_Vetocracy.html">343 hunch net-2009-02-18-Decision by Vetocracy</a></p>
+<p>8 0.17430295 <a title="463-tfidf-8" href="../hunch_net-2008/hunch_net-2008-10-14-Who_is_Responsible_for_a_Bad_Review%3F.html">320 hunch net-2008-10-14-Who is Responsible for a Bad Review?</a></p>
+<p>9 0.16872239 <a title="463-tfidf-9" href="../hunch_net-2012/hunch_net-2012-01-28-Why_COLT%3F.html">453 hunch net-2012-01-28-Why COLT?</a></p>
+<p>10 0.16484225 <a title="463-tfidf-10" href="../hunch_net-2011/hunch_net-2011-07-10-ICML_2011_and_the_future.html">437 hunch net-2011-07-10-ICML 2011 and the future</a></p>
+<p>11 0.14467442 <a title="463-tfidf-11" href="../hunch_net-2006/hunch_net-2006-09-12-Incentive_Compatible_Reviewing.html">207 hunch net-2006-09-12-Incentive Compatible Reviewing</a></p>
+<p>12 0.14409338 <a title="463-tfidf-12" href="../hunch_net-2008/hunch_net-2008-06-27-Reviewing_Horror_Stories.html">304 hunch net-2008-06-27-Reviewing Horror Stories</a></p>
+<p>13 0.14111181 <a title="463-tfidf-13" href="../hunch_net-2008/hunch_net-2008-09-26-The_SODA_Program_Committee.html">318 hunch net-2008-09-26-The SODA Program Committee</a></p>
+<p>14 0.13016649 <a title="463-tfidf-14" href="../hunch_net-2012/hunch_net-2012-01-30-ICML_Posters_and_Scope.html">454 hunch net-2012-01-30-ICML Posters and Scope</a></p>
+<p>15 0.12670287 <a title="463-tfidf-15" href="../hunch_net-2005/hunch_net-2005-03-13-Avoiding_Bad_Reviewing.html">40 hunch net-2005-03-13-Avoiding Bad Reviewing</a></p>
+<p>16 0.12331507 <a title="463-tfidf-16" href="../hunch_net-2005/hunch_net-2005-03-09-Bad_Reviewing.html">38 hunch net-2005-03-09-Bad Reviewing</a></p>
+<p>17 0.11850613 <a title="463-tfidf-17" href="../hunch_net-2005/hunch_net-2005-09-30-Research_in_conferences.html">116 hunch net-2005-09-30-Research in conferences</a></p>
+<p>18 0.11625533 <a title="463-tfidf-18" href="../hunch_net-2012/hunch_net-2012-06-29-ICML_survey_and_comments.html">468 hunch net-2012-06-29-ICML survey and comments</a></p>
+<p>19 0.11216693 <a title="463-tfidf-19" href="../hunch_net-2012/hunch_net-2012-06-05-ICML_acceptance_statistics.html">466 hunch net-2012-06-05-ICML acceptance statistics</a></p>
+<p>20 0.10613771 <a title="463-tfidf-20" href="../hunch_net-2007/hunch_net-2007-04-13-What_to_do_with_an_unreasonable_conditional_accept.html">238 hunch net-2007-04-13-What to do with an unreasonable conditional accept</a></p>
 <br/>
 <h2>similar blogs computed by <a title="lsi-model" href="../home/hunch_net_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
-<p>[(0, 0.238), (1, 0.246), (2, -0.226), (3, -0.01), (4, -0.067), (5, 0.052), (6, 0.021), (7, 0.003), (8, 0.023), (9, -0.012), (10, 0.012), (11, 0.12), (12, 0.016), (13, -0.015), (14, -0.039), (15, -0.029), (16, -0.035), (17, -0.041), (18, 0.002), (19, -0.008), (20, -0.004), (21, 0.02), (22, 0.042), (23, 0.03), (24, -0.01), (25, -0.019), (26, -0.066), (27, 0.009), (28, -0.017), (29, -0.033), (30, -0.048), (31, 0.067), (32, 0.043), (33, -0.024), (34, 0.069), (35, 0.049), (36, 0.008), (37, -0.076), (38, 0.186), (39, -0.004), (40, -0.037), (41, -0.001), (42, 0.022), (43, 0.037), (44, 0.083), (45, 0.013), (46, 0.013), (47, 0.026), (48, 0.018), (49, 0.045)]</p>
+<p>[(0, 0.206), (1, -0.183), (2, 0.203), (3, 0.062), (4, 0.068), (5, 0.107), (6, -0.044), (7, -0.015), (8, -0.049), (9, -0.078), (10, 0.019), (11, -0.04), (12, 0.053), (13, -0.035), (14, -0.052), (15, -0.005), (16, -0.007), (17, 0.025), (18, 0.013), (19, -0.011), (20, 0.054), (21, 0.014), (22, 0.026), (23, -0.033), (24, -0.076), (25, 0.029), (26, -0.001), (27, 0.004), (28, 0.101), (29, 0.051), (30, 0.08), (31, 0.023), (32, 0.074), (33, 0.015), (34, -0.018), (35, 0.096), (36, -0.022), (37, 0.056), (38, 0.042), (39, -0.031), (40, -0.065), (41, -0.055), (42, -0.037), (43, -0.036), (44, -0.01), (45, -0.039), (46, -0.074), (47, 0.013), (48, 0.042), (49, -0.033)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>same-blog 1 0.97729462 <a title="463-lsi-1" href="../hunch_net-2012/hunch_net-2012-05-02-ICML%3A_Behind_the_Scenes.html">463 hunch net-2012-05-02-ICML: Behind the Scenes</a></p>
-<p>Introduction: This is a rather long post, detailing the ICML 2012 review process. The goal
-is to make the process more transparent, help authors understand how we came
-to a decision, and discuss the strengths and weaknesses of this process for
-future conference organizers.Microsoft’s Conference Management Toolkit (CMT)We
-chose to useCMTover other conference management software mainly because of its
-rich toolkit. The interface is sub-optimal (to say the least!) but it has
-extensive capabilities (to handle bids, author response, resubmissions, etc.),
-good import/export mechanisms (to process the data elsewhere), excellent
-technical support (to answer late night emails, add new functionalities).
-Overall, it was the right choice, although we hope a designer will look at
-that interface sometime soon!Toronto Matching System (TMS)TMSis now being used
-by many major conferences in our field (including NIPS and UAI). It is an
-automated system (developed byLaurent CharlinandRich Zemelat U. Toronto) to
-match re</p><p>2 0.84926319 <a title="463-lsi-2" href="../hunch_net-2008/hunch_net-2008-09-03-Bidding_Problems.html">315 hunch net-2008-09-03-Bidding Problems</a></p>
-<p>Introduction: One way that many conferences in machine learning assign reviewers to papers
-is via bidding, which has steps something like:Invite people to reviewAccept
-papersReviewers look at title and abstract and state the papers they are
-interested in reviewing.Some massaging happens, but reviewers often get
-approximately the papers they bid for.At the ICML business meeting,Andrew
-McCallumsuggested getting rid of bidding for papers. A couple reasons were
-given:PrivacyThe title and abstract of the entire set of papers is visible to
-every participating reviewer. Some authors might be uncomfortable about this
-for submitted papers. I'm not sympathetic to this reason: the point of
-submitting a paper to review is to publish it, so the value (if any) of not
-publishing a part of it a little bit earlier seems limited.CliquesA bidding
-system is gameable. If you have 3 buddies and you inform each other of your
-submissions, you can each bid for your friend's papers and express a
-disinterest in others. There</p><p>3 0.82038641 <a title="463-lsi-3" href="../hunch_net-2013/hunch_net-2013-06-16-Representative_Reviewing.html">484 hunch net-2013-06-16-Representative Reviewing</a></p>
-<p>Introduction: When thinking about how best to review papers, it seems helpful to have some
-conception of what good reviewing is. As far as I can tell, this is almost
-always only discussed in the specific context of a paper (i.e. your rejected
-paper), or at most an area (i.e. what a "good paper" looks like for that area)
-rather than general principles. Neither individual papers or areas are
-sufficiently general for a large conference--every paper differs in the
-details, and what if you want to build a new area and/or cross areas?An
-unavoidable reason for reviewing is that the community of research is too
-large. In particular, it is not possible for a researcher to read every paper
-which someone thinks might be of interest. This reason for reviewing exists
-independent of constraints on rooms or scheduling formats of individual
-conferences. Indeed, history suggests that physical constraints are relatively
-meaningless over the long term -- growing conferences simply use more rooms
-and/or change formats</p><p>4 0.8092801 <a title="463-lsi-4" href="../hunch_net-2008/hunch_net-2008-10-14-Who_is_Responsible_for_a_Bad_Review%3F.html">320 hunch net-2008-10-14-Who is Responsible for a Bad Review?</a></p>
-<p>Introduction: Although I'm greatly interested in machine learning, I think it must be
-admitted that there is a large amount of low quality logic being used in
-reviews. The problem is bad enough that sometimes I wonder if theByzantine
-generalslimit has been exceeded. For example, I've seen recent reviews where
-the given reasons for rejecting are:[NIPS] Theorem A is uninteresting because
-Theorem B is uninteresting.[UAI] When you learn by memorization, the problem
-addressed is trivial.[NIPS] The proof is in the appendix.[NIPS] This has been
-done before. (â&euro;Ś but not giving any relevant citations)Just for the record I
-want to point out what's wrong with these reviews. A future world in which
-such reasons never come up again would be great, but I'm sure these errors
-will be committed many times more in the future.This is nonsense. A theorem
-should be evaluated based on it's merits, rather than the merits of another
-theorem.Learning by memorization requires an exponentially larger sample
-complexity than man</p><p>5 0.78831947 <a title="463-lsi-5" href="../hunch_net-2012/hunch_net-2012-04-09-ICML_author_feedback_is_open.html">461 hunch net-2012-04-09-ICML author feedback is open</a></p>
-<p>Introduction: as of last night, late.When the reviewing deadline passed Wednesday night 15%
-of reviews were still missing, much higher than I expected. Between late
-reviews coming in, ACs working overtime through the weekend, and people
-willing to help in the pinch another ~390 reviews came in, reducing the
-missing mass to 0.2%. Nailing that last bit and a similar quantity of papers
-with uniformly low confidence reviews is what remains to be done in terms of
-basic reviews. We are trying to make all of those happen this week so authors
-have some chance to respond.I was surprised by the quantity of late reviews,
-and I think that's an area where ICML needs to improve in future years. Good
-reviews are not done in a rush--they are done by setting aside time (like an
-afternoon), and carefully reading the paper while thinking about implications.
-Many reviewers do this well but a significant minority aren't good at
-scheduling their personal time. In this situation there are several ways to
-fail:Give early w</p><p>6 0.76913196 <a title="463-lsi-6" href="../hunch_net-2005/hunch_net-2005-03-09-Bad_Reviewing.html">38 hunch net-2005-03-09-Bad Reviewing</a></p>
-<p>7 0.76598525 <a title="463-lsi-7" href="../hunch_net-2006/hunch_net-2006-12-04-Structural_Problems_in_NIPS_Decision_Making.html">221 hunch net-2006-12-04-Structural Problems in NIPS Decision Making</a></p>
-<p>8 0.73470008 <a title="463-lsi-8" href="../hunch_net-2008/hunch_net-2008-09-26-The_SODA_Program_Committee.html">318 hunch net-2008-09-26-The SODA Program Committee</a></p>
-<p>9 0.72826219 <a title="463-lsi-9" href="../hunch_net-2008/hunch_net-2008-06-27-Reviewing_Horror_Stories.html">304 hunch net-2008-06-27-Reviewing Horror Stories</a></p>
-<p>10 0.72161466 <a title="463-lsi-10" href="../hunch_net-2009/hunch_net-2009-07-09-The_Machine_Learning_Forum.html">363 hunch net-2009-07-09-The Machine Learning Forum</a></p>
-<p>11 0.71568692 <a title="463-lsi-11" href="../hunch_net-2006/hunch_net-2006-09-12-Incentive_Compatible_Reviewing.html">207 hunch net-2006-09-12-Incentive Compatible Reviewing</a></p>
-<p>12 0.71303248 <a title="463-lsi-12" href="../hunch_net-2005/hunch_net-2005-04-04-Grounds_for_Rejection.html">52 hunch net-2005-04-04-Grounds for Rejection</a></p>
-<p>13 0.69225055 <a title="463-lsi-13" href="../hunch_net-2009/hunch_net-2009-02-18-Decision_by_Vetocracy.html">343 hunch net-2009-02-18-Decision by Vetocracy</a></p>
-<p>14 0.67611265 <a title="463-lsi-14" href="../hunch_net-2011/hunch_net-2011-07-10-ICML_2011_and_the_future.html">437 hunch net-2011-07-10-ICML 2011 and the future</a></p>
-<p>15 0.67431164 <a title="463-lsi-15" href="../hunch_net-2012/hunch_net-2012-06-29-ICML_survey_and_comments.html">468 hunch net-2012-06-29-ICML survey and comments</a></p>
-<p>16 0.6738221 <a title="463-lsi-16" href="../hunch_net-2007/hunch_net-2007-04-13-What_to_do_with_an_unreasonable_conditional_accept.html">238 hunch net-2007-04-13-What to do with an unreasonable conditional accept</a></p>
-<p>17 0.63489848 <a title="463-lsi-17" href="../hunch_net-2005/hunch_net-2005-03-13-Avoiding_Bad_Reviewing.html">40 hunch net-2005-03-13-Avoiding Bad Reviewing</a></p>
-<p>18 0.63068813 <a title="463-lsi-18" href="../hunch_net-2012/hunch_net-2012-06-05-ICML_acceptance_statistics.html">466 hunch net-2012-06-05-ICML acceptance statistics</a></p>
-<p>19 0.6125685 <a title="463-lsi-19" href="../hunch_net-2005/hunch_net-2005-09-30-Research_in_conferences.html">116 hunch net-2005-09-30-Research in conferences</a></p>
-<p>20 0.60289448 <a title="463-lsi-20" href="../hunch_net-2005/hunch_net-2005-07-27-Not_goal_metrics.html">98 hunch net-2005-07-27-Not goal metrics</a></p>
+<p>same-blog 1 0.96933103 <a title="463-lsi-1" href="../hunch_net-2012/hunch_net-2012-05-02-ICML%3A_Behind_the_Scenes.html">463 hunch net-2012-05-02-ICML: Behind the Scenes</a></p>
+<p>Introduction: This is a rather long post, detailing the ICML 2012 review process. The goal is to make the process more transparent, help authors understand how we came to a decision, and discuss the strengths and weaknesses of this process for future conference organizers.
+ 
+ Microsoft’s Conference Management Toolkit (CMT)  
+We chose to use  CMT  over other conference management software mainly because of its rich toolkit. The interface is sub-optimal (to say the least!) but it has extensive capabilities (to handle bids, author response, resubmissions, etc.), good import/export mechanisms (to process the data elsewhere), excellent technical support (to answer late night emails, add new functionalities).  Overall, it was the right choice, although we hope a designer will look at that interface sometime soon!
+ 
+ Toronto Matching System (TMS)  
+  TMS  is now being used by many major conferences in our field (including NIPS and UAI). It is an automated system (developed by  Laurent Charlin  and  Rich Ze</p><p>2 0.81559509 <a title="463-lsi-2" href="../hunch_net-2012/hunch_net-2012-04-09-ICML_author_feedback_is_open.html">461 hunch net-2012-04-09-ICML author feedback is open</a></p>
+<p>Introduction: as of last night, late.
+ 
+When the reviewing deadline passed Wednesday night 15% of reviews were still missing, much higher than I expected.  Between late reviews coming in, ACs working overtime through the weekend, and people willing to help in the pinch another ~390 reviews came in, reducing the missing mass to 0.2%.  Nailing that last bit and a similar quantity of papers with uniformly low confidence reviews is what remains to be done in terms of basic reviews.  We are trying to make all of those happen this week so authors have some chance to respond.
+ 
+I was surprised by the quantity of late reviews, and I think that’s an area where ICML needs to improve in future years.  Good reviews are not done in a rush—they are done by setting aside time (like an afternoon), and carefully reading the paper while thinking about implications.  Many reviewers do this well but a significant minority aren’t good at scheduling their personal time.  In this situation there are several ways to fail:</p><p>3 0.8036955 <a title="463-lsi-3" href="../hunch_net-2008/hunch_net-2008-09-03-Bidding_Problems.html">315 hunch net-2008-09-03-Bidding Problems</a></p>
+<p>Introduction: One way that many conferences in machine learning assign reviewers to papers is via bidding, which has steps something like:
+  
+ Invite people to review 
+ Accept papers 
+ Reviewers look at title and abstract and state the papers they are interested in reviewing. 
+ Some massaging happens, but reviewers often get approximately the papers they bid for. 
+  
+At the ICML business meeting,  Andrew McCallum  suggested getting rid of bidding for papers.  A couple reasons were given:
+  
+  Privacy  The title and abstract of the entire set of papers is visible to every participating reviewer.  Some authors might be uncomfortable about this for submitted papers.  I’m not sympathetic to this reason: the point of submitting a paper to review is to publish it, so the value (if any) of not publishing a part of it a little bit earlier seems limited. 
+  Cliques   A bidding system is gameable.  If you have 3 buddies and you inform each other of your submissions, you can each bid for your friend’s papers a</p><p>4 0.80123222 <a title="463-lsi-4" href="../hunch_net-2013/hunch_net-2013-06-16-Representative_Reviewing.html">484 hunch net-2013-06-16-Representative Reviewing</a></p>
+<p>Introduction: When thinking about how best to review papers, it seems helpful to have some conception of what good reviewing is.  As far as I can tell, this is almost always only discussed in the specific context of a paper (i.e. your rejected paper), or at most an area (i.e. what a “good paper” looks like for that area) rather than general principles.  Neither individual papers or areas are sufficiently general for a large conference—every paper differs in the details, and what if you want to build a new area and/or cross areas?
+ 
+An unavoidable reason for reviewing is that the community of research is too large.  In particular, it is not possible for a researcher to read every paper which someone thinks might be of interest.  This reason for reviewing exists independent of constraints on rooms or scheduling formats of individual conferences.  Indeed, history suggests that physical constraints are relatively meaningless over the long term — growing conferences simply use more rooms and/or change fo</p><p>5 0.79340577 <a title="463-lsi-5" href="../hunch_net-2008/hunch_net-2008-10-14-Who_is_Responsible_for_a_Bad_Review%3F.html">320 hunch net-2008-10-14-Who is Responsible for a Bad Review?</a></p>
+<p>Introduction: Although I’m greatly interested in machine learning, I think it must be admitted that there is a large amount of low quality logic being used in reviews.  The problem is bad enough that sometimes I wonder if the  Byzantine generals  limit has been exceeded.  For example, I’ve seen recent reviews where the given reasons for rejecting are:
+  
+ [ NIPS ] Theorem A is uninteresting because Theorem B is uninteresting. 
+ [ UAI ] When you learn by memorization, the problem addressed is trivial. 
+ [NIPS] The proof is in the appendix.  
+ [NIPS] This has been done before.  (… but not giving any relevant citations)  
+  
+Just for the record I want to point out what’s wrong with these reviews.  A future world in which such reasons never come up again would be great, but I’m sure these errors will be committed many times more in the future.
+  
+ This is nonsense.  A theorem should be evaluated based on it’s merits, rather than the merits of another theorem. 
+ Learning by memorization requires an expon</p><p>6 0.76322836 <a title="463-lsi-6" href="../hunch_net-2006/hunch_net-2006-12-04-Structural_Problems_in_NIPS_Decision_Making.html">221 hunch net-2006-12-04-Structural Problems in NIPS Decision Making</a></p>
+<p>7 0.74378836 <a title="463-lsi-7" href="../hunch_net-2008/hunch_net-2008-06-27-Reviewing_Horror_Stories.html">304 hunch net-2008-06-27-Reviewing Horror Stories</a></p>
+<p>8 0.73596376 <a title="463-lsi-8" href="../hunch_net-2005/hunch_net-2005-03-09-Bad_Reviewing.html">38 hunch net-2005-03-09-Bad Reviewing</a></p>
+<p>9 0.73031342 <a title="463-lsi-9" href="../hunch_net-2008/hunch_net-2008-09-26-The_SODA_Program_Committee.html">318 hunch net-2008-09-26-The SODA Program Committee</a></p>
+<p>10 0.72749847 <a title="463-lsi-10" href="../hunch_net-2006/hunch_net-2006-09-12-Incentive_Compatible_Reviewing.html">207 hunch net-2006-09-12-Incentive Compatible Reviewing</a></p>
+<p>11 0.71018434 <a title="463-lsi-11" href="../hunch_net-2007/hunch_net-2007-04-13-What_to_do_with_an_unreasonable_conditional_accept.html">238 hunch net-2007-04-13-What to do with an unreasonable conditional accept</a></p>
+<p>12 0.67291284 <a title="463-lsi-12" href="../hunch_net-2009/hunch_net-2009-07-09-The_Machine_Learning_Forum.html">363 hunch net-2009-07-09-The Machine Learning Forum</a></p>
+<p>13 0.66229564 <a title="463-lsi-13" href="../hunch_net-2011/hunch_net-2011-07-10-ICML_2011_and_the_future.html">437 hunch net-2011-07-10-ICML 2011 and the future</a></p>
+<p>14 0.64192772 <a title="463-lsi-14" href="../hunch_net-2009/hunch_net-2009-02-18-Decision_by_Vetocracy.html">343 hunch net-2009-02-18-Decision by Vetocracy</a></p>
+<p>15 0.62176472 <a title="463-lsi-15" href="../hunch_net-2005/hunch_net-2005-03-13-Avoiding_Bad_Reviewing.html">40 hunch net-2005-03-13-Avoiding Bad Reviewing</a></p>
+<p>16 0.60146105 <a title="463-lsi-16" href="../hunch_net-2012/hunch_net-2012-06-05-ICML_acceptance_statistics.html">466 hunch net-2012-06-05-ICML acceptance statistics</a></p>
+<p>17 0.60110307 <a title="463-lsi-17" href="../hunch_net-2012/hunch_net-2012-06-29-ICML_survey_and_comments.html">468 hunch net-2012-06-29-ICML survey and comments</a></p>
+<p>18 0.59343141 <a title="463-lsi-18" href="../hunch_net-2013/hunch_net-2013-06-29-The_Benefits_of_Double-Blind_Review.html">485 hunch net-2013-06-29-The Benefits of Double-Blind Review</a></p>
+<p>19 0.58410573 <a title="463-lsi-19" href="../hunch_net-2012/hunch_net-2012-01-28-Why_COLT%3F.html">453 hunch net-2012-01-28-Why COLT?</a></p>
+<p>20 0.56236082 <a title="463-lsi-20" href="../hunch_net-2005/hunch_net-2005-04-04-Grounds_for_Rejection.html">52 hunch net-2005-04-04-Grounds for Rejection</a></p>
 <br/>
 <h2>similar blogs computed by <a title="lda-model" href="../home/hunch_net_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
-<p>[(2, 0.01), (6, 0.015), (29, 0.037), (35, 0.051), (39, 0.016), (42, 0.118), (45, 0.021), (47, 0.212), (48, 0.024), (55, 0.017), (68, 0.032), (69, 0.037), (74, 0.209), (82, 0.037), (95, 0.062)]</p>
+<p>[(3, 0.039), (9, 0.016), (10, 0.03), (27, 0.168), (36, 0.014), (38, 0.031), (48, 0.028), (51, 0.015), (53, 0.035), (54, 0.015), (55, 0.115), (60, 0.015), (67, 0.219), (90, 0.011), (92, 0.041), (94, 0.088), (95, 0.028)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>1 0.93628132 <a title="463-lda-1" href="../hunch_net-2005/hunch_net-2005-02-25-Why_Papers%3F.html">30 hunch net-2005-02-25-Why Papers?</a></p>
-<p>Introduction: Makc asked a goodquestionin comments--"Why bother to make a paper, at all?"
-There are several reasons for writing papers which may not be immediately
-obvious to people not in academia.The basic idea is that papers have
-considerably more utility than the obvious "present an idea".Papers are a
-formalized units of work. Academics (especially young ones) are often judged
-on the number of papers they produce.Papers have a formalized method of citing
-and crediting other--the bibliography. Academics (especially older ones) are
-often judged on the number of citations they receive.Papers enable a "more
-fair" anonymous review. Conferences receivemanypapers, from which a subset are
-selected. Discussion forums are inherently not anonymous for anyone who wants
-to build a reputation for good work.Papers are an excuse to meet your friends.
-Papers are the content of conferences, but much of what you do is talk to
-friends about interesting problems while there. Sometimes you even solve
-them.Papers are</p><p>same-blog 2 0.90930033 <a title="463-lda-2" href="../hunch_net-2012/hunch_net-2012-05-02-ICML%3A_Behind_the_Scenes.html">463 hunch net-2012-05-02-ICML: Behind the Scenes</a></p>
-<p>Introduction: This is a rather long post, detailing the ICML 2012 review process. The goal
-is to make the process more transparent, help authors understand how we came
-to a decision, and discuss the strengths and weaknesses of this process for
-future conference organizers.Microsoft’s Conference Management Toolkit (CMT)We
-chose to useCMTover other conference management software mainly because of its
-rich toolkit. The interface is sub-optimal (to say the least!) but it has
-extensive capabilities (to handle bids, author response, resubmissions, etc.),
-good import/export mechanisms (to process the data elsewhere), excellent
-technical support (to answer late night emails, add new functionalities).
-Overall, it was the right choice, although we hope a designer will look at
-that interface sometime soon!Toronto Matching System (TMS)TMSis now being used
-by many major conferences in our field (including NIPS and UAI). It is an
-automated system (developed byLaurent CharlinandRich Zemelat U. Toronto) to
-match re</p><p>3 0.87965465 <a title="463-lda-3" href="../hunch_net-2007/hunch_net-2007-06-13-Not_Posting.html">246 hunch net-2007-06-13-Not Posting</a></p>
-<p>Introduction: If you have been disappointed by the lack of a post for the last month,
-considercontributing your own(I've been busy+uninspired). Also, keep in mind
-that there is a community of machine learning blogs (see the sidebar).</p><p>4 0.80026382 <a title="463-lda-4" href="../hunch_net-2013/hunch_net-2013-11-09-Graduates_and_Postdocs.html">490 hunch net-2013-11-09-Graduates and Postdocs</a></p>
-<p>Introduction: Several strong graduates are on the job market this year.Alekh Agarwalmade
-themost scalable public learning algorithmas an intern two years ago. He has a
-deep and broad understanding of optimization and learning as well as the
-ability and will to make things happen programming-wise. I've been privileged
-to have Alekh visiting me in NY where he will be sorely missed.John
-DuchicreatedAdagradwhich is a commonly helpful improvement over online
-gradient descent that is seeing wide adoption, including inVowpal Wabbit. He
-has a similarly deep and broad understanding of optimization and learning with
-significant industry experience atGoogle. Alekh and John have often coauthored
-together.Stephane Rossvisited me a year ago over the summer, implementing many
-new algorithms and working out the firstscale free online update rulewhich is
-now the default in Vowpal Wabbit. Stephane isnoton the market--Google robbed
-the cradle successfullyI'm sure that he will do great things.Anna
-Choromanskavisited me</p><p>5 0.7596783 <a title="463-lda-5" href="../hunch_net-2012/hunch_net-2012-10-18-7th_Annual_Machine_Learning_Symposium.html">474 hunch net-2012-10-18-7th Annual Machine Learning Symposium</a></p>
-<p>Introduction: A reminder that theNew York Academy of Scienceswill be hosting the7th Annual
-Machine Learning Symposiumtomorrow from 9:30am.The main program will feature
-invited talks fromPeter Bartlett,William Freeman, andVladimir Vapnik, along
-with numerous spotlight talks and a poster session. Following the main
-program,hackNYandMicrosoft Researchare sponsoring a networking hour with talks
-from machine learning practitioners at NYC startups
-(specificallybit.ly,Buzzfeed,Chartbeat, andSense Networks,Visual Revenue).
-This should be of great interest to everyone considering working in machine
-learning.</p><p>6 0.74784786 <a title="463-lda-6" href="../hunch_net-2013/hunch_net-2013-06-16-Representative_Reviewing.html">484 hunch net-2013-06-16-Representative Reviewing</a></p>
-<p>7 0.73413134 <a title="463-lda-7" href="../hunch_net-2011/hunch_net-2011-07-10-ICML_2011_and_the_future.html">437 hunch net-2011-07-10-ICML 2011 and the future</a></p>
-<p>8 0.73370522 <a title="463-lda-8" href="../hunch_net-2008/hunch_net-2008-10-14-Who_is_Responsible_for_a_Bad_Review%3F.html">320 hunch net-2008-10-14-Who is Responsible for a Bad Review?</a></p>
-<p>9 0.72710204 <a title="463-lda-9" href="../hunch_net-2005/hunch_net-2005-09-30-Research_in_conferences.html">116 hunch net-2005-09-30-Research in conferences</a></p>
-<p>10 0.7267487 <a title="463-lda-10" href="../hunch_net-2006/hunch_net-2006-09-18-What_is_missing_for_online_collaborative_research%3F.html">208 hunch net-2006-09-18-What is missing for online collaborative research?</a></p>
-<p>11 0.72340232 <a title="463-lda-11" href="../hunch_net-2012/hunch_net-2012-01-28-Why_COLT%3F.html">453 hunch net-2012-01-28-Why COLT?</a></p>
-<p>12 0.72147679 <a title="463-lda-12" href="../hunch_net-2006/hunch_net-2006-07-11-New_Models.html">194 hunch net-2006-07-11-New Models</a></p>
-<p>13 0.72075486 <a title="463-lda-13" href="../hunch_net-2005/hunch_net-2005-07-04-The_Health_of_COLT.html">89 hunch net-2005-07-04-The Health of COLT</a></p>
-<p>14 0.7194134 <a title="463-lda-14" href="../hunch_net-2005/hunch_net-2005-05-28-Running_A_Machine_Learning_Summer_School.html">75 hunch net-2005-05-28-Running A Machine Learning Summer School</a></p>
-<p>15 0.71328658 <a title="463-lda-15" href="../hunch_net-2007/hunch_net-2007-01-26-Parallel_Machine_Learning_Problems.html">229 hunch net-2007-01-26-Parallel Machine Learning Problems</a></p>
-<p>16 0.71011412 <a title="463-lda-16" href="../hunch_net-2005/hunch_net-2005-07-27-Not_goal_metrics.html">98 hunch net-2005-07-27-Not goal metrics</a></p>
-<p>17 0.70760709 <a title="463-lda-17" href="../hunch_net-2012/hunch_net-2012-06-05-ICML_acceptance_statistics.html">466 hunch net-2012-06-05-ICML acceptance statistics</a></p>
-<p>18 0.70599127 <a title="463-lda-18" href="../hunch_net-2011/hunch_net-2011-10-10-ML_Symposium_and_ICML_details.html">447 hunch net-2011-10-10-ML Symposium and ICML details</a></p>
-<p>19 0.70568615 <a title="463-lda-19" href="../hunch_net-2005/hunch_net-2005-03-09-Bad_Reviewing.html">38 hunch net-2005-03-09-Bad Reviewing</a></p>
-<p>20 0.70547724 <a title="463-lda-20" href="../hunch_net-2008/hunch_net-2008-12-27-Adversarial_Academia.html">333 hunch net-2008-12-27-Adversarial Academia</a></p>
+<p>1 0.9195646 <a title="463-lda-1" href="../hunch_net-2006/hunch_net-2006-07-08-Some_recent_papers.html">192 hunch net-2006-07-08-Some recent papers</a></p>
+<p>Introduction: It was a fine time for learning in Pittsburgh. John and Sam mentioned some of my favorites. Here’s a few more worth checking out:
+ 
+Online Multitask Learning 
+Ofer Dekel, Phil Long, Yoram Singer 
+This is on my reading list. Definitely an area I’m interested in.
+ 
+Maximum Entropy Distribution Estimation with Generalized Regularization 
+Miroslav DudÃƒÂ­k, Robert E. Schapire
+ 
+Learning near-optimal policies with Bellman-residual minimization based fitted policy iteration and a single sample path 
+AndrÃƒÂ¡s Antos, Csaba SzepesvÃƒÂ¡ri, RÃƒÂ©mi Munos 
+Again, on the list to read. I saw Csaba and Remi talk about this and related work at an ICML Workshop on Kernel Reinforcement Learning. The big question in my head is how this compares/contrasts with existing work in  reductions to reinforcement learning.  Are there advantages/disadvantages?
+ 
+ Higher Order Learning On Graphs>  by Sameer Agarwal, Kristin Branson, and Serge Belongie, looks to be interesteding. They seem to poo-poo “tensorization</p><p>2 0.90721262 <a title="463-lda-2" href="../hunch_net-2008/hunch_net-2008-04-21-The_Science_2.0_article.html">296 hunch net-2008-04-21-The Science 2.0 article</a></p>
+<p>Introduction: I found the article about  science using modern tools interesting , especially the part about ‘blogophobia’, which in my experience is often a substantial issue: many potential guest posters aren’t quite ready, because of the fear of a permanent public mistake, because it is particularly hard to write about the unknown (the essence of research), and because the system for public credit doesn’t yet really handle blog posts.
+ 
+So far, science has been relatively resistant to discussing research on blogs.  Some things need to change to get there.  Public tolerance of the occasional mistake is essential, as is a willingness to cite (and credit) blogs as freely as papers.  
+ 
+I’ve often run into another reason for holding back myself: I don’t want to overtalk my own research.  Nevertheless, I’m slowly changing to the opinion that I’m holding back too much: the real power of a blog in research is that it can be used to confer with many people, and that just makes research work better.</p><p>same-blog 3 0.87254363 <a title="463-lda-3" href="../hunch_net-2012/hunch_net-2012-05-02-ICML%3A_Behind_the_Scenes.html">463 hunch net-2012-05-02-ICML: Behind the Scenes</a></p>
+<p>Introduction: This is a rather long post, detailing the ICML 2012 review process. The goal is to make the process more transparent, help authors understand how we came to a decision, and discuss the strengths and weaknesses of this process for future conference organizers.
+ 
+ Microsoft’s Conference Management Toolkit (CMT)  
+We chose to use  CMT  over other conference management software mainly because of its rich toolkit. The interface is sub-optimal (to say the least!) but it has extensive capabilities (to handle bids, author response, resubmissions, etc.), good import/export mechanisms (to process the data elsewhere), excellent technical support (to answer late night emails, add new functionalities).  Overall, it was the right choice, although we hope a designer will look at that interface sometime soon!
+ 
+ Toronto Matching System (TMS)  
+  TMS  is now being used by many major conferences in our field (including NIPS and UAI). It is an automated system (developed by  Laurent Charlin  and  Rich Ze</p><p>4 0.86935133 <a title="463-lda-4" href="../hunch_net-2006/hunch_net-2006-05-21-NIPS_paper_evaluation_criteria.html">180 hunch net-2006-05-21-NIPS paper evaluation criteria</a></p>
+<p>Introduction: John Platt , who is PC-chair for  NIPS 2006  has organized a  NIPS paper evaluation criteria  document with input from the  program committee  and others.  
+ 
+The document contains specific advice about what is appropriate for the various subareas within NIPS.  It may be very helpful, because the standards of evaluation for papers varies significantly.  
+ 
+This is a bit of an experiment: the hope is that by carefully thinking about and stating what is important, authors can better understand whether and where their work fits.
+ 
+Update: The  general submission page  and  Author instruction including how to submit an appendix .</p><p>5 0.75151479 <a title="463-lda-5" href="../hunch_net-2007/hunch_net-2007-07-01-Watchword%3A_Online_Learning.html">252 hunch net-2007-07-01-Watchword: Online Learning</a></p>
+<p>Introduction: It turns out that many different people use the term “Online Learning”, and often they don’t have the same definition in mind.  Here’s a list of the possibilities I know of.  
+  
+  Online Information Setting   Online learning refers to a  problem  in which unlabeled data comes, a prediction is made, and then feedback is acquired. 
+  Online Adversarial Setting  Online learning refers to  algorithms  in the Online Information Setting which satisfy guarantees of the form: “For all possible sequences of observations, the algorithim has regret at most  log ( number of strategies)  with respect to the best strategy in a set.”  This is sometimes called online learning with experts. 
+  Online Optimization Constraint  Online learning refers to optimizing a predictor via a learning algorithm tunes parameters on a per-example basis.  This may or may not be applied in the Online Information Setting, and the strategy may or may not satisfy Adversarial setting theory. 
+  Online Computational Constra</p><p>6 0.72486401 <a title="463-lda-6" href="../hunch_net-2010/hunch_net-2010-07-18-ICML_%26%23038%3B_COLT_2010.html">403 hunch net-2010-07-18-ICML &#038; COLT 2010</a></p>
+<p>7 0.71469414 <a title="463-lda-7" href="../hunch_net-2006/hunch_net-2006-08-18-Report_of_MLSS_2006_Taipei.html">203 hunch net-2006-08-18-Report of MLSS 2006 Taipei</a></p>
+<p>8 0.71124464 <a title="463-lda-8" href="../hunch_net-2011/hunch_net-2011-07-10-ICML_2011_and_the_future.html">437 hunch net-2011-07-10-ICML 2011 and the future</a></p>
+<p>9 0.70329726 <a title="463-lda-9" href="../hunch_net-2005/hunch_net-2005-03-13-Avoiding_Bad_Reviewing.html">40 hunch net-2005-03-13-Avoiding Bad Reviewing</a></p>
+<p>10 0.69788456 <a title="463-lda-10" href="../hunch_net-2005/hunch_net-2005-03-15-The_State_of_Tight_Bounds.html">41 hunch net-2005-03-15-The State of Tight Bounds</a></p>
+<p>11 0.69461429 <a title="463-lda-11" href="../hunch_net-2008/hunch_net-2008-10-14-Who_is_Responsible_for_a_Bad_Review%3F.html">320 hunch net-2008-10-14-Who is Responsible for a Bad Review?</a></p>
+<p>12 0.69438607 <a title="463-lda-12" href="../hunch_net-2008/hunch_net-2008-09-03-Bidding_Problems.html">315 hunch net-2008-09-03-Bidding Problems</a></p>
+<p>13 0.6938594 <a title="463-lda-13" href="../hunch_net-2013/hunch_net-2013-06-16-Representative_Reviewing.html">484 hunch net-2013-06-16-Representative Reviewing</a></p>
+<p>14 0.69335276 <a title="463-lda-14" href="../hunch_net-2009/hunch_net-2009-02-18-Decision_by_Vetocracy.html">343 hunch net-2009-02-18-Decision by Vetocracy</a></p>
+<p>15 0.69245166 <a title="463-lda-15" href="../hunch_net-2012/hunch_net-2012-04-09-ICML_author_feedback_is_open.html">461 hunch net-2012-04-09-ICML author feedback is open</a></p>
+<p>16 0.6876089 <a title="463-lda-16" href="../hunch_net-2011/hunch_net-2011-02-02-User_preferences_for_search_engines.html">423 hunch net-2011-02-02-User preferences for search engines</a></p>
+<p>17 0.68751568 <a title="463-lda-17" href="../hunch_net-2012/hunch_net-2012-01-30-ICML_Posters_and_Scope.html">454 hunch net-2012-01-30-ICML Posters and Scope</a></p>
+<p>18 0.68722206 <a title="463-lda-18" href="../hunch_net-2006/hunch_net-2006-08-28-Learning_Theory_standards_for_NIPS_2006.html">204 hunch net-2006-08-28-Learning Theory standards for NIPS 2006</a></p>
+<p>19 0.68524081 <a title="463-lda-19" href="../hunch_net-2009/hunch_net-2009-11-23-ICML_2009_Workshops_%28and_Tutorials%29.html">379 hunch net-2009-11-23-ICML 2009 Workshops (and Tutorials)</a></p>
+<p>20 0.68419552 <a title="463-lda-20" href="../hunch_net-2005/hunch_net-2005-04-01-The_Producer-Consumer_Model_of_Research.html">51 hunch net-2005-04-01-The Producer-Consumer Model of Research</a></p>
 <br/><br/><br/>
 
 <script>

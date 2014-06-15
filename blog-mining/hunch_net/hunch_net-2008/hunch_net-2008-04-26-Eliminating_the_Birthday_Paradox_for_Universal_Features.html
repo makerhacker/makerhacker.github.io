@@ -16,287 +16,200 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="hunch_net-2008-298-html" href="http://hunch.net/?p=328">html</a></p><p>Introduction: I want to expand onthis postwhich describes one of the core tricks for
-makingVowpal Wabbitfast and easy to use when learning from text.The central
-trick is converting a word (or any other parseable quantity) into a number via
-a hash function.Kishoretells me this is a relatively old trick in NLP land,
-but it has some added advantages when doing online learning, because you can
-learn directly from the existing data without preprocessing the data to create
-features (destroying the online property) or using an expensive hashtable
-lookup (slowing things down).A central concern for this approach is
-collisions, which create a loss of information. If you usemfeatures in an
-index space of sizenthe birthday paradox suggests a collision ifm > n0.5,
-essentially because there arem2pairs. This is pretty bad, because it says that
-with a vocabulary of105features, you might need to have1010entries in your
-table.It turns out that redundancy is great for dealing with
-collisions.Alexand I worked out a cou</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I want to expand onthis postwhich describes one of the core tricks for makingVowpal Wabbitfast and easy to use when learning from text. [sent-1, score-0.304]
-</p><p>2 The central trick is converting a word (or any other parseable quantity) into a number via a hash function. [sent-2, score-1.095]
-</p><p>3 A central concern for this approach is collisions, which create a loss of information. [sent-4, score-0.267]
-</p><p>4 If you usemfeatures in an index space of sizenthe birthday paradox suggests a collision ifm > n0. [sent-5, score-0.557]
-</p><p>5 This is pretty bad, because it says that with a vocabulary of105features, you might need to have1010entries in your table. [sent-7, score-0.117]
-</p><p>6 It turns out that redundancy is great for dealing with collisions. [sent-8, score-0.234]
-</p><p>7 Alexand I worked out a couple cases, the most extreme example of which is when you simply duplicate the base word and add a symbol before hashing, creating two entries in your weight array corresponding to the same word. [sent-9, score-0.824]
-</p><p>8 We can ask: what is the probability(*) that there exists a word where both entries collide with an entry for some other word? [sent-10, score-0.557]
-</p><p>9 This number can be further reduced to107by increasing the degree of duplication to 4 or more. [sent-13, score-0.255]
-</p><p>10 In a real world dataset with naturally redundant features, you can have the same effect implicitly, allowing for tolerance of a large number of collisions. [sent-15, score-0.193]
-</p><p>11 This argument is information theoretic, so it's possible that rates of convergence to optimal predictors are slowed by collision, even if the optimal predictor is unchanged. [sent-16, score-0.405]
-</p><p>12 To think about this possibility, analysis particular to specific learning algorithms is necessary. [sent-17, score-0.144]
-</p><p>13 It turns out that many learning algorithms are inherently tolerant of a small fraction of collisions, including large margin algorithms. [sent-18, score-0.321]
-</p><p>14 (*) As in almost all hash function analysis, the randomization is over the choice of (random) hash function. [sent-19, score-0.769]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="hunch_net-2008-298-html" href="http://hunch.net/?p=328">html</a></p><p>Introduction: I want to expand on  this post  which describes one of the core tricks for making  Vowpal Wabbit  fast and easy to use when learning from text.  
+ 
+The central trick is converting a word (or any other parseable quantity) into a number via a hash function.   Kishore  tells me this is a relatively old trick in NLP land, but it has some added advantages when doing online learning, because you can learn directly from the existing data without preprocessing the data to create features (destroying the online property) or using an expensive hashtable lookup (slowing things down).
+ 
+A central concern for this approach is collisions, which create a loss of information.  If you use  m  features in an index space of size  n  the birthday paradox suggests a collision if  m > n 0.5  , essentially because there are  m 2   pairs.   This is pretty bad, because it says that with a vocabulary of  10 5   features, you might need to have  10 10   entries in your table.
+ 
+It turns out that redundancy is gr</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 I want to expand on  this post  which describes one of the core tricks for making  Vowpal Wabbit  fast and easy to use when learning from text. [sent-1, score-0.274]
+</p><p>2 The central trick is converting a word (or any other parseable quantity) into a number via a hash function. [sent-2, score-1.005]
+</p><p>3 A central concern for this approach is collisions, which create a loss of information. [sent-4, score-0.246]
+</p><p>4 If you use  m  features in an index space of size  n  the birthday paradox suggests a collision if  m > n 0. [sent-5, score-0.699]
+</p><p>5 This is pretty bad, because it says that with a vocabulary of  10 5   features, you might need to have  10 10   entries in your table. [sent-7, score-0.446]
+</p><p>6 It turns out that redundancy is great for dealing with collisions. [sent-8, score-0.217]
+</p><p>7 Alex  and I worked out a couple cases, the most extreme example of which is when you simply duplicate the base word and add a symbol before hashing, creating two entries in your weight array corresponding to the same word. [sent-9, score-0.869]
+</p><p>8 We can ask: what is the probability(*) that there exists a word where both entries collide with an entry for some other word? [sent-10, score-0.69]
+</p><p>9 Plugging in numbers, we see that this implies perhaps only  n=10 8   entries are required to avoid a collision. [sent-12, score-0.346]
+</p><p>10 This number can be further reduced to  10 7   by increasing the degree of duplication to 4 or more. [sent-13, score-0.343]
+</p><p>11 The above is an analysis of explicit duplication. [sent-14, score-0.126]
+</p><p>12 In a real world dataset with naturally redundant features, you can have the same effect implicitly, allowing for tolerance of a large number of collisions. [sent-15, score-0.177]
+</p><p>13 This argument is information theoretic, so itâ&euro;&trade;s possible that rates of convergence to optimal predictors are slowed by collision, even if the optimal predictor is unchanged. [sent-16, score-0.303]
+</p><p>14 To think about this possibility, analysis particular to specific learning algorithms is necessary. [sent-17, score-0.126]
+</p><p>15 It turns out that many learning algorithms are inherently tolerant of a small fraction of collisions, including large margin algorithms. [sent-18, score-0.298]
+</p><p>16 (*) As in almost all hash function analysis, the randomization is over the choice of (random) hash function. [sent-19, score-0.71]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('hash', 0.292), ('word', 0.28), ('collision', 0.233), ('collisions', 0.233), ('entries', 0.187), ('central', 0.175), ('trick', 0.161), ('analysis', 0.144), ('turns', 0.117), ('lookup', 0.117), ('redundancy', 0.117), ('slowing', 0.117), ('describes', 0.117), ('tolerant', 0.117), ('vocabulary', 0.117), ('wabbitfast', 0.117), ('optimal', 0.113), ('birthday', 0.108), ('paradox', 0.108), ('symbol', 0.108), ('index', 0.108), ('tolerance', 0.108), ('slowed', 0.102), ('theoretic', 0.102), ('converting', 0.102), ('features', 0.101), ('hashing', 0.097), ('expand', 0.097), ('plugging', 0.093), ('randomization', 0.093), ('land', 0.093), ('expensive', 0.093), ('function', 0.092), ('create', 0.092), ('corresponding', 0.09), ('nlp', 0.09), ('entry', 0.09), ('tricks', 0.09), ('increasing', 0.087), ('margin', 0.087), ('array', 0.085), ('number', 0.085), ('implicitly', 0.083), ('reduced', 0.083), ('quantity', 0.077), ('possibility', 0.077), ('convergence', 0.077), ('online', 0.077), ('weight', 0.074), ('advantages', 0.074)]</p>
+<p>[('entries', 0.346), ('hash', 0.27), ('word', 0.26), ('collision', 0.216), ('collisions', 0.216), ('features', 0.183), ('central', 0.162), ('trick', 0.146), ('analysis', 0.126), ('turns', 0.109), ('lookup', 0.108), ('redundancy', 0.108), ('duplication', 0.108), ('slowing', 0.108), ('kishore', 0.108), ('tolerant', 0.108), ('optimal', 0.104), ('birthday', 0.1), ('paradox', 0.1), ('symbol', 0.1), ('vocabulary', 0.1), ('index', 0.1), ('tolerance', 0.1), ('describes', 0.1), ('slowed', 0.095), ('theoretic', 0.095), ('expand', 0.09), ('converting', 0.09), ('plugging', 0.087), ('randomization', 0.087), ('land', 0.087), ('expensive', 0.087), ('create', 0.084), ('corresponding', 0.084), ('hashing', 0.084), ('nlp', 0.084), ('entry', 0.084), ('tricks', 0.084), ('function', 0.083), ('increasing', 0.081), ('margin', 0.081), ('array', 0.079), ('number', 0.077), ('implicitly', 0.077), ('alex', 0.077), ('reduced', 0.077), ('tells', 0.073), ('quantity', 0.071), ('possibility', 0.071), ('online', 0.069)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
 <p>same-blog 1 0.99999994 <a title="298-tfidf-1" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
-<p>Introduction: I want to expand onthis postwhich describes one of the core tricks for
-makingVowpal Wabbitfast and easy to use when learning from text.The central
-trick is converting a word (or any other parseable quantity) into a number via
-a hash function.Kishoretells me this is a relatively old trick in NLP land,
-but it has some added advantages when doing online learning, because you can
-learn directly from the existing data without preprocessing the data to create
-features (destroying the online property) or using an expensive hashtable
-lookup (slowing things down).A central concern for this approach is
-collisions, which create a loss of information. If you usemfeatures in an
-index space of sizenthe birthday paradox suggests a collision ifm > n0.5,
-essentially because there arem2pairs. This is pretty bad, because it says that
-with a vocabulary of105features, you might need to have1010entries in your
-table.It turns out that redundancy is great for dealing with
-collisions.Alexand I worked out a cou</p><p>2 0.10836475 <a title="298-tfidf-2" href="../hunch_net-2010/hunch_net-2010-08-24-Alex_Smola_starts_a_blog.html">408 hunch net-2010-08-24-Alex Smola starts a blog</a></p>
-<p>Introduction: Adventures in Data Land.</p><p>3 0.095672786 <a title="298-tfidf-3" href="../hunch_net-2006/hunch_net-2006-02-24-A_Fundamentalist_Organization_of_Machine_Learning.html">158 hunch net-2006-02-24-A Fundamentalist Organization of Machine Learning</a></p>
-<p>Introduction: There are several different flavors of Machine Learning classes. Many classes
-are of the 'zoo' sort: many different learning algorithms are presented.
-Others avoid the zoo by not covering the full scope of machine learning.This
-is my view of what makes a good machine learning class, along with why. I'd
-like to specifically invite comment on whether things are missing,
-misemphasized, or misplaced.PhaseSubjectWhy?IntroductionWhat is a machine
-learning problem?A good understanding of the characteristics of machine
-learning problems seems essential. Characteristics include: a data source,
-some hope the data is predictive, and a need for generalization. This is
-probably best taught in a case study manner: lay out the specifics of some
-problem and then ask "Is this a machine learning problem?"IntroductionMachine
-Learning Problem IdentificationIdentification and recognition of the type of
-learning problems is (obviously) a very important step in solving such
-problems. People need to be famili</p><p>4 0.094666772 <a title="298-tfidf-4" href="../hunch_net-2006/hunch_net-2006-11-22-Explicit_Randomization_in_Learning_algorithms.html">219 hunch net-2006-11-22-Explicit Randomization in Learning algorithms</a></p>
-<p>Introduction: There are a number of learning algorithms which explicitly incorporate
-randomness into their execution. This includes at amongst others:Neural
-Networks. Neural networks use randomization to assign initial
-weights.Boltzmann Machines/Deep Belief Networks. Boltzmann machines are
-something like a stochastic version of multinode logistic regression. The use
-of randomness is more essential in Boltzmann machines, because the predicted
-value at test time also uses randomness.Bagging. Bagging is a process where a
-learning algorithm is run several different times on several different
-datasets, creating a final predictor which makes a majority vote.Policy
-descent. Several algorithms in reinforcement learning such asConservative
-Policy Iterationuse random bits to create stochastic policies.Experts
-algorithms. Randomized weighted majority use random bits as a part of the
-prediction process to achieve better theoretical guarantees.A basic question
-is: "Should there be explicit randomization in learn</p><p>5 0.094086088 <a title="298-tfidf-5" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
-<p>Introduction: Machine learning is often computationally bounded which implies that the
-ability to write fast code becomes important if you ever want to implement a
-machine learning algorithm. Basic tactical optimizations are covered
-wellelsewhere, but I haven't seen a reasonable guide to higher level
-optimizations, which are the most important in my experience. Here are some of
-the higher level optimizations I've often found useful.Algorithmic Improvement
-First. This is Hard, but it is the most important consideration, and typically
-yields the most benefits. Good optimizations here are publishable. In the
-context of machine learning, you should be familiar with the arguments for
-online vs. batch learning.Choice of Language. There are many arguments about
-thechoice of language. Sometimes you don't have a choice when interfacing with
-other people. Personally, I favor C/C++ when I want to write fast code. This
-(admittedly) makes me a slower programmer than when using higher level
-languages. (Sometimes</p><p>6 0.093430743 <a title="298-tfidf-6" href="../hunch_net-2007/hunch_net-2007-08-19-Choice_of_Metrics.html">259 hunch net-2007-08-19-Choice of Metrics</a></p>
-<p>7 0.091504745 <a title="298-tfidf-7" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
-<p>8 0.091388412 <a title="298-tfidf-8" href="../hunch_net-2011/hunch_net-2011-09-07-KDD_and_MUCMD_2011.html">444 hunch net-2011-09-07-KDD and MUCMD 2011</a></p>
-<p>9 0.087662049 <a title="298-tfidf-9" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
-<p>10 0.085206278 <a title="298-tfidf-10" href="../hunch_net-2005/hunch_net-2005-01-31-Watchword%3A_Assumption.html">7 hunch net-2005-01-31-Watchword: Assumption</a></p>
-<p>11 0.08469294 <a title="298-tfidf-11" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
-<p>12 0.083549917 <a title="298-tfidf-12" href="../hunch_net-2005/hunch_net-2005-11-07-Prediction_Competitions.html">129 hunch net-2005-11-07-Prediction Competitions</a></p>
-<p>13 0.082180426 <a title="298-tfidf-13" href="../hunch_net-2008/hunch_net-2008-12-07-A_NIPS_paper.html">330 hunch net-2008-12-07-A NIPS paper</a></p>
-<p>14 0.079930365 <a title="298-tfidf-14" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
-<p>15 0.079781577 <a title="298-tfidf-15" href="../hunch_net-2009/hunch_net-2009-05-06-Machine_Learning_to_AI.html">352 hunch net-2009-05-06-Machine Learning to AI</a></p>
-<p>16 0.079100348 <a title="298-tfidf-16" href="../hunch_net-2009/hunch_net-2009-02-04-Optimal_Proxy_Loss_for_Classification.html">341 hunch net-2009-02-04-Optimal Proxy Loss for Classification</a></p>
-<p>17 0.077126108 <a title="298-tfidf-17" href="../hunch_net-2007/hunch_net-2007-01-10-A_Deep_Belief_Net_Learning_Problem.html">227 hunch net-2007-01-10-A Deep Belief Net Learning Problem</a></p>
-<p>18 0.075852059 <a title="298-tfidf-18" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
-<p>19 0.07553862 <a title="298-tfidf-19" href="../hunch_net-2005/hunch_net-2005-01-26-Watchword%3A_Probability.html">5 hunch net-2005-01-26-Watchword: Probability</a></p>
-<p>20 0.075425312 <a title="298-tfidf-20" href="../hunch_net-2008/hunch_net-2008-12-23-Use_of_Learning_Theory.html">332 hunch net-2008-12-23-Use of Learning Theory</a></p>
+<p>Introduction: I want to expand on  this post  which describes one of the core tricks for making  Vowpal Wabbit  fast and easy to use when learning from text.  
+ 
+The central trick is converting a word (or any other parseable quantity) into a number via a hash function.   Kishore  tells me this is a relatively old trick in NLP land, but it has some added advantages when doing online learning, because you can learn directly from the existing data without preprocessing the data to create features (destroying the online property) or using an expensive hashtable lookup (slowing things down).
+ 
+A central concern for this approach is collisions, which create a loss of information.  If you use  m  features in an index space of size  n  the birthday paradox suggests a collision if  m > n 0.5  , essentially because there are  m 2   pairs.   This is pretty bad, because it says that with a vocabulary of  10 5   features, you might need to have  10 10   entries in your table.
+ 
+It turns out that redundancy is gr</p><p>2 0.12791106 <a title="298-tfidf-2" href="../hunch_net-2005/hunch_net-2005-11-07-Prediction_Competitions.html">129 hunch net-2005-11-07-Prediction Competitions</a></p>
+<p>Introduction: There are two prediction competitions currently in the air.  
+  
+ The  Performance Prediction Challenge   by  Isabelle Guyon .  Good entries minimize a weighted 0/1 loss + the difference between a prediction of this loss and the observed truth on 5 datasets.  Isabelle tells me all of the problems are “real world” and the test datasets are large enough (17K minimum) that the winner should be well determined by ability rather than luck.  This is due March 1. 
+ The  Predictive Uncertainty Challenge  by  Gavin Cawley .  Good entries minimize log loss on real valued output variables for one synthetic and 3 “real” datasets related to atmospheric prediction. The use of log loss (which can be infinite and hence is never convergent) and smaller test sets of size 1K to 7K examples makes the winner of this contest more luck dependent.  Nevertheless, the contest may be of some interest particularly to the branch of learning (typically Bayes learning) which prefers to optimize log loss. 
+  
+May the</p><p>3 0.099274404 <a title="298-tfidf-3" href="../hunch_net-2010/hunch_net-2010-08-24-Alex_Smola_starts_a_blog.html">408 hunch net-2010-08-24-Alex Smola starts a blog</a></p>
+<p>Introduction: Adventures in Data Land .</p><p>4 0.096842408 <a title="298-tfidf-4" href="../hunch_net-2007/hunch_net-2007-08-19-Choice_of_Metrics.html">259 hunch net-2007-08-19-Choice of Metrics</a></p>
+<p>Introduction: How do we judge success in Machine Learning?  As  Aaron   notes , the best way is to use the loss imposed on you by the world.  This turns out to be infeasible sometimes for various reasons.  The ones I’ve seen are:
+  
+ The learned prediction is used in some complicated process that does not give the feedback necessary to understand the prediction’s impact on the loss.  
+ The prediction is used by some other system which expects some semantics to the predicted value.  This is similar to the previous example, except that the issue is design modularity rather than engineering modularity. 
+ The correct loss function is simply unknown (and perhaps unknowable, except by experimentation). 
+  
+In these situations, it’s unclear what metric for evaluation should be chosen.  This post has some design advice for this murkier case.  I’m using the word “metric” here to distinguish the fact that we are considering methods for  evaluating  predictive systems rather than a loss imposed by the real wor</p><p>5 0.093929425 <a title="298-tfidf-5" href="../hunch_net-2006/hunch_net-2006-02-24-A_Fundamentalist_Organization_of_Machine_Learning.html">158 hunch net-2006-02-24-A Fundamentalist Organization of Machine Learning</a></p>
+<p>Introduction: There are several different flavors of Machine Learning classes.  Many classes are of the ‘zoo’ sort: many different learning algorithms are presented.  Others avoid the zoo by not covering the full scope of machine learning.  
+ 
+This is my view of what makes a good machine learning class, along with why.  I’d like to specifically invite comment on whether things are missing, misemphasized, or misplaced.
+  
+ 
+ Phase 
+ Subject 
+ Why? 
+ 
+ 
+ Introduction 
+ What is a machine learning problem? 
+ A good understanding of the characteristics of machine learning problems seems essential.  Characteristics include: a data source, some hope the data is predictive, and a need for generalization.  This is probably best taught in a case study manner: lay out the specifics of some problem and then ask “Is this a machine learning problem?” 
+ 
+ 
+ Introduction 
+ Machine Learning Problem Identification 
+ Identification and recognition of the type of learning problems is (obviously) a very important step i</p><p>6 0.093032345 <a title="298-tfidf-6" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
+<p>7 0.089871138 <a title="298-tfidf-7" href="../hunch_net-2007/hunch_net-2007-01-10-A_Deep_Belief_Net_Learning_Problem.html">227 hunch net-2007-01-10-A Deep Belief Net Learning Problem</a></p>
+<p>8 0.089078784 <a title="298-tfidf-8" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
+<p>9 0.088777587 <a title="298-tfidf-9" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
+<p>10 0.083738297 <a title="298-tfidf-10" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
+<p>11 0.083660826 <a title="298-tfidf-11" href="../hunch_net-2006/hunch_net-2006-11-22-Explicit_Randomization_in_Learning_algorithms.html">219 hunch net-2006-11-22-Explicit Randomization in Learning algorithms</a></p>
+<p>12 0.082853921 <a title="298-tfidf-12" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
+<p>13 0.082240328 <a title="298-tfidf-13" href="../hunch_net-2011/hunch_net-2011-09-07-KDD_and_MUCMD_2011.html">444 hunch net-2011-09-07-KDD and MUCMD 2011</a></p>
+<p>14 0.082064651 <a title="298-tfidf-14" href="../hunch_net-2007/hunch_net-2007-10-17-Online_as_the_new_adjective.html">267 hunch net-2007-10-17-Online as the new adjective</a></p>
+<p>15 0.081952482 <a title="298-tfidf-15" href="../hunch_net-2008/hunch_net-2008-12-23-Use_of_Learning_Theory.html">332 hunch net-2008-12-23-Use of Learning Theory</a></p>
+<p>16 0.08134789 <a title="298-tfidf-16" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
+<p>17 0.078951746 <a title="298-tfidf-17" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
+<p>18 0.077262595 <a title="298-tfidf-18" href="../hunch_net-2007/hunch_net-2007-08-12-Exponentiated_Gradient.html">258 hunch net-2007-08-12-Exponentiated Gradient</a></p>
+<p>19 0.07615371 <a title="298-tfidf-19" href="../hunch_net-2007/hunch_net-2007-12-21-Vowpal_Wabbit_Code_Release.html">281 hunch net-2007-12-21-Vowpal Wabbit Code Release</a></p>
+<p>20 0.076102518 <a title="298-tfidf-20" href="../hunch_net-2009/hunch_net-2009-02-04-Optimal_Proxy_Loss_for_Classification.html">341 hunch net-2009-02-04-Optimal Proxy Loss for Classification</a></p>
 <br/>
 <h2>similar blogs computed by <a title="lsi-model" href="../home/hunch_net_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
-<p>[(0, 0.188), (1, -0.099), (2, -0.0), (3, 0.006), (4, 0.008), (5, 0.068), (6, 0.013), (7, -0.005), (8, 0.012), (9, 0.016), (10, 0.01), (11, 0.009), (12, -0.004), (13, -0.063), (14, -0.016), (15, -0.089), (16, 0.026), (17, 0.056), (18, -0.035), (19, -0.035), (20, 0.001), (21, -0.014), (22, 0.016), (23, -0.03), (24, 0.03), (25, -0.019), (26, 0.008), (27, -0.038), (28, 0.045), (29, -0.055), (30, 0.025), (31, 0.029), (32, 0.052), (33, -0.102), (34, 0.007), (35, 0.008), (36, 0.013), (37, 0.055), (38, 0.008), (39, -0.012), (40, 0.068), (41, -0.013), (42, 0.077), (43, 0.014), (44, 0.003), (45, -0.013), (46, 0.016), (47, -0.093), (48, -0.006), (49, -0.038)]</p>
+<p>[(0, 0.183), (1, 0.101), (2, -0.018), (3, -0.008), (4, 0.01), (5, 0.019), (6, -0.096), (7, -0.013), (8, 0.008), (9, 0.036), (10, -0.042), (11, -0.032), (12, 0.026), (13, -0.04), (14, -0.017), (15, -0.022), (16, -0.04), (17, -0.015), (18, 0.027), (19, 0.005), (20, 0.007), (21, 0.008), (22, 0.043), (23, -0.004), (24, 0.006), (25, -0.021), (26, 0.055), (27, -0.016), (28, 0.029), (29, -0.035), (30, -0.032), (31, 0.001), (32, 0.05), (33, 0.024), (34, -0.03), (35, 0.008), (36, -0.026), (37, -0.02), (38, -0.045), (39, -0.013), (40, -0.028), (41, 0.141), (42, 0.078), (43, -0.019), (44, -0.035), (45, -0.008), (46, -0.027), (47, 0.003), (48, -0.095), (49, -0.031)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>same-blog 1 0.94963318 <a title="298-lsi-1" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
-<p>Introduction: I want to expand onthis postwhich describes one of the core tricks for
-makingVowpal Wabbitfast and easy to use when learning from text.The central
-trick is converting a word (or any other parseable quantity) into a number via
-a hash function.Kishoretells me this is a relatively old trick in NLP land,
-but it has some added advantages when doing online learning, because you can
-learn directly from the existing data without preprocessing the data to create
-features (destroying the online property) or using an expensive hashtable
-lookup (slowing things down).A central concern for this approach is
-collisions, which create a loss of information. If you usemfeatures in an
-index space of sizenthe birthday paradox suggests a collision ifm > n0.5,
-essentially because there arem2pairs. This is pretty bad, because it says that
-with a vocabulary of105features, you might need to have1010entries in your
-table.It turns out that redundancy is great for dealing with
-collisions.Alexand I worked out a cou</p><p>2 0.60519242 <a title="298-lsi-2" href="../hunch_net-2008/hunch_net-2008-11-16-Observations_on_Linearity_for_Reductions_to_Regression.html">327 hunch net-2008-11-16-Observations on Linearity for Reductions to Regression</a></p>
-<p>Introduction: Dean FosterandDaniel Hsuhad a couple observations about reductions to
-regression that I wanted to share. This will make the most sense for people
-familiar with error correcting output codes (see thetutorial, page 11).Many
-people are comfortable using linear regression in a one-against-all style,
-where you try to predict the probability of choiceivs other classes, yet they
-are not comfortable with more complex error correcting codes because they fear
-that they create harder problems. This fear turns out to be mathematically
-incoherent under a linear representation: comfort in the linear case should
-imply comfort with more complex codes.In particular, If there exists a set of
-weight vectorswisuch thatP(i|x)=, then for any invertible error
-correcting output codeC, there exists weight vectorswcwhich decode to
-perfectly predict the probability of each class. The proof is simple and
-constructive: the weight vectorwccan be constructed according to the linear
-superposition ofwiimplied b</p><p>3 0.58449399 <a title="298-lsi-3" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
-<p>Introduction: Thelarge scale learning challengefor ICML interests me a great deal, although
-I have concerns about the way it is structured.From theinstructions page,
-several issues come up:Large DefinitionMy personal definition of dataset size
-is:smallA dataset is small if a human could look at the dataset and plausibly
-find a good solution.mediumA dataset is mediumsize if it fits in the RAM of a
-reasonably priced computer.largeA large dataset does not fit in the RAM of a
-reasonably priced computer.By this definition, all of the datasets are medium
-sized. This might sound like a pissing match over dataset size, but I believe
-it is more than that.The fundamental reason for these definitions is that they
-correspond to transitions in the sorts of approaches which are feasible. From
-small to medium, the ability to use a human as the learning algorithm
-degrades. From medium to large, it becomes essential to have learning
-algorithms that don't require random access to examples.No Loading TimeThe
-medium sc</p><p>4 0.58394647 <a title="298-lsi-4" href="../hunch_net-2007/hunch_net-2007-04-02-Contextual_Scaling.html">237 hunch net-2007-04-02-Contextual Scaling</a></p>
-<p>Introduction: Machine learning has a new kind of "scaling to larger problems" to worry
-about: scaling with the amount of contextual information. The standard
-development path for a machine learning application in practice seems to be
-the following:Marginal. In the beginning, there was "majority vote". At this
-stage, it isn't necessary to understand that you have a prediction problem.
-People just realize that one answer is right sometimes and another answer
-other times. In machine learning terms, this corresponds to making a
-prediction without side information.First context. A clever person realizes
-that some bit of informationx1could be helpful. Ifx1is discrete, they
-condition on it and make a predictorh(x1), typically by counting. If they are
-clever, then they also do some smoothing. Ifx1is some real valued parameter,
-it's very common to make a threshold cutoff. Often, these tasks are simply
-done by hand.Second. Another clever person (or perhaps the same one) realizes
-that some other bit of informa</p><p>5 0.57874972 <a title="298-lsi-5" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
-<p>Introduction: Machine learning is often computationally bounded which implies that the
-ability to write fast code becomes important if you ever want to implement a
-machine learning algorithm. Basic tactical optimizations are covered
-wellelsewhere, but I haven't seen a reasonable guide to higher level
-optimizations, which are the most important in my experience. Here are some of
-the higher level optimizations I've often found useful.Algorithmic Improvement
-First. This is Hard, but it is the most important consideration, and typically
-yields the most benefits. Good optimizations here are publishable. In the
-context of machine learning, you should be familiar with the arguments for
-online vs. batch learning.Choice of Language. There are many arguments about
-thechoice of language. Sometimes you don't have a choice when interfacing with
-other people. Personally, I favor C/C++ when I want to write fast code. This
-(admittedly) makes me a slower programmer than when using higher level
-languages. (Sometimes</p><p>6 0.57846612 <a title="298-lsi-6" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
-<p>7 0.57803553 <a title="298-lsi-7" href="../hunch_net-2006/hunch_net-2006-11-06-Data_Linkage_Problems.html">217 hunch net-2006-11-06-Data Linkage Problems</a></p>
-<p>8 0.5749898 <a title="298-lsi-8" href="../hunch_net-2006/hunch_net-2006-11-22-Explicit_Randomization_in_Learning_algorithms.html">219 hunch net-2006-11-22-Explicit Randomization in Learning algorithms</a></p>
-<p>9 0.5585742 <a title="298-lsi-9" href="../hunch_net-2006/hunch_net-2006-01-23-On_Coding_via_Mutual_Information_%26%23038%3B_Bayes_Nets.html">150 hunch net-2006-01-23-On Coding via Mutual Information &#038; Bayes Nets</a></p>
-<p>10 0.54958016 <a title="298-lsi-10" href="../hunch_net-2008/hunch_net-2008-06-09-The_Minimum_Sample_Complexity_of_Importance_Weighting.html">303 hunch net-2008-06-09-The Minimum Sample Complexity of Importance Weighting</a></p>
-<p>11 0.54743087 <a title="298-lsi-11" href="../hunch_net-2009/hunch_net-2009-04-02-Asymmophobia.html">348 hunch net-2009-04-02-Asymmophobia</a></p>
-<p>12 0.54584813 <a title="298-lsi-12" href="../hunch_net-2005/hunch_net-2005-11-05-The_design_of_a_computing_cluster.html">128 hunch net-2005-11-05-The design of a computing cluster</a></p>
-<p>13 0.54306066 <a title="298-lsi-13" href="../hunch_net-2009/hunch_net-2009-01-21-Nearly_all_natural_problems_require_nonlinearity.html">337 hunch net-2009-01-21-Nearly all natural problems require nonlinearity</a></p>
-<p>14 0.54100686 <a title="298-lsi-14" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
-<p>15 0.53757513 <a title="298-lsi-15" href="../hunch_net-2009/hunch_net-2009-06-03-Functionally_defined_Nonlinear_Dynamic_Models.html">359 hunch net-2009-06-03-Functionally defined Nonlinear Dynamic Models</a></p>
-<p>16 0.53665882 <a title="298-lsi-16" href="../hunch_net-2005/hunch_net-2005-10-16-Complexity%3A_It%26%238217%3Bs_all_in_your_head.html">123 hunch net-2005-10-16-Complexity: It&#8217;s all in your head</a></p>
-<p>17 0.52313763 <a title="298-lsi-17" href="../hunch_net-2012/hunch_net-2012-08-24-Patterns_for_research_in_machine_learning.html">471 hunch net-2012-08-24-Patterns for research in machine learning</a></p>
-<p>18 0.52063018 <a title="298-lsi-18" href="../hunch_net-2007/hunch_net-2007-07-01-Watchword%3A_Online_Learning.html">252 hunch net-2007-07-01-Watchword: Online Learning</a></p>
-<p>19 0.51614314 <a title="298-lsi-19" href="../hunch_net-2008/hunch_net-2008-07-06-To_Dual_or_Not.html">308 hunch net-2008-07-06-To Dual or Not</a></p>
-<p>20 0.5158636 <a title="298-lsi-20" href="../hunch_net-2008/hunch_net-2008-07-26-Compositional_Machine_Learning_Algorithm_Design.html">311 hunch net-2008-07-26-Compositional Machine Learning Algorithm Design</a></p>
+<p>same-blog 1 0.96128631 <a title="298-lsi-1" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
+<p>Introduction: I want to expand on  this post  which describes one of the core tricks for making  Vowpal Wabbit  fast and easy to use when learning from text.  
+ 
+The central trick is converting a word (or any other parseable quantity) into a number via a hash function.   Kishore  tells me this is a relatively old trick in NLP land, but it has some added advantages when doing online learning, because you can learn directly from the existing data without preprocessing the data to create features (destroying the online property) or using an expensive hashtable lookup (slowing things down).
+ 
+A central concern for this approach is collisions, which create a loss of information.  If you use  m  features in an index space of size  n  the birthday paradox suggests a collision if  m > n 0.5  , essentially because there are  m 2   pairs.   This is pretty bad, because it says that with a vocabulary of  10 5   features, you might need to have  10 10   entries in your table.
+ 
+It turns out that redundancy is gr</p><p>2 0.66015381 <a title="298-lsi-2" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
+<p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries in a datamatrix), and want to learn a good linear predictor in a reasonable amount of time.  How do you do it?  As a learning theorist, the first thing you do is pray that this is too much data for the number of parameters—but that’s not the case, there are around 16 billion examples, 16 million parameters, and people really care about a high quality predictor, so subsampling is not a good strategy.
+ 
+ Alekh  visited us last summer, and we had a breakthrough (see  here  for details), coming up with the first learning algorithm I’ve seen that is provably faster than  any future  single machine learning algorithm.  The proof of this is simple: We can output a optimal-up-to-precision linear predictor faster than the data can be streamed through the network interface of any single machine involved in the computation.
+ 
+It is necessary but not sufficient to have an effective communication infrastructure.  It is ne</p><p>3 0.65978485 <a title="298-lsi-3" href="../hunch_net-2009/hunch_net-2009-01-21-Nearly_all_natural_problems_require_nonlinearity.html">337 hunch net-2009-01-21-Nearly all natural problems require nonlinearity</a></p>
+<p>Introduction: One conventional wisdom is that learning algorithms with linear representations are sufficient to solve natural learning  problems.  This conventional wisdom appears unsupported by empirical evidence as far as I can tell.  In nearly all vision, language, robotics, and speech applications I know where machine learning is effectively applied, the approach involves either a linear representation on hand crafted features capturing substantial nonlinearities or learning directly on nonlinear representations.  
+ 
+There are a few exceptions to this—for example, if the problem of interest to you is predicting the next word given previous words, n-gram methods have been shown effective.  Viewed the right way, n-gram methods are essentially linear predictors on an enormous sparse feature space, learned from an enormous number of examples.  Hal’s post  here  describes some of this in more detail.
+ 
+In contrast, if you go to a machine learning conference, a large number of the new algorithms are v</p><p>4 0.64261961 <a title="298-lsi-4" href="../hunch_net-2009/hunch_net-2009-04-02-Asymmophobia.html">348 hunch net-2009-04-02-Asymmophobia</a></p>
+<p>Introduction: One striking feature of many machine learning algorithms is the gymnastics that designers go through to avoid symmetry breaking.  In the most basic form of machine learning, there are labeled examples composed of features.  Each of these can be treated symmetrically or asymmetrically by algorithms.
+  
+  feature symmetry   Every feature is treated the same.   In gradient update rules, the same update is applied whether the feature is first or last.  In metric-based predictions, every feature is just as important in computing the distance.   
+  example symmetry   Every example is treated the same.  Batch learning algorithms are great exemplars of this approach. 
+  label symmetry   Every label is treated the same.  This is particularly noticeable in multiclass classification systems which predict according to  arg max l  w l  x  but it occurs in many other places as well. 
+  
+Empirically, breaking symmetry well seems to yield great algorithms.
+  
+  feature asymmetry   For those who like t</p><p>5 0.62064028 <a title="298-lsi-5" href="../hunch_net-2010/hunch_net-2010-05-10-Aggregation_of_estimators%2C_sparsity_in_high_dimension_and_computational_feasibility.html">398 hunch net-2010-05-10-Aggregation of estimators, sparsity in high dimension and computational feasibility</a></p>
+<p>Introduction: (I’m channeling for  Jean-Yves Audibert  here, with some minor tweaking for clarity.)
+ 
+Since  Nemirovski’s   Saint Flour lecture notes , numerous researchers have studied the following problem in least squares regression: predict as well as 
+  (MS) the best of d given functions (like in prediction with expert advice; model = finite set of d functions) 
+  (C) the best convex combination of these functions (i.e., model = convex hull of the d functions) 
+  (L) the best linear combination of these functions (i.e., model = linear span of the d functions) 
+It is now well known (see, e.g., Sacha Tsybakov’s COLT’03 paper) that these tasks can be achieved since there exist estimators having an excess risk of order (log d)/n for (MS), min( sqrt((log d)/n), d/n ) for (C) and d/n for (L), where n is the training set size.  Here, “risk” is amount of extra loss per example which may be suffered due to the choice of random sample.
+ 
+The practical use of these results seems rather limited to trivial</p><p>6 0.61982399 <a title="298-lsi-6" href="../hunch_net-2008/hunch_net-2008-07-06-To_Dual_or_Not.html">308 hunch net-2008-07-06-To Dual or Not</a></p>
+<p>7 0.61855793 <a title="298-lsi-7" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
+<p>8 0.60052425 <a title="298-lsi-8" href="../hunch_net-2007/hunch_net-2007-07-06-Idempotent-capable_Predictors.html">253 hunch net-2007-07-06-Idempotent-capable Predictors</a></p>
+<p>9 0.59079891 <a title="298-lsi-9" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
+<p>10 0.58338398 <a title="298-lsi-10" href="../hunch_net-2009/hunch_net-2009-07-31-Vowpal_Wabbit_Open_Source_Project.html">365 hunch net-2009-07-31-Vowpal Wabbit Open Source Project</a></p>
+<p>11 0.58171833 <a title="298-lsi-11" href="../hunch_net-2011/hunch_net-2011-09-07-KDD_and_MUCMD_2011.html">444 hunch net-2011-09-07-KDD and MUCMD 2011</a></p>
+<p>12 0.56113452 <a title="298-lsi-12" href="../hunch_net-2006/hunch_net-2006-01-30-Should_the_Input_Representation_be_a_Vector%3F.html">152 hunch net-2006-01-30-Should the Input Representation be a Vector?</a></p>
+<p>13 0.55531055 <a title="298-lsi-13" href="../hunch_net-2005/hunch_net-2005-12-07-Is_the_Google_way_the_way_for_machine_learning%3F.html">136 hunch net-2005-12-07-Is the Google way the way for machine learning?</a></p>
+<p>14 0.54984468 <a title="298-lsi-14" href="../hunch_net-2006/hunch_net-2006-11-06-Data_Linkage_Problems.html">217 hunch net-2006-11-06-Data Linkage Problems</a></p>
+<p>15 0.54645658 <a title="298-lsi-15" href="../hunch_net-2006/hunch_net-2006-11-22-Explicit_Randomization_in_Learning_algorithms.html">219 hunch net-2006-11-22-Explicit Randomization in Learning algorithms</a></p>
+<p>16 0.54483932 <a title="298-lsi-16" href="../hunch_net-2010/hunch_net-2010-05-02-What%26%238217%3Bs_the_difference_between_gambling_and_rewarding_good_prediction%3F.html">397 hunch net-2010-05-02-What&#8217;s the difference between gambling and rewarding good prediction?</a></p>
+<p>17 0.53954309 <a title="298-lsi-17" href="../hunch_net-2007/hunch_net-2007-08-12-Exponentiated_Gradient.html">258 hunch net-2007-08-12-Exponentiated Gradient</a></p>
+<p>18 0.53854054 <a title="298-lsi-18" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
+<p>19 0.53211558 <a title="298-lsi-19" href="../hunch_net-2011/hunch_net-2011-03-19-The_Ideal_Large_Scale_Learning_Class.html">426 hunch net-2011-03-19-The Ideal Large Scale Learning Class</a></p>
+<p>20 0.52751511 <a title="298-lsi-20" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
 <br/>
 <h2>similar blogs computed by <a title="lda-model" href="../home/hunch_net_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
-<p>[(4, 0.382), (35, 0.091), (42, 0.258), (45, 0.05), (74, 0.06), (76, 0.027), (82, 0.024)]</p>
+<p>[(3, 0.473), (10, 0.01), (27, 0.198), (38, 0.044), (53, 0.065), (55, 0.03), (94, 0.093)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>same-blog 1 0.87322062 <a title="298-lda-1" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
-<p>Introduction: I want to expand onthis postwhich describes one of the core tricks for
-makingVowpal Wabbitfast and easy to use when learning from text.The central
-trick is converting a word (or any other parseable quantity) into a number via
-a hash function.Kishoretells me this is a relatively old trick in NLP land,
-but it has some added advantages when doing online learning, because you can
-learn directly from the existing data without preprocessing the data to create
-features (destroying the online property) or using an expensive hashtable
-lookup (slowing things down).A central concern for this approach is
-collisions, which create a loss of information. If you usemfeatures in an
-index space of sizenthe birthday paradox suggests a collision ifm > n0.5,
-essentially because there arem2pairs. This is pretty bad, because it says that
-with a vocabulary of105features, you might need to have1010entries in your
-table.It turns out that redundancy is great for dealing with
-collisions.Alexand I worked out a cou</p><p>2 0.77466094 <a title="298-lda-2" href="../hunch_net-2011/hunch_net-2011-08-06-Interesting_thing_at_UAI_2011.html">440 hunch net-2011-08-06-Interesting thing at UAI 2011</a></p>
-<p>Introduction: I had a chance to attendUAIthis year, where several papers interested me,
-including:Hoifung PoonandPedro DomingosSum-Product Networks: A New Deep
-Architecture. We'vealready discussed this one, but in a nutshell, they
-identify a large class of efficiently normalizable distributions and do
-learning with it.Yao-Liang YuandDale Schuurmans,Rank/norm regularization with
-closed-form solutions: Application to subspace clustering. This paper is about
-matrices, and in particular they prove that certain matrices are the solution
-of matrix optimizations. I'm not matrix inclined enough to fully appreciate
-this one, but I believe many others may be, and anytime closed form solutions
-come into play, you get 2 order of magnitude speedups, as they show
-experimentally.Laurent Charlin,Richard ZemelandCraig Boutilier,A Framework for
-Optimizing Paper Matching. This is about what works in matching papers to
-reviewers, as has been tested at several previous NIPS. We are looking into
-using this system for ICM</p><p>3 0.76172173 <a title="298-lda-3" href="../hunch_net-2006/hunch_net-2006-03-12-Online_learning_or_online_preservation_of_learning%3F.html">163 hunch net-2006-03-12-Online learning or online preservation of learning?</a></p>
-<p>Introduction: In the online learning with experts setting, you observe a set of predictions,
-make a decision, and then observe the truth. This process repeats
-indefinitely. In this setting, it is possible to prove theorems of the
-sort:master algorithm error count < = k* best predictor error count +
-c*log(number of predictors)Is this a statement about learning or about
-preservation of learning? We did some experiments to analyze the newBinning
-algorithmwhich works in this setting. For several UCI datasets, we reprocessed
-them so that features could be used as predictors and then applied several
-master algorithms. The first graph confirms that Binning is indeed a better
-algorithm according to the tightness of the upper bound.Here, "Best" is the
-performance of the best expert. "V. Bound" is the bound forVovk's algorithm
-(the previous best). "Bound" is the bound for the Binning algorithm. "Binning"
-is the performance of the Binning algorithm. The Binning algorithm clearly has
-a tighter bound, and the pe</p><p>4 0.7286278 <a title="298-lda-4" href="../hunch_net-2007/hunch_net-2007-02-16-The_Forgetting.html">233 hunch net-2007-02-16-The Forgetting</a></p>
-<p>Introduction: How many papers do you remember from 2006? 2005? 2002? 1997? 1987? 1967? One
-way to judge this would be to look at the citations of the papers you write--
-how many came from which year? For myself, the answers on recent papers
-are:year200620052002199719871967count4105100This spectrum is fairly typical of
-papers in general. There are many reasons that citations are focused on recent
-papers.The number of papers being published continues to grow. This is not a
-very significant effect, because the rate of publication has not grown nearly
-as fast.Dead men don't reject your papers for not citing them. This reason
-seems lame, because it's a distortion from the ideal of science. Nevertheless,
-it must be stated because the effect can be significant.In 1997, I started as
-a PhD student. Naturally, papers after 1997 are better remembered because they
-were absorbed in real time. A large fraction of people writing papers and
-attending conferences haven't been doing it for 10 years.Old papers aren't</p><p>5 0.57309318 <a title="298-lda-5" href="../hunch_net-2005/hunch_net-2005-01-27-Learning_Complete_Problems.html">6 hunch net-2005-01-27-Learning Complete Problems</a></p>
-<p>Introduction: Let's define a learning problem as making predictions given past data. There
-are several ways to attack the learning problem which seem to be equivalent to
-solving the learning problem.Find the InvariantThis viewpoint says that
-learning is all about learning (or incorporating) transformations of objects
-that do not change the correct prediction. The best possible invariant is the
-one which says "all things of the same class are the same". Finding this is
-equivalent to learning. This viewpoint is particularly common when working
-with image features.Feature SelectionThis viewpoint says that the way to learn
-is by finding the right features to input to a learning algorithm. The best
-feature is the one which is the class to predict. Finding this is equivalent
-to learning for all reasonable learning algorithms. This viewpoint is common
-in several applications of machine learning. SeeGilad's and Bianca's
-comments.Find the RepresentationThis is almost the same as feature selection,
-except int</p><p>6 0.57221335 <a title="298-lda-6" href="../hunch_net-2011/hunch_net-2011-03-19-The_Ideal_Large_Scale_Learning_Class.html">426 hunch net-2011-03-19-The Ideal Large Scale Learning Class</a></p>
-<p>7 0.57201272 <a title="298-lda-7" href="../hunch_net-2006/hunch_net-2006-03-02-Why_do_people_count_for_learning%3F.html">160 hunch net-2006-03-02-Why do people count for learning?</a></p>
-<p>8 0.57099438 <a title="298-lda-8" href="../hunch_net-2005/hunch_net-2005-03-30-What_can_Type_Theory_teach_us_about_Machine_Learning%3F.html">49 hunch net-2005-03-30-What can Type Theory teach us about Machine Learning?</a></p>
-<p>9 0.57093596 <a title="298-lda-9" href="../hunch_net-2006/hunch_net-2006-02-11-Yahoo%26%238217%3Bs_Learning_Problems..html">156 hunch net-2006-02-11-Yahoo&#8217;s Learning Problems.</a></p>
-<p>10 0.57042271 <a title="298-lda-10" href="../hunch_net-2011/hunch_net-2011-10-24-2011_ML_symposium_and_the_bears.html">448 hunch net-2011-10-24-2011 ML symposium and the bears</a></p>
-<p>11 0.57010096 <a title="298-lda-11" href="../hunch_net-2005/hunch_net-2005-08-23-%28Dis%29similarities_between_academia_and_open_source_programmers.html">105 hunch net-2005-08-23-(Dis)similarities between academia and open source programmers</a></p>
-<p>12 0.56981444 <a title="298-lda-12" href="../hunch_net-2008/hunch_net-2008-12-23-Use_of_Learning_Theory.html">332 hunch net-2008-12-23-Use of Learning Theory</a></p>
-<p>13 0.56953752 <a title="298-lda-13" href="../hunch_net-2006/hunch_net-2006-02-24-A_Fundamentalist_Organization_of_Machine_Learning.html">158 hunch net-2006-02-24-A Fundamentalist Organization of Machine Learning</a></p>
-<p>14 0.56944311 <a title="298-lda-14" href="../hunch_net-2005/hunch_net-2005-02-03-Learning_Theory%2C_by_assumption.html">12 hunch net-2005-02-03-Learning Theory, by assumption</a></p>
-<p>15 0.56893426 <a title="298-lda-15" href="../hunch_net-2007/hunch_net-2007-10-17-Online_as_the_new_adjective.html">267 hunch net-2007-10-17-Online as the new adjective</a></p>
-<p>16 0.56851757 <a title="298-lda-16" href="../hunch_net-2009/hunch_net-2009-06-15-In_Active_Learning%2C_the_question_changes.html">360 hunch net-2009-06-15-In Active Learning, the question changes</a></p>
-<p>17 0.56841707 <a title="298-lda-17" href="../hunch_net-2005/hunch_net-2005-12-07-Is_the_Google_way_the_way_for_machine_learning%3F.html">136 hunch net-2005-12-07-Is the Google way the way for machine learning?</a></p>
-<p>18 0.56801677 <a title="298-lda-18" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
-<p>19 0.56763643 <a title="298-lda-19" href="../hunch_net-2012/hunch_net-2012-05-03-Microsoft_Research%2C_New_York_City.html">464 hunch net-2012-05-03-Microsoft Research, New York City</a></p>
-<p>20 0.56691504 <a title="298-lda-20" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
+<p>1 0.94395113 <a title="298-lda-1" href="../hunch_net-2007/hunch_net-2007-05-08-Conditional_Tournaments_for_Multiclass_to_Binary.html">243 hunch net-2007-05-08-Conditional Tournaments for Multiclass to Binary</a></p>
+<p>Introduction: This  problem  has been cracked (but not quite completely solved) by  Alina ,  Pradeep , and  I .  The problem is essentially finding a better way to reduce multiclass classification to binary classification.  The solution is to use a carefully crafted tournament,  the simplest version of which is a  single elimination tournament  where the “players” are the different classes.  An example of the structure is here: 
+    
+For the single elimination tournament, we can prove that: 
+ For all multiclass problems  D , for all learned binary classifiers  c , the regret of an induced multiclass classifier is bounded by the regret of the binary classifier times  log 2  k .  Restated:  
+  reg multiclass (D,Filter_tree_test(c)) <= reg binary  (Filter_tree_train(D),c)    
+Here:
+  
+   Filter_tree_train(D)  is the induced binary classification problem 
+   Filter_tree_test(c)  is the induced multiclass classifier. 
+   reg multiclass   is the multiclass regret (= difference between error rate and minim</p><p>same-blog 2 0.92088151 <a title="298-lda-2" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
+<p>Introduction: I want to expand on  this post  which describes one of the core tricks for making  Vowpal Wabbit  fast and easy to use when learning from text.  
+ 
+The central trick is converting a word (or any other parseable quantity) into a number via a hash function.   Kishore  tells me this is a relatively old trick in NLP land, but it has some added advantages when doing online learning, because you can learn directly from the existing data without preprocessing the data to create features (destroying the online property) or using an expensive hashtable lookup (slowing things down).
+ 
+A central concern for this approach is collisions, which create a loss of information.  If you use  m  features in an index space of size  n  the birthday paradox suggests a collision if  m > n 0.5  , essentially because there are  m 2   pairs.   This is pretty bad, because it says that with a vocabulary of  10 5   features, you might need to have  10 10   entries in your table.
+ 
+It turns out that redundancy is gr</p><p>3 0.91487426 <a title="298-lda-3" href="../hunch_net-2010/hunch_net-2010-06-20-2010_ICML_discussion_site.html">401 hunch net-2010-06-20-2010 ICML discussion site</a></p>
+<p>Introduction: A substantial difficulty with the 2009 and 2008  ICML discussion system  was a communication vacuum, where authors were not informed of comments, and commenters were not informed of responses to their comments without explicit monitoring.   Mark Reid  has setup a  new discussion system for 2010  with the goal of addressing this.
+ 
+Mark didn’t want to make it to intrusive, so you must opt-in.  As an author,  find your paper  and “Subscribe by email” to the comments.  As a commenter, you have the option of providing an email for follow-up notification.</p><p>4 0.83864552 <a title="298-lda-4" href="../hunch_net-2006/hunch_net-2006-10-08-Incompatibilities_between_classical_confidence_intervals_and_learning..html">213 hunch net-2006-10-08-Incompatibilities between classical confidence intervals and learning.</a></p>
+<p>Introduction: Classical confidence intervals satisfy a theorem of the form: For some data sources  D , 
+  Pr S ~ D (f(D) > g(S)) > 1-d   
+where  f  is some function of the distribution (such as the mean) and  g  is some function of the observed sample  S .   The constraints on  D  can vary between “Independent and identically distributed (IID) samples from a gaussian with an unknown mean” to “IID samples from an arbitrary distribution  D “.  There are even some confidence intervals which do not require IID samples.
+ 
+Classical confidence intervals often confuse people.  They do  not  say “with high probability, for my observed sample, the bounds holds”.   Instead, they tell you that if you reason according to the confidence interval in the future (and the constraints on  D  are satisfied), then you are not often wrong.  Restated, they tell you something about what a safe procedure is in a stochastic world where  d  is the safety parameter.
+ 
+There are a number of results in theoretical machine learn</p><p>5 0.80894345 <a title="298-lda-5" href="../hunch_net-2005/hunch_net-2005-02-26-Problem%3A_Reductions_and_Relative_Ranking_Metrics.html">31 hunch net-2005-02-26-Problem: Reductions and Relative Ranking Metrics</a></p>
+<p>Introduction: This, again, is something of a research direction rather than a single problem.
+ 
+There are several metrics people care about which depend upon the relative ranking of examples and there are sometimes good reasons to care about such metrics.  Examples include  AROC , “F1″, the proportion of the time that the top ranked element is in some class, the proportion of the top 10 examples in some class ( google ‘s problem),  the lowest ranked example of some class, and the “sort distance” from a predicted ranking to a correct ranking.  See  here  for an example of some of these.  
+ 
+ Problem  What does the ability to classify well imply about performance under these metrics?
+ 
+ Past Work 
+  
+  Probabilistic classification under squared error  can be solved with a classifier.  A counterexample shows this does not imply a good AROC. 
+ Sample complexity bounds for  AROC  (and  here ). 
+ A paper on “ Learning to Order Things “. 
+  
+ Difficulty  Several of these may be easy.  Some of them may be h</p><p>6 0.80196369 <a title="298-lda-6" href="../hunch_net-2010/hunch_net-2010-03-15-The_Efficient_Robust_Conditional_Probability_Estimation_Problem.html">391 hunch net-2010-03-15-The Efficient Robust Conditional Probability Estimation Problem</a></p>
+<p>7 0.71603233 <a title="298-lda-7" href="../hunch_net-2008/hunch_net-2008-02-17-The_Meaning_of_Confidence.html">289 hunch net-2008-02-17-The Meaning of Confidence</a></p>
+<p>8 0.6485517 <a title="298-lda-8" href="../hunch_net-2006/hunch_net-2006-06-14-Explorations_of_Exploration.html">183 hunch net-2006-06-14-Explorations of Exploration</a></p>
+<p>9 0.60283935 <a title="298-lda-9" href="../hunch_net-2013/hunch_net-2013-06-16-Representative_Reviewing.html">484 hunch net-2013-06-16-Representative Reviewing</a></p>
+<p>10 0.56684411 <a title="298-lda-10" href="../hunch_net-2005/hunch_net-2005-06-06-Exact_Online_Learning_for_Classification.html">78 hunch net-2005-06-06-Exact Online Learning for Classification</a></p>
+<p>11 0.5654434 <a title="298-lda-11" href="../hunch_net-2005/hunch_net-2005-03-02-Prior%2C_%26%238220%3BPrior%26%238221%3B_and_Bias.html">34 hunch net-2005-03-02-Prior, &#8220;Prior&#8221; and Bias</a></p>
+<p>12 0.55111349 <a title="298-lda-12" href="../hunch_net-2012/hunch_net-2012-04-09-ICML_author_feedback_is_open.html">461 hunch net-2012-04-09-ICML author feedback is open</a></p>
+<p>13 0.5358398 <a title="298-lda-13" href="../hunch_net-2007/hunch_net-2007-01-10-A_Deep_Belief_Net_Learning_Problem.html">227 hunch net-2007-01-10-A Deep Belief Net Learning Problem</a></p>
+<p>14 0.51875716 <a title="298-lda-14" href="../hunch_net-2007/hunch_net-2007-08-19-Choice_of_Metrics.html">259 hunch net-2007-08-19-Choice of Metrics</a></p>
+<p>15 0.51640594 <a title="298-lda-15" href="../hunch_net-2005/hunch_net-2005-11-07-Prediction_Competitions.html">129 hunch net-2005-11-07-Prediction Competitions</a></p>
+<p>16 0.51321846 <a title="298-lda-16" href="../hunch_net-2005/hunch_net-2005-03-15-The_State_of_Tight_Bounds.html">41 hunch net-2005-03-15-The State of Tight Bounds</a></p>
+<p>17 0.51248753 <a title="298-lda-17" href="../hunch_net-2008/hunch_net-2008-01-06-Research_Political_Issues.html">282 hunch net-2008-01-06-Research Political Issues</a></p>
+<p>18 0.51247722 <a title="298-lda-18" href="../hunch_net-2005/hunch_net-2005-05-06-Don%26%238217%3Bt_mix_the_solution_into_the_problem.html">67 hunch net-2005-05-06-Don&#8217;t mix the solution into the problem</a></p>
+<p>19 0.5058164 <a title="298-lda-19" href="../hunch_net-2005/hunch_net-2005-03-13-Avoiding_Bad_Reviewing.html">40 hunch net-2005-03-13-Avoiding Bad Reviewing</a></p>
+<p>20 0.50529486 <a title="298-lda-20" href="../hunch_net-2005/hunch_net-2005-01-26-Watchword%3A_Probability.html">5 hunch net-2005-01-26-Watchword: Probability</a></p>
 <br/><br/><br/>
 
 <script>

@@ -16,303 +16,220 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <h1>450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</h1>
-<br/><h2>meta infos for this blog</h2><p>Source: <a title="hunch_net-2011-450-html" href="http://hunch.net/?p=2094">html</a></p><p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries
-in a datamatrix), and want to learn a good linear predictor in a reasonable
-amount of time. How do you do it? As a learning theorist, the first thing you
-do is pray that this is too much data for the number of parameters--but that's
-not the case, there are around 16 billion examples, 16 million parameters, and
-people really care about a high quality predictor, so subsampling is not a
-good strategy.Alekhvisited us last summer, and we had a breakthrough
-(seeherefor details), coming up with the first learning algorithm I've seen
-that is provably faster thanany futuresingle machine learning algorithm. The
-proof of this is simple: We can output a optimal-up-to-precision linear
-predictor faster than the data can be streamed through the network interface
-of any single machine involved in the computation.It is necessary but not
-sufficient to have an effective communication infrastructure. It is necessary
-but not suff</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The proof of this is simple: We can output a optimal-up-to-precision linear predictor faster than the data can be streamed through the network interface of any single machine involved in the computation. [sent-5, score-0.308]
-</p><p>2 It is necessary but not sufficient to have a decent programming language, because parallel programming is hard. [sent-7, score-0.494]
-</p><p>3 For communication infrastructures, the two most prevalent approaches areMPIandMapReduce, both of which have substantial drawbacks for machine learning with lots of data. [sent-10, score-0.4]
-</p><p>4 When the cluster is shared, preshuffling the data is awkward to impossible and you must expect that some nodes will run slower than others because they will be executing other jobs. [sent-13, score-0.394]
-</p><p>5 This limitation on reliability kicks in much sooner than disk read failures or node failures. [sent-14, score-0.256]
-</p><p>6 The starting state for AllReduce isnnodes each with a number, and the end state is all nodes having the sum of all numbers. [sent-25, score-0.284]
-</p><p>7 You just sprinkle allreduce in a few locations in your single machine code. [sent-29, score-0.522]
-</p><p>8 And, in any case, you don't have an effective large scale learning algorithm if it dies every time the data on a single node exceeds available RAM. [sent-34, score-0.31]
-</p><p>9 Allreduce, because it's a function call, does not conceptually limit online learning approaches as discussed below. [sent-39, score-0.494]
-</p><p>10 But we don't generally need that: it's easy to use Hadoop's speculative execution approach to deal with the slow node problem and use delayed initialization to get around all startup failures giving you something with >99% success rate on a running time reliable to within a factor of 2. [sent-44, score-0.436]
-</p><p>11 To test this hypothesis, I visitedClementfor a day, where we connected things to make Allreduce work in Lua twice--once with an online approach and once with an LBFGS optimization approach forconvolutional neural networks. [sent-47, score-0.344]
-</p><p>12 As a parallel programming paradigm, it's amazingly easier than many other approaches, because you take your existing code and figure out which pieces of state to synchronize. [sent-48, score-0.406]
-</p><p>13 It's superior enough that I've now eliminated the multithreaded and parallel online learning approaches withinVowpal Wabbit. [sent-49, score-0.462]
-</p><p>14 This approach is also great in terms of the amount of incremental learning required--you just need to learn one function to be able to create useful parallel machine learning algorithms. [sent-50, score-0.402]
-</p><p>15 Incidentally, we designed the AllReduce code so that Hadoop is not a requirement--you just need to do a bit of extra scripting and lose some of the benefits discussed above when running this on a workstation cluster or a single machine. [sent-52, score-0.496]
-</p><p>16 Again, we can combine these approaches in an obvious way: use online learning at the beginning to warmstart LBFGS to integrate out the noise. [sent-62, score-0.269]
-</p><p>17 The general area of parallel learning has grown significantly, as indicated by theBig Learningworkshop atNIPS, and there are a number of very different approaches people are taking. [sent-66, score-0.324]
-</p><p>18 Optimization problems are an easy example, but I suspect there are a number of iterative computation problems where allreduce can be very effective. [sent-76, score-0.433]
-</p><p>19 While it might appear a limited operation, you can easily do average, weighted average, max, etcâ&euro;Ś And, the scope of allreduce is also easily broadened with an arbitrary reduce function, as per MPI's version. [sent-77, score-0.515]
-</p><p>20 The Allreduce code itself is not yet native in Hadoop, so you'll need to grab it from the VW source code which has a BSD license. [sent-78, score-0.386]
+<br/><h2>meta infos for this blog</h2><p>Source: <a title="hunch_net-2011-450-html" href="http://hunch.net/?p=2094">html</a></p><p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries in a datamatrix), and want to learn a good linear predictor in a reasonable amount of time.  How do you do it?  As a learning theorist, the first thing you do is pray that this is too much data for the number of parameters—but that’s not the case, there are around 16 billion examples, 16 million parameters, and people really care about a high quality predictor, so subsampling is not a good strategy.
+ 
+ Alekh  visited us last summer, and we had a breakthrough (see  here  for details), coming up with the first learning algorithm I’ve seen that is provably faster than  any future  single machine learning algorithm.  The proof of this is simple: We can output a optimal-up-to-precision linear predictor faster than the data can be streamed through the network interface of any single machine involved in the computation.
+ 
+It is necessary but not sufficient to have an effective communication infrastructure.  It is ne</p><br/><h2>Summary: the most important sentenses genereted by tfidf model</h2><p>sentIndex sentText sentNum sentScore</p><p>1 The proof of this is simple: We can output a optimal-up-to-precision linear predictor faster than the data can be streamed through the network interface of any single machine involved in the computation. [sent-5, score-0.279]
+</p><p>2 It is necessary but not sufficient to have a decent programming language, because parallel programming is hard. [sent-7, score-0.387]
+</p><p>3 For communication infrastructures, the two most prevalent approaches are  MPI  and  MapReduce , both of which have substantial drawbacks for machine learning with lots of data. [sent-10, score-0.35]
+</p><p>4 When the cluster is shared, preshuffling the data is awkward to impossible and you must expect that some nodes will run slower than others because they will be executing other jobs. [sent-13, score-0.361]
+</p><p>5 The starting state for AllReduce is  n  nodes each with a number, and the end state is all nodes having the sum of all numbers. [sent-25, score-0.434]
+</p><p>6 You just sprinkle allreduce in a few locations in your single machine code. [sent-29, score-0.477]
+</p><p>7 And, in any case, you don’t have an effective large scale learning algorithm if it dies every time the data on a single node exceeds available RAM. [sent-34, score-0.284]
+</p><p>8 MPI: Fast optimization approaches remain within the conceptual scope. [sent-38, score-0.431]
+</p><p>9 Allreduce, because it’s a function call, does not conceptually limit online learning approaches as discussed below. [sent-39, score-0.426]
+</p><p>10 But we don’t generally need that: it’s easy to use Hadoop’s speculative execution approach to deal with the slow node problem and use delayed initialization to get around all startup failures giving you something with >99% success rate on a running time reliable to within a factor of 2. [sent-44, score-0.403]
+</p><p>11 To test this hypothesis, I visited  Clement  for a day, where we connected things to make Allreduce work in Lua twice—once with an online approach and once with an LBFGS optimization approach for  convolutional neural networks . [sent-47, score-0.35]
+</p><p>12 As a parallel programming paradigm, it’s amazingly easier than many other approaches, because you take your existing code and figure out which pieces of state to synchronize. [sent-48, score-0.354]
+</p><p>13 It’s superior enough that I’ve now eliminated the multithreaded and parallel online learning approaches within  Vowpal Wabbit . [sent-49, score-0.474]
+</p><p>14 This approach is also great in terms of the amount of incremental learning required—you just need to learn one function to be able to create useful parallel machine learning algorithms. [sent-50, score-0.352]
+</p><p>15 Incidentally, we designed the AllReduce code so that Hadoop is not a requirement—you just need to do a bit of extra scripting and lose some of the benefits discussed above when running this on a workstation cluster or a single machine. [sent-52, score-0.445]
+</p><p>16 You also need to get optimization approaches right. [sent-53, score-0.4]
+</p><p>17 The general area of parallel learning has grown significantly, as indicated by the  Big Learning  workshop at  NIPS , and there are a number of very different approaches people are taking. [sent-66, score-0.283]
+</p><p>18 Optimization problems are an easy example, but I suspect there are a number of iterative computation problems where allreduce can be very effective. [sent-76, score-0.385]
+</p><p>19 While it might appear a limited operation, you can easily do average, weighted average, max, etc…  And, the scope of allreduce is also easily broadened with an arbitrary reduce function, as per MPI’s version. [sent-77, score-0.454]
+</p><p>20 The Allreduce code itself is not yet native in Hadoop, so you’ll need to grab it from the VW source code which has a BSD license. [sent-78, score-0.335]
 </p>
 <br/>
 <h2>similar blogs computed by tfidf model</h2><h3>tfidf for this blog:</h3><p>wordName wordTfidf (topN-words)</p>
-<p>[('allreduce', 0.433), ('mapreduce', 0.292), ('approaches', 0.204), ('nodes', 0.172), ('lbfgs', 0.146), ('hadoop', 0.146), ('optimization', 0.135), ('mpi', 0.133), ('programming', 0.13), ('cluster', 0.127), ('node', 0.126), ('parallel', 0.12), ('need', 0.117), ('drawbacks', 0.112), ('code', 0.1), ('data', 0.095), ('suffers', 0.095), ('function', 0.093), ('ram', 0.091), ('local', 0.09), ('single', 0.089), ('temporary', 0.089), ('communication', 0.084), ('scope', 0.082), ('significantly', 0.076), ('drawback', 0.075), ('practice', 0.075), ('seeherefor', 0.073), ('eliminated', 0.073), ('conceptual', 0.073), ('sgd', 0.073), ('approach', 0.072), ('inefficient', 0.069), ('disk', 0.069), ('native', 0.069), ('conceptually', 0.069), ('faster', 0.066), ('online', 0.065), ('algorithms', 0.064), ('discussed', 0.063), ('execute', 0.063), ('failures', 0.061), ('within', 0.06), ('flaw', 0.059), ('sufficient', 0.059), ('predictor', 0.058), ('query', 0.056), ('vw', 0.056), ('state', 0.056), ('necessary', 0.055)]</p>
+<p>[('mapreduce', 0.438), ('allreduce', 0.385), ('mpi', 0.28), ('approaches', 0.178), ('nodes', 0.168), ('lbfgs', 0.162), ('hadoop', 0.131), ('optimization', 0.118), ('programming', 0.115), ('cluster', 0.113), ('node', 0.112), ('parallel', 0.105), ('need', 0.104), ('drawbacks', 0.099), ('single', 0.092), ('code', 0.085), ('suffers', 0.084), ('ram', 0.081), ('data', 0.08), ('function', 0.08), ('local', 0.08), ('temporary', 0.079), ('communication', 0.073), ('within', 0.07), ('scope', 0.069), ('drawback', 0.067), ('significantly', 0.067), ('practice', 0.066), ('eliminated', 0.065), ('conceptual', 0.065), ('approach', 0.063), ('inefficient', 0.061), ('disk', 0.061), ('native', 0.061), ('scaling', 0.061), ('conceptually', 0.061), ('parameters', 0.059), ('faster', 0.057), ('execute', 0.056), ('algorithms', 0.056), ('online', 0.056), ('failures', 0.054), ('sgd', 0.054), ('flaw', 0.052), ('sufficient', 0.052), ('discussed', 0.051), ('predictor', 0.05), ('visited', 0.05), ('state', 0.049), ('query', 0.048)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>same-blog 1 0.9999997 <a title="450-tfidf-1" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
-<p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries
-in a datamatrix), and want to learn a good linear predictor in a reasonable
-amount of time. How do you do it? As a learning theorist, the first thing you
-do is pray that this is too much data for the number of parameters--but that's
-not the case, there are around 16 billion examples, 16 million parameters, and
-people really care about a high quality predictor, so subsampling is not a
-good strategy.Alekhvisited us last summer, and we had a breakthrough
-(seeherefor details), coming up with the first learning algorithm I've seen
-that is provably faster thanany futuresingle machine learning algorithm. The
-proof of this is simple: We can output a optimal-up-to-precision linear
-predictor faster than the data can be streamed through the network interface
-of any single machine involved in the computation.It is necessary but not
-sufficient to have an effective communication infrastructure. It is necessary
-but not suff</p><p>2 0.18146837 <a title="450-tfidf-2" href="../hunch_net-2011/hunch_net-2011-08-15-Vowpal_Wabbit_6.0.html">441 hunch net-2011-08-15-Vowpal Wabbit 6.0</a></p>
-<p>Introduction: I just releasedVowpal Wabbit 6.0. Since the last version:VW is now 2-3 orders
-of magnitude faster at linear learning, primarily thanks toAlekh. Given the
-baseline, this is loads of fun, allowing us to easily deal with terafeature
-datasets, and dwarfing the scale of any other open source projects. The core
-improvement here comes from effective parallelization over kilonode clusters
-(eitherHadoopor not). This code is highly scalable, so it even helps with
-clusters of size 2 (and doesn't hurt for clusters of size 1). The core
-allreduce technique appears widely and easily reused--we've already used it to
-parallelize Conjugate Gradient, LBFGS, and two variants of online learning.
-We'll be documenting how to do this more thoroughly, but for now
-"README_cluster" and associated scripts should provide a good starting
-point.The newLBFGScode fromMiroseems to commonly dominate the existing
-conjugate gradient code in time/quality tradeoffs.The new matrix factorization
-code fromJakeadds a core algor</p><p>3 0.16803512 <a title="450-tfidf-3" href="../hunch_net-2005/hunch_net-2005-12-07-Is_the_Google_way_the_way_for_machine_learning%3F.html">136 hunch net-2005-12-07-Is the Google way the way for machine learning?</a></p>
-<p>Introduction: Urs HoelzlefromGooglegave an invited presentation atNIPS. In the presentation,
-he strongly advocates interacting with data in a particular scalable manner
-which is something like the following:Make a cluster of machines.Build a
-unified filesystem. (Google uses GFS, but NFS or other approaches work
-reasonably well for smaller clusters.)Interact with data viaMapReduce.Creating
-a cluster of machines is, by this point, relatively straightforward.Unified
-filesystems are a little bit tricky--GFS is capable by design of essentially
-unlimited speed throughput to disk. NFS can bottleneck because all of the data
-has to move through one machine. Nevertheless, this may not be a limiting
-factor for smaller clusters.MapReduce is a programming paradigm. Essentially,
-it is a combination of a data element transform (map) and an
-agreggator/selector (reduce). These operations are highly parallelizable and
-the claim is that they support the forms of data interaction which are
-necessary.Apparently, theNutc</p><p>4 0.15810354 <a title="450-tfidf-4" href="../hunch_net-2007/hunch_net-2007-12-21-Vowpal_Wabbit_Code_Release.html">281 hunch net-2007-12-21-Vowpal Wabbit Code Release</a></p>
-<p>Introduction: We are releasing theVowpal Wabbit (Fast Online Learning) codeas open source
-under a BSD (revised) license. This is aproject at Yahoo! Researchto build a
-useful large scale learning algorithm whichLihong Li,Alex Strehl, and I have
-been working on.To appreciate the meaning of "large", it's useful to define
-"small" and "medium". A "small" supervised learning problem is one where a
-human could use a labeled dataset and come up with a reasonable predictor. A
-"medium" supervised learning problem dataset fits into the RAM of a modern
-desktop computer. A "large" supervised learning problem is one which does not
-fit into the RAM of a normal machine. VW tackles large scale learning problems
-by this definition of large. I'm not aware of any other open source Machine
-Learning tools which can handle this scale (although they may exist). A few
-close ones are:IBM's Parallel Machine Learning Toolboxisn't quite open source.
-The approach used by this toolbox is essentially map-reduce style computation,</p><p>5 0.14257224 <a title="450-tfidf-5" href="../hunch_net-2006/hunch_net-2006-10-22-Exemplar_programming.html">215 hunch net-2006-10-22-Exemplar programming</a></p>
-<p>Introduction: There are many different abstractions for problem definition and solution.
-Here are a few examples:Functional programming: a set of functions are
-defined. The composed execution of these functions yields the solution.Linear
-programming: a set of constraints and a linear objective function are defined.
-An LP solver finds the constrained optimum.Quadratic programming: Like linear
-programming, but the language is a little more flexible (and the solution
-slower).Convex programming: like quadratic programming, but the language is
-more flexible (and the solutions even slower).Dynamic programming: a recursive
-definition of the problem is defined and then solved efficiently via caching
-tricks.SAT programming: A problem is specified as a satisfiability involving a
-conjunction of a disjunction of boolean variables. A general engine attempts
-to find a good satisfying assignment. For exampleKautz'sblackboxplanner.These
-abstractions have different tradeoffs between ease of use, generality, and the</p><p>6 0.13919561 <a title="450-tfidf-6" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
-<p>7 0.13454017 <a title="450-tfidf-7" href="../hunch_net-2011/hunch_net-2011-03-19-The_Ideal_Large_Scale_Learning_Class.html">426 hunch net-2011-03-19-The Ideal Large Scale Learning Class</a></p>
-<p>8 0.1328938 <a title="450-tfidf-8" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
-<p>9 0.13287075 <a title="450-tfidf-9" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
-<p>10 0.13273115 <a title="450-tfidf-10" href="../hunch_net-2009/hunch_net-2009-03-26-Machine_Learning_is_too_easy.html">347 hunch net-2009-03-26-Machine Learning is too easy</a></p>
-<p>11 0.12788576 <a title="450-tfidf-11" href="../hunch_net-2007/hunch_net-2007-01-26-Parallel_Machine_Learning_Problems.html">229 hunch net-2007-01-26-Parallel Machine Learning Problems</a></p>
-<p>12 0.12760866 <a title="450-tfidf-12" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
-<p>13 0.1242264 <a title="450-tfidf-13" href="../hunch_net-2010/hunch_net-2010-12-26-NIPS_2010.html">420 hunch net-2010-12-26-NIPS 2010</a></p>
-<p>14 0.12418882 <a title="450-tfidf-14" href="../hunch_net-2005/hunch_net-2005-11-05-The_design_of_a_computing_cluster.html">128 hunch net-2005-11-05-The design of a computing cluster</a></p>
-<p>15 0.11963513 <a title="450-tfidf-15" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
-<p>16 0.11621003 <a title="450-tfidf-16" href="../hunch_net-2007/hunch_net-2007-04-02-Contextual_Scaling.html">237 hunch net-2007-04-02-Contextual Scaling</a></p>
-<p>17 0.115463 <a title="450-tfidf-17" href="../hunch_net-2009/hunch_net-2009-08-03-Carbon_in_Computer_Science_Research.html">366 hunch net-2009-08-03-Carbon in Computer Science Research</a></p>
-<p>18 0.11467181 <a title="450-tfidf-18" href="../hunch_net-2012/hunch_net-2012-08-24-Patterns_for_research_in_machine_learning.html">471 hunch net-2012-08-24-Patterns for research in machine learning</a></p>
-<p>19 0.11460468 <a title="450-tfidf-19" href="../hunch_net-2009/hunch_net-2009-03-18-Parallel_ML_primitives.html">346 hunch net-2009-03-18-Parallel ML primitives</a></p>
-<p>20 0.1137676 <a title="450-tfidf-20" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
+<p>same-blog 1 0.99999964 <a title="450-tfidf-1" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
+<p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries in a datamatrix), and want to learn a good linear predictor in a reasonable amount of time.  How do you do it?  As a learning theorist, the first thing you do is pray that this is too much data for the number of parameters—but that’s not the case, there are around 16 billion examples, 16 million parameters, and people really care about a high quality predictor, so subsampling is not a good strategy.
+ 
+ Alekh  visited us last summer, and we had a breakthrough (see  here  for details), coming up with the first learning algorithm I’ve seen that is provably faster than  any future  single machine learning algorithm.  The proof of this is simple: We can output a optimal-up-to-precision linear predictor faster than the data can be streamed through the network interface of any single machine involved in the computation.
+ 
+It is necessary but not sufficient to have an effective communication infrastructure.  It is ne</p><p>2 0.22138451 <a title="450-tfidf-2" href="../hunch_net-2005/hunch_net-2005-12-07-Is_the_Google_way_the_way_for_machine_learning%3F.html">136 hunch net-2005-12-07-Is the Google way the way for machine learning?</a></p>
+<p>Introduction: Urs Hoelzle  from  Google  gave an invited presentation at  NIPS .  In the presentation, he strongly advocates interacting with data in a particular scalable manner which is something like the following:
+  
+ Make a cluster of machines. 
+ Build a unified filesystem.  (Google uses GFS, but NFS or other approaches work reasonably well for smaller clusters.) 
+ Interact with data via  MapReduce . 
+  
+Creating a cluster of machines is, by this point, relatively straightforward.  
+ 
+Unified filesystems are a little bit tricky—GFS is capable by design of essentially unlimited speed throughput to disk.  NFS can bottleneck because all of the data has to move through one machine.  Nevertheless,  this may not be a limiting factor for smaller clusters.
+ 
+MapReduce is a programming paradigm.  Essentially, it is a combination of a data element transform (map) and an agreggator/selector (reduce).  These operations are highly parallelizable and the claim is that they support the forms of data interacti</p><p>3 0.18062027 <a title="450-tfidf-3" href="../hunch_net-2011/hunch_net-2011-08-15-Vowpal_Wabbit_6.0.html">441 hunch net-2011-08-15-Vowpal Wabbit 6.0</a></p>
+<p>Introduction: I just released  Vowpal Wabbit 6.0 .  Since the last version:
+  
+ VW is now 2-3 orders of magnitude faster at linear learning, primarily thanks to  Alekh .  Given the baseline, this is loads of fun, allowing us to easily deal with terafeature datasets, and dwarfing the scale of any other open source projects.  The core improvement here comes from effective parallelization over kilonode clusters (either  Hadoop  or not).   This code is highly scalable, so it even helps with clusters of size 2 (and doesn’t hurt for clusters of size 1).  The core allreduce technique appears widely and easily reused—we’ve already used it to parallelize Conjugate Gradient, LBFGS, and two variants of online learning.  We’ll be documenting how to do this more thoroughly, but for now “README_cluster” and associated scripts should provide a good starting point.
+ 
+ The new  LBFGS  code from  Miro  seems to commonly dominate the existing conjugate gradient code in time/quality tradeoffs. 
+ The new matrix factoriz</p><p>4 0.1595488 <a title="450-tfidf-4" href="../hunch_net-2007/hunch_net-2007-01-26-Parallel_Machine_Learning_Problems.html">229 hunch net-2007-01-26-Parallel Machine Learning Problems</a></p>
+<p>Introduction: Parallel machine learning is a subject rarely addressed at machine learning conferences.  Nevertheless, it seems likely to increase in importance because:
+  
+ Data set sizes appear to be growing substantially faster than computation.  Essentially, this happens because more and more sensors of various sorts are being hooked up to the internet. 
+ Serial speedups of processors seem are relatively stalled.  The new trend is to make processors more powerful by making them  multicore .
+ 
+ Both  AMD  and  Intel  are making dual core designs standard, with plans for more parallelism in the future. 
+ IBM’s  Cell processor  has (essentially) 9 cores. 
+ Modern graphics chips can have an order of magnitude more separate execution units. 
+ 
+
+The meaning of ‘core’ varies a bit from processor to processor, but the overall trend seems quite clear.
+
+ 
+  
+So, how do we parallelize machine learning algorithms?
+  
+ The simplest and most common technique is to simply run the same learning algorithm with di</p><p>5 0.15254392 <a title="450-tfidf-5" href="../hunch_net-2007/hunch_net-2007-12-21-Vowpal_Wabbit_Code_Release.html">281 hunch net-2007-12-21-Vowpal Wabbit Code Release</a></p>
+<p>Introduction: We are releasing the  Vowpal Wabbit (Fast Online Learning) code  as open source under a BSD (revised) license.  This is a  project at Yahoo! Research  to build a useful large scale learning algorithm which  Lihong Li ,  Alex Strehl , and I have been working on.
+ 
+To appreciate the meaning of “large”, it’s useful to define “small” and “medium”.  A “small” supervised learning problem is one where a human could use a labeled dataset and come up with a reasonable predictor.  A “medium” supervised learning problem dataset fits into the RAM of a modern desktop computer.  A “large” supervised learning problem is one which does not fit into the RAM of a normal machine.  VW tackles large scale learning problems by this definition of large.  I’m not aware of any other open source Machine Learning tools which can handle this scale (although they may exist).  A few close ones are:
+  
+  IBM’s Parallel Machine Learning Toolbox   isn’t quite open source .  The approach used by this toolbox is essenti</p><p>6 0.14867109 <a title="450-tfidf-6" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
+<p>7 0.13755792 <a title="450-tfidf-7" href="../hunch_net-2011/hunch_net-2011-03-19-The_Ideal_Large_Scale_Learning_Class.html">426 hunch net-2011-03-19-The Ideal Large Scale Learning Class</a></p>
+<p>8 0.13262947 <a title="450-tfidf-8" href="../hunch_net-2009/hunch_net-2009-03-18-Parallel_ML_primitives.html">346 hunch net-2009-03-18-Parallel ML primitives</a></p>
+<p>9 0.12616239 <a title="450-tfidf-9" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
+<p>10 0.12480675 <a title="450-tfidf-10" href="../hunch_net-2011/hunch_net-2011-12-13-Vowpal_Wabbit_version_6.1_%26%23038%3B_the_NIPS_tutorial.html">451 hunch net-2011-12-13-Vowpal Wabbit version 6.1 &#038; the NIPS tutorial</a></p>
+<p>11 0.1202106 <a title="450-tfidf-11" href="../hunch_net-2009/hunch_net-2009-03-26-Machine_Learning_is_too_easy.html">347 hunch net-2009-03-26-Machine Learning is too easy</a></p>
+<p>12 0.11823484 <a title="450-tfidf-12" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
+<p>13 0.11637802 <a title="450-tfidf-13" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
+<p>14 0.11562029 <a title="450-tfidf-14" href="../hunch_net-2006/hunch_net-2006-10-22-Exemplar_programming.html">215 hunch net-2006-10-22-Exemplar programming</a></p>
+<p>15 0.11442544 <a title="450-tfidf-15" href="../hunch_net-2010/hunch_net-2010-12-26-NIPS_2010.html">420 hunch net-2010-12-26-NIPS 2010</a></p>
+<p>16 0.11377785 <a title="450-tfidf-16" href="../hunch_net-2005/hunch_net-2005-11-05-The_design_of_a_computing_cluster.html">128 hunch net-2005-11-05-The design of a computing cluster</a></p>
+<p>17 0.11314935 <a title="450-tfidf-17" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
+<p>18 0.10935119 <a title="450-tfidf-18" href="../hunch_net-2007/hunch_net-2007-04-02-Contextual_Scaling.html">237 hunch net-2007-04-02-Contextual Scaling</a></p>
+<p>19 0.10219556 <a title="450-tfidf-19" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
+<p>20 0.10045073 <a title="450-tfidf-20" href="../hunch_net-2009/hunch_net-2009-08-03-Carbon_in_Computer_Science_Research.html">366 hunch net-2009-08-03-Carbon in Computer Science Research</a></p>
 <br/>
 <h2>similar blogs computed by <a title="lsi-model" href="../home/hunch_net_lsi.html">lsi model</a></h2><h3>lsi for this blog:</h3><p>topicId topicWeight</p>
-<p>[(0, 0.286), (1, -0.084), (2, 0.088), (3, 0.016), (4, -0.091), (5, 0.174), (6, 0.069), (7, 0.058), (8, 0.046), (9, 0.126), (10, -0.01), (11, 0.002), (12, 0.023), (13, -0.101), (14, -0.026), (15, -0.046), (16, 0.05), (17, -0.022), (18, 0.064), (19, -0.043), (20, -0.051), (21, 0.003), (22, -0.033), (23, -0.0), (24, 0.021), (25, 0.078), (26, -0.015), (27, 0.029), (28, 0.026), (29, 0.036), (30, 0.021), (31, -0.033), (32, -0.027), (33, -0.012), (34, 0.022), (35, -0.012), (36, 0.001), (37, -0.017), (38, 0.06), (39, -0.099), (40, 0.018), (41, -0.004), (42, 0.017), (43, 0.085), (44, 0.037), (45, 0.039), (46, 0.042), (47, 0.008), (48, -0.046), (49, -0.054)]</p>
+<p>[(0, 0.261), (1, 0.072), (2, -0.094), (3, 0.014), (4, 0.107), (5, 0.028), (6, -0.133), (7, -0.031), (8, -0.073), (9, 0.117), (10, -0.141), (11, -0.059), (12, 0.065), (13, -0.004), (14, -0.003), (15, -0.112), (16, 0.01), (17, 0.006), (18, -0.033), (19, -0.073), (20, 0.027), (21, 0.02), (22, -0.012), (23, 0.059), (24, -0.038), (25, 0.056), (26, 0.014), (27, -0.001), (28, 0.046), (29, -0.052), (30, -0.0), (31, -0.008), (32, 0.042), (33, 0.06), (34, -0.013), (35, 0.0), (36, 0.044), (37, -0.011), (38, -0.029), (39, -0.066), (40, 0.036), (41, -0.027), (42, 0.063), (43, 0.057), (44, 0.0), (45, 0.025), (46, -0.043), (47, 0.016), (48, -0.073), (49, -0.024)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>same-blog 1 0.94317484 <a title="450-lsi-1" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
-<p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries
-in a datamatrix), and want to learn a good linear predictor in a reasonable
-amount of time. How do you do it? As a learning theorist, the first thing you
-do is pray that this is too much data for the number of parameters--but that's
-not the case, there are around 16 billion examples, 16 million parameters, and
-people really care about a high quality predictor, so subsampling is not a
-good strategy.Alekhvisited us last summer, and we had a breakthrough
-(seeherefor details), coming up with the first learning algorithm I've seen
-that is provably faster thanany futuresingle machine learning algorithm. The
-proof of this is simple: We can output a optimal-up-to-precision linear
-predictor faster than the data can be streamed through the network interface
-of any single machine involved in the computation.It is necessary but not
-sufficient to have an effective communication infrastructure. It is necessary
-but not suff</p><p>2 0.80120617 <a title="450-lsi-2" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
-<p>Introduction: Machine learning is often computationally bounded which implies that the
-ability to write fast code becomes important if you ever want to implement a
-machine learning algorithm. Basic tactical optimizations are covered
-wellelsewhere, but I haven't seen a reasonable guide to higher level
-optimizations, which are the most important in my experience. Here are some of
-the higher level optimizations I've often found useful.Algorithmic Improvement
-First. This is Hard, but it is the most important consideration, and typically
-yields the most benefits. Good optimizations here are publishable. In the
-context of machine learning, you should be familiar with the arguments for
-online vs. batch learning.Choice of Language. There are many arguments about
-thechoice of language. Sometimes you don't have a choice when interfacing with
-other people. Personally, I favor C/C++ when I want to write fast code. This
-(admittedly) makes me a slower programmer than when using higher level
-languages. (Sometimes</p><p>3 0.7769689 <a title="450-lsi-3" href="../hunch_net-2007/hunch_net-2007-01-26-Parallel_Machine_Learning_Problems.html">229 hunch net-2007-01-26-Parallel Machine Learning Problems</a></p>
-<p>Introduction: Parallel machine learning is a subject rarely addressed at machine learning
-conferences. Nevertheless, it seems likely to increase in importance
-because:Data set sizes appear to be growing substantially faster than
-computation. Essentially, this happens because more and more sensors of
-various sorts are being hooked up to the internet.Serial speedups of
-processors seem are relatively stalled. The new trend is to make processors
-more powerful by making themmulticore.BothAMDandIntelare making dual core
-designs standard, with plans for more parallelism in the future.IBM'sCell
-processorhas (essentially) 9 cores.Modern graphics chips can have an order of
-magnitude more separate execution units.The meaning of 'core' varies a bit
-from processor to processor, but the overall trend seems quite clear.So, how
-do we parallelize machine learning algorithms?The simplest and most common
-technique is to simply run the same learning algorithm with different
-parameters on different processors. Cluster m</p><p>4 0.77657968 <a title="450-lsi-4" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
-<p>Introduction: Thelarge scale learning challengefor ICML interests me a great deal, although
-I have concerns about the way it is structured.From theinstructions page,
-several issues come up:Large DefinitionMy personal definition of dataset size
-is:smallA dataset is small if a human could look at the dataset and plausibly
-find a good solution.mediumA dataset is mediumsize if it fits in the RAM of a
-reasonably priced computer.largeA large dataset does not fit in the RAM of a
-reasonably priced computer.By this definition, all of the datasets are medium
-sized. This might sound like a pissing match over dataset size, but I believe
-it is more than that.The fundamental reason for these definitions is that they
-correspond to transitions in the sorts of approaches which are feasible. From
-small to medium, the ability to use a human as the learning algorithm
-degrades. From medium to large, it becomes essential to have learning
-algorithms that don't require random access to examples.No Loading TimeThe
-medium sc</p><p>5 0.76884645 <a title="450-lsi-5" href="../hunch_net-2005/hunch_net-2005-11-05-The_design_of_a_computing_cluster.html">128 hunch net-2005-11-05-The design of a computing cluster</a></p>
-<p>Introduction: This is about the design of a computing cluster from the viewpoint of applied
-machine learning using current technology. We just built a small one at TTI so
-this is some evidence of what is feasible and thoughts about the design
-choices.ArchitectureThere are several architectural choices.AMD Athlon64 based
-system. This seems to have the cheapest bang/buck. Maximum RAM is typically
-2-3GB.AMD Opteron based system. Opterons provide the additional capability to
-buy an SMP motherboard with two chips, and the motherboards often support 16GB
-of RAM. The RAM is also the more expensive error correcting type.Intel PIV or
-Xeon based system. The PIV and Xeon based systems are the intel analog of the
-above 2. Due to architectural design reasons, these chips tend to run a bit
-hotter and be a bit more expensive.Dual core chips. Both Intel and AMD have
-chips that actually have 2 processors embedded in them.In the end, we decided
-to go with option (2). Roughly speaking, the AMD system seemed like a bet</p><p>6 0.76385748 <a title="450-lsi-6" href="../hunch_net-2009/hunch_net-2009-07-31-Vowpal_Wabbit_Open_Source_Project.html">365 hunch net-2009-07-31-Vowpal Wabbit Open Source Project</a></p>
-<p>7 0.75783902 <a title="450-lsi-7" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
-<p>8 0.75478655 <a title="450-lsi-8" href="../hunch_net-2011/hunch_net-2011-08-15-Vowpal_Wabbit_6.0.html">441 hunch net-2011-08-15-Vowpal Wabbit 6.0</a></p>
-<p>9 0.74945742 <a title="450-lsi-9" href="../hunch_net-2009/hunch_net-2009-03-18-Parallel_ML_primitives.html">346 hunch net-2009-03-18-Parallel ML primitives</a></p>
-<p>10 0.74362999 <a title="450-lsi-10" href="../hunch_net-2007/hunch_net-2007-12-21-Vowpal_Wabbit_Code_Release.html">281 hunch net-2007-12-21-Vowpal Wabbit Code Release</a></p>
-<p>11 0.72531343 <a title="450-lsi-11" href="../hunch_net-2011/hunch_net-2011-03-19-The_Ideal_Large_Scale_Learning_Class.html">426 hunch net-2011-03-19-The Ideal Large Scale Learning Class</a></p>
-<p>12 0.72286355 <a title="450-lsi-12" href="../hunch_net-2005/hunch_net-2005-12-07-Is_the_Google_way_the_way_for_machine_learning%3F.html">136 hunch net-2005-12-07-Is the Google way the way for machine learning?</a></p>
-<p>13 0.69033492 <a title="450-lsi-13" href="../hunch_net-2009/hunch_net-2009-01-21-Nearly_all_natural_problems_require_nonlinearity.html">337 hunch net-2009-01-21-Nearly all natural problems require nonlinearity</a></p>
-<p>14 0.6635614 <a title="450-lsi-14" href="../hunch_net-2009/hunch_net-2009-08-03-Carbon_in_Computer_Science_Research.html">366 hunch net-2009-08-03-Carbon in Computer Science Research</a></p>
-<p>15 0.65725505 <a title="450-lsi-15" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
-<p>16 0.65425837 <a title="450-lsi-16" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
-<p>17 0.64128929 <a title="450-lsi-17" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
-<p>18 0.63600624 <a title="450-lsi-18" href="../hunch_net-2012/hunch_net-2012-08-24-Patterns_for_research_in_machine_learning.html">471 hunch net-2012-08-24-Patterns for research in machine learning</a></p>
-<p>19 0.63527781 <a title="450-lsi-19" href="../hunch_net-2006/hunch_net-2006-09-28-Programming_Languages_for_Machine_Learning_Implementations.html">210 hunch net-2006-09-28-Programming Languages for Machine Learning Implementations</a></p>
-<p>20 0.61405683 <a title="450-lsi-20" href="../hunch_net-2009/hunch_net-2009-06-03-Functionally_defined_Nonlinear_Dynamic_Models.html">359 hunch net-2009-06-03-Functionally defined Nonlinear Dynamic Models</a></p>
+<p>same-blog 1 0.93854833 <a title="450-lsi-1" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
+<p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries in a datamatrix), and want to learn a good linear predictor in a reasonable amount of time.  How do you do it?  As a learning theorist, the first thing you do is pray that this is too much data for the number of parameters—but that’s not the case, there are around 16 billion examples, 16 million parameters, and people really care about a high quality predictor, so subsampling is not a good strategy.
+ 
+ Alekh  visited us last summer, and we had a breakthrough (see  here  for details), coming up with the first learning algorithm I’ve seen that is provably faster than  any future  single machine learning algorithm.  The proof of this is simple: We can output a optimal-up-to-precision linear predictor faster than the data can be streamed through the network interface of any single machine involved in the computation.
+ 
+It is necessary but not sufficient to have an effective communication infrastructure.  It is ne</p><p>2 0.80171442 <a title="450-lsi-2" href="../hunch_net-2007/hunch_net-2007-01-26-Parallel_Machine_Learning_Problems.html">229 hunch net-2007-01-26-Parallel Machine Learning Problems</a></p>
+<p>Introduction: Parallel machine learning is a subject rarely addressed at machine learning conferences.  Nevertheless, it seems likely to increase in importance because:
+  
+ Data set sizes appear to be growing substantially faster than computation.  Essentially, this happens because more and more sensors of various sorts are being hooked up to the internet. 
+ Serial speedups of processors seem are relatively stalled.  The new trend is to make processors more powerful by making them  multicore .
+ 
+ Both  AMD  and  Intel  are making dual core designs standard, with plans for more parallelism in the future. 
+ IBM’s  Cell processor  has (essentially) 9 cores. 
+ Modern graphics chips can have an order of magnitude more separate execution units. 
+ 
+
+The meaning of ‘core’ varies a bit from processor to processor, but the overall trend seems quite clear.
+
+ 
+  
+So, how do we parallelize machine learning algorithms?
+  
+ The simplest and most common technique is to simply run the same learning algorithm with di</p><p>3 0.800026 <a title="450-lsi-3" href="../hunch_net-2005/hunch_net-2005-12-07-Is_the_Google_way_the_way_for_machine_learning%3F.html">136 hunch net-2005-12-07-Is the Google way the way for machine learning?</a></p>
+<p>Introduction: Urs Hoelzle  from  Google  gave an invited presentation at  NIPS .  In the presentation, he strongly advocates interacting with data in a particular scalable manner which is something like the following:
+  
+ Make a cluster of machines. 
+ Build a unified filesystem.  (Google uses GFS, but NFS or other approaches work reasonably well for smaller clusters.) 
+ Interact with data via  MapReduce . 
+  
+Creating a cluster of machines is, by this point, relatively straightforward.  
+ 
+Unified filesystems are a little bit tricky—GFS is capable by design of essentially unlimited speed throughput to disk.  NFS can bottleneck because all of the data has to move through one machine.  Nevertheless,  this may not be a limiting factor for smaller clusters.
+ 
+MapReduce is a programming paradigm.  Essentially, it is a combination of a data element transform (map) and an agreggator/selector (reduce).  These operations are highly parallelizable and the claim is that they support the forms of data interacti</p><p>4 0.77580941 <a title="450-lsi-4" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
+<p>Introduction: The  large scale learning challenge  for ICML interests me a great deal, although I have concerns about the way it is structured.
+ 
+From the  instructions page , several issues come up:
+  
+  Large Definition   My personal definition of dataset size is:
+ 
+  small   A dataset is small if a human could look at the dataset and plausibly find a good solution. 
+  medium   A dataset is mediumsize if it fits in the RAM of a reasonably priced computer. 
+  large  A large dataset does not fit in the RAM of a reasonably priced computer. 
+ 
+
+By this definition, all of the datasets are medium sized.  This might sound like a pissing match over dataset size, but I believe it is more than that.
+
+
+The fundamental reason for these definitions is that they correspond to transitions in the sorts of approaches which are feasible.  From small to medium, the ability to use a human as the learning algorithm degrades.  From medium to large, it becomes essential to have learning algorithms that don’t require ran</p><p>5 0.77508086 <a title="450-lsi-5" href="../hunch_net-2009/hunch_net-2009-03-18-Parallel_ML_primitives.html">346 hunch net-2009-03-18-Parallel ML primitives</a></p>
+<p>Introduction: Previously, we discussed  parallel machine learning  a bit.  As parallel ML is rather difficult, I’d like to describe my thinking at the moment, and ask for advice from the rest of the world.  This is particularly relevant right now, as I’m attending a workshop tomorrow on parallel ML.
+ 
+Parallelizing slow algorithms seems uncompelling.  Parallelizing many algorithms also seems uncompelling, because the effort required to parallelize is substantial.  This leaves the question: Which one fast algorithm is the best to parallelize?  What is a substantially different second?
+ 
+One compellingly fast simple algorithm is online gradient descent on a linear representation.  This is the core of Leon’s  sgd  code and  Vowpal Wabbit .   Antoine Bordes  showed a variant was competitive in the  large scale learning challenge .  It’s also a decades old primitive which has been reused in many algorithms, and continues to be reused.  It also applies to online  learning  rather than just online  optimiz</p><p>6 0.76324719 <a title="450-lsi-6" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
+<p>7 0.75444984 <a title="450-lsi-7" href="../hunch_net-2011/hunch_net-2011-12-13-Vowpal_Wabbit_version_6.1_%26%23038%3B_the_NIPS_tutorial.html">451 hunch net-2011-12-13-Vowpal Wabbit version 6.1 &#038; the NIPS tutorial</a></p>
+<p>8 0.74374151 <a title="450-lsi-8" href="../hunch_net-2005/hunch_net-2005-11-05-The_design_of_a_computing_cluster.html">128 hunch net-2005-11-05-The design of a computing cluster</a></p>
+<p>9 0.74317384 <a title="450-lsi-9" href="../hunch_net-2009/hunch_net-2009-07-31-Vowpal_Wabbit_Open_Source_Project.html">365 hunch net-2009-07-31-Vowpal Wabbit Open Source Project</a></p>
+<p>10 0.73001748 <a title="450-lsi-10" href="../hunch_net-2007/hunch_net-2007-12-21-Vowpal_Wabbit_Code_Release.html">281 hunch net-2007-12-21-Vowpal Wabbit Code Release</a></p>
+<p>11 0.72902274 <a title="450-lsi-11" href="../hunch_net-2007/hunch_net-2007-09-16-Optimizing_Machine_Learning_Programs.html">262 hunch net-2007-09-16-Optimizing Machine Learning Programs</a></p>
+<p>12 0.705778 <a title="450-lsi-12" href="../hunch_net-2011/hunch_net-2011-08-15-Vowpal_Wabbit_6.0.html">441 hunch net-2011-08-15-Vowpal Wabbit 6.0</a></p>
+<p>13 0.67831218 <a title="450-lsi-13" href="../hunch_net-2008/hunch_net-2008-04-26-Eliminating_the_Birthday_Paradox_for_Universal_Features.html">298 hunch net-2008-04-26-Eliminating the Birthday Paradox for Universal Features</a></p>
+<p>14 0.66433203 <a title="450-lsi-14" href="../hunch_net-2012/hunch_net-2012-08-24-Patterns_for_research_in_machine_learning.html">471 hunch net-2012-08-24-Patterns for research in machine learning</a></p>
+<p>15 0.61883634 <a title="450-lsi-15" href="../hunch_net-2009/hunch_net-2009-08-03-Carbon_in_Computer_Science_Research.html">366 hunch net-2009-08-03-Carbon in Computer Science Research</a></p>
+<p>16 0.60094851 <a title="450-lsi-16" href="../hunch_net-2009/hunch_net-2009-12-07-Vowpal_Wabbit_version_4.0%2C_and_a_NIPS_heresy.html">381 hunch net-2009-12-07-Vowpal Wabbit version 4.0, and a NIPS heresy</a></p>
+<p>17 0.59868389 <a title="450-lsi-17" href="../hunch_net-2011/hunch_net-2011-05-16-Research_Directions_for_Machine_Learning_and_Algorithms.html">435 hunch net-2011-05-16-Research Directions for Machine Learning and Algorithms</a></p>
+<p>18 0.59399593 <a title="450-lsi-18" href="../hunch_net-2011/hunch_net-2011-03-19-The_Ideal_Large_Scale_Learning_Class.html">426 hunch net-2011-03-19-The Ideal Large Scale Learning Class</a></p>
+<p>19 0.59294039 <a title="450-lsi-19" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
+<p>20 0.58133155 <a title="450-lsi-20" href="../hunch_net-2006/hunch_net-2006-09-28-Programming_Languages_for_Machine_Learning_Implementations.html">210 hunch net-2006-09-28-Programming Languages for Machine Learning Implementations</a></p>
 <br/>
 <h2>similar blogs computed by <a title="lda-model" href="../home/hunch_net_lda.html">lda model</a></h2><h3>lda for this blog:</h3><p>topicId topicWeight</p>
-<p>[(6, 0.012), (16, 0.011), (29, 0.019), (35, 0.06), (39, 0.015), (42, 0.22), (44, 0.013), (45, 0.063), (48, 0.015), (62, 0.199), (64, 0.015), (68, 0.058), (69, 0.031), (74, 0.102), (82, 0.016), (91, 0.016), (95, 0.052)]</p>
+<p>[(0, 0.02), (3, 0.021), (10, 0.039), (27, 0.172), (37, 0.017), (38, 0.044), (48, 0.02), (51, 0.027), (53, 0.047), (55, 0.077), (64, 0.013), (71, 0.197), (78, 0.016), (91, 0.012), (94, 0.136), (95, 0.045)]</p>
 <h3>similar blogs list:</h3><p>simIndex simValue blogId blogTitle</p>
-<p>1 0.97574002 <a title="450-lda-1" href="../hunch_net-2011/hunch_net-2011-09-03-Fall_Machine_Learning_Events.html">443 hunch net-2011-09-03-Fall Machine Learning Events</a></p>
-<p>Introduction: Many Machine Learning related events are coming up this fall.September
-9,abstracts for the New York Machine Learning Symposiumare due. Send a 2 page
-pdf, if interested, and note that we:widened submissions to be from anybody
-rather than students.set aside a larger fraction of time for contributed
-submissions.September 15, there is amachine learning meetup, where I'll be
-discussing terascale learning at AOL.September 16, there is aCS&Econ; dayat New
-York Academy of Sciences. This is not ML focused, but it's easy to imagine
-interest.September 23 and laterNIPS workshopsubmissions start coming due. As
-usual, there are too many good ones, so I won't be able to attend all those
-that interest me. I do hope some workshop makers consider ICML this coming
-summer, as we are increasing to a 2 day format for you. Here are a few that
-interest me:Big Learningis about dealing with lots of data. Abstracts are
-dueSeptember 30.TheBayes Banditsworkshop. Abstracts are dueSeptember
-23.ThePersonalized Medicin</p><p>2 0.96827054 <a title="450-lda-2" href="../hunch_net-2005/hunch_net-2005-11-05-The_design_of_a_computing_cluster.html">128 hunch net-2005-11-05-The design of a computing cluster</a></p>
-<p>Introduction: This is about the design of a computing cluster from the viewpoint of applied
-machine learning using current technology. We just built a small one at TTI so
-this is some evidence of what is feasible and thoughts about the design
-choices.ArchitectureThere are several architectural choices.AMD Athlon64 based
-system. This seems to have the cheapest bang/buck. Maximum RAM is typically
-2-3GB.AMD Opteron based system. Opterons provide the additional capability to
-buy an SMP motherboard with two chips, and the motherboards often support 16GB
-of RAM. The RAM is also the more expensive error correcting type.Intel PIV or
-Xeon based system. The PIV and Xeon based systems are the intel analog of the
-above 2. Due to architectural design reasons, these chips tend to run a bit
-hotter and be a bit more expensive.Dual core chips. Both Intel and AMD have
-chips that actually have 2 processors embedded in them.In the end, we decided
-to go with option (2). Roughly speaking, the AMD system seemed like a bet</p><p>3 0.94945174 <a title="450-lda-3" href="../hunch_net-2010/hunch_net-2010-10-29-To_Vidoelecture_or_not.html">416 hunch net-2010-10-29-To Vidoelecture or not</a></p>
-<p>Introduction: (update:cross-postedonCACM)For the first time in several years,ICML 2010did
-not havevideolecturesattending. Luckily, thetutorial on exploration and
-learningwhichAlinaand I put together canbe viewed, since we also presented
-atKDD 2010, which included videolecture support.ICML didn't cover the cost of
-a videolecture, becausePASCALdidn't provide a grant for it this year. On the
-other hand, KDD covered it out of registration costs. The cost of
-videolectures isn't cheap. Fora workshopthe baseline quote we have is 270 euro
-per hour, plus a similar cost for the cameraman's travel and accomodation.
-This can be reduced substantially by having a volunteer with a camera handle
-the cameraman duties, uploading the video and slides to be processed for a
-quoted 216 euro per hour.Youtubeis the most predominant free video site with a
-cost of $0, but it turns out to be a poor alternative.15 minute upload
-limitsdo not match typical talk lengths. Videolectures also have side-by-side
-synchronized slides &</p><p>4 0.94645745 <a title="450-lda-4" href="../hunch_net-2010/hunch_net-2010-10-17-Partha_Niyogi_has_died.html">414 hunch net-2010-10-17-Partha Niyogi has died</a></p>
-<p>Introduction: from brain cancer. I askedMishawho worked with him to write about it.Partha
-Niyogi, Louis Block Professor in Computer Science and Statistics at the
-University of Chicago passed away on October 1, 2010, aged 43.I first met
-Partha Niyogi almost exactly ten years ago when I was a graduate student in
-math and he had just started as a faculty in Computer Science and Statistics
-at the University of Chicago. Strangely, we first talked at length due to a
-somewhat convoluted mathematical argument in a paper on pattern recognition. I
-asked him some questions about the paper, and, even though the topic was new
-to him, he had put serious thought into it and we started regular meetings. We
-made significant progress and developed a line of research stemming initially
-just from trying to understand that one paper and to simplify one derivation.
-I think this was typical of Partha, showing both his intellectual curiosity
-and his intuition for the serendipitous; having a sense and focus for
-inquiries wo</p><p>5 0.9179787 <a title="450-lda-5" href="../hunch_net-2010/hunch_net-2010-09-21-Regretting_the_dead.html">411 hunch net-2010-09-21-Regretting the dead</a></p>
-<p>Introduction: Nikospointed out thisnew york timesarticle aboutpoor clinical design killing
-people. For those of us who study learning from exploration information this
-is a reminder that low regret algorithms are particularly important, as regret
-in clinical trials is measured by patient deaths.Two obvious improvements on
-the experimental design are:With reasonable record keeping of existing
-outcomes for the standard treatments, there is no need to explicitly assign
-people to a control group with the standard treatment, as that approach is
-effectively explored with great certainty. Asserting otherwise would imply
-that the nature of effective treatments for cancer has changed between now and
-a year ago, which denies the value of any clinical trial.An optimal
-experimental design will smoothly phase between exploration and exploitation
-as evidence for a new treatment shows that it can be effective. This is old
-tech, for example in theEXP3.P algorithm (page 12 aka 59)although I prefer the
-generalized an</p><p>same-blog 6 0.86379212 <a title="450-lda-6" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
-<p>7 0.82646787 <a title="450-lda-7" href="../hunch_net-2005/hunch_net-2005-12-09-Machine_Learning_Thoughts.html">137 hunch net-2005-12-09-Machine Learning Thoughts</a></p>
-<p>8 0.78200555 <a title="450-lda-8" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
-<p>9 0.78087676 <a title="450-lda-9" href="../hunch_net-2005/hunch_net-2005-09-12-Fast_Gradient_Descent.html">111 hunch net-2005-09-12-Fast Gradient Descent</a></p>
-<p>10 0.77591068 <a title="450-lda-10" href="../hunch_net-2010/hunch_net-2010-12-26-NIPS_2010.html">420 hunch net-2010-12-26-NIPS 2010</a></p>
-<p>11 0.77395916 <a title="450-lda-11" href="../hunch_net-2009/hunch_net-2009-08-03-Carbon_in_Computer_Science_Research.html">366 hunch net-2009-08-03-Carbon in Computer Science Research</a></p>
-<p>12 0.77395844 <a title="450-lda-12" href="../hunch_net-2005/hunch_net-2005-03-17-Going_all_the_Way%2C_Sometimes.html">42 hunch net-2005-03-17-Going all the Way, Sometimes</a></p>
-<p>13 0.77264154 <a title="450-lda-13" href="../hunch_net-2005/hunch_net-2005-08-23-%28Dis%29similarities_between_academia_and_open_source_programmers.html">105 hunch net-2005-08-23-(Dis)similarities between academia and open source programmers</a></p>
-<p>14 0.77233064 <a title="450-lda-14" href="../hunch_net-2008/hunch_net-2008-04-22-Taking_the_next_step.html">297 hunch net-2008-04-22-Taking the next step</a></p>
-<p>15 0.77126169 <a title="450-lda-15" href="../hunch_net-2006/hunch_net-2006-08-18-Report_of_MLSS_2006_Taipei.html">203 hunch net-2006-08-18-Report of MLSS 2006 Taipei</a></p>
-<p>16 0.76998997 <a title="450-lda-16" href="../hunch_net-2010/hunch_net-2010-06-13-The_Good_News_on_Exploration_and_Learning.html">400 hunch net-2010-06-13-The Good News on Exploration and Learning</a></p>
-<p>17 0.76964021 <a title="450-lda-17" href="../hunch_net-2006/hunch_net-2006-06-14-Explorations_of_Exploration.html">183 hunch net-2006-06-14-Explorations of Exploration</a></p>
-<p>18 0.7690171 <a title="450-lda-18" href="../hunch_net-2011/hunch_net-2011-03-19-The_Ideal_Large_Scale_Learning_Class.html">426 hunch net-2011-03-19-The Ideal Large Scale Learning Class</a></p>
-<p>19 0.76876307 <a title="450-lda-19" href="../hunch_net-2005/hunch_net-2005-02-14-Clever_Methods_of_Overfitting.html">19 hunch net-2005-02-14-Clever Methods of Overfitting</a></p>
-<p>20 0.76858962 <a title="450-lda-20" href="../hunch_net-2005/hunch_net-2005-10-10-Predictive_Search_is_Coming.html">120 hunch net-2005-10-10-Predictive Search is Coming</a></p>
+<p>1 0.94954276 <a title="450-lda-1" href="../hunch_net-2006/hunch_net-2006-03-05-%26%238220%3BStructural%26%238221%3B_Learning.html">161 hunch net-2006-03-05-&#8220;Structural&#8221; Learning</a></p>
+<p>Introduction: Fernando Pereira   pointed out  Ando and  Zhang ‘s  paper  on “structural” learning.  Structural learning is multitask learning on subproblems created from unlabeled data.  
+ 
+The basic idea is to take a look at the unlabeled data and create many supervised problems.  On text data, which they test on, these subproblems might be of the form “Given surrounding words predict the middle word”.   The hope here is that successfully predicting on these subproblems is relevant to the prediction of your core problem.
+ 
+In the long run, the precise mechanism used (essentially, linear predictors with parameters tied by a common matrix) and the precise problems formed may not be critical.  What seems critical is that the hope is realized: the technique provides a significant edge in practice.
+ 
+Some basic questions about this approach are:
+  
+ Are there effective automated mechanisms for creating the subproblems? 
+ Is it necessary to use a shared representation?</p><p>2 0.92333555 <a title="450-lda-2" href="../hunch_net-2006/hunch_net-2006-01-08-Debugging_Your_Brain.html">147 hunch net-2006-01-08-Debugging Your Brain</a></p>
+<p>Introduction: One part of doing research is debugging your understanding of reality.  This is hard work: How do you even discover where you misunderstand?  If you discover a misunderstanding, how do you go about removing it?
+ 
+The process of debugging computer programs is quite analogous to debugging reality misunderstandings.   This is natural—a bug in a computer program is a misunderstanding between you and the computer about what you said.  Many of the familiar techniques from debugging have exact parallels.
+  
+  Details  When programming, there are often signs that some bug exists like: “the graph my program output is shifted a little bit” = maybe you have an indexing error.  In debugging yourself, we often have some impression that something is “not right”. These impressions should be addressed directly and immediately.  (Some people have the habit of suppressing worries in favor of excess certainty.  That’s not healthy for research.) 
+  Corner Cases  A “corner case” is an input to a program wh</p><p>3 0.91356152 <a title="450-lda-3" href="../hunch_net-2010/hunch_net-2010-11-18-ICML_2011_%26%238211%3B_Call_for_Tutorials.html">417 hunch net-2010-11-18-ICML 2011 &#8211; Call for Tutorials</a></p>
+<p>Introduction: I would like to encourage people to consider giving a tutorial at next years ICML. The ideal tutorial attracts a wide audience, provides a gentle and easily taught introduction to the chosen research area, and also covers the most important contributions in depth.
+ 
+Submissions are due January 14 Â (about two weeks before paper deadline). 
+ http://www.icml-2011.org/tutorials.php 
+ 
+Regards, 
+Ulf</p><p>same-blog 4 0.8935625 <a title="450-lda-4" href="../hunch_net-2011/hunch_net-2011-12-02-Hadoop_AllReduce_and_Terascale_Learning.html">450 hunch net-2011-12-02-Hadoop AllReduce and Terascale Learning</a></p>
+<p>Introduction: Suppose you have a dataset with 2 terafeatures (we only count nonzero entries in a datamatrix), and want to learn a good linear predictor in a reasonable amount of time.  How do you do it?  As a learning theorist, the first thing you do is pray that this is too much data for the number of parameters—but that’s not the case, there are around 16 billion examples, 16 million parameters, and people really care about a high quality predictor, so subsampling is not a good strategy.
+ 
+ Alekh  visited us last summer, and we had a breakthrough (see  here  for details), coming up with the first learning algorithm I’ve seen that is provably faster than  any future  single machine learning algorithm.  The proof of this is simple: We can output a optimal-up-to-precision linear predictor faster than the data can be streamed through the network interface of any single machine involved in the computation.
+ 
+It is necessary but not sufficient to have an effective communication infrastructure.  It is ne</p><p>5 0.81627285 <a title="450-lda-5" href="../hunch_net-2006/hunch_net-2006-01-30-Should_the_Input_Representation_be_a_Vector%3F.html">152 hunch net-2006-01-30-Should the Input Representation be a Vector?</a></p>
+<p>Introduction: Let’s suppose that we are trying to create a general purpose machine learning box.  The box is fed many examples of the function it is supposed to learn and (hopefully) succeeds.
+ 
+To date, most such attempts to produce a box of this form take a vector as input.  The elements of the vector might be bits, real numbers, or ‘categorical’ data (a discrete set of values).
+ 
+On the other hand, there are a number of succesful applications of machine learning which do not seem to use a vector representation as input.  For example, in vision,   convolutional neural networks  have been used to solve several vision problems.  The input to the convolutional neural network is essentially the raw camera image as a  matrix .  In learning for natural languages, several people have had success on problems like parts-of-speech tagging using predictors restricted to a window surrounding the word to be predicted.  
+ 
+A vector window and a matrix both imply a notion of locality which is being actively and</p><p>6 0.78087831 <a title="450-lda-6" href="../hunch_net-2007/hunch_net-2007-01-26-Parallel_Machine_Learning_Problems.html">229 hunch net-2007-01-26-Parallel Machine Learning Problems</a></p>
+<p>7 0.78053844 <a title="450-lda-7" href="../hunch_net-2005/hunch_net-2005-12-07-Is_the_Google_way_the_way_for_machine_learning%3F.html">136 hunch net-2005-12-07-Is the Google way the way for machine learning?</a></p>
+<p>8 0.76347244 <a title="450-lda-8" href="../hunch_net-2006/hunch_net-2006-12-04-Structural_Problems_in_NIPS_Decision_Making.html">221 hunch net-2006-12-04-Structural Problems in NIPS Decision Making</a></p>
+<p>9 0.75896937 <a title="450-lda-9" href="../hunch_net-2008/hunch_net-2008-01-25-Turing%26%238217%3Bs_Club_for_Machine_Learning.html">286 hunch net-2008-01-25-Turing&#8217;s Club for Machine Learning</a></p>
+<p>10 0.75048286 <a title="450-lda-10" href="../hunch_net-2009/hunch_net-2009-11-23-ICML_2009_Workshops_%28and_Tutorials%29.html">379 hunch net-2009-11-23-ICML 2009 Workshops (and Tutorials)</a></p>
+<p>11 0.7454716 <a title="450-lda-11" href="../hunch_net-2005/hunch_net-2005-07-14-What_Learning_Theory_might_do.html">95 hunch net-2005-07-14-What Learning Theory might do</a></p>
+<p>12 0.74159491 <a title="450-lda-12" href="../hunch_net-2008/hunch_net-2008-04-30-Concerns_about_the_Large_Scale_Learning_Challenge.html">300 hunch net-2008-04-30-Concerns about the Large Scale Learning Challenge</a></p>
+<p>13 0.73954582 <a title="450-lda-13" href="../hunch_net-2009/hunch_net-2009-06-03-Functionally_defined_Nonlinear_Dynamic_Models.html">359 hunch net-2009-06-03-Functionally defined Nonlinear Dynamic Models</a></p>
+<p>14 0.73932844 <a title="450-lda-14" href="../hunch_net-2007/hunch_net-2007-12-10-Learning_Track_of_International_Planning_Competition.html">276 hunch net-2007-12-10-Learning Track of International Planning Competition</a></p>
+<p>15 0.73549271 <a title="450-lda-15" href="../hunch_net-2005/hunch_net-2005-11-26-The_Design_of_an_Optimal_Research_Environment.html">132 hunch net-2005-11-26-The Design of an Optimal Research Environment</a></p>
+<p>16 0.73382413 <a title="450-lda-16" href="../hunch_net-2011/hunch_net-2011-02-02-User_preferences_for_search_engines.html">423 hunch net-2011-02-02-User preferences for search engines</a></p>
+<p>17 0.73379064 <a title="450-lda-17" href="../hunch_net-2009/hunch_net-2009-09-21-Netflix_finishes_%28and_starts%29.html">371 hunch net-2009-09-21-Netflix finishes (and starts)</a></p>
+<p>18 0.73286176 <a title="450-lda-18" href="../hunch_net-2007/hunch_net-2007-03-03-All_Models_of_Learning_have_Flaws.html">235 hunch net-2007-03-03-All Models of Learning have Flaws</a></p>
+<p>19 0.73198044 <a title="450-lda-19" href="../hunch_net-2010/hunch_net-2010-12-04-Vowpal_Wabbit%2C_version_5.0%2C_and_the_second_heresy.html">419 hunch net-2010-12-04-Vowpal Wabbit, version 5.0, and the second heresy</a></p>
+<p>20 0.73106664 <a title="450-lda-20" href="../hunch_net-2008/hunch_net-2008-04-22-Taking_the_next_step.html">297 hunch net-2008-04-22-Taking the next step</a></p>
 <br/><br/><br/>
 
 <script>
